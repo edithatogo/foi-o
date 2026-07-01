@@ -1,0 +1,35 @@
+{
+  "schema_version": "foi-o-nz.kernel-conformance.v0.1.0",
+  "ok": true,
+  "case_count": 2,
+  "failed_count": 0,
+  "native_attempted_count": 0,
+  "native_succeeded_count": 0,
+  "preferred_runtime": "python-fallback",
+  "cases": [
+    {
+      "operation": "normalise_alaveteli_state",
+      "args": ["successful"],
+      "expected": "ReleasedInFull",
+      "value": "ReleasedInFull",
+      "fallback_value": "ReleasedInFull",
+      "runtime_used": "python-fallback",
+      "native_error": null,
+      "ok": true
+    },
+    {
+      "operation": "requires_human_certification",
+      "args": ["ReleaseMade"],
+      "expected": true,
+      "value": true,
+      "fallback_value": true,
+      "runtime_used": "python-fallback",
+      "native_error": null,
+      "ok": true
+    }
+  ],
+  "notes": [
+    "Conformance cases assert that the Python fallback matches the expected kernel contract.",
+    "If a compiled Mojo binary is present, the facade also attempts native execution through the JSON operation protocol."
+  ]
+}

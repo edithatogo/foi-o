@@ -1,5 +1,5 @@
 .PHONY: help install sync lock lint format format-fix typecheck test test-cov \
-        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk retrieval redactions agent-pack diff repro metadata openapi tool-manifest benchmark mojo-format mojo-test mojo-build \
+        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk retrieval redactions agent-pack diff repro metadata openapi tool-manifest benchmark kernel-status kernel-conformance mojo-format mojo-test mojo-build \
         spell toml-check workflow-audit workflow-syntax security-audit sbom clean
 
 PKG := foi_o_nz
@@ -106,6 +106,13 @@ tool-manifest: ## Export bounded agent tool manifest
 
 benchmark: ## Run dependency-light local microbenchmarks
 	uv run foi-o-nz benchmark-local --output data/smoke/benchmarks.json --iterations 100
+
+
+kernel-status: ## Report Mojo/MAX native-kernel availability and fallback mode
+	uv run foi-o-nz kernel-status --output data/smoke/native-kernel-status.json
+
+kernel-conformance: ## Run deterministic kernel parity/conformance checks
+	uv run foi-o-nz kernel-conformance --output data/smoke/kernel-conformance.json
 
 mojo-format: ## Format Mojo sources
 	pixi run mojo-format

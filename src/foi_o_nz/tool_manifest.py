@@ -53,6 +53,24 @@ def build_tool_manifest() -> dict[str, Any]:
                 "prohibited_follow_on_actions": ["certify_decision"],
                 "machine_certification_allowed": False,
             },
+            {
+                "name": "kernel_status",
+                "description": "Report Mojo/MAX kernel availability and Python fallback mode.",
+                "legal_effect": "none",
+                "safety_class": "runtime_introspection",
+                "requires_human_certification": False,
+                "prohibited_follow_on_actions": ["treat_tool_availability_as_decision_authority"],
+                "machine_certification_allowed": False,
+            },
+            {
+                "name": "kernel_conformance",
+                "description": "Run deterministic Mojo/Python fallback kernel conformance checks.",
+                "legal_effect": "none",
+                "safety_class": "runtime_validation",
+                "requires_human_certification": False,
+                "prohibited_follow_on_actions": ["treat_test_pass_as_operational_authorisation"],
+                "machine_certification_allowed": False,
+            },
         ]
     )
     return {
@@ -88,6 +106,9 @@ def _description_for_action(action_type: str) -> str:
         "attest_artifacts": "Generate unsigned provenance attestations for artefact integrity workflows.",
         "sample_goldset": "Create deterministic evaluation/annotation samples with bounded claims.",
         "export_annotation_tasks": "Export neutral or Label Studio review tasks for human-in-the-loop labelling.",
+        "kernel_status": "Report Mojo/MAX native-kernel availability and fallback mode.",
+        "kernel_eval": "Evaluate one deterministic kernel operation without certifying legal outcomes.",
+        "kernel_conformance": "Run deterministic kernel conformance checks across Mojo and fallback semantics.",
     }
     return descriptions.get(action_type, "Bounded FOI-O NZ tool action.")
 

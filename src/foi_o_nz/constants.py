@@ -36,6 +36,8 @@ LINEAGE_GRAPH_SCHEMA_VERSION = "foi-o-nz.lineage-graph.v0.1.0"
 TRACE_SPAN_SCHEMA_VERSION = "foi-o-nz.trace-span.v0.1.0"
 GOLDSET_TASK_SCHEMA_VERSION = "foi-o-nz.goldset-task.v0.1.0"
 GUARDRAIL_REPLAY_SCHEMA_VERSION = "foi-o-nz.guardrail-replay.v0.1.0"
+NATIVE_KERNEL_STATUS_SCHEMA_VERSION = "foi-o-nz.native-kernel-status.v0.1.0"
+KERNEL_CONFORMANCE_SCHEMA_VERSION = "foi-o-nz.kernel-conformance.v0.1.0"
 
 
 REVIEW_TASK_SCHEMA_VERSION = "foi-o-nz.review-task.v0.1.0"

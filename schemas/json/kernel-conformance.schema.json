@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o-nz.example/schemas/kernel-conformance.schema.json",
+  "title": "FOI-O NZ kernel conformance report",
+  "type": "object",
+  "required": ["schema_version", "ok", "case_count", "failed_count", "native_attempted_count", "native_succeeded_count", "preferred_runtime", "cases", "notes"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.kernel-conformance.v0.1.0"},
+    "ok": {"type": "boolean"},
+    "case_count": {"type": "integer", "minimum": 0},
+    "failed_count": {"type": "integer", "minimum": 0},
+    "native_attempted_count": {"type": "integer", "minimum": 0},
+    "native_succeeded_count": {"type": "integer", "minimum": 0},
+    "preferred_runtime": {"enum": ["mojo-binary", "mojo-cli", "python-fallback"]},
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["operation", "args", "expected", "value", "fallback_value", "runtime_used", "ok"],
+        "additionalProperties": true,
+        "properties": {
+          "operation": {"type": "string"},
+          "args": {"type": "array"},
+          "expected": {},
+          "value": {},
+          "fallback_value": {},
+          "runtime_used": {"enum": ["mojo-binary", "mojo-cli", "python-fallback"]},
+          "native_error": {"type": ["string", "null"]},
+          "ok": {"type": "boolean"}
+        }
+      }
+    },
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

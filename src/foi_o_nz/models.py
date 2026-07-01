@@ -352,6 +352,9 @@ class AgentAction(BaseModel):
         "export_table_contracts",
         "materialise_oci",
         "export_mcp_bundle",
+        "kernel_status",
+        "kernel_eval",
+        "kernel_conformance",
     ]
     requested_at: datetime
     agent: dict[str, Any]

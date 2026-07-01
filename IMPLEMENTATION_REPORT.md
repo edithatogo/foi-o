@@ -215,3 +215,27 @@ repository validation ok
 ```
 
 The agent boundary remains unchanged: all outputs are process-support, routing, provenance, evaluation, or publication-planning artefacts and cannot certify release, refusal, redaction, charging, extension, transfer, or review outcomes.
+
+## New v0.7 implementation pass
+
+Added a Mojo-first kernel facade with Python fallback as the executable
+compatibility contract:
+
+- `kernel_fallback.py` mirrors deterministic Mojo kernel semantics in pure Python.
+- `native_kernel.py` discovers compiled Mojo kernel binaries, Mojo CLI, MAX CLI,
+  Pixi, and Python fallback availability.
+- `kernel-status`, `kernel-eval`, and `kernel-conformance` CLI commands expose the
+  native/fallback boundary.
+- Added native Mojo modules for transition diagnostics, non-cryptographic hashing,
+  and redaction-candidate helper predicates.
+- Added JSON Schemas/examples for kernel status and conformance reports.
+- Added OpenAPI, tool-manifest, and MCP-bundle entries for bounded kernel
+  introspection and conformance checks.
+
+The key policy change is architectural rather than legal: deterministic logic is
+now intended to be Mojo-first where the Modular toolchain is present, but Python
+remains a tested fallback and does not become a legal decision engine.
+
+The sandbox still cannot run native Mojo/MAX checks, so native tests remain CI or
+operator verification paths. Python fallback/conformance tests were added so the
+semantics remain stable in this environment.

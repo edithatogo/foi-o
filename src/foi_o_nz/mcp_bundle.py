@@ -31,6 +31,12 @@ def build_mcp_bundle() -> dict[str, Any]:
             "mimeType": "text/turtle",
             "path": "vocab/request-states.skos.ttl",
         },
+        {
+            "uri": "foio-nz://kernels/status-schema",
+            "name": "Native kernel status JSON Schema",
+            "mimeType": "application/schema+json",
+            "path": "schemas/json/native-kernel-status.schema.json",
+        },
     ]
     prompts = [
         {
@@ -50,6 +56,12 @@ def build_mcp_bundle() -> dict[str, Any]:
             "description": "Summarise candidate sensitive spans for human review using masked previews.",
             "arguments": [{"name": "redaction_candidates", "required": True}],
             "safety": "Candidate-only; cannot apply or approve redactions.",
+        },
+        {
+            "name": "inspect_kernel_status",
+            "description": "Inspect whether Mojo/MAX native kernels are available and whether Python fallback is active.",
+            "arguments": [],
+            "safety": "Runtime introspection only; does not authorise autonomous decisions.",
         },
     ]
     return {

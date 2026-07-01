@@ -14,7 +14,7 @@ def build_openapi_contract() -> dict[str, Any]:
         "openapi": "3.1.0",
         "info": {
             "title": "FOI-O NZ Agent Process API",
-            "version": "0.6.0",
+            "version": "0.7.0",
             "description": "Bounded process-support API. It exposes validation and drafting support, not autonomous OIA decision-making.",
         },
         "servers": [{"url": "http://localhost:8787", "description": "local development"}],
@@ -103,6 +103,20 @@ def build_openapi_contract() -> dict[str, Any]:
                     "summary": "Create deterministic human-review/evaluation samples.",
                     "x-agent-boundary": "evaluation-planning-only",
                     "responses": {"200": {"description": "Gold-set sample manifest"}},
+                }
+            },
+            "/kernels/status": {
+                "get": {
+                    "summary": "Report Mojo/MAX kernel availability and fallback mode.",
+                    "x-agent-boundary": "runtime-introspection-only",
+                    "responses": {"200": {"description": "Native kernel status"}},
+                }
+            },
+            "/kernels/conformance": {
+                "post": {
+                    "summary": "Run deterministic kernel conformance checks.",
+                    "x-agent-boundary": "runtime-validation-only",
+                    "responses": {"200": {"description": "Kernel conformance report"}},
                 }
             },
         },

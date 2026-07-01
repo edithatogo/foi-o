@@ -234,3 +234,29 @@ foi-o-nz export-mcp-bundle
 foi-o-nz attest-artifacts
 foi-o-nz sample-goldset
 ```
+
+## v0.7 Mojo-first kernel facade
+
+v0.7 makes the native/fallback boundary explicit. The preferred direction is:
+
+```text
+Mojo deterministic kernels
+  → state, clock, guardrail, transition, retrieval, text, redaction-helper, hash-helper logic
+Python fallback
+  → identical dependency-light semantics for environments without Mojo/MAX
+Python control plane
+  → schema validation, JSONL/Parquet/RDF/DuckDB/LanceDB/MCP orchestration
+```
+
+Useful commands:
+
+```bash
+uv run foi-o-nz kernel-status --output data/processed/native-kernel-status.json
+uv run foi-o-nz kernel-eval normalise_alaveteli_state successful
+uv run foi-o-nz kernel-conformance --output data/processed/kernel-conformance.json
+```
+
+The conformance report verifies that the Python fallback matches the expected
+kernel contract. If a compiled Mojo binary is available via `FOI_O_NZ_MOJO_KERNEL`
+or `build/foi-o-nz-mojo`, the facade attempts to call it; otherwise it reports
+`python-fallback` and keeps the same deterministic semantics.

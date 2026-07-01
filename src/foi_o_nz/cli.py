@@ -47,6 +47,7 @@ from foi_o_nz.evaluation import evaluate_event_jsonl
 from foi_o_nz.io import read_json_records, write_json, write_jsonl
 from foi_o_nz.validation import load_json
 from foi_o_nz.jsonld_context import write_context
+from foi_o_nz.native_kernel import evaluate_kernel, kernel_status, run_kernel_conformance, write_kernel_status
 from foi_o_nz.normalise import build_observed_events, build_request_profile, normalise_manifest_file
 from foi_o_nz.quality import assess_events_jsonl
 from foi_o_nz.rdf_export import export_rdf
@@ -103,6 +104,58 @@ def doctor() -> None:
     for name, ok in checks.items():
         table.add_row(name, "yes" if ok else "no")
     console.print(table)
+
+
+@app.command("kernel-status")
+def kernel_status_command(
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional status JSON output")] = None,
+) -> None:
+    """Report Mojo/MAX native-kernel availability and Python fallback status."""
+    result = kernel_status()
+    if output is not None:
+        write_kernel_status(output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("kernel-eval")
+def kernel_eval_command(
+    operation: Annotated[str, typer.Argument(help="Kernel operation name")],
+    args: Annotated[list[str], typer.Argument(help="Operation arguments as strings")],
+    no_native: Annotated[bool, typer.Option(help="Force Python fallback even if a Mojo binary is present")] = False,
+) -> None:
+    """Evaluate one deterministic kernel operation with Mojo preferred and Python fallback."""
+    parsed_args: list[str | int | float | bool] = []
+    for value in args:
+        lowered = value.lower()
+        if lowered == "true":
+            parsed_args.append(True)
+        elif lowered == "false":
+            parsed_args.append(False)
+        else:
+            try:
+                parsed_args.append(int(value))
+            except ValueError:
+                try:
+                    parsed_args.append(float(value))
+                except ValueError:
+                    parsed_args.append(value)
+    try:
+        result = evaluate_kernel(operation, *parsed_args, prefer_native=not no_native)
+    except ValueError as exc:
+        console.print(str(exc), style="red", markup=False)
+        raise typer.Exit(code=2) from exc
+    console.print_json(json.dumps(result))
+
+
+@app.command("kernel-conformance")
+def kernel_conformance_command(
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional conformance JSON output")] = None,
+) -> None:
+    """Run deterministic kernel conformance checks across Mojo/fallback semantics."""
+    result = run_kernel_conformance(output)
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
 
 
 @app.command("map-state")
@@ -1078,6 +1131,14 @@ def validate_repo() -> None:
     example_schema_pairs.extend(
         (path, Path("schemas/json/guardrail-replay.schema.json"))
         for path in sorted(Path("examples").glob("guardrail-replay*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/native-kernel-status.schema.json"))
+        for path in sorted(Path("examples").glob("native-kernel-status*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/kernel-conformance.schema.json"))
+        for path in sorted(Path("examples").glob("kernel-conformance*.json"))
     )
     for instance, schema in example_schema_pairs:
         if instance.exists():

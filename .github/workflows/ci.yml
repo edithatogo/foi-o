@@ -55,6 +55,8 @@ jobs:
           uv run foi-o-nz dataset-metadata data/smoke/requests.jsonl data/smoke/events.jsonl data/smoke/request-chunks.jsonl --output data/smoke/dataset-metadata.json --base-dir .
           uv run foi-o-nz repro-manifest data/smoke/requests.jsonl data/smoke/events.jsonl data/smoke/request-chunks.jsonl --output data/smoke/reproducibility-manifest.json --base-dir .
           uv run foi-o-nz benchmark-local --output data/smoke/benchmarks.json --iterations 100
+          uv run foi-o-nz kernel-status --output data/smoke/native-kernel-status.json
+          uv run foi-o-nz kernel-conformance --output data/smoke/kernel-conformance.json
           uv run foi-o-nz build-review-queue --events-jsonl data/smoke/events.jsonl --risks-jsonl data/smoke/risk-assessments.jsonl --redaction-candidates-jsonl data/smoke/redaction-candidates.jsonl --output data/smoke/review-queue.jsonl
           uv run foi-o-nz process-advice --request-id 12345 --requests-jsonl data/smoke/requests.jsonl --events-jsonl data/smoke/events.jsonl --review-queue-jsonl data/smoke/review-queue.jsonl --output data/smoke/process-advice.json
           uv run foi-o-nz export-annotation-tasks --review-queue-jsonl data/smoke/review-queue.jsonl --output data/smoke/annotation-tasks.jsonl

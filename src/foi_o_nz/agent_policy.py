@@ -36,6 +36,9 @@ ActionType = Literal[
     "export_table_contracts",
     "materialise_oci",
     "export_mcp_bundle",
+    "kernel_status",
+    "kernel_eval",
+    "kernel_conformance",
 ]
 
 ACTION_POLICY: dict[str, dict[str, Any]] = {
@@ -201,6 +204,24 @@ ACTION_POLICY: dict[str, dict[str, Any]] = {
         "safety_class": "medium",
         "prohibited_follow_on_actions": ["grant_runtime_tool_access_without_operator_policy"],
     },
+    "kernel_status": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_tool_availability_as_decision_authority"],
+    },
+    "kernel_eval": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_kernel_result_as_certified_legal_outcome"],
+    },
+    "kernel_conformance": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_test_pass_as_operational_authorisation"],
+    },
 
 }
 
@@ -230,7 +251,7 @@ def build_agent_action(
         agent={"name": agent_name, "kind": "machine"},
         inputs=inputs or [],
         outputs=outputs or [],
-        audit_trace=["generated_from_action_policy_v0.6"],
+        audit_trace=["generated_from_action_policy_v0.7"],
         **policy,
     )
 

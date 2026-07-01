@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o-nz.example/schemas/native-kernel-status.schema.json",
+  "title": "FOI-O NZ native kernel status",
+  "type": "object",
+  "required": ["schema_version", "preferred_runtime", "fallback_available", "conformance_case_count", "operations", "notes"],
+  "additionalProperties": true,
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.native-kernel-status.v0.1.0"},
+    "preferred_runtime": {"enum": ["mojo-binary", "mojo-cli", "python-fallback"]},
+    "mojo_binary": {"type": ["string", "null"]},
+    "mojo_cli": {"type": ["string", "null"]},
+    "max_cli": {"type": ["string", "null"]},
+    "pixi_cli": {"type": ["string", "null"]},
+    "python_executable": {"type": "string"},
+    "platform": {"type": "string"},
+    "fallback_available": {"type": "boolean"},
+    "conformance_case_count": {"type": "integer", "minimum": 0},
+    "operations": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "foi-o-nz.native-kernel-status.v0.1.0",
+  "preferred_runtime": "python-fallback",
+  "mojo_binary": null,
+  "mojo_cli": null,
+  "max_cli": null,
+  "pixi_cli": null,
+  "python_executable": "/usr/bin/python3",
+  "platform": "Linux",
+  "notes": [
+    "No Mojo runtime discovered; using dependency-light Python fallback semantics.",
+    "MAX CLI not detected; MAX integrations remain optional/deferred."
+  ],
+  "fallback_available": true,
+  "conformance_case_count": 25,
+  "operations": [
+    "normalise_alaveteli_state",
+    "requires_human_certification"
+  ]
+}
