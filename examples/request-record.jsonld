@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "foio": "https://w3id.org/foio-nz/ontology#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "schema_version": "foi-o-nz.request-profile.v0.1.0",
+  "@id": "foio-nz:request:20001",
+  "@type": "foio:OIARequest",
+  "source": "fyi-archive-nz",
+  "request_id": 20001,
+  "url_title": "monkeypox-surveillance-and-contact-tracing-strategy",
+  "source_url": "https://fyi.org.nz/request/20001-monkeypox-surveillance-and-contact-tracing-strategy",
+  "title": "Monkeypox surveillance and contact tracing strategy",
+  "authority": "ministry_of_health",
+  "source_state": "successful",
+  "normalised_state": "decision_communicated",
+  "state_mapping": {
+    "method": "rule",
+    "confidence": 0.55,
+    "evidence_ids": [
+      "manifest:20001"
+    ],
+    "notes": "Source state preserved. Inspect correspondence before distinguishing full vs partial release."
+  },
+  "first_sent": null,
+  "last_updated": null,
+  "content_sha256": "e86d434300d4eeea2e0539cb2058a32952ecea30ea7067ea8f9c4a3fe1332cfb",
+  "html_captured": true,
+  "attachments": [],
+  "warc_record_ids": [
+    "<urn:uuid:8a629286-38ba-4472-82f9-00eb6d3400b8>"
+  ],
+  "legal_clock": null
+}

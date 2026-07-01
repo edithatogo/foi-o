@@ -1,0 +1,414 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio-nz/schema/core-event/0.1.0",
+  "title": "FOI-O NZ Core Process Event",
+  "description": "Agent-readable New Zealand OIA process event. Non-dispositive unless human-certified where required.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "event_type",
+    "event_time",
+    "request_ref",
+    "jurisdiction",
+    "regime",
+    "source_system",
+    "actor",
+    "assertion_status",
+    "machine_generated",
+    "requires_human_certification",
+    "evidence"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "foi-o-nz.core-event.v0.1.0"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^(urn:uuid:|foio-nz:event:).+"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "RequestObserved",
+        "MessageObserved",
+        "AttachmentObserved",
+        "StateObserved",
+        "RequestRegistered",
+        "ValidityAssessed",
+        "ClarificationRequested",
+        "ScopeAmended",
+        "TransferAssessed",
+        "TransferNotified",
+        "TransferReceived",
+        "DeadlineCalculated",
+        "ExtensionAssessed",
+        "ExtensionNotified",
+        "OverdueFlagged",
+        "SearchPlanDrafted",
+        "SearchPerformed",
+        "RecordsIdentified",
+        "NoRecordsFound",
+        "ConsultationRequired",
+        "ConsultationStarted",
+        "ConsultationResponseObserved",
+        "LegalIssueFlagged",
+        "WithholdingGroundFlagged",
+        "PublicInterestIssueFlagged",
+        "DecisionPackDrafted",
+        "HumanDecisionCertified",
+        "DecisionCommunicated",
+        "ReleaseMade",
+        "RefusalCommunicated",
+        "ChargeNoticeSent",
+        "DisclosureLogCandidateCreated",
+        "PublicationObserved",
+        "ComplaintObserved",
+        "ReviewOutcomeObserved",
+        "Closed"
+      ]
+    },
+    "event_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "request_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_system",
+        "source_request_id"
+      ],
+      "properties": {
+        "source_system": {
+          "type": "string"
+        },
+        "source_request_id": {
+          "type": [
+            "string",
+            "integer"
+          ]
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "url_title": {
+          "type": "string"
+        },
+        "content_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-fA-F0-9]{64}$"
+        }
+      }
+    },
+    "jurisdiction": {
+      "type": "string",
+      "const": "NZ"
+    },
+    "regime": {
+      "type": "string",
+      "enum": [
+        "OIA",
+        "LGOIMA",
+        "PrivacyAct",
+        "AdministrativeAccess",
+        "Unknown"
+      ]
+    },
+    "source_system": {
+      "type": "string",
+      "examples": [
+        "fyi-archive-nz",
+        "fyi.org.nz",
+        "fyi-cli",
+        "agency-case-system"
+      ]
+    },
+    "lifecycle_state_after": {
+      "type": "string"
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role"
+      ],
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "requester",
+            "authority",
+            "minister",
+            "agency_official",
+            "ombudsman",
+            "system",
+            "agent",
+            "unknown"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "authority_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "assertion_status": {
+      "type": "string",
+      "enum": [
+        "observed",
+        "inferred",
+        "asserted",
+        "certified",
+        "unknown"
+      ]
+    },
+    "confidence": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 1
+    },
+    "machine_generated": {
+      "type": "boolean"
+    },
+    "generator": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "system": {
+          "type": "string"
+        },
+        "model": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "software_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "requires_human_certification": {
+      "type": "boolean"
+    },
+    "human_certification": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "certified": {
+          "type": "boolean"
+        },
+        "certified_by_role": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "certified_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "certification_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "legal_references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "title",
+          "reference"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "reference": {
+            "type": "string"
+          },
+          "uri": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "work_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "version_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "retrieved_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "applicability_basis": {
+            "type": "string",
+            "enum": [
+              "current_at_event_time",
+              "current_at_extraction_time",
+              "unknown"
+            ]
+          }
+        }
+      },
+      "default": []
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "evidence_type"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string"
+          },
+          "evidence_type": {
+            "type": "string",
+            "enum": [
+              "source_record",
+              "message",
+              "attachment",
+              "archive_manifest",
+              "statute",
+              "guidance",
+              "manual_annotation",
+              "system_log",
+              "none"
+            ]
+          },
+          "source_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "archive_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "content_sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-fA-F0-9]{64}$"
+          },
+          "excerpt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 500
+          },
+          "observed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "quality_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": [
+              "HumanDecisionCertified",
+              "DecisionCommunicated",
+              "ReleaseMade",
+              "RefusalCommunicated",
+              "ChargeNoticeSent"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "requires_human_certification": {
+            "const": true
+          }
+        }
+      }
+    }
+  ]
+}

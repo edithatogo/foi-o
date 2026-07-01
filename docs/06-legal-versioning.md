@@ -1,0 +1,26 @@
+# Legal versioning
+
+FOI-O NZ should treat law and guidance as time-dependent sources.
+
+## Why it matters
+
+An OIA request from 2019 should not automatically be analysed against 2026 guidance or a future amended Act. Agents need to know what legal source version was used for a calculation or issue flag.
+
+## Minimum legal-reference model
+
+Each statutory or guidance reference should carry:
+
+```yaml
+source_id: nz.oia.act
+source_title: Official Information Act 1982
+provision: s 15
+source_uri: https://www.legislation.govt.nz/...
+work_id: act_public_1982_156
+version_id: act_public_1982_156_en_YYYY-MM-DD
+retrieved_at: 2026-07-01T00:00:00Z
+applicability_basis: current_at_event_time | current_at_extraction_time | unknown
+```
+
+## Implementation note
+
+The New Zealand Legislation API conceptual model of works, versions, and formats is a good fit for durable statutory references. The project should avoid bare string citations where a provision-level or version-level identifier is available.

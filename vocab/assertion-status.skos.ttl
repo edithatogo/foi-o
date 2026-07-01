@@ -1,0 +1,32 @@
+@prefix foio-assert: <https://w3id.org/foio-nz/assertion-status/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+foio-assert:scheme a skos:ConceptScheme ;
+  dcterms:title "FOI-O NZ assertion status vocabulary" ;
+  dcterms:description "Distinguishes source observations, inferences, assertions, and human-certified claims." .
+
+foio-assert:observed a skos:Concept ;
+  skos:prefLabel "observed" ;
+  skos:definition "Directly present in a source artefact." ;
+  skos:inScheme foio-assert:scheme .
+
+foio-assert:inferred a skos:Concept ;
+  skos:prefLabel "inferred" ;
+  skos:definition "Derived from evidence by deterministic or model-assisted logic." ;
+  skos:inScheme foio-assert:scheme .
+
+foio-assert:asserted a skos:Concept ;
+  skos:prefLabel "asserted" ;
+  skos:definition "Claimed by an agent or system without independent human certification." ;
+  skos:inScheme foio-assert:scheme .
+
+foio-assert:certified a skos:Concept ;
+  skos:prefLabel "certified" ;
+  skos:definition "Approved by an authorised human actor." ;
+  skos:inScheme foio-assert:scheme .
+
+foio-assert:unknown a skos:Concept ;
+  skos:prefLabel "unknown" ;
+  skos:definition "Not known or not safely derivable." ;
+  skos:inScheme foio-assert:scheme .

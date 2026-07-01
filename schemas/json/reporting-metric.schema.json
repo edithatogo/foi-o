@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio-nz/schema/reporting-metric/0.1.0",
+  "title": "FOI-O NZ Reporting Metric Mapping",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "metric_id",
+    "name",
+    "source_reporting_scheme",
+    "derivability",
+    "event_dependencies"
+  ],
+  "properties": {
+    "metric_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "source_reporting_scheme": {
+      "type": "string"
+    },
+    "definition": {
+      "type": "string"
+    },
+    "derivability": {
+      "type": "string",
+      "enum": [
+        "public_fyi_derivable",
+        "partially_derivable",
+        "agency_internal_required",
+        "not_derivable"
+      ]
+    },
+    "event_dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

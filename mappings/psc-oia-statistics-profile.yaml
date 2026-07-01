@@ -1,0 +1,27 @@
+schema_version: foi-o-nz.psc-oia-statistics-profile.v0.1.0
+source: New Zealand Public Service Commission OIA statistics
+metrics:
+  completed_requests:
+    candidate_events: [DecisionCommunicated, ReleaseMade, RefusalCommunicated, Closed]
+    derivability: partially_derivable
+    notes: Public FYI data can identify many completed public-platform requests, but not all agency OIA requests.
+  timeliness:
+    candidate_events: [DeadlineCalculated, DecisionCommunicated, ExtensionNotified]
+    derivability: partially_derivable
+    notes: Requires reliable received date, decision date, extensions, and working-day calendar.
+  transferred_in_full:
+    candidate_events: [TransferNotified]
+    derivability: partially_derivable
+    notes: Needs correspondence evidence and distinction between full and partial transfer.
+  refused_in_full:
+    candidate_events: [RefusalCommunicated]
+    derivability: partially_derivable
+    notes: Must distinguish full refusal from partial refusal, no-information-held, withdrawal, and release by publication.
+  ombudsman_complaints:
+    candidate_events: [ComplaintObserved]
+    derivability: agency_internal_required
+    notes: Ombudsman reporting is separate; FYI records may not show complaint status.
+  published_responses:
+    candidate_events: [PublicationObserved, ReleaseMade]
+    derivability: partially_derivable
+    notes: FYI responses are already public; agency disclosure-log publication is a separate event.

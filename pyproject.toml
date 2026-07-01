@@ -1,0 +1,19 @@
+[project]
+name = "foi-o-nz"
+version = "0.1.0"
+description = "New Zealand-first FOI/OIA process ontology and agent-facing schema stack"
+requires-python = ">=3.11"
+dependencies = [
+  "jsonschema>=4",
+  "PyYAML>=6",
+  "rdflib>=7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

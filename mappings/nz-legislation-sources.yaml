@@ -1,0 +1,26 @@
+schema_version: foi-o-nz.nz-legislation-sources.v0.1.0
+sources:
+  nz.oia.act:
+    title: Official Information Act 1982
+    work_id: act_public_1982_156
+    canonical_uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
+    api_docs: https://api.legislation.govt.nz/docs/
+    notes: Use version_id for date-sensitive legal references.
+  nz.lgoima.act:
+    title: Local Government Official Information and Meetings Act 1987
+    work_id: act_public_1987_0174
+    canonical_uri: https://www.legislation.govt.nz/act/public/1987/0174/latest/whole.html
+    notes: Deferred until OIA core stabilises.
+key_references_initial:
+  - source_id: nz.oia.act
+    reference: s 14
+    concept: transfer
+  - source_id: nz.oia.act
+    reference: s 15
+    concept: decision_timeframe
+  - source_id: nz.oia.act
+    reference: s 15A
+    concept: extension
+  - source_id: nz.oia.act
+    reference: ss 6, 9, 18
+    concept: withholding_or_refusal_grounds

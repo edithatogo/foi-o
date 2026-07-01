@@ -1,0 +1,32 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix foio: <https://w3id.org/foio-nz/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+foio:ProcessEventShape
+  a sh:NodeShape ;
+  sh:targetClass foio:ProcessEvent ;
+  sh:property [
+    sh:path foio:hasEvidence ;
+    sh:minCount 1 ;
+    sh:message "Every FOI-O NZ process event should have at least one evidence reference." ;
+  ] ;
+  sh:property [
+    sh:path foio:requiresHumanCertification ;
+    sh:datatype xsd:boolean ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+  ] .
+
+foio:DecisionLikeEventShape
+  a sh:NodeShape ;
+  sh:targetClass foio:DecisionLikeEvent ;
+  sh:property [
+    sh:path foio:requiresHumanCertification ;
+    sh:hasValue true ;
+    sh:message "Decision-like events must require human certification." ;
+  ] ;
+  sh:property [
+    sh:path foio:hasHumanCertification ;
+    sh:minCount 1 ;
+    sh:message "Final decision-like events require a human certification record." ;
+  ] .

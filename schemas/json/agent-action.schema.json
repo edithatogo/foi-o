@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio-nz/schema/agent-action/0.1.0",
+  "title": "FOI-O NZ Agent Action",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "action_id",
+    "action_type",
+    "requested_at",
+    "agent",
+    "inputs",
+    "outputs",
+    "legal_effect",
+    "requires_human_certification",
+    "safety_class"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "foi-o-nz.agent-action.v0.1.0"
+    },
+    "action_id": {
+      "type": "string"
+    },
+    "action_type": {
+      "type": "string",
+      "enum": [
+        "extract_events",
+        "map_state",
+        "calculate_deadline",
+        "draft_search_plan",
+        "draft_correspondence",
+        "quality_check",
+        "generate_reporting_metric",
+        "flag_legal_issue"
+      ]
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "agent": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "legal_effect": {
+      "type": "string",
+      "enum": [
+        "none",
+        "preparatory",
+        "requires_certification",
+        "prohibited"
+      ]
+    },
+    "requires_human_certification": {
+      "type": "boolean"
+    },
+    "safety_class": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "prohibited"
+      ]
+    },
+    "prohibited_follow_on_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "audit_trace": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

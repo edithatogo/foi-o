@@ -1,0 +1,41 @@
+schema_version: foi-o-nz.alaveteli-state-map.v0.1.0
+source_system: Alaveteli/FYI.org.nz
+notes: >
+  Preserve source_state exactly. These mappings are starting hypotheses and should be validated
+  against correspondence evidence. A source label is not, by itself, a legal conclusion.
+source_states:
+  waiting_response:
+    normalised_state: awaiting_response
+    confidence: 0.85
+    method: rule
+  successful:
+    normalised_state: decision_communicated
+    confidence: 0.55
+    method: rule
+    warning: May represent full or partial release; inspect correspondence and attachments.
+  partially_successful:
+    normalised_state: released_in_part
+    confidence: 0.75
+    method: rule
+  refused:
+    normalised_state: refused
+    confidence: 0.70
+    method: rule
+    warning: Determine statutory basis from correspondence; do not assume exact withholding ground.
+  not_held:
+    normalised_state: information_not_held
+    confidence: 0.75
+    method: rule
+  overdue:
+    normalised_state: overdue
+    confidence: 0.60
+    method: rule
+    warning: Public platform overdue status may differ from agency-internal statutory clock.
+  user_withdrawn:
+    normalised_state: withdrawn
+    confidence: 0.80
+    method: rule
+  requires_admin:
+    normalised_state: unknown
+    confidence: 0.30
+    method: rule

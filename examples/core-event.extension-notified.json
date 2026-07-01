@@ -1,0 +1,70 @@
+{
+  "schema_version": "foi-o-nz.core-event.v0.1.0",
+  "event_id": "urn:uuid:11111111-1111-4111-8111-111111111111",
+  "event_type": "ExtensionNotified",
+  "event_time": "2026-07-01T00:00:00Z",
+  "request_ref": {
+    "source_system": "fyi-archive-nz",
+    "source_request_id": 20001,
+    "source_url": "https://fyi.org.nz/request/20001-monkeypox-surveillance-and-contact-tracing-strategy",
+    "url_title": "monkeypox-surveillance-and-contact-tracing-strategy",
+    "content_sha256": "e86d434300d4eeea2e0539cb2058a32952ecea30ea7067ea8f9c4a3fe1332cfb"
+  },
+  "jurisdiction": "NZ",
+  "regime": "OIA",
+  "source_system": "fyi-archive-nz",
+  "lifecycle_state_after": "extension_notified",
+  "actor": {
+    "role": "authority",
+    "name": "Ministry of Health",
+    "authority_id": "ministry_of_health"
+  },
+  "assertion_status": "inferred",
+  "confidence": 0.72,
+  "machine_generated": true,
+  "generator": {
+    "system": "foi-o-nz-example",
+    "model": null,
+    "prompt_id": "extract-events.v0",
+    "software_version": "0.1.0"
+  },
+  "requires_human_certification": true,
+  "human_certification": {
+    "certified": false,
+    "certified_by_role": null,
+    "certified_at": null,
+    "certification_reference": null
+  },
+  "legal_references": [
+    {
+      "source_id": "nz.oia.act",
+      "title": "Official Information Act 1982",
+      "reference": "s 15A",
+      "uri": "https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM65318.html",
+      "work_id": "act_public_1982_156",
+      "version_id": null,
+      "retrieved_at": "2026-07-01T00:00:00Z",
+      "applicability_basis": "current_at_extraction_time"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "manifest:20001",
+      "evidence_type": "archive_manifest",
+      "source_url": "https://huggingface.co/datasets/edithatogo/fyi-archive-nz",
+      "archive_ref": "manifests/latest_manifest.parquet#request_id=20001",
+      "content_sha256": "e86d434300d4eeea2e0539cb2058a32952ecea30ea7067ea8f9c4a3fe1332cfb",
+      "excerpt": null,
+      "observed_at": "2026-07-01T00:00:00Z"
+    }
+  ],
+  "payload": {
+    "extension_days": null,
+    "new_due_date": null,
+    "reason": null
+  },
+  "quality_flags": [
+    "example_only",
+    "requires_correspondence_validation"
+  ]
+}

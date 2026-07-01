@@ -1,0 +1,101 @@
+@prefix foio: <https://w3id.org/foio-nz/ontology#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://w3id.org/foio-nz/ontology>
+  a owl:Ontology ;
+  dcterms:title "FOI-O NZ seed ontology" ;
+  dcterms:description "A New Zealand-first process ontology for Official Information Act administration and agent-facing workflow support." ;
+  owl:versionInfo "0.1.0" .
+
+foio:AccessRequest a owl:Class ;
+  rdfs:label "Access request" ;
+  rdfs:comment "A request for official information under, or potentially under, an access-to-information regime." .
+
+foio:OIARequest a owl:Class ;
+  rdfs:subClassOf foio:AccessRequest ;
+  rdfs:label "OIA request" .
+
+foio:ProcessEvent a owl:Class ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:label "Process event" ;
+  rdfs:comment "An event in the observed, inferred, or certified lifecycle of an access request." .
+
+foio:DecisionLikeEvent a owl:Class ;
+  rdfs:subClassOf foio:ProcessEvent ;
+  rdfs:label "Decision-like event" ;
+  rdfs:comment "An event that may have legal-administrative effect and requires human certification if final." .
+
+foio:HumanCertification a owl:Class ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:label "Human certification" .
+
+foio:AgentAction a owl:Class ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:label "Agent action" ;
+  rdfs:comment "A bounded AI/software action over FOI-O NZ data." .
+
+foio:Evidence a owl:Class ;
+  rdfs:subClassOf prov:Entity ;
+  rdfs:label "Evidence" ;
+  rdfs:comment "A source artefact, archive reference, statute, guidance document, system log, or annotation used to support an event or assertion." .
+
+foio:SourceRecord a owl:Class ;
+  rdfs:subClassOf foio:Evidence ;
+  rdfs:label "Source record" .
+
+foio:Attachment a owl:Class ;
+  rdfs:subClassOf prov:Entity ;
+  rdfs:label "Attachment" .
+
+foio:LegalReference a owl:Class ;
+  rdfs:label "Legal reference" .
+
+foio:ReportingMetric a owl:Class ;
+  rdfs:label "Reporting metric" .
+
+foio:normalisedState a owl:ObjectProperty ;
+  rdfs:domain foio:AccessRequest ;
+  rdfs:range skos:Concept ;
+  rdfs:label "normalised state" .
+
+foio:sourceState a owl:DatatypeProperty ;
+  rdfs:domain foio:AccessRequest ;
+  rdfs:range xsd:string ;
+  rdfs:label "source state" ;
+  rdfs:comment "The source state exactly as observed in FYI/Alaveteli or another source system." .
+
+foio:assertionStatus a owl:ObjectProperty ;
+  rdfs:domain foio:ProcessEvent ;
+  rdfs:range skos:Concept ;
+  rdfs:label "assertion status" .
+
+foio:requiresHumanCertification a owl:DatatypeProperty ;
+  rdfs:domain foio:ProcessEvent ;
+  rdfs:range xsd:boolean ;
+  rdfs:label "requires human certification" .
+
+foio:hasHumanCertification a owl:ObjectProperty ;
+  rdfs:domain foio:DecisionLikeEvent ;
+  rdfs:range foio:HumanCertification ;
+  rdfs:label "has human certification" .
+
+foio:hasEvidence a owl:ObjectProperty ;
+  rdfs:domain foio:ProcessEvent ;
+  rdfs:range foio:Evidence ;
+  rdfs:label "has evidence" .
+
+foio:machineGenerated a owl:DatatypeProperty ;
+  rdfs:domain foio:ProcessEvent ;
+  rdfs:range xsd:boolean ;
+  rdfs:label "machine generated" .
+
+foio:confidence a owl:DatatypeProperty ;
+  rdfs:domain foio:ProcessEvent ;
+  rdfs:range xsd:decimal ;
+  rdfs:label "confidence" .

@@ -1,0 +1,27 @@
+{
+  "schema_version": "foi-o-nz.agent-action.v0.1.0",
+  "action_id": "agent-action:example:search-plan:1",
+  "action_type": "draft_search_plan",
+  "requested_at": "2026-07-01T00:00:00Z",
+  "agent": {
+    "name": "foi-o-nz-process-agent",
+    "version": "0.1.0"
+  },
+  "inputs": [
+    "foio-nz:request:20001"
+  ],
+  "outputs": [
+    "draft-search-plan:20001:1"
+  ],
+  "legal_effect": "preparatory",
+  "requires_human_certification": true,
+  "safety_class": "medium",
+  "prohibited_follow_on_actions": [
+    "certify_search_complete",
+    "certify_release_or_refusal"
+  ],
+  "audit_trace": [
+    "prompt:extract-events.v0",
+    "schema:agent-action.v0.1.0"
+  ]
+}
