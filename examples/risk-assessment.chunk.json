@@ -1,0 +1,21 @@
+{
+  "assessment_id": "foio-nz:risk:foio-nz:chunk:b7e0ace85d3c1564dc2ceebc",
+  "hits": [
+    {
+      "category": "consultation",
+      "count": 2,
+      "pattern_id": "consultation_language",
+      "rationale": "Consultation/privacy/commercial-confidence language appears in text."
+    }
+  ],
+  "limitations": [
+    "Deterministic triage only; not a legal classification, redaction, or withholding decision.",
+    "False positives and false negatives are expected; human review is required before action."
+  ],
+  "request_id": "20001",
+  "review_required": true,
+  "risk_level": "medium",
+  "schema_version": "foi-o-nz.risk-assessment.v0.1.0",
+  "source_id": "foio-nz:chunk:b7e0ace85d3c1564dc2ceebc",
+  "source_record_type": "chunk"
+}

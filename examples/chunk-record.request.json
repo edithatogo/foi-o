@@ -1,0 +1,15 @@
+{
+  "authority": "ministry_of_health",
+  "chunk_id": "foio-nz:chunk:b7e0ace85d3c1564dc2ceebc",
+  "metadata": {
+    "source_url": "https://fyi.org.nz/request/20001-monkeypox-surveillance-and-contact-tracing-strategy",
+    "url_title": "monkeypox-surveillance-and-contact-tracing-strategy"
+  },
+  "request_id": "20001",
+  "schema_version": "foi-o-nz.chunk.v0.1.0",
+  "source_id": "20001",
+  "source_record_type": "request",
+  "text": "Request 20001. Title: Monkeypox surveillance and contact tracing strategy. Authority: ministry_of_health. State: decision_communicated. Source state: successful.",
+  "text_sha256": "0f1c5d49a81e6191892b40ba348151da55a54f6581ee2e6f563825a988de3b03",
+  "token_estimate": 41
+}

@@ -96,7 +96,7 @@ def build_agent_action(
         agent={"name": agent_name, "kind": "machine"},
         inputs=inputs or [],
         outputs=outputs or [],
-        audit_trace=["generated_from_action_policy_v0.3"],
+        audit_trace=["generated_from_action_policy_v0.4"],
         **policy,
     )
 

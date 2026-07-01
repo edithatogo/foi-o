@@ -1,0 +1,137 @@
+{
+  "$defs": {
+    "DatasetResource": {
+      "additionalProperties": false,
+      "description": "One resource in the generated dataset metadata.",
+      "properties": {
+        "bytes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bytes"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "encoding": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Encoding"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        }
+      },
+      "required": [
+        "name",
+        "path",
+        "media_type"
+      ],
+      "title": "DatasetResource",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Minimal machine-readable metadata for repo/dataset publication.",
+  "properties": {
+    "caveats": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Caveats",
+      "type": "array"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "homepage": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Homepage"
+    },
+    "license": {
+      "title": "License",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "resources": {
+      "items": {
+        "$ref": "#/$defs/DatasetResource"
+      },
+      "title": "Resources",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.dataset-metadata.v0.1.0",
+      "default": "foi-o-nz.dataset-metadata.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "title",
+    "description",
+    "license"
+  ],
+  "title": "DatasetMetadata",
+  "type": "object"
+}

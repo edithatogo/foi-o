@@ -1,0 +1,11 @@
+{
+  "algorithm": "sha256-json-c14n-v1",
+  "generated_at": "2026-07-01T14:58:08.273090Z",
+  "ledger_hash": "70a0c14e9a1df8b857e7d4284b44a1fcd6faa95cdf5651e60e0a0d89bfe7d8ca",
+  "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+  "record_id": "foio-nz:chunk:b7e0ace85d3c1564dc2ceebc",
+  "record_sha256": "d9c7ab0b8a3694a5ac847439169768c3d3caa0c4294397fa7023d463c871c957",
+  "record_type": "chunk",
+  "schema_version": "foi-o-nz.ledger.v0.1.0",
+  "sequence": 0
+}

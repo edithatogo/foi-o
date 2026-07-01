@@ -82,3 +82,31 @@ The pasted Mojo notes are treated as a strategic direction, not a source of trut
 Mojo/MAX is used for deterministic kernels and future hot paths; Polars/DuckDB/
 LanceDB remain the pragmatic data layer for ingestion and analysis until
 Mojo-native dataframe/Arrow tooling is demonstrably production-ready.
+
+## New v0.4 implementation pass
+
+- Added tamper-evident JSONL ledgers with deterministic JSON canonicalisation,
+  SHA-256 record hashes, and hash-chain verification.
+- Added request/event chunk records for context-window planning, deterministic
+  embeddings, and future vector stores.
+- Added deterministic risk triage for privacy, health-information, withholding,
+  consultation, and AI-workload review triggers. These outputs are review flags,
+  not legal decisions.
+- Added dataset metadata generation and Frictionless-style datapackage export.
+- Added bounded OpenAPI 3.1 contract skeleton and agent tool/capability manifest.
+- Added dependency-light local microbenchmarks for state mapping, chunking,
+  ledger hashing, and risk scanning.
+- Added Mojo text-planning/risk kernels and native tests.
+- Expanded CI smoke commands and Makefile targets to cover v0.4 surfaces.
+
+## Updated local verification for v0.4
+
+```text
+python -m compileall -q src tests scripts
+PYTHONPATH=src python -m pytest -q
+50 passed
+PYTHONPATH=src python -m foi_o_nz.cli validate-repo
+repository validation ok
+PYTHONPATH=src python -m foi_o_nz.cli schema-drift
+ok with expected shallow warning-only drift for hand-authored schemas
+```

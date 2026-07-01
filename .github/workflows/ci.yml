@@ -42,6 +42,14 @@ jobs:
           uv run foi-o-nz embed-jsonl --input data/smoke/requests.jsonl --output data/smoke/request-embeddings.jsonl --kind request --dimensions 32
           uv run foi-o-nz export-rdf --requests-jsonl data/smoke/requests.jsonl --events-jsonl data/smoke/events.jsonl --output data/smoke/foi-o-nz.ttl
           uv run foi-o-nz validate-shacl data/smoke/foi-o-nz.ttl --shapes shacl/foi-o-nz.shapes.ttl
+          uv run foi-o-nz chunk-jsonl --input data/smoke/requests.jsonl --output data/smoke/request-chunks.jsonl --kind request
+          uv run foi-o-nz risk-scan --input data/smoke/request-chunks.jsonl --output data/smoke/risk-assessments.jsonl
+          uv run foi-o-nz build-ledger --input data/smoke/events.jsonl --output data/smoke/events.ledger.jsonl --record-type event
+          uv run foi-o-nz verify-ledger --input data/smoke/events.jsonl --ledger data/smoke/events.ledger.jsonl --record-type event
+          uv run foi-o-nz export-tool-manifest --output data/smoke/tool-manifest.json
+          uv run foi-o-nz export-openapi --output data/smoke/openapi.json
+          uv run foi-o-nz dataset-metadata data/smoke/requests.jsonl data/smoke/events.jsonl data/smoke/request-chunks.jsonl --output data/smoke/dataset-metadata.json --base-dir .
+          uv run foi-o-nz benchmark-local --output data/smoke/benchmarks.json --iterations 100
 
   mojo:
     name: Mojo/MAX experimental core

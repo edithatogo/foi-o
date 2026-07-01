@@ -1,0 +1,59 @@
+{
+  "additionalProperties": false,
+  "description": "One hash-chain entry for a request/event/chunk/embedding record.",
+  "properties": {
+    "algorithm": {
+      "const": "sha256-json-c14n-v1",
+      "default": "sha256-json-c14n-v1",
+      "title": "Algorithm",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "ledger_hash": {
+      "title": "Ledger Hash",
+      "type": "string"
+    },
+    "previous_hash": {
+      "title": "Previous Hash",
+      "type": "string"
+    },
+    "record_id": {
+      "title": "Record Id",
+      "type": "string"
+    },
+    "record_sha256": {
+      "title": "Record Sha256",
+      "type": "string"
+    },
+    "record_type": {
+      "title": "Record Type",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.ledger.v0.1.0",
+      "default": "foi-o-nz.ledger.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "sequence": {
+      "minimum": 0,
+      "title": "Sequence",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "sequence",
+    "record_type",
+    "record_id",
+    "previous_hash",
+    "record_sha256",
+    "ledger_hash",
+    "generated_at"
+  ],
+  "title": "LedgerEntry",
+  "type": "object"
+}

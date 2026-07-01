@@ -13,6 +13,17 @@ from rich.table import Table
 from foi_o_nz.agent_policy import build_agent_action, evaluate_agent_action
 from foi_o_nz.analytics import write_event_summary, write_summary
 from foi_o_nz.batch import normalise_manifest_batch
+from foi_o_nz.benchmarks import write_local_benchmarks
+from foi_o_nz.chunks import chunk_jsonl
+from foi_o_nz.dataset_metadata import (
+    write_croissant_metadata,
+    write_dataset_metadata,
+    write_frictionless_datapackage,
+    write_huggingface_dataset_card,
+)
+from foi_o_nz.ledger import build_ledger_jsonl, verify_ledger_jsonl
+from foi_o_nz.openapi import write_openapi_contract
+from foi_o_nz.risk import risk_scan_jsonl
 from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_dates
 from foi_o_nz.duckdb_export import build_duckdb_database, write_duckdb_bootstrap_sql
 from foi_o_nz.embeddings import embed_jsonl
@@ -28,6 +39,7 @@ from foi_o_nz.shacl_validation import validate_with_shacl
 from foi_o_nz.reporting import metric_table
 from foi_o_nz.state_machine import RequestState, can_transition, map_alaveteli_state
 from foi_o_nz.transitions import audit_transitions_jsonl
+from foi_o_nz.tool_manifest import write_tool_manifest
 from foi_o_nz.vector_index import build_lancedb_table
 from foi_o_nz.validation import validate_json_schema, validate_jsonl_schema, validate_rdf, validate_schema_file, validate_yaml
 from foi_o_nz.version import __version__
@@ -452,6 +464,109 @@ def mcp_server() -> None:
         raise typer.Exit(code=1) from exc
 
 
+@app.command("chunk-jsonl")
+def chunk_jsonl_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Request/event JSONL input")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Chunk JSONL output")],
+    kind: Annotated[str, typer.Option(help="Input kind: request or event")] = "request",
+) -> None:
+    """Create deterministic text chunks for agent/vector workflows."""
+    if kind not in {"request", "event"}:
+        console.print("kind must be 'request' or 'event'", style="red")
+        raise typer.Exit(code=2)
+    result = chunk_jsonl(input, output, kind=kind)  # type: ignore[arg-type]
+    console.print_json(json.dumps(result))
+
+
+@app.command("build-ledger")
+def build_ledger_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Source JSONL input")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Ledger JSONL output")],
+    record_type: Annotated[str, typer.Option(help="Record type label, e.g. request/event/chunk/embedding")] = "event",
+    previous_hash: Annotated[str, typer.Option(help="Previous/root hash for chained ledgers")] = "0" * 64,
+) -> None:
+    """Create a tamper-evident SHA-256 hash-chain ledger for a JSONL stream."""
+    result = build_ledger_jsonl(input, output, record_type=record_type, previous_hash=previous_hash)
+    console.print_json(json.dumps(result))
+
+
+@app.command("verify-ledger")
+def verify_ledger_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Source JSONL input")],
+    ledger: Annotated[Path, typer.Option("--ledger", "-l", help="Ledger JSONL input")],
+    record_type: Annotated[str, typer.Option(help="Record type label, e.g. request/event/chunk/embedding")] = "event",
+    previous_hash: Annotated[str, typer.Option(help="Previous/root hash for chained ledgers")] = "0" * 64,
+) -> None:
+    """Verify a tamper-evident hash-chain ledger."""
+    result = verify_ledger_jsonl(input, ledger, record_type=record_type, previous_hash=previous_hash)
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+@app.command("risk-scan")
+def risk_scan_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Request/event/chunk JSONL input")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Risk assessment JSONL output")],
+) -> None:
+    """Run deterministic review-trigger risk triage over a JSONL stream."""
+    result = risk_scan_jsonl(input, output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("dataset-metadata")
+def dataset_metadata_command(
+    paths: Annotated[list[Path], typer.Argument(help="Artifact files to describe")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Metadata JSON output")],
+    base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative paths")] = None,
+    frictionless: Annotated[bool, typer.Option(help="Write Frictionless-style datapackage instead")] = False,
+    croissant: Annotated[bool, typer.Option(help="Write Croissant-style JSON-LD instead")] = False,
+    hf_card: Annotated[bool, typer.Option(help="Write a Hugging Face dataset-card README.md instead")] = False,
+) -> None:
+    """Generate machine-readable publication metadata for derived artifacts."""
+    selected = sum([frictionless, croissant, hf_card])
+    if selected > 1:
+        console.print("Choose at most one of --frictionless, --croissant, or --hf-card.", style="red")
+        raise typer.Exit(code=2)
+    if frictionless:
+        result = write_frictionless_datapackage(paths, output, base_dir=base_dir)
+    elif croissant:
+        result = write_croissant_metadata(paths, output, base_dir=base_dir)
+    elif hf_card:
+        result = write_huggingface_dataset_card(paths, output, base_dir=base_dir)
+    else:
+        result = write_dataset_metadata(paths, output, base_dir=base_dir)
+    console.print_json(json.dumps(result))
+
+
+@app.command("export-openapi")
+def export_openapi_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="OpenAPI JSON output")],
+) -> None:
+    """Write the bounded agent-facing OpenAPI contract skeleton."""
+    result = write_openapi_contract(output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("export-tool-manifest")
+def export_tool_manifest_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Tool manifest JSON output")],
+) -> None:
+    """Write a bounded tool/capability manifest for agent runtimes."""
+    result = write_tool_manifest(output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("benchmark-local")
+def benchmark_local_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Benchmark JSON output")],
+    iterations: Annotated[int, typer.Option(help="Fixture record count")] = 1000,
+) -> None:
+    """Run dependency-light deterministic local microbenchmarks."""
+    result = write_local_benchmarks(output, iterations=iterations)
+    console.print_json(json.dumps(result))
+
+
 @app.command("reporting-metrics")
 def reporting_metrics() -> None:
     """Print the current PSC/OIA reporting metric descriptors."""
@@ -549,6 +664,22 @@ def validate_repo() -> None:
     example_schema_pairs.extend(
         (path, Path("schemas/json/transition-audit.schema.json"))
         for path in sorted(Path("examples").glob("transition-audit*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/chunk-record.schema.json"))
+        for path in sorted(Path("examples").glob("chunk-record*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/ledger-entry.schema.json"))
+        for path in sorted(Path("examples").glob("ledger-entry*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/risk-assessment.schema.json"))
+        for path in sorted(Path("examples").glob("risk-assessment*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/dataset-metadata.schema.json"))
+        for path in sorted(Path("examples").glob("dataset-metadata*.json"))
     )
     for instance, schema in example_schema_pairs:
         if instance.exists():

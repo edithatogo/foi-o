@@ -6,6 +6,10 @@ from pathlib import Path
 from typing import Any
 
 from foi_o_nz.io import write_json
+from foi_o_nz.chunks import ChunkRecord
+from foi_o_nz.dataset_metadata import DatasetMetadata
+from foi_o_nz.ledger import LedgerEntry
+from foi_o_nz.risk import RiskAssessment
 from foi_o_nz.models import AgentAction, CoreEvent, ReportingMetric, RequestProfile
 
 SCHEMA_MODELS = {
@@ -13,6 +17,10 @@ SCHEMA_MODELS = {
     "core-event.schema.json": CoreEvent,
     "reporting-metric.schema.json": ReportingMetric,
     "request-profile.schema.json": RequestProfile,
+    "chunk-record.schema.json": ChunkRecord,
+    "dataset-metadata.schema.json": DatasetMetadata,
+    "ledger-entry.schema.json": LedgerEntry,
+    "risk-assessment.schema.json": RiskAssessment,
 }
 
 

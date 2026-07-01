@@ -1,5 +1,5 @@
 .PHONY: help install sync lock lint format format-fix typecheck test test-cov \
-        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql mojo-format mojo-test mojo-build \
+        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk metadata openapi tool-manifest benchmark mojo-format mojo-test mojo-build \
         spell toml-check workflow-audit workflow-syntax security-audit sbom clean
 
 PKG := foi_o_nz
@@ -69,6 +69,28 @@ schema-drift: ## Compare generated Pydantic schema keys against committed schema
 
 duckdb-sql: ## Write portable DuckDB bootstrap SQL
 	uv run foi-o-nz write-duckdb-sql --output data/smoke/duckdb-bootstrap.sql
+
+chunks: ## Create smoke request chunks
+	uv run foi-o-nz chunk-jsonl --input data/smoke/requests.jsonl --output data/smoke/request-chunks.jsonl --kind request
+
+ledger: ## Build and verify smoke event ledger
+	uv run foi-o-nz build-ledger --input data/smoke/events.jsonl --output data/smoke/events.ledger.jsonl --record-type event
+	uv run foi-o-nz verify-ledger --input data/smoke/events.jsonl --ledger data/smoke/events.ledger.jsonl --record-type event
+
+risk: ## Run deterministic risk triage over smoke chunks
+	uv run foi-o-nz risk-scan --input data/smoke/request-chunks.jsonl --output data/smoke/risk-assessments.jsonl
+
+metadata: ## Generate smoke dataset metadata
+	uv run foi-o-nz dataset-metadata data/smoke/requests.jsonl data/smoke/events.jsonl data/smoke/request-chunks.jsonl --output data/smoke/dataset-metadata.json --base-dir .
+
+openapi: ## Export bounded agent-facing OpenAPI contract
+	uv run foi-o-nz export-openapi --output data/smoke/openapi.json
+
+tool-manifest: ## Export bounded agent tool manifest
+	uv run foi-o-nz export-tool-manifest --output data/smoke/tool-manifest.json
+
+benchmark: ## Run dependency-light local microbenchmarks
+	uv run foi-o-nz benchmark-local --output data/smoke/benchmarks.json --iterations 100
 
 mojo-format: ## Format Mojo sources
 	pixi run mojo-format

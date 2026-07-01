@@ -1,0 +1,93 @@
+{
+  "additionalProperties": false,
+  "description": "Text chunk derived from a request profile or process event.",
+  "properties": {
+    "authority": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Authority"
+    },
+    "chunk_id": {
+      "title": "Chunk Id",
+      "type": "string"
+    },
+    "event_type": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Event Type"
+    },
+    "metadata": {
+      "additionalProperties": true,
+      "title": "Metadata",
+      "type": "object"
+    },
+    "request_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Request Id"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.chunk.v0.1.0",
+      "default": "foi-o-nz.chunk.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_record_type": {
+      "enum": [
+        "request",
+        "event"
+      ],
+      "title": "Source Record Type",
+      "type": "string"
+    },
+    "text": {
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    },
+    "text_sha256": {
+      "title": "Text Sha256",
+      "type": "string"
+    },
+    "token_estimate": {
+      "minimum": 1,
+      "title": "Token Estimate",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "chunk_id",
+    "source_record_type",
+    "source_id",
+    "text",
+    "text_sha256",
+    "token_estimate"
+  ],
+  "title": "ChunkRecord",
+  "type": "object"
+}

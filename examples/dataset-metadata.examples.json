@@ -1,0 +1,31 @@
+{
+  "caveats": [
+    "Derived process metadata is not an official agency record.",
+    "Agent-generated or inferred fields are not legal decisions.",
+    "Coverage depends on the supplied source artifacts and must not be overclaimed."
+  ],
+  "description": "Machine-readable FOI-O NZ process artifacts generated from public FYI/OIA source records.",
+  "homepage": "https://github.com/edithatogo/foi-o-nz",
+  "license": "MIT for code/metadata; source records retain their original rights and platform terms.",
+  "name": "foi-o-nz-artifacts",
+  "resources": [
+    {
+      "bytes": 1205,
+      "encoding": "utf-8",
+      "media_type": "application/json",
+      "name": "request-record",
+      "path": "examples/request-record.jsonld",
+      "sha256": "b82337bd91d938f9fcee7aa2309dada0193735645253baf77acbd4c810b707a3"
+    },
+    {
+      "bytes": 706,
+      "encoding": "utf-8",
+      "media_type": "application/json",
+      "name": "chunk-record.request",
+      "path": "examples/chunk-record.request.json",
+      "sha256": "30fe52d54e8483eb2910fb6929b78fee0e1f4867be54ca426a0cb857d1c7cea0"
+    }
+  ],
+  "schema_version": "foi-o-nz.dataset-metadata.v0.1.0",
+  "title": "FOI-O NZ derived process artifacts"
+}

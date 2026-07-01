@@ -1,0 +1,111 @@
+{
+  "$defs": {
+    "RiskHit": {
+      "additionalProperties": false,
+      "description": "One deterministic risk indicator hit.",
+      "properties": {
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "count": {
+          "minimum": 1,
+          "title": "Count",
+          "type": "integer"
+        },
+        "pattern_id": {
+          "title": "Pattern Id",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        }
+      },
+      "required": [
+        "category",
+        "pattern_id",
+        "count",
+        "rationale"
+      ],
+      "title": "RiskHit",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Risk triage result for one source record.",
+  "properties": {
+    "assessment_id": {
+      "title": "Assessment Id",
+      "type": "string"
+    },
+    "hits": {
+      "items": {
+        "$ref": "#/$defs/RiskHit"
+      },
+      "title": "Hits",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "request_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Request Id"
+    },
+    "review_required": {
+      "title": "Review Required",
+      "type": "boolean"
+    },
+    "risk_level": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "Risk Level",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.risk-assessment.v0.1.0",
+      "default": "foi-o-nz.risk-assessment.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "source_record_type": {
+      "enum": [
+        "request",
+        "event",
+        "chunk",
+        "unknown"
+      ],
+      "title": "Source Record Type",
+      "type": "string"
+    }
+  },
+  "required": [
+    "assessment_id",
+    "source_record_type",
+    "source_id",
+    "risk_level",
+    "review_required"
+  ],
+  "title": "RiskAssessment",
+  "type": "object"
+}
