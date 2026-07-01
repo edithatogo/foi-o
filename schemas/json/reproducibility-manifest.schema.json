@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/reproducibility-manifest.schema.json",
+  "title": "FOI-O NZ reproducibility manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "python", "platform", "tools", "files"],
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.reproducibility.v0.1.0"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "python": {"type": "object", "additionalProperties": {"type": "string"}},
+    "platform": {"type": "object", "additionalProperties": {"type": "string"}},
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "available"],
+        "properties": {
+          "name": {"type": "string"},
+          "available": {"type": "boolean"},
+          "executable": {"type": ["string", "null"]},
+          "version_output": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "size_bytes", "sha256"],
+        "properties": {
+          "path": {"type": "string"},
+          "size_bytes": {"type": "integer", "minimum": 0},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    }
+  }
+}

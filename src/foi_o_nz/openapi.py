@@ -14,7 +14,7 @@ def build_openapi_contract() -> dict[str, Any]:
         "openapi": "3.1.0",
         "info": {
             "title": "FOI-O NZ Agent Process API",
-            "version": "0.4.0",
+            "version": "0.5.0",
             "description": "Bounded process-support API. It exposes validation and drafting support, not autonomous OIA decision-making.",
         },
         "servers": [{"url": "http://localhost:8787", "description": "local development"}],
@@ -47,6 +47,27 @@ def build_openapi_contract() -> dict[str, Any]:
                     "summary": "Verify a tamper-evident JSONL ledger against a source stream.",
                     "x-agent-boundary": "evidence-integrity-only",
                     "responses": {"200": {"description": "Ledger verification result"}},
+                }
+            },
+            "/chunks/search": {
+                "post": {
+                    "summary": "Search deterministic chunk records for request context.",
+                    "x-agent-boundary": "retrieval-only",
+                    "responses": {"200": {"description": "Retrieval report"}},
+                }
+            },
+            "/redactions/candidates": {
+                "post": {
+                    "summary": "Generate candidate sensitive-span review flags without redacting.",
+                    "x-agent-boundary": "candidate-only-human-review-required",
+                    "responses": {"200": {"description": "Redaction-candidate stream"}},
+                }
+            },
+            "/agent-packs/build": {
+                "post": {
+                    "summary": "Build a request-scoped agent context pack with constraints and provenance.",
+                    "x-agent-boundary": "context-packaging-only",
+                    "responses": {"200": {"description": "Agent context pack"}},
                 }
             },
         },

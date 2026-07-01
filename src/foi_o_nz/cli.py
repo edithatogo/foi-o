@@ -10,11 +10,13 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from foi_o_nz.agent_pack import write_agent_context_pack
 from foi_o_nz.agent_policy import build_agent_action, evaluate_agent_action
 from foi_o_nz.analytics import write_event_summary, write_summary
 from foi_o_nz.batch import normalise_manifest_batch
 from foi_o_nz.benchmarks import write_local_benchmarks
 from foi_o_nz.chunks import chunk_jsonl
+from foi_o_nz.diff import diff_jsonl
 from foi_o_nz.dataset_metadata import (
     write_croissant_metadata,
     write_dataset_metadata,
@@ -22,6 +24,9 @@ from foi_o_nz.dataset_metadata import (
     write_huggingface_dataset_card,
 )
 from foi_o_nz.ledger import build_ledger_jsonl, verify_ledger_jsonl
+from foi_o_nz.redaction import propose_redactions_jsonl
+from foi_o_nz.reproducibility import write_reproducibility_manifest
+from foi_o_nz.retrieval import search_chunks_jsonl
 from foi_o_nz.openapi import write_openapi_contract
 from foi_o_nz.risk import risk_scan_jsonl
 from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_dates
@@ -514,6 +519,92 @@ def risk_scan_command(
     console.print_json(json.dumps(result))
 
 
+
+@app.command("search-chunks")
+def search_chunks_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Chunk JSONL input")],
+    query: Annotated[str, typer.Option("--query", "-q", help="Search query")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Retrieval result JSON output")],
+    top_k: Annotated[int, typer.Option(help="Number of ranked hits")] = 10,
+    dimensions: Annotated[int, typer.Option(help="Feature-hashing vector dimensions")] = 128,
+    lexical_weight: Annotated[float, typer.Option(help="Blend weight for lexical score, 0..1")] = 0.70,
+    no_vectors: Annotated[bool, typer.Option(help="Disable local feature-hashing vector blend")] = False,
+) -> None:
+    """Search deterministic chunk records for agent context retrieval."""
+    result = search_chunks_jsonl(
+        input,
+        output,
+        query=query,
+        top_k=top_k,
+        dimensions=dimensions,
+        lexical_weight=lexical_weight,
+        include_vectors=not no_vectors,
+    )
+    console.print_json(json.dumps(result))
+
+
+@app.command("propose-redactions")
+def propose_redactions_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Request/event/chunk JSONL input")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Candidate span JSONL output")],
+    text_field: Annotated[str, typer.Option(help="Preferred text field to scan")] = "text",
+) -> None:
+    """Detect candidate sensitive spans without redacting or deciding."""
+    result = propose_redactions_jsonl(input, output, text_field=text_field)
+    console.print_json(json.dumps(result))
+
+
+@app.command("diff-jsonl")
+def diff_jsonl_command(
+    before: Annotated[Path, typer.Option("--before", help="Earlier JSONL stream")],
+    after: Annotated[Path, typer.Option("--after", help="Later JSONL stream")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Diff report JSON output")],
+    key: Annotated[str | None, typer.Option(help="Optional explicit record ID field")] = None,
+) -> None:
+    """Diff two JSONL artefact streams by stable ID and canonical hash."""
+    result = diff_jsonl(before, after, output, key=key)
+    console.print_json(json.dumps(result))
+
+
+@app.command("build-agent-pack")
+def build_agent_pack_command(
+    request_id: Annotated[str, typer.Option("--request-id", help="Request ID to package")],
+    requests_jsonl: Annotated[Path, typer.Option("--requests-jsonl", help="Request profile JSONL")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Agent context pack JSON output")],
+    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Core events JSONL")] = None,
+    chunks_jsonl: Annotated[Path | None, typer.Option("--chunks-jsonl", help="Chunk JSONL")] = None,
+    risks_jsonl: Annotated[Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")] = None,
+    retrieval_json: Annotated[Path | None, typer.Option("--retrieval-json", help="Retrieval result JSON")] = None,
+    redaction_candidates_jsonl: Annotated[
+        Path | None,
+        typer.Option("--redaction-candidates-jsonl", help="Redaction-candidate JSONL"),
+    ] = None,
+) -> None:
+    """Build a request-scoped context pack for bounded agent workflows."""
+    result = write_agent_context_pack(
+        output,
+        request_id=request_id,
+        requests_jsonl=requests_jsonl,
+        events_jsonl=events_jsonl,
+        chunks_jsonl=chunks_jsonl,
+        risks_jsonl=risks_jsonl,
+        retrieval_json=retrieval_json,
+        redaction_candidates_jsonl=redaction_candidates_jsonl,
+    )
+    console.print_json(json.dumps(result))
+
+
+@app.command("repro-manifest")
+def repro_manifest_command(
+    paths: Annotated[list[Path], typer.Argument(help="Files to digest")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Reproducibility manifest JSON output")],
+    base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative file labels")] = None,
+) -> None:
+    """Write a reproducibility manifest for selected artefacts and local tools."""
+    result = write_reproducibility_manifest(paths, output, base_dir=base_dir)
+    console.print_json(json.dumps(result))
+
+
 @app.command("dataset-metadata")
 def dataset_metadata_command(
     paths: Annotated[list[Path], typer.Argument(help="Artifact files to describe")],
@@ -680,6 +771,26 @@ def validate_repo() -> None:
     example_schema_pairs.extend(
         (path, Path("schemas/json/dataset-metadata.schema.json"))
         for path in sorted(Path("examples").glob("dataset-metadata*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/retrieval-result.schema.json"))
+        for path in sorted(Path("examples").glob("retrieval-result*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/redaction-candidate.schema.json"))
+        for path in sorted(Path("examples").glob("redaction-candidate*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/diff-report.schema.json"))
+        for path in sorted(Path("examples").glob("diff-report*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/agent-pack.schema.json"))
+        for path in sorted(Path("examples").glob("agent-pack*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/reproducibility-manifest.schema.json"))
+        for path in sorted(Path("examples").glob("reproducibility-manifest*.json"))
     )
     for instance, schema in example_schema_pairs:
         if instance.exists():

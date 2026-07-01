@@ -94,7 +94,7 @@ def embedding_record(
         "source_id": source_id,
         "kind": kind,
         "text": text,
-        "embedding_model": f"foi-o-nz-feature-hash-v0.4.{dimensions}",
+        "embedding_model": f"foi-o-nz-feature-hash-v0.5.{dimensions}",
         "embedding": hash_embedding(text, dimensions=dimensions),
         "metadata": {
             "request_id": record.get("request_id")

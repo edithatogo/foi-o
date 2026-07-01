@@ -1,0 +1,26 @@
+{
+  "after": "tmp_v05_examples/after.jsonl",
+  "before": "tmp_v05_examples/before.jsonl",
+  "changes": [
+    {
+      "after_sha256": "b9eb55cc17028d6f5148a1d33df3f029eb048f9ccf80b12de8c724b98e85280f",
+      "before_sha256": "be2f2e8cbd966e2707e758530a99ef597396df6c2cf2616dcdadc80120014118",
+      "record_id": "12345",
+      "status": "modified"
+    },
+    {
+      "after_sha256": "6406f803a9bd1d7bccb5d4d995c38cda510cd4340fa20dffb38b902bd9f909a6",
+      "record_id": "999",
+      "status": "added"
+    }
+  ],
+  "counts": {
+    "added": 1,
+    "modified": 1,
+    "removed": 0,
+    "unchanged": 0
+  },
+  "key": "request_id",
+  "ok": true,
+  "schema_version": "foi-o-nz.diff.v0.1.0"
+}

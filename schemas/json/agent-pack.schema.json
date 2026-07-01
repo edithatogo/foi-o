@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/agent-pack.schema.json",
+  "title": "FOI-O NZ agent context pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "pack_id", "request_id", "generated_at", "constraints", "events", "chunks", "risks", "retrieval_results", "redaction_candidates", "provenance"],
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.agent-pack.v0.1.0"},
+    "pack_id": {"type": "string"},
+    "request_id": {"type": "string"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "constraints": {"type": "object", "additionalProperties": true},
+    "request": {"type": ["object", "null"], "additionalProperties": true},
+    "events": {"type": "array", "items": {"type": "object", "additionalProperties": true}},
+    "chunks": {"type": "array", "items": {"type": "object", "additionalProperties": true}},
+    "risks": {"type": "array", "items": {"type": "object", "additionalProperties": true}},
+    "retrieval_results": {"type": "array", "items": {"type": "object", "additionalProperties": true}},
+    "redaction_candidates": {"type": "array", "items": {"type": "object", "additionalProperties": true}},
+    "provenance": {"type": "object", "additionalProperties": true}
+  }
+}

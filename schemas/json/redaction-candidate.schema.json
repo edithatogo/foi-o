@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/redaction-candidate.schema.json",
+  "title": "FOI-O NZ redaction candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "candidate_id", "source_id", "span_type", "start", "end", "text_sha256", "masked_preview", "confidence", "rationale", "review_required", "decision_status"],
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.redaction-candidate.v0.1.0"},
+    "candidate_id": {"type": "string"},
+    "source_id": {"type": "string"},
+    "request_id": {"type": ["string", "null"]},
+    "source_record_type": {"type": ["string", "null"]},
+    "span_type": {"type": "string"},
+    "start": {"type": "integer", "minimum": 0},
+    "end": {"type": "integer", "minimum": 0},
+    "text_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "masked_preview": {"type": "string"},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "rationale": {"type": "string"},
+    "review_required": {"type": "boolean"},
+    "decision_status": {"enum": ["candidate_only_not_redacted", "human_reviewed"]}
+  }
+}

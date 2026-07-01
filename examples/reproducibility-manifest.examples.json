@@ -1,0 +1,53 @@
+{
+  "files": [
+    {
+      "path": "examples/retrieval-result.health.json",
+      "sha256": "6a5430a8aa6b239283e19dd991d16812ada387bb380187c1afc2d184cbbe97e5",
+      "size_bytes": 741
+    }
+  ],
+  "generated_at": "2026-07-01T15:24:34.106193Z",
+  "platform": {
+    "machine": "x86_64",
+    "python_implementation": "CPython",
+    "release": "4.4.0",
+    "system": "Linux"
+  },
+  "python": {
+    "executable": "/opt/pyvenv/bin/python",
+    "version": "3.13.5 (main, May  5 2026, 21:05:52) [GCC 14.2.0]"
+  },
+  "schema_version": "foi-o-nz.reproducibility.v0.1.0",
+  "tools": [
+    {
+      "available": true,
+      "executable": "/opt/pyvenv/bin/uv",
+      "name": "uv",
+      "version_output": "uv 0.10.0"
+    },
+    {
+      "available": false,
+      "executable": null,
+      "name": "pixi",
+      "version_output": null
+    },
+    {
+      "available": false,
+      "executable": null,
+      "name": "mojo",
+      "version_output": null
+    },
+    {
+      "available": false,
+      "executable": null,
+      "name": "max",
+      "version_output": null
+    },
+    {
+      "available": true,
+      "executable": "/usr/bin/git",
+      "name": "git",
+      "version_output": "git version 2.47.3"
+    }
+  ]
+}

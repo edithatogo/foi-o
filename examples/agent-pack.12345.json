@@ -1,0 +1,141 @@
+{
+  "chunks": [
+    {
+      "authority": "Example Ministry",
+      "chunk_id": "foio-nz:chunk:example1",
+      "metadata": {},
+      "request_id": "12345",
+      "schema_version": "foi-o-nz.chunk.v0.1.0",
+      "source_id": "12345",
+      "source_record_type": "request",
+      "text": "Request 12345. Title: Health information OIA request. Authority: Example Ministry. Contact test@example.org.",
+      "text_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "token_estimate": 24
+    }
+  ],
+  "constraints": {
+    "agent_may": [
+      "retrieve_context",
+      "summarise_process_history",
+      "draft_search_plan",
+      "draft_correspondence_for_human_review",
+      "flag_candidate_risks",
+      "flag_candidate_redaction_spans"
+    ],
+    "agent_must_not": [
+      "ChargeNoticeSent",
+      "DecisionCommunicated",
+      "ExtensionNotified",
+      "HumanDecisionCertified",
+      "RefusalCommunicated",
+      "ReleaseMade",
+      "TransferNotified"
+    ],
+    "certification_boundary": "agents may prepare or flag; authorised humans certify decisions, releases, refusals, charges, transfers, extensions, and redactions"
+  },
+  "events": [
+    {
+      "assertion_status": "observed",
+      "confidence": 1.0,
+      "event_id": "foio-nz:event:example",
+      "event_type": "RequestObserved",
+      "evidence": [],
+      "generated_by": {
+        "agent": "foi-o-nz-example"
+      },
+      "jurisdiction": "NZ",
+      "legal_regime": "OIA",
+      "lifecycle_state_after": "Received",
+      "occurred_at": "2026-06-01T00:00:00Z",
+      "request_ref": {
+        "source_request_id": "12345"
+      },
+      "requires_human_certification": false,
+      "schema_version": "foi-o-nz.core-event.v0.1.0",
+      "source_system": "fyi-archive-nz"
+    }
+  ],
+  "generated_at": "2026-07-01T15:24:34.105777Z",
+  "pack_id": "foio-nz:agent-pack:c944e644ec52a1050b5bd222",
+  "provenance": {
+    "chunks_jsonl": "tmp_v05_examples/chunks.jsonl",
+    "component_counts": {
+      "chunks": 1,
+      "events": 1,
+      "redaction_candidates": 1,
+      "request": 1,
+      "retrieval_results": 1,
+      "risks": 1
+    },
+    "events_jsonl": "tmp_v05_examples/events.jsonl",
+    "redaction_candidates_jsonl": "tmp_v05_examples/redactions.jsonl",
+    "requests_jsonl": "tmp_v05_examples/requests.jsonl",
+    "retrieval_json": "examples/retrieval-result.health.json",
+    "risks_jsonl": "tmp_v05_examples/risks.jsonl"
+  },
+  "redaction_candidates": [
+    {
+      "candidate_id": "foio-nz:redaction-candidate:87e16089d49acfd1631aa1b0",
+      "confidence": 0.96,
+      "decision_status": "candidate_only_not_redacted",
+      "end": 107,
+      "masked_preview": "t***@e***",
+      "rationale": "Email-like string. Candidate personal/contact information.",
+      "request_id": "12345",
+      "review_required": true,
+      "schema_version": "foi-o-nz.redaction-candidate.v0.1.0",
+      "source_id": "foio-nz:chunk:example1",
+      "source_record_type": "request",
+      "span_type": "email_address",
+      "start": 91,
+      "text_sha256": "388c735eec8225c4ad7a507944dd0a975296baea383198aa87177f29af2c6f69"
+    }
+  ],
+  "request": {
+    "authority": "Example Ministry",
+    "normalised_state": "Received",
+    "request_id": "12345",
+    "source_state": "waiting_response",
+    "title": "Health information OIA request"
+  },
+  "request_id": "12345",
+  "retrieval_results": [
+    {
+      "chunk_id": "foio-nz:chunk:example1",
+      "event_type": null,
+      "lexical_score": 0.57536414,
+      "matched_terms": [
+        "health",
+        "information"
+      ],
+      "metadata": {},
+      "rank": 1,
+      "request_id": "12345",
+      "score": 0.60578791,
+      "source_id": "12345",
+      "source_record_type": "request",
+      "text": "Request 12345. Title: Health information OIA request. Authority: Example Ministry. Contact test@example.org.",
+      "token_estimate": 24,
+      "vector_score": 0.6767767
+    }
+  ],
+  "risks": [
+    {
+      "assessment_id": "foio-nz:risk:example",
+      "decision_status": "triage_only_not_a_legal_decision",
+      "rationale": [
+        "candidate contact information"
+      ],
+      "request_id": "12345",
+      "review_required": true,
+      "risk_level": "medium",
+      "risk_score": 2,
+      "schema_version": "foi-o-nz.risk-assessment.v0.1.0",
+      "source_id": "foio-nz:chunk:example1",
+      "triggers": [
+        "email_address"
+      ]
+    }
+  ],
+  "schema_version": "foi-o-nz.agent-pack.v0.1.0"
+}

@@ -17,6 +17,10 @@ ActionType = Literal[
     "quality_check",
     "generate_reporting_metric",
     "flag_legal_issue",
+    "search_chunks",
+    "propose_redaction_candidates",
+    "build_agent_pack",
+    "diff_streams",
 ]
 
 ACTION_POLICY: dict[str, dict[str, Any]] = {
@@ -68,6 +72,30 @@ ACTION_POLICY: dict[str, dict[str, Any]] = {
         "safety_class": "high",
         "prohibited_follow_on_actions": ["apply_exemption_without_human_decision"],
     },
+    "search_chunks": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_retrieval_as_decision_evidence_without_review"],
+    },
+    "propose_redaction_candidates": {
+        "legal_effect": "none",
+        "requires_human_certification": True,
+        "safety_class": "high",
+        "prohibited_follow_on_actions": ["apply_redaction_without_human_decision"],
+    },
+    "build_agent_pack": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["certify_decision_from_pack"],
+    },
+    "diff_streams": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["publish_incremental_change_without_reconciliation"],
+    },
 }
 
 
@@ -96,7 +124,7 @@ def build_agent_action(
         agent={"name": agent_name, "kind": "machine"},
         inputs=inputs or [],
         outputs=outputs or [],
-        audit_trace=["generated_from_action_policy_v0.4"],
+        audit_trace=["generated_from_action_policy_v0.5"],
         **policy,
     )
 

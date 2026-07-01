@@ -1,0 +1,16 @@
+{
+  "candidate_id": "foio-nz:redaction-candidate:87e16089d49acfd1631aa1b0",
+  "confidence": 0.96,
+  "decision_status": "candidate_only_not_redacted",
+  "end": 107,
+  "masked_preview": "t***@e***",
+  "rationale": "Email-like string. Candidate personal/contact information.",
+  "request_id": "12345",
+  "review_required": true,
+  "schema_version": "foi-o-nz.redaction-candidate.v0.1.0",
+  "source_id": "foio-nz:chunk:example1",
+  "source_record_type": "request",
+  "span_type": "email_address",
+  "start": 91,
+  "text_sha256": "388c735eec8225c4ad7a507944dd0a975296baea383198aa87177f29af2c6f69"
+}

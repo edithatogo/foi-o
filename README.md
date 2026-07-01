@@ -63,7 +63,7 @@ pixi run mojo-test
 pixi run mojo-build
 ```
 
-The Mojo layer is deliberately small in v0.4: deterministic state mapping, text-planning helpers, machine-working-day checks, and certification-boundary guards. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
+The Mojo layer is deliberately small in v0.5: deterministic state mapping, text-planning helpers, machine-working-day checks, and certification-boundary guards. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
 
 ### Normalise FYI manifest records
 
@@ -82,6 +82,22 @@ uv run foi-o-nz quality-gate data/processed/events.jsonl --output data/processed
 uv run foi-o-nz transition-audit data/processed/events.jsonl --output data/processed/transition-report.json
 uv run foi-o-nz chunk-jsonl --input data/processed/requests.jsonl --output data/processed/request-chunks.jsonl --kind request
 uv run foi-o-nz risk-scan --input data/processed/request-chunks.jsonl --output data/processed/risk-assessments.jsonl
+uv run foi-o-nz search-chunks \
+  --input data/processed/request-chunks.jsonl \
+  --query "extension transfer clarification" \
+  --output data/processed/retrieval-results.json
+uv run foi-o-nz propose-redactions \
+  --input data/processed/request-chunks.jsonl \
+  --output data/processed/redaction-candidates.jsonl
+uv run foi-o-nz build-agent-pack \
+  --request-id 12345 \
+  --requests-jsonl data/processed/requests.jsonl \
+  --events-jsonl data/processed/events.jsonl \
+  --chunks-jsonl data/processed/request-chunks.jsonl \
+  --risks-jsonl data/processed/risk-assessments.jsonl \
+  --retrieval-json data/processed/retrieval-results.json \
+  --redaction-candidates-jsonl data/processed/redaction-candidates.jsonl \
+  --output data/processed/agent-pack.12345.json
 uv run foi-o-nz build-ledger --input data/processed/events.jsonl --output data/processed/events.ledger.jsonl --record-type event
 uv run foi-o-nz verify-ledger --input data/processed/events.jsonl --ledger data/processed/events.ledger.jsonl --record-type event
 uv run foi-o-nz embed-jsonl --input data/processed/requests.jsonl --output data/processed/request-embeddings.jsonl --kind request
@@ -94,6 +110,14 @@ uv run foi-o-nz dataset-metadata data/processed/requests.jsonl data/processed/ev
 uv run foi-o-nz dataset-metadata data/processed/requests.jsonl data/processed/events.jsonl data/processed/request-chunks.jsonl --output data/processed/README.md --base-dir . --hf-card
 uv run foi-o-nz export-openapi --output data/processed/openapi.json
 uv run foi-o-nz export-tool-manifest --output data/processed/tool-manifest.json
+uv run foi-o-nz diff-jsonl \
+  --before data/previous/events.jsonl \
+  --after data/processed/events.jsonl \
+  --output data/processed/events.diff.json
+uv run foi-o-nz repro-manifest \
+  data/processed/requests.jsonl data/processed/events.jsonl data/processed/request-chunks.jsonl \
+  --output data/processed/reproducibility-manifest.json \
+  --base-dir .
 ```
 
 The normaliser accepts JSONL or JSON arrays containing FYI archive-style records with fields such as `request_id`, `url_title`, `title`, `authority`, `state`, `first_sent`, `last_updated`, `content_sha256`, `html_captured`, `attachments`, and `warc_record_ids`. It also looks for message-like fields (`messages`, `correspondence`, `communications`, `updates`) and emits conservative `MessageObserved` plus candidate process events such as `ExtensionNotified`, `TransferNotified`, `ClarificationRequested`, `ComplaintObserved`, and decision/release/refusal candidates that require human review.
@@ -159,7 +183,12 @@ foi-o-nz/
 | Risk triage | Implemented | Deterministic review-trigger scans for privacy/health/withholding/AI-workload signals; never a legal decision. |
 | Dataset metadata | Implemented | FOI-O NZ metadata, Frictionless-style datapackages, Croissant-style JSON-LD, and Hugging Face dataset-card scaffolds. |
 | Agent contracts | Implemented | OpenAPI skeleton and bounded tool manifest for future agent runtime integration. |
-| MAX inference | Planned | To be used for local extraction/embeddings once process contracts are stable; v0.4 keeps deterministic embeddings local and dependency-light. |
+| Local retrieval | Implemented | BM25-ish lexical search plus deterministic feature-hash vector blending over agent chunks. |
+| Redaction candidates | Implemented | Regex-based sensitive-span candidates with hashed/masked previews; no redaction decision. |
+| Agent context packs | Implemented | Request-scoped packages combining request, events, chunks, risks, retrieval, redaction candidates, constraints, and provenance. |
+| Stream diffs | Implemented | Canonical JSONL added/removed/modified/unchanged reports for incremental archive processing. |
+| Reproducibility manifests | Implemented | Local tool availability and file SHA-256 manifests for CI/release evidence. |
+| MAX inference | Planned | To be used for local extraction/embeddings once process contracts are stable; v0.5 keeps deterministic embeddings local and dependency-light. |
 
 ## Human/agent boundary
 

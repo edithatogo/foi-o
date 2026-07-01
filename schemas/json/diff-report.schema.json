@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/diff-report.schema.json",
+  "title": "FOI-O NZ JSONL diff report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "ok", "before", "after", "counts", "changes"],
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.diff.v0.1.0"},
+    "ok": {"type": "boolean"},
+    "before": {"type": "string"},
+    "after": {"type": "string"},
+    "key": {"type": ["string", "null"]},
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["added", "removed", "modified", "unchanged"],
+      "properties": {
+        "added": {"type": "integer", "minimum": 0},
+        "removed": {"type": "integer", "minimum": 0},
+        "modified": {"type": "integer", "minimum": 0},
+        "unchanged": {"type": "integer", "minimum": 0}
+      }
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["record_id", "status"],
+        "properties": {
+          "record_id": {"type": "string"},
+          "status": {"enum": ["added", "removed", "modified", "unchanged"]},
+          "before_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "after_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    }
+  }
+}

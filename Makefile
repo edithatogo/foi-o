@@ -1,5 +1,5 @@
 .PHONY: help install sync lock lint format format-fix typecheck test test-cov \
-        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk metadata openapi tool-manifest benchmark mojo-format mojo-test mojo-build \
+        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk retrieval redactions agent-pack diff repro metadata openapi tool-manifest benchmark mojo-format mojo-test mojo-build \
         spell toml-check workflow-audit workflow-syntax security-audit sbom clean
 
 PKG := foi_o_nz
@@ -79,6 +79,21 @@ ledger: ## Build and verify smoke event ledger
 
 risk: ## Run deterministic risk triage over smoke chunks
 	uv run foi-o-nz risk-scan --input data/smoke/request-chunks.jsonl --output data/smoke/risk-assessments.jsonl
+
+retrieval: ## Search smoke chunks with local deterministic retrieval
+	uv run foi-o-nz search-chunks --input data/smoke/request-chunks.jsonl --query "example request" --output data/smoke/retrieval-results.json --top-k 3 --dimensions 16
+
+redactions: ## Propose candidate sensitive spans for human review only
+	uv run foi-o-nz propose-redactions --input data/smoke/request-chunks.jsonl --output data/smoke/redaction-candidates.jsonl
+
+agent-pack: ## Build a request-scoped smoke agent context pack
+	uv run foi-o-nz build-agent-pack --request-id 12345 --requests-jsonl data/smoke/requests.jsonl --events-jsonl data/smoke/events.jsonl --chunks-jsonl data/smoke/request-chunks.jsonl --risks-jsonl data/smoke/risk-assessments.jsonl --retrieval-json data/smoke/retrieval-results.json --redaction-candidates-jsonl data/smoke/redaction-candidates.jsonl --output data/smoke/agent-pack.12345.json
+
+diff: ## Diff the smoke event stream against itself
+	uv run foi-o-nz diff-jsonl --before data/smoke/events.jsonl --after data/smoke/events.jsonl --output data/smoke/events.diff.json
+
+repro: ## Write a reproducibility manifest for smoke artefacts
+	uv run foi-o-nz repro-manifest data/smoke/requests.jsonl data/smoke/events.jsonl data/smoke/request-chunks.jsonl --output data/smoke/reproducibility-manifest.json --base-dir .
 
 metadata: ## Generate smoke dataset metadata
 	uv run foi-o-nz dataset-metadata data/smoke/requests.jsonl data/smoke/events.jsonl data/smoke/request-chunks.jsonl --output data/smoke/dataset-metadata.json --base-dir .

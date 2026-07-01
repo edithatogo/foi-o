@@ -44,11 +44,16 @@ jobs:
           uv run foi-o-nz validate-shacl data/smoke/foi-o-nz.ttl --shapes shacl/foi-o-nz.shapes.ttl
           uv run foi-o-nz chunk-jsonl --input data/smoke/requests.jsonl --output data/smoke/request-chunks.jsonl --kind request
           uv run foi-o-nz risk-scan --input data/smoke/request-chunks.jsonl --output data/smoke/risk-assessments.jsonl
+          uv run foi-o-nz search-chunks --input data/smoke/request-chunks.jsonl --query "example request" --output data/smoke/retrieval-results.json --top-k 3 --dimensions 16
+          uv run foi-o-nz propose-redactions --input data/smoke/request-chunks.jsonl --output data/smoke/redaction-candidates.jsonl
+          uv run foi-o-nz build-agent-pack --request-id 12345 --requests-jsonl data/smoke/requests.jsonl --events-jsonl data/smoke/events.jsonl --chunks-jsonl data/smoke/request-chunks.jsonl --risks-jsonl data/smoke/risk-assessments.jsonl --retrieval-json data/smoke/retrieval-results.json --redaction-candidates-jsonl data/smoke/redaction-candidates.jsonl --output data/smoke/agent-pack.12345.json
+          uv run foi-o-nz diff-jsonl --before data/smoke/events.jsonl --after data/smoke/events.jsonl --output data/smoke/events.diff.json
           uv run foi-o-nz build-ledger --input data/smoke/events.jsonl --output data/smoke/events.ledger.jsonl --record-type event
           uv run foi-o-nz verify-ledger --input data/smoke/events.jsonl --ledger data/smoke/events.ledger.jsonl --record-type event
           uv run foi-o-nz export-tool-manifest --output data/smoke/tool-manifest.json
           uv run foi-o-nz export-openapi --output data/smoke/openapi.json
           uv run foi-o-nz dataset-metadata data/smoke/requests.jsonl data/smoke/events.jsonl data/smoke/request-chunks.jsonl --output data/smoke/dataset-metadata.json --base-dir .
+          uv run foi-o-nz repro-manifest data/smoke/requests.jsonl data/smoke/events.jsonl data/smoke/request-chunks.jsonl --output data/smoke/reproducibility-manifest.json --base-dir .
           uv run foi-o-nz benchmark-local --output data/smoke/benchmarks.json --iterations 100
 
   mojo:

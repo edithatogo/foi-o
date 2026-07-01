@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/retrieval-result.schema.json",
+  "title": "FOI-O NZ retrieval result report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["ok", "query", "input", "top_k", "result_count", "scoring", "dimensions", "results"],
+  "properties": {
+    "ok": {"type": "boolean"},
+    "query": {"type": "string"},
+    "input": {"type": "string"},
+    "top_k": {"type": "integer", "minimum": 1},
+    "result_count": {"type": "integer", "minimum": 0},
+    "scoring": {"type": "string"},
+    "dimensions": {"type": "integer", "minimum": 1},
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rank", "chunk_id", "score", "lexical_score", "vector_score", "matched_terms", "text", "metadata"],
+        "properties": {
+          "rank": {"type": "integer", "minimum": 1},
+          "chunk_id": {"type": "string"},
+          "source_record_type": {"type": ["string", "null"]},
+          "source_id": {"type": ["string", "null"]},
+          "request_id": {"type": ["string", "null"]},
+          "event_type": {"type": ["string", "null"]},
+          "score": {"type": "number"},
+          "lexical_score": {"type": "number"},
+          "vector_score": {"type": "number"},
+          "matched_terms": {"type": "array", "items": {"type": "string"}},
+          "token_estimate": {"type": ["integer", "null"], "minimum": 1},
+          "text": {"type": "string"},
+          "metadata": {"type": "object", "additionalProperties": true}
+        }
+      }
+    }
+  }
+}

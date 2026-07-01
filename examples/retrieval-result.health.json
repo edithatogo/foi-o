@@ -1,0 +1,29 @@
+{
+  "dimensions": 16,
+  "input": "tmp_v05_examples/chunks.jsonl",
+  "ok": true,
+  "query": "health information",
+  "result_count": 1,
+  "results": [
+    {
+      "chunk_id": "foio-nz:chunk:example1",
+      "event_type": null,
+      "lexical_score": 0.57536414,
+      "matched_terms": [
+        "health",
+        "information"
+      ],
+      "metadata": {},
+      "rank": 1,
+      "request_id": "12345",
+      "score": 0.60578791,
+      "source_id": "12345",
+      "source_record_type": "request",
+      "text": "Request 12345. Title: Health information OIA request. Authority: Example Ministry. Contact test@example.org.",
+      "token_estimate": 24,
+      "vector_score": 0.6767767
+    }
+  ],
+  "scoring": "bm25+feature-hash",
+  "top_k": 3
+}

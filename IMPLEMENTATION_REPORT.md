@@ -110,3 +110,37 @@ repository validation ok
 PYTHONPATH=src python -m foi_o_nz.cli schema-drift
 ok with expected shallow warning-only drift for hand-authored schemas
 ```
+
+## New v0.5 implementation pass
+
+- Added deterministic chunk retrieval using BM25-style lexical scoring blended with
+  local feature-hash vectors (`search-chunks`).
+- Added redaction-candidate detection with hashed/masked previews only
+  (`propose-redactions`). This does not redact, withhold, or decide.
+- Added canonical JSONL stream diffs for incremental processing (`diff-jsonl`).
+- Added request-scoped agent context packs that carry constraints, evidence,
+  retrieval hits, risk triage, candidate redaction spans, and provenance
+  (`build-agent-pack`).
+- Added reproducibility manifests for selected artefacts and local tools
+  (`repro-manifest`).
+- Added new schemas and examples for retrieval results, redaction candidates,
+  diff reports, agent packs, and reproducibility manifests.
+- Expanded the bounded agent-action policy table to cover retrieval, candidate
+  redaction detection, context-pack assembly, and stream diffs.
+- Expanded the OpenAPI/tool manifest skeletons with retrieval, redaction-candidate,
+  and agent-pack surfaces.
+- Added Mojo retrieval scoring kernels and a native retrieval test file.
+
+## Updated local verification for v0.5
+
+```text
+python -m compileall -q src tests scripts
+PYTHONPATH=src python -m pytest -q
+57 passed
+PYTHONPATH=src python -m foi_o_nz.cli validate-repo
+repository validation ok
+```
+
+The v0.5 smoke path was also executed locally through normalisation, validation,
+chunking, risk scanning, retrieval, redaction-candidate generation, agent-pack
+assembly, stream diffing, and reproducibility-manifest generation.

@@ -333,6 +333,10 @@ class AgentAction(BaseModel):
         "quality_check",
         "generate_reporting_metric",
         "flag_legal_issue",
+        "search_chunks",
+        "propose_redaction_candidates",
+        "build_agent_pack",
+        "diff_streams",
     ]
     requested_at: datetime
     agent: dict[str, Any]

@@ -24,6 +24,37 @@ def build_tool_manifest() -> dict[str, Any]:
                 "machine_certification_allowed": False,
             }
         )
+    tools.extend(
+        [
+            {
+                "name": "search_chunks",
+                "description": "Retrieve request-scoped context from deterministic text chunks.",
+                "legal_effect": "none",
+                "safety_class": "retrieval_only",
+                "requires_human_certification": False,
+                "prohibited_follow_on_actions": ["certify_decision", "release_information"],
+                "machine_certification_allowed": False,
+            },
+            {
+                "name": "propose_redaction_candidates",
+                "description": "Flag candidate sensitive spans with hashed/masked previews for human review.",
+                "legal_effect": "none",
+                "safety_class": "privacy_triage",
+                "requires_human_certification": True,
+                "prohibited_follow_on_actions": ["apply_redaction", "withhold_information"],
+                "machine_certification_allowed": False,
+            },
+            {
+                "name": "build_agent_pack",
+                "description": "Assemble request-scoped context packs with constraints and provenance.",
+                "legal_effect": "none",
+                "safety_class": "context_packaging",
+                "requires_human_certification": False,
+                "prohibited_follow_on_actions": ["certify_decision"],
+                "machine_certification_allowed": False,
+            },
+        ]
+    )
     return {
         "schema_version": "foi-o-nz.tool-manifest.v0.1.0",
         "name": "foi-o-nz-agent-tools",
