@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o-nz.example/schemas/kernel-manifest.schema.json",
+  "title": "FOI-O NZ deterministic kernel manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at",
+    "preferred_runtime",
+    "fallback_available",
+    "operation_count",
+    "conformance_case_count",
+    "mojo_declared_operation_count",
+    "operations",
+    "notes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.kernel-manifest.v0.1.0"},
+    "generated_at": {"type": "string"},
+    "preferred_runtime": {"enum": ["mojo-binary", "mojo-cli", "python-fallback"]},
+    "fallback_available": {"type": "boolean"},
+    "mojo_cli_available": {"type": "boolean"},
+    "max_cli_available": {"type": "boolean"},
+    "operation_count": {"type": "integer", "minimum": 0},
+    "conformance_case_count": {"type": "integer", "minimum": 0},
+    "mojo_declared_operation_count": {"type": "integer", "minimum": 0},
+    "operations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "operation",
+          "arg_types",
+          "return_type",
+          "conformance_case_count",
+          "python_fallback",
+          "mojo_declared",
+          "mojo_paths",
+          "native_runtime_verified",
+          "risk_class"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "operation": {"type": "string"},
+          "arg_types": {"type": "array", "items": {"type": "string"}},
+          "return_type": {"type": "string"},
+          "conformance_case_count": {"type": "integer", "minimum": 1},
+          "python_fallback": {"type": "boolean"},
+          "mojo_declared": {"type": "boolean"},
+          "mojo_paths": {"type": "array", "items": {"type": "string"}},
+          "native_runtime_verified": {"type": "boolean"},
+          "risk_class": {"enum": ["deterministic-helper", "certification-boundary"]}
+        }
+      }
+    },
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o-nz.example/schemas/mojo-audit.schema.json",
+  "title": "FOI-O NZ static Mojo kernel audit",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ok",
+    "mojo_root",
+    "mojo_cli_available",
+    "expected_operation_count",
+    "declared_function_count",
+    "declared_expected_count",
+    "missing_expected_operations",
+    "extra_declared_functions",
+    "expected_operations",
+    "declared_functions",
+    "notes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.mojo-audit.v0.1.0"},
+    "ok": {"type": "boolean"},
+    "mojo_root": {"type": "string"},
+    "mojo_cli_available": {"type": "boolean"},
+    "mojo_cli_path": {"type": ["string", "null"]},
+    "expected_operation_count": {"type": "integer", "minimum": 0},
+    "declared_function_count": {"type": "integer", "minimum": 0},
+    "declared_expected_count": {"type": "integer", "minimum": 0},
+    "missing_expected_operations": {"type": "array", "items": {"type": "string"}},
+    "extra_declared_functions": {"type": "array", "items": {"type": "string"}},
+    "expected_operations": {"type": "array", "items": {"type": "string"}},
+    "declared_functions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string"},
+          "path": {"type": "string"}
+        }
+      }
+    },
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

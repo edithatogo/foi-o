@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o-nz.example/schemas/kernel-readiness.schema.json",
+  "title": "FOI-O NZ Mojo kernel readiness report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "ok_for_python_fallback",
+    "ok_for_static_mojo_source",
+    "ok_for_native_release",
+    "preferred_runtime",
+    "operation_count",
+    "conformance_case_count",
+    "mojo_declared_operation_count",
+    "missing_expected_operations",
+    "blocked_by",
+    "next_external_checks",
+    "notes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "foi-o-nz.kernel-readiness.v0.1.0"},
+    "ok_for_python_fallback": {"type": "boolean"},
+    "ok_for_static_mojo_source": {"type": "boolean"},
+    "ok_for_native_release": {"type": "boolean"},
+    "preferred_runtime": {"enum": ["mojo-binary", "mojo-cli", "python-fallback"]},
+    "operation_count": {"type": "integer", "minimum": 0},
+    "conformance_case_count": {"type": "integer", "minimum": 0},
+    "mojo_declared_operation_count": {"type": "integer", "minimum": 0},
+    "missing_expected_operations": {"type": "array", "items": {"type": "string"}},
+    "blocked_by": {"type": "array", "items": {"type": "string"}},
+    "next_external_checks": {"type": "array", "items": {"type": "string"}},
+    "notes": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -248,6 +248,40 @@ def redaction_preview_width(value_length: int) -> int:
     return 2
 
 
+
+def assertion_status_rank(status: str) -> int:
+    """Return an epistemic-status rank used for deterministic sorting."""
+    return {
+        "unknown": 0,
+        "inferred": 1,
+        "asserted": 2,
+        "observed": 3,
+        "certified": 4,
+    }.get(status, -1)
+
+
+def confidence_band(score: float) -> Literal["none", "low", "medium", "high"]:
+    """Map a numeric confidence score to a coarse deterministic band."""
+    if score <= 0.0:
+        return "none"
+    if score < 0.5:
+        return "low"
+    if score < 0.8:
+        return "medium"
+    return "high"
+
+
+def can_agent_assert_status(status: str) -> bool:
+    """Return whether an agent may emit, but not certify, this assertion status."""
+    return status in {"observed", "inferred", "asserted"}
+
+
+def stable_text_bucket(value: str, bucket_count: int) -> int:
+    """Return a deterministic non-cryptographic text bucket."""
+    if bucket_count <= 0:
+        return 0
+    return fnv1a64_text(value) % bucket_count
+
 def fnv1a64_bytes(data: bytes) -> int:
     """Compute the FNV-1a 64-bit hash used by experimental Mojo kernels."""
     digest = FNV1A64_OFFSET
@@ -290,6 +324,10 @@ def evaluate_operation(operation: str, args: tuple[KernelValue, ...]) -> KernelE
         "is_forward_transition": is_forward_transition,
         "looks_like_email": looks_like_email,
         "redaction_preview_width": redaction_preview_width,
+        "assertion_status_rank": assertion_status_rank,
+        "confidence_band": confidence_band,
+        "can_agent_assert_status": can_agent_assert_status,
+        "stable_text_bucket": stable_text_bucket,
         "fnv1a64_text": fnv1a64_text,
     }
     try:
@@ -326,5 +364,9 @@ def conformance_cases() -> list[tuple[str, tuple[KernelValue, ...], KernelValue]
         ("is_forward_transition", ("Received", "Searching"), True),
         ("looks_like_email", ("a@example.org",), True),
         ("redaction_preview_width", (12,), 2),
+        ("assertion_status_rank", ("certified",), 4),
+        ("confidence_band", (0.74,), "medium"),
+        ("can_agent_assert_status", ("certified",), False),
+        ("stable_text_bucket", ("foi-o-nz", 16), stable_text_bucket("foi-o-nz", 16)),
         ("fnv1a64_text", ("foi-o-nz",), fnv1a64_text("foi-o-nz")),
     ]

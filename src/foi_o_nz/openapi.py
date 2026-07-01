@@ -14,7 +14,7 @@ def build_openapi_contract() -> dict[str, Any]:
         "openapi": "3.1.0",
         "info": {
             "title": "FOI-O NZ Agent Process API",
-            "version": "0.7.0",
+            "version": "0.8.0",
             "description": "Bounded process-support API. It exposes validation and drafting support, not autonomous OIA decision-making.",
         },
         "servers": [{"url": "http://localhost:8787", "description": "local development"}],
@@ -117,6 +117,27 @@ def build_openapi_contract() -> dict[str, Any]:
                     "summary": "Run deterministic kernel conformance checks.",
                     "x-agent-boundary": "runtime-validation-only",
                     "responses": {"200": {"description": "Kernel conformance report"}},
+                }
+            },
+            "/kernels/mojo-audit": {
+                "post": {
+                    "summary": "Statically audit Mojo declarations against fallback kernel operations.",
+                    "x-agent-boundary": "runtime-validation-only",
+                    "responses": {"200": {"description": "Static Mojo audit report"}},
+                }
+            },
+            "/kernels/manifest": {
+                "get": {
+                    "summary": "Export the deterministic kernel operation manifest.",
+                    "x-agent-boundary": "runtime-introspection-only",
+                    "responses": {"200": {"description": "Kernel manifest"}},
+                }
+            },
+            "/kernels/readiness": {
+                "get": {
+                    "summary": "Report Python fallback, static Mojo source, and native-release readiness.",
+                    "x-agent-boundary": "runtime-introspection-only",
+                    "responses": {"200": {"description": "Kernel readiness report"}},
                 }
             },
         },

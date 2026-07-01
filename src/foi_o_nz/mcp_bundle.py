@@ -37,6 +37,24 @@ def build_mcp_bundle() -> dict[str, Any]:
             "mimeType": "application/schema+json",
             "path": "schemas/json/native-kernel-status.schema.json",
         },
+        {
+            "uri": "foio-nz://kernels/mojo-audit-schema",
+            "name": "Static Mojo audit JSON Schema",
+            "mimeType": "application/schema+json",
+            "path": "schemas/json/mojo-audit.schema.json",
+        },
+        {
+            "uri": "foio-nz://kernels/kernel-manifest-schema",
+            "name": "Kernel manifest JSON Schema",
+            "mimeType": "application/schema+json",
+            "path": "schemas/json/kernel-manifest.schema.json",
+        },
+        {
+            "uri": "foio-nz://kernels/kernel-readiness-schema",
+            "name": "Kernel readiness JSON Schema",
+            "mimeType": "application/schema+json",
+            "path": "schemas/json/kernel-readiness.schema.json",
+        },
     ]
     prompts = [
         {
@@ -62,6 +80,12 @@ def build_mcp_bundle() -> dict[str, Any]:
             "description": "Inspect whether Mojo/MAX native kernels are available and whether Python fallback is active.",
             "arguments": [],
             "safety": "Runtime introspection only; does not authorise autonomous decisions.",
+        },
+        {
+            "name": "inspect_kernel_readiness",
+            "description": "Inspect static Mojo source readiness and remaining native-release blockers.",
+            "arguments": [],
+            "safety": "Runtime planning only; does not certify production readiness without native CI.",
         },
     ]
     return {

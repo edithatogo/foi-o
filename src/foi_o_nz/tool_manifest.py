@@ -62,6 +62,34 @@ def build_tool_manifest() -> dict[str, Any]:
                 "prohibited_follow_on_actions": ["treat_tool_availability_as_decision_authority"],
                 "machine_certification_allowed": False,
             },
+
+            {
+                "name": "mojo_audit",
+                "description": "Statically audit Mojo source declarations against fallback kernel operations.",
+                "legal_effect": "none",
+                "safety_class": "runtime_validation",
+                "requires_human_certification": False,
+                "prohibited_follow_on_actions": ["treat_static_audit_as_native_release_certification"],
+                "machine_certification_allowed": False,
+            },
+            {
+                "name": "export_kernel_manifest",
+                "description": "Export deterministic kernel operation metadata for native/fallback parity planning.",
+                "legal_effect": "none",
+                "safety_class": "runtime_introspection",
+                "requires_human_certification": False,
+                "prohibited_follow_on_actions": ["treat_manifest_as_decision_authority"],
+                "machine_certification_allowed": False,
+            },
+            {
+                "name": "kernel_readiness",
+                "description": "Report remaining blockers before Mojo-native kernel release certification.",
+                "legal_effect": "none",
+                "safety_class": "runtime_validation",
+                "requires_human_certification": False,
+                "prohibited_follow_on_actions": ["skip_native_mojo_ci"],
+                "machine_certification_allowed": False,
+            },
             {
                 "name": "kernel_conformance",
                 "description": "Run deterministic Mojo/Python fallback kernel conformance checks.",
@@ -109,6 +137,9 @@ def _description_for_action(action_type: str) -> str:
         "kernel_status": "Report Mojo/MAX native-kernel availability and fallback mode.",
         "kernel_eval": "Evaluate one deterministic kernel operation without certifying legal outcomes.",
         "kernel_conformance": "Run deterministic kernel conformance checks across Mojo and fallback semantics.",
+        "kernel_readiness": "Report remaining blockers before Mojo-native release certification.",
+        "export_kernel_manifest": "Export deterministic kernel operation metadata for native/fallback parity planning.",
+        "mojo_audit": "Statically audit Mojo source declarations against fallback kernel operations.",
     }
     return descriptions.get(action_type, "Bounded FOI-O NZ tool action.")
 

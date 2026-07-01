@@ -39,6 +39,10 @@ GUARDRAIL_REPLAY_SCHEMA_VERSION = "foi-o-nz.guardrail-replay.v0.1.0"
 NATIVE_KERNEL_STATUS_SCHEMA_VERSION = "foi-o-nz.native-kernel-status.v0.1.0"
 KERNEL_CONFORMANCE_SCHEMA_VERSION = "foi-o-nz.kernel-conformance.v0.1.0"
 
+MOJO_AUDIT_SCHEMA_VERSION = "foi-o-nz.mojo-audit.v0.1.0"
+KERNEL_MANIFEST_SCHEMA_VERSION = "foi-o-nz.kernel-manifest.v0.1.0"
+KERNEL_READINESS_SCHEMA_VERSION = "foi-o-nz.kernel-readiness.v0.1.0"
+
 
 REVIEW_TASK_SCHEMA_VERSION = "foi-o-nz.review-task.v0.1.0"
 GRAPH_SCHEMA_VERSION = "foi-o-nz.graph.v0.1.0"

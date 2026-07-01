@@ -47,6 +47,12 @@ from foi_o_nz.evaluation import evaluate_event_jsonl
 from foi_o_nz.io import read_json_records, write_json, write_jsonl
 from foi_o_nz.validation import load_json
 from foi_o_nz.jsonld_context import write_context
+from foi_o_nz.kernel_manifest import (
+    write_kernel_fixtures,
+    write_kernel_manifest,
+    write_kernel_readiness,
+)
+from foi_o_nz.mojo_audit import write_mojo_audit
 from foi_o_nz.native_kernel import evaluate_kernel, kernel_status, run_kernel_conformance, write_kernel_status
 from foi_o_nz.normalise import build_observed_events, build_request_profile, normalise_manifest_file
 from foi_o_nz.quality import assess_events_jsonl
@@ -156,6 +162,60 @@ def kernel_conformance_command(
     console.print_json(json.dumps(result))
     if not result["ok"]:
         raise typer.Exit(code=1)
+
+
+
+@app.command("mojo-audit")
+def mojo_audit_command(
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional audit JSON output")] = None,
+    mojo_root: Annotated[Path, typer.Option(help="Mojo source root")] = Path("mojo"),
+) -> None:
+    """Statically audit Mojo kernel declarations against fallback operations."""
+    target = output or Path("/tmp/foi-o-nz-mojo-audit.json")
+    result = write_mojo_audit(target, mojo_root=mojo_root)
+    console.print_json(json.dumps(result))
+    if output is None:
+        try:
+            target.unlink()
+        except OSError:
+            pass
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+@app.command("export-kernel-manifest")
+def export_kernel_manifest_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Kernel manifest JSON output")],
+    mojo_root: Annotated[Path, typer.Option(help="Mojo source root")] = Path("mojo"),
+) -> None:
+    """Export deterministic kernel manifest for Mojo/Python parity work."""
+    result = write_kernel_manifest(output, mojo_root=mojo_root)
+    console.print_json(json.dumps(result))
+
+
+@app.command("export-kernel-fixtures")
+def export_kernel_fixtures_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Kernel conformance JSONL output")],
+) -> None:
+    """Export kernel conformance fixtures for native Mojo harnesses."""
+    records = write_kernel_fixtures(output)
+    console.print_json(json.dumps({"ok": True, "output": str(output), "case_count": len(records)}))
+
+
+@app.command("kernel-readiness")
+def kernel_readiness_command(
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional readiness JSON output")] = None,
+    mojo_root: Annotated[Path, typer.Option(help="Mojo source root")] = Path("mojo"),
+) -> None:
+    """Report what is complete and what is blocked for the Mojo-first kernel layer."""
+    target = output or Path("/tmp/foi-o-nz-kernel-readiness.json")
+    result = write_kernel_readiness(target, mojo_root=mojo_root)
+    console.print_json(json.dumps(result))
+    if output is None:
+        try:
+            target.unlink()
+        except OSError:
+            pass
 
 
 @app.command("map-state")
@@ -1139,6 +1199,18 @@ def validate_repo() -> None:
     example_schema_pairs.extend(
         (path, Path("schemas/json/kernel-conformance.schema.json"))
         for path in sorted(Path("examples").glob("kernel-conformance*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/mojo-audit.schema.json"))
+        for path in sorted(Path("examples").glob("mojo-audit*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/kernel-manifest.schema.json"))
+        for path in sorted(Path("examples").glob("kernel-manifest*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/kernel-readiness.schema.json"))
+        for path in sorted(Path("examples").glob("kernel-readiness*.json"))
     )
     for instance, schema in example_schema_pairs:
         if instance.exists():

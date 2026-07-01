@@ -1,0 +1,207 @@
+{
+  "declared_expected_count": 27,
+  "declared_function_count": 37,
+  "declared_functions": [
+    {
+      "name": "is_oia_summer_excluded",
+      "path": "mojo/foi_o_nz/clock.mojo"
+    },
+    {
+      "name": "is_weekend",
+      "path": "mojo/foi_o_nz/clock.mojo"
+    },
+    {
+      "name": "is_machine_working_day",
+      "path": "mojo/foi_o_nz/clock.mojo"
+    },
+    {
+      "name": "assertion_status_rank",
+      "path": "mojo/foi_o_nz/epistemic.mojo"
+    },
+    {
+      "name": "confidence_band",
+      "path": "mojo/foi_o_nz/epistemic.mojo"
+    },
+    {
+      "name": "can_agent_assert_status",
+      "path": "mojo/foi_o_nz/epistemic.mojo"
+    },
+    {
+      "name": "is_dispositive_event",
+      "path": "mojo/foi_o_nz/guardrail.mojo"
+    },
+    {
+      "name": "severity_rank",
+      "path": "mojo/foi_o_nz/guardrail.mojo"
+    },
+    {
+      "name": "action_requires_review",
+      "path": "mojo/foi_o_nz/guardrail.mojo"
+    },
+    {
+      "name": "can_replay_pass",
+      "path": "mojo/foi_o_nz/guardrail.mojo"
+    },
+    {
+      "name": "fnv1a64_update",
+      "path": "mojo/foi_o_nz/hash.mojo"
+    },
+    {
+      "name": "fnv1a64_seed",
+      "path": "mojo/foi_o_nz/hash.mojo"
+    },
+    {
+      "name": "bounded_bucket",
+      "path": "mojo/foi_o_nz/hash.mojo"
+    },
+    {
+      "name": "fnv1a64_text",
+      "path": "mojo/foi_o_nz/hash.mojo"
+    },
+    {
+      "name": "stable_text_bucket",
+      "path": "mojo/foi_o_nz/hash.mojo"
+    },
+    {
+      "name": "is_ascii_alpha",
+      "path": "mojo/foi_o_nz/redaction.mojo"
+    },
+    {
+      "name": "is_ascii_digit",
+      "path": "mojo/foi_o_nz/redaction.mojo"
+    },
+    {
+      "name": "is_email_local_char",
+      "path": "mojo/foi_o_nz/redaction.mojo"
+    },
+    {
+      "name": "is_email_domain_char",
+      "path": "mojo/foi_o_nz/redaction.mojo"
+    },
+    {
+      "name": "redaction_preview_width",
+      "path": "mojo/foi_o_nz/redaction.mojo"
+    },
+    {
+      "name": "candidate_requires_review",
+      "path": "mojo/foi_o_nz/redaction.mojo"
+    },
+    {
+      "name": "looks_like_email",
+      "path": "mojo/foi_o_nz/redaction.mojo"
+    },
+    {
+      "name": "blend_scores",
+      "path": "mojo/foi_o_nz/retrieval.mojo"
+    },
+    {
+      "name": "normalise_cosine",
+      "path": "mojo/foi_o_nz/retrieval.mojo"
+    },
+    {
+      "name": "should_include_hit",
+      "path": "mojo/foi_o_nz/retrieval.mojo"
+    },
+    {
+      "name": "clamp_top_k",
+      "path": "mojo/foi_o_nz/retrieval.mojo"
+    },
+    {
+      "name": "normalise_alaveteli_state",
+      "path": "mojo/foi_o_nz/state.mojo"
+    },
+    {
+      "name": "requires_human_certification",
+      "path": "mojo/foi_o_nz/state.mojo"
+    },
+    {
+      "name": "can_agent_certify_event",
+      "path": "mojo/foi_o_nz/state.mojo"
+    },
+    {
+      "name": "confidence_for_alaveteli_state",
+      "path": "mojo/foi_o_nz/state.mojo"
+    },
+    {
+      "name": "is_terminal_state",
+      "path": "mojo/foi_o_nz/state.mojo"
+    },
+    {
+      "name": "token_estimate_from_chars",
+      "path": "mojo/foi_o_nz/text.mojo"
+    },
+    {
+      "name": "risk_level_from_score",
+      "path": "mojo/foi_o_nz/text.mojo"
+    },
+    {
+      "name": "review_required_for_score",
+      "path": "mojo/foi_o_nz/text.mojo"
+    },
+    {
+      "name": "can_machine_certify_safety_class",
+      "path": "mojo/foi_o_nz/text.mojo"
+    },
+    {
+      "name": "transition_rank",
+      "path": "mojo/foi_o_nz/transition.mojo"
+    },
+    {
+      "name": "is_forward_transition",
+      "path": "mojo/foi_o_nz/transition.mojo"
+    }
+  ],
+  "expected_operation_count": 27,
+  "expected_operations": [
+    "action_requires_review",
+    "assertion_status_rank",
+    "blend_scores",
+    "can_agent_assert_status",
+    "can_agent_certify_event",
+    "can_machine_certify_safety_class",
+    "can_replay_pass",
+    "clamp_top_k",
+    "confidence_band",
+    "confidence_for_alaveteli_state",
+    "fnv1a64_text",
+    "is_dispositive_event",
+    "is_forward_transition",
+    "is_machine_working_day",
+    "is_oia_summer_excluded",
+    "is_terminal_state",
+    "looks_like_email",
+    "normalise_alaveteli_state",
+    "normalise_cosine",
+    "redaction_preview_width",
+    "requires_human_certification",
+    "review_required_for_score",
+    "risk_level_from_score",
+    "severity_rank",
+    "stable_text_bucket",
+    "token_estimate_from_chars",
+    "transition_rank"
+  ],
+  "extra_declared_functions": [
+    "bounded_bucket",
+    "candidate_requires_review",
+    "fnv1a64_seed",
+    "fnv1a64_update",
+    "is_ascii_alpha",
+    "is_ascii_digit",
+    "is_email_domain_char",
+    "is_email_local_char",
+    "is_weekend",
+    "should_include_hit"
+  ],
+  "missing_expected_operations": [],
+  "mojo_cli_available": false,
+  "mojo_cli_path": null,
+  "mojo_root": "mojo",
+  "notes": [
+    "This is a static source audit, not native Mojo compilation.",
+    "A passing static audit means every Python fallback conformance operation has a matching Mojo function declaration.",
+    "Native parity still requires pixi run mojo-format-check, pixi run mojo-test, and pixi run mojo-build."
+  ],
+  "ok": true,
+  "schema_version": "foi-o-nz.mojo-audit.v0.1.0"
+}

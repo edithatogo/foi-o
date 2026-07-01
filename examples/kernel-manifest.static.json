@@ -1,0 +1,434 @@
+{
+  "conformance_case_count": 29,
+  "fallback_available": true,
+  "generated_at": "2026-07-02T01:27:50.287031+00:00",
+  "max_cli_available": false,
+  "mojo_cli_available": false,
+  "mojo_declared_operation_count": 27,
+  "notes": [
+    "Python fallback is the executable reference contract in no-Mojo environments.",
+    "Mojo declarations are statically audited; native compilation is verified separately by Pixi/CI.",
+    "Decision-making and human-certification operations remain guardrail helpers only; they do not make legal decisions."
+  ],
+  "operation_count": 27,
+  "operations": [
+    {
+      "arg_types": [
+        "string",
+        "boolean"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/guardrail.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "action_requires_review",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "certification-boundary"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/epistemic.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "assertion_status_rank",
+      "python_fallback": true,
+      "return_type": "integer",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "number",
+        "number",
+        "number"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/retrieval.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "blend_scores",
+      "python_fallback": true,
+      "return_type": "number",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/epistemic.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "can_agent_assert_status",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/state.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "can_agent_certify_event",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "certification-boundary"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/text.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "can_machine_certify_safety_class",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "certification-boundary"
+    },
+    {
+      "arg_types": [
+        "integer"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/guardrail.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "can_replay_pass",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "certification-boundary"
+    },
+    {
+      "arg_types": [
+        "integer",
+        "integer"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/retrieval.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "clamp_top_k",
+      "python_fallback": true,
+      "return_type": "integer",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "number"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/epistemic.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "confidence_band",
+      "python_fallback": true,
+      "return_type": "string",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/state.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "confidence_for_alaveteli_state",
+      "python_fallback": true,
+      "return_type": "number",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/hash.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "fnv1a64_text",
+      "python_fallback": true,
+      "return_type": "integer",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/guardrail.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "is_dispositive_event",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "certification-boundary"
+    },
+    {
+      "arg_types": [
+        "string",
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/transition.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "is_forward_transition",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "integer",
+        "integer",
+        "integer"
+      ],
+      "conformance_case_count": 2,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/clock.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "is_machine_working_day",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "integer",
+        "integer"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/clock.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "is_oia_summer_excluded",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/state.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "is_terminal_state",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/redaction.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "looks_like_email",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 2,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/state.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "normalise_alaveteli_state",
+      "python_fallback": true,
+      "return_type": "string",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "number"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/retrieval.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "normalise_cosine",
+      "python_fallback": true,
+      "return_type": "number",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "integer"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/redaction.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "redaction_preview_width",
+      "python_fallback": true,
+      "return_type": "integer",
+      "risk_class": "certification-boundary"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/state.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "requires_human_certification",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "certification-boundary"
+    },
+    {
+      "arg_types": [
+        "integer",
+        "boolean"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/text.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "review_required_for_score",
+      "python_fallback": true,
+      "return_type": "boolean",
+      "risk_class": "certification-boundary"
+    },
+    {
+      "arg_types": [
+        "integer",
+        "boolean"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/text.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "risk_level_from_score",
+      "python_fallback": true,
+      "return_type": "string",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/guardrail.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "severity_rank",
+      "python_fallback": true,
+      "return_type": "integer",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string",
+        "integer"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/hash.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "stable_text_bucket",
+      "python_fallback": true,
+      "return_type": "integer",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "integer"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/text.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "token_estimate_from_chars",
+      "python_fallback": true,
+      "return_type": "integer",
+      "risk_class": "deterministic-helper"
+    },
+    {
+      "arg_types": [
+        "string"
+      ],
+      "conformance_case_count": 1,
+      "mojo_declared": true,
+      "mojo_paths": [
+        "mojo/foi_o_nz/transition.mojo"
+      ],
+      "native_runtime_verified": false,
+      "operation": "transition_rank",
+      "python_fallback": true,
+      "return_type": "integer",
+      "risk_class": "deterministic-helper"
+    }
+  ],
+  "preferred_runtime": "python-fallback",
+  "schema_version": "foi-o-nz.kernel-manifest.v0.1.0"
+}

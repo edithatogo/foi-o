@@ -239,3 +239,51 @@ remains a tested fallback and does not become a legal decision engine.
 The sandbox still cannot run native Mojo/MAX checks, so native tests remain CI or
 operator verification paths. Python fallback/conformance tests were added so the
 semantics remain stable in this environment.
+
+## New v0.8 implementation pass
+
+This pass pushes the project further toward **Mojo if possible, Python as fallback**.
+Because this environment still lacks the Modular toolchain, the most valuable
+additional work was to make the native/fallback boundary statically inspectable
+and exportable rather than only described in prose.
+
+Added:
+
+- `mojo_audit.py` for dependency-light static auditing of Mojo source declarations
+  against Python fallback conformance operations.
+- `kernel_manifest.py` for deterministic kernel manifests, JSONL conformance
+  fixtures, and readiness reports.
+- new CLI commands: `mojo-audit`, `export-kernel-manifest`,
+  `export-kernel-fixtures`, and `kernel-readiness`.
+- new schemas/examples for Mojo audit, kernel manifest, and kernel readiness.
+- new native Mojo `epistemic.mojo` helpers for assertion-status rank,
+  confidence bands, and agent assertion permissions.
+- additional Mojo declarations for `looks_like_email`, `fnv1a64_text`, and
+  `stable_text_bucket` so every fallback conformance operation now has a static
+  Mojo function declaration.
+- generated native fixture file at `mojo/tests/fixtures/kernel-conformance.jsonl`.
+
+The Python fallback contract now covers 29 conformance cases across 27 unique
+operations. The static Mojo audit passes in this environment, meaning every
+fallback operation has a corresponding Mojo function declaration. Native release
+certification remains blocked until the following external checks can run with a
+real Modular toolchain:
+
+```text
+pixi run mojo-format-check
+pixi run mojo-test
+pixi run mojo-build
+PYTHONPATH=src python -m pytest -q
+```
+
+Dependency-light verification completed locally:
+
+```text
+python -m compileall -q src tests scripts
+PYTHONPATH=src python -m pytest -q
+88 passed
+PYTHONPATH=src python -m foi_o_nz.cli validate-repo
+repository validation ok
+PYTHONPATH=src python scripts/validate_examples.py
+examples ok
+```

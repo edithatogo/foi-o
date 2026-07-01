@@ -1,5 +1,5 @@
 .PHONY: help install sync lock lint format format-fix typecheck test test-cov \
-        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk retrieval redactions agent-pack diff repro metadata openapi tool-manifest benchmark kernel-status kernel-conformance mojo-format mojo-test mojo-build \
+        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk retrieval redactions agent-pack diff repro metadata openapi tool-manifest benchmark kernel-status kernel-conformance mojo-audit kernel-manifest kernel-fixtures kernel-readiness mojo-format mojo-test mojo-build \
         spell toml-check workflow-audit workflow-syntax security-audit sbom clean
 
 PKG := foi_o_nz
@@ -114,6 +114,19 @@ kernel-status: ## Report Mojo/MAX native-kernel availability and fallback mode
 kernel-conformance: ## Run deterministic kernel parity/conformance checks
 	uv run foi-o-nz kernel-conformance --output data/smoke/kernel-conformance.json
 
+mojo-audit: ## Static audit that Mojo source declares every fallback kernel operation
+	uv run foi-o-nz mojo-audit --output data/smoke/mojo-audit.json
+
+kernel-manifest: ## Export deterministic kernel manifest
+	uv run foi-o-nz export-kernel-manifest --output data/smoke/kernel-manifest.json
+
+kernel-fixtures: ## Export JSONL kernel conformance fixtures for Mojo harnesses
+	mkdir -p mojo/tests/fixtures
+	uv run foi-o-nz export-kernel-fixtures --output mojo/tests/fixtures/kernel-conformance.jsonl
+
+kernel-readiness: ## Report Mojo-first kernel readiness and remaining native blockers
+	uv run foi-o-nz kernel-readiness --output data/smoke/kernel-readiness.json
+
 mojo-format: ## Format Mojo sources
 	pixi run mojo-format
 
@@ -123,7 +136,7 @@ mojo-test: ## Run native Mojo tests
 mojo-build: ## Build native Mojo smoke binary
 	pixi run mojo-build
 
-quality: lint format typecheck test validate schema-drift ## Full Python quality gate
+quality: lint format typecheck test validate schema-drift mojo-audit kernel-manifest kernel-readiness ## Full Python/static quality gate
 
 spell: ## typos spelling check
 	uv run typos src tests scripts docs README.md || true

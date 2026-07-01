@@ -27,6 +27,9 @@ PAIR_GLOBS = [
     ("trace-span*.json", "trace-span.schema.json"),
     ("goldset-task*.json", "goldset-task.schema.json"),
     ("guardrail-replay*.json", "guardrail-replay.schema.json"),
+    ("mojo-audit*.json", "mojo-audit.schema.json"),
+    ("kernel-manifest*.json", "kernel-manifest.schema.json"),
+    ("kernel-readiness*.json", "kernel-readiness.schema.json"),
 ]
 
 

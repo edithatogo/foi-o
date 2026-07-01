@@ -63,7 +63,7 @@ pixi run mojo-test
 pixi run mojo-build
 ```
 
-The Mojo layer is deliberately small in v0.6: deterministic state mapping, text-planning helpers, machine-working-day checks, and certification-boundary guards. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
+The Mojo layer is deliberately small but expanding in v0.8: deterministic state mapping, text-planning helpers, machine-working-day checks, and certification-boundary guards. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
 
 ### Normalise FYI manifest records
 
@@ -215,7 +215,7 @@ Agents must not autonomously certify:
 Code, schemas, ontology seed, and documentation are MIT licensed. Source request/archive content remains subject to its original rights and platform terms. This repository is not an official New Zealand government or Ombudsman publication channel.
 
 
-## v0.6 additional commands
+## v0.6+ additional commands
 
 ```text
 foi-o-nz cas-manifest
@@ -260,3 +260,34 @@ The conformance report verifies that the Python fallback matches the expected
 kernel contract. If a compiled Mojo binary is available via `FOI_O_NZ_MOJO_KERNEL`
 or `build/foi-o-nz-mojo`, the facade attempts to call it; otherwise it reports
 `python-fallback` and keeps the same deterministic semantics.
+
+
+## v0.8 static Mojo audit and kernel manifest
+
+v0.8 pushes the repository closer to a Mojo-first architecture while retaining Python as the executable fallback in environments without Modular tooling. The new static audit and manifest commands answer three questions without needing the Mojo compiler locally:
+
+1. Which deterministic operations are part of the native-kernel contract?
+2. Does the Mojo source tree declare matching functions for every Python fallback operation?
+3. What remains blocked before a native Mojo release can be certified?
+
+Useful commands:
+
+```bash
+uv run foi-o-nz mojo-audit --output data/processed/mojo-audit.json
+uv run foi-o-nz export-kernel-manifest --output data/processed/kernel-manifest.json
+uv run foi-o-nz export-kernel-fixtures --output mojo/tests/fixtures/kernel-conformance.jsonl
+uv run foi-o-nz kernel-readiness --output data/processed/kernel-readiness.json
+uv run foi-o-nz kernel-eval confidence_band 0.74
+uv run foi-o-nz kernel-eval stable_text_bucket foi-o-nz 16
+```
+
+The static audit is intentionally not a substitute for native compilation. A native release still requires:
+
+```bash
+pixi run mojo-format-check
+pixi run mojo-test
+pixi run mojo-build
+PYTHONPATH=src python -m pytest -q
+```
+
+In this repository, Python fallback semantics are the compatibility contract; Mojo kernels are expected to match them.
