@@ -1,0 +1,21 @@
+{
+  "embedding": [
+    0.0,
+    0.3779644730092272,
+    0.0,
+    -0.3779644730092272,
+    0.0,
+    0.0,
+    0.7559289460184544,
+    0.3779644730092272
+  ],
+  "embedding_model": "foi-o-nz-feature-hash-v0.3.8",
+  "kind": "request",
+  "metadata": {
+    "event_type": null,
+    "normalised_state": "Received",
+    "request_id": "12345"
+  },
+  "source_id": "12345",
+  "text": "Example OIA request\nExample Ministry\nwaiting_response\nReceived"
+}

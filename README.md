@@ -46,7 +46,7 @@ This repository is intentionally **bleeding edge, but bounded**:
 ### Python control plane
 
 ```bash
-uv sync --extra dev --extra analytics --frozen
+uv sync --extra dev --extra analytics --extra mcp --extra rdf --frozen
 uv run foi-o-nz doctor
 uv run foi-o-nz smoke-fixture --output-dir data/smoke
 uv run foi-o-nz validate examples/core-event.extension-notified.json --schema schemas/json/core-event.schema.json
@@ -63,7 +63,7 @@ pixi run mojo-test
 pixi run mojo-build
 ```
 
-The Mojo layer is deliberately small in v0.1: deterministic state mapping and certification-boundary checks. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
+The Mojo layer is deliberately small in v0.3: deterministic state mapping and certification-boundary checks. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
 
 ### Normalise FYI manifest records
 
@@ -79,6 +79,8 @@ uv run foi-o-nz validate-jsonl data/processed/requests.jsonl --schema schemas/js
 uv run foi-o-nz validate-jsonl data/processed/events.jsonl --schema schemas/json/core-event.schema.json
 uv run foi-o-nz event-summary data/processed/events.jsonl --output data/processed/event-summary.json
 uv run foi-o-nz quality-gate data/processed/events.jsonl --output data/processed/quality-report.json
+uv run foi-o-nz transition-audit data/processed/events.jsonl --output data/processed/transition-report.json
+uv run foi-o-nz embed-jsonl --input data/processed/requests.jsonl --output data/processed/request-embeddings.jsonl --kind request
 uv run foi-o-nz export-rdf \
   --requests-jsonl data/processed/requests.jsonl \
   --events-jsonl data/processed/events.jsonl \
@@ -86,6 +88,24 @@ uv run foi-o-nz export-rdf \
 ```
 
 The normaliser accepts JSONL or JSON arrays containing FYI archive-style records with fields such as `request_id`, `url_title`, `title`, `authority`, `state`, `first_sent`, `last_updated`, `content_sha256`, `html_captured`, `attachments`, and `warc_record_ids`. It also looks for message-like fields (`messages`, `correspondence`, `communications`, `updates`) and emits conservative `MessageObserved` plus candidate process events such as `ExtensionNotified`, `TransferNotified`, `ClarificationRequested`, `ComplaintObserved`, and decision/release/refusal candidates that require human review.
+
+### Batch/vector/RDF utilities
+
+```bash
+uv run foi-o-nz normalise-batch data/raw --requests-output data/processed/requests.jsonl --events-output data/processed/events.jsonl
+uv run foi-o-nz export-jsonld-context --output contexts/foi-o-nz.context.jsonld
+uv run foi-o-nz validate-shacl data/processed/foi-o-nz.ttl --shapes shacl/foi-o-nz.shapes.ttl
+uv run foi-o-nz build-lancedb data/processed/request-embeddings.jsonl --database-dir data/vector/lancedb
+uv run foi-o-nz schema-drift
+uv run foi-o-nz evaluate-events --predicted data/processed/events.jsonl --gold data/gold/events.gold.jsonl
+uv run foi-o-nz agent-action-template map_state --output data/processed/action.map-state.json
+uv run foi-o-nz evaluate-agent-action data/processed/action.map-state.json
+uv run foi-o-nz mcp-server
+```
+
+`build-lancedb` and `mcp-server` require optional extras. The default embedding
+provider is a deterministic feature-hashing baseline for reproducible local tests;
+it is not a semantic model.
 
 ## Repository layout
 
@@ -124,8 +144,8 @@ foi-o-nz/
 | Analytics bridge | Implemented | Optional Polars/DuckDB outputs, DuckDB bootstrap SQL, and summaries. |
 | Mojo kernel | Experimental | Native state mapping, machine-working-day checks, and human-certification guard functions. |
 | Ontology/SKOS/SHACL | Seeded | First-pass semantic layer for later review. |
-| MCP server | Planned | To be built after event/profile contracts stabilise. |
-| MAX inference | Planned | To be used for local extraction/embeddings once process contracts are stable. |
+| MCP server | Experimental | Optional FastMCP server exposing state mapping, validation, and quality-gate tools only. |
+| MAX inference | Planned | To be used for local extraction/embeddings once process contracts are stable; v0.3 keeps deterministic embeddings local and dependency-light. |
 
 ## Human/agent boundary
 

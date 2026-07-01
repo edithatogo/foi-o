@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foi-o-nz/schemas/transition-audit.schema.json",
+  "title": "FOI-O NZ Transition Audit Report",
+  "type": "object",
+  "required": ["ok", "request_count", "transition_count", "finding_count", "findings"],
+  "additionalProperties": false,
+  "properties": {
+    "ok": {"type": "boolean"},
+    "request_count": {"type": "integer", "minimum": 0},
+    "transition_count": {"type": "integer", "minimum": 0},
+    "finding_count": {"type": "integer", "minimum": 0},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["severity", "code", "request_id", "from_state", "to_state", "message"],
+        "additionalProperties": true,
+        "properties": {
+          "severity": {"type": "string", "enum": ["info", "warning", "error"]},
+          "code": {"type": "string"},
+          "request_id": {"type": "string"},
+          "from_state": {"type": "string"},
+          "to_state": {"type": "string"},
+          "previous_event_id": {"type": ["string", "null"]},
+          "event_id": {"type": ["string", "null"]},
+          "message": {"type": "string"}
+        }
+      }
+    }
+  }
+}

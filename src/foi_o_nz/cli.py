@@ -10,15 +10,25 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
+from foi_o_nz.agent_policy import build_agent_action, evaluate_agent_action
 from foi_o_nz.analytics import write_event_summary, write_summary
+from foi_o_nz.batch import normalise_manifest_batch
 from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_dates
 from foi_o_nz.duckdb_export import build_duckdb_database, write_duckdb_bootstrap_sql
-from foi_o_nz.io import write_json, write_jsonl
+from foi_o_nz.embeddings import embed_jsonl
+from foi_o_nz.evaluation import evaluate_event_jsonl
+from foi_o_nz.io import read_json_records, write_json, write_jsonl
+from foi_o_nz.validation import load_json
+from foi_o_nz.jsonld_context import write_context
 from foi_o_nz.normalise import build_observed_events, build_request_profile, normalise_manifest_file
 from foi_o_nz.quality import assess_events_jsonl
 from foi_o_nz.rdf_export import export_rdf
+from foi_o_nz.schema_codegen import compare_committed_schemas, export_generated_schemas
+from foi_o_nz.shacl_validation import validate_with_shacl
 from foi_o_nz.reporting import metric_table
 from foi_o_nz.state_machine import RequestState, can_transition, map_alaveteli_state
+from foi_o_nz.transitions import audit_transitions_jsonl
+from foi_o_nz.vector_index import build_lancedb_table
 from foi_o_nz.validation import validate_json_schema, validate_jsonl_schema, validate_rdf, validate_schema_file, validate_yaml
 from foi_o_nz.version import __version__
 
@@ -44,11 +54,14 @@ def doctor() -> None:
 
     checks = {
         "python-package": True,
+        "orjson": importlib.util.find_spec("orjson") is not None,
+        "msgspec": importlib.util.find_spec("msgspec") is not None,
         "polars": importlib.util.find_spec("polars") is not None,
         "duckdb": importlib.util.find_spec("duckdb") is not None,
         "lancedb": importlib.util.find_spec("lancedb") is not None,
         "rdflib": importlib.util.find_spec("rdflib") is not None,
         "pyshacl": importlib.util.find_spec("pyshacl") is not None,
+        "fastmcp": importlib.util.find_spec("fastmcp") is not None,
         "mojo-cli": shutil.which("mojo") is not None,
         "max-cli": shutil.which("max") is not None,
         "pixi-cli": shutil.which("pixi") is not None,
@@ -258,7 +271,7 @@ def build_duckdb(
             events_parquet=events_parquet,
         )
     except RuntimeError as exc:
-        console.print(f"[red]{exc}[/red]")
+        console.print(str(exc), style="red", markup=False)
         raise typer.Exit(code=1) from exc
     console.print_json(json.dumps(result))
 
@@ -270,6 +283,173 @@ def write_duckdb_sql(
     """Write a portable DuckDB SQL bootstrap file."""
     write_duckdb_bootstrap_sql(output)
     console.print(f"[green]wrote[/green] {output}")
+
+
+@app.command("evaluate-events")
+def evaluate_events(
+    predicted: Annotated[Path, typer.Option("--predicted", help="Predicted core events JSONL")],
+    gold: Annotated[Path, typer.Option("--gold", help="Gold/reference core events JSONL")],
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON report")] = None,
+    mode: Annotated[str, typer.Option(help="event_type, event_type_state, or strict")] = "event_type_state",
+) -> None:
+    """Evaluate candidate event extraction against a gold event set."""
+    result = evaluate_event_jsonl(predicted, gold, mode=mode, output=output)  # type: ignore[arg-type]
+    console.print_json(json.dumps(result))
+
+
+@app.command("agent-action-template")
+def agent_action_template(
+    action_type: Annotated[str, typer.Argument(help="Supported agent action type")],
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON output")] = None,
+    agent_name: Annotated[str, typer.Option(help="Agent name recorded in the template")] = "foi-o-nz-agent",
+) -> None:
+    """Create a policy-conformant agent-action record template."""
+    try:
+        action = build_agent_action(action_type, agent_name=agent_name)  # type: ignore[arg-type]
+    except ValueError as exc:
+        console.print(str(exc), style="red", markup=False)
+        raise typer.Exit(code=1) from exc
+    data = action.model_dump(mode="json", exclude_none=True)
+    if output is not None:
+        write_json(output, data)
+    console.print_json(json.dumps(data))
+
+
+@app.command("evaluate-agent-action")
+def evaluate_agent_action_command(
+    action_json: Annotated[Path, typer.Argument(help="Agent action JSON file")],
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON report")] = None,
+) -> None:
+    """Evaluate one agent-action record against current guardrail policy."""
+    result = evaluate_agent_action(load_json(action_json))
+    if output is not None:
+        write_json(output, result)
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+@app.command("normalise-batch")
+def normalise_batch(
+    inputs: Annotated[list[Path], typer.Argument(help="Input files, directories, or globs")],
+    requests_output: Annotated[
+        Path,
+        typer.Option("--requests-output", help="Output request profiles JSONL"),
+    ],
+    events_output: Annotated[Path, typer.Option("--events-output", help="Output events JSONL")],
+    parquet_dir: Annotated[Path | None, typer.Option(help="Optional Parquet output directory")] = None,
+    run_manifest_output: Annotated[
+        Path | None,
+        typer.Option(help="Optional provenance run-manifest JSON output"),
+    ] = None,
+) -> None:
+    """Normalise multiple FYI archive-style manifests into combined outputs."""
+    result = normalise_manifest_batch(
+        inputs,
+        requests_output=requests_output,
+        events_output=events_output,
+        parquet_dir=parquet_dir,
+        run_manifest_output=run_manifest_output,
+    )
+    console.print_json(json.dumps(result))
+
+
+@app.command("transition-audit")
+def transition_audit(
+    events_jsonl: Annotated[Path, typer.Argument(help="Core events JSONL")],
+    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON report")] = None,
+) -> None:
+    """Audit lifecycle transitions in an event stream."""
+    result = audit_transitions_jsonl(events_jsonl)
+    if output is not None:
+        write_json(output, result)
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=2)
+
+
+@app.command("embed-jsonl")
+def embed_jsonl_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Request/event JSONL input")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Embedding JSONL output")],
+    kind: Annotated[str, typer.Option(help="Input kind: request or event")] = "request",
+    dimensions: Annotated[int, typer.Option(help="Feature-hashing vector dimensions")] = 128,
+) -> None:
+    """Create deterministic local embedding records for vector indexing."""
+    count = embed_jsonl(input, output, kind=kind, dimensions=dimensions)
+    console.print_json(json.dumps({"output": str(output), "record_count": count, "dimensions": dimensions}))
+
+
+@app.command("build-lancedb")
+def build_lancedb(
+    embeddings_jsonl: Annotated[Path, typer.Argument(help="Embedding JSONL input")],
+    database_dir: Annotated[Path, typer.Option("--database-dir", "-d", help="LanceDB directory")],
+    table_name: Annotated[str, typer.Option(help="LanceDB table name")] = "foi_o_nz_embeddings",
+) -> None:
+    """Build an optional LanceDB vector table from embedding JSONL."""
+    try:
+        result = build_lancedb_table(
+            embeddings_jsonl,
+            database_dir=database_dir,
+            table_name=table_name,
+        )
+    except RuntimeError as exc:
+        console.print(str(exc), style="red", markup=False)
+        raise typer.Exit(code=1) from exc
+    console.print_json(json.dumps(result))
+
+
+@app.command("export-jsonld-context")
+def export_jsonld_context(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Output JSON-LD context")],
+) -> None:
+    """Write the FOI-O NZ JSON-LD context."""
+    result = write_context(output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("validate-shacl")
+def validate_shacl(
+    data_graph: Annotated[Path, typer.Argument(help="Data graph RDF file")],
+    shapes_graph: Annotated[Path, typer.Option("--shapes", help="SHACL shapes graph")],
+) -> None:
+    """Validate RDF with SHACL when pySHACL is installed, else parse-only."""
+    result = validate_with_shacl(data_graph, shapes_graph)
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+@app.command("export-schemas")
+def export_schemas(
+    output_dir: Annotated[Path, typer.Option("--output-dir", "-o", help="Output directory")],
+) -> None:
+    """Export Pydantic-generated JSON Schemas for review/drift checks."""
+    result = export_generated_schemas(output_dir)
+    console.print_json(json.dumps(result))
+
+
+@app.command("schema-drift")
+def schema_drift(
+    schema_dir: Annotated[Path, typer.Option("--schema-dir", help="Committed schema dir")] = Path("schemas/json"),
+) -> None:
+    """Run a shallow generated-vs-committed JSON Schema drift check."""
+    result = compare_committed_schemas(schema_dir)
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+@app.command("mcp-server")
+def mcp_server() -> None:
+    """Run the optional bounded FOI-O NZ MCP server."""
+    try:
+        from foi_o_nz.mcp_server import run_server
+
+        run_server()
+    except RuntimeError as exc:
+        console.print(str(exc), style="red", markup=False)
+        raise typer.Exit(code=1) from exc
 
 
 @app.command("reporting-metrics")
@@ -340,6 +520,11 @@ def validate_repo() -> None:
     for yaml_path in Path("mappings").glob("*.yaml"):
         result = validate_yaml(yaml_path)
         errors.extend(result.errors)
+    for context_path in Path("contexts").glob("*.jsonld"):
+        try:
+            read_json_records(context_path)
+        except Exception as exc:  # noqa: BLE001 - repository validation aggregation
+            errors.append(f"{context_path}: invalid JSON-LD context: {exc}")
     example_schema_pairs: list[tuple[Path, Path]] = []
     example_schema_pairs.extend(
         (path, Path("schemas/json/core-event.schema.json"))
@@ -356,6 +541,14 @@ def validate_repo() -> None:
     example_schema_pairs.extend(
         (path, Path("schemas/json/run-manifest.schema.json"))
         for path in sorted(Path("examples").glob("run-manifest*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/embedding-record.schema.json"))
+        for path in sorted(Path("examples").glob("embedding-record*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/transition-audit.schema.json"))
+        for path in sorted(Path("examples").glob("transition-audit*.json"))
     )
     for instance, schema in example_schema_pairs:
         if instance.exists():

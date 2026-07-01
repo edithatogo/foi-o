@@ -1,5 +1,5 @@
 .PHONY: help install sync lock lint format format-fix typecheck test test-cov \
-        quality validate smoke normalise quality-gate rdf duckdb-sql mojo-format mojo-test mojo-build \
+        quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql mojo-format mojo-test mojo-build \
         spell toml-check workflow-audit workflow-syntax security-audit sbom clean
 
 PKG := foi_o_nz
@@ -9,10 +9,10 @@ help: ## Show this help
 	@grep -hE '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN{FS=":.*?## "}{printf "  \033[36m%-22s\033[0m %s\n", $$1, $$2}'
 
 install: ## Install dev environment with uv
-	uv sync --extra dev --extra analytics --extra max
+	uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf
 
 sync: ## Sync env from lockfile if present
-	uv sync --extra dev --extra analytics --extra max --frozen
+	uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf --frozen
 
 lock: ## Regenerate uv lockfile
 	uv lock
@@ -51,9 +51,21 @@ normalise: ## Normalise smoke manifest records
 quality-gate: ## Run event-stream safety/certification quality gate
 	uv run foi-o-nz event-summary data/smoke/events.jsonl --output data/smoke/event-summary.json
 	uv run foi-o-nz quality-gate data/smoke/events.jsonl --output data/smoke/quality-report.json
+	uv run foi-o-nz transition-audit data/smoke/events.jsonl --output data/smoke/transition-report.json
 
-rdf: ## Export smoke request/events to RDF/Turtle
+rdf: ## Export smoke request/events to RDF/Turtle and validate shapes
 	uv run foi-o-nz export-rdf --requests-jsonl data/smoke/requests.jsonl --events-jsonl data/smoke/events.jsonl --output data/smoke/foi-o-nz.ttl
+	uv run foi-o-nz validate-shacl data/smoke/foi-o-nz.ttl --shapes shacl/foi-o-nz.shapes.ttl
+
+embeddings: ## Create smoke deterministic embedding JSONL
+	uv run foi-o-nz embed-jsonl --input data/smoke/requests.jsonl --output data/smoke/request-embeddings.jsonl --kind request --dimensions 32
+
+agent-policy: ## Generate and evaluate one bounded agent-action template
+	uv run foi-o-nz agent-action-template map_state --output data/smoke/action.map-state.json
+	uv run foi-o-nz evaluate-agent-action data/smoke/action.map-state.json
+
+schema-drift: ## Compare generated Pydantic schema keys against committed schemas
+	uv run foi-o-nz schema-drift
 
 duckdb-sql: ## Write portable DuckDB bootstrap SQL
 	uv run foi-o-nz write-duckdb-sql --output data/smoke/duckdb-bootstrap.sql
@@ -67,7 +79,7 @@ mojo-test: ## Run native Mojo tests
 mojo-build: ## Build native Mojo smoke binary
 	pixi run mojo-build
 
-quality: lint format typecheck test validate ## Full Python quality gate
+quality: lint format typecheck test validate schema-drift ## Full Python quality gate
 
 spell: ## typos spelling check
 	uv run typos src tests scripts docs README.md || true

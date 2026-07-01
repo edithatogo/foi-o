@@ -7,9 +7,13 @@ Generated for the July 2026 scaffold handoff.
 - Standalone repository scaffold for `edithatogo/foi-o-nz`.
 - Python package `foi_o_nz` with CLI, Pydantic models, JSON Schema validation,
   FYI manifest normalisation, state mapping, analytics summaries, quality gates,
-  RDF export, optional DuckDB materialisation, and run-manifest provenance.
-- Experimental Mojo package with deterministic state/certification kernels and
-  machine working-day helpers.
+  RDF export, optional DuckDB materialisation, run-manifest provenance,
+  transition audit, deterministic embeddings, optional LanceDB materialisation,
+  JSON-LD context export, SHACL validation wrapper, generated-schema drift checks,
+  and bounded agent-action policy records.
+- Experimental Mojo package with deterministic state/certification kernels,
+  mapping confidence, terminal-state checks, and machine working-day helpers.
+- Optional FastMCP server exposing only bounded validation/state/quality tools.
 - Ontology, SKOS, SHACL, JSON Schema, mappings, prompts, ADRs, docs, examples,
   tests, Makefile, Pixi config, and GitHub Actions CI.
 
@@ -27,19 +31,40 @@ Generated for the July 2026 scaffold handoff.
 - Added portable DuckDB SQL template and optional DuckDB builder.
 - Added `.gitignore` and removed generated caches from the release bundle.
 
+## New v0.3 implementation pass
+
+- Added fast JSON encode/decode helpers using `orjson` with stdlib fallback.
+- Added batch normalisation for multiple manifest files/directories/globs.
+- Added deterministic feature-hashing embeddings and embedding-record schema.
+- Added optional LanceDB table builder for vector/RAG experiments.
+- Added transition-audit reporting and schema.
+- Added JSON-LD context under `contexts/` and CLI export command.
+- Added SHACL validation wrapper with pySHACL support and parse-only fallback.
+- Added generated Pydantic schema export and shallow schema-drift checks.
+- Added bounded FastMCP server module.
+- Added rules-as-code agent-action policy templates and evaluator.
+- Added extra tests covering batch, context, embeddings, transition audit, SHACL,
+  schema generation, event-extraction evaluation, and agent policy.
+- Expanded Mojo kernels/tests for mapping confidence and terminal states.
+
 ## Locally verified in this environment
 
 ```text
 python -m compileall -q src tests scripts
 PYTHONPATH=src python -m pytest -q
-25 passed
+42 passed
 
-PYTHONPATH=src python -m foi_o_nz.cli smoke-fixture -o /tmp/foio-smoke
-PYTHONPATH=src python -m foi_o_nz.cli normalise-manifest ...
+PYTHONPATH=src python -m foi_o_nz.cli smoke-fixture --output-dir /tmp/foionz-v03-ci
+PYTHONPATH=src python -m foi_o_nz.cli normalise-manifest --input ...
 PYTHONPATH=src python -m foi_o_nz.cli validate-jsonl ...
 PYTHONPATH=src python -m foi_o_nz.cli quality-gate ...
+PYTHONPATH=src python -m foi_o_nz.cli transition-audit ...
+PYTHONPATH=src python -m foi_o_nz.cli embed-jsonl ...
 PYTHONPATH=src python -m foi_o_nz.cli export-rdf ...
-PYTHONPATH=src python -m foi_o_nz.cli clock 2026-12-23
+PYTHONPATH=src python -m foi_o_nz.cli validate-shacl ...
+PYTHONPATH=src python -m foi_o_nz.cli agent-action-template ...
+PYTHONPATH=src python -m foi_o_nz.cli evaluate-agent-action ...
+PYTHONPATH=src python -m foi_o_nz.cli schema-drift
 PYTHONPATH=src python -m foi_o_nz.cli validate-repo
 ```
 
@@ -47,11 +72,13 @@ PYTHONPATH=src python -m foi_o_nz.cli validate-repo
 
 The sandbox does not include the Modular Mojo/MAX toolchain, so Mojo formatting,
 Mojo native tests, and Mojo binary build remain CI/operator checks after Pixi
-installs the Modular packages.
+installs the Modular packages. Optional Polars, DuckDB, LanceDB, pySHACL, and
+FastMCP paths are implemented with explicit dependency errors or degraded mode;
+only dependency-light paths were executed in this sandbox.
 
 ## Design boundary
 
-The implementation keeps the GoogleAI/Mojo notes as a strategic direction, not a
-source of truth. Mojo/MAX is used for deterministic kernels and future hot paths;
-Polars/DuckDB/LanceDB remain the pragmatic data layer for ingestion and analysis
-until Mojo-native dataframe/Arrow tooling is demonstrably production-ready.
+The pasted Mojo notes are treated as a strategic direction, not a source of truth.
+Mojo/MAX is used for deterministic kernels and future hot paths; Polars/DuckDB/
+LanceDB remain the pragmatic data layer for ingestion and analysis until
+Mojo-native dataframe/Arrow tooling is demonstrably production-ready.

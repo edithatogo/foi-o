@@ -23,7 +23,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Sync dependencies
-        run: uv sync --extra dev --extra analytics --extra max
+        run: uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: Ruff lint
         run: uv run ruff check src tests scripts
       - name: Ruff format check
@@ -32,6 +32,16 @@ jobs:
         run: uv run pytest -q
       - name: Validate repository artefacts
         run: uv run foi-o-nz validate-repo
+      - name: Schema drift smoke check
+        run: uv run foi-o-nz schema-drift
+      - name: End-to-end smoke pipeline
+        run: |
+          uv run foi-o-nz smoke-fixture --output-dir data/smoke
+          uv run foi-o-nz normalise-manifest --input data/smoke/fyi-manifest.jsonl --requests-output data/smoke/requests.jsonl --events-output data/smoke/events.jsonl --run-manifest-output data/smoke/run-manifest.json
+          uv run foi-o-nz transition-audit data/smoke/events.jsonl --output data/smoke/transition-report.json
+          uv run foi-o-nz embed-jsonl --input data/smoke/requests.jsonl --output data/smoke/request-embeddings.jsonl --kind request --dimensions 32
+          uv run foi-o-nz export-rdf --requests-jsonl data/smoke/requests.jsonl --events-jsonl data/smoke/events.jsonl --output data/smoke/foi-o-nz.ttl
+          uv run foi-o-nz validate-shacl data/smoke/foi-o-nz.ttl --shapes shacl/foi-o-nz.shapes.ttl
 
   mojo:
     name: Mojo/MAX experimental core
@@ -62,7 +72,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Sync dependencies
-        run: uv sync --extra dev --extra analytics --extra max
+        run: uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: pip-audit
         run: uv run pip-audit || true
       - name: Generate SBOM

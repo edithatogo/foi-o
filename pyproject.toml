@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "foi-o-nz"
-version = "0.1.0"
+version = "0.3.0"
 description = "Agent-facing NZ OIA process model, ontology, schemas, validation, and analytics workbench."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -44,6 +44,7 @@ dependencies = [
   "rich>=13.9.0",
   "loguru>=0.7.2",
   "orjson>=3.10.0",
+  "msgspec>=0.18.0",
 ]
 
 [project.optional-dependencies]
@@ -52,9 +53,16 @@ analytics = [
   "pyarrow>=18.0.0",
   "duckdb>=1.1.0",
   "lancedb>=0.17.0",
+  "narwhals>=1.0.0",
 ]
 max = [
   "openai>=1.90.0",
+]
+mcp = [
+  "fastmcp>=2.0.0",
+]
+rdf = [
+  "pyshacl>=0.26.0",
 ]
 dev = [
   "pytest>=8.4.0",
@@ -64,6 +72,7 @@ dev = [
   "ty>=0.0.46",
   "pre-commit>=4.0.0",
   "typos>=1.28.0",
+  "zizmor>=1.5.0",
   "taplo>=0.9.3",
   "pip-audit>=2.9.0",
   "cyclonedx-bom>=5.1.0",

@@ -172,6 +172,8 @@ ALLOWED_TRANSITIONS: dict[RequestState, frozenset[RequestState]] = {
             RequestState.TRANSFERRED_IN_FULL,
             RequestState.SEARCH_PLANNING,
             RequestState.AWAITING_CLARIFICATION,
+            RequestState.EXTENSION_APPLIED,
+            RequestState.CHARGE_ASSESSMENT,
             RequestState.WITHDRAWN,
         }
     ),
@@ -182,6 +184,25 @@ ALLOWED_TRANSITIONS: dict[RequestState, frozenset[RequestState]] = {
             RequestState.NO_DOCUMENTS_FOUND,
             RequestState.EXTENSION_APPLIED,
             RequestState.CONSULTATION_REQUIRED,
+            RequestState.CHARGE_ASSESSMENT,
+        }
+    ),
+    RequestState.EXTENSION_APPLIED: frozenset(
+        {
+            RequestState.SEARCH_PLANNING,
+            RequestState.SEARCHING,
+            RequestState.DOCUMENTS_IDENTIFIED,
+            RequestState.CONSULTATION_REQUIRED,
+            RequestState.DECISION_DRAFTING,
+            RequestState.HUMAN_DECISION_REQUIRED,
+        }
+    ),
+    RequestState.CHARGE_ASSESSMENT: frozenset(
+        {
+            RequestState.SEARCH_PLANNING,
+            RequestState.SEARCHING,
+            RequestState.DECISION_DRAFTING,
+            RequestState.WITHDRAWN,
         }
     ),
     RequestState.DOCUMENTS_IDENTIFIED: frozenset(
