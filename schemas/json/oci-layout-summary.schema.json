@@ -1,0 +1,37 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/oci-layout-summary.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "manifest_digest": {
+      "maxLength": 64,
+      "minLength": 64,
+      "type": "string"
+    },
+    "ok": {
+      "type": "boolean"
+    },
+    "output_dir": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "ok",
+    "output_dir",
+    "artifact_count",
+    "manifest_digest",
+    "limitations"
+  ],
+  "title": "FOI-O NZ OCI Layout Summary",
+  "type": "object"
+}

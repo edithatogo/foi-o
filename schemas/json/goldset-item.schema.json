@@ -1,0 +1,43 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/goldset-item.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "annotation_status": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "object"
+    },
+    "record_id": {
+      "type": "string"
+    },
+    "record_kind": {
+      "type": "string"
+    },
+    "sampling_seed": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.goldset-item.v0.1.0"
+    },
+    "source_record": {
+      "type": "object"
+    },
+    "stratum": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_id",
+    "record_kind",
+    "stratum",
+    "sampling_seed",
+    "source_record",
+    "annotation_status",
+    "labels"
+  ],
+  "title": "FOI-O NZ Goldset Item",
+  "type": "object"
+}

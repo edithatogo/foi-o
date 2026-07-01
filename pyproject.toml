@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "foi-o-nz"
-version = "0.5.0"
+version = "0.6.0"
 description = "Agent-facing NZ OIA process model, ontology, schemas, validation, and analytics workbench."
 readme = "README.md"
 requires-python = ">=3.12"
@@ -63,6 +63,13 @@ mcp = [
 ]
 rdf = [
   "pyshacl>=0.26.0",
+]
+experiments = [
+  "instructor>=1.8.0",
+  "outlines>=0.2.0",
+  "dspy>=2.6.0",
+  "litellm>=1.70.0",
+  "opentelemetry-api>=1.25.0",
 ]
 dev = [
   "pytest>=8.4.0",

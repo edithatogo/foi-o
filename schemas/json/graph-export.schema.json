@@ -1,0 +1,81 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/graph-export.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "edge_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "edges": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object"
+          },
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "target",
+          "label",
+          "properties"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "node_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "nodes": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "kind",
+          "properties"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.graph.v0.1.0"
+    }
+  },
+  "required": [
+    "schema_version",
+    "node_count",
+    "edge_count",
+    "nodes",
+    "edges"
+  ],
+  "title": "FOI-O NZ Graph Export",
+  "type": "object"
+}

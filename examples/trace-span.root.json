@@ -1,0 +1,14 @@
+{
+  "attributes": {
+    "agent_boundary": "process-support-only",
+    "artifact_count": 1
+  },
+  "ended_at": "2026-07-01T15:49:02.741884Z",
+  "links": [],
+  "name": "foi-o-nz-example",
+  "schema_version": "foi-o-nz.trace-span.v0.1.0",
+  "span_id": "3fd0c6eb6c337f36",
+  "started_at": "2026-07-01T15:49:02.741884Z",
+  "status": "ok",
+  "trace_id": "a06db148b1c544dca39165adce0f7ffa"
+}

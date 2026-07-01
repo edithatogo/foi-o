@@ -1,0 +1,31 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/attestation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "_type": {
+      "const": "https://in-toto.io/Statement/v1"
+    },
+    "predicate": {
+      "type": "object"
+    },
+    "predicateType": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "array"
+    },
+    "x_foio_nz": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "_type",
+    "subject",
+    "predicateType",
+    "predicate",
+    "x_foio_nz"
+  ],
+  "title": "Unsigned in-toto Statement",
+  "type": "object"
+}

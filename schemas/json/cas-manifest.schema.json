@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "CasEntry": {
+      "additionalProperties": false,
+      "description": "One content-addressed file or record entry.",
+      "properties": {
+        "byte_size": {
+          "minimum": 0,
+          "title": "Byte Size",
+          "type": "integer"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "title": "Metadata",
+          "type": "object"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Path"
+        },
+        "record_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Record Count"
+        },
+        "record_type": {
+          "default": "file",
+          "enum": [
+            "file",
+            "json_record"
+          ],
+          "title": "Record Type",
+          "type": "string"
+        },
+        "sha256": {
+          "maxLength": 64,
+          "minLength": 64,
+          "title": "Sha256",
+          "type": "string"
+        },
+        "source_path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Path"
+        },
+        "uri": {
+          "title": "Uri",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uri",
+        "sha256",
+        "media_type",
+        "byte_size"
+      ],
+      "title": "CasEntry",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Content-addressed manifest for a set of artifacts.",
+  "properties": {
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/CasEntry"
+      },
+      "title": "Entries",
+      "type": "array"
+    },
+    "entry_count": {
+      "minimum": 0,
+      "title": "Entry Count",
+      "type": "integer"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "root_digest": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Root Digest",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.cas-manifest.v0.1.0",
+      "default": "foi-o-nz.cas-manifest.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "total_bytes": {
+      "minimum": 0,
+      "title": "Total Bytes",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "generated_at",
+    "root_digest",
+    "entry_count",
+    "total_bytes",
+    "entries"
+  ],
+  "title": "CasManifest",
+  "type": "object"
+}

@@ -1,0 +1,20 @@
+{
+  "agent_boundary": {
+    "machine_must_not": [
+      "certify_release"
+    ]
+  },
+  "annotation_id": "foio-nz:annotation:abc123",
+  "annotation_status": "unlabelled",
+  "instructions": [
+    "Do not record final release/refusal/redaction decisions in this annotation artefact."
+  ],
+  "labels": [],
+  "priority": "high",
+  "request_id": "12345",
+  "schema_version": "foi-o-nz.annotation-task.v0.1.0",
+  "source_id": "c1",
+  "task_id": "foio-nz:review-task:abc123",
+  "task_type": "risk_review",
+  "text": "Risk review for c1"
+}

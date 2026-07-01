@@ -1,0 +1,84 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/review-task.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agent_boundary": {
+      "type": "object"
+    },
+    "candidate_payload": {
+      "type": "object"
+    },
+    "created_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "decision_status": {
+      "enum": [
+        "pending_human_review",
+        "human_reviewed"
+      ]
+    },
+    "priority": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ]
+    },
+    "rationale": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "required_reviewer_role": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.review-task.v0.1.0"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "source_record_type": {
+      "type": "string"
+    },
+    "task_id": {
+      "type": "string"
+    },
+    "task_type": {
+      "enum": [
+        "risk_review",
+        "redaction_candidate_review",
+        "certification_boundary_review",
+        "quality_finding_review",
+        "transition_review"
+      ]
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "task_id",
+    "task_type",
+    "priority",
+    "source_record_type",
+    "source_id",
+    "title",
+    "rationale",
+    "candidate_payload",
+    "required_reviewer_role",
+    "created_at",
+    "agent_boundary",
+    "decision_status"
+  ],
+  "title": "FOI-O NZ Review Task",
+  "type": "object"
+}

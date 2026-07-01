@@ -12,11 +12,19 @@ from rich.table import Table
 
 from foi_o_nz.agent_pack import write_agent_context_pack
 from foi_o_nz.agent_policy import build_agent_action, evaluate_agent_action
+from foi_o_nz.annotation import write_annotation_tasks
+from foi_o_nz.attestation import write_attestation
+from foi_o_nz.goldset import write_goldset_sample
+from foi_o_nz.graph_export import write_graph_export
+from foi_o_nz.process_advice import write_process_advice
+from foi_o_nz.review_queue import write_review_queue
 from foi_o_nz.analytics import write_event_summary, write_summary
 from foi_o_nz.batch import normalise_manifest_batch
 from foi_o_nz.benchmarks import write_local_benchmarks
 from foi_o_nz.chunks import chunk_jsonl
+from foi_o_nz.cas import materialise_jsonl_cas, write_cas_manifest
 from foi_o_nz.diff import diff_jsonl
+from foi_o_nz.goldset import write_goldset_tasks
 from foi_o_nz.dataset_metadata import (
     write_croissant_metadata,
     write_dataset_metadata,
@@ -24,9 +32,12 @@ from foi_o_nz.dataset_metadata import (
     write_huggingface_dataset_card,
 )
 from foi_o_nz.ledger import build_ledger_jsonl, verify_ledger_jsonl
+from foi_o_nz.lineage import write_lineage_graph
 from foi_o_nz.redaction import propose_redactions_jsonl
 from foi_o_nz.reproducibility import write_reproducibility_manifest
+from foi_o_nz.replay import write_guardrail_replay
 from foi_o_nz.retrieval import search_chunks_jsonl
+from foi_o_nz.traces import write_trace_spans
 from foi_o_nz.openapi import write_openapi_contract
 from foi_o_nz.risk import risk_scan_jsonl
 from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_dates
@@ -45,6 +56,9 @@ from foi_o_nz.reporting import metric_table
 from foi_o_nz.state_machine import RequestState, can_transition, map_alaveteli_state
 from foi_o_nz.transitions import audit_transitions_jsonl
 from foi_o_nz.tool_manifest import write_tool_manifest
+from foi_o_nz.table_contracts import write_table_contracts
+from foi_o_nz.oci_layout import materialise_oci_layout
+from foi_o_nz.mcp_bundle import write_mcp_bundle
 from foi_o_nz.vector_index import build_lancedb_table
 from foi_o_nz.validation import validate_json_schema, validate_jsonl_schema, validate_rdf, validate_schema_file, validate_yaml
 from foi_o_nz.version import __version__
@@ -605,6 +619,122 @@ def repro_manifest_command(
     console.print_json(json.dumps(result))
 
 
+
+@app.command("build-review-queue")
+def build_review_queue_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Review-task JSONL output")],
+    risks_jsonl: Annotated[Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")] = None,
+    redaction_candidates_jsonl: Annotated[
+        Path | None,
+        typer.Option("--redaction-candidates-jsonl", help="Redaction-candidate JSONL"),
+    ] = None,
+    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Core events JSONL")] = None,
+) -> None:
+    """Build human-review tasks from candidate signals and certification boundaries."""
+    result = write_review_queue(
+        output,
+        risks_jsonl=risks_jsonl,
+        redaction_candidates_jsonl=redaction_candidates_jsonl,
+        events_jsonl=events_jsonl,
+    )
+    console.print_json(json.dumps(result))
+
+
+@app.command("process-advice")
+def process_advice_command(
+    request_id: Annotated[str, typer.Option("--request-id", help="Request ID to advise on")],
+    requests_jsonl: Annotated[Path, typer.Option("--requests-jsonl", help="Request profile JSONL")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Process advice JSON output")],
+    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Core events JSONL")] = None,
+    review_queue_jsonl: Annotated[Path | None, typer.Option("--review-queue-jsonl", help="Review task JSONL")] = None,
+) -> None:
+    """Generate non-dispositive process advice for one request."""
+    result = write_process_advice(
+        output,
+        request_id=request_id,
+        requests_jsonl=requests_jsonl,
+        events_jsonl=events_jsonl,
+        review_queue_jsonl=review_queue_jsonl,
+    )
+    console.print_json(json.dumps(result))
+
+
+@app.command("export-graph")
+def export_graph_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Graph output file")],
+    requests_jsonl: Annotated[Path | None, typer.Option("--requests-jsonl", help="Request profile JSONL")] = None,
+    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Core events JSONL")] = None,
+    chunks_jsonl: Annotated[Path | None, typer.Option("--chunks-jsonl", help="Chunk JSONL")] = None,
+    risks_jsonl: Annotated[Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")] = None,
+    fmt: Annotated[str, typer.Option("--format", help="json or mermaid")] = "json",
+) -> None:
+    """Export request/event/chunk/risk relationships as JSON or Mermaid."""
+    if fmt not in {"json", "mermaid"}:
+        console.print("format must be 'json' or 'mermaid'", style="red")
+        raise typer.Exit(code=2)
+    result = write_graph_export(
+        output,
+        requests_jsonl=requests_jsonl,
+        events_jsonl=events_jsonl,
+        chunks_jsonl=chunks_jsonl,
+        risks_jsonl=risks_jsonl,
+        fmt=fmt,  # type: ignore[arg-type]
+    )
+    console.print_json(json.dumps(result))
+
+
+@app.command("attest-artifacts")
+def attest_artifacts_command(
+    paths: Annotated[list[Path], typer.Argument(help="Artefact files to attest")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Attestation JSON output")],
+    builder_id: Annotated[str, typer.Option(help="Builder ID for provenance statement")] = "foi-o-nz.local",
+    invocation_id: Annotated[str | None, typer.Option(help="Optional invocation ID")] = None,
+) -> None:
+    """Write an unsigned in-toto/SLSA-style artefact provenance statement."""
+    result = write_attestation(paths, output, builder_id=builder_id, invocation_id=invocation_id)
+    console.print_json(json.dumps(result))
+
+
+@app.command("sample-goldset")
+def sample_goldset_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Input JSONL stream")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Gold-set candidate JSONL output")],
+    manifest_output: Annotated[Path, typer.Option("--manifest-output", help="Sampling manifest JSON output")],
+    kind: Annotated[str, typer.Option(help="request, event, chunk, risk, or review_task")] = "request",
+    limit: Annotated[int, typer.Option(help="Maximum sampled records")] = 100,
+    per_stratum: Annotated[int, typer.Option(help="Maximum records per stratum")] = 10,
+    seed: Annotated[str, typer.Option(help="Deterministic sampling seed")] = "foi-o-nz-goldset-v0.1",
+) -> None:
+    """Create deterministic candidate gold-set records for human labelling/evaluation."""
+    if kind not in {"request", "event", "chunk", "risk", "review_task"}:
+        console.print("kind must be one of request, event, chunk, risk, review_task", style="red")
+        raise typer.Exit(code=2)
+    result = write_goldset_sample(
+        input,
+        output,
+        manifest_output,
+        kind=kind,  # type: ignore[arg-type]
+        limit=limit,
+        seed=seed,
+        per_stratum=per_stratum,
+    )
+    console.print_json(json.dumps(result))
+
+
+@app.command("export-annotation-tasks")
+def export_annotation_tasks_command(
+    review_queue_jsonl: Annotated[Path, typer.Option("--review-queue-jsonl", help="Review-task JSONL")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Annotation output")],
+    fmt: Annotated[str, typer.Option("--format", help="foio or label-studio")] = "foio",
+) -> None:
+    """Export neutral or Label Studio-compatible human annotation tasks."""
+    if fmt not in {"foio", "label-studio"}:
+        console.print("format must be 'foio' or 'label-studio'", style="red")
+        raise typer.Exit(code=2)
+    result = write_annotation_tasks(review_queue_jsonl, output, fmt=fmt)  # type: ignore[arg-type]
+    console.print_json(json.dumps(result))
+
+
 @app.command("dataset-metadata")
 def dataset_metadata_command(
     paths: Annotated[list[Path], typer.Argument(help="Artifact files to describe")],
@@ -655,6 +785,107 @@ def benchmark_local_command(
 ) -> None:
     """Run dependency-light deterministic local microbenchmarks."""
     result = write_local_benchmarks(output, iterations=iterations)
+    console.print_json(json.dumps(result))
+
+
+@app.command("cas-manifest")
+def cas_manifest_command(
+    paths: Annotated[list[Path], typer.Argument(help="Artifact files to content-address")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="CAS manifest JSON output")],
+    base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative paths")] = None,
+) -> None:
+    """Write a content-addressed manifest over selected artifacts."""
+    result = write_cas_manifest(paths, output, base_dir=base_dir)
+    console.print_json(json.dumps(result))
+
+
+@app.command("materialise-cas")
+def materialise_cas_command(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Source JSONL stream")],
+    output_dir: Annotated[Path, typer.Option("--output-dir", "-d", help="CAS object directory")],
+    index_output: Annotated[Path, typer.Option("--index-output", "-o", help="CAS index JSONL output")],
+) -> None:
+    """Materialise JSONL records as content-addressed JSON objects."""
+    result = materialise_jsonl_cas(input, output_dir, index_output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("lineage-graph")
+def lineage_graph_command(
+    paths: Annotated[list[Path], typer.Argument(help="Artifact files to include")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Lineage graph JSON output")],
+    base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative paths")] = None,
+    dot_output: Annotated[Path | None, typer.Option("--dot-output", help="Optional Graphviz DOT output")] = None,
+) -> None:
+    """Write a convention-derived artifact lineage graph."""
+    result = write_lineage_graph(paths, output, base_dir=base_dir, dot_output=dot_output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("trace-artifacts")
+def trace_artifacts_command(
+    paths: Annotated[list[Path], typer.Argument(help="Artifact files to trace")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Trace span JSONL output")],
+    run_name: Annotated[str, typer.Option(help="Trace root span name")] = "foi-o-nz-local-run",
+) -> None:
+    """Write deterministic trace spans for local artifacts."""
+    result = write_trace_spans(paths, output, run_name=run_name)
+    console.print_json(json.dumps(result))
+
+
+@app.command("build-goldset")
+def build_goldset_command(
+    chunks_jsonl: Annotated[Path, typer.Option("--chunks-jsonl", help="Chunk JSONL input")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Goldset task JSONL output")],
+    risks_jsonl: Annotated[Path | None, typer.Option("--risks-jsonl", help="Optional risk assessment JSONL")] = None,
+    summary_output: Annotated[Path | None, typer.Option("--summary-output", help="Optional summary JSON output")] = None,
+) -> None:
+    """Build bounded human annotation/evaluation tasks from chunk/risk records."""
+    result = write_goldset_tasks(chunks_jsonl, output, risks_jsonl=risks_jsonl, summary_output=summary_output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("replay-guardrails")
+def replay_guardrails_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Guardrail replay report JSON output")],
+    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Optional core events JSONL")] = None,
+    actions_jsonl: Annotated[Path | None, typer.Option("--actions-jsonl", help="Optional agent actions JSONL")] = None,
+) -> None:
+    """Replay certification-boundary and agent-action guardrails."""
+    result = write_guardrail_replay(output, events_jsonl=events_jsonl, actions_jsonl=actions_jsonl)
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+
+@app.command("export-table-contracts")
+def export_table_contracts_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Table-contract JSON output")],
+    no_duckdb_sql: Annotated[bool, typer.Option(help="Omit DuckDB CREATE TABLE SQL snippets")] = False,
+) -> None:
+    """Export Arrow/Polars/DuckDB-friendly analytical table contracts."""
+    result = write_table_contracts(output, include_duckdb_sql=not no_duckdb_sql)
+    console.print_json(json.dumps(result))
+
+
+@app.command("materialise-oci")
+def materialise_oci_command(
+    paths: Annotated[list[Path], typer.Argument(help="Artefact files to package")],
+    output_dir: Annotated[Path, typer.Option("--output-dir", "-o", help="Local OCI layout directory")],
+    base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative labels")] = None,
+) -> None:
+    """Materialise artefacts into a local OCI image-layout directory."""
+    result = materialise_oci_layout(paths, output_dir, base_dir=base_dir)
+    console.print_json(json.dumps(result))
+
+
+@app.command("export-mcp-bundle")
+def export_mcp_bundle_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="MCP planning bundle JSON output")],
+) -> None:
+    """Export a static MCP resources/prompts/tools planning bundle."""
+    result = write_mcp_bundle(output)
     console.print_json(json.dumps(result))
 
 
@@ -791,6 +1022,62 @@ def validate_repo() -> None:
     example_schema_pairs.extend(
         (path, Path("schemas/json/reproducibility-manifest.schema.json"))
         for path in sorted(Path("examples").glob("reproducibility-manifest*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/review-task.schema.json"))
+        for path in sorted(Path("examples").glob("review-task*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/process-advice.schema.json"))
+        for path in sorted(Path("examples").glob("process-advice*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/graph-export.schema.json"))
+        for path in sorted(Path("examples").glob("graph-export*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/annotation-task.schema.json"))
+        for path in sorted(Path("examples").glob("annotation-task*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/attestation.schema.json"))
+        for path in sorted(Path("examples").glob("attestation*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/goldset-item.schema.json"))
+        for path in sorted(Path("examples").glob("goldset-item*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/table-contracts.schema.json"))
+        for path in sorted(Path("examples").glob("table-contracts*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/mcp-bundle.schema.json"))
+        for path in sorted(Path("examples").glob("mcp-bundle*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/oci-layout-summary.schema.json"))
+        for path in sorted(Path("examples").glob("oci-layout-summary*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/cas-manifest.schema.json"))
+        for path in sorted(Path("examples").glob("cas-manifest*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/lineage-graph.schema.json"))
+        for path in sorted(Path("examples").glob("lineage-graph*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/trace-span.schema.json"))
+        for path in sorted(Path("examples").glob("trace-span*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/goldset-task.schema.json"))
+        for path in sorted(Path("examples").glob("goldset-task*.json"))
+    )
+    example_schema_pairs.extend(
+        (path, Path("schemas/json/guardrail-replay.schema.json"))
+        for path in sorted(Path("examples").glob("guardrail-replay*.json"))
     )
     for instance, schema in example_schema_pairs:
         if instance.exists():

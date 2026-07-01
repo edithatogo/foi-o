@@ -1,0 +1,101 @@
+{
+  "additionalProperties": false,
+  "description": "One bounded annotation task for human review/evaluation.",
+  "properties": {
+    "candidate_labels": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Candidate Labels",
+      "type": "array"
+    },
+    "decision_boundary": {
+      "default": "Annotation supports evaluation only; it does not certify an OIA decision.",
+      "title": "Decision Boundary",
+      "type": "string"
+    },
+    "evidence": {
+      "additionalProperties": true,
+      "title": "Evidence",
+      "type": "object"
+    },
+    "instructions": {
+      "title": "Instructions",
+      "type": "string"
+    },
+    "prefilled_label": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Prefilled Label"
+    },
+    "priority": {
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "title": "Priority",
+      "type": "string"
+    },
+    "request_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Request Id"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.goldset-task.v0.1.0",
+      "default": "foi-o-nz.goldset-task.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "task_type": {
+      "enum": [
+        "state_mapping",
+        "event_extraction",
+        "risk_triage",
+        "redaction_candidate",
+        "retrieval_relevance"
+      ],
+      "title": "Task Type",
+      "type": "string"
+    },
+    "text": {
+      "minLength": 1,
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_id",
+    "task_type",
+    "source_id",
+    "priority",
+    "text",
+    "candidate_labels",
+    "instructions"
+  ],
+  "title": "GoldsetTask",
+  "type": "object"
+}

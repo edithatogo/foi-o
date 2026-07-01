@@ -1,0 +1,38 @@
+{
+  "edges": [
+    {
+      "edge_id": "foio-nz:edge:8ca67faef22d3c3ad692764a",
+      "rationale": "Heuristic: schema artifact is available to validate derived artifact family.",
+      "relation": "validated_by",
+      "source": "foio-nz:artifact:e626ddf59ec08d183ce0dbaf",
+      "target": "foio-nz:artifact:6a776479f0d98df58cf25907"
+    }
+  ],
+  "generated_at": "2026-07-01T15:49:02.741688Z",
+  "graph_id": "foio-nz:lineage:ce2a1cc1dcd34af098aee02d",
+  "limitations": [
+    "Edges are convention-derived unless an upstream run manifest supplies explicit dependencies.",
+    "Lineage describes artifact production and validation context; it does not certify legal correctness."
+  ],
+  "nodes": [
+    {
+      "byte_size": 706,
+      "kind": "derived",
+      "media_type": "application/json",
+      "node_id": "foio-nz:artifact:6a776479f0d98df58cf25907",
+      "path": "examples/chunk-record.request.json",
+      "role": "derived_artifact",
+      "sha256": "30fe52d54e8483eb2910fb6929b78fee0e1f4867be54ca426a0cb857d1c7cea0"
+    },
+    {
+      "byte_size": 1769,
+      "kind": "schema",
+      "media_type": "application/json",
+      "node_id": "foio-nz:artifact:e626ddf59ec08d183ce0dbaf",
+      "path": "schemas/json/chunk-record.schema.json",
+      "role": "validation_contract",
+      "sha256": "fc5031866d39d90d60cd63f1b415cab45d3a575cd48ddc01a4e4d2086860d7cf"
+    }
+  ],
+  "schema_version": "foi-o-nz.lineage-graph.v0.1.0"
+}

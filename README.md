@@ -63,7 +63,7 @@ pixi run mojo-test
 pixi run mojo-build
 ```
 
-The Mojo layer is deliberately small in v0.5: deterministic state mapping, text-planning helpers, machine-working-day checks, and certification-boundary guards. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
+The Mojo layer is deliberately small in v0.6: deterministic state mapping, text-planning helpers, machine-working-day checks, and certification-boundary guards. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
 
 ### Normalise FYI manifest records
 
@@ -188,7 +188,7 @@ foi-o-nz/
 | Agent context packs | Implemented | Request-scoped packages combining request, events, chunks, risks, retrieval, redaction candidates, constraints, and provenance. |
 | Stream diffs | Implemented | Canonical JSONL added/removed/modified/unchanged reports for incremental archive processing. |
 | Reproducibility manifests | Implemented | Local tool availability and file SHA-256 manifests for CI/release evidence. |
-| MAX inference | Planned | To be used for local extraction/embeddings once process contracts are stable; v0.5 keeps deterministic embeddings local and dependency-light. |
+| MAX inference | Planned | To be used for local extraction/embeddings once process contracts are stable; v0.6 keeps deterministic embeddings local and dependency-light. |
 
 ## Human/agent boundary
 
@@ -213,3 +213,24 @@ Agents must not autonomously certify:
 ## Licence and notice
 
 Code, schemas, ontology seed, and documentation are MIT licensed. Source request/archive content remains subject to its original rights and platform terms. This repository is not an official New Zealand government or Ombudsman publication channel.
+
+
+## v0.6 additional commands
+
+```text
+foi-o-nz cas-manifest
+foi-o-nz materialise-cas
+foi-o-nz lineage-graph
+foi-o-nz trace-artifacts
+foi-o-nz build-goldset
+foi-o-nz replay-guardrails
+foi-o-nz build-review-queue
+foi-o-nz process-advice
+foi-o-nz export-annotation-tasks
+foi-o-nz export-graph
+foi-o-nz export-table-contracts
+foi-o-nz materialise-oci
+foi-o-nz export-mcp-bundle
+foi-o-nz attest-artifacts
+foi-o-nz sample-goldset
+```

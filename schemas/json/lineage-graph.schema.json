@@ -1,0 +1,148 @@
+{
+  "$defs": {
+    "LineageEdge": {
+      "additionalProperties": false,
+      "description": "Directed provenance relation between artifacts.",
+      "properties": {
+        "edge_id": {
+          "title": "Edge Id",
+          "type": "string"
+        },
+        "rationale": {
+          "title": "Rationale",
+          "type": "string"
+        },
+        "relation": {
+          "enum": [
+            "derived_from",
+            "validated_by",
+            "documents",
+            "summarises",
+            "unknown"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "edge_id",
+        "source",
+        "target",
+        "relation",
+        "rationale"
+      ],
+      "title": "LineageEdge",
+      "type": "object"
+    },
+    "LineageNode": {
+      "additionalProperties": false,
+      "description": "One artifact node in a provenance graph.",
+      "properties": {
+        "byte_size": {
+          "minimum": 0,
+          "title": "Byte Size",
+          "type": "integer"
+        },
+        "kind": {
+          "enum": [
+            "raw",
+            "derived",
+            "schema",
+            "ontology",
+            "report",
+            "unknown"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "node_id": {
+          "title": "Node Id",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "node_id",
+        "kind",
+        "path",
+        "sha256",
+        "media_type",
+        "byte_size",
+        "role"
+      ],
+      "title": "LineageNode",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A compact dependency graph for generated FOI-O NZ artifacts.",
+  "properties": {
+    "edges": {
+      "items": {
+        "$ref": "#/$defs/LineageEdge"
+      },
+      "title": "Edges",
+      "type": "array"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "graph_id": {
+      "title": "Graph Id",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/LineageNode"
+      },
+      "title": "Nodes",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.lineage-graph.v0.1.0",
+      "default": "foi-o-nz.lineage-graph.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "generated_at",
+    "graph_id",
+    "nodes",
+    "edges"
+  ],
+  "title": "LineageGraph",
+  "type": "object"
+}

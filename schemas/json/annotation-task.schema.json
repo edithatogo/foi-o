@@ -1,0 +1,73 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/annotation-task.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agent_boundary": {
+      "type": "object"
+    },
+    "annotation_id": {
+      "type": "string"
+    },
+    "annotation_status": {
+      "type": "string"
+    },
+    "instructions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "labels": {
+      "type": "array"
+    },
+    "priority": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "request_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "schema_version": {
+      "const": "foi-o-nz.annotation-task.v0.1.0"
+    },
+    "source_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "task_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "task_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "text": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "annotation_id",
+    "task_id",
+    "text",
+    "labels",
+    "annotation_status",
+    "instructions",
+    "agent_boundary"
+  ],
+  "title": "FOI-O NZ Annotation Task",
+  "type": "object"
+}

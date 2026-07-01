@@ -1,0 +1,29 @@
+{
+  "blocked_actions": [
+    {
+      "action": "certify_release",
+      "reason": "reserved for authorised human decision-maker"
+    }
+  ],
+  "confidence": 0.82,
+  "current_state": "AwaitingResponse",
+  "event_count": 2,
+  "event_types": [
+    "RequestObserved",
+    "DeadlineCalculated"
+  ],
+  "legal_effect": "none_preparatory_only",
+  "missing_artifacts": [],
+  "next_safe_actions": [
+    {
+      "action": "draft_search_plan",
+      "legal_effect": "preparatory"
+    }
+  ],
+  "request_id": "12345",
+  "required_human_reviews": [],
+  "schema_version": "foi-o-nz.process-advice.v0.1.0",
+  "warnings": [
+    "State mapping is not manually certified and should remain observed/inferred metadata."
+  ]
+}

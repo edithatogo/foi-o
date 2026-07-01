@@ -1,0 +1,29 @@
+{
+  "global_boundaries": [
+    "No autonomous decisions."
+  ],
+  "name": "foi-o-nz-mcp-planning-bundle",
+  "prompts": [
+    {
+      "arguments": [],
+      "description": "Draft a search plan.",
+      "name": "draft_search_plan",
+      "safety": "Preparatory only."
+    }
+  ],
+  "resources": [
+    {
+      "mimeType": "application/schema+json",
+      "name": "Core event JSON Schema",
+      "path": "schemas/json/core-event.schema.json",
+      "uri": "foio-nz://schemas/core-event"
+    }
+  ],
+  "schema_version": "foi-o-nz.mcp-bundle.v0.1.0",
+  "tools": [
+    {
+      "legal_effect": "none",
+      "name": "map_state"
+    }
+  ]
+}

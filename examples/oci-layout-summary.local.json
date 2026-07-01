@@ -1,0 +1,9 @@
+{
+  "artifact_count": 1,
+  "limitations": [
+    "Local OCI layout only."
+  ],
+  "manifest_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "ok": true,
+  "output_dir": "dist/oci"
+}

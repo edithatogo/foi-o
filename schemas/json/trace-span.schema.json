@@ -1,0 +1,84 @@
+{
+  "additionalProperties": false,
+  "description": "A minimal OpenTelemetry/W3C-inspired span for local FOI-O runs.",
+  "properties": {
+    "attributes": {
+      "additionalProperties": true,
+      "title": "Attributes",
+      "type": "object"
+    },
+    "ended_at": {
+      "format": "date-time",
+      "title": "Ended At",
+      "type": "string"
+    },
+    "links": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Links",
+      "type": "array"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "parent_span_id": {
+      "anyOf": [
+        {
+          "maxLength": 16,
+          "minLength": 16,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Span Id"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.trace-span.v0.1.0",
+      "default": "foi-o-nz.trace-span.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "span_id": {
+      "maxLength": 16,
+      "minLength": 16,
+      "title": "Span Id",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "status": {
+      "default": "ok",
+      "enum": [
+        "ok",
+        "error",
+        "unknown"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "trace_id": {
+      "maxLength": 32,
+      "minLength": 32,
+      "title": "Trace Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "trace_id",
+    "span_id",
+    "name",
+    "started_at",
+    "ended_at"
+  ],
+  "title": "TraceSpan",
+  "type": "object"
+}

@@ -1,0 +1,97 @@
+{
+  "$defs": {
+    "ReplayFinding": {
+      "additionalProperties": false,
+      "description": "One replay finding.",
+      "properties": {
+        "code": {
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "warning",
+            "error"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "source_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source Id"
+        }
+      },
+      "required": [
+        "severity",
+        "code",
+        "message"
+      ],
+      "title": "ReplayFinding",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Guardrail replay report for a request/event/action stream.",
+  "properties": {
+    "action_count": {
+      "minimum": 0,
+      "title": "Action Count",
+      "type": "integer"
+    },
+    "event_count": {
+      "minimum": 0,
+      "title": "Event Count",
+      "type": "integer"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/ReplayFinding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    },
+    "ok": {
+      "title": "Ok",
+      "type": "boolean"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.guardrail-replay.v0.1.0",
+      "default": "foi-o-nz.guardrail-replay.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "generated_at",
+    "ok",
+    "event_count",
+    "action_count"
+  ],
+  "title": "GuardrailReplayReport",
+  "type": "object"
+}

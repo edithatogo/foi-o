@@ -1,31 +1,12 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://w3id.org/foio-nz/schema/agent-action/0.1.0",
-  "title": "FOI-O NZ Agent Action",
-  "type": "object",
   "additionalProperties": false,
-  "required": [
-    "schema_version",
-    "action_id",
-    "action_type",
-    "requested_at",
-    "agent",
-    "inputs",
-    "outputs",
-    "legal_effect",
-    "requires_human_certification",
-    "safety_class"
-  ],
+  "description": "Bounded agent action record aligned with the JSON Schema contract.",
   "properties": {
-    "schema_version": {
-      "type": "string",
-      "const": "foi-o-nz.agent-action.v0.1.0"
-    },
     "action_id": {
+      "title": "Action Id",
       "type": "string"
     },
     "action_type": {
-      "type": "string",
       "enum": [
         "extract_events",
         "map_state",
@@ -38,61 +19,104 @@
         "search_chunks",
         "propose_redaction_candidates",
         "build_agent_pack",
-        "diff_streams"
-      ]
-    },
-    "requested_at": {
-      "type": "string",
-      "format": "date-time"
+        "diff_streams",
+        "build_review_queue",
+        "build_process_advice",
+        "export_graph",
+        "attest_artifacts",
+        "sample_goldset",
+        "export_annotation_tasks",
+        "cas_manifest",
+        "materialise_cas",
+        "lineage_graph",
+        "trace_artifacts",
+        "build_goldset_tasks",
+        "replay_guardrails",
+        "export_table_contracts",
+        "materialise_oci",
+        "export_mcp_bundle"
+      ],
+      "title": "Action Type",
+      "type": "string"
     },
     "agent": {
-      "type": "object",
-      "additionalProperties": true
+      "additionalProperties": true,
+      "title": "Agent",
+      "type": "object"
+    },
+    "audit_trace": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Audit Trace",
+      "type": "array"
     },
     "inputs": {
-      "type": "array",
       "items": {
         "type": "string"
-      }
-    },
-    "outputs": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+      },
+      "title": "Inputs",
+      "type": "array"
     },
     "legal_effect": {
-      "type": "string",
       "enum": [
         "none",
         "preparatory",
         "requires_certification",
         "prohibited"
-      ]
+      ],
+      "title": "Legal Effect",
+      "type": "string"
+    },
+    "outputs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Outputs",
+      "type": "array"
+    },
+    "prohibited_follow_on_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Prohibited Follow On Actions",
+      "type": "array"
+    },
+    "requested_at": {
+      "format": "date-time",
+      "title": "Requested At",
+      "type": "string"
     },
     "requires_human_certification": {
+      "title": "Requires Human Certification",
       "type": "boolean"
     },
     "safety_class": {
-      "type": "string",
       "enum": [
         "low",
         "medium",
         "high",
         "prohibited"
-      ]
+      ],
+      "title": "Safety Class",
+      "type": "string"
     },
-    "prohibited_follow_on_actions": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "audit_trace": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    "schema_version": {
+      "const": "foi-o-nz.agent-action.v0.1.0",
+      "default": "foi-o-nz.agent-action.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "action_id",
+    "action_type",
+    "requested_at",
+    "agent",
+    "legal_effect",
+    "requires_human_certification",
+    "safety_class"
+  ],
+  "title": "AgentAction",
+  "type": "object"
 }

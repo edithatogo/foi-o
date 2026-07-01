@@ -1,0 +1,13 @@
+{
+  "annotation_status": "unlabelled",
+  "labels": {},
+  "record_id": "12345",
+  "record_kind": "request",
+  "sampling_seed": "foi-o-nz-goldset-v0.1",
+  "schema_version": "foi-o-nz.goldset-item.v0.1.0",
+  "source_record": {
+    "request_id": "12345",
+    "title": "Example"
+  },
+  "stratum": "authority=Example Ministry|state=AwaitingResponse"
+}

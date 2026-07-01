@@ -337,6 +337,21 @@ class AgentAction(BaseModel):
         "propose_redaction_candidates",
         "build_agent_pack",
         "diff_streams",
+        "build_review_queue",
+        "build_process_advice",
+        "export_graph",
+        "attest_artifacts",
+        "sample_goldset",
+        "export_annotation_tasks",
+        "cas_manifest",
+        "materialise_cas",
+        "lineage_graph",
+        "trace_artifacts",
+        "build_goldset_tasks",
+        "replay_guardrails",
+        "export_table_contracts",
+        "materialise_oci",
+        "export_mcp_bundle",
     ]
     requested_at: datetime
     agent: dict[str, Any]

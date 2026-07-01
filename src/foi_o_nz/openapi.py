@@ -14,7 +14,7 @@ def build_openapi_contract() -> dict[str, Any]:
         "openapi": "3.1.0",
         "info": {
             "title": "FOI-O NZ Agent Process API",
-            "version": "0.5.0",
+            "version": "0.6.0",
             "description": "Bounded process-support API. It exposes validation and drafting support, not autonomous OIA decision-making.",
         },
         "servers": [{"url": "http://localhost:8787", "description": "local development"}],
@@ -68,6 +68,41 @@ def build_openapi_contract() -> dict[str, Any]:
                     "summary": "Build a request-scoped agent context pack with constraints and provenance.",
                     "x-agent-boundary": "context-packaging-only",
                     "responses": {"200": {"description": "Agent context pack"}},
+                }
+            },
+            "/review-queue/build": {
+                "post": {
+                    "summary": "Build human-review tasks from risk, candidate redaction, and certification-boundary signals.",
+                    "x-agent-boundary": "routing-only-no-decision",
+                    "responses": {"200": {"description": "Review task stream"}},
+                }
+            },
+            "/process/advice": {
+                "post": {
+                    "summary": "Generate preparatory process advice for one request.",
+                    "x-agent-boundary": "advice-only-human-review-required",
+                    "responses": {"200": {"description": "Process advice report"}},
+                }
+            },
+            "/graphs/export": {
+                "post": {
+                    "summary": "Export a request/process graph for audit and agent navigation.",
+                    "x-agent-boundary": "navigation-only",
+                    "responses": {"200": {"description": "Graph export"}},
+                }
+            },
+            "/attestations/artifacts": {
+                "post": {
+                    "summary": "Generate unsigned in-toto/SLSA-style provenance for artefacts.",
+                    "x-agent-boundary": "integrity-metadata-only",
+                    "responses": {"200": {"description": "Unsigned attestation"}},
+                }
+            },
+            "/goldsets/sample": {
+                "post": {
+                    "summary": "Create deterministic human-review/evaluation samples.",
+                    "x-agent-boundary": "evaluation-planning-only",
+                    "responses": {"200": {"description": "Gold-set sample manifest"}},
                 }
             },
         },

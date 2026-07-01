@@ -1,0 +1,47 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/mcp-bundle.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "global_boundaries": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "name": {
+      "type": "string"
+    },
+    "prompts": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "resources": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.mcp-bundle.v0.1.0"
+    },
+    "tools": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "name",
+    "resources",
+    "prompts",
+    "tools",
+    "global_boundaries"
+  ],
+  "title": "FOI-O NZ MCP Planning Bundle",
+  "type": "object"
+}

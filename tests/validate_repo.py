@@ -26,6 +26,26 @@ def _example_pairs() -> list[tuple[Path, Path]]:
         (path, Path("schemas/json/run-manifest.schema.json"))
         for path in sorted(Path("examples").glob("run-manifest*.json"))
     )
+    pairs.extend(
+        (path, Path("schemas/json/cas-manifest.schema.json"))
+        for path in sorted(Path("examples").glob("cas-manifest*.json"))
+    )
+    pairs.extend(
+        (path, Path("schemas/json/lineage-graph.schema.json"))
+        for path in sorted(Path("examples").glob("lineage-graph*.json"))
+    )
+    pairs.extend(
+        (path, Path("schemas/json/trace-span.schema.json"))
+        for path in sorted(Path("examples").glob("trace-span*.json"))
+    )
+    pairs.extend(
+        (path, Path("schemas/json/goldset-task.schema.json"))
+        for path in sorted(Path("examples").glob("goldset-task*.json"))
+    )
+    pairs.extend(
+        (path, Path("schemas/json/guardrail-replay.schema.json"))
+        for path in sorted(Path("examples").glob("guardrail-replay*.json"))
+    )
     return pairs
 
 

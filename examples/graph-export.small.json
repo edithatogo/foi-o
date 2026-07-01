@@ -1,0 +1,31 @@
+{
+  "edge_count": 1,
+  "edges": [
+    {
+      "label": "has_event",
+      "properties": {},
+      "source": "request:12345",
+      "target": "event:e1"
+    }
+  ],
+  "node_count": 2,
+  "nodes": [
+    {
+      "id": "request:12345",
+      "kind": "request",
+      "label": "Example",
+      "properties": {
+        "request_id": "12345"
+      }
+    },
+    {
+      "id": "event:e1",
+      "kind": "event",
+      "label": "RequestObserved",
+      "properties": {
+        "event_type": "RequestObserved"
+      }
+    }
+  ],
+  "schema_version": "foi-o-nz.graph.v0.1.0"
+}

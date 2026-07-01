@@ -78,6 +78,16 @@ def _description_for_action(action_type: str) -> str:
         "quality_check": "Run validation and quality-gate checks.",
         "generate_reporting_metric": "Generate draft reporting metrics for reconciliation.",
         "flag_legal_issue": "Flag possible legal/process issues for human review.",
+        "search_chunks": "Retrieve process context from deterministic chunks.",
+        "propose_redaction_candidates": "Flag candidate sensitive spans for human review without redacting.",
+        "build_agent_pack": "Assemble request-scoped context packs with provenance and constraints.",
+        "diff_streams": "Compare artefact streams by stable IDs and canonical hashes.",
+        "build_review_queue": "Route candidate risks and certification boundaries to human review tasks.",
+        "build_process_advice": "Generate preparatory next-step advice without deciding outcomes.",
+        "export_graph": "Export request/event/chunk/risk relationships as a graph artefact.",
+        "attest_artifacts": "Generate unsigned provenance attestations for artefact integrity workflows.",
+        "sample_goldset": "Create deterministic evaluation/annotation samples with bounded claims.",
+        "export_annotation_tasks": "Export neutral or Label Studio review tasks for human-in-the-loop labelling.",
     }
     return descriptions.get(action_type, "Bounded FOI-O NZ tool action.")
 

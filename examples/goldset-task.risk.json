@@ -1,0 +1,21 @@
+{
+  "candidate_labels": [
+    "no_review_trigger",
+    "privacy",
+    "health",
+    "commercial",
+    "withholding_language",
+    "ai_generated_request",
+    "other"
+  ],
+  "decision_boundary": "Annotation supports evaluation only; it does not certify an OIA decision.",
+  "evidence": {},
+  "instructions": "Select all review-trigger categories that apply. Do not decide release/refusal/redaction.",
+  "priority": "medium",
+  "request_id": "20001",
+  "schema_version": "foi-o-nz.goldset-task.v0.1.0",
+  "source_id": "foio-nz:chunk:b7e0ace85d3c1564dc2ceebc",
+  "task_id": "foio-nz:gold:0ff6cc145fbd7c859698cecb",
+  "task_type": "risk_triage",
+  "text": "Request 20001. Title: Monkeypox surveillance and contact tracing strategy. Authority: ministry_of_health. State: decision_communicated. Source state: successful."
+}

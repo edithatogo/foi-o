@@ -21,6 +21,21 @@ ActionType = Literal[
     "propose_redaction_candidates",
     "build_agent_pack",
     "diff_streams",
+    "build_review_queue",
+    "build_process_advice",
+    "export_graph",
+    "attest_artifacts",
+    "sample_goldset",
+    "export_annotation_tasks",
+    "cas_manifest",
+    "materialise_cas",
+    "lineage_graph",
+    "trace_artifacts",
+    "build_goldset_tasks",
+    "replay_guardrails",
+    "export_table_contracts",
+    "materialise_oci",
+    "export_mcp_bundle",
 ]
 
 ACTION_POLICY: dict[str, dict[str, Any]] = {
@@ -96,6 +111,97 @@ ACTION_POLICY: dict[str, dict[str, Any]] = {
         "safety_class": "low",
         "prohibited_follow_on_actions": ["publish_incremental_change_without_reconciliation"],
     },
+    "build_review_queue": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["treat_queue_as_legal_decision"],
+    },
+    "build_process_advice": {
+        "legal_effect": "preparatory",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["execute_advice_without_review"],
+    },
+    "export_graph": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_graph_edges_as_certified_fact"],
+    },
+    "attest_artifacts": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_unsigned_attestation_as_signed_provenance"],
+    },
+    "sample_goldset": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["treat_sample_as_representative_without_review"],
+    },
+    "export_annotation_tasks": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["record_decision_in_annotation_task"],
+    },
+    "cas_manifest": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_hash_manifest_as_legal_certification"],
+    },
+    "materialise_cas": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["publish_private_objects_without_review"],
+    },
+    "lineage_graph": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["treat_heuristic_lineage_as_certified_provenance"],
+    },
+    "trace_artifacts": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["infer_user_consent_from_trace"],
+    },
+    "build_goldset_tasks": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["record_decision_in_goldset_task"],
+    },
+    "replay_guardrails": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_replay_pass_as_legal_approval"],
+    },
+    "export_table_contracts": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "low",
+        "prohibited_follow_on_actions": ["treat_table_contract_as_authoritative_case_record"],
+    },
+    "materialise_oci": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["push_unsigned_artifact_as_trusted_release"],
+    },
+    "export_mcp_bundle": {
+        "legal_effect": "none",
+        "requires_human_certification": False,
+        "safety_class": "medium",
+        "prohibited_follow_on_actions": ["grant_runtime_tool_access_without_operator_policy"],
+    },
+
 }
 
 
@@ -124,7 +230,7 @@ def build_agent_action(
         agent={"name": agent_name, "kind": "machine"},
         inputs=inputs or [],
         outputs=outputs or [],
-        audit_trace=["generated_from_action_policy_v0.5"],
+        audit_trace=["generated_from_action_policy_v0.6"],
         **policy,
     )
 

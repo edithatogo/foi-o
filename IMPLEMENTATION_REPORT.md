@@ -144,3 +144,74 @@ repository validation ok
 The v0.5 smoke path was also executed locally through normalisation, validation,
 chunking, risk scanning, retrieval, redaction-candidate generation, agent-pack
 assembly, stream diffing, and reproducibility-manifest generation.
+
+## New v0.6 implementation pass
+
+Added deterministic agent-infrastructure layers:
+
+- content-addressed artifact manifests and JSONL record materialisation;
+- convention-derived lineage graph export and Graphviz DOT output;
+- deterministic local trace spans for artifact runs;
+- goldset task generation for human annotation/evaluation;
+- guardrail replay over event streams and agent-action streams;
+- additional Mojo guardrail kernels for replay/status checks;
+- optional `experiments` extra for structured extraction/evaluation packages.
+
+The new Python commands are:
+
+```text
+foi-o-nz cas-manifest
+foi-o-nz materialise-cas
+foi-o-nz lineage-graph
+foi-o-nz trace-artifacts
+foi-o-nz build-goldset
+foi-o-nz replay-guardrails
+```
+
+The dependency-light validation path passed locally:
+
+```text
+78 passed
+repository validation ok
+```
+
+The Mojo/MAX and optional analytics/runtime paths are scaffolded for Pixi/CI but
+not executed in this sandbox.
+
+
+## New v0.6 extended implementation pass
+
+Added further agent-infrastructure layers on top of the v0.6 CAS/lineage/replay work:
+
+- human-review queues for risk, redaction-candidate, and certification-boundary signals;
+- non-dispositive process-advice reports for request-scoped workflow support;
+- neutral and Label Studio-compatible annotation task exports;
+- request/event/chunk/risk graph export as JSON or Mermaid;
+- Arrow/Polars/DuckDB-friendly analytical table contracts;
+- local unsigned OCI image-layout materialisation for artefact bundles;
+- static MCP planning bundle export with resources, prompts, and bounded tools;
+- unsigned in-toto/SLSA-style artefact attestations;
+- deterministic generic goldset sampling.
+
+The new Python commands are:
+
+```text
+foi-o-nz build-review-queue
+foi-o-nz process-advice
+foi-o-nz export-annotation-tasks
+foi-o-nz export-graph
+foi-o-nz export-table-contracts
+foi-o-nz materialise-oci
+foi-o-nz export-mcp-bundle
+foi-o-nz attest-artifacts
+foi-o-nz sample-goldset
+```
+
+The dependency-light validation path passed locally:
+
+```text
+78 passed
+repository validation ok
+```
+
+The agent boundary remains unchanged: all outputs are process-support, routing, provenance, evaluation, or publication-planning artefacts and cannot certify release, refusal, redaction, charging, extension, transfer, or review outcomes.

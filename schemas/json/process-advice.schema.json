@@ -1,0 +1,80 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/process-advice.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "blocked_actions": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "confidence": {
+      "maximum": 1,
+      "minimum": 0,
+      "type": "number"
+    },
+    "current_state": {
+      "type": "string"
+    },
+    "event_count": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "event_types": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "legal_effect": {
+      "const": "none_preparatory_only"
+    },
+    "missing_artifacts": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "next_safe_actions": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "required_human_reviews": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.process-advice.v0.1.0"
+    },
+    "warnings": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "current_state",
+    "event_count",
+    "event_types",
+    "next_safe_actions",
+    "blocked_actions",
+    "missing_artifacts",
+    "required_human_reviews",
+    "warnings",
+    "confidence",
+    "legal_effect"
+  ],
+  "title": "FOI-O NZ Process Advice",
+  "type": "object"
+}

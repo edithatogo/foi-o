@@ -1,0 +1,31 @@
+{
+  "_type": "https://in-toto.io/Statement/v1",
+  "predicate": {
+    "buildDefinition": {
+      "buildType": "local",
+      "externalParameters": {},
+      "internalParameters": {},
+      "resolvedDependencies": []
+    },
+    "runDetails": {
+      "builder": {
+        "id": "foi-o-nz.local"
+      },
+      "metadata": {}
+    }
+  },
+  "predicateType": "https://slsa.dev/provenance/v1",
+  "subject": [
+    {
+      "digest": {
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "name": "examples/request-record.jsonld",
+      "size": 123
+    }
+  ],
+  "x_foio_nz": {
+    "agent_boundary": "process-support-only; no autonomous OIA decision certification",
+    "signed": false
+  }
+}

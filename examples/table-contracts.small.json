@@ -1,0 +1,26 @@
+{
+  "contract_id": "foi-o-nz-table-contracts-2026-07-01",
+  "limitations": [
+    "Contracts describe derived analytical artefacts."
+  ],
+  "schema_version": "foi-o-nz.table-contracts.v0.1.0",
+  "tables": [
+    {
+      "agent_boundary": "analytical_contract_only_not_source_of_legal_truth",
+      "fields": [
+        {
+          "arrow_type": "utf8",
+          "description": "Request ID",
+          "duckdb_type": "VARCHAR",
+          "name": "request_id",
+          "nullable": false,
+          "polars_type_hint": "String"
+        }
+      ],
+      "name": "requests",
+      "primary_key": [
+        "request_id"
+      ]
+    }
+  ]
+}

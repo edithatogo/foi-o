@@ -1,0 +1,33 @@
+{
+  "$id": "https://example.org/schemas/foi-o-nz/table-contracts.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "contract_id": {
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.table-contracts.v0.1.0"
+    },
+    "tables": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "contract_id",
+    "tables",
+    "limitations"
+  ],
+  "title": "FOI-O NZ Table Contracts",
+  "type": "object"
+}

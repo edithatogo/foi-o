@@ -1,0 +1,23 @@
+{
+  "entries": [
+    {
+      "byte_size": 706,
+      "media_type": "application/json",
+      "metadata": {},
+      "path": "examples/chunk-record.request.json",
+      "record_type": "file",
+      "sha256": "30fe52d54e8483eb2910fb6929b78fee0e1f4867be54ca426a0cb857d1c7cea0",
+      "source_path": "examples/chunk-record.request.json",
+      "uri": "sha256:30fe52d54e8483eb2910fb6929b78fee0e1f4867be54ca426a0cb857d1c7cea0"
+    }
+  ],
+  "entry_count": 1,
+  "generated_at": "2026-07-01T15:49:02.740857Z",
+  "limitations": [
+    "Content addressing proves byte-level integrity only; it does not certify legal correctness.",
+    "External storage publication, access controls, and retention policies are outside this manifest."
+  ],
+  "root_digest": "6b7547519c2e425b57171e8fe17cadfa04007be1221212c4f41e786098b8db79",
+  "schema_version": "foi-o-nz.cas-manifest.v0.1.0",
+  "total_bytes": 706
+}
