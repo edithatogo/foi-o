@@ -99,3 +99,37 @@ foio:confidence a owl:DatatypeProperty ;
   rdfs:domain foio:ProcessEvent ;
   rdfs:range xsd:decimal ;
   rdfs:label "confidence" .
+
+foio:Agency a owl:Class ;
+  rdfs:subClassOf prov:Agent ;
+  rdfs:label "Agency" .
+
+foio:hasAuthority a owl:ObjectProperty ;
+  rdfs:domain foio:AccessRequest ;
+  rdfs:range foio:Agency ;
+  rdfs:label "has authority" .
+
+foio:lifecycleState a owl:DatatypeProperty ;
+  rdfs:domain foio:AccessRequest ;
+  rdfs:range xsd:string ;
+  rdfs:label "lifecycle state literal" .
+
+foio:firstSentAt a owl:DatatypeProperty ;
+  rdfs:domain foio:AccessRequest ;
+  rdfs:range xsd:dateTime ;
+  rdfs:label "first sent at" .
+
+foio:eventType a owl:DatatypeProperty ;
+  rdfs:domain foio:ProcessEvent ;
+  rdfs:range xsd:string ;
+  rdfs:label "event type" .
+
+foio:lifecycleStateAfter a owl:DatatypeProperty ;
+  rdfs:domain foio:ProcessEvent ;
+  rdfs:range xsd:string ;
+  rdfs:label "lifecycle state after" .
+
+foio:aboutRequest a owl:ObjectProperty ;
+  rdfs:domain foio:ProcessEvent ;
+  rdfs:range foio:AccessRequest ;
+  rdfs:label "about request" .

@@ -38,6 +38,10 @@ fn requires_human_certification(event_type: String) -> Bool:
         return True
     if event_type == "ChargeNoticeSent":
         return True
+    if event_type == "ExtensionNotified":
+        return True
+    if event_type == "TransferNotified":
+        return True
     return False
 
 

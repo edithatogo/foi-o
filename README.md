@@ -51,6 +51,7 @@ uv run foi-o-nz doctor
 uv run foi-o-nz smoke-fixture --output-dir data/smoke
 uv run foi-o-nz validate examples/core-event.extension-notified.json --schema schemas/json/core-event.schema.json
 uv run foi-o-nz map-state successful
+uv run foi-o-nz clock 2026-12-23
 ```
 
 ### Mojo/MAX experimental core
@@ -71,10 +72,20 @@ uv run foi-o-nz normalise-manifest \
   --input path/to/fyi-archive-nz-manifest.jsonl \
   --requests-output data/processed/requests.jsonl \
   --events-output data/processed/events.jsonl \
-  --parquet-dir data/processed/parquet
+  --parquet-dir data/processed/parquet \
+  --run-manifest-output data/processed/run-manifest.json
+
+uv run foi-o-nz validate-jsonl data/processed/requests.jsonl --schema schemas/json/request-profile.schema.json
+uv run foi-o-nz validate-jsonl data/processed/events.jsonl --schema schemas/json/core-event.schema.json
+uv run foi-o-nz event-summary data/processed/events.jsonl --output data/processed/event-summary.json
+uv run foi-o-nz quality-gate data/processed/events.jsonl --output data/processed/quality-report.json
+uv run foi-o-nz export-rdf \
+  --requests-jsonl data/processed/requests.jsonl \
+  --events-jsonl data/processed/events.jsonl \
+  --output data/processed/foi-o-nz.ttl
 ```
 
-The normaliser accepts JSONL or JSON arrays containing FYI archive-style records with fields such as `request_id`, `url_title`, `title`, `authority`, `state`, `first_sent`, `last_updated`, `content_sha256`, `html_captured`, `attachments`, and `warc_record_ids`.
+The normaliser accepts JSONL or JSON arrays containing FYI archive-style records with fields such as `request_id`, `url_title`, `title`, `authority`, `state`, `first_sent`, `last_updated`, `content_sha256`, `html_captured`, `attachments`, and `warc_record_ids`. It also looks for message-like fields (`messages`, `correspondence`, `communications`, `updates`) and emits conservative `MessageObserved` plus candidate process events such as `ExtensionNotified`, `TransferNotified`, `ClarificationRequested`, `ComplaintObserved`, and decision/release/refusal candidates that require human review.
 
 ## Repository layout
 
@@ -103,12 +114,15 @@ foi-o-nz/
 
 | Surface | Status | Purpose |
 | --- | --- | --- |
-| JSON Schemas | Implemented | Validate core events, request profiles, agent actions, reporting metrics. |
+| JSON Schemas | Implemented | Validate core events, request profiles, agent actions, reporting metrics, and run manifests. |
 | Python models | Implemented | Strict Pydantic models matching the schemas. |
 | State mapper | Implemented | Rule-based FYI/Alaveteli state normalisation with confidence/evidence semantics. |
-| Manifest normaliser | Implemented | Converts FYI archive records into request profiles and core observed events. |
-| Analytics bridge | Implemented | Optional Polars/DuckDB outputs and summaries. |
-| Mojo kernel | Experimental | Native state mapping and human-certification guard functions. |
+| Manifest normaliser | Implemented | Converts FYI archive records into request profiles, deadline annotations, attachments, message events, and candidate process events. |
+| Event analytics | Implemented | Summaries for request profiles and event streams without mandatory dataframe dependencies. |
+| Quality gates | Implemented | Scans event streams for missing evidence, certification-boundary violations, and provenance issues. |
+| RDF exporter | Implemented | Converts request/event JSONL into Turtle/JSON-LD-compatible RDF via RDFLib. |
+| Analytics bridge | Implemented | Optional Polars/DuckDB outputs, DuckDB bootstrap SQL, and summaries. |
+| Mojo kernel | Experimental | Native state mapping, machine-working-day checks, and human-certification guard functions. |
 | Ontology/SKOS/SHACL | Seeded | First-pass semantic layer for later review. |
 | MCP server | Planned | To be built after event/profile contracts stabilise. |
 | MAX inference | Planned | To be used for local extraction/embeddings once process contracts are stable. |

@@ -1,5 +1,5 @@
 .PHONY: help install sync lock lint format format-fix typecheck test test-cov \
-        quality validate smoke normalise mojo-format mojo-test mojo-build \
+        quality validate smoke normalise quality-gate rdf duckdb-sql mojo-format mojo-test mojo-build \
         spell toml-check workflow-audit workflow-syntax security-audit sbom clean
 
 PKG := foi_o_nz
@@ -44,7 +44,19 @@ smoke: ## Generate local smoke fixture and validate it
 	uv run foi-o-nz validate data/smoke/core-event.request-observed.json --schema schemas/json/core-event.schema.json
 
 normalise: ## Normalise smoke manifest records
-	uv run foi-o-nz normalise-manifest --input data/smoke/fyi-manifest.jsonl --requests-output data/smoke/requests.jsonl --events-output data/smoke/events.jsonl --parquet-dir data/smoke/parquet
+	uv run foi-o-nz normalise-manifest --input data/smoke/fyi-manifest.jsonl --requests-output data/smoke/requests.jsonl --events-output data/smoke/events.jsonl --parquet-dir data/smoke/parquet --run-manifest-output data/smoke/run-manifest.json
+	uv run foi-o-nz validate-jsonl data/smoke/requests.jsonl --schema schemas/json/request-profile.schema.json
+	uv run foi-o-nz validate-jsonl data/smoke/events.jsonl --schema schemas/json/core-event.schema.json
+
+quality-gate: ## Run event-stream safety/certification quality gate
+	uv run foi-o-nz event-summary data/smoke/events.jsonl --output data/smoke/event-summary.json
+	uv run foi-o-nz quality-gate data/smoke/events.jsonl --output data/smoke/quality-report.json
+
+rdf: ## Export smoke request/events to RDF/Turtle
+	uv run foi-o-nz export-rdf --requests-jsonl data/smoke/requests.jsonl --events-jsonl data/smoke/events.jsonl --output data/smoke/foi-o-nz.ttl
+
+duckdb-sql: ## Write portable DuckDB bootstrap SQL
+	uv run foi-o-nz write-duckdb-sql --output data/smoke/duckdb-bootstrap.sql
 
 mojo-format: ## Format Mojo sources
 	pixi run mojo-format

@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.ty_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Environments
+.venv/
+.env
+.env.*
+.pixi/
+pixi.lock
+uv.lock
+
+# Generated data / build outputs
+data/
+generated/
+dist/
+build/
+*.duckdb
+*.duckdb.wal
+*.parquet
+*.jsonl
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

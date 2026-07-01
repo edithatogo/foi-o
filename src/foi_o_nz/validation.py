@@ -42,6 +42,22 @@ def validate_json_schema(instance_path: Path, schema_path: Path) -> ValidationRe
     return ValidationResult(ok=not errors, errors=errors)
 
 
+
+
+def validate_jsonl_schema(instance_path: Path, schema_path: Path) -> ValidationResult:
+    """Validate every object in a JSONL file against a Draft 2020-12 schema."""
+    from foi_o_nz.io import iter_jsonl
+
+    schema = load_json(schema_path)
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    errors: list[str] = []
+    for line_no, instance in enumerate(iter_jsonl(instance_path), start=1):
+        for error in sorted(validator.iter_errors(instance), key=lambda err: list(err.absolute_path)):
+            path = ".".join(str(part) for part in error.absolute_path) or "<root>"
+            errors.append(f"line {line_no} {path}: {error.message}")
+    return ValidationResult(ok=not errors, errors=tuple(errors))
+
+
 def validate_schema_file(schema_path: Path) -> ValidationResult:
     """Validate a JSON Schema document itself."""
     try:

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio-nz/schema/run-manifest/0.2.0",
+  "title": "FOI-O NZ Run Manifest",
+  "description": "Provenance manifest for a deterministic FOI-O NZ pipeline run.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "created_at",
+    "software",
+    "command",
+    "environment",
+    "input",
+    "outputs",
+    "counts"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "const": "foi-o-nz.run-manifest.v0.2.0"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "software": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": {"type": "string"},
+        "version": {"type": "string"}
+      }
+    },
+    "command": {"type": "string"},
+    "environment": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["python", "platform"],
+      "properties": {
+        "python": {"type": "string"},
+        "platform": {"type": "string"}
+      }
+    },
+    "input": {"$ref": "#/$defs/file_ref"},
+    "outputs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/file_ref"}
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    }
+  },
+  "$defs": {
+    "file_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path"],
+      "properties": {
+        "path": {"type": "string"},
+        "bytes": {"type": ["integer", "null"], "minimum": 0},
+        "sha256": {"type": ["string", "null"], "pattern": "^[a-fA-F0-9]{64}$"}
+      }
+    }
+  }
+}

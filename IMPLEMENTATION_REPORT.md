@@ -1,61 +1,57 @@
 # FOI-O NZ implementation report
 
-Generated: 2026-07-01
+Generated for the July 2026 scaffold handoff.
 
-## Implemented
+## Implemented surfaces
 
-- Repo-ready standalone project structure.
-- Python package `foi_o_nz` with Typer CLI.
-- Pydantic models for:
-  - `CoreEvent`
-  - `RequestProfile`
-  - `AgentAction`
-  - `ReportingMetric`
-- Rule-based FYI/Alaveteli state mapper.
-- Manifest normalisation pipeline:
-  - JSON/JSONL input
-  - request-profile JSONL output
-  - core-event JSONL output
-  - optional Polars Parquet output
-- Optional analytics helpers:
-  - lightweight JSONL summaries
-  - optional DuckDB Parquet summaries
-- Optional MAX/OpenAI-compatible local inference client helper.
-- Mojo experimental core:
-  - state normalisation function
-  - human-certification boundary function
-  - smoke CLI
-  - `TestSuite`-based tests
-- CI:
-  - Python lint/test/validation
-  - Mojo/MAX format/test/build through Pixi
-  - pip-audit/SBOM job
-- Bootstrap script for creating the new GitHub repo with `gh`.
+- Standalone repository scaffold for `edithatogo/foi-o-nz`.
+- Python package `foi_o_nz` with CLI, Pydantic models, JSON Schema validation,
+  FYI manifest normalisation, state mapping, analytics summaries, quality gates,
+  RDF export, optional DuckDB materialisation, and run-manifest provenance.
+- Experimental Mojo package with deterministic state/certification kernels and
+  machine working-day helpers.
+- Ontology, SKOS, SHACL, JSON Schema, mappings, prompts, ADRs, docs, examples,
+  tests, Makefile, Pixi config, and GitHub Actions CI.
 
-## Verified locally in this environment
+## New v0.2 implementation pass
+
+- Added indicative OIA clock annotations with explicit non-certification
+  warnings.
+- Added correspondence/message rule extraction for `MessageObserved` and
+  candidate process events.
+- Added event-stream quality gate that enforces evidence and human-certification
+  boundary checks.
+- Added RDF/Turtle export from request/event JSONL.
+- Added JSONL schema validation command.
+- Added run-manifest schema and output support.
+- Added portable DuckDB SQL template and optional DuckDB builder.
+- Added `.gitignore` and removed generated caches from the release bundle.
+
+## Locally verified in this environment
 
 ```text
-python -m pytest -q
-14 passed
-
-PYTHONPATH=src python -m foi_o_nz.cli map-state successful
-ok
-
-PYTHONPATH=src python -m foi_o_nz.cli smoke-fixture --output-dir /tmp/foio-smoke
-ok
-
-PYTHONPATH=src python -m foi_o_nz.cli normalise-manifest ...
-ok
-
-PYTHONPATH=src python -m foi_o_nz.cli validate /tmp/foio-smoke/core-event.request-observed.json --schema schemas/json/core-event.schema.json
-ok
-
 python -m compileall -q src tests scripts
-ok
+PYTHONPATH=src python -m pytest -q
+25 passed
+
+PYTHONPATH=src python -m foi_o_nz.cli smoke-fixture -o /tmp/foio-smoke
+PYTHONPATH=src python -m foi_o_nz.cli normalise-manifest ...
+PYTHONPATH=src python -m foi_o_nz.cli validate-jsonl ...
+PYTHONPATH=src python -m foi_o_nz.cli quality-gate ...
+PYTHONPATH=src python -m foi_o_nz.cli export-rdf ...
+PYTHONPATH=src python -m foi_o_nz.cli clock 2026-12-23
+PYTHONPATH=src python -m foi_o_nz.cli validate-repo
 ```
 
-## Not verified locally
+## Not locally verified
 
-- Mojo compilation/tests, because the sandbox does not have the Modular Mojo toolchain installed.
-- Polars/DuckDB/LanceDB extras, because they are optional and not installed in the sandbox.
-- MAX serving/inference, because it requires Modular tooling and suitable local/cloud runtime.
+The sandbox does not include the Modular Mojo/MAX toolchain, so Mojo formatting,
+Mojo native tests, and Mojo binary build remain CI/operator checks after Pixi
+installs the Modular packages.
+
+## Design boundary
+
+The implementation keeps the GoogleAI/Mojo notes as a strategic direction, not a
+source of truth. Mojo/MAX is used for deterministic kernels and future hot paths;
+Polars/DuckDB/LanceDB remain the pragmatic data layer for ingestion and analysis
+until Mojo-native dataframe/Arrow tooling is demonstrably production-ready.

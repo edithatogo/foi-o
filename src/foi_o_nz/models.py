@@ -318,27 +318,39 @@ class RequestProfile(BaseModel):
 
 
 class AgentAction(BaseModel):
-    """Bounded agent action record."""
+    """Bounded agent action record aligned with the JSON Schema contract."""
 
-    model_config = ConfigDict(extra="allow")
+    model_config = ConfigDict(extra="forbid")
 
     schema_version: Literal["foi-o-nz.agent-action.v0.1.0"] = AGENT_ACTION_SCHEMA_VERSION
     action_id: str
-    action_type: str
-    boundary: Literal["allowed", "requires_human_review", "prohibited"]
-    request_ref: RequestRef | None = None
-    created_at: datetime
-    created_by: str
-    input_refs: list[str] = Field(default_factory=list)
-    output_refs: list[str] = Field(default_factory=list)
-    human_review_required: bool
-    payload: dict[str, Any] = Field(default_factory=dict)
+    action_type: Literal[
+        "extract_events",
+        "map_state",
+        "calculate_deadline",
+        "draft_search_plan",
+        "draft_correspondence",
+        "quality_check",
+        "generate_reporting_metric",
+        "flag_legal_issue",
+    ]
+    requested_at: datetime
+    agent: dict[str, Any]
+    inputs: list[str] = Field(default_factory=list)
+    outputs: list[str] = Field(default_factory=list)
+    legal_effect: Literal["none", "preparatory", "requires_certification", "prohibited"]
+    requires_human_certification: bool
+    safety_class: Literal["low", "medium", "high", "prohibited"]
+    prohibited_follow_on_actions: list[str] = Field(default_factory=list)
+    audit_trace: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")
-    def validate_review_boundary(self) -> AgentAction:
-        """Require human review for non-allowed actions."""
-        if self.boundary != "allowed" and not self.human_review_required:
-            raise ValueError("non-allowed agent actions must require human review")
+    def validate_agent_boundary(self) -> AgentAction:
+        """Require safety/certification consistency for risky actions."""
+        if self.legal_effect in {"requires_certification", "prohibited"} and not self.requires_human_certification:
+            raise ValueError("risky/prohibited legal-effect actions must require human certification")
+        if self.safety_class == "prohibited" and self.legal_effect != "prohibited":
+            raise ValueError("prohibited safety class must have prohibited legal_effect")
         return self
 
 

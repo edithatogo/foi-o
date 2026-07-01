@@ -1,0 +1,58 @@
+{
+  "schema_version": "foi-o-nz.core-event.v0.1.0",
+  "event_id": "urn:uuid:22222222-2222-4222-8222-222222222222",
+  "event_type": "DeadlineCalculated",
+  "event_time": "2026-07-01T00:00:00Z",
+  "request_ref": {
+    "source_system": "fyi-archive-nz",
+    "source_request_id": 20001,
+    "source_url": "https://fyi.org.nz/request/20001-monkeypox-surveillance-and-contact-tracing-strategy",
+    "url_title": "monkeypox-surveillance-and-contact-tracing-strategy",
+    "content_sha256": "e86d434300d4eeea2e0539cb2058a32952ecea30ea7067ea8f9c4a3fe1332cfb"
+  },
+  "jurisdiction": "NZ",
+  "regime": "OIA",
+  "source_system": "fyi-archive-nz",
+  "lifecycle_state_after": "Received",
+  "actor": {
+    "role": "system",
+    "name": "foi-o-nz",
+    "authority_id": null
+  },
+  "assertion_status": "inferred",
+  "confidence": 0.42,
+  "machine_generated": true,
+  "generator": {
+    "system": "foi-o-nz-example",
+    "model": null,
+    "prompt_id": null,
+    "software_version": "0.2.0"
+  },
+  "requires_human_certification": false,
+  "human_certification": null,
+  "legal_references": [],
+  "evidence": [
+    {
+      "evidence_id": "manifest:20001",
+      "evidence_type": "archive_manifest",
+      "source_url": "https://huggingface.co/datasets/edithatogo/fyi-archive-nz",
+      "archive_ref": "manifests/latest_manifest.parquet#request_id=20001",
+      "content_sha256": "e86d434300d4eeea2e0539cb2058a32952ecea30ea7067ea8f9c4a3fe1332cfb",
+      "excerpt": null,
+      "observed_at": "2026-07-01T00:00:00Z"
+    }
+  ],
+  "payload": {
+    "received_at": "2026-07-01T00:00:00Z",
+    "decision_due_date": "2026-07-29",
+    "transfer_due_date": "2026-07-15",
+    "calculation_method": "weekday_plus_optional_oia_summer_exclusion_v0.2.0",
+    "confidence": 0.42,
+    "warnings": [
+      "indicative_only_not_legal_advice"
+    ]
+  },
+  "quality_flags": [
+    "indicative_deadline_not_certified"
+  ]
+}

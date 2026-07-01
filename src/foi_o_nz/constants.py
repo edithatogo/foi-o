@@ -9,6 +9,8 @@ HUMAN_CERTIFICATION_EVENT_TYPES: frozenset[str] = frozenset(
         "ReleaseMade",
         "RefusalCommunicated",
         "ChargeNoticeSent",
+        "ExtensionNotified",
+        "TransferNotified",
     }
 )
 

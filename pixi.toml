@@ -22,6 +22,6 @@ py-test = "uv run pytest -q"
 py-quality = "uv run ruff check src tests scripts && uv run ruff format --check src tests scripts"
 mojo-format = "mojo format mojo"
 mojo-format-check = "mojo format --check mojo"
-mojo-test = "mojo run -I mojo mojo/tests/test_state.mojo"
+mojo-test = "mojo run -I mojo mojo/tests/test_state.mojo && mojo run -I mojo mojo/tests/test_clock.mojo"
 mojo-build = "mkdir -p build && mojo build -I mojo mojo/cli.mojo -o build/foi-o-nz-mojo"
 quality = { depends-on = ["py-quality", "py-test", "mojo-format-check", "mojo-test"] }

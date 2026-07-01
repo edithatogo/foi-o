@@ -224,10 +224,6 @@ def can_transition(from_state: RequestState, to_state: RequestState) -> bool:
 
 def requires_human_certification(event_type: str) -> bool:
     """Return whether an event type must carry human certification metadata."""
-    return event_type in {
-        "HumanDecisionCertified",
-        "DecisionCommunicated",
-        "ReleaseMade",
-        "RefusalCommunicated",
-        "ChargeNoticeSent",
-    }
+    from foi_o_nz.constants import HUMAN_CERTIFICATION_EVENT_TYPES
+
+    return event_type in HUMAN_CERTIFICATION_EVENT_TYPES
