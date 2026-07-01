@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Python quality and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Sync dependencies
+        run: uv sync --extra dev --extra analytics --extra max
+      - name: Ruff lint
+        run: uv run ruff check src tests scripts
+      - name: Ruff format check
+        run: uv run ruff format --check src tests scripts
+      - name: Run tests
+        run: uv run pytest -q
+      - name: Validate repository artefacts
+        run: uv run foi-o-nz validate-repo
+
+  mojo:
+    name: Mojo/MAX experimental core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Pixi
+        uses: prefix-dev/setup-pixi@v0.9.0
+        with:
+          pixi-version: latest
+          cache: true
+      - name: Mojo format check
+        run: pixi run mojo-format-check
+      - name: Mojo tests
+        run: pixi run mojo-test
+      - name: Mojo build
+        run: pixi run mojo-build
+
+  security:
+    name: Security and supply-chain checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Sync dependencies
+        run: uv sync --extra dev --extra analytics --extra max
+      - name: pip-audit
+        run: uv run pip-audit || true
+      - name: Generate SBOM
+        run: |
+          mkdir -p dist
+          uv run cyclonedx-py environment --output-format json --output-file dist/sbom.cdx.json
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: dist/sbom.cdx.json

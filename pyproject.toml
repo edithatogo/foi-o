@@ -1,19 +1,184 @@
+[build-system]
+requires = ["hatchling>=1.30.1"]
+build-backend = "hatchling.build"
+
 [project]
 name = "foi-o-nz"
 version = "0.1.0"
-description = "New Zealand-first FOI/OIA process ontology and agent-facing schema stack"
-requires-python = ">=3.11"
+description = "Agent-facing NZ OIA process model, ontology, schemas, validation, and analytics workbench."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [
+  { name = "Dylan Mordaunt", email = "edithatogo@users.noreply.github.com" },
+]
+keywords = [
+  "new-zealand",
+  "oia",
+  "official-information-act",
+  "foi",
+  "ontology",
+  "agents",
+  "mojo",
+  "max",
+  "polars",
+  "duckdb",
+  "lancedb",
+]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Information Analysis",
+  "Typing :: Typed",
+]
 dependencies = [
-  "jsonschema>=4",
-  "PyYAML>=6",
-  "rdflib>=7",
+  "pydantic>=2.11.0",
+  "pydantic-settings>=2.8.0",
+  "jsonschema>=4.22.0",
+  "PyYAML>=6.0.0",
+  "rdflib>=7.0.0",
+  "typer>=0.16.0",
+  "rich>=13.9.0",
+  "loguru>=0.7.2",
+  "orjson>=3.10.0",
 ]
 
 [project.optional-dependencies]
-dev = [
-  "pytest>=8",
+analytics = [
+  "polars>=1.0.0",
+  "pyarrow>=18.0.0",
+  "duckdb>=1.1.0",
+  "lancedb>=0.17.0",
 ]
+max = [
+  "openai>=1.90.0",
+]
+dev = [
+  "pytest>=8.4.0",
+  "pytest-cov>=6.0.0",
+  "hypothesis>=6.130.0",
+  "ruff>=0.15.16",
+  "ty>=0.0.46",
+  "pre-commit>=4.0.0",
+  "typos>=1.28.0",
+  "taplo>=0.9.3",
+  "pip-audit>=2.9.0",
+  "cyclonedx-bom>=5.1.0",
+]
+
+[project.scripts]
+foi-o-nz = "foi_o_nz.cli:app"
+foionz = "foi_o_nz.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/edithatogo/foi-o-nz"
+Repository = "https://github.com/edithatogo/foi-o-nz"
+Issues = "https://github.com/edithatogo/foi-o-nz/issues"
+"Related FYI archive dataset" = "https://huggingface.co/datasets/edithatogo/fyi-archive-nz"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/foi_o_nz"]
+
+[tool.legal_nz]
+versioning = "semver"
+logging = "loguru"
+architecture = "mojo-max-first-python-bridge"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [".pixi", ".venv", "dist", "data", "generated"]
+
+[tool.ruff.lint]
+select = [
+  "E", "W", "F", "I", "N", "UP", "B", "A", "C4", "T20", "PT", "SIM", "ARG",
+  "PTH", "PL", "RUF", "ANN", "D", "TCH", "YTT", "RET", "FURB", "COM", "DJ",
+  "DTZ", "EM", "ERA", "EXE", "FA", "FLY", "ICN", "INP", "INT", "ISC", "LOG",
+  "NPY", "PD", "PERF", "PGH", "PIE", "PYI", "Q", "RSE", "S", "SLF", "T10",
+  "TC", "TID", "TRY",
+]
+ignore = [
+  "E501",
+  "COM812",
+  "ISC001",
+  "D203",
+  "D212",
+  "D213",
+  "D404",
+  "D415",
+  "PLR0913",
+  "PLR2004",
+  "PLR0912",
+  "PLR0915",
+  "EM101",
+  "EM102",
+  "TRY003",
+  "TRY301",
+  "TRY004",
+  "S404",
+  "S603",
+  "S607",
+  "PERF401",
+  "TC001",
+  "TC002",
+  "TC003",
+  "FA100",
+  "ICN001",
+  "PLC0415",
+  "RUF100",
+  "N814",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+  "ANN", "D", "S101", "PLR2004", "T20", "SLF", "ARG", "ERA001", "INP001", "S106",
+  "S107", "PGH001", "PIE790", "EM", "TRY", "PERF", "FLY002", "PT017", "C408",
+  "TC006", "Q000", "S314", "PLC0415",
+]
+"scripts/*" = ["ANN", "D", "INP001", "T20", "EM", "TRY", "PLR0912"]
+"*/__init__.py" = ["D"]
+
+[tool.ruff.format]
+docstring-code-format = true
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["."]
+pythonpath = ["src"]
+markers = [
+  "unit: fast mock-isolated tests",
+  "integration: cross-component integration tests",
+  "mojo: tests requiring the Mojo compiler",
+  "analytics: tests requiring optional Polars/DuckDB/LanceDB extras",
+]
+
+[tool.coverage.run]
+source = ["foi_o_nz"]
+branch = true
+omit = ["*/__pycache__/*", "*/.venv/*"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+exclude_lines = [
+  "pragma: no cover",
+  "if TYPE_CHECKING:",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+]
+
+[tool.ty.environment]
+root = ["src", "tests", "scripts"]
+python-version = "3.12"
+
+[tool.ty.rules]
+# Keep this relaxed until ty's third-party type story stabilises for pydantic/typer.
+unresolved-import = "ignore"
+unresolved-attribute = "ignore"
+invalid-assignment = "ignore"
