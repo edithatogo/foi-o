@@ -1,0 +1,15 @@
+Task: Create full product roadmap Conductor tracks
+
+Summary:
+- Created full roadmap Conductor tracks for corpus profile/goldset, event timelines, OIA process rules, PSC reporting, MCP runtime, MAX/LanceDB inference, ontology/SHACL maturation, and publication methods release.
+- Created GitHub issues #12-#19 and added them to Project #10 as Todo.
+- Updated conductor/tracks.md and conductor/github.md.
+
+Verification:
+- metadata JSON parsed for every conductor/tracks/*/metadata.json.
+- conductor/tracks.md links resolved locally.
+- GitHub issues and Project #10 Todo items verified.
+
+Risks:
+- Product implementation tracks remain unexecuted; this commit only creates the roadmap track artifacts.
+- foi-o-nz-history.bundle remains intentionally untracked.
