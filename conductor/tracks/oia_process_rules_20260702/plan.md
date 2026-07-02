@@ -13,7 +13,7 @@
     - [x] Keep default behavior deterministic and dependency-light.
 - [x] Task: Conductor - User Manual Verification 'Calendar Contract' (Protocol in workflow.md) (`d916083`)
 
-## Phase 2: Source-Versioned References
+## Phase 2: Source-Versioned References [checkpoint: ec84651]
 
 - [x] Task: Write source-reference validation tests (`fa76fec`)
     - [x] Validate legislation/guidance mapping records include identifiers, source URLs, version/retrieval dates, and status.
@@ -21,7 +21,7 @@
 - [x] Task: Implement legal-source versioning (`fa76fec`)
     - [x] Extend mapping files and docs for source-versioned OIA/Ombudsman references.
     - [x] Add live-source commands only if they fail closed and cache outputs outside Git by default.
-- [~] Task: Conductor - User Manual Verification 'Source-Versioned References' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Source-Versioned References' (Protocol in workflow.md) (`ec84651`)
 
 ## Phase 3: Process Rule Quality Gates
 
