@@ -5,12 +5,12 @@
 - [x] Task: Audit current clock helpers and mappings (`e57420c`)
     - [x] Review date helpers, Mojo clock kernels, mappings, examples, and docs.
     - [x] Identify calendar assumptions that are currently hard-coded or undocumented.
-- [~] Task: Write working-day calendar tests
-    - [ ] Cover weekends, NZ public holidays, OIA summer closure, and missing calendar data.
-    - [ ] Verify warning strings remain explicit and non-certifying.
-- [~] Task: Implement calendar support
-    - [ ] Add fixture-backed calendar data or documented hooks for official calendar input.
-    - [ ] Keep default behavior deterministic and dependency-light.
+- [x] Task: Write working-day calendar tests (`4ed7306`)
+    - [x] Cover weekends, NZ public holidays, OIA summer closure, and missing calendar data.
+    - [x] Verify warning strings remain explicit and non-certifying.
+- [x] Task: Implement calendar support (`4ed7306`)
+    - [x] Add fixture-backed calendar data or documented hooks for official calendar input.
+    - [x] Keep default behavior deterministic and dependency-light.
 - [ ] Task: Conductor - User Manual Verification 'Calendar Contract' (Protocol in workflow.md)
 
 ## Phase 2: Source-Versioned References
