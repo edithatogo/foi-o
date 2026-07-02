@@ -4,7 +4,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: OIA process rules and legal-source versioning**
+- [~] **Track: OIA process rules and legal-source versioning**
   *Link: [./tracks/oia_process_rules_20260702/](./tracks/oia_process_rules_20260702/)*
   *GitHub: [Issue #14](https://github.com/edithatogo/foi-o/issues/14), [Project #10](https://github.com/users/edithatogo/projects/10)*
 
