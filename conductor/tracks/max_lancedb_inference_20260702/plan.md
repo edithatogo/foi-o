@@ -15,7 +15,7 @@
 
 ## Phase 2: LanceDB Retrieval
 
-- [~] Task: Write LanceDB integration tests
+- [x] Task: Write LanceDB integration tests (`a1d8c65`)
     - [ ] Cover optional dependency absence, fixture embedding inputs, table creation, and query results.
     - [ ] Keep tests deterministic without live downloads or service keys.
 - [ ] Task: Implement LanceDB semantic retrieval path
