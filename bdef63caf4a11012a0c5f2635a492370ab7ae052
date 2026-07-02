@@ -1,0 +1,7 @@
+Task summary: Audited Track 3 event extraction, quality, timeline, and evaluation baseline.
+
+Files changed: conductor/tracks/event_extraction_timeline_20260702/audit.md; conductor/tracks/event_extraction_timeline_20260702/plan.md.
+
+Verification: inspected extractors, normalise pipeline, quality gates, evaluation helpers, schemas, examples, docs, and tests; no runtime changes.
+
+Risks: audit-only documentation; fixture and timeline gaps remain for subsequent tasks.
