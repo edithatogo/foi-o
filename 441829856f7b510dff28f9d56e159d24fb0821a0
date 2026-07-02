@@ -1,0 +1,7 @@
+Task summary: Added event extraction fixture tests for message shapes, candidate rules, and certification boundary.
+
+Files changed: tests/test_event_extraction_timeline.py; conductor/tracks/event_extraction_timeline_20260702/plan.md.
+
+Verification: uv run pytest -q tests/test_event_extraction_timeline.py; uv run ruff check tests/test_event_extraction_timeline.py; uv run ruff format --check tests/test_event_extraction_timeline.py.
+
+Risks: test-only change; existing extractor behavior already satisfied covered fixture baseline.
