@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`3c43df1`)
     - [x] Run `conductor-review` for the track scope. Command unavailable; manual fallback recorded in `review.md`.
     - [x] Apply high-confidence fixes and rerun focused checks. Fixes committed in `a0b7c8d` and `11e3cbc`.
-- [ ] Task: Conductor - User Manual Verification 'Reporting Closeout' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Reporting Closeout' (Protocol in workflow.md)
