@@ -1,0 +1,24 @@
+Task: Implement semantic export updates
+
+Files changed:
+- src/foi_o_nz/rdf_export.py
+- src/foi_o_nz/dataset_metadata.py
+- src/foi_o_nz/graph_export.py
+- docs/22-semantic-alignment.md
+- tests/test_rdf_export.py
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Aligned RDF export, Croissant metadata, and graph export with matured ontology/SKOS/DCAT/ODRL terms.
+- Documented exporter consistency expectations and validation commands.
+
+Verification:
+- uv run pytest -q tests/test_rdf_export.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py tests/test_semantic_alignment.py tests/test_shacl_safety_profiles.py
+- uv run ruff check src/foi_o_nz/rdf_export.py src/foi_o_nz/dataset_metadata.py src/foi_o_nz/graph_export.py tests/test_rdf_export.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py
+- uv run ruff format --check src/foi_o_nz/rdf_export.py src/foi_o_nz/dataset_metadata.py src/foi_o_nz/graph_export.py tests/test_rdf_export.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py
+- uv run python scripts/validate_examples.py
+- uv run foi-o-nz validate-repo
+- git diff --check
+
+Risks:
+- RDF export now prefers identifier URIs for semantic fields; consumers expecting literals should resolve labels from SKOS vocabularies.
