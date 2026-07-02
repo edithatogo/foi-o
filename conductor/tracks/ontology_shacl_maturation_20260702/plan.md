@@ -1,6 +1,6 @@
 # Plan: Ontology and SHACL maturation
 
-## Phase 1: Ontology Gap Audit
+## Phase 1: Ontology Gap Audit [checkpoint: 1badee3]
 
 - [x] Task: Audit ontology, vocabularies, SHACL shapes, and context (`321e252`)
     - [x] Review OWL/RDF classes, SKOS vocabularies, JSON-LD context, mappings, and docs.
@@ -11,7 +11,7 @@
 - [x] Task: Implement ontology maturation baseline (`431f68e`)
     - [x] Add missing classes/properties and vocabulary entries.
     - [x] Document alignment with PROV-O, DCAT, ODRL, SKOS, and legal-document standards.
-- [~] Task: Conductor - User Manual Verification 'Ontology Gap Audit' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Ontology Gap Audit' (Protocol in workflow.md) (`1badee3`)
 
 ## Phase 2: SHACL Safety Profiles
 
