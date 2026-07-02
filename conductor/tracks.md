@@ -4,12 +4,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: PSC reporting profile and aggregate reports**
-  *Link: [./tracks/reporting_profile_psc_20260702/](./tracks/reporting_profile_psc_20260702/)*
-  *GitHub: [Issue #15](https://github.com/edithatogo/foi-o/issues/15), [Project #10](https://github.com/users/edithatogo/projects/10)*
-
----
-
 - [ ] **Track: Agent contract and MCP runtime hardening**
   *Link: [./tracks/agent_contract_mcp_runtime_20260702/](./tracks/agent_contract_mcp_runtime_20260702/)*
   *GitHub: [Issue #16](https://github.com/edithatogo/foi-o/issues/16), [Project #10](https://github.com/users/edithatogo/projects/10)*
