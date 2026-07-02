@@ -36,9 +36,9 @@
 ## Phase 4: OIA Rules Closeout
 
 - [x] Task: Run OIA process validation (`300106b`)
-    - [ ] Run date, state-machine, quality, mapping, and schema tests.
-    - [ ] Run available Mojo clock tests or document Modular external gate.
+    - [x] Run date, state-machine, quality, mapping, and schema tests.
+    - [x] Run available Mojo clock tests or document Modular external gate.
 - [x] Task: Run Conductor review and apply high-confidence fixes (`a594412`)
     - [x] Run `conductor-review` for the track scope. Command unavailable; manual fallback recorded in `review.md`.
     - [x] Apply high-confidence fixes and rerun focused checks. CLI metadata fix committed in `c7bbdd9`.
-- [ ] Task: Conductor - User Manual Verification 'OIA Rules Closeout' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'OIA Rules Closeout' (Protocol in workflow.md)
