@@ -1,0 +1,6 @@
+Track: oia_process_rules_20260702
+Action: Start track
+Summary: Set Conductor active registry and metadata to in_progress; GitHub Issue #14 Project #10 item verified In Progress.
+Files changed: conductor/tracks.md; conductor/tracks/oia_process_rules_20260702/metadata.json
+Verification: gh issue view 14 --json number,state,title,projectItems,url
+Risks: Phase 1 calendar audit not yet started.
