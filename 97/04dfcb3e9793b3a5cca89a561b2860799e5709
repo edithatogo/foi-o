@@ -1,0 +1,13 @@
+Task: Record release validation
+
+Summary:
+- Updated the publication track plan to mark release validation complete with 95955c6.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; full validation evidence is recorded on 95955c6.
+
+Risks:
+- Final review task still pending.
