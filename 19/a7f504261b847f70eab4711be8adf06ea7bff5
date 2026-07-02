@@ -1,0 +1,17 @@
+Review fix: Expose LanceDB retrieval CLI
+
+Files changed:
+- src/foi_o_nz/cli.py
+- tests/test_lancedb_retrieval.py
+
+Summary:
+- Added search-lancedb CLI command backed by search_embedding_records.
+- Added fallback-mode CLI test proving deterministic retrieval remains available without LanceDB and keeps machine_certification_allowed false.
+
+Verification:
+- uv run pytest -q tests/test_lancedb_retrieval.py
+- uv run ruff check src/foi_o_nz/cli.py tests/test_lancedb_retrieval.py
+- uv run ruff format --check src/foi_o_nz/cli.py tests/test_lancedb_retrieval.py
+
+Risks:
+- Search output is local retrieval evidence only; not a legal decision or certification channel.
