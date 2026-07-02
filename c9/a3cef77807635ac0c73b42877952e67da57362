@@ -1,0 +1,1 @@
+Task: Plan update for agent contract validation\n\nSummary:\n- Marked the agent contract validation task complete with commit fc9517d.\n\nFiles changed:\n- conductor/tracks/agent_contract_mcp_runtime_20260702/plan.md\n\nVerification:\n- Plan-only update; validation evidence is attached to fc9517d.\n\nRisks:\n- None; no code changes.
