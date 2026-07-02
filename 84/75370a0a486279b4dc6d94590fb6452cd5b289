@@ -1,0 +1,4 @@
+Task summary: Checkpointed Track 5 Phase 3 publication-safe reporting docs.
+Files changed: conductor/tracks/reporting_profile_psc_20260702/plan.md; conductor/tracks/reporting_profile_psc_20260702/phase-3-verification.md.
+Verification: Docs/reporting/schema tests, example validation, repo validation, Ruff check/format.
+Risks: Real-corpus reporting examples remain future work.
