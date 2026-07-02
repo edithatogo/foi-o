@@ -1296,6 +1296,10 @@ def validate_repo() -> None:
         for path in sorted(Path("examples").glob("ledger-entry*.json"))
     )
     example_schema_pairs.extend(
+        (path, Path("schemas/json/quality-report.schema.json"))
+        for path in sorted(Path("examples").glob("quality-report*.json"))
+    )
+    example_schema_pairs.extend(
         (path, Path("schemas/json/risk-assessment.schema.json"))
         for path in sorted(Path("examples").glob("risk-assessment*.json"))
     )

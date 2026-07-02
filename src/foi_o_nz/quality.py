@@ -9,6 +9,19 @@ from typing import Any
 from foi_o_nz.constants import HUMAN_CERTIFICATION_EVENT_TYPES
 from foi_o_nz.io import iter_jsonl
 
+QUALITY_LIMITATIONS = [
+    "Quality gates validate metadata, provenance, and guardrail consistency; they do not certify legal correctness."
+]
+LEGAL_REFERENCE_VERSION_FIELDS = {
+    "uri",
+    "work_id",
+    "version_id",
+    "retrieved_at",
+    "source_status",
+    "applicability_basis",
+}
+STALE_OR_UNVERIFIED_SOURCE_STATUS = {"external_gate", "deprecated", "unknown"}
+
 
 @dataclass(frozen=True, slots=True)
 class QualityFinding:
@@ -92,6 +105,34 @@ def assess_event(event: dict[str, Any]) -> list[QualityFinding]:
                     event_id,
                 )
             )
+    legal_references = event.get("legal_references")
+    if isinstance(legal_references, list):
+        for reference in legal_references:
+            if not isinstance(reference, dict):
+                continue
+            missing = sorted(
+                field
+                for field in LEGAL_REFERENCE_VERSION_FIELDS
+                if reference.get(field) in {None, ""}
+            )
+            if missing:
+                findings.append(
+                    QualityFinding(
+                        "warning",
+                        "unversioned_legal_reference",
+                        f"legal reference lacks version/source fields: {', '.join(missing)}",
+                        event_id,
+                    )
+                )
+            if reference.get("source_status") in STALE_OR_UNVERIFIED_SOURCE_STATUS:
+                findings.append(
+                    QualityFinding(
+                        "warning",
+                        "stale_or_unverified_legal_reference",
+                        "legal reference source status is not an official current snapshot",
+                        event_id,
+                    )
+                )
     if assertion_status == "certified" and event.get("machine_generated") is True:
         findings.append(
             QualityFinding(
@@ -117,6 +158,7 @@ def assess_events(events: list[dict[str, Any]]) -> dict[str, Any]:
         "error_count": error_count,
         "warning_count": warning_count,
         "findings": [finding.as_dict() for finding in findings],
+        "limitations": QUALITY_LIMITATIONS,
     }
 
 

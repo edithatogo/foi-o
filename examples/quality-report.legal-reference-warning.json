@@ -1,0 +1,23 @@
+{
+  "error_count": 0,
+  "event_count": 1,
+  "findings": [
+    {
+      "code": "unversioned_legal_reference",
+      "event_id": "foio-nz:event:stale-ref",
+      "message": "legal reference lacks version/source fields: applicability_basis, retrieved_at, uri, version_id, work_id",
+      "severity": "warning"
+    },
+    {
+      "code": "stale_or_unverified_legal_reference",
+      "event_id": "foio-nz:event:stale-ref",
+      "message": "legal reference source status is not an official current snapshot",
+      "severity": "warning"
+    }
+  ],
+  "limitations": [
+    "Quality gates validate metadata, provenance, and guardrail consistency; they do not certify legal correctness."
+  ],
+  "ok": true,
+  "warning_count": 2
+}

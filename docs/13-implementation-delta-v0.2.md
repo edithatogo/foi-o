@@ -36,3 +36,20 @@ Rule extractors may emit candidate `DecisionCommunicated`, `ReleaseMade`,
 `RefusalCommunicated`, and `ChargeNoticeSent` events, but those events are
 marked as requiring human certification and carry no positive certification.
 They are process signals for review, not final decisions.
+
+## Process-rule quality examples
+
+Passing quality output can still include warning findings. For example, a
+candidate `ReleaseMade` event with evidence, `requires_human_certification:
+true`, and `human_certification.certified: false` is metadata-valid, but if its
+legal reference lacks `version_id`, `retrieved_at`, `source_status`, or
+`applicability_basis`, the gate emits `unversioned_legal_reference`.
+
+When a source is marked `external_gate`, `deprecated`, or `unknown`, the gate
+also emits `stale_or_unverified_legal_reference`. These warnings do not make the
+event legally wrong; they mean the repo-local proof is insufficient for legal
+certainty.
+
+Failing quality output remains reserved for boundary violations such as missing
+evidence, missing human-certification metadata on dispositive events, or a
+`certified` assertion without positive human certification.

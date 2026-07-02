@@ -25,10 +25,10 @@
 
 ## Phase 3: Process Rule Quality Gates
 
-- [ ] Task: Write process-rule quality tests
+- [~] Task: Write process-rule quality tests
     - [ ] Cover missing evidence, unsafe certification, stale references, and contradictory status signals.
     - [ ] Verify warnings differentiate repo-local proof from legal certainty.
-- [ ] Task: Implement stronger quality gates
+- [~] Task: Implement stronger quality gates
     - [ ] Add quality checks and schema/example updates for process-rule references.
     - [ ] Update docs with exact pass/fail examples.
 - [ ] Task: Conductor - User Manual Verification 'Process Rule Quality Gates' (Protocol in workflow.md)
