@@ -1,0 +1,16 @@
+Archive: MAX and LanceDB bounded inference
+
+Files changed:
+- conductor/archive/max_lancedb_inference_20260702/*
+- conductor/tracks.md
+
+Summary:
+- Archived completed Track 7, marked metadata completed, removed the active track entry, closed Issue #17, and set Project #10 item to Done.
+
+Verification:
+- Final verification evidence attached to 7160e3c.
+- Archive metadata and tracks.md inspected before commit.
+- GitHub issue/project closeout performed with gh.
+
+Risks:
+- Live MAX/model execution, hosted vector services, and publication checks remain external gates.
