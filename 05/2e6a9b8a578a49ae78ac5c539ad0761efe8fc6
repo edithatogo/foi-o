@@ -1,0 +1,19 @@
+Task: Archive publication_methods_release_20260702
+
+Summary:
+- Archived completed publication, methods paper, and release package track.
+- Metadata records completed status and completed_at timestamp.
+- Removed the track from active conductor/tracks.md.
+- GitHub Issue #19 is closed and Project #10 status is Done.
+
+Files changed:
+- conductor/tracks.md
+- conductor/archive/publication_methods_release_20260702/*
+
+Verification:
+- Full closeout gates passed in 556765f and are recorded in conductor/archive/publication_methods_release_20260702/final-verification.md.
+- gh project item-edit succeeded for Project #10 Done status.
+- gh issue view confirmed Issue #19 is CLOSED.
+
+Risks:
+- External registry publication, live source pulls, and manual release approval remain external gates.
