@@ -1,0 +1,4 @@
+Task summary: Recorded Track 4 Conductor review fallback and findings.
+Files changed: conductor/tracks/oia_process_rules_20260702/plan.md; conductor/tracks/oia_process_rules_20260702/review.md.
+Verification: Focused Track 4 tests, example validation, repo validation, Ruff check/format after fix c7bbdd9.
+Risks: conductor-review executable unavailable; manual review fallback used and documented.
