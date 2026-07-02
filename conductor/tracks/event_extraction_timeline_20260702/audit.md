@@ -28,3 +28,9 @@
 - Add candidate event tests for each current regex rule and assert certification metadata for dispositive candidates.
 - Add timeline ordering tests with missing-date warnings.
 - Add committed event evaluation fixture tests with deterministic precision/recall/F1 output.
+
+## Phase 1 Extraction Closeout
+
+- `4418298` added fixture coverage for supported correspondence fields and single text fields.
+- `4418298` added candidate tests for extension, transfer, clarification, charge, refusal, release, complaint, and decision rules.
+- The existing extractor satisfied those public fixture cases without rule changes, so Phase 1 required no extractor behavior change.
