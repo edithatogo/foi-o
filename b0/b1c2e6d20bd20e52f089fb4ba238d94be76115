@@ -1,0 +1,15 @@
+Task: Write paper evidence checks
+
+Summary:
+- Added tests for methods paper sections, repo-local evidence citations, reproducibility commands, and boundary language.
+- Tests prohibit official/legal/autonomous-decision overclaiming phrases.
+
+Files changed:
+- tests/test_methods_paper.py
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_methods_paper.py failed as expected because docs/23-methods-paper.md does not exist yet.
+
+Risks:
+- Red test is intentional until the methods paper draft task.
