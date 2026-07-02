@@ -2,7 +2,7 @@
 
 ## Phase 1: Ontology Gap Audit
 
-- [ ] Task: Audit ontology, vocabularies, SHACL shapes, and context
+- [~] Task: Audit ontology, vocabularies, SHACL shapes, and context
     - [ ] Review OWL/RDF classes, SKOS vocabularies, JSON-LD context, mappings, and docs.
     - [ ] Identify missing provenance, authority, review, publication, and agent-boundary terms.
 - [ ] Task: Write RDF/SKOS parse and alignment tests
