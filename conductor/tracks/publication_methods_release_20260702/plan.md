@@ -1,6 +1,6 @@
 # Plan: Publication, methods paper, and release package
 
-## Phase 1: Release Evidence Package
+## Phase 1: Release Evidence Package [checkpoint: 58b100d]
 
 - [x] Task: Audit release evidence and publication metadata (`0b2c374`)
     - [x] Review README, implementation reports, dataset metadata, reproducibility manifests, and release docs.
@@ -11,7 +11,7 @@
 - [x] Task: Implement release evidence package (`92b82a4`)
     - [x] Add or update release checklist, reproducibility commands, and metadata examples.
     - [x] Keep generated publication payloads out of Git unless reduced to safe fixtures.
-- [~] Task: Conductor - User Manual Verification 'Release Evidence Package' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Release Evidence Package' (Protocol in workflow.md) (`58b100d`)
 
 ## Phase 2: Dataset and Repository Publication Metadata
 
