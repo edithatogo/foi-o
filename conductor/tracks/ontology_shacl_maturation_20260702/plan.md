@@ -15,7 +15,7 @@
 
 ## Phase 2: SHACL Safety Profiles
 
-- [ ] Task: Write SHACL validation tests
+- [~] Task: Write SHACL validation tests
     - [ ] Cover required evidence/provenance fields and certification-boundary constraints.
     - [ ] Cover pySHACL installed and parse-only degraded modes.
 - [ ] Task: Implement SHACL profile updates
