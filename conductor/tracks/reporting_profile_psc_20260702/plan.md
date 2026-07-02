@@ -38,7 +38,7 @@
 - [x] Task: Run reporting validation (`3d6ef3b`)
     - [x] Run reporting, analytics, mapping, schema, and table-contract tests.
     - [x] Generate sample fixture reports and validate outputs.
-- [~] Task: Run Conductor review and apply high-confidence fixes
-    - [ ] Run `conductor-review` for the track scope.
-    - [ ] Apply high-confidence fixes and rerun focused checks.
+- [x] Task: Run Conductor review and apply high-confidence fixes (`3c43df1`)
+    - [x] Run `conductor-review` for the track scope. Command unavailable; manual fallback recorded in `review.md`.
+    - [x] Apply high-confidence fixes and rerun focused checks. Fixes committed in `a0b7c8d` and `11e3cbc`.
 - [ ] Task: Conductor - User Manual Verification 'Reporting Closeout' (Protocol in workflow.md)
