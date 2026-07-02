@@ -10,7 +10,7 @@ from foi_o_nz.io import write_json
 
 def build_openapi_contract() -> dict[str, Any]:
     """Return a conservative OpenAPI 3.1 contract for bounded agent tools."""
-    return {
+    contract = {
         "openapi": "3.1.0",
         "info": {
             "title": "FOI-O NZ Agent Process API",
@@ -166,6 +166,28 @@ def build_openapi_contract() -> dict[str, Any]:
             }
         },
     }
+    _add_agent_operation_metadata(contract)
+    return contract
+
+
+def _add_agent_operation_metadata(contract: dict[str, Any]) -> None:
+    for methods in contract["paths"].values():
+        for operation in methods.values():
+            operation.setdefault("x-read-only", True)
+            operation.setdefault("x-legal-effect", "none")
+            operation.setdefault("x-machine-certification-allowed", False)
+            operation.setdefault(
+                "x-prohibited-follow-on-actions",
+                [
+                    "certify_release",
+                    "certify_refusal",
+                    "approve_redaction",
+                    "approve_charge",
+                    "certify_transfer",
+                    "certify_extension",
+                    "certify_complaint_or_review_outcome",
+                ],
+            )
 
 
 def write_openapi_contract(output: Path) -> dict[str, Any]:

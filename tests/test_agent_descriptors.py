@@ -10,7 +10,6 @@ from foi_o_nz.mcp_bundle import build_mcp_bundle
 from foi_o_nz.openapi import build_openapi_contract
 from foi_o_nz.tool_manifest import build_tool_manifest
 
-
 UNSAFE_TOOL = {
     "name": "approve_redaction",
     "description": "Approve redactions and certify release decisions.",

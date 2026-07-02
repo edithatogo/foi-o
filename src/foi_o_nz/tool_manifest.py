@@ -11,97 +11,98 @@ from foi_o_nz.io import write_json
 
 def build_tool_manifest() -> dict[str, Any]:
     """Return a bounded tool manifest for MCP/OpenAPI/agent runtime planning."""
-    tools: list[dict[str, Any]] = []
+    tools_by_name: dict[str, dict[str, Any]] = {}
     for action_type, policy in sorted(ACTION_POLICY.items()):
-        tools.append(
-            {
-                "name": action_type,
-                "description": _description_for_action(action_type),
-                "legal_effect": policy["legal_effect"],
-                "safety_class": policy["safety_class"],
-                "requires_human_certification": policy["requires_human_certification"],
-                "prohibited_follow_on_actions": policy["prohibited_follow_on_actions"],
-                "machine_certification_allowed": False,
-            }
+        tools_by_name[action_type] = _tool_descriptor(
+            name=action_type,
+            description=_description_for_action(action_type),
+            legal_effect=policy["legal_effect"],
+            safety_class=policy["safety_class"],
+            requires_human_certification=policy["requires_human_certification"],
+            prohibited_follow_on_actions=policy["prohibited_follow_on_actions"],
         )
-    tools.extend(
-        [
-            {
-                "name": "search_chunks",
-                "description": "Retrieve request-scoped context from deterministic text chunks.",
-                "legal_effect": "none",
-                "safety_class": "retrieval_only",
-                "requires_human_certification": False,
-                "prohibited_follow_on_actions": ["certify_decision", "release_information"],
-                "machine_certification_allowed": False,
-            },
-            {
-                "name": "propose_redaction_candidates",
-                "description": "Flag candidate sensitive spans with hashed/masked previews for human review.",
-                "legal_effect": "none",
-                "safety_class": "privacy_triage",
-                "requires_human_certification": True,
-                "prohibited_follow_on_actions": ["apply_redaction", "withhold_information"],
-                "machine_certification_allowed": False,
-            },
-            {
-                "name": "build_agent_pack",
-                "description": "Assemble request-scoped context packs with constraints and provenance.",
-                "legal_effect": "none",
-                "safety_class": "context_packaging",
-                "requires_human_certification": False,
-                "prohibited_follow_on_actions": ["certify_decision"],
-                "machine_certification_allowed": False,
-            },
-            {
-                "name": "kernel_status",
-                "description": "Report Mojo/MAX kernel availability and Python fallback mode.",
-                "legal_effect": "none",
-                "safety_class": "runtime_introspection",
-                "requires_human_certification": False,
-                "prohibited_follow_on_actions": ["treat_tool_availability_as_decision_authority"],
-                "machine_certification_allowed": False,
-            },
-            {
-                "name": "mojo_audit",
-                "description": "Statically audit Mojo source declarations against fallback kernel operations.",
-                "legal_effect": "none",
-                "safety_class": "runtime_validation",
-                "requires_human_certification": False,
-                "prohibited_follow_on_actions": [
-                    "treat_static_audit_as_native_release_certification"
-                ],
-                "machine_certification_allowed": False,
-            },
-            {
-                "name": "export_kernel_manifest",
-                "description": "Export deterministic kernel operation metadata for native/fallback parity planning.",
-                "legal_effect": "none",
-                "safety_class": "runtime_introspection",
-                "requires_human_certification": False,
-                "prohibited_follow_on_actions": ["treat_manifest_as_decision_authority"],
-                "machine_certification_allowed": False,
-            },
-            {
-                "name": "kernel_readiness",
-                "description": "Report remaining blockers before Mojo-native kernel release certification.",
-                "legal_effect": "none",
-                "safety_class": "runtime_validation",
-                "requires_human_certification": False,
-                "prohibited_follow_on_actions": ["skip_native_mojo_ci"],
-                "machine_certification_allowed": False,
-            },
-            {
-                "name": "kernel_conformance",
-                "description": "Run deterministic Mojo/Python fallback kernel conformance checks.",
-                "legal_effect": "none",
-                "safety_class": "runtime_validation",
-                "requires_human_certification": False,
-                "prohibited_follow_on_actions": ["treat_test_pass_as_operational_authorisation"],
-                "machine_certification_allowed": False,
-            },
-        ]
-    )
+    for tool in [
+        {
+            "name": "search_chunks",
+            "description": "Retrieve request-scoped context from deterministic text chunks.",
+            "legal_effect": "none",
+            "safety_class": "retrieval_only",
+            "requires_human_certification": False,
+            "prohibited_follow_on_actions": ["certify_decision", "release_information"],
+            "machine_certification_allowed": False,
+        },
+        {
+            "name": "propose_redaction_candidates",
+            "description": "Flag candidate sensitive spans with hashed/masked previews for human review.",
+            "legal_effect": "none",
+            "safety_class": "privacy_triage",
+            "requires_human_certification": True,
+            "prohibited_follow_on_actions": ["apply_redaction", "withhold_information"],
+            "machine_certification_allowed": False,
+        },
+        {
+            "name": "build_agent_pack",
+            "description": "Assemble request-scoped context packs with constraints and provenance.",
+            "legal_effect": "none",
+            "safety_class": "context_packaging",
+            "requires_human_certification": False,
+            "prohibited_follow_on_actions": ["certify_decision"],
+            "machine_certification_allowed": False,
+        },
+        {
+            "name": "kernel_status",
+            "description": "Report Mojo/MAX kernel availability and Python fallback mode.",
+            "legal_effect": "none",
+            "safety_class": "runtime_introspection",
+            "requires_human_certification": False,
+            "prohibited_follow_on_actions": ["treat_tool_availability_as_decision_authority"],
+            "machine_certification_allowed": False,
+        },
+        {
+            "name": "mojo_audit",
+            "description": "Statically audit Mojo source declarations against fallback kernel operations.",
+            "legal_effect": "none",
+            "safety_class": "runtime_validation",
+            "requires_human_certification": False,
+            "prohibited_follow_on_actions": ["treat_static_audit_as_native_release_certification"],
+            "machine_certification_allowed": False,
+        },
+        {
+            "name": "export_kernel_manifest",
+            "description": "Export deterministic kernel operation metadata for native/fallback parity planning.",
+            "legal_effect": "none",
+            "safety_class": "runtime_introspection",
+            "requires_human_certification": False,
+            "prohibited_follow_on_actions": ["treat_manifest_as_decision_authority"],
+            "machine_certification_allowed": False,
+        },
+        {
+            "name": "kernel_readiness",
+            "description": "Report remaining blockers before Mojo-native kernel release certification.",
+            "legal_effect": "none",
+            "safety_class": "runtime_validation",
+            "requires_human_certification": False,
+            "prohibited_follow_on_actions": ["skip_native_mojo_ci"],
+            "machine_certification_allowed": False,
+        },
+        {
+            "name": "kernel_conformance",
+            "description": "Run deterministic Mojo/Python fallback kernel conformance checks.",
+            "legal_effect": "none",
+            "safety_class": "runtime_validation",
+            "requires_human_certification": False,
+            "prohibited_follow_on_actions": ["treat_test_pass_as_operational_authorisation"],
+        },
+    ]:
+        tools_by_name[tool["name"]] = _tool_descriptor(
+            name=tool["name"],
+            description=tool["description"],
+            legal_effect=tool["legal_effect"],
+            safety_class=tool["safety_class"],
+            requires_human_certification=tool["requires_human_certification"],
+            prohibited_follow_on_actions=tool["prohibited_follow_on_actions"],
+        )
+    tools = [tools_by_name[name] for name in sorted(tools_by_name)]
     return {
         "schema_version": "foi-o-nz.tool-manifest.v0.1.0",
         "name": "foi-o-nz-agent-tools",
@@ -112,6 +113,27 @@ def build_tool_manifest() -> dict[str, Any]:
             "Observed/inferred/asserted/certified status must be preserved.",
             "Machine-generated outputs must remain reviewable and auditable.",
         ],
+    }
+
+
+def _tool_descriptor(
+    *,
+    name: str,
+    description: str,
+    legal_effect: str,
+    safety_class: str,
+    requires_human_certification: bool,
+    prohibited_follow_on_actions: list[str],
+) -> dict[str, Any]:
+    return {
+        "name": name,
+        "description": description,
+        "legal_effect": legal_effect,
+        "safety_class": safety_class,
+        "requires_human_certification": requires_human_certification,
+        "prohibited_follow_on_actions": prohibited_follow_on_actions,
+        "read_only": True,
+        "machine_certification_allowed": False,
     }
 
 

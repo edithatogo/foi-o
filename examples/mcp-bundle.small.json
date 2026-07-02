@@ -1,14 +1,55 @@
 {
   "global_boundaries": [
-    "No autonomous decisions."
+    "No autonomous release/refusal/redaction/charge/extension/transfer certification.",
+    "Observed/inferred/asserted/certified status must be preserved.",
+    "Machine-generated outputs must remain reviewable and auditable."
   ],
   "name": "foi-o-nz-mcp-planning-bundle",
   "prompts": [
     {
-      "arguments": [],
-      "description": "Draft a search plan.",
+      "arguments": [
+        {
+          "name": "source_text",
+          "required": true
+        }
+      ],
+      "description": "Extract candidate process events while preserving observed/inferred/asserted/certified status.",
+      "name": "extract_candidate_events",
+      "safety": "Outputs are candidates only; no legal decision certification."
+    },
+    {
+      "arguments": [
+        {
+          "name": "agent_pack",
+          "required": true
+        }
+      ],
+      "description": "Draft a search plan for a human FOI/OIA officer.",
       "name": "draft_search_plan",
-      "safety": "Preparatory only."
+      "safety": "Preparatory only; cannot certify search adequacy."
+    },
+    {
+      "arguments": [
+        {
+          "name": "redaction_candidates",
+          "required": true
+        }
+      ],
+      "description": "Summarise candidate sensitive spans for human review using masked previews.",
+      "name": "review_redaction_candidates",
+      "safety": "Candidate-only; cannot apply or approve redactions."
+    },
+    {
+      "arguments": [],
+      "description": "Inspect whether Mojo/MAX native kernels are available and whether Python fallback is active.",
+      "name": "inspect_kernel_status",
+      "safety": "Runtime introspection only; does not authorise autonomous decisions."
+    },
+    {
+      "arguments": [],
+      "description": "Inspect static Mojo source readiness and remaining native-release blockers.",
+      "name": "inspect_kernel_readiness",
+      "safety": "Runtime planning only; does not certify production readiness without native CI."
     }
   ],
   "resources": [
@@ -17,13 +58,442 @@
       "name": "Core event JSON Schema",
       "path": "schemas/json/core-event.schema.json",
       "uri": "foio-nz://schemas/core-event"
+    },
+    {
+      "mimeType": "text/turtle",
+      "name": "FOI-O NZ ontology seed",
+      "path": "ontology/foi-o-nz.ttl",
+      "uri": "foio-nz://ontology/core"
+    },
+    {
+      "mimeType": "text/turtle",
+      "name": "Request-state SKOS vocabulary",
+      "path": "vocab/request-states.skos.ttl",
+      "uri": "foio-nz://vocab/request-states"
+    },
+    {
+      "mimeType": "application/schema+json",
+      "name": "Native kernel status JSON Schema",
+      "path": "schemas/json/native-kernel-status.schema.json",
+      "uri": "foio-nz://kernels/status-schema"
+    },
+    {
+      "mimeType": "application/schema+json",
+      "name": "Static Mojo audit JSON Schema",
+      "path": "schemas/json/mojo-audit.schema.json",
+      "uri": "foio-nz://kernels/mojo-audit-schema"
+    },
+    {
+      "mimeType": "application/schema+json",
+      "name": "Kernel manifest JSON Schema",
+      "path": "schemas/json/kernel-manifest.schema.json",
+      "uri": "foio-nz://kernels/kernel-manifest-schema"
+    },
+    {
+      "mimeType": "application/schema+json",
+      "name": "Kernel readiness JSON Schema",
+      "path": "schemas/json/kernel-readiness.schema.json",
+      "uri": "foio-nz://kernels/kernel-readiness-schema"
     }
   ],
   "schema_version": "foi-o-nz.mcp-bundle.v0.1.0",
   "tools": [
     {
+      "description": "Generate unsigned provenance attestations for artefact integrity workflows.",
       "legal_effect": "none",
-      "name": "map_state"
+      "machine_certification_allowed": false,
+      "name": "attest_artifacts",
+      "prohibited_follow_on_actions": [
+        "treat_unsigned_attestation_as_signed_provenance"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Assemble request-scoped context packs with constraints and provenance.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "build_agent_pack",
+      "prohibited_follow_on_actions": [
+        "certify_decision"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "context_packaging"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "build_goldset_tasks",
+      "prohibited_follow_on_actions": [
+        "record_decision_in_goldset_task"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Generate preparatory next-step advice without deciding outcomes.",
+      "legal_effect": "preparatory",
+      "machine_certification_allowed": false,
+      "name": "build_process_advice",
+      "prohibited_follow_on_actions": [
+        "execute_advice_without_review"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Route candidate risks and certification boundaries to human review tasks.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "build_review_queue",
+      "prohibited_follow_on_actions": [
+        "treat_queue_as_legal_decision"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Calculate indicative process deadlines for operator review.",
+      "legal_effect": "preparatory",
+      "machine_certification_allowed": false,
+      "name": "calculate_deadline",
+      "prohibited_follow_on_actions": [
+        "certify_timeliness"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "cas_manifest",
+      "prohibited_follow_on_actions": [
+        "treat_hash_manifest_as_legal_certification"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Compare artefact streams by stable IDs and canonical hashes.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "diff_streams",
+      "prohibited_follow_on_actions": [
+        "publish_incremental_change_without_reconciliation"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Draft correspondence text that must be reviewed before sending.",
+      "legal_effect": "preparatory",
+      "machine_certification_allowed": false,
+      "name": "draft_correspondence",
+      "prohibited_follow_on_actions": [
+        "send_without_human_review"
+      ],
+      "read_only": true,
+      "requires_human_certification": true,
+      "safety_class": "high"
+    },
+    {
+      "description": "Draft a search plan for human review.",
+      "legal_effect": "preparatory",
+      "machine_certification_allowed": false,
+      "name": "draft_search_plan",
+      "prohibited_follow_on_actions": [
+        "declare_search_adequate"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Export neutral or Label Studio review tasks for human-in-the-loop labelling.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "export_annotation_tasks",
+      "prohibited_follow_on_actions": [
+        "record_decision_in_annotation_task"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Export request/event/chunk/risk relationships as a graph artefact.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "export_graph",
+      "prohibited_follow_on_actions": [
+        "treat_graph_edges_as_certified_fact"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Export deterministic kernel operation metadata for native/fallback parity planning.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "export_kernel_manifest",
+      "prohibited_follow_on_actions": [
+        "treat_manifest_as_decision_authority"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "runtime_introspection"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "export_mcp_bundle",
+      "prohibited_follow_on_actions": [
+        "grant_runtime_tool_access_without_operator_policy"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "export_table_contracts",
+      "prohibited_follow_on_actions": [
+        "treat_table_contract_as_authoritative_case_record"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Extract candidate process events from source records.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "extract_events",
+      "prohibited_follow_on_actions": [
+        "certify_exemption",
+        "approve_release"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Flag possible legal/process issues for human review.",
+      "legal_effect": "preparatory",
+      "machine_certification_allowed": false,
+      "name": "flag_legal_issue",
+      "prohibited_follow_on_actions": [
+        "apply_exemption_without_human_decision"
+      ],
+      "read_only": true,
+      "requires_human_certification": true,
+      "safety_class": "high"
+    },
+    {
+      "description": "Generate draft reporting metrics for reconciliation.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "generate_reporting_metric",
+      "prohibited_follow_on_actions": [
+        "publish_without_reconciliation"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Run deterministic Mojo/Python fallback kernel conformance checks.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "kernel_conformance",
+      "prohibited_follow_on_actions": [
+        "treat_test_pass_as_operational_authorisation"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "runtime_validation"
+    },
+    {
+      "description": "Evaluate one deterministic kernel operation without certifying legal outcomes.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "kernel_eval",
+      "prohibited_follow_on_actions": [
+        "treat_kernel_result_as_certified_legal_outcome"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Report remaining blockers before Mojo-native kernel release certification.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "kernel_readiness",
+      "prohibited_follow_on_actions": [
+        "skip_native_mojo_ci"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "runtime_validation"
+    },
+    {
+      "description": "Report Mojo/MAX kernel availability and Python fallback mode.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "kernel_status",
+      "prohibited_follow_on_actions": [
+        "treat_tool_availability_as_decision_authority"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "runtime_introspection"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "lineage_graph",
+      "prohibited_follow_on_actions": [
+        "treat_heuristic_lineage_as_certified_provenance"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Map source platform states to cautious FOI-O NZ states.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "map_state",
+      "prohibited_follow_on_actions": [
+        "treat_state_as_legal_outcome"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "materialise_cas",
+      "prohibited_follow_on_actions": [
+        "publish_private_objects_without_review"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "materialise_oci",
+      "prohibited_follow_on_actions": [
+        "push_unsigned_artifact_as_trusted_release"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Statically audit Mojo source declarations against fallback kernel operations.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "mojo_audit",
+      "prohibited_follow_on_actions": [
+        "treat_static_audit_as_native_release_certification"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "runtime_validation"
+    },
+    {
+      "description": "Flag candidate sensitive spans with hashed/masked previews for human review.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "propose_redaction_candidates",
+      "prohibited_follow_on_actions": [
+        "apply_redaction",
+        "withhold_information"
+      ],
+      "read_only": true,
+      "requires_human_certification": true,
+      "safety_class": "privacy_triage"
+    },
+    {
+      "description": "Run validation and quality-gate checks.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "quality_check",
+      "prohibited_follow_on_actions": [],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "replay_guardrails",
+      "prohibited_follow_on_actions": [
+        "treat_replay_pass_as_legal_approval"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
+    },
+    {
+      "description": "Create deterministic evaluation/annotation samples with bounded claims.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "sample_goldset",
+      "prohibited_follow_on_actions": [
+        "treat_sample_as_representative_without_review"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "medium"
+    },
+    {
+      "description": "Retrieve request-scoped context from deterministic text chunks.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "search_chunks",
+      "prohibited_follow_on_actions": [
+        "certify_decision",
+        "release_information"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "retrieval_only"
+    },
+    {
+      "description": "Bounded FOI-O NZ tool action.",
+      "legal_effect": "none",
+      "machine_certification_allowed": false,
+      "name": "trace_artifacts",
+      "prohibited_follow_on_actions": [
+        "infer_user_consent_from_trace"
+      ],
+      "read_only": true,
+      "requires_human_certification": false,
+      "safety_class": "low"
     }
   ]
 }
