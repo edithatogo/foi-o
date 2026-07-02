@@ -25,9 +25,9 @@
 
 ## Phase 3: Semantic Export Consistency
 
-- [~] Task: Write semantic export consistency tests
-    - [ ] Verify RDF export, JSON-LD context, dataset metadata, and graph export use consistent identifiers.
-    - [ ] Verify docs and examples stay aligned.
+- [x] Task: Write semantic export consistency tests (`ba6a63f`)
+    - [x] Verify RDF export, JSON-LD context, dataset metadata, and graph export use consistent identifiers.
+    - [x] Verify docs and examples stay aligned.
 - [ ] Task: Implement semantic export updates
     - [ ] Align exporters and examples with matured ontology terms.
     - [ ] Update docs with validation commands and expected outputs.
