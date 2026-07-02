@@ -1,0 +1,22 @@
+Task: Implement bounded inference commands/docs
+
+Files changed:
+- src/foi_o_nz/bounded_extraction.py
+- src/foi_o_nz/cli.py
+- src/foi_o_nz/inference_providers.py
+- docs/21-local-max-inference.md
+- conductor/tracks/max_lancedb_inference_20260702/plan.md
+
+Summary:
+- Added candidate-only local/MAX extraction request packs with provider provenance, bounded prompt text, no generated outputs, and explicit review/certification guardrails.
+- Added prepare-local-extraction CLI and local/MAX boundary documentation.
+- Required human_review_required=true for machine-generated candidate outputs.
+
+Verification:
+- uv run pytest -q tests/test_bounded_extraction.py tests/test_inference_providers.py
+- uv run ruff check src/foi_o_nz/bounded_extraction.py src/foi_o_nz/inference_providers.py src/foi_o_nz/cli.py tests/test_bounded_extraction.py
+- uv run ruff format --check src/foi_o_nz/bounded_extraction.py src/foi_o_nz/inference_providers.py src/foi_o_nz/cli.py tests/test_bounded_extraction.py
+
+Risks:
+- Live MAX/model execution remains an external gate.
+- Request packs contain bounded input text for local prompting but no generated model output or legal certification.
