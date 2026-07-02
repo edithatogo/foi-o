@@ -1,0 +1,25 @@
+Review fix: Align repository publication URLs
+
+Summary:
+- Corrected stale repository URLs from edithatogo/foi-o-nz to edithatogo/foi-o.
+- Updated README CI badge, pyproject project URLs, dataset metadata homepage, attestation build type, and dataset metadata fixture.
+
+Files changed:
+- README.md
+- pyproject.toml
+- src/foi_o_nz/dataset_metadata.py
+- src/foi_o_nz/attestation.py
+- examples/dataset-metadata.examples.json
+
+Verification:
+- uv run pytest -q tests/test_release_package.py tests/test_release_readiness_docs.py tests/test_schema_codegen_shacl.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py: 21 passed
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with known warning-only top-level schema drift findings
+- uv run foi-o-nz release-checklist --output /tmp/foi-o-release-checklist.json --release-version 0.9.0: passed
+- git diff --check: passed
+
+Risks:
+- Internal package name and namespace remain foi-o-nz intentionally; this change only corrects repository URLs.
