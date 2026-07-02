@@ -2,9 +2,9 @@
 
 ## Phase 1: Calendar Contract
 
-- [~] Task: Audit current clock helpers and mappings
-    - [ ] Review date helpers, Mojo clock kernels, mappings, examples, and docs.
-    - [ ] Identify calendar assumptions that are currently hard-coded or undocumented.
+- [x] Task: Audit current clock helpers and mappings (`e57420c`)
+    - [x] Review date helpers, Mojo clock kernels, mappings, examples, and docs.
+    - [x] Identify calendar assumptions that are currently hard-coded or undocumented.
 - [ ] Task: Write working-day calendar tests
     - [ ] Cover weekends, NZ public holidays, OIA summer closure, and missing calendar data.
     - [ ] Verify warning strings remain explicit and non-certifying.
