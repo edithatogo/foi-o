@@ -1,0 +1,7 @@
+Task summary: Added fixture intake tests and source-provenance hardening for Track 2 Phase 1.
+
+Files changed: tests/test_normalise.py; src/foi_o_nz/models.py; src/foi_o_nz/normalise.py; src/foi_o_nz/cli.py; schemas/json/request-profile.schema.json; contexts/foi-o-nz.context.jsonld; examples/request-record.jsonld; conductor/tracks/corpus_profile_goldset_20260702/plan.md.
+
+Verification: uv run pytest -q tests/test_normalise.py; uv run ruff check src/foi_o_nz/models.py src/foi_o_nz/normalise.py src/foi_o_nz/cli.py tests/test_normalise.py; uv run ruff format --check src/foi_o_nz/models.py src/foi_o_nz/normalise.py src/foi_o_nz/cli.py tests/test_normalise.py; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo.
+
+Risks: optional source_provenance extends request-profile output shape; backward compatible for existing consumers that ignore additional fields.
