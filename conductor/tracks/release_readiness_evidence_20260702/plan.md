@@ -2,7 +2,7 @@
 
 ## Phase 1: Evidence Baseline
 
-- [ ] Task: Audit current readiness and release claims
+- [~] Task: Audit current readiness and release claims
     - [ ] Review README, implementation reports, delta docs, kernel readiness examples, and Mojo audit examples.
     - [ ] Identify claims that require repo-local command, test, schema, or manifest evidence.
     - [ ] Record gaps directly in the implementation notes or a focused evidence checklist.
