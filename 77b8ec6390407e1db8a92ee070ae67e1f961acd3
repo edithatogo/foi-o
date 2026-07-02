@@ -1,0 +1,7 @@
+Task summary: Applied Phase 2 review cleanup for request profile JSON-LD test warning noise.
+
+Files changed: tests/test_request_profile_jsonld.py.
+
+Verification: uv run pytest -q tests/test_request_profile_jsonld.py; uv run ruff check tests/test_request_profile_jsonld.py; uv run ruff format --check tests/test_request_profile_jsonld.py.
+
+Risks: test-only warning filter.
