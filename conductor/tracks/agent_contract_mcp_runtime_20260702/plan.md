@@ -23,7 +23,7 @@
     - [x] Keep all write, certify, release, refusal, redaction, and charge operations absent.
 - [x] Task: Conductor - User Manual Verification 'Runtime Prototype' (Protocol in workflow.md) (`be3aae6`)
 
-## Phase 3: Agent Guardrail Replay
+## Phase 3: Agent Guardrail Replay [checkpoint: 4819102]
 
 - [x] Task: Write guardrail replay tests for tool contracts (`c4fb82e`)
     - [ ] Verify unsafe agent actions are blocked or routed to human review.
@@ -31,7 +31,7 @@
 - [x] Task: Implement guardrail replay integration (`a94977b`)
     - [x] Connect policy, replay, and descriptor checks where gaps are found.
     - [x] Update docs with operator-facing safety checks.
-- [~] Task: Conductor - User Manual Verification 'Agent Guardrail Replay' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Agent Guardrail Replay' (Protocol in workflow.md) (`4819102`)
 
 ## Phase 4: Agent Contract Closeout
 
