@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
+from typer.testing import CliRunner
 
 from foi_o_nz import vector_index
+from foi_o_nz.cli import app
 from foi_o_nz.embeddings import embedding_record
 from foi_o_nz.io import write_jsonl
+
+RUNNER = CliRunner()
 
 
 def _embedding_jsonl(path: Path) -> Path:
@@ -84,3 +89,36 @@ def test_lancedb_table_query_uses_fixture_embeddings_when_available(tmp_path: Pa
     assert search_result["fallback"] is False
     assert search_result["result_count"] == 1
     assert search_result["results"][0]["source_id"] == "1"
+
+
+def test_search_lancedb_cli_returns_fallback_results_without_dependency(
+    tmp_path: Path, monkeypatch
+) -> None:
+    def missing_lancedb():
+        raise ModuleNotFoundError("lancedb")
+
+    monkeypatch.setattr(vector_index, "_load_lancedb", missing_lancedb)
+    embeddings = _embedding_jsonl(tmp_path / "embeddings.jsonl")
+
+    result = RUNNER.invoke(
+        app,
+        [
+            "search-lancedb",
+            str(embeddings),
+            "--query",
+            "health hospital",
+            "--database-dir",
+            str(tmp_path / "lancedb"),
+            "--top-k",
+            "1",
+            "--dimensions",
+            "8",
+        ],
+    )
+
+    assert result.exit_code == 0, result.output
+    payload = json.loads(result.output)
+    assert payload["backend"] == "deterministic.feature_hash"
+    assert payload["fallback"] is True
+    assert payload["results"][0]["source_id"] == "1"
+    assert payload["machine_certification_allowed"] is False

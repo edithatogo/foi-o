@@ -80,7 +80,7 @@ from foi_o_nz.validation import (
     validate_schema_file,
     validate_yaml,
 )
-from foi_o_nz.vector_index import build_lancedb_table
+from foi_o_nz.vector_index import build_lancedb_table, search_embedding_records
 from foi_o_nz.version import __version__
 
 app = typer.Typer(
@@ -595,6 +595,31 @@ def build_lancedb(
     except RuntimeError as exc:
         console.print(str(exc), style="red", markup=False)
         raise typer.Exit(code=1) from exc
+    console.print_json(json.dumps(result))
+
+
+@app.command("search-lancedb")
+def search_lancedb(
+    embeddings_jsonl: Annotated[Path, typer.Argument(help="Embedding JSONL input")],
+    query: Annotated[str, typer.Option("--query", "-q", help="Query text")],
+    database_dir: Annotated[Path, typer.Option("--database-dir", "-d", help="LanceDB directory")],
+    table_name: Annotated[str, typer.Option(help="LanceDB table name")] = "foi_o_nz_embeddings",
+    top_k: Annotated[int, typer.Option("--top-k", help="Maximum result count")] = 10,
+    dimensions: Annotated[int, typer.Option(help="Feature-hashing vector dimensions")] = 128,
+) -> None:
+    """Search optional LanceDB embeddings with deterministic fallback."""
+    try:
+        result = search_embedding_records(
+            embeddings_jsonl,
+            query_text=query,
+            database_dir=database_dir,
+            table_name=table_name,
+            top_k=top_k,
+            dimensions=dimensions,
+        )
+    except ValueError as exc:
+        console.print(str(exc), style="red", markup=False)
+        raise typer.Exit(code=2) from exc
     console.print_json(json.dumps(result))
 
 
