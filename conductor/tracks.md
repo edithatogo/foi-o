@@ -4,7 +4,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: PSC reporting profile and aggregate reports**
+- [~] **Track: PSC reporting profile and aggregate reports**
   *Link: [./tracks/reporting_profile_psc_20260702/](./tracks/reporting_profile_psc_20260702/)*
   *GitHub: [Issue #15](https://github.com/edithatogo/foi-o/issues/15), [Project #10](https://github.com/users/edithatogo/projects/10)*
 

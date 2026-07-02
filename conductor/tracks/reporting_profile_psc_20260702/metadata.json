@@ -1,9 +1,9 @@
 {
   "track_id": "reporting_profile_psc_20260702",
   "type": "feature",
-  "status": "new",
+  "status": "in_progress",
   "created_at": "2026-07-02T02:39:57Z",
-  "updated_at": "2026-07-02T02:39:57Z",
+  "updated_at": "2026-07-02T04:20:44Z",
   "description": "PSC reporting profile and aggregate reports",
   "github": {
     "repository": "https://github.com/edithatogo/foi-o",
