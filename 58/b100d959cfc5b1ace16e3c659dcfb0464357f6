@@ -1,0 +1,23 @@
+Task: Conductor - User Manual Verification 'Release Evidence Package'
+
+Summary:
+- Added Phase 1 release evidence package verification report.
+- Recorded manual Conductor review fallback because conductor-review is unavailable on PATH.
+- Documented release checklist implementation, schema/example validation, repository URL review fix, and external gates.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/phase-1-verification.md
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_release_package.py tests/test_release_readiness_docs.py tests/test_schema_codegen_shacl.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py: 21 passed
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with known warning-only top-level schema drift findings
+- uv run foi-o-nz release-checklist --output /tmp/foi-o-release-checklist.json --release-version 0.9.0: passed
+- git diff --check: passed
+
+Risks:
+- External publication and native certification gates remain manual/external.
