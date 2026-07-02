@@ -21,7 +21,7 @@
 - [x] Task: Implement LanceDB semantic retrieval path (`902a74a`)
     - [x] Harden `build-lancedb` and retrieval integration around optional dependencies.
     - [x] Preserve lexical/deterministic fallback when LanceDB is unavailable.
-- [ ] Task: Conductor - User Manual Verification 'LanceDB Retrieval' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'LanceDB Retrieval' (Protocol in workflow.md)
 
 ## Phase 3: Bounded Extraction Experiments
 
