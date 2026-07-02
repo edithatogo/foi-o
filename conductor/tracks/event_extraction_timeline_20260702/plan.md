@@ -37,9 +37,9 @@
 
 ## Phase 4: Event Track Closeout
 
-- [~] Task: Run event extraction validation
-    - [ ] Run targeted event extraction, quality, and evaluation tests.
-    - [ ] Run schema/example validation for changed artifacts.
+- [x] Task: Run event extraction validation (`5d8f194`)
+    - [x] Run targeted event extraction, quality, and evaluation tests.
+    - [x] Run schema/example validation for changed artifacts.
 - [ ] Task: Run Conductor review and apply high-confidence fixes
     - [ ] Run `conductor-review` for the track scope.
     - [ ] Apply high-confidence fixes and rerun focused checks.
