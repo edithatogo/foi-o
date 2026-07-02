@@ -1,0 +1,7 @@
+Task summary: Added request profile JSON-LD schema/RDF/context validation tests.
+
+Files changed: tests/test_request_profile_jsonld.py; conductor/tracks/corpus_profile_goldset_20260702/plan.md.
+
+Verification: uv run pytest -q tests/test_request_profile_jsonld.py; uv run ruff check tests/test_request_profile_jsonld.py; uv run ruff format --check tests/test_request_profile_jsonld.py.
+
+Risks: test-only change; rdflib JSON-LD parser emits a deprecation warning outside repo code.
