@@ -24,3 +24,5 @@
 | Conductor Track | GitHub Issue | GitHub Project |
 | --- | --- | --- |
 | `release_readiness_evidence_20260702` | https://github.com/edithatogo/foi-o/issues/1 | https://github.com/users/edithatogo/projects/10 |
+
+Historical completed development slices are backfilled in [Development History Backfill](./history.md).
