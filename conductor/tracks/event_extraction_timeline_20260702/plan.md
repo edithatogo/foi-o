@@ -17,12 +17,12 @@
 
 ## Phase 2: Timeline Reconstruction
 
-- [~] Task: Write timeline ordering tests
-    - [ ] Test deterministic ordering by observed date, source order, and fallback provenance.
-    - [ ] Test missing/ambiguous dates produce warnings instead of fabricated precision.
-- [ ] Task: Implement timeline reconstruction improvements
-    - [ ] Add or refine timeline helpers and output examples.
-    - [ ] Ensure timelines retain event ids, request ids, source state, confidence, and evidence references.
+- [x] Task: Write timeline ordering tests (`0b68211`)
+    - [x] Test deterministic ordering by observed date, source order, and fallback provenance.
+    - [x] Test missing/ambiguous dates produce warnings instead of fabricated precision.
+- [x] Task: Implement timeline reconstruction improvements (`0b68211`)
+    - [x] Add or refine timeline helpers and output examples.
+    - [x] Ensure timelines retain event ids, request ids, source state, confidence, and evidence references.
 - [ ] Task: Conductor - User Manual Verification 'Timeline Reconstruction' (Protocol in workflow.md)
 
 ## Phase 3: Evaluation Fixtures
