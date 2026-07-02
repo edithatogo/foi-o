@@ -1,0 +1,1 @@
+Plan update: Evidence Baseline phase complete\n\nSummary:\n- Added checkpoint marker b832c40 to Phase 1.\n- Marked the phase verification meta-task complete.\n\nVerification:\n- Targeted kernel/readiness tests passed before checkpoint.\n\nRisks:\n- Remaining phases still need kernel proof hardening and release-gate checks.
