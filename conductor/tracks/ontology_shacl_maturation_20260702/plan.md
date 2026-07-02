@@ -31,7 +31,7 @@
 - [x] Task: Implement semantic export updates (`8bf62a4`)
     - [x] Align exporters and examples with matured ontology terms.
     - [x] Update docs with validation commands and expected outputs.
-- [ ] Task: Conductor - User Manual Verification 'Semantic Export Consistency' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Semantic Export Consistency' (Protocol in workflow.md)
 
 ## Phase 4: Ontology Track Closeout
 
