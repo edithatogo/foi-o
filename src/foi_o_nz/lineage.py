@@ -54,7 +54,9 @@ class LineageGraph(BaseModel):
     limitations: list[str] = Field(default_factory=list)
 
 
-def classify_path(path: Path) -> tuple[Literal["raw", "derived", "schema", "ontology", "report", "unknown"], str]:
+def classify_path(
+    path: Path,
+) -> tuple[Literal["raw", "derived", "schema", "ontology", "report", "unknown"], str]:
     """Classify an artifact by path conventions."""
     parts = set(path.parts)
     name = path.name.lower()
@@ -62,9 +64,12 @@ def classify_path(path: Path) -> tuple[Literal["raw", "derived", "schema", "onto
         return "schema", "validation_contract"
     if "ontology" in parts or "shacl" in parts or "vocab" in parts or path.suffix == ".ttl":
         return "ontology", "semantic_contract"
-    if "raw" in parts or "manifest" in name and "run" not in name:
+    if "raw" in parts or ("manifest" in name and "run" not in name):
         return "raw", "source_or_manifest"
-    if any(term in name for term in ["summary", "risk", "quality", "audit", "diff", "repro", "metadata"]):
+    if any(
+        term in name
+        for term in ["summary", "risk", "quality", "audit", "diff", "repro", "metadata"]
+    ):
         return "report", "analysis_report"
     if path.suffix in {".jsonl", ".json", ".parquet", ".ttl", ".duckdb"}:
         return "derived", "derived_artifact"
@@ -73,16 +78,20 @@ def classify_path(path: Path) -> tuple[Literal["raw", "derived", "schema", "onto
 
 def node_id_for_path(path: Path, digest: str) -> str:
     """Build a stable node ID."""
-    return f"foio-nz:artifact:{sha256(f'{path}\0{digest}'.encode('utf-8')).hexdigest()[:24]}"
+    return f"foio-nz:artifact:{sha256(f'{path}\0{digest}'.encode()).hexdigest()[:24]}"
 
 
 def build_lineage_graph(paths: list[Path], *, base_dir: Path | None = None) -> LineageGraph:
     """Build a heuristic lineage graph over supplied artifacts."""
     nodes: list[LineageNode] = []
-    for path in sorted(paths, key=lambda value: str(value)):
+    for path in sorted(paths, key=str):
         digest, size = digest_file(path)
         kind, role = classify_path(path)
-        rel = str(path.relative_to(base_dir)) if base_dir is not None and path.is_relative_to(base_dir) else str(path)
+        rel = (
+            str(path.relative_to(base_dir))
+            if base_dir is not None and path.is_relative_to(base_dir)
+            else str(path)
+        )
         nodes.append(
             LineageNode(
                 node_id=node_id_for_path(path, digest),
@@ -104,7 +113,7 @@ def build_lineage_graph(paths: list[Path], *, base_dir: Path | None = None) -> L
                 continue
             edges.append(
                 LineageEdge(
-                    edge_id=f"foio-nz:edge:{sha256(f'{raw.node_id}>{derived.node_id}'.encode('utf-8')).hexdigest()[:24]}",
+                    edge_id=f"foio-nz:edge:{sha256(f'{raw.node_id}>{derived.node_id}'.encode()).hexdigest()[:24]}",
                     source=raw.node_id,
                     target=derived.node_id,
                     relation="derived_from",
@@ -115,14 +124,16 @@ def build_lineage_graph(paths: list[Path], *, base_dir: Path | None = None) -> L
         for derived in derived_nodes:
             edges.append(
                 LineageEdge(
-                    edge_id=f"foio-nz:edge:{sha256(f'{schema.node_id}>{derived.node_id}'.encode('utf-8')).hexdigest()[:24]}",
+                    edge_id=f"foio-nz:edge:{sha256(f'{schema.node_id}>{derived.node_id}'.encode()).hexdigest()[:24]}",
                     source=schema.node_id,
                     target=derived.node_id,
                     relation="validated_by",
                     rationale="Heuristic: schema artifact is available to validate derived artifact family.",
                 )
             )
-    graph_digest = sha256(dumps_json([node.model_dump(mode="json") for node in nodes], sort_keys=True).encode("utf-8")).hexdigest()
+    graph_digest = sha256(
+        dumps_json([node.model_dump(mode="json") for node in nodes], sort_keys=True).encode("utf-8")
+    ).hexdigest()
     return LineageGraph(
         generated_at=datetime.now(UTC),
         graph_id=f"foio-nz:lineage:{graph_digest[:24]}",

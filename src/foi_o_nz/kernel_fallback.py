@@ -13,7 +13,12 @@ from dataclasses import dataclass
 from typing import Any, Literal
 
 from foi_o_nz.constants import HUMAN_CERTIFICATION_EVENT_TYPES
-from foi_o_nz.state_machine import TERMINAL_STATES, RequestState, can_transition, map_alaveteli_state
+from foi_o_nz.state_machine import (
+    TERMINAL_STATES,
+    RequestState,
+    can_transition,
+    map_alaveteli_state,
+)
 
 KernelValue = str | int | float | bool
 
@@ -97,7 +102,9 @@ def token_estimate_from_chars(char_count: int) -> int:
     return (char_count + 3) // 4
 
 
-def risk_level_from_score(score: int, has_health_identifier: bool) -> Literal["low", "medium", "high"]:
+def risk_level_from_score(
+    score: int, has_health_identifier: bool
+) -> Literal["low", "medium", "high"]:
     """Map deterministic risk score to review level."""
     if has_health_identifier or score >= 5:
         return "high"
@@ -217,7 +224,9 @@ def is_ascii_digit(codepoint: int) -> bool:
 
 def is_email_local_char(codepoint: int) -> bool:
     """Return whether a codepoint is accepted in the simple local-part scanner."""
-    return is_ascii_alpha(codepoint) or is_ascii_digit(codepoint) or codepoint in {45, 46, 95, 37, 43}
+    return (
+        is_ascii_alpha(codepoint) or is_ascii_digit(codepoint) or codepoint in {45, 46, 95, 37, 43}
+    )
 
 
 def is_email_domain_char(codepoint: int) -> bool:
@@ -246,7 +255,6 @@ def redaction_preview_width(value_length: int) -> int:
     if value_length <= 8:
         return 1
     return 2
-
 
 
 def assertion_status_rank(status: str) -> int:
@@ -281,6 +289,7 @@ def stable_text_bucket(value: str, bucket_count: int) -> int:
     if bucket_count <= 0:
         return 0
     return fnv1a64_text(value) % bucket_count
+
 
 def fnv1a64_bytes(data: bytes) -> int:
     """Compute the FNV-1a 64-bit hash used by experimental Mojo kernels."""

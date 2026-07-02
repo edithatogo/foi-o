@@ -1,4 +1,11 @@
-from foi_o_nz.redaction import candidate_requires_review, is_ascii_alpha, is_ascii_digit, is_email_domain_char, is_email_local_char, redaction_preview_width
+from foi_o_nz.redaction import (
+    candidate_requires_review,
+    is_ascii_alpha,
+    is_ascii_digit,
+    is_email_domain_char,
+    is_email_local_char,
+    redaction_preview_width,
+)
 from std.testing import assert_equal, assert_false, assert_true, TestSuite
 
 

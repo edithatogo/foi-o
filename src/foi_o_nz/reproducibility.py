@@ -55,8 +55,16 @@ class ReproducibilityManifest(BaseModel):
 def file_digest(path: Path, *, base_dir: Path | None = None) -> FileDigest:
     """Digest one file."""
     data = path.read_bytes()
-    label = str(path.relative_to(base_dir)) if base_dir is not None and path.is_relative_to(base_dir) else str(path)
-    return FileDigest(path=label, size_bytes=len(data), sha256=sha256_text(data.decode("utf-8", errors="surrogateescape")))
+    label = (
+        str(path.relative_to(base_dir))
+        if base_dir is not None and path.is_relative_to(base_dir)
+        else str(path)
+    )
+    return FileDigest(
+        path=label,
+        size_bytes=len(data),
+        sha256=sha256_text(data.decode("utf-8", errors="surrogateescape")),
+    )
 
 
 def binary_file_digest(path: Path, *, base_dir: Path | None = None) -> FileDigest:
@@ -64,7 +72,11 @@ def binary_file_digest(path: Path, *, base_dir: Path | None = None) -> FileDiges
     import hashlib
 
     data = path.read_bytes()
-    label = str(path.relative_to(base_dir)) if base_dir is not None and path.is_relative_to(base_dir) else str(path)
+    label = (
+        str(path.relative_to(base_dir))
+        if base_dir is not None and path.is_relative_to(base_dir)
+        else str(path)
+    )
     return FileDigest(path=label, size_bytes=len(data), sha256=hashlib.sha256(data).hexdigest())
 
 
@@ -85,12 +97,18 @@ def tool_version(name: str, *args: str) -> ToolVersion:
         version_output = "\n".join(output) if output else None
     except Exception as exc:  # noqa: BLE001 - best-effort environment capture
         version_output = f"version check failed: {exc}"
-    return ToolVersion(name=name, available=True, executable=executable, version_output=version_output)
+    return ToolVersion(
+        name=name, available=True, executable=executable, version_output=version_output
+    )
 
 
-def build_reproducibility_manifest(paths: list[Path], *, base_dir: Path | None = None) -> ReproducibilityManifest:
+def build_reproducibility_manifest(
+    paths: list[Path], *, base_dir: Path | None = None
+) -> ReproducibilityManifest:
     """Build a reproducibility manifest for selected artefacts."""
-    files = [binary_file_digest(path, base_dir=base_dir) for path in sorted(paths) if path.is_file()]
+    files = [
+        binary_file_digest(path, base_dir=base_dir) for path in sorted(paths) if path.is_file()
+    ]
     return ReproducibilityManifest(
         generated_at=datetime.now(UTC),
         python={"version": sys.version, "executable": sys.executable},

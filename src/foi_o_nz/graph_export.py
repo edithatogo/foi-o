@@ -11,11 +11,21 @@ GraphFormat = Literal["json", "mermaid"]
 
 
 def _node(node_id: str, label: str, kind: str, **properties: Any) -> dict[str, Any]:
-    return {"id": node_id, "label": label, "kind": kind, "properties": {k: v for k, v in properties.items() if v is not None}}
+    return {
+        "id": node_id,
+        "label": label,
+        "kind": kind,
+        "properties": {k: v for k, v in properties.items() if v is not None},
+    }
 
 
 def _edge(source: str, target: str, label: str, **properties: Any) -> dict[str, Any]:
-    return {"source": source, "target": target, "label": label, "properties": {k: v for k, v in properties.items() if v is not None}}
+    return {
+        "source": source,
+        "target": target,
+        "label": label,
+        "properties": {k: v for k, v in properties.items() if v is not None},
+    }
 
 
 def _request_id_from_event(event: dict[str, Any]) -> str | None:
@@ -72,7 +82,9 @@ def build_graph(
             )
             if request_id is not None:
                 request_node = f"request:{request_id}"
-                nodes.setdefault(request_node, _node(request_node, request_id, "request", request_id=request_id))
+                nodes.setdefault(
+                    request_node, _node(request_node, request_id, "request", request_id=request_id)
+                )
                 edges.append(_edge(request_node, event_node, "has_event"))
                 previous = previous_by_request.get(request_id)
                 if previous is not None:
@@ -92,7 +104,10 @@ def build_graph(
             request_id = record.get("request_id")
             if request_id is not None:
                 request_node = f"request:{request_id}"
-                nodes.setdefault(request_node, _node(request_node, str(request_id), "request", request_id=str(request_id)))
+                nodes.setdefault(
+                    request_node,
+                    _node(request_node, str(request_id), "request", request_id=str(request_id)),
+                )
                 edges.append(_edge(request_node, chunk_node, "has_chunk"))
     if risks_jsonl is not None:
         for record in iter_jsonl(risks_jsonl):
@@ -108,7 +123,10 @@ def build_graph(
             request_id = record.get("request_id")
             if request_id is not None:
                 request_node = f"request:{request_id}"
-                nodes.setdefault(request_node, _node(request_node, str(request_id), "request", request_id=str(request_id)))
+                nodes.setdefault(
+                    request_node,
+                    _node(request_node, str(request_id), "request", request_id=str(request_id)),
+                )
                 edges.append(_edge(request_node, risk_node, "has_risk_assessment"))
     return {
         "schema_version": "foi-o-nz.graph.v0.1.0",
@@ -121,7 +139,10 @@ def build_graph(
 
 def graph_to_mermaid(graph: dict[str, Any]) -> str:
     """Render a small Mermaid flowchart from a graph export."""
-    labels = {node["id"]: str(node.get("label") or node["id"]).replace('"', "'") for node in graph.get("nodes", [])}
+    labels = {
+        node["id"]: str(node.get("label") or node["id"]).replace('"', "'")
+        for node in graph.get("nodes", [])
+    }
     lines = ["flowchart LR"]
     for edge in graph.get("edges", []):
         source = str(edge["source"])
@@ -131,7 +152,7 @@ def graph_to_mermaid(graph: dict[str, Any]) -> str:
             f'  {_safe_mermaid_id(source)}["{labels.get(source, source)}"] -- "{label}" --> {_safe_mermaid_id(target)}["{labels.get(target, target)}"]'
         )
     if len(lines) == 1:
-        lines.append("  empty[\"No graph records\"]")
+        lines.append('  empty["No graph records"]')
     return "\n".join(lines) + "\n"
 
 
@@ -156,4 +177,10 @@ def write_graph_export(
         output.write_text(graph_to_mermaid(graph), encoding="utf-8")
     else:
         write_json(output, graph)
-    return {"ok": True, "output": str(output), "format": fmt, "node_count": graph["node_count"], "edge_count": graph["edge_count"]}
+    return {
+        "ok": True,
+        "output": str(output),
+        "format": fmt,
+        "node_count": graph["node_count"],
+        "edge_count": graph["edge_count"],
+    }

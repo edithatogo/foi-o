@@ -130,7 +130,9 @@ def build_agent_context_pack(
             "chunks_jsonl": str(chunks_jsonl) if chunks_jsonl else None,
             "risks_jsonl": str(risks_jsonl) if risks_jsonl else None,
             "retrieval_json": str(retrieval_json) if retrieval_json else None,
-            "redaction_candidates_jsonl": str(redaction_candidates_jsonl) if redaction_candidates_jsonl else None,
+            "redaction_candidates_jsonl": str(redaction_candidates_jsonl)
+            if redaction_candidates_jsonl
+            else None,
             "component_counts": {
                 "request": 1 if request else 0,
                 "events": len(events),

@@ -1,7 +1,8 @@
 # Experimental Mojo guardrail kernels for agent-action replay.
 # These are intentionally small so they can survive rapid Mojo/MAX evolution.
 
-fn is_dispositive_event(event_type: String) -> Bool:
+
+def is_dispositive_event(event_type: String) -> Bool:
     if event_type == "HumanDecisionCertified":
         return True
     if event_type == "DecisionCommunicated":
@@ -19,7 +20,7 @@ fn is_dispositive_event(event_type: String) -> Bool:
     return False
 
 
-fn severity_rank(severity: String) -> Int:
+def severity_rank(severity: String) -> Int:
     if severity == "error":
         return 3
     if severity == "warning":
@@ -29,7 +30,9 @@ fn severity_rank(severity: String) -> Int:
     return 0
 
 
-fn action_requires_review(safety_class: String, requires_human_certification: Bool) -> Bool:
+def action_requires_review(
+    safety_class: String, requires_human_certification: Bool
+) -> Bool:
     if requires_human_certification:
         return True
     if safety_class == "high":
@@ -39,5 +42,5 @@ fn action_requires_review(safety_class: String, requires_human_certification: Bo
     return False
 
 
-fn can_replay_pass(error_count: Int) -> Bool:
+def can_replay_pass(error_count: Int) -> Bool:
     return error_count == 0

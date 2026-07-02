@@ -23,7 +23,14 @@ def build_openapi_contract() -> dict[str, Any]:
                 "post": {
                     "summary": "Map an FYI/Alaveteli source state to a cautious FOI-O NZ state.",
                     "x-agent-boundary": "process-support-only",
-                    "requestBody": {"required": True, "content": {"application/json": {"schema": {"$ref": "#/components/schemas/StateMapRequest"}}}},
+                    "requestBody": {
+                        "required": True,
+                        "content": {
+                            "application/json": {
+                                "schema": {"$ref": "#/components/schemas/StateMapRequest"}
+                            }
+                        },
+                    },
                     "responses": {"200": {"description": "State mapping"}},
                 }
             },
@@ -38,7 +45,14 @@ def build_openapi_contract() -> dict[str, Any]:
                 "post": {
                     "summary": "Evaluate whether a proposed agent action stays within policy.",
                     "x-agent-boundary": "guardrail-enforcement",
-                    "requestBody": {"required": True, "content": {"application/json": {"schema": {"$ref": "schemas/json/agent-action.schema.json"}}}},
+                    "requestBody": {
+                        "required": True,
+                        "content": {
+                            "application/json": {
+                                "schema": {"$ref": "schemas/json/agent-action.schema.json"}
+                            }
+                        },
+                    },
                     "responses": {"200": {"description": "Policy decision"}},
                 }
             },

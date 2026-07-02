@@ -13,11 +13,15 @@ MatchMode = Literal["event_type", "event_type_state", "strict"]
 def _request_id(event: dict[str, Any]) -> str:
     request_ref = event.get("request_ref")
     if isinstance(request_ref, dict):
-        return str(request_ref.get("source_request_id") or request_ref.get("url_title") or "unknown")
+        return str(
+            request_ref.get("source_request_id") or request_ref.get("url_title") or "unknown"
+        )
     return str(event.get("request_id") or "unknown")
 
 
-def event_match_key(event: dict[str, Any], *, mode: MatchMode = "event_type_state") -> tuple[str, ...]:
+def event_match_key(
+    event: dict[str, Any], *, mode: MatchMode = "event_type_state"
+) -> tuple[str, ...]:
     """Return a comparison key for an extracted event."""
     request_id = _request_id(event)
     event_type = str(event.get("event_type") or "Unknown")

@@ -1,7 +1,8 @@
 # Experimental Mojo kernel for deterministic FOI-O NZ state and boundary checks.
 # Keep this layer small while Mojo/MAX APIs evolve.
 
-fn normalise_alaveteli_state(source_state: String) -> String:
+
+def normalise_alaveteli_state(source_state: String) -> String:
     if source_state == "waiting_response":
         return "Received"
     if source_state == "waiting_clarification":
@@ -27,7 +28,7 @@ fn normalise_alaveteli_state(source_state: String) -> String:
     return "Unknown"
 
 
-fn requires_human_certification(event_type: String) -> Bool:
+def requires_human_certification(event_type: String) -> Bool:
     if event_type == "HumanDecisionCertified":
         return True
     if event_type == "DecisionCommunicated":
@@ -45,12 +46,12 @@ fn requires_human_certification(event_type: String) -> Bool:
     return False
 
 
-fn can_agent_certify_event(event_type: String) -> Bool:
+def can_agent_certify_event(event_type: String) -> Bool:
     # Agents may draft or flag these events, but they must not certify them.
     return not requires_human_certification(event_type)
 
 
-fn confidence_for_alaveteli_state(source_state: String) -> Float64:
+def confidence_for_alaveteli_state(source_state: String) -> Float64:
     if source_state == "waiting_response":
         return 0.74
     if source_state == "waiting_clarification":
@@ -72,7 +73,7 @@ fn confidence_for_alaveteli_state(source_state: String) -> Float64:
     return 0.0
 
 
-fn is_terminal_state(state: String) -> Bool:
+def is_terminal_state(state: String) -> Bool:
     if state == "ReleasedInFull":
         return True
     if state == "ReleasedInPart":

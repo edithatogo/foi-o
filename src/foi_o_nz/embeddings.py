@@ -102,7 +102,8 @@ def embedding_record(
             if isinstance(record.get("request_ref"), dict)
             else record.get("request_id"),
             "event_type": record.get("event_type"),
-            "normalised_state": record.get("normalised_state") or record.get("lifecycle_state_after"),
+            "normalised_state": record.get("normalised_state")
+            or record.get("lifecycle_state_after"),
         },
     }
 

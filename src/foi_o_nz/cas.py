@@ -93,7 +93,11 @@ def count_jsonl_records(path: Path) -> int | None:
 def build_file_entry(path: Path, *, base_dir: Path | None = None) -> CasEntry:
     """Build one CAS entry for a file."""
     digest, size = digest_file(path)
-    rel = str(path.relative_to(base_dir)) if base_dir is not None and path.is_relative_to(base_dir) else str(path)
+    rel = (
+        str(path.relative_to(base_dir))
+        if base_dir is not None and path.is_relative_to(base_dir)
+        else str(path)
+    )
     return CasEntry(
         uri=f"sha256:{digest}",
         sha256=digest,
@@ -114,7 +118,7 @@ def root_digest_for_entries(entries: Iterable[CasEntry]) -> str:
 
 def build_cas_manifest(paths: list[Path], *, base_dir: Path | None = None) -> CasManifest:
     """Build a CAS manifest for artifact paths."""
-    entries = [build_file_entry(path, base_dir=base_dir) for path in sorted(paths, key=lambda value: str(value))]
+    entries = [build_file_entry(path, base_dir=base_dir) for path in sorted(paths, key=str)]
     return CasManifest(
         generated_at=datetime.now(UTC),
         root_digest=root_digest_for_entries(entries),
@@ -128,7 +132,9 @@ def build_cas_manifest(paths: list[Path], *, base_dir: Path | None = None) -> Ca
     )
 
 
-def write_cas_manifest(paths: list[Path], output: Path, *, base_dir: Path | None = None) -> dict[str, Any]:
+def write_cas_manifest(
+    paths: list[Path], output: Path, *, base_dir: Path | None = None
+) -> dict[str, Any]:
     """Write a CAS manifest and return a compact summary."""
     manifest = build_cas_manifest(paths, base_dir=base_dir)
     write_json(output, manifest.model_dump(mode="json", exclude_none=True))
@@ -141,7 +147,9 @@ def write_cas_manifest(paths: list[Path], output: Path, *, base_dir: Path | None
     }
 
 
-def materialise_jsonl_cas(input_jsonl: Path, output_dir: Path, index_output: Path) -> dict[str, Any]:
+def materialise_jsonl_cas(
+    input_jsonl: Path, output_dir: Path, index_output: Path
+) -> dict[str, Any]:
     """Write each JSONL record as a content-addressed JSON file plus index JSONL."""
     output_dir.mkdir(parents=True, exist_ok=True)
     index_records: list[dict[str, Any]] = []
@@ -173,7 +181,9 @@ def materialise_jsonl_cas(input_jsonl: Path, output_dir: Path, index_output: Pat
             ).model_dump(mode="json", exclude_none=True)
         )
     write_jsonl(index_output, index_records)
-    root_digest = digest_bytes(dumps_json(index_records, pretty=False, sort_keys=True).encode("utf-8"))
+    root_digest = digest_bytes(
+        dumps_json(index_records, pretty=False, sort_keys=True).encode("utf-8")
+    )
     return {
         "ok": True,
         "input": str(input_jsonl),

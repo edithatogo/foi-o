@@ -2,7 +2,13 @@ from __future__ import annotations
 
 from datetime import UTC, date, datetime
 
-from foi_o_nz.dates import add_working_days, calculate_indicative_clock, is_oia_summer_excluded, load_holiday_dates, parse_datetime
+from foi_o_nz.dates import (
+    add_working_days,
+    calculate_indicative_clock,
+    is_oia_summer_excluded,
+    load_holiday_dates,
+    parse_datetime,
+)
 
 
 def test_parse_datetime_handles_z_suffix() -> None:

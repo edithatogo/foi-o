@@ -133,7 +133,7 @@ def build_table_contracts(*, include_duckdb_sql: bool = True) -> dict[str, Any]:
 def _duckdb_type(arrow_type: str) -> str:
     if arrow_type.startswith("timestamp"):
         return "TIMESTAMPTZ"
-    if arrow_type == "utf8" or arrow_type == "large_utf8":
+    if arrow_type in {"utf8", "large_utf8"}:
         return "VARCHAR"
     if arrow_type == "float64":
         return "DOUBLE"
@@ -149,7 +149,7 @@ def _duckdb_type(arrow_type: str) -> str:
 def _polars_type(arrow_type: str) -> str:
     if arrow_type.startswith("timestamp"):
         return "Datetime(time_zone='UTC')"
-    if arrow_type == "utf8" or arrow_type == "large_utf8":
+    if arrow_type in {"utf8", "large_utf8"}:
         return "String"
     if arrow_type == "float64":
         return "Float64"
@@ -162,7 +162,9 @@ def _polars_type(arrow_type: str) -> str:
     return "Object"
 
 
-def _duckdb_create_sql(table_name: str, fields: list[dict[str, Any]], primary_key: list[str]) -> str:
+def _duckdb_create_sql(
+    table_name: str, fields: list[dict[str, Any]], primary_key: list[str]
+) -> str:
     columns = []
     for field in fields:
         nullable = "" if field["nullable"] else " NOT NULL"

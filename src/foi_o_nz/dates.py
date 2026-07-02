@@ -73,9 +73,7 @@ def is_working_day(
         return False
     if include_oia_summer_exclusion and is_oia_summer_excluded(day):
         return False
-    if holidays is not None and day in set(holidays):
-        return False
-    return True
+    return not (holidays is not None and day in set(holidays))
 
 
 def add_working_days(

@@ -19,7 +19,10 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Literal
 
-from foi_o_nz.constants import KERNEL_CONFORMANCE_SCHEMA_VERSION, NATIVE_KERNEL_STATUS_SCHEMA_VERSION
+from foi_o_nz.constants import (
+    KERNEL_CONFORMANCE_SCHEMA_VERSION,
+    NATIVE_KERNEL_STATUS_SCHEMA_VERSION,
+)
 from foi_o_nz.io import write_json
 from foi_o_nz.kernel_fallback import KernelValue, conformance_cases, evaluate_operation
 
@@ -77,22 +80,39 @@ def _existing_executable(path: Path) -> str | None:
 
 def discover_kernel(project_root: Path | None = None) -> KernelDiscovery:
     """Discover Mojo/MAX tooling and choose the preferred available runtime."""
-    binary = next((candidate for candidate in (_existing_executable(p) for p in _candidate_binary_paths(project_root)) if candidate), None)
+    binary = next(
+        (
+            candidate
+            for candidate in (
+                _existing_executable(p) for p in _candidate_binary_paths(project_root)
+            )
+            if candidate
+        ),
+        None,
+    )
     mojo_cli = shutil.which("mojo")
     max_cli = shutil.which("max")
     pixi_cli = shutil.which("pixi")
     notes: list[str] = []
     if binary:
         preferred: RuntimeKind = "mojo-binary"
-        notes.append("Compiled Mojo kernel binary found; Python will call it using the JSON operation protocol.")
+        notes.append(
+            "Compiled Mojo kernel binary found; Python will call it using the JSON operation protocol."
+        )
     elif mojo_cli:
         preferred = "mojo-cli"
-        notes.append("Mojo CLI found, but no compiled FOI-O kernel binary was found; Python fallback remains authoritative for CLI commands.")
+        notes.append(
+            "Mojo CLI found, but no compiled FOI-O kernel binary was found; Python fallback remains authoritative for CLI commands."
+        )
     else:
         preferred = "python-fallback"
-        notes.append("No Mojo runtime discovered; using dependency-light Python fallback semantics.")
+        notes.append(
+            "No Mojo runtime discovered; using dependency-light Python fallback semantics."
+        )
     if max_cli:
-        notes.append("MAX CLI detected; inference/serving integrations can be exercised separately from deterministic kernels.")
+        notes.append(
+            "MAX CLI detected; inference/serving integrations can be exercised separately from deterministic kernels."
+        )
     else:
         notes.append("MAX CLI not detected; MAX integrations remain optional/deferred.")
     return KernelDiscovery(
@@ -108,7 +128,9 @@ def discover_kernel(project_root: Path | None = None) -> KernelDiscovery:
     )
 
 
-def _call_mojo_binary(binary: str, operation: str, args: tuple[KernelValue, ...], *, timeout_seconds: float = 5.0) -> KernelValue:
+def _call_mojo_binary(
+    binary: str, operation: str, args: tuple[KernelValue, ...], *, timeout_seconds: float = 5.0
+) -> KernelValue:
     """Call a compiled Mojo kernel binary that implements the JSON operation protocol.
 
     The current repo includes the protocol contract and tests for the Python
@@ -125,7 +147,11 @@ def _call_mojo_binary(binary: str, operation: str, args: tuple[KernelValue, ...]
         check=False,
     )
     if completed.returncode != 0:
-        raise RuntimeError(completed.stderr.strip() or completed.stdout.strip() or f"kernel exited {completed.returncode}")
+        raise RuntimeError(
+            completed.stderr.strip()
+            or completed.stdout.strip()
+            or f"kernel exited {completed.returncode}"
+        )
     try:
         data = json.loads(completed.stdout)
     except json.JSONDecodeError as exc:
@@ -184,7 +210,9 @@ def write_kernel_status(output: Path, *, project_root: Path | None = None) -> di
     return report
 
 
-def run_kernel_conformance(output: Path | None = None, *, project_root: Path | None = None) -> dict[str, Any]:
+def run_kernel_conformance(
+    output: Path | None = None, *, project_root: Path | None = None
+) -> dict[str, Any]:
     """Run built-in parity/conformance cases through the kernel facade."""
     discovery = discover_kernel(project_root)
     cases: list[dict[str, Any]] = []

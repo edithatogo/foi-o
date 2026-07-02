@@ -31,8 +31,14 @@ def _copy_blob(path: Path, blobs_dir: Path) -> tuple[str, int]:
     return digest, size
 
 
-def _descriptor(path: Path, digest: str, size: int, *, base_dir: Path | None = None) -> dict[str, Any]:
-    label = str(path.relative_to(base_dir)) if base_dir is not None and path.is_relative_to(base_dir) else str(path)
+def _descriptor(
+    path: Path, digest: str, size: int, *, base_dir: Path | None = None
+) -> dict[str, Any]:
+    label = (
+        str(path.relative_to(base_dir))
+        if base_dir is not None and path.is_relative_to(base_dir)
+        else str(path)
+    )
     return {
         "mediaType": infer_media_type(path),
         "digest": f"sha256:{digest}",
@@ -44,12 +50,14 @@ def _descriptor(path: Path, digest: str, size: int, *, base_dir: Path | None = N
     }
 
 
-def materialise_oci_layout(paths: list[Path], output_dir: Path, *, base_dir: Path | None = None) -> dict[str, Any]:
+def materialise_oci_layout(
+    paths: list[Path], output_dir: Path, *, base_dir: Path | None = None
+) -> dict[str, Any]:
     """Write selected artefacts into a local OCI image-layout directory."""
     output_dir.mkdir(parents=True, exist_ok=True)
     blobs_dir = output_dir / "blobs"
     manifests: list[dict[str, Any]] = []
-    for path in sorted(paths, key=lambda item: str(item)):
+    for path in sorted(paths, key=str):
         digest, size = _copy_blob(path, blobs_dir)
         manifests.append(_descriptor(path, digest, size, base_dir=base_dir))
     manifest_payload = {
@@ -88,5 +96,7 @@ def materialise_oci_layout(paths: list[Path], output_dir: Path, *, base_dir: Pat
         "output_dir": str(output_dir),
         "artifact_count": len(manifests),
         "manifest_digest": manifest_digest,
-        "limitations": ["Local OCI layout only; no registry push, signature, or remote retention guarantee."],
+        "limitations": [
+            "Local OCI layout only; no registry push, signature, or remote retention guarantee."
+        ],
     }

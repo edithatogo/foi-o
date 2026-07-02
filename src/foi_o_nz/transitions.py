@@ -22,7 +22,9 @@ def _state(value: object) -> RequestState | None:
 def _request_key(event: dict[str, Any]) -> str:
     request_ref = event.get("request_ref")
     if isinstance(request_ref, dict):
-        return str(request_ref.get("source_request_id") or request_ref.get("url_title") or "unknown")
+        return str(
+            request_ref.get("source_request_id") or request_ref.get("url_title") or "unknown"
+        )
     return "unknown"
 
 

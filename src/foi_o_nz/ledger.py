@@ -150,16 +150,27 @@ def verify_ledger_jsonl(
     records = list(iter_jsonl(input_jsonl))
     expected = [
         entry.model_dump(mode="json")
-        for entry in build_ledger_entries(records, record_type=record_type, previous_hash=previous_hash)
+        for entry in build_ledger_entries(
+            records, record_type=record_type, previous_hash=previous_hash
+        )
     ]
     observed = list(iter_jsonl(ledger_jsonl))
     errors: list[str] = []
     if len(expected) != len(observed):
         errors.append(f"entry count mismatch: expected {len(expected)}, observed {len(observed)}")
     for idx, (want, got) in enumerate(zip(expected, observed, strict=False)):
-        for key in ("sequence", "record_type", "record_id", "previous_hash", "record_sha256", "ledger_hash"):
+        for key in (
+            "sequence",
+            "record_type",
+            "record_id",
+            "previous_hash",
+            "record_sha256",
+            "ledger_hash",
+        ):
             if want.get(key) != got.get(key):
-                errors.append(f"entry {idx} {key} mismatch: expected {want.get(key)!r}, observed {got.get(key)!r}")
+                errors.append(
+                    f"entry {idx} {key} mismatch: expected {want.get(key)!r}, observed {got.get(key)!r}"
+                )
                 break
     return {
         "ok": not errors,

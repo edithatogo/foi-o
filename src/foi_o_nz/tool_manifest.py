@@ -62,14 +62,15 @@ def build_tool_manifest() -> dict[str, Any]:
                 "prohibited_follow_on_actions": ["treat_tool_availability_as_decision_authority"],
                 "machine_certification_allowed": False,
             },
-
             {
                 "name": "mojo_audit",
                 "description": "Statically audit Mojo source declarations against fallback kernel operations.",
                 "legal_effect": "none",
                 "safety_class": "runtime_validation",
                 "requires_human_certification": False,
-                "prohibited_follow_on_actions": ["treat_static_audit_as_native_release_certification"],
+                "prohibited_follow_on_actions": [
+                    "treat_static_audit_as_native_release_certification"
+                ],
                 "machine_certification_allowed": False,
             },
             {

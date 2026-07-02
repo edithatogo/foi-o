@@ -1,6 +1,11 @@
 from __future__ import annotations
 
-from foi_o_nz.state_machine import RequestState, can_transition, map_alaveteli_state, requires_human_certification
+from foi_o_nz.state_machine import (
+    RequestState,
+    can_transition,
+    map_alaveteli_state,
+    requires_human_certification,
+)
 
 
 def test_maps_known_alaveteli_state_cautiously() -> None:

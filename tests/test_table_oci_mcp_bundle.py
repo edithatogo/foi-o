@@ -42,4 +42,7 @@ def test_mcp_bundle_exports_resources_prompts_and_tools(tmp_path: Path) -> None:
     output = tmp_path / "mcp.json"
     result = write_mcp_bundle(output)
     assert result["resource_count"] >= 1
-    assert json.loads(output.read_text(encoding="utf-8"))["schema_version"] == "foi-o-nz.mcp-bundle.v0.1.0"
+    assert (
+        json.loads(output.read_text(encoding="utf-8"))["schema_version"]
+        == "foi-o-nz.mcp-bundle.v0.1.0"
+    )

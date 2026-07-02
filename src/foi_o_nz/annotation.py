@@ -11,8 +11,13 @@ AnnotationFormat = Literal["foio", "label-studio"]
 
 
 def _task_text(task: dict[str, Any]) -> str:
-    payload = task.get("candidate_payload") if isinstance(task.get("candidate_payload"), dict) else {}
-    snippets: list[str] = [str(task.get("title") or "Review task"), str(task.get("rationale") or "")]
+    payload = (
+        task.get("candidate_payload") if isinstance(task.get("candidate_payload"), dict) else {}
+    )
+    snippets: list[str] = [
+        str(task.get("title") or "Review task"),
+        str(task.get("rationale") or ""),
+    ]
     for key in ("masked_preview", "span_type", "risk_level", "event_type"):
         if payload.get(key) is not None:
             snippets.append(f"{key}: {payload[key]}")

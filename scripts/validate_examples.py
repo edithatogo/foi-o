@@ -36,7 +36,10 @@ PAIR_GLOBS = [
 def _pairs() -> list[tuple[Path, Path]]:
     pairs: list[tuple[Path, Path]] = []
     for glob, schema_name in PAIR_GLOBS:
-        pairs.extend((path, Path("schemas/json") / schema_name) for path in sorted(Path("examples").glob(glob)))
+        pairs.extend(
+            (path, Path("schemas/json") / schema_name)
+            for path in sorted(Path("examples").glob(glob))
+        )
     return pairs
 
 

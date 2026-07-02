@@ -22,7 +22,9 @@ def summarise_requests_jsonl(path: Path) -> dict[str, Any]:
     return {
         "record_count": count,
         "normalised_state_counts": dict(sorted(by_state.items())),
-        "top_authorities": dict(sorted(by_authority.items(), key=lambda item: item[1], reverse=True)[:20]),
+        "top_authorities": dict(
+            sorted(by_authority.items(), key=lambda item: item[1], reverse=True)[:20]
+        ),
     }
 
 

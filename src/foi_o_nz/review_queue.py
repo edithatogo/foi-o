@@ -50,7 +50,7 @@ class ReviewTask(BaseModel):
 
 
 def _stable_task_id(task_type: str, source_id: str, rationale: str) -> str:
-    digest = sha256(f"{task_type}\0{source_id}\0{rationale}".encode("utf-8")).hexdigest()
+    digest = sha256(f"{task_type}\0{source_id}\0{rationale}".encode()).hexdigest()
     return f"foio-nz:review-task:{digest[:24]}"
 
 
@@ -108,8 +108,12 @@ def task_from_risk_assessment(record: dict[str, Any], *, sequence: int = 0) -> R
         return None
     source_id = _source_id(record, f"risk-{sequence}")
     hits = record.get("hits") if isinstance(record.get("hits"), list) else []
-    categories = sorted({str(hit.get("category")) for hit in hits if isinstance(hit, dict) and hit.get("category")})
-    rationale = "Review deterministic risk signals: " + (", ".join(categories) if categories else "unspecified")
+    categories = sorted(
+        {str(hit.get("category")) for hit in hits if isinstance(hit, dict) and hit.get("category")}
+    )
+    rationale = "Review deterministic risk signals: " + (
+        ", ".join(categories) if categories else "unspecified"
+    )
     return ReviewTask(
         task_id=_stable_task_id("risk_review", source_id, rationale),
         request_id=_request_id(record),
@@ -126,7 +130,9 @@ def task_from_risk_assessment(record: dict[str, Any], *, sequence: int = 0) -> R
     )
 
 
-def task_from_redaction_candidate(record: dict[str, Any], *, sequence: int = 0) -> ReviewTask | None:
+def task_from_redaction_candidate(
+    record: dict[str, Any], *, sequence: int = 0
+) -> ReviewTask | None:
     """Create a human-review task from a non-dispositive redaction candidate."""
     if record.get("decision_status") == "human_reviewed":
         return None

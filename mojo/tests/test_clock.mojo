@@ -1,4 +1,8 @@
-from foi_o_nz.clock import is_machine_working_day, is_oia_summer_excluded, is_weekend
+from foi_o_nz.clock import (
+    is_machine_working_day,
+    is_oia_summer_excluded,
+    is_weekend,
+)
 from std.testing import assert_false, assert_true, TestSuite
 
 

@@ -1,4 +1,10 @@
-from foi_o_nz.state import can_agent_certify_event, confidence_for_alaveteli_state, is_terminal_state, normalise_alaveteli_state, requires_human_certification
+from foi_o_nz.state import (
+    can_agent_certify_event,
+    confidence_for_alaveteli_state,
+    is_terminal_state,
+    normalise_alaveteli_state,
+    requires_human_certification,
+)
 from std.testing import assert_equal, assert_false, assert_true, TestSuite
 
 

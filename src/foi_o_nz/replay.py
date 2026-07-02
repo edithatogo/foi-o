@@ -62,7 +62,11 @@ def replay_guardrails(
                             message=f"{event_type} must require human certification.",
                         )
                     )
-                certification = event.get("human_certification") if isinstance(event.get("human_certification"), dict) else None
+                certification = (
+                    event.get("human_certification")
+                    if isinstance(event.get("human_certification"), dict)
+                    else None
+                )
                 if certification is None:
                     findings.append(
                         ReplayFinding(
@@ -73,7 +77,11 @@ def replay_guardrails(
                         )
                     )
             if event.get("assertion_status") == "certified":
-                certification = event.get("human_certification") if isinstance(event.get("human_certification"), dict) else None
+                certification = (
+                    event.get("human_certification")
+                    if isinstance(event.get("human_certification"), dict)
+                    else None
+                )
                 if certification is None or certification.get("certified") is not True:
                     findings.append(
                         ReplayFinding(
@@ -83,7 +91,10 @@ def replay_guardrails(
                             message="Certified assertions require positive human certification metadata.",
                         )
                     )
-            if event.get("machine_generated") is True and event.get("assertion_status") == "certified":
+            if (
+                event.get("machine_generated") is True
+                and event.get("assertion_status") == "certified"
+            ):
                 findings.append(
                     ReplayFinding(
                         severity="error",
@@ -107,7 +118,9 @@ def replay_guardrails(
                         message=str(finding.get("message", "Agent action policy finding.")),
                     )
                 )
-            if result.get("requires_human_certification") and not action.get("human_review_required", True):
+            if result.get("requires_human_certification") and not action.get(
+                "human_review_required", True
+            ):
                 findings.append(
                     ReplayFinding(
                         severity="warning",

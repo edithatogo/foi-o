@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from rdflib import Graph, Literal, Namespace, RDF, URIRef
+from rdflib import RDF, Graph, Literal, Namespace, URIRef
 from rdflib.namespace import DCTERMS, PROV, XSD
 
 from foi_o_nz.io import iter_jsonl
@@ -17,7 +17,7 @@ EVT = Namespace("https://w3id.org/foio-nz/event/")
 
 def _uri_fragment(value: Any) -> str:
     text = str(value).strip().replace("/", "_").replace(" ", "_")
-    return "".join(ch for ch in text if ch.isalnum() or ch in "_-.:" ) or "unknown"
+    return "".join(ch for ch in text if ch.isalnum() or ch in "_-.:") or "unknown"
 
 
 def graph_from_request_profiles(records: list[dict[str, Any]]) -> Graph:
@@ -42,7 +42,9 @@ def graph_from_request_profiles(records: list[dict[str, Any]]) -> Graph:
         if source_url := record.get("source_url"):
             graph.add((request_uri, PROV.wasDerivedFrom, URIRef(str(source_url))))
         if first_sent := record.get("first_sent"):
-            graph.add((request_uri, FOIO.firstSentAt, Literal(str(first_sent), datatype=XSD.dateTime)))
+            graph.add(
+                (request_uri, FOIO.firstSentAt, Literal(str(first_sent), datatype=XSD.dateTime))
+            )
     return graph
 
 
@@ -54,10 +56,18 @@ def graph_from_events(records: list[dict[str, Any]]) -> Graph:
     graph.bind("prov", PROV)
     for record in records:
         event_id = str(record.get("event_id") or "")
-        event_uri = URIRef(event_id) if event_id.startswith("urn:") else EVT[_uri_fragment(event_id)]
+        event_uri = (
+            URIRef(event_id) if event_id.startswith("urn:") else EVT[_uri_fragment(event_id)]
+        )
         graph.add((event_uri, RDF.type, FOIO.ProcessEvent))
         graph.add((event_uri, FOIO.eventType, Literal(str(record.get("event_type")))))
-        graph.add((event_uri, PROV.generatedAtTime, Literal(str(record.get("event_time")), datatype=XSD.dateTime)))
+        graph.add(
+            (
+                event_uri,
+                PROV.generatedAtTime,
+                Literal(str(record.get("event_time")), datatype=XSD.dateTime),
+            )
+        )
         graph.add((event_uri, FOIO.assertionStatus, Literal(str(record.get("assertion_status")))))
         if state := record.get("lifecycle_state_after"):
             graph.add((event_uri, FOIO.lifecycleStateAfter, Literal(str(state))))
@@ -67,7 +77,9 @@ def graph_from_events(records: list[dict[str, Any]]) -> Graph:
             graph.add((event_uri, FOIO.aboutRequest, request_uri))
         for evidence in record.get("evidence") or []:
             if isinstance(evidence, dict) and evidence.get("evidence_id"):
-                evidence_uri = URIRef(f"https://w3id.org/foio-nz/evidence/{_uri_fragment(evidence['evidence_id'])}")
+                evidence_uri = URIRef(
+                    f"https://w3id.org/foio-nz/evidence/{_uri_fragment(evidence['evidence_id'])}"
+                )
                 graph.add((evidence_uri, RDF.type, PROV.Entity))
                 graph.add((event_uri, PROV.wasDerivedFrom, evidence_uri))
     return graph

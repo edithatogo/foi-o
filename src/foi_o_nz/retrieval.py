@@ -61,8 +61,12 @@ def _normalise_chunk(record: dict[str, Any]) -> dict[str, Any]:
         "chunk_id": str(record.get("chunk_id") or record.get("source_id") or "unknown"),
         "source_record_type": record.get("source_record_type"),
         "source_id": str(record.get("source_id")) if record.get("source_id") is not None else None,
-        "request_id": str(record.get("request_id")) if record.get("request_id") is not None else None,
-        "event_type": str(record.get("event_type")) if record.get("event_type") is not None else None,
+        "request_id": str(record.get("request_id"))
+        if record.get("request_id") is not None
+        else None,
+        "event_type": str(record.get("event_type"))
+        if record.get("event_type") is not None
+        else None,
         "token_estimate": record.get("token_estimate"),
         "text": text,
         "metadata": record.get("metadata") if isinstance(record.get("metadata"), dict) else {},
@@ -146,7 +150,9 @@ def search_chunk_records(
         vector_score = 0.0
         if include_vectors:
             # Convert cosine [-1, 1] into a stable [0, 1] blending range.
-            vector_score = (_cosine(query_vector, hash_embedding(chunk["text"], dimensions=dimensions)) + 1.0) / 2.0
+            vector_score = (
+                _cosine(query_vector, hash_embedding(chunk["text"], dimensions=dimensions)) + 1.0
+            ) / 2.0
         combined = lexical_weight * lexical_score + (1.0 - lexical_weight) * vector_score
         hit = RetrievalHit(
             rank=1,
@@ -159,7 +165,9 @@ def search_chunk_records(
             lexical_score=round(lexical_score, 8),
             vector_score=round(vector_score, 8),
             matched_terms=sorted(matched_terms),
-            token_estimate=chunk["token_estimate"] if isinstance(chunk["token_estimate"], int) else None,
+            token_estimate=chunk["token_estimate"]
+            if isinstance(chunk["token_estimate"], int)
+            else None,
             text=chunk["text"],
             metadata=chunk["metadata"],
         )

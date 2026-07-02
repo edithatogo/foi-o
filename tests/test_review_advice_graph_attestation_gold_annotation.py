@@ -94,7 +94,13 @@ def _write_fixture_streams(tmp_path: Path) -> dict[str, Path]:
             }
         ],
     )
-    return {"requests": requests, "events": events, "risks": risks, "redactions": redactions, "chunks": chunks}
+    return {
+        "requests": requests,
+        "events": events,
+        "risks": risks,
+        "redactions": redactions,
+        "chunks": chunks,
+    }
 
 
 def test_review_queue_builds_risk_redaction_and_certification_tasks(tmp_path: Path) -> None:
@@ -124,7 +130,12 @@ def test_review_queue_builds_risk_redaction_and_certification_tasks(tmp_path: Pa
 def test_process_advice_routes_to_safe_actions_and_reviews(tmp_path: Path) -> None:
     paths = _write_fixture_streams(tmp_path)
     queue = tmp_path / "review.jsonl"
-    write_review_queue(queue, risks_jsonl=paths["risks"], redaction_candidates_jsonl=paths["redactions"], events_jsonl=paths["events"])
+    write_review_queue(
+        queue,
+        risks_jsonl=paths["risks"],
+        redaction_candidates_jsonl=paths["redactions"],
+        events_jsonl=paths["events"],
+    )
     report = build_process_advice(
         request_id="12345",
         requests_jsonl=paths["requests"],
@@ -133,22 +144,36 @@ def test_process_advice_routes_to_safe_actions_and_reviews(tmp_path: Path) -> No
     )
     assert report["legal_effect"] == "none_preparatory_only"
     assert any(item["action"] == "calculate_deadline" for item in report["next_safe_actions"])
-    assert any(item["review_type"] == "certification_boundary" for item in report["required_human_reviews"])
+    assert any(
+        item["review_type"] == "certification_boundary" for item in report["required_human_reviews"]
+    )
     output = tmp_path / "advice.json"
-    written = write_process_advice(output, request_id="12345", requests_jsonl=paths["requests"], events_jsonl=paths["events"])
+    written = write_process_advice(
+        output, request_id="12345", requests_jsonl=paths["requests"], events_jsonl=paths["events"]
+    )
     assert written["request_id"] == "12345"
-    assert json.loads(output.read_text(encoding="utf-8"))["schema_version"] == "foi-o-nz.process-advice.v0.1.0"
+    assert (
+        json.loads(output.read_text(encoding="utf-8"))["schema_version"]
+        == "foi-o-nz.process-advice.v0.1.0"
+    )
 
 
 def test_graph_export_builds_json_and_mermaid(tmp_path: Path) -> None:
     paths = _write_fixture_streams(tmp_path)
-    graph = build_graph(requests_jsonl=paths["requests"], events_jsonl=paths["events"], chunks_jsonl=paths["chunks"], risks_jsonl=paths["risks"])
+    graph = build_graph(
+        requests_jsonl=paths["requests"],
+        events_jsonl=paths["events"],
+        chunks_jsonl=paths["chunks"],
+        risks_jsonl=paths["risks"],
+    )
     assert graph["node_count"] >= 4
     assert any(edge["label"] == "has_event" for edge in graph["edges"])
     mermaid = graph_to_mermaid(graph)
     assert mermaid.startswith("flowchart LR")
     output = tmp_path / "graph.mmd"
-    result = write_graph_export(output, requests_jsonl=paths["requests"], events_jsonl=paths["events"], fmt="mermaid")
+    result = write_graph_export(
+        output, requests_jsonl=paths["requests"], events_jsonl=paths["events"], fmt="mermaid"
+    )
     assert result["format"] == "mermaid"
     assert output.read_text(encoding="utf-8").startswith("flowchart LR")
 
@@ -177,9 +202,13 @@ def test_goldset_sampling_is_deterministic_and_bounded(tmp_path: Path) -> None:
             {"request_id": "3", "authority": "B", "normalised_state": "Closed"},
         ],
     )
-    first = write_goldset_sample(records, output, manifest, kind="request", limit=2, per_stratum=1, seed="seed")
+    first = write_goldset_sample(
+        records, output, manifest, kind="request", limit=2, per_stratum=1, seed="seed"
+    )
     lines_first = output.read_text(encoding="utf-8")
-    second = write_goldset_sample(records, output, manifest, kind="request", limit=2, per_stratum=1, seed="seed")
+    second = write_goldset_sample(
+        records, output, manifest, kind="request", limit=2, per_stratum=1, seed="seed"
+    )
     assert first["selected_count"] == 2
     assert second["selected_count"] == 2
     assert output.read_text(encoding="utf-8") == lines_first

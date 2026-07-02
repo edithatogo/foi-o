@@ -7,7 +7,7 @@ contract and the Mojo source tree as the preferred native implementation surface
 Because the local sandbox does not include the Modular Mojo/MAX toolchain, v0.8
 adds the strongest checks that can run without native compilation:
 
-- static discovery of Mojo `fn` declarations;
+- static discovery of Mojo function declarations;
 - comparison with Python fallback conformance operations;
 - JSON kernel manifests for native/fallback parity planning;
 - JSONL conformance fixtures for future native Mojo test harnesses;

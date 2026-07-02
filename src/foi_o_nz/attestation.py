@@ -33,7 +33,7 @@ def build_attestation(
             "digest": {"sha256": file_sha256(path)},
             "size": path.stat().st_size,
         }
-        for path in sorted(paths, key=lambda item: str(item))
+        for path in sorted(paths, key=str)
     ]
     generated_at = datetime.now(UTC).isoformat()
     return {
@@ -60,7 +60,9 @@ def build_attestation(
                 "byproducts": [
                     {
                         "name": "foi-o-nz-boundary",
-                        "digest": {"sha256": sha256(b"no autonomous FOI/OIA decisions").hexdigest()},
+                        "digest": {
+                            "sha256": sha256(b"no autonomous FOI/OIA decisions").hexdigest()
+                        },
                     }
                 ],
             },

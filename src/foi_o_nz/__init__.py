@@ -18,7 +18,6 @@ from foi_o_nz.state_machine import AlaveteliStateMapping, RequestState, map_alav
 from foi_o_nz.version import __version__
 
 __all__ = [
-    "__version__",
     "Actor",
     "AgentAction",
     "AlaveteliStateMapping",
@@ -28,5 +27,6 @@ __all__ = [
     "LegalReference",
     "RequestProfile",
     "RequestState",
+    "__version__",
     "map_alaveteli_state",
 ]

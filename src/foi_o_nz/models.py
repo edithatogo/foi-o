@@ -233,7 +233,7 @@ class CoreEvent(BaseModel):
     @classmethod
     def validate_event_id(cls, value: str) -> str:
         """Check event ID namespace."""
-        if not (value.startswith("urn:uuid:") or value.startswith("foio-nz:event:")):
+        if not (value.startswith(("urn:uuid:", "foio-nz:event:"))):
             raise ValueError("event_id must start with urn:uuid: or foio-nz:event:")
         return value
 
@@ -369,8 +369,13 @@ class AgentAction(BaseModel):
     @model_validator(mode="after")
     def validate_agent_boundary(self) -> AgentAction:
         """Require safety/certification consistency for risky actions."""
-        if self.legal_effect in {"requires_certification", "prohibited"} and not self.requires_human_certification:
-            raise ValueError("risky/prohibited legal-effect actions must require human certification")
+        if (
+            self.legal_effect in {"requires_certification", "prohibited"}
+            and not self.requires_human_certification
+        ):
+            raise ValueError(
+                "risky/prohibited legal-effect actions must require human certification"
+            )
         if self.safety_class == "prohibited" and self.legal_effect != "prohibited":
             raise ValueError("prohibited safety class must have prohibited legal_effect")
         return self

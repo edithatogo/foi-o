@@ -222,7 +222,6 @@ ACTION_POLICY: dict[str, dict[str, Any]] = {
         "safety_class": "low",
         "prohibited_follow_on_actions": ["treat_test_pass_as_operational_authorisation"],
     },
-
 }
 
 

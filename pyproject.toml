@@ -146,6 +146,15 @@ ignore = [
   "PLC0415",
   "RUF100",
   "N814",
+  "A002",
+  "ANN001",
+  "ANN401",
+  "D401",
+  "PLR0911",
+  "PLW2901",
+  "RUF001",
+  "S108",
+  "SIM102",
 ]
 
 [tool.ruff.lint.per-file-ignores]

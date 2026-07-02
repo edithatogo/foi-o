@@ -41,7 +41,9 @@ def make_span_id(seed: str) -> str:
     return sha256(seed.encode("utf-8")).hexdigest()[:16]
 
 
-def build_artifact_trace_spans(paths: list[Path], *, run_name: str = "foi-o-nz-local-run") -> list[TraceSpan]:
+def build_artifact_trace_spans(
+    paths: list[Path], *, run_name: str = "foi-o-nz-local-run"
+) -> list[TraceSpan]:
     """Build one root span plus one artifact-observed span per file."""
     now = datetime.now(UTC)
     trace_seed = "|".join([run_name, *[str(path) for path in paths]])
@@ -57,7 +59,7 @@ def build_artifact_trace_spans(paths: list[Path], *, run_name: str = "foi-o-nz-l
             attributes={"artifact_count": len(paths), "agent_boundary": "process-support-only"},
         )
     ]
-    for ordinal, path in enumerate(sorted(paths, key=lambda value: str(value))):
+    for ordinal, path in enumerate(sorted(paths, key=str)):
         digest, byte_size = digest_file(path)
         spans.append(
             TraceSpan(
@@ -79,7 +81,9 @@ def build_artifact_trace_spans(paths: list[Path], *, run_name: str = "foi-o-nz-l
     return spans
 
 
-def write_trace_spans(paths: list[Path], output: Path, *, run_name: str = "foi-o-nz-local-run") -> dict[str, Any]:
+def write_trace_spans(
+    paths: list[Path], output: Path, *, run_name: str = "foi-o-nz-local-run"
+) -> dict[str, Any]:
     """Write trace spans as JSONL."""
     spans = build_artifact_trace_spans(paths, run_name=run_name)
     write_jsonl(output, [span.model_dump(mode="json", exclude_none=True) for span in spans])

@@ -5,8 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from foi_o_nz.tool_manifest import build_tool_manifest
 from foi_o_nz.io import write_json
+from foi_o_nz.tool_manifest import build_tool_manifest
 
 
 def build_mcp_bundle() -> dict[str, Any]:
@@ -102,4 +102,10 @@ def write_mcp_bundle(output: Path) -> dict[str, Any]:
     """Write a static MCP planning bundle as JSON."""
     bundle = build_mcp_bundle()
     write_json(output, bundle)
-    return {"ok": True, "output": str(output), "resource_count": len(bundle["resources"]), "prompt_count": len(bundle["prompts"]), "tool_count": len(bundle["tools"])}
+    return {
+        "ok": True,
+        "output": str(output),
+        "resource_count": len(bundle["resources"]),
+        "prompt_count": len(bundle["prompts"]),
+        "tool_count": len(bundle["tools"]),
+    }

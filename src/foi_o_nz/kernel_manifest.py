@@ -106,7 +106,9 @@ def build_kernel_manifest(*, mojo_root: Path = Path("mojo")) -> dict[str, Any]:
         "max_cli_available": status.get("max_cli") is not None,
         "operation_count": len(operations),
         "conformance_case_count": len(records),
-        "mojo_declared_operation_count": sum(1 for operation in operations if operation["mojo_declared"]),
+        "mojo_declared_operation_count": sum(
+            1 for operation in operations if operation["mojo_declared"]
+        ),
         "operations": operations,
         "notes": [
             "Python fallback is the executable reference contract in no-Mojo environments.",
@@ -140,7 +142,9 @@ def build_kernel_readiness(*, mojo_root: Path = Path("mojo")) -> dict[str, Any]:
         blocked.append("Modular Mojo CLI is not installed in this environment.")
     if missing_count:
         blocked.append("Some Python fallback operations do not yet have static Mojo declarations.")
-    blocked.append("Native runtime parity cannot be certified until Mojo tests and binary build run in a Modular environment.")
+    blocked.append(
+        "Native runtime parity cannot be certified until Mojo tests and binary build run in a Modular environment."
+    )
     return {
         "schema_version": KERNEL_READINESS_SCHEMA_VERSION,
         "ok_for_python_fallback": True,

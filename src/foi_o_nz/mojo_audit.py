@@ -19,7 +19,7 @@ from foi_o_nz.constants import MOJO_AUDIT_SCHEMA_VERSION
 from foi_o_nz.io import write_json
 from foi_o_nz.kernel_fallback import conformance_cases
 
-_FUNCTION_RE = re.compile(r"^\s*fn\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(", re.MULTILINE)
+_FUNCTION_RE = re.compile(r"^\s*(?:def|fn)\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(", re.MULTILINE)
 
 
 @dataclass(frozen=True, slots=True)

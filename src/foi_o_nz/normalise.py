@@ -20,7 +20,7 @@ def _safe_url(value: Any) -> str | None:
     if not isinstance(value, str) or not value.strip():
         return None
     stripped = value.strip()
-    if stripped.startswith("http://") or stripped.startswith("https://"):
+    if stripped.startswith(("http://", "https://")):
         return stripped
     return None
 
@@ -47,12 +47,16 @@ def _parse_warc_ids(value: Any) -> list[str]:
     return []
 
 
-def _event_id(kind: str, request_id: str | int, source_state: str | None = None, extra: str = "") -> str:
+def _event_id(
+    kind: str, request_id: str | int, source_state: str | None = None, extra: str = ""
+) -> str:
     base = f"https://w3id.org/foio-nz/event/{kind}/{request_id}/{source_state or ''}/{extra}"
     return f"urn:uuid:{uuid5(NAMESPACE_URL, base)}"
 
 
-def build_request_profile(record: dict[str, Any], *, source: str = SOURCE_SYSTEM_FYI_ARCHIVE) -> RequestProfile:
+def build_request_profile(
+    record: dict[str, Any], *, source: str = SOURCE_SYSTEM_FYI_ARCHIVE
+) -> RequestProfile:
     """Build a normalised request profile from an FYI archive-style record."""
     request_id = record.get("request_id") or record.get("id") or record.get("url_title")
     if request_id is None:
@@ -60,7 +64,9 @@ def build_request_profile(record: dict[str, Any], *, source: str = SOURCE_SYSTEM
     source_state = str(record.get("state") or record.get("source_state") or "unknown")
     mapping = map_alaveteli_state(source_state)
     evidence_id = f"evidence:{source}:{request_id}:manifest"
-    first_sent = parse_datetime(record.get("first_sent") or record.get("sent_at") or record.get("created_at"))
+    first_sent = parse_datetime(
+        record.get("first_sent") or record.get("sent_at") or record.get("created_at")
+    )
     last_updated = parse_datetime(record.get("last_updated") or record.get("updated_at"))
     return RequestProfile(
         source=source,
@@ -87,7 +93,9 @@ def build_request_profile(record: dict[str, Any], *, source: str = SOURCE_SYSTEM
     )
 
 
-def _evidence(profile: RequestProfile, *, event_time: datetime, evidence_type: str = "archive_manifest") -> EvidenceRef:
+def _evidence(
+    profile: RequestProfile, *, event_time: datetime, evidence_type: str = "archive_manifest"
+) -> EvidenceRef:
     return EvidenceRef(
         evidence_id=f"evidence:{profile.source}:{profile.request_id}:manifest",
         evidence_type=evidence_type,
@@ -159,7 +167,9 @@ def build_observed_events(
         payload={
             "source_state": profile.source_state,
             "normalised_state": profile.normalised_state,
-            "mapping": profile.state_mapping.model_dump(mode="json") if profile.state_mapping else None,
+            "mapping": profile.state_mapping.model_dump(mode="json")
+            if profile.state_mapping
+            else None,
         },
         quality_flags=["source_state_mapping_not_legal_outcome"],
     )
@@ -193,7 +203,8 @@ def build_attachment_events(profile: RequestProfile, *, event_time: datetime) ->
         evidence = EvidenceRef(
             evidence_id=f"evidence:{profile.source}:{profile.request_id}:attachment:{attachment_id}",
             evidence_type="attachment",
-            source_url=_safe_url(attachment.get("url") or attachment.get("source_url")) or profile.source_url,
+            source_url=_safe_url(attachment.get("url") or attachment.get("source_url"))
+            or profile.source_url,
             archive_ref=f"{profile.url_title or profile.request_id}#attachment-{attachment_id}",
             content_sha256=content_sha256,
             observed_at=event_time,
@@ -214,7 +225,9 @@ def build_attachment_events(profile: RequestProfile, *, event_time: datetime) ->
     return events
 
 
-def normalise_records(records: list[dict[str, Any]]) -> tuple[list[RequestProfile], list[CoreEvent]]:
+def normalise_records(
+    records: list[dict[str, Any]],
+) -> tuple[list[RequestProfile], list[CoreEvent]]:
     """Normalise raw manifest records into request profiles and core events."""
     profiles: list[RequestProfile] = []
     events: list[CoreEvent] = []

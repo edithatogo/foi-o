@@ -5,10 +5,10 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 
-from foi_o_nz.ledger import canonical_record_json, infer_record_id, sha256_text
 from foi_o_nz.io import iter_jsonl, write_json
+from foi_o_nz.ledger import canonical_record_json, infer_record_id, sha256_text
 
 DIFF_SCHEMA_VERSION = "foi-o-nz.diff.v0.1.0"
 
@@ -41,13 +41,19 @@ class DiffReport(BaseModel):
 def _index_records(path: Path, *, key: str | None = None) -> dict[str, tuple[str, dict[str, Any]]]:
     indexed: dict[str, tuple[str, dict[str, Any]]] = {}
     for sequence, record in enumerate(iter_jsonl(path)):
-        record_id = str(record.get(key)) if key is not None and record.get(key) is not None else infer_record_id(record, sequence)
+        record_id = (
+            str(record.get(key))
+            if key is not None and record.get(key) is not None
+            else infer_record_id(record, sequence)
+        )
         record_hash = sha256_text(canonical_record_json(record))
         indexed[record_id] = (record_hash, record)
     return indexed
 
 
-def diff_jsonl_records(before_path: Path, after_path: Path, *, key: str | None = None) -> DiffReport:
+def diff_jsonl_records(
+    before_path: Path, after_path: Path, *, key: str | None = None
+) -> DiffReport:
     """Compare two JSONL files and return a deterministic diff report."""
     before = _index_records(before_path, key=key)
     after = _index_records(after_path, key=key)
@@ -84,8 +90,12 @@ def diff_jsonl_records(before_path: Path, after_path: Path, *, key: str | None =
     )
 
 
-def diff_jsonl(before_path: Path, after_path: Path, output_json: Path, *, key: str | None = None) -> dict[str, Any]:
+def diff_jsonl(
+    before_path: Path, after_path: Path, output_json: Path, *, key: str | None = None
+) -> dict[str, Any]:
     """Write a JSONL diff report."""
-    report = diff_jsonl_records(before_path, after_path, key=key).model_dump(mode="json", exclude_none=True)
+    report = diff_jsonl_records(before_path, after_path, key=key).model_dump(
+        mode="json", exclude_none=True
+    )
     write_json(output_json, report)
     return report

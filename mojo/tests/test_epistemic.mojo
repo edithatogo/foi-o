@@ -1,4 +1,8 @@
-from foi_o_nz.epistemic import assertion_status_rank, can_agent_assert_status, confidence_band
+from foi_o_nz.epistemic import (
+    assertion_status_rank,
+    can_agent_assert_status,
+    confidence_band,
+)
 from std.testing import assert_equal, assert_false, assert_true, TestSuite
 
 

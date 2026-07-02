@@ -25,14 +25,24 @@ _MESSAGE_FIELDS = (
     "mail",
 )
 
-_EXTENSION_RE = re.compile(r"\b(extension|extend(?:ed|ing)?|time\s*limit|further\s+working\s+days)\b", re.I)
-_TRANSFER_RE = re.compile(r"\b(transfer(?:red|ring)?|transferring|section\s+14|s\s*14)\b", re.I)
-_CLARIFICATION_RE = re.compile(r"\b(clarif(?:y|ication)|scope|refine|narrow|due\s+particularity)\b", re.I)
-_CHARGE_RE = re.compile(r"\b(charge|charges|charging|deposit|invoice|fee)\b", re.I)
-_REFUSAL_RE = re.compile(r"\b(refuse|refused|decline|declined|withhold|withheld|section\s+18|s\s*18)\b", re.I)
-_RELEASE_RE = re.compile(r"\b(release|released|attached|provided|enclosed|supply|supplied)\b", re.I)
-_COMPLAINT_RE = re.compile(r"\b(ombudsman|complaint|complain|review)\b", re.I)
-_DECISION_RE = re.compile(r"\b(decision|decided|we have considered|our response)\b", re.I)
+_EXTENSION_RE = re.compile(
+    r"\b(extension|extend(?:ed|ing)?|time\s*limit|further\s+working\s+days)\b", re.IGNORECASE
+)
+_TRANSFER_RE = re.compile(
+    r"\b(transfer(?:red|ring)?|transferring|section\s+14|s\s*14)\b", re.IGNORECASE
+)
+_CLARIFICATION_RE = re.compile(
+    r"\b(clarif(?:y|ication)|scope|refine|narrow|due\s+particularity)\b", re.IGNORECASE
+)
+_CHARGE_RE = re.compile(r"\b(charge|charges|charging|deposit|invoice|fee)\b", re.IGNORECASE)
+_REFUSAL_RE = re.compile(
+    r"\b(refuse|refused|decline|declined|withhold|withheld|section\s+18|s\s*18)\b", re.IGNORECASE
+)
+_RELEASE_RE = re.compile(
+    r"\b(release|released|attached|provided|enclosed|supply|supplied)\b", re.IGNORECASE
+)
+_COMPLAINT_RE = re.compile(r"\b(ombudsman|complaint|complain|review)\b", re.IGNORECASE)
+_DECISION_RE = re.compile(r"\b(decision|decided|we have considered|our response)\b", re.IGNORECASE)
 
 _LEGAL_REFS: dict[str, list[dict[str, str]]] = {
     "ExtensionNotified": [
@@ -143,7 +153,9 @@ def _message_event_id(kind: str, profile: RequestProfile, message: ExtractedMess
     return f"urn:uuid:{uuid5(NAMESPACE_URL, base)}"
 
 
-def _evidence(profile: RequestProfile, message: ExtractedMessage, event_time: datetime) -> EvidenceRef:
+def _evidence(
+    profile: RequestProfile, message: ExtractedMessage, event_time: datetime
+) -> EvidenceRef:
     excerpt = message.body[:500]
     return EvidenceRef(
         evidence_id=f"evidence:{profile.source}:{profile.request_id}:message:{message.message_id}",
@@ -185,7 +197,9 @@ def _base_event_kwargs(profile: RequestProfile, message: ExtractedMessage) -> di
     }
 
 
-def build_message_events(profile: RequestProfile, messages: list[ExtractedMessage]) -> list[CoreEvent]:
+def build_message_events(
+    profile: RequestProfile, messages: list[ExtractedMessage]
+) -> list[CoreEvent]:
     """Build MessageObserved plus candidate process events from messages."""
     events: list[CoreEvent] = []
     for message in messages:
@@ -212,25 +226,44 @@ def build_message_events(profile: RequestProfile, messages: list[ExtractedMessag
     return events
 
 
-def _candidate_events_from_message(profile: RequestProfile, message: ExtractedMessage) -> list[CoreEvent]:
+def _candidate_events_from_message(
+    profile: RequestProfile, message: ExtractedMessage
+) -> list[CoreEvent]:
     text = message.body
     candidates: list[tuple[str, str | None, float, str]] = []
     if _EXTENSION_RE.search(text):
-        candidates.append(("ExtensionNotified", "ExtensionApplied", 0.58, "extension_language_detected"))
+        candidates.append(
+            ("ExtensionNotified", "ExtensionApplied", 0.58, "extension_language_detected")
+        )
     if _TRANSFER_RE.search(text):
-        candidates.append(("TransferNotified", "TransferredInFull", 0.54, "transfer_language_detected"))
+        candidates.append(
+            ("TransferNotified", "TransferredInFull", 0.54, "transfer_language_detected")
+        )
     if _CLARIFICATION_RE.search(text):
-        candidates.append(("ClarificationRequested", "AwaitingClarification", 0.52, "clarification_language_detected"))
+        candidates.append(
+            (
+                "ClarificationRequested",
+                "AwaitingClarification",
+                0.52,
+                "clarification_language_detected",
+            )
+        )
     if _CHARGE_RE.search(text):
-        candidates.append(("ChargeNoticeSent", "ChargeAssessment", 0.42, "charge_language_detected"))
+        candidates.append(
+            ("ChargeNoticeSent", "ChargeAssessment", 0.42, "charge_language_detected")
+        )
     if _REFUSAL_RE.search(text):
         candidates.append(("RefusalCommunicated", "Refused", 0.46, "refusal_language_detected"))
     if _RELEASE_RE.search(text):
         candidates.append(("ReleaseMade", "ReleasedInPart", 0.38, "release_language_detected"))
     if _COMPLAINT_RE.search(text):
-        candidates.append(("ComplaintObserved", "ComplaintMade", 0.44, "complaint_or_review_language_detected"))
+        candidates.append(
+            ("ComplaintObserved", "ComplaintMade", 0.44, "complaint_or_review_language_detected")
+        )
     if _DECISION_RE.search(text):
-        candidates.append(("DecisionCommunicated", profile.normalised_state, 0.40, "decision_language_detected"))
+        candidates.append(
+            ("DecisionCommunicated", profile.normalised_state, 0.40, "decision_language_detected")
+        )
 
     out: list[CoreEvent] = []
     for event_type, lifecycle_state, confidence, flag in candidates:

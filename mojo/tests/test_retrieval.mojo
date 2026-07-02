@@ -1,4 +1,9 @@
-from foi_o_nz.retrieval import blend_scores, clamp_top_k, normalise_cosine, should_include_hit
+from foi_o_nz.retrieval import (
+    blend_scores,
+    clamp_top_k,
+    normalise_cosine,
+    should_include_hit,
+)
 from std.testing import assert_equal, assert_false, assert_true, TestSuite
 
 

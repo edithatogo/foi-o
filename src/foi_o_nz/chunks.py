@@ -43,7 +43,7 @@ def estimate_tokens(text: str) -> int:
 
 def make_chunk_id(source_record_type: str, source_id: str, text: str, ordinal: int = 0) -> str:
     """Build a content-addressed chunk ID."""
-    digest = sha256(f"{source_record_type}\0{source_id}\0{ordinal}\0{text}".encode("utf-8")).hexdigest()
+    digest = sha256(f"{source_record_type}\0{source_id}\0{ordinal}\0{text}".encode()).hexdigest()
     return f"foio-nz:chunk:{digest[:24]}"
 
 
@@ -98,7 +98,9 @@ def chunk_event_record(record: dict[str, Any]) -> ChunkRecord:
     for evidence in record.get("evidence", []) if isinstance(record.get("evidence"), list) else []:
         if isinstance(evidence, dict) and evidence.get("excerpt"):
             evidence_parts.append(str(evidence["excerpt"]))
-    text = f"Event {event_type} for request {request_id or 'unknown'}. State after: {lifecycle_state}."
+    text = (
+        f"Event {event_type} for request {request_id or 'unknown'}. State after: {lifecycle_state}."
+    )
     if payload_text:
         text += f" Payload: {payload_text}."
     if evidence_parts:
@@ -121,17 +123,23 @@ def chunk_event_record(record: dict[str, Any]) -> ChunkRecord:
     )
 
 
-def chunk_records(records: Iterable[dict[str, Any]], *, kind: Literal["request", "event"]) -> list[ChunkRecord]:
+def chunk_records(
+    records: Iterable[dict[str, Any]], *, kind: Literal["request", "event"]
+) -> list[ChunkRecord]:
     """Chunk records of one kind."""
     if kind == "request":
         return [chunk_request_record(record) for record in records]
     return [chunk_event_record(record) for record in records]
 
 
-def chunk_jsonl(input_jsonl: Path, output_jsonl: Path, *, kind: Literal["request", "event"]) -> dict[str, Any]:
+def chunk_jsonl(
+    input_jsonl: Path, output_jsonl: Path, *, kind: Literal["request", "event"]
+) -> dict[str, Any]:
     """Chunk a JSONL record stream and write chunk JSONL."""
     chunks = chunk_records(iter_jsonl(input_jsonl), kind=kind)
-    write_jsonl(output_jsonl, [chunk.model_dump(mode="json", exclude_none=True) for chunk in chunks])
+    write_jsonl(
+        output_jsonl, [chunk.model_dump(mode="json", exclude_none=True) for chunk in chunks]
+    )
     return {
         "ok": True,
         "input": str(input_jsonl),

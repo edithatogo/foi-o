@@ -131,7 +131,10 @@ def test_replay_guardrails_flags_machine_certified_event(tmp_path: Path) -> None
     )
     report = replay_guardrails(events_jsonl=events)
     assert not report.ok
-    assert any(finding.code == "certified_assertion_without_positive_human_certification" for finding in report.findings)
+    assert any(
+        finding.code == "certified_assertion_without_positive_human_certification"
+        for finding in report.findings
+    )
 
 
 def test_write_guardrail_replay(tmp_path: Path) -> None:

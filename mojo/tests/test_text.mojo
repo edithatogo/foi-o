@@ -1,4 +1,9 @@
-from foi_o_nz.text import can_machine_certify_safety_class, review_required_for_score, risk_level_from_score, token_estimate_from_chars
+from foi_o_nz.text import (
+    can_machine_certify_safety_class,
+    review_required_for_score,
+    risk_level_from_score,
+    token_estimate_from_chars,
+)
 from std.testing import assert_equal, assert_false, assert_true, TestSuite
 
 

@@ -57,7 +57,9 @@ class RedactionCandidate(BaseModel):
 
     model_config = ConfigDict(extra="forbid")
 
-    schema_version: Literal["foi-o-nz.redaction-candidate.v0.1.0"] = REDACTION_CANDIDATE_SCHEMA_VERSION
+    schema_version: Literal["foi-o-nz.redaction-candidate.v0.1.0"] = (
+        REDACTION_CANDIDATE_SCHEMA_VERSION
+    )
     candidate_id: str
     source_id: str
     request_id: str | None = None
@@ -70,7 +72,9 @@ class RedactionCandidate(BaseModel):
     confidence: float = Field(ge=0, le=1)
     rationale: str
     review_required: bool = True
-    decision_status: Literal["candidate_only_not_redacted", "human_reviewed"] = "candidate_only_not_redacted"
+    decision_status: Literal["candidate_only_not_redacted", "human_reviewed"] = (
+        "candidate_only_not_redacted"
+    )
 
 
 def mask_text(value: str) -> str:
@@ -85,7 +89,7 @@ def mask_text(value: str) -> str:
 
 def candidate_id(source_id: str, span_type: str, start: int, end: int, text: str) -> str:
     """Create a deterministic candidate identifier."""
-    digest = sha256(f"{source_id}\0{span_type}\0{start}\0{end}\0{text}".encode("utf-8")).hexdigest()
+    digest = sha256(f"{source_id}\0{span_type}\0{start}\0{end}\0{text}".encode()).hexdigest()
     return f"foio-nz:redaction-candidate:{digest[:24]}"
 
 
@@ -110,7 +114,9 @@ def infer_source_id(record: dict[str, Any], sequence: int) -> str:
     return f"record-{sequence}"
 
 
-def find_redaction_candidates(record: dict[str, Any], *, sequence: int = 0, text_field: str = "text") -> list[RedactionCandidate]:
+def find_redaction_candidates(
+    record: dict[str, Any], *, sequence: int = 0, text_field: str = "text"
+) -> list[RedactionCandidate]:
     """Find candidate sensitive spans in a single record."""
     text = extract_text_from_record(record, text_field=text_field)
     if not text:
@@ -130,10 +136,14 @@ def find_redaction_candidates(record: dict[str, Any], *, sequence: int = 0, text
             matched = match.group(0)
             candidates.append(
                 RedactionCandidate(
-                    candidate_id=candidate_id(source_id, span_type, match.start(), match.end(), matched),
+                    candidate_id=candidate_id(
+                        source_id, span_type, match.start(), match.end(), matched
+                    ),
                     source_id=source_id,
                     request_id=str(request_id) if request_id is not None else None,
-                    source_record_type=str(record.get("source_record_type")) if record.get("source_record_type") else None,
+                    source_record_type=str(record.get("source_record_type"))
+                    if record.get("source_record_type")
+                    else None,
                     span_type=span_type,
                     start=match.start(),
                     end=match.end(),
@@ -147,7 +157,9 @@ def find_redaction_candidates(record: dict[str, Any], *, sequence: int = 0, text
     return candidates
 
 
-def propose_redactions_jsonl(input_jsonl: Path, output_jsonl: Path, *, text_field: str = "text") -> dict[str, Any]:
+def propose_redactions_jsonl(
+    input_jsonl: Path, output_jsonl: Path, *, text_field: str = "text"
+) -> dict[str, Any]:
     """Write redaction candidates for every record in a JSONL stream."""
     all_candidates: list[dict[str, Any]] = []
     source_count = 0
@@ -155,7 +167,9 @@ def propose_redactions_jsonl(input_jsonl: Path, output_jsonl: Path, *, text_fiel
         source_count += 1
         all_candidates.extend(
             candidate.model_dump(mode="json")
-            for candidate in find_redaction_candidates(record, sequence=sequence, text_field=text_field)
+            for candidate in find_redaction_candidates(
+                record, sequence=sequence, text_field=text_field
+            )
         )
     write_jsonl(output_jsonl, all_candidates)
     return {

@@ -30,4 +30,6 @@ def dumps_json(data: Any, *, pretty: bool = False, sort_keys: bool = True) -> st
             option |= orjson.OPT_INDENT_2
         option |= orjson.OPT_NAIVE_UTC
         return orjson.dumps(data, option=option, default=str).decode("utf-8")
-    return json.dumps(data, ensure_ascii=False, indent=2 if pretty else None, sort_keys=sort_keys, default=str)
+    return json.dumps(
+        data, ensure_ascii=False, indent=2 if pretty else None, sort_keys=sort_keys, default=str
+    )

@@ -88,7 +88,7 @@ def test_risk_scan_flags_review_triggers(tmp_path: Path) -> None:
     write_jsonl(source, [record])
     result = risk_scan_jsonl(source, output)
     assert result["assessment_count"] == 1
-    assert list(iter_jsonl(output))[0]["review_required"] is True
+    assert next(iter(iter_jsonl(output)))["review_required"] is True
 
 
 def test_dataset_metadata_and_frictionless(tmp_path: Path) -> None:
@@ -123,4 +123,7 @@ def test_openapi_contract_has_guardrail_extensions(tmp_path: Path) -> None:
 
     assert contract["openapi"] == "3.1.0"
     assert result["path_count"] >= 3
-    assert contract["paths"]["/agent-actions/evaluate"]["post"]["x-agent-boundary"] == "guardrail-enforcement"
+    assert (
+        contract["paths"]["/agent-actions/evaluate"]["post"]["x-agent-boundary"]
+        == "guardrail-enforcement"
+    )

@@ -59,7 +59,9 @@ def _resource_for_path(path: Path, *, base_dir: Path) -> DatasetResource:
         name=path.stem,
         path=str(path.relative_to(base_dir) if path.is_relative_to(base_dir) else path),
         media_type=media_type,
-        encoding="utf-8" if media_type.startswith("text/") or "json" in media_type or "ndjson" in media_type else None,
+        encoding="utf-8"
+        if media_type.startswith("text/") or "json" in media_type or "ndjson" in media_type
+        else None,
         sha256=sha256(data).hexdigest(),
         bytes=len(data),
     )
@@ -73,7 +75,11 @@ def build_dataset_metadata(
     title: str = "FOI-O NZ derived process artifacts",
 ) -> DatasetMetadata:
     """Build deterministic dataset metadata for selected local artifacts."""
-    resources = [_resource_for_path(path, base_dir=base_dir) for path in paths if path.exists() and path.is_file()]
+    resources = [
+        _resource_for_path(path, base_dir=base_dir)
+        for path in paths
+        if path.exists() and path.is_file()
+    ]
     return DatasetMetadata(
         name=name,
         title=title,
@@ -89,7 +95,9 @@ def build_dataset_metadata(
     )
 
 
-def write_dataset_metadata(paths: list[Path], output: Path, *, base_dir: Path | None = None) -> dict[str, Any]:
+def write_dataset_metadata(
+    paths: list[Path], output: Path, *, base_dir: Path | None = None
+) -> dict[str, Any]:
     """Write dataset metadata JSON and return a compact report."""
     base = base_dir or Path.cwd()
     metadata = build_dataset_metadata(paths, base_dir=base)
@@ -97,7 +105,9 @@ def write_dataset_metadata(paths: list[Path], output: Path, *, base_dir: Path | 
     return {"ok": True, "output": str(output), "resource_count": len(metadata.resources)}
 
 
-def write_frictionless_datapackage(paths: list[Path], output: Path, *, base_dir: Path | None = None) -> dict[str, Any]:
+def write_frictionless_datapackage(
+    paths: list[Path], output: Path, *, base_dir: Path | None = None
+) -> dict[str, Any]:
     """Write a small Frictionless-style datapackage descriptor."""
     base = base_dir or Path.cwd()
     metadata = build_dataset_metadata(paths, base_dir=base)
@@ -123,7 +133,9 @@ def write_frictionless_datapackage(paths: list[Path], output: Path, *, base_dir:
     return {"ok": True, "output": str(output), "resource_count": len(metadata.resources)}
 
 
-def write_croissant_metadata(paths: list[Path], output: Path, *, base_dir: Path | None = None) -> dict[str, Any]:
+def write_croissant_metadata(
+    paths: list[Path], output: Path, *, base_dir: Path | None = None
+) -> dict[str, Any]:
     """Write a lightweight Croissant-style JSON-LD dataset descriptor.
 
     This is dependency-free and intentionally conservative; full MLCommons
@@ -160,7 +172,9 @@ def write_croissant_metadata(paths: list[Path], output: Path, *, base_dir: Path 
     return {"ok": True, "output": str(output), "resource_count": len(metadata.resources)}
 
 
-def write_huggingface_dataset_card(paths: list[Path], output: Path, *, base_dir: Path | None = None) -> dict[str, Any]:
+def write_huggingface_dataset_card(
+    paths: list[Path], output: Path, *, base_dir: Path | None = None
+) -> dict[str, Any]:
     """Write a concise Hugging Face dataset-card scaffold for derived artifacts."""
     base = base_dir or Path.cwd()
     metadata = build_dataset_metadata(paths, base_dir=base)

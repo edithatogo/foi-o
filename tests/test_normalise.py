@@ -3,8 +3,12 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from foi_o_nz.normalise import build_observed_events, build_request_profile, normalise_manifest_file, normalise_records
-
+from foi_o_nz.normalise import (
+    build_observed_events,
+    build_request_profile,
+    normalise_manifest_file,
+    normalise_records,
+)
 
 RECORD = {
     "request_id": 123,

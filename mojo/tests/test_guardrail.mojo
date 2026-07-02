@@ -1,4 +1,9 @@
-from foi_o_nz.guardrail import action_requires_review, can_replay_pass, is_dispositive_event, severity_rank
+from foi_o_nz.guardrail import (
+    action_requires_review,
+    can_replay_pass,
+    is_dispositive_event,
+    severity_rank,
+)
 from std.testing import assert_equal, assert_false, assert_true, TestSuite
 
 

@@ -38,10 +38,18 @@ def _time_ns(fn) -> tuple[Any, int]:  # type: ignore[no-untyped-def]
 def run_local_benchmarks(*, iterations: int = 1_000) -> dict[str, Any]:
     """Run simple deterministic benchmarks with no optional dependencies."""
     records = _fixture_records(iterations)
-    _, state_ns = _time_ns(lambda: [map_alaveteli_state(str(record["source_state"])) for record in records])
+    _, state_ns = _time_ns(
+        lambda: [map_alaveteli_state(str(record["source_state"])) for record in records]
+    )
     chunks, chunk_ns = _time_ns(lambda: [chunk_request_record(record) for record in records])
-    _, ledger_ns = _time_ns(lambda: build_ledger_entries([chunk.model_dump(mode="json") for chunk in chunks], record_type="chunk"))
-    _, risk_ns = _time_ns(lambda: [assess_record_risk(record, sequence=idx) for idx, record in enumerate(records)])
+    _, ledger_ns = _time_ns(
+        lambda: build_ledger_entries(
+            [chunk.model_dump(mode="json") for chunk in chunks], record_type="chunk"
+        )
+    )
+    _, risk_ns = _time_ns(
+        lambda: [assess_record_risk(record, sequence=idx) for idx, record in enumerate(records)]
+    )
 
     def per_second(ns: int) -> float:
         if ns == 0:

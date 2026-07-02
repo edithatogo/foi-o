@@ -177,7 +177,9 @@ ALLOWED_TRANSITIONS: dict[RequestState, frozenset[RequestState]] = {
             RequestState.WITHDRAWN,
         }
     ),
-    RequestState.SEARCH_PLANNING: frozenset({RequestState.SEARCHING, RequestState.CONSULTATION_REQUIRED}),
+    RequestState.SEARCH_PLANNING: frozenset(
+        {RequestState.SEARCHING, RequestState.CONSULTATION_REQUIRED}
+    ),
     RequestState.SEARCHING: frozenset(
         {
             RequestState.DOCUMENTS_IDENTIFIED,

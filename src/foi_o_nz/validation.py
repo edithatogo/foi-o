@@ -37,11 +37,11 @@ def validate_json_schema(instance_path: Path, schema_path: Path) -> ValidationRe
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     errors = tuple(
         f"{'.'.join(str(part) for part in error.absolute_path) or '<root>'}: {error.message}"
-        for error in sorted(validator.iter_errors(instance), key=lambda err: list(err.absolute_path))
+        for error in sorted(
+            validator.iter_errors(instance), key=lambda err: list(err.absolute_path)
+        )
     )
     return ValidationResult(ok=not errors, errors=errors)
-
-
 
 
 def validate_jsonl_schema(instance_path: Path, schema_path: Path) -> ValidationResult:
@@ -52,7 +52,9 @@ def validate_jsonl_schema(instance_path: Path, schema_path: Path) -> ValidationR
     validator = Draft202012Validator(schema, format_checker=FormatChecker())
     errors: list[str] = []
     for line_no, instance in enumerate(iter_jsonl(instance_path), start=1):
-        for error in sorted(validator.iter_errors(instance), key=lambda err: list(err.absolute_path)):
+        for error in sorted(
+            validator.iter_errors(instance), key=lambda err: list(err.absolute_path)
+        ):
             path = ".".join(str(part) for part in error.absolute_path) or "<root>"
             errors.append(f"line {line_no} {path}: {error.message}")
     return ValidationResult(ok=not errors, errors=tuple(errors))

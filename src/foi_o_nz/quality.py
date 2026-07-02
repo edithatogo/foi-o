@@ -38,11 +38,21 @@ def assess_event(event: dict[str, Any]) -> list[QualityFinding]:
     evidence = event.get("evidence")
     if not isinstance(evidence, list) or len(evidence) == 0:
         findings.append(
-            QualityFinding("error", "missing_evidence", "event must carry at least one evidence reference", event_id)
+            QualityFinding(
+                "error",
+                "missing_evidence",
+                "event must carry at least one evidence reference",
+                event_id,
+            )
         )
     if event.get("machine_generated") and not event.get("generator"):
         findings.append(
-            QualityFinding("warning", "missing_generator", "machine-generated event lacks generator metadata", event_id)
+            QualityFinding(
+                "warning",
+                "missing_generator",
+                "machine-generated event lacks generator metadata",
+                event_id,
+            )
         )
     if event_type in HUMAN_CERTIFICATION_EVENT_TYPES:
         if not event.get("requires_human_certification"):

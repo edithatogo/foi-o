@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import json
 from pathlib import Path
 from typing import Annotated
@@ -12,62 +13,72 @@ from rich.table import Table
 
 from foi_o_nz.agent_pack import write_agent_context_pack
 from foi_o_nz.agent_policy import build_agent_action, evaluate_agent_action
+from foi_o_nz.analytics import write_event_summary, write_summary
 from foi_o_nz.annotation import write_annotation_tasks
 from foi_o_nz.attestation import write_attestation
-from foi_o_nz.goldset import write_goldset_sample
-from foi_o_nz.graph_export import write_graph_export
-from foi_o_nz.process_advice import write_process_advice
-from foi_o_nz.review_queue import write_review_queue
-from foi_o_nz.analytics import write_event_summary, write_summary
 from foi_o_nz.batch import normalise_manifest_batch
 from foi_o_nz.benchmarks import write_local_benchmarks
-from foi_o_nz.chunks import chunk_jsonl
 from foi_o_nz.cas import materialise_jsonl_cas, write_cas_manifest
-from foi_o_nz.diff import diff_jsonl
-from foi_o_nz.goldset import write_goldset_tasks
+from foi_o_nz.chunks import chunk_jsonl
 from foi_o_nz.dataset_metadata import (
     write_croissant_metadata,
     write_dataset_metadata,
     write_frictionless_datapackage,
     write_huggingface_dataset_card,
 )
-from foi_o_nz.ledger import build_ledger_jsonl, verify_ledger_jsonl
-from foi_o_nz.lineage import write_lineage_graph
-from foi_o_nz.redaction import propose_redactions_jsonl
-from foi_o_nz.reproducibility import write_reproducibility_manifest
-from foi_o_nz.replay import write_guardrail_replay
-from foi_o_nz.retrieval import search_chunks_jsonl
-from foi_o_nz.traces import write_trace_spans
-from foi_o_nz.openapi import write_openapi_contract
-from foi_o_nz.risk import risk_scan_jsonl
 from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_dates
+from foi_o_nz.diff import diff_jsonl
 from foi_o_nz.duckdb_export import build_duckdb_database, write_duckdb_bootstrap_sql
 from foi_o_nz.embeddings import embed_jsonl
 from foi_o_nz.evaluation import evaluate_event_jsonl
+from foi_o_nz.goldset import write_goldset_sample, write_goldset_tasks
+from foi_o_nz.graph_export import write_graph_export
 from foi_o_nz.io import read_json_records, write_json, write_jsonl
-from foi_o_nz.validation import load_json
 from foi_o_nz.jsonld_context import write_context
 from foi_o_nz.kernel_manifest import (
     write_kernel_fixtures,
     write_kernel_manifest,
     write_kernel_readiness,
 )
+from foi_o_nz.ledger import build_ledger_jsonl, verify_ledger_jsonl
+from foi_o_nz.lineage import write_lineage_graph
+from foi_o_nz.mcp_bundle import write_mcp_bundle
 from foi_o_nz.mojo_audit import write_mojo_audit
-from foi_o_nz.native_kernel import evaluate_kernel, kernel_status, run_kernel_conformance, write_kernel_status
+from foi_o_nz.native_kernel import (
+    evaluate_kernel,
+    kernel_status,
+    run_kernel_conformance,
+    write_kernel_status,
+)
 from foi_o_nz.normalise import build_observed_events, build_request_profile, normalise_manifest_file
+from foi_o_nz.oci_layout import materialise_oci_layout
+from foi_o_nz.openapi import write_openapi_contract
+from foi_o_nz.process_advice import write_process_advice
 from foi_o_nz.quality import assess_events_jsonl
 from foi_o_nz.rdf_export import export_rdf
+from foi_o_nz.redaction import propose_redactions_jsonl
+from foi_o_nz.replay import write_guardrail_replay
+from foi_o_nz.reporting import metric_table
+from foi_o_nz.reproducibility import write_reproducibility_manifest
+from foi_o_nz.retrieval import search_chunks_jsonl
+from foi_o_nz.review_queue import write_review_queue
+from foi_o_nz.risk import risk_scan_jsonl
 from foi_o_nz.schema_codegen import compare_committed_schemas, export_generated_schemas
 from foi_o_nz.shacl_validation import validate_with_shacl
-from foi_o_nz.reporting import metric_table
 from foi_o_nz.state_machine import RequestState, can_transition, map_alaveteli_state
-from foi_o_nz.transitions import audit_transitions_jsonl
-from foi_o_nz.tool_manifest import write_tool_manifest
 from foi_o_nz.table_contracts import write_table_contracts
-from foi_o_nz.oci_layout import materialise_oci_layout
-from foi_o_nz.mcp_bundle import write_mcp_bundle
+from foi_o_nz.tool_manifest import write_tool_manifest
+from foi_o_nz.traces import write_trace_spans
+from foi_o_nz.transitions import audit_transitions_jsonl
+from foi_o_nz.validation import (
+    load_json,
+    validate_json_schema,
+    validate_jsonl_schema,
+    validate_rdf,
+    validate_schema_file,
+    validate_yaml,
+)
 from foi_o_nz.vector_index import build_lancedb_table
-from foi_o_nz.validation import validate_json_schema, validate_jsonl_schema, validate_rdf, validate_schema_file, validate_yaml
 from foi_o_nz.version import __version__
 
 app = typer.Typer(
@@ -114,7 +125,9 @@ def doctor() -> None:
 
 @app.command("kernel-status")
 def kernel_status_command(
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional status JSON output")] = None,
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional status JSON output")
+    ] = None,
 ) -> None:
     """Report Mojo/MAX native-kernel availability and Python fallback status."""
     result = kernel_status()
@@ -127,7 +140,9 @@ def kernel_status_command(
 def kernel_eval_command(
     operation: Annotated[str, typer.Argument(help="Kernel operation name")],
     args: Annotated[list[str], typer.Argument(help="Operation arguments as strings")],
-    no_native: Annotated[bool, typer.Option(help="Force Python fallback even if a Mojo binary is present")] = False,
+    no_native: Annotated[
+        bool, typer.Option(help="Force Python fallback even if a Mojo binary is present")
+    ] = False,
 ) -> None:
     """Evaluate one deterministic kernel operation with Mojo preferred and Python fallback."""
     parsed_args: list[str | int | float | bool] = []
@@ -155,7 +170,9 @@ def kernel_eval_command(
 
 @app.command("kernel-conformance")
 def kernel_conformance_command(
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional conformance JSON output")] = None,
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional conformance JSON output")
+    ] = None,
 ) -> None:
     """Run deterministic kernel conformance checks across Mojo/fallback semantics."""
     result = run_kernel_conformance(output)
@@ -164,10 +181,11 @@ def kernel_conformance_command(
         raise typer.Exit(code=1)
 
 
-
 @app.command("mojo-audit")
 def mojo_audit_command(
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional audit JSON output")] = None,
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional audit JSON output")
+    ] = None,
     mojo_root: Annotated[Path, typer.Option(help="Mojo source root")] = Path("mojo"),
 ) -> None:
     """Statically audit Mojo kernel declarations against fallback operations."""
@@ -175,10 +193,8 @@ def mojo_audit_command(
     result = write_mojo_audit(target, mojo_root=mojo_root)
     console.print_json(json.dumps(result))
     if output is None:
-        try:
+        with contextlib.suppress(OSError):
             target.unlink()
-        except OSError:
-            pass
     if not result["ok"]:
         raise typer.Exit(code=1)
 
@@ -204,7 +220,9 @@ def export_kernel_fixtures_command(
 
 @app.command("kernel-readiness")
 def kernel_readiness_command(
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional readiness JSON output")] = None,
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional readiness JSON output")
+    ] = None,
     mojo_root: Annotated[Path, typer.Option(help="Mojo source root")] = Path("mojo"),
 ) -> None:
     """Report what is complete and what is blocked for the Mojo-first kernel layer."""
@@ -212,10 +230,8 @@ def kernel_readiness_command(
     result = write_kernel_readiness(target, mojo_root=mojo_root)
     console.print_json(json.dumps(result))
     if output is None:
-        try:
+        with contextlib.suppress(OSError):
             target.unlink()
-        except OSError:
-            pass
 
 
 @app.command("map-state")
@@ -261,7 +277,9 @@ def clock(
         bool,
         typer.Option(help="Do not apply the OIA 25 Dec–15 Jan summer exclusion"),
     ] = False,
-    holidays: Annotated[Path | None, typer.Option(help="Optional JSON/YAML holiday calendar")]=None,
+    holidays: Annotated[
+        Path | None, typer.Option(help="Optional JSON/YAML holiday calendar")
+    ] = None,
 ) -> None:
     """Calculate an indicative OIA clock annotation."""
     from datetime import UTC, date, datetime
@@ -329,7 +347,9 @@ def normalise_manifest(
         typer.Option("--requests-output", help="Output request profiles JSONL"),
     ],
     events_output: Annotated[Path, typer.Option("--events-output", help="Output events JSONL")],
-    parquet_dir: Annotated[Path | None, typer.Option(help="Optional Parquet output directory")] = None,
+    parquet_dir: Annotated[
+        Path | None, typer.Option(help="Optional Parquet output directory")
+    ] = None,
     run_manifest_output: Annotated[
         Path | None,
         typer.Option(help="Optional provenance run-manifest JSON output"),
@@ -369,7 +389,9 @@ def event_summary(
 @app.command("quality-gate")
 def quality_gate(
     events_jsonl: Annotated[Path, typer.Argument(help="Core events JSONL")],
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON report")]=None,
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional JSON report")
+    ] = None,
 ) -> None:
     """Run certification/provenance quality gates over an event stream."""
     result = assess_events_jsonl(events_jsonl)
@@ -383,9 +405,9 @@ def quality_gate(
 @app.command("export-rdf")
 def export_rdf_command(
     output: Annotated[Path, typer.Option("--output", "-o", help="RDF output file")],
-    requests_jsonl: Annotated[Path | None, typer.Option(help="Request profile JSONL")]=None,
-    events_jsonl: Annotated[Path | None, typer.Option(help="Core events JSONL")]=None,
-    fmt: Annotated[str, typer.Option("--format", help="rdflib serialisation format")]= "turtle",
+    requests_jsonl: Annotated[Path | None, typer.Option(help="Request profile JSONL")] = None,
+    events_jsonl: Annotated[Path | None, typer.Option(help="Core events JSONL")] = None,
+    fmt: Annotated[str, typer.Option("--format", help="rdflib serialisation format")] = "turtle",
 ) -> None:
     """Export request profiles/events to RDF."""
     result = export_rdf(
@@ -400,10 +422,10 @@ def export_rdf_command(
 @app.command("build-duckdb")
 def build_duckdb(
     database: Annotated[Path, typer.Option("--database", "-d", help="Output DuckDB database")],
-    requests_jsonl: Annotated[Path | None, typer.Option(help="Request profile JSONL")]=None,
-    events_jsonl: Annotated[Path | None, typer.Option(help="Core events JSONL")]=None,
-    requests_parquet: Annotated[Path | None, typer.Option(help="Request Parquet file")]=None,
-    events_parquet: Annotated[Path | None, typer.Option(help="Events Parquet file")]=None,
+    requests_jsonl: Annotated[Path | None, typer.Option(help="Request profile JSONL")] = None,
+    events_jsonl: Annotated[Path | None, typer.Option(help="Core events JSONL")] = None,
+    requests_parquet: Annotated[Path | None, typer.Option(help="Request Parquet file")] = None,
+    events_parquet: Annotated[Path | None, typer.Option(help="Events Parquet file")] = None,
 ) -> None:
     """Materialise requests/events into DuckDB when the optional dependency is installed."""
     try:
@@ -433,8 +455,12 @@ def write_duckdb_sql(
 def evaluate_events(
     predicted: Annotated[Path, typer.Option("--predicted", help="Predicted core events JSONL")],
     gold: Annotated[Path, typer.Option("--gold", help="Gold/reference core events JSONL")],
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON report")] = None,
-    mode: Annotated[str, typer.Option(help="event_type, event_type_state, or strict")] = "event_type_state",
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional JSON report")
+    ] = None,
+    mode: Annotated[
+        str, typer.Option(help="event_type, event_type_state, or strict")
+    ] = "event_type_state",
 ) -> None:
     """Evaluate candidate event extraction against a gold event set."""
     result = evaluate_event_jsonl(predicted, gold, mode=mode, output=output)  # type: ignore[arg-type]
@@ -444,8 +470,12 @@ def evaluate_events(
 @app.command("agent-action-template")
 def agent_action_template(
     action_type: Annotated[str, typer.Argument(help="Supported agent action type")],
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON output")] = None,
-    agent_name: Annotated[str, typer.Option(help="Agent name recorded in the template")] = "foi-o-nz-agent",
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional JSON output")
+    ] = None,
+    agent_name: Annotated[
+        str, typer.Option(help="Agent name recorded in the template")
+    ] = "foi-o-nz-agent",
 ) -> None:
     """Create a policy-conformant agent-action record template."""
     try:
@@ -462,7 +492,9 @@ def agent_action_template(
 @app.command("evaluate-agent-action")
 def evaluate_agent_action_command(
     action_json: Annotated[Path, typer.Argument(help="Agent action JSON file")],
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON report")] = None,
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional JSON report")
+    ] = None,
 ) -> None:
     """Evaluate one agent-action record against current guardrail policy."""
     result = evaluate_agent_action(load_json(action_json))
@@ -481,7 +513,9 @@ def normalise_batch(
         typer.Option("--requests-output", help="Output request profiles JSONL"),
     ],
     events_output: Annotated[Path, typer.Option("--events-output", help="Output events JSONL")],
-    parquet_dir: Annotated[Path | None, typer.Option(help="Optional Parquet output directory")] = None,
+    parquet_dir: Annotated[
+        Path | None, typer.Option(help="Optional Parquet output directory")
+    ] = None,
     run_manifest_output: Annotated[
         Path | None,
         typer.Option(help="Optional provenance run-manifest JSON output"),
@@ -501,7 +535,9 @@ def normalise_batch(
 @app.command("transition-audit")
 def transition_audit(
     events_jsonl: Annotated[Path, typer.Argument(help="Core events JSONL")],
-    output: Annotated[Path | None, typer.Option("--output", "-o", help="Optional JSON report")] = None,
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional JSON report")
+    ] = None,
 ) -> None:
     """Audit lifecycle transitions in an event stream."""
     result = audit_transitions_jsonl(events_jsonl)
@@ -521,7 +557,9 @@ def embed_jsonl_command(
 ) -> None:
     """Create deterministic local embedding records for vector indexing."""
     count = embed_jsonl(input, output, kind=kind, dimensions=dimensions)
-    console.print_json(json.dumps({"output": str(output), "record_count": count, "dimensions": dimensions}))
+    console.print_json(
+        json.dumps({"output": str(output), "record_count": count, "dimensions": dimensions})
+    )
 
 
 @app.command("build-lancedb")
@@ -575,7 +613,9 @@ def export_schemas(
 
 @app.command("schema-drift")
 def schema_drift(
-    schema_dir: Annotated[Path, typer.Option("--schema-dir", help="Committed schema dir")] = Path("schemas/json"),
+    schema_dir: Annotated[Path, typer.Option("--schema-dir", help="Committed schema dir")] = Path(
+        "schemas/json"
+    ),
 ) -> None:
     """Run a shallow generated-vs-committed JSON Schema drift check."""
     result = compare_committed_schemas(schema_dir)
@@ -614,8 +654,11 @@ def chunk_jsonl_command(
 def build_ledger_command(
     input: Annotated[Path, typer.Option("--input", "-i", help="Source JSONL input")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Ledger JSONL output")],
-    record_type: Annotated[str, typer.Option(help="Record type label, e.g. request/event/chunk/embedding")] = "event",
-    previous_hash: Annotated[str, typer.Option(help="Previous/root hash for chained ledgers")] = "0" * 64,
+    record_type: Annotated[
+        str, typer.Option(help="Record type label, e.g. request/event/chunk/embedding")
+    ] = "event",
+    previous_hash: Annotated[str, typer.Option(help="Previous/root hash for chained ledgers")] = "0"
+    * 64,
 ) -> None:
     """Create a tamper-evident SHA-256 hash-chain ledger for a JSONL stream."""
     result = build_ledger_jsonl(input, output, record_type=record_type, previous_hash=previous_hash)
@@ -626,11 +669,16 @@ def build_ledger_command(
 def verify_ledger_command(
     input: Annotated[Path, typer.Option("--input", "-i", help="Source JSONL input")],
     ledger: Annotated[Path, typer.Option("--ledger", "-l", help="Ledger JSONL input")],
-    record_type: Annotated[str, typer.Option(help="Record type label, e.g. request/event/chunk/embedding")] = "event",
-    previous_hash: Annotated[str, typer.Option(help="Previous/root hash for chained ledgers")] = "0" * 64,
+    record_type: Annotated[
+        str, typer.Option(help="Record type label, e.g. request/event/chunk/embedding")
+    ] = "event",
+    previous_hash: Annotated[str, typer.Option(help="Previous/root hash for chained ledgers")] = "0"
+    * 64,
 ) -> None:
     """Verify a tamper-evident hash-chain ledger."""
-    result = verify_ledger_jsonl(input, ledger, record_type=record_type, previous_hash=previous_hash)
+    result = verify_ledger_jsonl(
+        input, ledger, record_type=record_type, previous_hash=previous_hash
+    )
     console.print_json(json.dumps(result))
     if not result["ok"]:
         raise typer.Exit(code=1)
@@ -646,7 +694,6 @@ def risk_scan_command(
     console.print_json(json.dumps(result))
 
 
-
 @app.command("search-chunks")
 def search_chunks_command(
     input: Annotated[Path, typer.Option("--input", "-i", help="Chunk JSONL input")],
@@ -654,8 +701,12 @@ def search_chunks_command(
     output: Annotated[Path, typer.Option("--output", "-o", help="Retrieval result JSON output")],
     top_k: Annotated[int, typer.Option(help="Number of ranked hits")] = 10,
     dimensions: Annotated[int, typer.Option(help="Feature-hashing vector dimensions")] = 128,
-    lexical_weight: Annotated[float, typer.Option(help="Blend weight for lexical score, 0..1")] = 0.70,
-    no_vectors: Annotated[bool, typer.Option(help="Disable local feature-hashing vector blend")] = False,
+    lexical_weight: Annotated[
+        float, typer.Option(help="Blend weight for lexical score, 0..1")
+    ] = 0.70,
+    no_vectors: Annotated[
+        bool, typer.Option(help="Disable local feature-hashing vector blend")
+    ] = False,
 ) -> None:
     """Search deterministic chunk records for agent context retrieval."""
     result = search_chunks_jsonl(
@@ -698,10 +749,16 @@ def build_agent_pack_command(
     request_id: Annotated[str, typer.Option("--request-id", help="Request ID to package")],
     requests_jsonl: Annotated[Path, typer.Option("--requests-jsonl", help="Request profile JSONL")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Agent context pack JSON output")],
-    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Core events JSONL")] = None,
+    events_jsonl: Annotated[
+        Path | None, typer.Option("--events-jsonl", help="Core events JSONL")
+    ] = None,
     chunks_jsonl: Annotated[Path | None, typer.Option("--chunks-jsonl", help="Chunk JSONL")] = None,
-    risks_jsonl: Annotated[Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")] = None,
-    retrieval_json: Annotated[Path | None, typer.Option("--retrieval-json", help="Retrieval result JSON")] = None,
+    risks_jsonl: Annotated[
+        Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")
+    ] = None,
+    retrieval_json: Annotated[
+        Path | None, typer.Option("--retrieval-json", help="Retrieval result JSON")
+    ] = None,
     redaction_candidates_jsonl: Annotated[
         Path | None,
         typer.Option("--redaction-candidates-jsonl", help="Redaction-candidate JSONL"),
@@ -724,24 +781,31 @@ def build_agent_pack_command(
 @app.command("repro-manifest")
 def repro_manifest_command(
     paths: Annotated[list[Path], typer.Argument(help="Files to digest")],
-    output: Annotated[Path, typer.Option("--output", "-o", help="Reproducibility manifest JSON output")],
-    base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative file labels")] = None,
+    output: Annotated[
+        Path, typer.Option("--output", "-o", help="Reproducibility manifest JSON output")
+    ],
+    base_dir: Annotated[
+        Path | None, typer.Option(help="Base directory for relative file labels")
+    ] = None,
 ) -> None:
     """Write a reproducibility manifest for selected artefacts and local tools."""
     result = write_reproducibility_manifest(paths, output, base_dir=base_dir)
     console.print_json(json.dumps(result))
 
 
-
 @app.command("build-review-queue")
 def build_review_queue_command(
     output: Annotated[Path, typer.Option("--output", "-o", help="Review-task JSONL output")],
-    risks_jsonl: Annotated[Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")] = None,
+    risks_jsonl: Annotated[
+        Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")
+    ] = None,
     redaction_candidates_jsonl: Annotated[
         Path | None,
         typer.Option("--redaction-candidates-jsonl", help="Redaction-candidate JSONL"),
     ] = None,
-    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Core events JSONL")] = None,
+    events_jsonl: Annotated[
+        Path | None, typer.Option("--events-jsonl", help="Core events JSONL")
+    ] = None,
 ) -> None:
     """Build human-review tasks from candidate signals and certification boundaries."""
     result = write_review_queue(
@@ -758,8 +822,12 @@ def process_advice_command(
     request_id: Annotated[str, typer.Option("--request-id", help="Request ID to advise on")],
     requests_jsonl: Annotated[Path, typer.Option("--requests-jsonl", help="Request profile JSONL")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Process advice JSON output")],
-    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Core events JSONL")] = None,
-    review_queue_jsonl: Annotated[Path | None, typer.Option("--review-queue-jsonl", help="Review task JSONL")] = None,
+    events_jsonl: Annotated[
+        Path | None, typer.Option("--events-jsonl", help="Core events JSONL")
+    ] = None,
+    review_queue_jsonl: Annotated[
+        Path | None, typer.Option("--review-queue-jsonl", help="Review task JSONL")
+    ] = None,
 ) -> None:
     """Generate non-dispositive process advice for one request."""
     result = write_process_advice(
@@ -775,10 +843,16 @@ def process_advice_command(
 @app.command("export-graph")
 def export_graph_command(
     output: Annotated[Path, typer.Option("--output", "-o", help="Graph output file")],
-    requests_jsonl: Annotated[Path | None, typer.Option("--requests-jsonl", help="Request profile JSONL")] = None,
-    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Core events JSONL")] = None,
+    requests_jsonl: Annotated[
+        Path | None, typer.Option("--requests-jsonl", help="Request profile JSONL")
+    ] = None,
+    events_jsonl: Annotated[
+        Path | None, typer.Option("--events-jsonl", help="Core events JSONL")
+    ] = None,
     chunks_jsonl: Annotated[Path | None, typer.Option("--chunks-jsonl", help="Chunk JSONL")] = None,
-    risks_jsonl: Annotated[Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")] = None,
+    risks_jsonl: Annotated[
+        Path | None, typer.Option("--risks-jsonl", help="Risk assessment JSONL")
+    ] = None,
     fmt: Annotated[str, typer.Option("--format", help="json or mermaid")] = "json",
 ) -> None:
     """Export request/event/chunk/risk relationships as JSON or Mermaid."""
@@ -800,7 +874,9 @@ def export_graph_command(
 def attest_artifacts_command(
     paths: Annotated[list[Path], typer.Argument(help="Artefact files to attest")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Attestation JSON output")],
-    builder_id: Annotated[str, typer.Option(help="Builder ID for provenance statement")] = "foi-o-nz.local",
+    builder_id: Annotated[
+        str, typer.Option(help="Builder ID for provenance statement")
+    ] = "foi-o-nz.local",
     invocation_id: Annotated[str | None, typer.Option(help="Optional invocation ID")] = None,
 ) -> None:
     """Write an unsigned in-toto/SLSA-style artefact provenance statement."""
@@ -812,11 +888,17 @@ def attest_artifacts_command(
 def sample_goldset_command(
     input: Annotated[Path, typer.Option("--input", "-i", help="Input JSONL stream")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Gold-set candidate JSONL output")],
-    manifest_output: Annotated[Path, typer.Option("--manifest-output", help="Sampling manifest JSON output")],
-    kind: Annotated[str, typer.Option(help="request, event, chunk, risk, or review_task")] = "request",
+    manifest_output: Annotated[
+        Path, typer.Option("--manifest-output", help="Sampling manifest JSON output")
+    ],
+    kind: Annotated[
+        str, typer.Option(help="request, event, chunk, risk, or review_task")
+    ] = "request",
     limit: Annotated[int, typer.Option(help="Maximum sampled records")] = 100,
     per_stratum: Annotated[int, typer.Option(help="Maximum records per stratum")] = 10,
-    seed: Annotated[str, typer.Option(help="Deterministic sampling seed")] = "foi-o-nz-goldset-v0.1",
+    seed: Annotated[
+        str, typer.Option(help="Deterministic sampling seed")
+    ] = "foi-o-nz-goldset-v0.1",
 ) -> None:
     """Create deterministic candidate gold-set records for human labelling/evaluation."""
     if kind not in {"request", "event", "chunk", "risk", "review_task"}:
@@ -836,7 +918,9 @@ def sample_goldset_command(
 
 @app.command("export-annotation-tasks")
 def export_annotation_tasks_command(
-    review_queue_jsonl: Annotated[Path, typer.Option("--review-queue-jsonl", help="Review-task JSONL")],
+    review_queue_jsonl: Annotated[
+        Path, typer.Option("--review-queue-jsonl", help="Review-task JSONL")
+    ],
     output: Annotated[Path, typer.Option("--output", "-o", help="Annotation output")],
     fmt: Annotated[str, typer.Option("--format", help="foio or label-studio")] = "foio",
 ) -> None:
@@ -853,14 +937,20 @@ def dataset_metadata_command(
     paths: Annotated[list[Path], typer.Argument(help="Artifact files to describe")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Metadata JSON output")],
     base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative paths")] = None,
-    frictionless: Annotated[bool, typer.Option(help="Write Frictionless-style datapackage instead")] = False,
+    frictionless: Annotated[
+        bool, typer.Option(help="Write Frictionless-style datapackage instead")
+    ] = False,
     croissant: Annotated[bool, typer.Option(help="Write Croissant-style JSON-LD instead")] = False,
-    hf_card: Annotated[bool, typer.Option(help="Write a Hugging Face dataset-card README.md instead")] = False,
+    hf_card: Annotated[
+        bool, typer.Option(help="Write a Hugging Face dataset-card README.md instead")
+    ] = False,
 ) -> None:
     """Generate machine-readable publication metadata for derived artifacts."""
     selected = sum([frictionless, croissant, hf_card])
     if selected > 1:
-        console.print("Choose at most one of --frictionless, --croissant, or --hf-card.", style="red")
+        console.print(
+            "Choose at most one of --frictionless, --croissant, or --hf-card.", style="red"
+        )
         raise typer.Exit(code=2)
     if frictionless:
         result = write_frictionless_datapackage(paths, output, base_dir=base_dir)
@@ -916,7 +1006,9 @@ def cas_manifest_command(
 def materialise_cas_command(
     input: Annotated[Path, typer.Option("--input", "-i", help="Source JSONL stream")],
     output_dir: Annotated[Path, typer.Option("--output-dir", "-d", help="CAS object directory")],
-    index_output: Annotated[Path, typer.Option("--index-output", "-o", help="CAS index JSONL output")],
+    index_output: Annotated[
+        Path, typer.Option("--index-output", "-o", help="CAS index JSONL output")
+    ],
 ) -> None:
     """Materialise JSONL records as content-addressed JSON objects."""
     result = materialise_jsonl_cas(input, output_dir, index_output)
@@ -928,7 +1020,9 @@ def lineage_graph_command(
     paths: Annotated[list[Path], typer.Argument(help="Artifact files to include")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Lineage graph JSON output")],
     base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative paths")] = None,
-    dot_output: Annotated[Path | None, typer.Option("--dot-output", help="Optional Graphviz DOT output")] = None,
+    dot_output: Annotated[
+        Path | None, typer.Option("--dot-output", help="Optional Graphviz DOT output")
+    ] = None,
 ) -> None:
     """Write a convention-derived artifact lineage graph."""
     result = write_lineage_graph(paths, output, base_dir=base_dir, dot_output=dot_output)
@@ -950,19 +1044,31 @@ def trace_artifacts_command(
 def build_goldset_command(
     chunks_jsonl: Annotated[Path, typer.Option("--chunks-jsonl", help="Chunk JSONL input")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Goldset task JSONL output")],
-    risks_jsonl: Annotated[Path | None, typer.Option("--risks-jsonl", help="Optional risk assessment JSONL")] = None,
-    summary_output: Annotated[Path | None, typer.Option("--summary-output", help="Optional summary JSON output")] = None,
+    risks_jsonl: Annotated[
+        Path | None, typer.Option("--risks-jsonl", help="Optional risk assessment JSONL")
+    ] = None,
+    summary_output: Annotated[
+        Path | None, typer.Option("--summary-output", help="Optional summary JSON output")
+    ] = None,
 ) -> None:
     """Build bounded human annotation/evaluation tasks from chunk/risk records."""
-    result = write_goldset_tasks(chunks_jsonl, output, risks_jsonl=risks_jsonl, summary_output=summary_output)
+    result = write_goldset_tasks(
+        chunks_jsonl, output, risks_jsonl=risks_jsonl, summary_output=summary_output
+    )
     console.print_json(json.dumps(result))
 
 
 @app.command("replay-guardrails")
 def replay_guardrails_command(
-    output: Annotated[Path, typer.Option("--output", "-o", help="Guardrail replay report JSON output")],
-    events_jsonl: Annotated[Path | None, typer.Option("--events-jsonl", help="Optional core events JSONL")] = None,
-    actions_jsonl: Annotated[Path | None, typer.Option("--actions-jsonl", help="Optional agent actions JSONL")] = None,
+    output: Annotated[
+        Path, typer.Option("--output", "-o", help="Guardrail replay report JSON output")
+    ],
+    events_jsonl: Annotated[
+        Path | None, typer.Option("--events-jsonl", help="Optional core events JSONL")
+    ] = None,
+    actions_jsonl: Annotated[
+        Path | None, typer.Option("--actions-jsonl", help="Optional agent actions JSONL")
+    ] = None,
 ) -> None:
     """Replay certification-boundary and agent-action guardrails."""
     result = write_guardrail_replay(output, events_jsonl=events_jsonl, actions_jsonl=actions_jsonl)
@@ -971,11 +1077,12 @@ def replay_guardrails_command(
         raise typer.Exit(code=1)
 
 
-
 @app.command("export-table-contracts")
 def export_table_contracts_command(
     output: Annotated[Path, typer.Option("--output", "-o", help="Table-contract JSON output")],
-    no_duckdb_sql: Annotated[bool, typer.Option(help="Omit DuckDB CREATE TABLE SQL snippets")] = False,
+    no_duckdb_sql: Annotated[
+        bool, typer.Option(help="Omit DuckDB CREATE TABLE SQL snippets")
+    ] = False,
 ) -> None:
     """Export Arrow/Polars/DuckDB-friendly analytical table contracts."""
     result = write_table_contracts(output, include_duckdb_sql=not no_duckdb_sql)
@@ -985,8 +1092,12 @@ def export_table_contracts_command(
 @app.command("materialise-oci")
 def materialise_oci_command(
     paths: Annotated[list[Path], typer.Argument(help="Artefact files to package")],
-    output_dir: Annotated[Path, typer.Option("--output-dir", "-o", help="Local OCI layout directory")],
-    base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative labels")] = None,
+    output_dir: Annotated[
+        Path, typer.Option("--output-dir", "-o", help="Local OCI layout directory")
+    ],
+    base_dir: Annotated[
+        Path | None, typer.Option(help="Base directory for relative labels")
+    ] = None,
 ) -> None:
     """Materialise artefacts into a local OCI image-layout directory."""
     result = materialise_oci_layout(paths, output_dir, base_dir=base_dir)
@@ -1010,7 +1121,9 @@ def reporting_metrics() -> None:
 
 @app.command("smoke-fixture")
 def smoke_fixture(
-    output_dir: Annotated[Path, typer.Option("--output-dir", "-o", help="Directory to write fixture files")],
+    output_dir: Annotated[
+        Path, typer.Option("--output-dir", "-o", help="Directory to write fixture files")
+    ],
 ) -> None:
     """Create a small valid fixture manifest, profile, and event set."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -1043,7 +1156,9 @@ def smoke_fixture(
     write_jsonl(manifest_path, records)
     profile = build_request_profile(records[0])
     events = build_observed_events(profile)
-    write_json(output_dir / "request-profile.json", profile.model_dump(mode="json", exclude_none=True))
+    write_json(
+        output_dir / "request-profile.json", profile.model_dump(mode="json", exclude_none=True)
+    )
     for event in events:
         name = str(event.event_type).replace("EventType.", "").lower().replace("_", "-")
         if event.event_type == "RequestObserved":
@@ -1064,7 +1179,11 @@ def validate_repo() -> None:
     for schema_path in sorted(Path("schemas/json").glob("*.schema.json")):
         result = validate_schema_file(schema_path)
         errors.extend(result.errors)
-    for ttl_path in [*Path("ontology").glob("*.ttl"), *Path("vocab").glob("*.ttl"), *Path("shacl").glob("*.ttl")]:
+    for ttl_path in [
+        *Path("ontology").glob("*.ttl"),
+        *Path("vocab").glob("*.ttl"),
+        *Path("shacl").glob("*.ttl"),
+    ]:
         result = validate_rdf(ttl_path)
         errors.extend(result.errors)
     for yaml_path in Path("mappings").glob("*.yaml"):

@@ -36,7 +36,9 @@ class GoldsetTask(BaseModel):
     prefilled_label: str | None = None
     evidence: dict[str, Any] = Field(default_factory=dict)
     instructions: str
-    decision_boundary: str = "Annotation supports evaluation only; it does not certify an OIA decision."
+    decision_boundary: str = (
+        "Annotation supports evaluation only; it does not certify an OIA decision."
+    )
 
 
 def _record_id(record: dict[str, Any], sequence: int) -> str:
@@ -59,7 +61,7 @@ def _stratum(record: dict[str, Any], kind: str) -> str:
 
 
 def _score(seed: str, record_id: str) -> str:
-    return sha256(f"{seed}\0{record_id}".encode("utf-8")).hexdigest()
+    return sha256(f"{seed}\0{record_id}".encode()).hexdigest()
 
 
 def sample_goldset_records(
@@ -135,11 +137,16 @@ def write_goldset_sample(
     )
     write_jsonl(output_jsonl, records)
     write_json(manifest_output, manifest)
-    return {"ok": True, "output": str(output_jsonl), "manifest_output": str(manifest_output), **manifest}
+    return {
+        "ok": True,
+        "output": str(output_jsonl),
+        "manifest_output": str(manifest_output),
+        **manifest,
+    }
 
 
 def _task_id(kind: str, source_id: str, text: str) -> str:
-    return f"foio-nz:gold:{sha256(f'{kind}\0{source_id}\0{text}'.encode('utf-8')).hexdigest()[:24]}"
+    return f"foio-nz:gold:{sha256(f'{kind}\0{source_id}\0{text}'.encode()).hexdigest()[:24]}"
 
 
 def _prefilled_risk_label(risk: dict[str, Any] | None) -> str | None:
@@ -158,7 +165,9 @@ def _prefilled_risk_label(risk: dict[str, Any] | None) -> str | None:
     return "no_review_trigger" if not categories else sorted(categories)[0]
 
 
-def tasks_from_chunks(chunks: list[dict[str, Any]], risks: list[dict[str, Any]] | None = None) -> list[GoldsetTask]:
+def tasks_from_chunks(
+    chunks: list[dict[str, Any]], risks: list[dict[str, Any]] | None = None
+) -> list[GoldsetTask]:
     """Build annotation tasks from chunks plus optional risk assessments."""
     risk_by_source = {str(item.get("source_id")): item for item in risks or []}
     tasks: list[GoldsetTask] = []
@@ -169,13 +178,17 @@ def tasks_from_chunks(chunks: list[dict[str, Any]], risks: list[dict[str, Any]] 
             continue
         risk = risk_by_source.get(source_id)
         raw_priority = str(risk.get("risk_level", "medium")) if risk is not None else "medium"
-        priority: Literal["low", "medium", "high"] = raw_priority if raw_priority in {"low", "medium", "high"} else "medium"  # type: ignore[assignment]
+        priority: Literal["low", "medium", "high"] = (
+            raw_priority if raw_priority in {"low", "medium", "high"} else "medium"
+        )  # type: ignore[assignment]
         tasks.append(
             GoldsetTask(
                 task_id=_task_id("risk_triage", source_id, text),
                 task_type="risk_triage",
                 source_id=source_id,
-                request_id=str(chunk.get("request_id")) if chunk.get("request_id") is not None else None,
+                request_id=str(chunk.get("request_id"))
+                if chunk.get("request_id") is not None
+                else None,
                 priority=priority,
                 text=text,
                 candidate_labels=[
@@ -217,7 +230,9 @@ def write_goldset_tasks(
         "task_count": len(tasks),
         "priority_counts": priority_counts,
         "task_type_counts": {"risk_triage": len(tasks)},
-        "limitations": ["Tasks are for evaluation/annotation only and do not certify OIA decisions."],
+        "limitations": [
+            "Tasks are for evaluation/annotation only and do not certify OIA decisions."
+        ],
     }
     if summary_output is not None:
         write_json(summary_output, summary)

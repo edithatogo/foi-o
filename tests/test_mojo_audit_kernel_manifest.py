@@ -65,7 +65,9 @@ def test_kernel_manifest_and_readiness_validate(tmp_path: Path) -> None:
 def test_committed_kernel_examples_remain_aligned_with_generators() -> None:
     audit = json.loads(Path("examples/mojo-audit.static.json").read_text(encoding="utf-8"))
     manifest = json.loads(Path("examples/kernel-manifest.static.json").read_text(encoding="utf-8"))
-    readiness = json.loads(Path("examples/kernel-readiness.fallback.json").read_text(encoding="utf-8"))
+    readiness = json.loads(
+        Path("examples/kernel-readiness.fallback.json").read_text(encoding="utf-8")
+    )
     generated_audit = build_mojo_audit()
     generated_manifest = build_kernel_manifest()
     generated_readiness = build_kernel_readiness()

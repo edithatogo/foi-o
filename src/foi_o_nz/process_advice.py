@@ -12,7 +12,14 @@ from typing import Any
 
 from foi_o_nz.io import iter_jsonl, write_json
 
-_TERMINAL_STATES = {"ReleasedInFull", "ReleasedInPart", "Refused", "Withdrawn", "Closed", "NoRecordsFound"}
+_TERMINAL_STATES = {
+    "ReleasedInFull",
+    "ReleasedInPart",
+    "Refused",
+    "Withdrawn",
+    "Closed",
+    "NoRecordsFound",
+}
 _DISPOSITIVE_EVENTS = {
     "DecisionCommunicated",
     "ReleaseMade",
@@ -43,7 +50,11 @@ def _load_request(requests_jsonl: Path, request_id: str) -> dict[str, Any]:
 def _load_events(events_jsonl: Path | None, request_id: str) -> list[dict[str, Any]]:
     if events_jsonl is None:
         return []
-    return [record for record in iter_jsonl(events_jsonl) if _request_id_from_event(record) == str(request_id)]
+    return [
+        record
+        for record in iter_jsonl(events_jsonl)
+        if _request_id_from_event(record) == str(request_id)
+    ]
 
 
 def _event_types(events: list[dict[str, Any]]) -> set[str]:
@@ -94,7 +105,9 @@ def build_process_advice(
                 "rationale": "A search plan is useful before document identification or consultation.",
             }
         )
-    if "DecisionPackDrafted" not in types and any(t in types for t in {"RecordsIdentified", "SearchPerformed"}):
+    if "DecisionPackDrafted" not in types and any(
+        t in types for t in ("RecordsIdentified", "SearchPerformed")
+    ):
         next_safe_actions.append(
             {
                 "action": "draft_decision_pack",
@@ -121,7 +134,11 @@ def build_process_advice(
         )
 
     if review_queue_jsonl is not None:
-        queue_tasks = [record for record in iter_jsonl(review_queue_jsonl) if str(record.get("request_id")) == str(request_id)]
+        queue_tasks = [
+            record
+            for record in iter_jsonl(review_queue_jsonl)
+            if str(record.get("request_id")) == str(request_id)
+        ]
         for task in queue_tasks[:20]:
             required_human_reviews.append(
                 {
@@ -133,15 +150,25 @@ def build_process_advice(
             )
 
     if str(current_state) in _TERMINAL_STATES:
-        warnings.append("Request appears to be in a terminal or outcome-like state; do not infer legal correctness from platform state alone.")
+        warnings.append(
+            "Request appears to be in a terminal or outcome-like state; do not infer legal correctness from platform state alone."
+        )
     if request.get("state_mapping", {}).get("method") != "manual":
-        warnings.append("State mapping is not manually certified and should remain observed/inferred metadata.")
+        warnings.append(
+            "State mapping is not manually certified and should remain observed/inferred metadata."
+        )
 
     blocked_actions = [
         {"action": "certify_release", "reason": "reserved for authorised human decision-maker"},
         {"action": "certify_refusal", "reason": "reserved for authorised human decision-maker"},
-        {"action": "apply_redaction", "reason": "candidate redaction spans require human legal review"},
-        {"action": "send_correspondence", "reason": "outbound correspondence must be human-approved outside this workbench"},
+        {
+            "action": "apply_redaction",
+            "reason": "candidate redaction spans require human legal review",
+        },
+        {
+            "action": "send_correspondence",
+            "reason": "outbound correspondence must be human-approved outside this workbench",
+        },
     ]
     confidence = 0.82 if events else 0.55
     if required_human_reviews:

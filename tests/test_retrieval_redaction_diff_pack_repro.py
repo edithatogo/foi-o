@@ -62,7 +62,9 @@ def test_redaction_candidates_are_masked_and_candidate_only() -> None:
         {"chunk_id": "c1", "request_id": "123", "text": "Email test@example.org about ABC1234."}
     )
     assert {candidate.span_type for candidate in candidates} >= {"email_address", "possible_nhi"}
-    email_candidate = next(candidate for candidate in candidates if candidate.span_type == "email_address")
+    email_candidate = next(
+        candidate for candidate in candidates if candidate.span_type == "email_address"
+    )
     assert "test@example.org" not in email_candidate.masked_preview
     assert email_candidate.decision_status == "candidate_only_not_redacted"
 
@@ -70,7 +72,9 @@ def test_redaction_candidates_are_masked_and_candidate_only() -> None:
 def test_propose_redactions_jsonl(tmp_path: Path) -> None:
     input_path = tmp_path / "chunks.jsonl"
     output_path = tmp_path / "redactions.jsonl"
-    write_jsonl(input_path, [{"chunk_id": "c1", "request_id": "123", "text": "Contact +64 21 123 4567."}])
+    write_jsonl(
+        input_path, [{"chunk_id": "c1", "request_id": "123", "text": "Contact +64 21 123 4567."}]
+    )
     result = propose_redactions_jsonl(input_path, output_path)
     assert result["candidate_count"] >= 1
     assert output_path.read_text(encoding="utf-8")
@@ -85,7 +89,9 @@ def test_diff_jsonl_reports_added_and_modified(tmp_path: Path) -> None:
     result = diff_jsonl(before, after, output, key="request_id")
     assert result["counts"]["modified"] == 1
     assert result["counts"]["added"] == 1
-    assert json.loads(output.read_text(encoding="utf-8"))["schema_version"] == "foi-o-nz.diff.v0.1.0"
+    assert (
+        json.loads(output.read_text(encoding="utf-8"))["schema_version"] == "foi-o-nz.diff.v0.1.0"
+    )
 
 
 def test_agent_context_pack_preserves_boundary(tmp_path: Path) -> None:
