@@ -25,7 +25,7 @@
 
 ## Phase 3: Publication-Safe Reporting Docs
 
-- [ ] Task: Write documentation consistency checks
+- [~] Task: Write documentation consistency checks
     - [ ] Verify README/docs do not imply official PSC certification.
     - [ ] Check documented commands match implemented CLI commands.
 - [ ] Task: Implement reporting documentation
