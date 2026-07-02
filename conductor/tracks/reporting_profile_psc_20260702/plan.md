@@ -8,9 +8,9 @@
 - [x] Task: Write reporting mapping tests (`4e067cb`)
     - [x] Validate mapping records for metric id, definition, derivability, required fields, and exclusions.
     - [x] Cover non-derivable public-data cases.
-- [~] Task: Implement reporting mapping updates
-    - [ ] Update mapping files, schemas, and docs for derivability status.
-    - [ ] Keep official-reporting caveats explicit.
+- [x] Task: Implement reporting mapping updates (`243d067`)
+    - [x] Update mapping files, schemas, and docs for derivability status.
+    - [x] Keep official-reporting caveats explicit.
 - [ ] Task: Conductor - User Manual Verification 'Reporting Mapping Baseline' (Protocol in workflow.md)
 
 ## Phase 2: Aggregate Report Generation
