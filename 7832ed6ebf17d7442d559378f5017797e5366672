@@ -1,0 +1,7 @@
+Task summary: Applied Phase 3 review cleanup to build-goldset CLI wording.
+
+Files changed: src/foi_o_nz/cli.py.
+
+Verification: uv run pytest -q tests/test_review_advice_graph_attestation_gold_annotation.py; uv run ruff check src/foi_o_nz/cli.py; uv run ruff format --check src/foi_o_nz/cli.py.
+
+Risks: CLI help text only.
