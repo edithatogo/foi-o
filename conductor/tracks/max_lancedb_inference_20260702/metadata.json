@@ -1,9 +1,9 @@
 {
   "track_id": "max_lancedb_inference_20260702",
   "type": "feature",
-  "status": "new",
+  "status": "in_progress",
   "created_at": "2026-07-02T02:39:57Z",
-  "updated_at": "2026-07-02T02:39:57Z",
+  "updated_at": "2026-07-02T05:30:36Z",
   "description": "MAX and LanceDB bounded inference",
   "github": {
     "repository": "https://github.com/edithatogo/foi-o",
