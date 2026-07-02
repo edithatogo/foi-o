@@ -1,0 +1,7 @@
+Task summary: Archived Track 2 corpus profile and goldset workflow after final verification and GitHub closeout.
+
+Files changed: conductor/archive/corpus_profile_goldset_20260702/*; conductor/tracks.md; conductor/history.md.
+
+Verification: metadata JSON parsed; active tracks.md links resolve; gh issue view 12 reports CLOSED with Project #10 status Done; final validation before archive passed Ruff, pytest, examples, repo validation, mojo-format-check, mojo-test, and mojo-build.
+
+Risks: archive/index-only update; future work continues in Track 3 event_extraction_timeline_20260702.
