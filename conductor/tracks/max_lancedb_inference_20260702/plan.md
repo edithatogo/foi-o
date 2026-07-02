@@ -23,7 +23,7 @@
     - [x] Preserve lexical/deterministic fallback when LanceDB is unavailable.
 - [x] Task: Conductor - User Manual Verification 'LanceDB Retrieval' (Protocol in workflow.md) (`af497c3`)
 
-## Phase 3: Bounded Extraction Experiments
+## Phase 3: Bounded Extraction Experiments [checkpoint: 97735e7]
 
 - [x] Task: Write inference safety tests (`0fedbb0`)
     - [x] Cover candidate extraction, provenance, review-required flags, and unsafe certification rejection.
@@ -31,7 +31,7 @@
 - [x] Task: Implement bounded inference commands/docs (`7a40e02`)
     - [x] Add commands or docs for optional MAX/local extraction paths.
     - [x] Ensure generated model outputs are excluded from Git unless reduced to safe fixtures.
-- [~] Task: Conductor - User Manual Verification 'Bounded Extraction Experiments' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Bounded Extraction Experiments' (Protocol in workflow.md) (`97735e7`)
 
 ## Phase 4: Inference Track Closeout
 
