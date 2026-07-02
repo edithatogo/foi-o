@@ -33,7 +33,7 @@
 - [x] Task: Implement event evaluation updates (`7ca0196`)
     - [x] Update evaluation docs, examples, and CLI output contracts as needed.
     - [x] Keep fixture size small enough for committed validation.
-- [ ] Task: Conductor - User Manual Verification 'Evaluation Fixtures' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Evaluation Fixtures' (Protocol in workflow.md)
 
 ## Phase 4: Event Track Closeout
 
