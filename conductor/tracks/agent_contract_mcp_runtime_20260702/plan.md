@@ -18,7 +18,7 @@
 - [x] Task: Write MCP runtime tests (`d4878f0`)
     - [ ] Cover fixture-backed state mapping, validation, quality gate, and context/resource behaviors.
     - [ ] Cover missing FastMCP dependency with explicit degraded-mode messaging.
-- [ ] Task: Implement MCP runtime hardening
+- [~] Task: Implement MCP runtime hardening
     - [ ] Refine server startup, tool registration, and error handling for read-only fixture mode.
     - [ ] Keep all write, certify, release, refusal, redaction, and charge operations absent.
 - [ ] Task: Conductor - User Manual Verification 'Runtime Prototype' (Protocol in workflow.md)

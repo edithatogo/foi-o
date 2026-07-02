@@ -146,6 +146,31 @@ uv run foi-o-nz mcp-server
 provider is a deterministic feature-hashing baseline for reproducible local tests;
 it is not a semantic model.
 
+### MCP runtime and agent descriptor checks
+
+The optional MCP runtime is read-only and preparatory. It exposes state mapping,
+JSON/JSONL validation, event-stream quality checks, committed schema resources,
+and bounded state-mapping prompt context. It does not expose tools for release,
+refusal, redaction, charging, transfer, extension, complaint, or review outcome
+certification.
+
+```bash
+uv run foi-o-nz export-mcp-bundle --output data/processed/mcp-bundle.json
+uv run foi-o-nz export-tool-manifest --output data/processed/tool-manifest.json
+uv run foi-o-nz export-openapi --output data/processed/openapi.json
+uv run pytest -q tests/test_agent_descriptors.py tests/test_mcp_runtime.py
+uv run python - <<'PY'
+from foi_o_nz.mcp_server import create_server, mcp_runtime_status
+print(mcp_runtime_status())
+create_server()
+PY
+uv run foi-o-nz mcp-server
+```
+
+If FastMCP is unavailable, `mcp_runtime_status()` reports degraded mode and
+`create_server()` fails closed with an installation message instead of exposing a
+partial fallback server.
+
 ## Repository layout
 
 ```text

@@ -96,16 +96,31 @@ def test_mcp_server_registers_read_only_safe_tools_and_prompt() -> None:
 
 
 def test_mcp_runtime_tools_are_fixture_backed_and_do_not_write(tmp_path: Path) -> None:
-    server = mcp_server.create_server(fastmcp_cls=FakeFastMCP)
+    server = mcp_server.create_server(fixture_root=tmp_path, fastmcp_cls=FakeFastMCP)
     events_path = _events_jsonl(tmp_path)
+    instance_path = tmp_path / "instance.json"
+    schema_path = tmp_path / "instance.schema.json"
+    instance_path.write_text(json.dumps({"ok": True}), encoding="utf-8")
+    schema_path.write_text(
+        json.dumps(
+            {
+                "$schema": "https://json-schema.org/draft/2020-12/schema",
+                "type": "object",
+                "additionalProperties": False,
+                "required": ["ok"],
+                "properties": {"ok": {"type": "boolean"}},
+            }
+        ),
+        encoding="utf-8",
+    )
 
     mapped = server.tools["map_state"]["func"]("waiting_response")
     assert mapped["normalised_state"] == "Received"
     assert mapped["read_only"] is True
 
     validated = server.tools["validate_json"]["func"](
-        "examples/core-event.deadline-calculated.json",
-        "schemas/json/core-event.schema.json",
+        "instance.json",
+        "instance.schema.json",
     )
     assert validated == {"ok": True, "errors": [], "legal_effect": "none", "read_only": True}
 
@@ -117,7 +132,11 @@ def test_mcp_runtime_tools_are_fixture_backed_and_do_not_write(tmp_path: Path) -
     assert report["event_count"] == 1
     assert report["legal_effect"] == "none"
     assert report["read_only"] is True
-    assert sorted(path.name for path in tmp_path.iterdir()) == ["events.jsonl"]
+    assert sorted(path.name for path in tmp_path.iterdir()) == [
+        "events.jsonl",
+        "instance.json",
+        "instance.schema.json",
+    ]
 
 
 def test_mcp_schema_resource_is_committed_schema_only() -> None:
