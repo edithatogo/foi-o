@@ -1,0 +1,13 @@
+Task: Record publication metadata implementation
+
+Summary:
+- Updated the publication track plan to mark publication metadata implementation complete with 78f30d2.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; implementation validation is recorded on 78f30d2.
+
+Risks:
+- Phase checkpoint still needs review/verification and push.
