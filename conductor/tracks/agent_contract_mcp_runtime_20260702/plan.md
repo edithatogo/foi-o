@@ -35,9 +35,9 @@
 
 ## Phase 4: Agent Contract Closeout
 
-- [~] Task: Run agent contract validation
-    - [ ] Run agent policy, OpenAPI, tool-manifest, MCP bundle, replay, and server tests.
-    - [ ] Run optional FastMCP checks if installed or document the external gate.
+- [x] Task: Run agent contract validation (`fc9517d`)
+    - [x] Run agent policy, OpenAPI, tool-manifest, MCP bundle, replay, and server tests.
+    - [x] Run optional FastMCP checks if installed or document the external gate.
 - [ ] Task: Run Conductor review and apply high-confidence fixes
     - [ ] Run `conductor-review` for the track scope.
     - [ ] Apply high-confidence fixes and rerun focused checks.
