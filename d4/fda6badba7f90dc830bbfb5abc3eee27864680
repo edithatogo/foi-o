@@ -1,0 +1,1 @@
+Task: Plan update for MCP runtime tests\n\nSummary:\n- Marked the MCP runtime tests task complete with commit d4878f0.\n\nFiles changed:\n- conductor/tracks/agent_contract_mcp_runtime_20260702/plan.md\n\nVerification:\n- Plan-only update; red-test evidence is attached to d4878f0.\n\nRisks:\n- None; no code changes.
