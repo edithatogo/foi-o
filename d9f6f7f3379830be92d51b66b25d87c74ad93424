@@ -1,0 +1,7 @@
+Task summary: Added repo-local validation commands and expected outputs for Track 2 closeout.
+
+Files changed: docs/20-corpus-profile-goldset.md; conductor/tracks/corpus_profile_goldset_20260702/plan.md.
+
+Verification: uv run pytest -q tests/test_normalise.py tests/test_request_profile_jsonld.py tests/test_review_advice_graph_attestation_gold_annotation.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo.
+
+Risks: docs/plan update only.
