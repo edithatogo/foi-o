@@ -8,7 +8,7 @@
 - `sample-goldset` deterministically samples JSONL records with a seed, limit, and per-stratum cap.
 - `build-goldset` builds bounded review tasks from chunk/risk records.
 
-## Gaps To Close In Phase 1
+## Gaps Identified At Audit Time
 
 - Request profiles do not yet expose structured source provenance naming the input file, record identifier, raw state field, and mapping basis.
 - Fixture tests cover JSONL input, but not JSON array or `{"records": [...]}` manifest variants.
@@ -27,3 +27,10 @@
 - Add normalisation tests for JSON array and `records` wrapper inputs.
 - Add a request-profile provenance test that expects source file, source record id, raw state field, mapping method, mapping confidence, and evidence id.
 - Add a fixture-mode live-source failure test that proves missing configured live manifests fail with a bounded error before any output is written.
+
+## Phase 1 Closeout
+
+- `e536bbc` added structured `source_provenance` to request profiles and the request-profile JSON Schema.
+- `e536bbc` added JSON array and `{"records": [...]}` fixture input tests.
+- `e536bbc` added fail-closed live-source configuration behavior for `normalise-manifest`.
+- `e536bbc` refreshed `examples/request-record.jsonld` to the current `ReleasedInFull` state mapping and added request-profile provenance terms to the JSON-LD context.
