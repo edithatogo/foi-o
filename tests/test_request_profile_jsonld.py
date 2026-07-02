@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from rdflib import Graph
 
 from foi_o_nz.validation import validate_json_schema
@@ -12,6 +13,7 @@ REQUEST_SCHEMA = Path("schemas/json/request-profile.schema.json")
 CONTEXT = Path("contexts/foi-o-nz.context.jsonld")
 
 
+@pytest.mark.filterwarnings("ignore:ConjunctiveGraph is deprecated:DeprecationWarning")
 def test_request_profile_jsonld_example_validates_and_parses() -> None:
     validation = validate_json_schema(REQUEST_EXAMPLE, REQUEST_SCHEMA)
     assert validation.ok, validation.errors
