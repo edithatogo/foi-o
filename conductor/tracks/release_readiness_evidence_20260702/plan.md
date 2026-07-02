@@ -28,7 +28,7 @@
     - [x] Label external gates such as live services, registry publication, or unavailable Mojo toolchains separately from repo-local proof.
 - [x] Task: Conductor - User Manual Verification 'Release Gate Documentation' (Protocol in workflow.md) (`d9e45ea`)
 
-## Phase 4: Final Review and Archive Readiness
+## Phase 4: Final Review and Archive Readiness [checkpoint: 6427d2e]
 
 - [x] Task: Run final repo-local verification (`f6abd77`)
     - [x] Run `uv run ruff check src tests scripts`.
@@ -39,4 +39,4 @@
     - [x] Run `conductor-review` for the track scope. The shell command was unavailable; applied the loaded `conductor-review` skill protocol manually.
     - [x] Apply high-confidence fixes without changing the approved scope.
     - [x] Rerun focused checks affected by fixes.
-- [ ] Task: Conductor - User Manual Verification 'Final Review and Archive Readiness' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Final Review and Archive Readiness' (Protocol in workflow.md) (`6427d2e`)
