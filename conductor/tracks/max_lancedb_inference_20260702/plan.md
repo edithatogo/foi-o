@@ -1,6 +1,6 @@
 # Plan: MAX and LanceDB bounded inference
 
-## Phase 1: Provider Interface
+## Phase 1: Provider Interface [checkpoint: f7183c4]
 
 - [x] Task: Audit current embeddings, retrieval, and MAX client surfaces (`f6e869b`)
     - [x] Review deterministic embeddings, vector index, retrieval, MAX client, agent packs, and docs.
@@ -11,7 +11,7 @@
 - [x] Task: Implement bounded provider interface (`bb12507`)
     - [x] Add or refine provider abstractions only where tests require.
     - [x] Record provider, model, runtime, and fallback provenance in outputs.
-- [~] Task: Conductor - User Manual Verification 'Provider Interface' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Provider Interface' (Protocol in workflow.md) (`f7183c4`)
 
 ## Phase 2: LanceDB Retrieval
 
