@@ -17,7 +17,7 @@
 
 ## Phase 2: Timeline Reconstruction
 
-- [ ] Task: Write timeline ordering tests
+- [~] Task: Write timeline ordering tests
     - [ ] Test deterministic ordering by observed date, source order, and fallback provenance.
     - [ ] Test missing/ambiguous dates produce warnings instead of fabricated precision.
 - [ ] Task: Implement timeline reconstruction improvements

@@ -67,6 +67,7 @@ from foi_o_nz.schema_codegen import compare_committed_schemas, export_generated_
 from foi_o_nz.shacl_validation import validate_with_shacl
 from foi_o_nz.state_machine import RequestState, can_transition, map_alaveteli_state
 from foi_o_nz.table_contracts import write_table_contracts
+from foi_o_nz.timeline import write_event_timeline
 from foi_o_nz.tool_manifest import write_tool_manifest
 from foi_o_nz.traces import write_trace_spans
 from foi_o_nz.transitions import audit_transitions_jsonl
@@ -388,6 +389,16 @@ def event_summary(
 ) -> None:
     """Write a lightweight JSON summary of core events."""
     result = write_event_summary(events_jsonl, output)
+    console.print_json(json.dumps(result))
+
+
+@app.command("build-timeline")
+def build_timeline_command(
+    events_jsonl: Annotated[Path, typer.Option("--events-jsonl", help="Core events JSONL input")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Timeline JSON output")],
+) -> None:
+    """Build a deterministic event timeline with missing-date warnings."""
+    result = write_event_timeline(events_jsonl, output)
     console.print_json(json.dumps(result))
 
 

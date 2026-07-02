@@ -1,0 +1,44 @@
+{
+  "schema_version": "foi-o-nz.event-timeline.v0.1.0",
+  "event_count": 2,
+  "warning_count": 0,
+  "warnings": [],
+  "events": [
+    {
+      "source_index": 0,
+      "event_id": "foio-nz:event:request-observed",
+      "request_id": "12345",
+      "event_type": "RequestObserved",
+      "event_time": "2026-06-01T00:00:00+00:00",
+      "source_state": "waiting_response",
+      "lifecycle_state_after": "Received",
+      "assertion_status": "observed",
+      "confidence": 1.0,
+      "evidence_ids": [
+        "evidence:fyi-archive-nz:12345:manifest"
+      ],
+      "quality_flags": []
+    },
+    {
+      "source_index": 1,
+      "event_id": "foio-nz:event:extension",
+      "request_id": "12345",
+      "event_type": "ExtensionNotified",
+      "event_time": "2026-06-10T00:00:00+00:00",
+      "source_state": null,
+      "lifecycle_state_after": "ExtensionApplied",
+      "assertion_status": "inferred",
+      "confidence": 0.58,
+      "evidence_ids": [
+        "evidence:fyi-archive-nz:12345:message:m1"
+      ],
+      "quality_flags": [
+        "extension_language_detected",
+        "requires_human_review"
+      ]
+    }
+  ],
+  "limitations": [
+    "Timeline order is deterministic process reconstruction only; missing or invalid times are not fabricated."
+  ]
+}

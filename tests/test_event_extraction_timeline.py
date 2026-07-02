@@ -3,6 +3,7 @@ from __future__ import annotations
 from foi_o_nz.constants import HUMAN_CERTIFICATION_EVENT_TYPES
 from foi_o_nz.extractors import build_message_events, iter_message_records
 from foi_o_nz.normalise import build_request_profile, normalise_records
+from foi_o_nz.timeline import build_event_timeline
 
 BASE_RECORD = {
     "request_id": "evt-1",
@@ -100,3 +101,74 @@ def test_normalise_records_keeps_message_observation_and_candidates() -> None:
     event_types = [event.event_type for event in events]
     assert "MessageObserved" in event_types
     assert "ReleaseMade" in event_types
+
+
+def test_timeline_orders_by_time_source_order_and_event_id() -> None:
+    timeline = build_event_timeline(
+        [
+            {
+                "event_id": "foio-nz:event:late",
+                "event_type": "ReleaseMade",
+                "event_time": "2026-06-03T00:00:00Z",
+                "request_ref": {"source_request_id": "evt-1"},
+                "lifecycle_state_after": "ReleasedInPart",
+                "assertion_status": "inferred",
+                "confidence": 0.38,
+                "evidence": [{"evidence_id": "evidence:late"}],
+            },
+            {
+                "event_id": "foio-nz:event:early-b",
+                "event_type": "MessageObserved",
+                "event_time": "2026-06-01T00:00:00Z",
+                "request_ref": {"source_request_id": "evt-1"},
+                "assertion_status": "observed",
+                "confidence": 1.0,
+                "evidence": [{"evidence_id": "evidence:early-b"}],
+            },
+            {
+                "event_id": "foio-nz:event:early-a",
+                "event_type": "RequestObserved",
+                "event_time": "2026-06-01T00:00:00Z",
+                "request_ref": {"source_request_id": "evt-1"},
+                "payload": {"source_state": "waiting_response"},
+                "assertion_status": "observed",
+                "confidence": 1.0,
+                "evidence": [{"evidence_id": "evidence:early-a"}],
+            },
+        ]
+    )
+
+    assert [event["event_id"] for event in timeline["events"]] == [
+        "foio-nz:event:early-b",
+        "foio-nz:event:early-a",
+        "foio-nz:event:late",
+    ]
+    assert timeline["events"][1]["source_state"] == "waiting_response"
+    assert timeline["events"][2]["evidence_ids"] == ["evidence:late"]
+
+
+def test_timeline_missing_and_invalid_dates_warn_without_fabricated_precision() -> None:
+    timeline = build_event_timeline(
+        [
+            {
+                "event_id": "foio-nz:event:missing",
+                "event_type": "MessageObserved",
+                "request_ref": {"source_request_id": "evt-1"},
+                "evidence": [{"evidence_id": "evidence:missing"}],
+            },
+            {
+                "event_id": "foio-nz:event:invalid",
+                "event_type": "MessageObserved",
+                "event_time": "not-a-date",
+                "request_ref": {"source_request_id": "evt-1"},
+                "evidence": [{"evidence_id": "evidence:invalid"}],
+            },
+        ]
+    )
+
+    assert [event["event_time"] for event in timeline["events"]] == [None, None]
+    assert timeline["warning_count"] == 2
+    assert [warning["code"] for warning in timeline["warnings"]] == [
+        "missing_event_time",
+        "invalid_event_time",
+    ]
