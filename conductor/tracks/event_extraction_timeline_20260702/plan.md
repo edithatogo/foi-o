@@ -25,7 +25,7 @@
     - [x] Ensure timelines retain event ids, request ids, source state, confidence, and evidence references.
 - [x] Task: Conductor - User Manual Verification 'Timeline Reconstruction' (Protocol in workflow.md) (`c51a82c`)
 
-## Phase 3: Evaluation Fixtures
+## Phase 3: Evaluation Fixtures [checkpoint: c89e528]
 
 - [x] Task: Write event evaluation tests (`7ca0196`)
     - [x] Add safe fixture gold records for observed events and candidate events.
@@ -33,7 +33,7 @@
 - [x] Task: Implement event evaluation updates (`7ca0196`)
     - [x] Update evaluation docs, examples, and CLI output contracts as needed.
     - [x] Keep fixture size small enough for committed validation.
-- [~] Task: Conductor - User Manual Verification 'Evaluation Fixtures' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Evaluation Fixtures' (Protocol in workflow.md) (`c89e528`)
 
 ## Phase 4: Event Track Closeout
 
