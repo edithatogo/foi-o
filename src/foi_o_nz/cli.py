@@ -26,7 +26,7 @@ from foi_o_nz.dataset_metadata import (
     write_frictionless_datapackage,
     write_huggingface_dataset_card,
 )
-from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_dates
+from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_calendar
 from foi_o_nz.diff import diff_jsonl
 from foi_o_nz.duckdb_export import build_duckdb_database, write_duckdb_bootstrap_sql
 from foi_o_nz.embeddings import embed_jsonl
@@ -288,12 +288,12 @@ def clock(
 
     parsed_date = date.fromisoformat(received_date)
     received_at = datetime(parsed_date.year, parsed_date.month, parsed_date.day, tzinfo=UTC)
-    holiday_dates = load_holiday_dates(holidays) if holidays is not None else None
+    holiday_calendar = load_holiday_calendar(holidays) if holidays is not None else None
     legal_clock = calculate_indicative_clock(
         received_at,
         decision_working_days=decision_days,
         transfer_working_days=transfer_days,
-        holidays=holiday_dates,
+        holidays=holiday_calendar,
         include_oia_summer_exclusion=not no_summer_exclusion,
     )
     if legal_clock is None:

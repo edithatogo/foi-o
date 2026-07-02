@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import json
 from datetime import UTC, date, datetime
 from pathlib import Path
 
+from typer.testing import CliRunner
+
+from foi_o_nz.cli import app
 from foi_o_nz.dates import (
     PUBLIC_HOLIDAY_WARNING,
     add_working_days,
@@ -16,6 +20,7 @@ from foi_o_nz.validation import validate_json_schema
 
 HOLIDAY_CALENDAR_EXAMPLE = Path("examples/nz-public-holidays-2026.govt-nz.json")
 HOLIDAY_CALENDAR_SCHEMA = Path("schemas/json/holiday-calendar.schema.json")
+RUNNER = CliRunner()
 
 
 def test_parse_datetime_handles_z_suffix() -> None:
@@ -103,3 +108,27 @@ def test_committed_holiday_calendar_fixture_is_schema_valid() -> None:
     validation = validate_json_schema(HOLIDAY_CALENDAR_EXAMPLE, HOLIDAY_CALENDAR_SCHEMA)
 
     assert validation.ok, validation.errors
+
+
+def test_clock_cli_preserves_holiday_calendar_source_metadata() -> None:
+    result = RUNNER.invoke(
+        app,
+        [
+            "clock",
+            "2026-05-29",
+            "--decision-days",
+            "1",
+            "--transfer-days",
+            "1",
+            "--holidays",
+            str(HOLIDAY_CALENDAR_EXAMPLE),
+        ],
+    )
+
+    assert result.exit_code == 0, result.output
+    payload = json.loads(result.output)
+    assert payload["decision_due_date"] == "2026-06-02"
+    assert payload["calendar_source_name"] == "Govt.nz public holidays and anniversary days"
+    assert payload["calendar_source_status"] == "official_snapshot"
+    assert payload["regional_anniversary_days_included"] is False
+    assert any("regional_anniversary_days_not_included" in item for item in payload["warnings"])
