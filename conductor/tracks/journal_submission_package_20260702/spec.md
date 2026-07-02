@@ -27,12 +27,18 @@ finalisation, and journal account upload as human approval gates.
 - Prepare supplementary material that includes method details, evidence tables,
   validation commands, schema/ontology inventory, external gates, and
   reproducibility notes.
+- Prepare an arXiv-ready source-package workflow using `arxiv-latex-cleaner` as
+  the default sanitizer, with TeX Live 2025/`latexmk` compile checks and
+  conditional dependency collection or flattening where the generated LaTeX
+  source needs it.
 - Generate a complete supplementary package that includes the supplement text,
   generated tables, generated plots, generated diagrams, Cosmograph-compatible
   graph/network files, static fallbacks, and an asset index.
 - Ensure every manuscript and supplement figure, plot, table, and graph asset has
   a caption, alt text/textual equivalent, provenance entry, and source-input
   record.
+- Record optional second-pass arXiv source sanitization with ALC-NG only when it
+  adds value beyond `arxiv-latex-cleaner` and preserves the compiled output.
 - Add repo-local checks that validate required article and supplement sections
   plus cited local paths.
 - Keep journal requirements as a documented snapshot with retrieval dates and
@@ -46,8 +52,9 @@ finalisation, and journal account upload as human approval gates.
 - Avoid claims that exceed repo-local evidence.
 - Preserve the human-certification, non-legal-advice, and non-official-reporting
   boundaries.
-- Keep manuscript and supplement files in plain Markdown unless a required
-  journal export format is explicitly added and validated.
+- Keep manuscript and supplement files in plain Markdown as the canonical source
+  unless a required journal or arXiv export format is explicitly added and
+  validated.
 
 ## Acceptance Criteria
 
@@ -55,6 +62,9 @@ finalisation, and journal account upload as human approval gates.
   target, requirements, retrieval dates, and submission gates.
 - `docs/27-submission-manuscript.md` contains a complete article draft.
 - `docs/28-submission-supplement.md` contains a complete supplement draft.
+- `docs/30-arxiv-readiness.md` and a validated arXiv readiness report record the
+  source-package pipeline, required commands, optional tools, package checks, and
+  human-only upload gates.
 - The supplement package includes generated diagrams, plots, tables, graph data,
   and static fallbacks suitable for journal upload or review.
 - The supplement package includes a generated-asset manifest suitable for
@@ -73,6 +83,6 @@ finalisation, and journal account upload as human approval gates.
 - Performing live journal submission without explicit user approval.
 - Guaranteeing journal fit, peer-review outcome, or acceptance.
 - Creating unsupported live-source, legal, or official-reporting claims.
-- Performing final journal upload or claiming that generated supplement assets
-  satisfy a journal's production system until the selected journal requirements
-  are checked during the track.
+- Performing final journal or arXiv upload, or claiming that generated supplement
+  assets satisfy a journal's production system until the selected journal
+  requirements are checked during the track.

@@ -27,6 +27,7 @@ PAIR_GLOBS = [
     ("publication-panel-review*.json", "publication-panel-review.schema.json"),
     ("reporting-checklist-source*.json", "reporting-checklist-source.schema.json"),
     ("reporting-checklist-adherence*.json", "reporting-checklist-adherence.schema.json"),
+    ("arxiv-readiness*.json", "arxiv-readiness.schema.json"),
     ("retrieval-result*.json", "retrieval-result.schema.json"),
     ("redaction-candidate*.json", "redaction-candidate.schema.json"),
     ("diff-report*.json", "diff-report.schema.json"),

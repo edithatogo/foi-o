@@ -17,6 +17,7 @@
 - [ ] Task: Write requirements document
     - [ ] Create `docs/26-journal-target-requirements.md`.
     - [ ] Include retrieval dates, URLs, article type, word limits, figure/table limits, graph/interactive-asset policy, reference style, required statements, data/code policy, supplement policy, and submission checklist.
+    - [ ] Include an arXiv requirements snapshot covering TeX/LaTeX packaging, TeX Live versions, source-package root behavior, source-disclosure risks, and human-only upload gates.
     - [ ] Mark human approval and live submission as external gates.
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Journal targeting and requirements' (Protocol in workflow.md)
 
@@ -38,6 +39,18 @@
     - [ ] Run or document SourceRight-style checks for citations, source provenance, legal/guidance references, and unsupported claims.
     - [ ] Run or document AuthenText-style checks for manuscript-facing prose without changing technical literals.
     - [ ] Run `conductor-review` if available and apply high-confidence fixes.
+- [ ] Task: Define arXiv readiness tests first
+    - [ ] Add focused tests for `docs/30-arxiv-readiness.md`, `schemas/json/arxiv-readiness.schema.json`, and a readiness example.
+    - [ ] Require `arxiv-latex-cleaner` as the default sanitizer.
+    - [ ] Require TeX Live 2025/`latexmk` compile checks.
+    - [ ] Require `arxiv-collector` or `latexpand` only where dependency collection or flattening adds value.
+    - [ ] Require ALC-NG to remain optional and second-pass only.
+    - [ ] Require source disclosure, secret, metadata, and root-relative path checks.
+- [ ] Task: Draft arXiv source-package workflow
+    - [ ] Create or update `docs/30-arxiv-readiness.md`.
+    - [ ] Create a validated arXiv readiness report for the manuscript/supplement package.
+    - [ ] Record commands for `latexmk`, `arxiv-latex-cleaner`, conditional `arxiv-collector` or `latexpand`, optional ALC-NG, and package hygiene scans.
+    - [ ] Mark category choice, author metadata, declarations, and live arXiv upload as human-only gates.
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Manuscript drafting' (Protocol in workflow.md)
 
 ## Phase 3: Supplement drafting
@@ -60,6 +73,7 @@
     - [ ] Run examples and documentation checks.
     - [ ] Ensure article and supplement agree on claims, terminology, diagrams, plots, tables, and external gates.
     - [ ] Verify generated supplementary assets are reproducible from committed inputs or explicitly marked as external/tooling gates.
+    - [ ] Verify the arXiv readiness report validates and still treats arXiv upload as a human-only gate.
 - [ ] Task: Prepare human-only submission handoff
     - [ ] Create a checklist for author details, affiliations, funding, conflicts, ethics/data statements, cover letter, suggested reviewers if required, account upload, and final approval.
     - [ ] Mark every live journal submission step as requiring explicit user approval.
@@ -75,6 +89,7 @@
 
 - [ ] Task: Final package checklist
     - [ ] Ensure target requirements document, article, and supplement satisfy acceptance criteria.
+    - [ ] Ensure arXiv readiness documentation and report satisfy the selected source-package pipeline.
     - [ ] Record remaining human tasks such as author details, conflict/funding statements, cover letter, and live upload.
     - [ ] Record any journal-specific files not generated because they require human credentials or approval.
 - [ ] Task: Final repo-local verification

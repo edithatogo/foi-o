@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/arxiv-readiness.schema.json",
+  "title": "FOI-O NZ arXiv readiness report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "readiness_id",
+    "artifact_id",
+    "checked_at",
+    "arxiv_requirements_snapshot",
+    "recommended_pipeline",
+    "tool_checks",
+    "package_checks",
+    "human_gates",
+    "overall_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.arxiv-readiness.v0.1.0"
+    },
+    "readiness_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "arxiv_requirements_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "retrieved_at",
+        "sources",
+        "texlive_default",
+        "texlive_alternatives",
+        "submission_root_rule",
+        "human_submission_required"
+      ],
+      "properties": {
+        "retrieved_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "url"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        },
+        "texlive_default": {
+          "type": "string",
+          "minLength": 1
+        },
+        "texlive_alternatives": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "submission_root_rule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "human_submission_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "recommended_pipeline": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "step_id",
+          "purpose",
+          "tool",
+          "status"
+        ],
+        "properties": {
+          "step_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tool": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "required",
+              "conditional",
+              "optional",
+              "external_gate"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "tool_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tool",
+          "role",
+          "requirement_level",
+          "command",
+          "expected_output",
+          "status"
+        ],
+        "properties": {
+          "tool": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "enum": [
+              "compile",
+              "dependency_collection",
+              "flattening",
+              "sanitization",
+              "secondary_sanitization",
+              "lint",
+              "privacy_scan",
+              "metadata_scan"
+            ]
+          },
+          "requirement_level": {
+            "enum": [
+              "required",
+              "conditional",
+              "optional"
+            ]
+          },
+          "command": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_output": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "planned",
+              "passed",
+              "failed",
+              "external_gate",
+              "not_applicable"
+            ]
+          },
+          "evidence_paths": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "package_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "check_id",
+          "status",
+          "reviewer_notes"
+        ],
+        "properties": {
+          "check_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "planned",
+              "passed",
+              "failed",
+              "external_gate",
+              "not_applicable"
+            ]
+          },
+          "reviewer_notes": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_paths": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "human_gates": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "overall_status": {
+      "enum": [
+        "planned",
+        "ready",
+        "blocked",
+        "external_gate"
+      ]
+    }
+  }
+}

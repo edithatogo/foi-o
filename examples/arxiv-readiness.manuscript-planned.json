@@ -1,0 +1,159 @@
+{
+  "schema_version": "foi-o-nz.arxiv-readiness.v0.1.0",
+  "readiness_id": "foi-o-manuscript-arxiv-planned",
+  "artifact_id": "journal-submission-package",
+  "checked_at": "2026-07-02T00:00:00Z",
+  "arxiv_requirements_snapshot": {
+    "retrieved_at": "2026-07-02",
+    "sources": [
+      {
+        "name": "arXiv Submit TeX/LaTeX help",
+        "url": "https://info.arxiv.org/help/submit_tex.html"
+      },
+      {
+        "name": "arXiv TeX Live help",
+        "url": "https://info.arxiv.org/help/faq/texlive.html"
+      },
+      {
+        "name": "Overleaf checklist for arXiv submissions",
+        "url": "https://docs.overleaf.com/troubleshooting-and-support/checklist-for-arxiv-submissions"
+      }
+    ],
+    "texlive_default": "TeX Live 2025",
+    "texlive_alternatives": [
+      "TeX Live 2023"
+    ],
+    "submission_root_rule": "arXiv compiles from the root of the submitted directory even when the top-level TeX file is in a subdirectory.",
+    "human_submission_required": true
+  },
+  "recommended_pipeline": [
+    {
+      "step_id": "compile-source",
+      "purpose": "Build the generated LaTeX source under the arXiv default TeX Live generation before packaging.",
+      "tool": "latexmk with TeX Live 2025",
+      "status": "required",
+      "notes": "If TeX Live 2025 is unavailable locally, record the missing toolchain as an external gate."
+    },
+    {
+      "step_id": "collect-dependencies",
+      "purpose": "Collect or flatten LaTeX dependencies when the generated source uses includes, subfiles, or bibliography workflows that need explicit packaging.",
+      "tool": "arxiv-collector or latexpand",
+      "status": "conditional",
+      "notes": "Use arxiv-collector when dependency discovery is more important; use latexpand when a single expanded TeX file is required."
+    },
+    {
+      "step_id": "sanitize-source",
+      "purpose": "Create the default cleaned arXiv upload directory with comments, unused files, and avoidable oversized assets removed.",
+      "tool": "arxiv-latex-cleaner",
+      "status": "required",
+      "notes": "This is the default sanitizer for the FOI-O arXiv package."
+    },
+    {
+      "step_id": "secondary-sanitize",
+      "purpose": "Optionally compare a stricter sanitization pass when it preserves the compiled PDF and does not remove required assets.",
+      "tool": "ALC-NG",
+      "status": "optional",
+      "notes": "Use only as an additional check because the upstream tool explicitly warns that users assume responsibility for safety and stability."
+    },
+    {
+      "step_id": "privacy-and-metadata-scan",
+      "purpose": "Scan the cleaned source package for secrets, local paths, comments, stale generated files, PDF metadata, and unintended source disclosure.",
+      "tool": "gitleaks or trufflehog plus exiftool, qpdf, and pdfinfo where applicable",
+      "status": "required",
+      "notes": "The package remains a human-submission artifact; passing scans does not imply upload approval."
+    }
+  ],
+  "tool_checks": [
+    {
+      "tool": "latexmk with TeX Live 2025",
+      "role": "compile",
+      "requirement_level": "required",
+      "command": "latexmk -pdf docs/27-submission-manuscript.tex",
+      "expected_output": "A clean PDF build log from the generated LaTeX source.",
+      "status": "planned",
+      "evidence_paths": [
+        "docs/27-submission-manuscript.md"
+      ]
+    },
+    {
+      "tool": "arxiv-collector",
+      "role": "dependency_collection",
+      "requirement_level": "conditional",
+      "command": "arxiv-collector docs/27-submission-manuscript.tex",
+      "expected_output": "A collected source directory containing the top-level TeX file and required dependencies.",
+      "status": "planned"
+    },
+    {
+      "tool": "latexpand",
+      "role": "flattening",
+      "requirement_level": "conditional",
+      "command": "latexpand docs/27-submission-manuscript.tex > build/arxiv/main-expanded.tex",
+      "expected_output": "A flattened TeX source when the package target requires a single expanded file.",
+      "status": "planned"
+    },
+    {
+      "tool": "arxiv-latex-cleaner",
+      "role": "sanitization",
+      "requirement_level": "required",
+      "command": "arxiv_latex_cleaner build/arxiv/source",
+      "expected_output": "A cleaned arXiv upload directory suitable for zip packaging and rebuild checks.",
+      "status": "planned"
+    },
+    {
+      "tool": "ALC-NG",
+      "role": "secondary_sanitization",
+      "requirement_level": "optional",
+      "command": "alc-ng build/arxiv/source --out build/arxiv/source-alc-ng",
+      "expected_output": "A stricter cleaned source package that preserves the generated PDF when the tool is available and stable.",
+      "status": "planned"
+    },
+    {
+      "tool": "gitleaks or trufflehog",
+      "role": "privacy_scan",
+      "requirement_level": "required",
+      "command": "gitleaks detect --no-git --source build/arxiv/source_arXiv",
+      "expected_output": "No secrets, credentials, or local-only sensitive paths in the cleaned upload package.",
+      "status": "planned"
+    },
+    {
+      "tool": "exiftool, qpdf, and pdfinfo",
+      "role": "metadata_scan",
+      "requirement_level": "conditional",
+      "command": "pdfinfo build/arxiv/source_arXiv/*.pdf && exiftool build/arxiv/source_arXiv/*.pdf",
+      "expected_output": "PDF metadata and font checks recorded when PDFs are included in the source or supplement package.",
+      "status": "planned"
+    }
+  ],
+  "package_checks": [
+    {
+      "check_id": "cleaned-source-rebuilds",
+      "status": "planned",
+      "reviewer_notes": "The cleaned arXiv source must rebuild before it is marked ready.",
+      "evidence_paths": [
+        "docs/26-journal-target-requirements.md"
+      ]
+    },
+    {
+      "check_id": "root-relative-paths",
+      "status": "planned",
+      "reviewer_notes": "All paths in the upload package must work from the submission root.",
+      "evidence_paths": [
+        "docs/26-journal-target-requirements.md"
+      ]
+    },
+    {
+      "check_id": "source-disclosure-review",
+      "status": "planned",
+      "reviewer_notes": "Cleaned source must not include comments, internal review notes, draft-only data, or hidden local paths.",
+      "evidence_paths": [
+        "docs/29-publication-quality-panel.md"
+      ]
+    }
+  ],
+  "human_gates": [
+    "Confirm arXiv category and subject classification.",
+    "Confirm author list, affiliations, funding, conflicts, and submission authority.",
+    "Approve final arXiv upload after local package validation."
+  ],
+  "overall_status": "planned"
+}
