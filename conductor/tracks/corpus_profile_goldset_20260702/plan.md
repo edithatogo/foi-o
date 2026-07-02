@@ -39,11 +39,11 @@
 
 ## Phase 4: Corpus Profile Closeout
 
-- [~] Task: Run corpus profile validation
-    - [ ] Run targeted corpus/goldset tests.
-    - [ ] Run schema/example validation commands affected by this track.
-    - [ ] Update docs with exact commands and expected outputs.
-- [ ] Task: Run Conductor review and apply high-confidence fixes
-    - [ ] Run `conductor-review` for the track scope.
-    - [ ] Apply high-confidence fixes and rerun focused checks.
+- [x] Task: Run corpus profile validation (`d9f6f7f`)
+    - [x] Run targeted corpus/goldset tests.
+    - [x] Run schema/example validation commands affected by this track.
+    - [x] Update docs with exact commands and expected outputs.
+- [x] Task: Run Conductor review and apply high-confidence fixes (`39399ed`)
+    - [x] Run `conductor-review` for the track scope. The shell command was unavailable; applied the loaded `conductor-review` skill protocol manually.
+    - [x] Apply high-confidence fixes and rerun focused checks.
 - [ ] Task: Conductor - User Manual Verification 'Corpus Profile Closeout' (Protocol in workflow.md)
