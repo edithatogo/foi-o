@@ -5,9 +5,9 @@
 - [x] Task: Audit current agent contracts (`aa94872`)
     - [x] Review agent policy, tool manifest, OpenAPI export, MCP bundle, MCP server, and docs.
     - [x] Identify descriptor drift and unsafe-capability gaps.
-- [~] Task: Write descriptor conformance tests
-    - [ ] Validate OpenAPI/tool-manifest/MCP-bundle descriptors for safe read-only semantics.
-    - [ ] Add negative fixtures for unsafe certification-capable tool descriptions.
+- [x] Task: Write descriptor conformance tests (`83db169`)
+    - [x] Validate OpenAPI/tool-manifest/MCP-bundle descriptors for safe read-only semantics.
+    - [x] Add negative fixtures for unsafe certification-capable tool descriptions.
 - [ ] Task: Implement descriptor hardening
     - [ ] Update descriptors and exports to make non-dispositive boundaries machine-checkable.
     - [ ] Ensure unsafe examples fail tests and safe examples remain stable.
