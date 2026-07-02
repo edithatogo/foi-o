@@ -31,7 +31,7 @@
 - [x] Task: Implement stronger quality gates (`b622ceb`)
     - [x] Add quality checks and schema/example updates for process-rule references.
     - [x] Update docs with exact pass/fail examples.
-- [ ] Task: Conductor - User Manual Verification 'Process Rule Quality Gates' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Process Rule Quality Gates' (Protocol in workflow.md)
 
 ## Phase 4: OIA Rules Closeout
 
