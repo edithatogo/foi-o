@@ -1,0 +1,7 @@
+Track: oia_process_rules_20260702
+Phase: Calendar Contract
+Task: Audit current clock helpers and mappings
+Summary: Audited Python clock helpers, CLI clock options, Mojo clock kernels, current date tests, legal-source mappings, and legal-versioning docs. Identified missing official-calendar fixture/provenance contract and source-version metadata gaps.
+Files changed: conductor/tracks/oia_process_rules_20260702/plan.md; conductor/tracks/oia_process_rules_20260702/audit.md
+Verification: uv run pytest -q tests/test_dates.py
+Risks: Calendar support and source-versioning implementation remain pending.
