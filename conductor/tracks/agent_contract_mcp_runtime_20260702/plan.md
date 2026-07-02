@@ -31,7 +31,7 @@
 - [x] Task: Implement guardrail replay integration (`a94977b`)
     - [x] Connect policy, replay, and descriptor checks where gaps are found.
     - [x] Update docs with operator-facing safety checks.
-- [ ] Task: Conductor - User Manual Verification 'Agent Guardrail Replay' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Agent Guardrail Replay' (Protocol in workflow.md)
 
 ## Phase 4: Agent Contract Closeout
 
