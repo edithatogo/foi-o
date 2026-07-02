@@ -1,0 +1,4 @@
+Task summary: Documented PSC reporting outputs and publication-safe boundaries.
+Files changed: README.md; docs/11-implementation-status.md; docs/21-psc-reporting-profile.md; tests/test_reporting_docs.py; conductor plan.
+Verification: reporting docs/tests, example validation, repo validation, Ruff check/format.
+Risks: Documentation only; behavior unchanged.
