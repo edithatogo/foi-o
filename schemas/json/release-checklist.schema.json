@@ -1,0 +1,191 @@
+{
+  "$defs": {
+    "ReleaseEvidenceItem": {
+      "additionalProperties": false,
+      "description": "Repo-local file evidence referenced by the release checklist.",
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "path",
+        "description"
+      ],
+      "title": "ReleaseEvidenceItem",
+      "type": "object"
+    },
+    "ReleaseExternalGate": {
+      "additionalProperties": false,
+      "description": "Manual or external gate that cannot be proven by local validation.",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "external_gate",
+            "manual_approval_required"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "status",
+        "reason"
+      ],
+      "title": "ReleaseExternalGate",
+      "type": "object"
+    },
+    "ReleasePublicationArtifact": {
+      "additionalProperties": false,
+      "description": "Publication artefact readiness record.",
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "path": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Path"
+        },
+        "status": {
+          "enum": [
+            "repo_local",
+            "planned",
+            "external_gate",
+            "manual_approval_required"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "status",
+        "description"
+      ],
+      "title": "ReleasePublicationArtifact",
+      "type": "object"
+    },
+    "ReleaseValidationCommand": {
+      "additionalProperties": false,
+      "description": "One command required before claiming repo-local release readiness.",
+      "properties": {
+        "command": {
+          "title": "Command",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "command",
+        "description"
+      ],
+      "title": "ReleaseValidationCommand",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Machine-readable release checklist for repo-local publication readiness.",
+  "properties": {
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/ReleaseEvidenceItem"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "external_gates": {
+      "items": {
+        "$ref": "#/$defs/ReleaseExternalGate"
+      },
+      "title": "External Gates",
+      "type": "array"
+    },
+    "package_scope": {
+      "title": "Package Scope",
+      "type": "string"
+    },
+    "publication_artifacts": {
+      "items": {
+        "$ref": "#/$defs/ReleasePublicationArtifact"
+      },
+      "title": "Publication Artifacts",
+      "type": "array"
+    },
+    "release_version": {
+      "title": "Release Version",
+      "type": "string"
+    },
+    "repository": {
+      "default": "https://github.com/edithatogo/foi-o",
+      "title": "Repository",
+      "type": "string"
+    },
+    "rights_notice": {
+      "title": "Rights Notice",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.release-checklist.v0.1.0",
+      "default": "foi-o-nz.release-checklist.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "validation_commands": {
+      "items": {
+        "$ref": "#/$defs/ReleaseValidationCommand"
+      },
+      "title": "Validation Commands",
+      "type": "array"
+    }
+  },
+  "required": [
+    "release_version",
+    "package_scope",
+    "rights_notice",
+    "validation_commands",
+    "evidence",
+    "external_gates"
+  ],
+  "title": "ReleaseChecklist",
+  "type": "object"
+}

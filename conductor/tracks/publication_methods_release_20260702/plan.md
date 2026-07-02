@@ -8,7 +8,7 @@
 - [x] Task: Write release checklist validation tests (`7436c21`)
     - [x] Verify release metadata references existing files, commands, schemas, and evidence.
     - [x] Verify external gates are explicitly labelled.
-- [ ] Task: Implement release evidence package
+- [~] Task: Implement release evidence package
     - [ ] Add or update release checklist, reproducibility commands, and metadata examples.
     - [ ] Keep generated publication payloads out of Git unless reduced to safe fixtures.
 - [ ] Task: Conductor - User Manual Verification 'Release Evidence Package' (Protocol in workflow.md)

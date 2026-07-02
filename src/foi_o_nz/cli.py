@@ -60,6 +60,7 @@ from foi_o_nz.process_advice import write_process_advice
 from foi_o_nz.quality import assess_events_jsonl
 from foi_o_nz.rdf_export import export_rdf
 from foi_o_nz.redaction import propose_redactions_jsonl
+from foi_o_nz.release_package import write_release_checklist
 from foi_o_nz.replay import write_guardrail_replay
 from foi_o_nz.reporting import metric_table, write_psc_aggregate_report
 from foi_o_nz.reproducibility import write_reproducibility_manifest
@@ -1034,6 +1035,18 @@ def dataset_metadata_command(
         result = write_huggingface_dataset_card(paths, output, base_dir=base_dir)
     else:
         result = write_dataset_metadata(paths, output, base_dir=base_dir)
+    console.print_json(json.dumps(result))
+
+
+@app.command("release-checklist")
+def release_checklist_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Release checklist JSON")],
+    release_version: Annotated[
+        str | None, typer.Option("--release-version", help="Release version to record")
+    ] = None,
+) -> None:
+    """Write the machine-readable publication release checklist."""
+    result = write_release_checklist(output, release_version=release_version)
     console.print_json(json.dumps(result))
 
 

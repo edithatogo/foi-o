@@ -1,0 +1,108 @@
+{
+  "evidence": [
+    {
+      "description": "Current product surface, boundaries, examples, and license notice.",
+      "path": "README.md",
+      "required": true
+    },
+    {
+      "description": "Current implemented, optional, planned, and external-gated status.",
+      "path": "docs/11-implementation-status.md",
+      "required": true
+    },
+    {
+      "description": "Repeatable release-readiness validation sequence and external gates.",
+      "path": "docs/19-release-readiness-evidence.md",
+      "required": true
+    },
+    {
+      "description": "Dataset metadata fixture for derived process artifacts.",
+      "path": "examples/dataset-metadata.examples.json",
+      "required": true
+    },
+    {
+      "description": "Reproducibility manifest fixture for local tool/file evidence.",
+      "path": "examples/reproducibility-manifest.examples.json",
+      "required": true
+    },
+    {
+      "description": "Most recent roadmap track final verification evidence.",
+      "path": "conductor/archive/ontology_shacl_maturation_20260702/final-verification.md",
+      "required": true
+    }
+  ],
+  "external_gates": [
+    {
+      "name": "GitHub release publication",
+      "reason": "Requires maintainer tag/release approval and final changelog review.",
+      "status": "manual_approval_required"
+    },
+    {
+      "name": "Hugging Face dataset publication",
+      "reason": "Requires credentials, terms review, and human approval before upload.",
+      "status": "manual_approval_required"
+    },
+    {
+      "name": "Zenodo or OSF deposit",
+      "reason": "Requires registry credentials, metadata review, and manual publication.",
+      "status": "manual_approval_required"
+    },
+    {
+      "name": "Live FYI/archive pulls",
+      "reason": "Network/source availability and source snapshot capture are outside repo-local proof.",
+      "status": "external_gate"
+    },
+    {
+      "name": "Native Mojo/MAX release certification",
+      "reason": "Requires available Modular toolchain and passing native format/test/build checks.",
+      "status": "external_gate"
+    }
+  ],
+  "package_scope": "Code, schemas, ontology, SHACL/SKOS vocabularies, documentation, small examples, and release evidence for FOI-O NZ.",
+  "publication_artifacts": [
+    {
+      "description": "Machine-readable release package checklist fixture.",
+      "name": "release checklist",
+      "path": "examples/release-checklist.v0.9.0.json",
+      "status": "repo_local"
+    },
+    {
+      "description": "Machine-readable derived-artifact metadata fixture.",
+      "name": "dataset metadata",
+      "path": "examples/dataset-metadata.examples.json",
+      "status": "repo_local"
+    },
+    {
+      "description": "Short methods paper to be drafted later in this track.",
+      "name": "methods paper",
+      "path": "docs/23-methods-paper.md",
+      "status": "planned"
+    }
+  ],
+  "release_version": "0.9.0",
+  "repository": "https://github.com/edithatogo/foi-o",
+  "rights_notice": "MIT applies to code, schemas, ontology, examples, and documentation in this repository. Source FYI/archive content retains its original rights and platform terms and is not republished by this release package.",
+  "schema_version": "foi-o-nz.release-checklist.v0.1.0",
+  "validation_commands": [
+    {
+      "command": "uv run ruff check src tests scripts",
+      "description": "Required repo-local release validation command.",
+      "required": true
+    },
+    {
+      "command": "uv run ruff format --check src tests scripts",
+      "description": "Required repo-local release validation command.",
+      "required": true
+    },
+    {
+      "command": "uv run pytest -q",
+      "description": "Required repo-local release validation command.",
+      "required": true
+    },
+    {
+      "command": "uv run python scripts/validate_examples.py",
+      "description": "Required repo-local release validation command.",
+      "required": true
+    }
+  ]
+}

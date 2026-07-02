@@ -36,6 +36,10 @@ def _example_pairs() -> list[tuple[Path, Path]]:
         for path in sorted(Path("examples").glob("cas-manifest*.json"))
     )
     pairs.extend(
+        (path, Path("schemas/json/release-checklist.schema.json"))
+        for path in sorted(Path("examples").glob("release-checklist*.json"))
+    )
+    pairs.extend(
         (path, Path("schemas/json/lineage-graph.schema.json"))
         for path in sorted(Path("examples").glob("lineage-graph*.json"))
     )

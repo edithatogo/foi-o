@@ -21,6 +21,7 @@ PAIR_GLOBS = [
     ("psc-report*.json", "psc-report.schema.json"),
     ("risk-assessment*.json", "risk-assessment.schema.json"),
     ("dataset-metadata*.json", "dataset-metadata.schema.json"),
+    ("release-checklist*.json", "release-checklist.schema.json"),
     ("retrieval-result*.json", "retrieval-result.schema.json"),
     ("redaction-candidate*.json", "redaction-candidate.schema.json"),
     ("diff-report*.json", "diff-report.schema.json"),

@@ -13,6 +13,7 @@ This note records the repo-local evidence surface for the current release-readin
 | Agent boundary and quality gates | `src/foi_o_nz/agent_policy.py`, `src/foi_o_nz/quality.py`, related tests | `uv run pytest -q tests/test_agent_policy.py tests/test_quality.py` |
 | RDF/SHACL degraded-mode path | `src/foi_o_nz/rdf_export.py`, `src/foi_o_nz/shacl_validation.py`, related tests | `uv run pytest -q tests/test_rdf_export.py tests/test_schema_codegen_shacl.py` |
 | Reproducibility and manifests | `src/foi_o_nz/reproducibility.py`, `examples/reproducibility-manifest.examples.json` | `uv run pytest -q tests/test_retrieval_redaction_diff_pack_repro.py` |
+| Publication release checklist | `src/foi_o_nz/release_package.py`, `examples/release-checklist.v0.9.0.json`, `docs/23-release-package.md` | `uv run pytest -q tests/test_release_package.py` |
 
 ## Repeatable release validation sequence
 
@@ -26,6 +27,12 @@ uv run python scripts/validate_examples.py
 ```
 
 If any command fails, the release is not repo-locally ready. If any optional live service or native toolchain is unavailable, record it under external gates rather than treating it as repo-local proof.
+
+For publication-package readiness, also run:
+
+```bash
+uv run pytest -q tests/test_release_package.py
+```
 
 ## External gates
 

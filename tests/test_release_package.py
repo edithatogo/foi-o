@@ -9,7 +9,6 @@ from foi_o_nz.release_package import (
 )
 from foi_o_nz.validation import validate_json_schema
 
-
 CHECKLIST_EXAMPLE = Path("examples/release-checklist.v0.9.0.json")
 CHECKLIST_SCHEMA = Path("schemas/json/release-checklist.schema.json")
 
@@ -23,9 +22,9 @@ def test_release_checklist_example_references_existing_evidence_and_external_gat
     assert CHECKLIST_EXAMPLE.exists()
 
     schema_errors = validate_json_schema(CHECKLIST_EXAMPLE, CHECKLIST_SCHEMA).errors
-    assert schema_errors == []
+    assert not schema_errors
 
-    validation = validate_release_checklist_document(CHECKLIST_EXAMPLE, base_dir=Path("."))
+    validation = validate_release_checklist_document(CHECKLIST_EXAMPLE, base_dir=Path())
     assert validation["ok"] is True, validation["errors"]
 
     checklist = _load_checklist()
@@ -59,7 +58,7 @@ def test_release_checklist_validation_reports_missing_evidence(tmp_path: Path) -
     broken = tmp_path / "release-checklist.missing.json"
     broken.write_text(json.dumps(checklist), encoding="utf-8")
 
-    validation = validate_release_checklist_document(broken, base_dir=Path("."))
+    validation = validate_release_checklist_document(broken, base_dir=Path())
 
     assert validation["ok"] is False
     assert any("docs/does-not-exist.md" in error for error in validation["errors"])

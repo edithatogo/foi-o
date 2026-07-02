@@ -13,6 +13,7 @@ from foi_o_nz.io import write_json
 from foi_o_nz.ledger import LedgerEntry
 from foi_o_nz.lineage import LineageGraph
 from foi_o_nz.models import AgentAction, CoreEvent, ReportingMetric, RequestProfile
+from foi_o_nz.release_package import ReleaseChecklist
 from foi_o_nz.replay import GuardrailReplayReport
 from foi_o_nz.risk import RiskAssessment
 from foi_o_nz.traces import TraceSpan
@@ -24,6 +25,7 @@ SCHEMA_MODELS = {
     "request-profile.schema.json": RequestProfile,
     "chunk-record.schema.json": ChunkRecord,
     "dataset-metadata.schema.json": DatasetMetadata,
+    "release-checklist.schema.json": ReleaseChecklist,
     "ledger-entry.schema.json": LedgerEntry,
     "risk-assessment.schema.json": RiskAssessment,
     "cas-manifest.schema.json": CasManifest,
