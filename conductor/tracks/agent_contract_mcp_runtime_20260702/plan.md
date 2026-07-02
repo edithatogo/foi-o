@@ -13,7 +13,7 @@
     - [x] Ensure unsafe examples fail tests and safe examples remain stable.
 - [x] Task: Conductor - User Manual Verification 'Descriptor Contract' (Protocol in workflow.md) (`e9942e7`)
 
-## Phase 2: Runtime Prototype
+## Phase 2: Runtime Prototype [checkpoint: be3aae6]
 
 - [x] Task: Write MCP runtime tests (`d4878f0`)
     - [x] Cover fixture-backed state mapping, validation, quality gate, and context/resource behaviors.
@@ -21,7 +21,7 @@
 - [x] Task: Implement MCP runtime hardening (`ab36781`)
     - [x] Refine server startup, tool registration, and error handling for read-only fixture mode.
     - [x] Keep all write, certify, release, refusal, redaction, and charge operations absent.
-- [~] Task: Conductor - User Manual Verification 'Runtime Prototype' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Runtime Prototype' (Protocol in workflow.md) (`be3aae6`)
 
 ## Phase 3: Agent Guardrail Replay
 
