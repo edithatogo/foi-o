@@ -23,7 +23,7 @@
     - [x] Keep unsafe certification claims invalid or review-required.
 - [x] Task: Conductor - User Manual Verification 'SHACL Safety Profiles' (Protocol in workflow.md) (`100b968`)
 
-## Phase 3: Semantic Export Consistency
+## Phase 3: Semantic Export Consistency [checkpoint: bf7b1ac]
 
 - [x] Task: Write semantic export consistency tests (`ba6a63f`)
     - [x] Verify RDF export, JSON-LD context, dataset metadata, and graph export use consistent identifiers.
@@ -31,7 +31,7 @@
 - [x] Task: Implement semantic export updates (`8bf62a4`)
     - [x] Align exporters and examples with matured ontology terms.
     - [x] Update docs with validation commands and expected outputs.
-- [~] Task: Conductor - User Manual Verification 'Semantic Export Consistency' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Semantic Export Consistency' (Protocol in workflow.md) (`bf7b1ac`)
 
 ## Phase 4: Ontology Track Closeout
 
