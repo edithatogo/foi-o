@@ -409,8 +409,13 @@ class ReportingMetric(BaseModel):
     metric_id: str
     name: str
     jurisdiction: Literal["NZ"] = "NZ"
-    source_profile: str
+    source_reporting_scheme: str
+    definition: str
     derivability: Literal[
         "public_fyi_derivable", "partially_derivable", "agency_internal_required", "not_derivable"
     ]
+    event_dependencies: list[str] = Field(default_factory=list)
+    public_data_limitations: list[str] = Field(default_factory=list)
+    exclusions: list[str] = Field(default_factory=list)
+    official_reporting_caveat: str
     notes: str | None = None

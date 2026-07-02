@@ -10,6 +10,7 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - RDF/Turtle export, JSON-LD context export, SHACL parse/degraded-mode wrapper, ontology seed, SKOS vocabularies, and SHACL shapes.
 - Deterministic embeddings, chunking, lexical/vector-style retrieval, redaction candidates, risk scans, stream diffs, agent packs, ledgers, reproducibility manifests, CAS, lineage, traces, review queues, process advice, annotation tasks, graph export, table contracts, OCI layout summaries, attestations, and MCP bundle scaffolds.
 - Python fallback kernel contract, native-kernel discovery/status reports, conformance reports, static Mojo source audit, kernel manifests, kernel fixtures, and readiness reports.
+- PSC reporting metric profile with schema-validated derivability classifications, public-data limitations, exclusions, and explicit non-official-reporting caveats.
 - Test fixtures and examples for the implemented dependency-light surfaces.
 
 ## Experimental or optional
@@ -23,7 +24,7 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - Live or fixture-backed corpus-profile workflow with a 100-request goldset.
 - Hardened event extraction timelines and evaluation fixtures.
 - Official NZ holiday/closure calendar support and source-versioned legal/guidance references.
-- PSC reporting profile with derivable/non-derivable metric classification and sample aggregate reports.
+- PSC sample aggregate reports and publication-safe reporting documentation.
 - Hardened read-only MCP runtime contract and unsafe-tool descriptor tests.
 - Bounded MAX/local extraction and LanceDB semantic retrieval with deterministic fallback.
 - Ontology/SHACL maturation and standards alignment.

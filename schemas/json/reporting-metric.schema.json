@@ -1,28 +1,41 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://w3id.org/foio-nz/schema/reporting-metric/0.1.0",
+  "$id": "https://w3id.org/foio-nz/schema/reporting-metric/0.2.0",
   "title": "FOI-O NZ Reporting Metric Mapping",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "metric_id",
     "name",
+    "jurisdiction",
     "source_reporting_scheme",
+    "definition",
     "derivability",
-    "event_dependencies"
+    "event_dependencies",
+    "public_data_limitations",
+    "exclusions",
+    "official_reporting_caveat"
   ],
   "properties": {
     "metric_id": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "name": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
+    },
+    "jurisdiction": {
+      "type": "string",
+      "const": "NZ"
     },
     "source_reporting_scheme": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "definition": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "derivability": {
       "type": "string",
@@ -36,8 +49,29 @@
     "event_dependencies": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
+    },
+    "public_data_limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "exclusions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "official_reporting_caveat": {
+      "type": "string",
+      "minLength": 1
     },
     "notes": {
       "type": "string"

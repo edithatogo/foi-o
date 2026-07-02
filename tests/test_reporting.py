@@ -35,9 +35,7 @@ def test_reporting_profile_covers_public_partial_internal_and_not_derivable() ->
         "agency_internal_required",
         "not_derivable",
     } <= derivability
-    non_derivable = [
-        metric for metric in metrics if metric["derivability"] == "not_derivable"
-    ]
+    non_derivable = [metric for metric in metrics if metric["derivability"] == "not_derivable"]
     assert non_derivable
     assert all(metric["event_dependencies"] == [] for metric in non_derivable)
     assert all(metric["public_data_limitations"] for metric in non_derivable)

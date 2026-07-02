@@ -1,27 +1,131 @@
-schema_version: foi-o-nz.psc-oia-statistics-profile.v0.1.0
+schema_version: foi-o-nz.psc-oia-statistics-profile.v0.2.0
 source: New Zealand Public Service Commission OIA statistics
+source_url: https://www.publicservice.govt.nz/
+official_reporting_caveat: &official_caveat
+  FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.
 metrics:
-  completed_requests:
-    candidate_events: [DecisionCommunicated, ReleaseMade, RefusalCommunicated, Closed]
+  fyi.public_platform_requests:
+    name: Public FYI request records observed
+    source_reporting_scheme: FOI-O NZ public FYI indicator
+    definition: Count of public request records observed in the committed FYI-derived corpus.
+    derivability: public_fyi_derivable
+    event_dependencies: [RequestObserved]
+    public_data_limitations:
+      - Counts only records present in the public FYI-derived corpus.
+      - Does not represent whole-agency OIA workload.
+    exclusions:
+      - Private or non-FYI requests.
+      - Agency-internal case-management records not present in public source data.
+    official_reporting_caveat: *official_caveat
+    notes: Useful denominator for public-corpus quality reports, not a PSC statutory return.
+  psc.completed_requests:
+    name: Completed OIA requests
+    source_reporting_scheme: PSC OIA statistics
+    definition: Requests with a completed outcome during a reporting period.
     derivability: partially_derivable
-    notes: Public FYI data can identify many completed public-platform requests, but not all agency OIA requests.
-  timeliness:
-    candidate_events: [DeadlineCalculated, DecisionCommunicated, ExtensionNotified]
+    event_dependencies: [DecisionCommunicated, ReleaseMade, RefusalCommunicated, Closed]
+    public_data_limitations:
+      - Public FYI records can identify many public-platform completions but not all agency OIA requests.
+      - Some closures, withdrawals, or administrative completions may not be visible publicly.
+    exclusions:
+      - Non-public OIA requests.
+      - Agency completions not represented by observable correspondence.
+    official_reporting_caveat: *official_caveat
+  psc.timeliness:
+    name: Responses within legislative timeframe
+    source_reporting_scheme: PSC OIA statistics
+    definition: Completed requests assessed against the applicable legislative due date.
     derivability: partially_derivable
-    notes: Requires reliable received date, decision date, extensions, and working-day calendar.
-  transferred_in_full:
-    candidate_events: [TransferNotified]
+    event_dependencies: [DeadlineCalculated, DecisionCommunicated, ExtensionNotified]
+    public_data_limitations:
+      - Requires reliable received date, decision date, extensions, and working-day calendar.
+      - Public dates may differ from agency receipt and decision timestamps.
+    exclusions:
+      - Informal pauses or agency-internal validity decisions not observable in public records.
+    official_reporting_caveat: *official_caveat
+  psc.extensions:
+    name: Extensions notified
+    source_reporting_scheme: PSC OIA statistics
+    definition: Requests where an agency notified an extension to the statutory timeframe.
     derivability: partially_derivable
-    notes: Needs correspondence evidence and distinction between full and partial transfer.
-  refused_in_full:
-    candidate_events: [RefusalCommunicated]
+    event_dependencies: [ExtensionNotified]
+    public_data_limitations:
+      - Extension notices may be extractable from correspondence.
+      - Absence of public extension text is not evidence that no extension occurred.
+    exclusions:
+      - Extensions notified outside the public correspondence thread.
+    official_reporting_caveat: *official_caveat
+  psc.transfers:
+    name: Transfers
+    source_reporting_scheme: PSC OIA statistics
+    definition: Requests transferred in whole or in part to another agency.
     derivability: partially_derivable
-    notes: Must distinguish full refusal from partial refusal, no-information-held, withdrawal, and release by publication.
-  ombudsman_complaints:
-    candidate_events: [ComplaintObserved]
+    event_dependencies: [TransferNotified]
+    public_data_limitations:
+      - Needs correspondence evidence and a distinction between full and partial transfer.
+      - Agency-internal transfer records may not appear in public correspondence.
+    exclusions:
+      - Internal routing that does not produce public transfer correspondence.
+    official_reporting_caveat: *official_caveat
+  psc.refusals:
+    name: Refusals
+    source_reporting_scheme: PSC OIA statistics
+    definition: Requests refused in whole or in part with a stated basis.
+    derivability: partially_derivable
+    event_dependencies: [RefusalCommunicated]
+    public_data_limitations:
+      - Needs decision-letter evidence and statutory-basis extraction.
+      - Public FYI state labels alone are insufficient to classify refusal categories.
+    exclusions:
+      - Partial releases where refusal grounds are not machine-observable.
+      - Informal withdrawals or no-information-held outcomes unless explicitly extracted.
+    official_reporting_caveat: *official_caveat
+  psc.published_responses:
+    name: Published responses
+    source_reporting_scheme: PSC OIA statistics
+    definition: Responses published through an agency disclosure log or other public channel.
+    derivability: partially_derivable
+    event_dependencies: [PublicationObserved, ReleaseMade]
+    public_data_limitations:
+      - FYI responses are already public, but agency disclosure-log publication is a separate event.
+      - Public FYI source data cannot prove agency publication policy compliance.
+    exclusions:
+      - Agency disclosure-log records not linked to the FYI request corpus.
+    official_reporting_caveat: *official_caveat
+  psc.ombudsman_complaints:
+    name: Ombudsman complaints
+    source_reporting_scheme: PSC/Ombudsman complaints information
+    definition: Requests associated with Ombudsman complaint handling or outcomes.
     derivability: agency_internal_required
-    notes: Ombudsman reporting is separate; FYI records may not show complaint status.
-  published_responses:
-    candidate_events: [PublicationObserved, ReleaseMade]
-    derivability: partially_derivable
-    notes: FYI responses are already public; agency disclosure-log publication is a separate event.
+    event_dependencies: [ComplaintObserved]
+    public_data_limitations:
+      - FYI may show requester comments about complaints.
+      - Official complaint status comes from Ombudsman or agency reporting.
+    exclusions:
+      - Complaints not publicly mentioned in the FYI thread.
+      - Ombudsman outcomes unavailable in the public corpus.
+    official_reporting_caveat: *official_caveat
+  psc.requester_category_breakdown:
+    name: Requester category breakdown
+    source_reporting_scheme: PSC OIA statistics
+    definition: Breakdown of requests by requester category or other demographic/organisational classification.
+    derivability: not_derivable
+    event_dependencies: []
+    public_data_limitations:
+      - Public FYI data does not reliably expose official requester category fields.
+      - Inferring requester category from names or text would be unsafe and outside scope.
+    exclusions:
+      - Any inferred demographic or organisational classification from public names or correspondence.
+    official_reporting_caveat: *official_caveat
+  psc.processing_costs:
+    name: Processing costs and staff time
+    source_reporting_scheme: PSC OIA statistics
+    definition: Agency resource use, staff time, or internal processing-cost measures for OIA handling.
+    derivability: not_derivable
+    event_dependencies: []
+    public_data_limitations:
+      - Public FYI correspondence does not expose agency staff time or internal cost accounting.
+      - Estimating cost from response length or elapsed time would be speculative.
+    exclusions:
+      - Any modelled cost, staff-time estimate, or productivity inference from public text alone.
+    official_reporting_caveat: *official_caveat

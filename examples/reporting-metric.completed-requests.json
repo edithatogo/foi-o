@@ -1,0 +1,23 @@
+{
+  "metric_id": "psc.completed_requests",
+  "name": "Completed OIA requests",
+  "jurisdiction": "NZ",
+  "source_reporting_scheme": "PSC OIA statistics",
+  "definition": "Requests with a completed outcome during a reporting period.",
+  "derivability": "partially_derivable",
+  "event_dependencies": [
+    "DecisionCommunicated",
+    "ReleaseMade",
+    "RefusalCommunicated",
+    "Closed"
+  ],
+  "public_data_limitations": [
+    "Public FYI records can identify many public-platform completions but not all agency OIA requests.",
+    "Some closures, withdrawals, or administrative completions may not be visible publicly."
+  ],
+  "exclusions": [
+    "Non-public OIA requests.",
+    "Agency completions not represented by observable correspondence."
+  ],
+  "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only."
+}
