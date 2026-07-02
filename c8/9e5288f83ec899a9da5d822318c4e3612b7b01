@@ -1,0 +1,8 @@
+Track: event_extraction_timeline_20260702
+Phase: Evaluation Fixtures
+Checkpoint: c89e528
+Review: conductor-review command not installed on PATH; manual review performed using conductor-review skill protocol. No high-confidence fixes required.
+Automated verification: git diff --name-only c51a82c HEAD; uv run pytest -q tests/test_evaluation.py tests/test_event_extraction_timeline.py tests/test_validation.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo
+Manual verification steps: Run uv run foi-o-nz evaluate-events --predicted <events.jsonl> --gold <events.gold.jsonl> --output <event-evaluation.json>, confirm the output has schema_version foi-o-nz.event-evaluation.v0.1.0, deterministic counts/precision/recall/F1, and the limitation stating metrics do not certify legal outcomes.
+User confirmation: autonomous comprehensive mode; confirmation treated as repo-local validation plus manual review evidence.
+Risks: Final track-scope verification and archive still pending.
