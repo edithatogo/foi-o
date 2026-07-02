@@ -1,0 +1,20 @@
+Review fix: Align roadmap status after Track 7
+
+Files changed:
+- README.md
+- docs/11-implementation-status.md
+- docs/19-release-readiness-evidence.md
+- conductor/tracks/max_lancedb_inference_20260702/plan.md
+
+Summary:
+- Manual conductor-review fallback found stale current-status docs that still described Track 7 surfaces as planned.
+- Updated README commands/current surface table and implementation-status/release-readiness docs.
+
+Verification:
+- rg stale-status checks
+- uv run pytest -q tests/test_bounded_extraction.py tests/test_lancedb_retrieval.py tests/test_inference_providers.py
+- uv run ruff check src tests scripts
+- uv run python scripts/validate_examples.py
+
+Risks:
+- Docs intentionally keep live MAX/model execution and hosted vector services external-gated.
