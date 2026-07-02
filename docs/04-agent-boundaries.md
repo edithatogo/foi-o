@@ -46,7 +46,28 @@ Every agent action should specify:
 - whether human certification is required;
 - whether the output has legal effect;
 - prohibited follow-on actions;
+- requested follow-on actions, when an agent proposes one;
 - audit trace.
+
+## Guardrail replay checks
+
+Guardrail replay should be run before using agent outputs in downstream
+automation:
+
+```bash
+uv run foi-o-nz replay-guardrails \
+  --actions-jsonl data/processed/agent-actions.jsonl \
+  --events-jsonl data/processed/events.jsonl \
+  --output data/processed/guardrail-replay.json
+```
+
+The replay report blocks any `requested_follow_on_actions` that match the
+action policy's `prohibited_follow_on_actions`. Preparatory actions that pass
+policy checks still emit provenance-preserving informational findings when
+`audit_trace` is present, and warnings when provenance is missing. A passing
+replay report is guardrail evidence only; it does not certify legal correctness,
+release/refusal outcomes, redactions, charges, transfers, extensions, or
+complaint/review outcomes.
 
 ## Tooling implication
 

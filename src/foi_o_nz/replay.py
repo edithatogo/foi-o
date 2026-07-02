@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
+from pydantic_core import ValidationError
 
 from foi_o_nz.agent_policy import evaluate_agent_action
 from foi_o_nz.constants import GUARDRAIL_REPLAY_SCHEMA_VERSION, HUMAN_CERTIFICATION_EVENT_TYPES
@@ -106,7 +107,18 @@ def replay_guardrails(
     if actions_jsonl is not None:
         for action in iter_jsonl(actions_jsonl):
             action_count += 1
-            result = evaluate_agent_action(action)
+            try:
+                result = evaluate_agent_action(action)
+            except (ValueError, ValidationError) as exc:
+                findings.append(
+                    ReplayFinding(
+                        severity="error",
+                        code="invalid_agent_action",
+                        source_id=str(action.get("action_id") or f"action-{action_count}"),
+                        message=str(exc),
+                    )
+                )
+                continue
             for finding in result.get("findings", []):
                 if not isinstance(finding, dict):
                     continue
@@ -129,6 +141,31 @@ def replay_guardrails(
                         message="Action policy requires human certification/review; retain explicit review workflow metadata.",
                     )
                 )
+            if result.get("legal_effect") == "preparatory" and result.get("ok"):
+                audit_trace = [
+                    str(item) for item in action.get("audit_trace", []) if isinstance(item, str)
+                ]
+                if audit_trace:
+                    findings.append(
+                        ReplayFinding(
+                            severity="info",
+                            code="preparatory_action_context_retained",
+                            source_id=str(result.get("action_id")),
+                            message=(
+                                "Safe preparatory action retained provenance for human review: "
+                                + ", ".join(audit_trace)
+                            ),
+                        )
+                    )
+                else:
+                    findings.append(
+                        ReplayFinding(
+                            severity="warning",
+                            code="preparatory_action_missing_audit_trace",
+                            source_id=str(result.get("action_id")),
+                            message="Preparatory action should retain audit_trace provenance.",
+                        )
+                    )
     ok = not any(finding.severity == "error" for finding in findings)
     return GuardrailReplayReport(
         generated_at=datetime.now(UTC),

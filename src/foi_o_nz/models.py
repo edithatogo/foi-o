@@ -382,8 +382,11 @@ class AgentAction(BaseModel):
     outputs: list[str] = Field(default_factory=list)
     legal_effect: Literal["none", "preparatory", "requires_certification", "prohibited"]
     requires_human_certification: bool
+    human_review_required: bool = True
     safety_class: Literal["low", "medium", "high", "prohibited"]
     prohibited_follow_on_actions: list[str] = Field(default_factory=list)
+    requested_follow_on_actions: list[str] = Field(default_factory=list)
+    tool_descriptor: dict[str, Any] | None = None
     audit_trace: list[str] = Field(default_factory=list)
 
     @model_validator(mode="after")

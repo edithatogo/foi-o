@@ -22,8 +22,7 @@ def test_evaluate_agent_action_blocks_requested_prohibited_follow_on_action() ->
 
     assert not result["ok"]
     assert any(
-        finding["code"] == "prohibited_follow_on_action_requested"
-        for finding in result["findings"]
+        finding["code"] == "prohibited_follow_on_action_requested" for finding in result["findings"]
     )
 
 
@@ -37,9 +36,7 @@ def test_replay_blocks_unsafe_requested_follow_on_action(tmp_path: Path) -> None
 
     assert not report.ok
     finding = next(
-        item
-        for item in report.findings
-        if item.code == "prohibited_follow_on_action_requested"
+        item for item in report.findings if item.code == "prohibited_follow_on_action_requested"
     )
     assert finding.severity == "error"
     assert finding.source_id == action["action_id"]

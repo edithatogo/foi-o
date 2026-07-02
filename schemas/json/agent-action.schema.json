@@ -54,6 +54,11 @@
       "title": "Audit Trace",
       "type": "array"
     },
+    "human_review_required": {
+      "default": true,
+      "title": "Human Review Required",
+      "type": "boolean"
+    },
     "inputs": {
       "items": {
         "type": "string"
@@ -90,6 +95,13 @@
       "title": "Requested At",
       "type": "string"
     },
+    "requested_follow_on_actions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Requested Follow On Actions",
+      "type": "array"
+    },
     "requires_human_certification": {
       "title": "Requires Human Certification",
       "type": "boolean"
@@ -109,6 +121,19 @@
       "default": "foi-o-nz.agent-action.v0.1.0",
       "title": "Schema Version",
       "type": "string"
+    },
+    "tool_descriptor": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Descriptor"
     }
   },
   "required": [

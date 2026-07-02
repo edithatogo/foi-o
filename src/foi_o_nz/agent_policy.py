@@ -6,6 +6,7 @@ from datetime import UTC, datetime
 from typing import Any, Literal
 from uuid import uuid4
 
+from foi_o_nz.agent_contract import find_unsafe_descriptor_text
 from foi_o_nz.models import AgentAction
 
 ActionType = Literal[
@@ -280,6 +281,29 @@ def evaluate_agent_action(action: AgentAction | dict[str, Any]) -> dict[str, Any
                 "message": ", ".join(missing_prohibitions),
             }
         )
+    blocked_follow_on_actions = sorted(
+        set(policy["prohibited_follow_on_actions"]) & set(parsed.requested_follow_on_actions)
+    )
+    if blocked_follow_on_actions:
+        findings.append(
+            {
+                "severity": "error",
+                "code": "prohibited_follow_on_action_requested",
+                "message": (
+                    "Requested follow-on actions require human review and cannot be "
+                    f"performed by this agent action: {', '.join(blocked_follow_on_actions)}"
+                ),
+            }
+        )
+    if parsed.tool_descriptor:
+        for descriptor_finding in find_unsafe_descriptor_text(parsed.tool_descriptor):
+            findings.append(
+                {
+                    "severity": "error",
+                    "code": f"unsafe_tool_descriptor_{descriptor_finding['code']}",
+                    "message": descriptor_finding["message"],
+                }
+            )
     return {
         "ok": not any(item["severity"] == "error" for item in findings),
         "action_id": parsed.action_id,
@@ -287,5 +311,9 @@ def evaluate_agent_action(action: AgentAction | dict[str, Any]) -> dict[str, Any
         "legal_effect": parsed.legal_effect,
         "safety_class": parsed.safety_class,
         "requires_human_certification": parsed.requires_human_certification,
+        "human_review_required": parsed.human_review_required,
+        "audit_trace": list(parsed.audit_trace),
+        "requested_follow_on_actions": list(parsed.requested_follow_on_actions),
+        "blocked_follow_on_actions": blocked_follow_on_actions,
         "findings": findings,
     }
