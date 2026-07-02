@@ -43,4 +43,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`1fda6ff`)
     - [x] Run `conductor-review` for the track scope.
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [ ] Task: Conductor - User Manual Verification 'Event Track Closeout' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Event Track Closeout' (Protocol in workflow.md)
