@@ -1,0 +1,31 @@
+{
+  "schema_version": "foi-o-nz.reporting-checklist-source.v0.1.0",
+  "checklist_id": "miro-ontology-reporting",
+  "title": "Minimum Information for Reporting an Ontology (MIRO)",
+  "source_url": "https://github.com/owlcs/miro",
+  "retrieved_at": "2026-07-02T00:00:00Z",
+  "publisher": "MIRO maintainers / OWL community",
+  "applicability": "required",
+  "items": [
+    {
+      "item_id": "miro-topic-scope",
+      "text": "Describe the ontology topic, scope, intended audience, and competency questions or equivalent use cases.",
+      "applicability": "required"
+    },
+    {
+      "item_id": "miro-development-method",
+      "text": "Describe the ontology development process, source material, reuse strategy, and maintenance approach.",
+      "applicability": "required"
+    },
+    {
+      "item_id": "miro-availability",
+      "text": "Describe ontology availability, license, identifiers, formats, and versioning.",
+      "applicability": "required"
+    },
+    {
+      "item_id": "miro-evaluation",
+      "text": "Describe ontology evaluation, quality checks, examples, and known limitations.",
+      "applicability": "required"
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "schema_version": "foi-o-nz.publication-panel-review.v0.1.0",
+  "review_id": "publication-panel-review.methods-paper.v0.9.0",
+  "artifact_id": "methods-paper-v0.9.0",
+  "artifact_path": "docs/23-methods-paper.md",
+  "artifact_type": "manuscript",
+  "threshold": 95.1,
+  "overall_passed": false,
+  "scores": [
+    {
+      "agent_id": "editor",
+      "agent_role": "Editor",
+      "score": 88,
+      "passed": false,
+      "findings": [
+        "Concise and coherent, but still a methods note rather than a journal-ready article."
+      ],
+      "required_fixes": [
+        "Expand into selected journal structure after protocol and results tracks complete."
+      ]
+    },
+    {
+      "agent_id": "peer_reviewer",
+      "agent_role": "Peer reviewer",
+      "score": 86,
+      "passed": false,
+      "findings": [
+        "The draft identifies validation commands but does not yet provide full results, comparisons, or threats to validity."
+      ],
+      "required_fixes": [
+        "Add results/discussion evidence tables and explicit evaluation limits."
+      ]
+    },
+    {
+      "agent_id": "copy_editor",
+      "agent_role": "Copy editor",
+      "score": 92,
+      "passed": false,
+      "findings": [
+        "The prose is clear, but several sections need fuller transitions and manuscript-ready captions."
+      ],
+      "required_fixes": [
+        "Add final article-level transitions, figure callouts, and supplement references."
+      ]
+    },
+    {
+      "agent_id": "publisher",
+      "agent_role": "Publisher/production editor",
+      "score": 78,
+      "passed": false,
+      "findings": [
+        "Submission declarations, target journal requirements, cover-letter inputs, and supplement assets are missing."
+      ],
+      "required_fixes": [
+        "Complete journal requirements and submission package track before publication readiness."
+      ]
+    },
+    {
+      "agent_id": "ontology_expert",
+      "agent_role": "Ontology/semantic-web expert",
+      "score": 84,
+      "passed": false,
+      "findings": [
+        "Semantic alignment is cited, but MIRO-style ontology reporting details are not yet itemized."
+      ],
+      "required_fixes": [
+        "Add ontology development protocol, terminology crosswalk, and ontology inventory tables."
+      ]
+    },
+    {
+      "agent_id": "public_admin_expert",
+      "agent_role": "OIA/public-administration expert",
+      "score": 90,
+      "passed": false,
+      "findings": [
+        "The OIA human-certification boundary is strong, but public-administration contribution needs clearer positioning."
+      ],
+      "required_fixes": [
+        "Add discussion of administrative process value and public-data limits without official reporting claims."
+      ]
+    },
+    {
+      "agent_id": "legal_informatics_expert",
+      "agent_role": "Legal-informatics/source-provenance expert",
+      "score": 87,
+      "passed": false,
+      "findings": [
+        "The non-legal-advice boundary is explicit, but source-version provenance needs integration into the manuscript."
+      ],
+      "required_fixes": [
+        "Link legal-source jurisdiction/provider provenance and checklist adherence in the protocol and supplement."
+      ]
+    },
+    {
+      "agent_id": "economist",
+      "agent_role": "Economist",
+      "score": 82,
+      "passed": false,
+      "findings": [
+        "The draft avoids cost/time overclaims, but it does not yet explain what reporting metrics cannot support economic inference."
+      ],
+      "required_fixes": [
+        "Add limitations on non-derivable cost, staff-time, and performance metrics."
+      ]
+    },
+    {
+      "agent_id": "operations_researcher",
+      "agent_role": "Operations researcher/process-modelling expert",
+      "score": 86,
+      "passed": false,
+      "findings": [
+        "State/event modelling is described, but process-flow evidence and queue/review implications are not yet visualized."
+      ],
+      "required_fixes": [
+        "Add process-flow figures, event/state tables, and workflow limitations."
+      ]
+    },
+    {
+      "agent_id": "reproducibility_expert",
+      "agent_role": "Data-engineering/reproducibility expert",
+      "score": 91,
+      "passed": false,
+      "findings": [
+        "Validation commands are present and repo-local, but generated asset provenance is not yet available."
+      ],
+      "required_fixes": [
+        "Add generated-asset manifest, claims register, and checklist adherence fixtures."
+      ]
+    },
+    {
+      "agent_id": "visualization_expert",
+      "agent_role": "Visualization/network-analysis expert",
+      "score": 70,
+      "passed": false,
+      "findings": [
+        "No publication figures, plots, tables, or Cosmograph-compatible graph assets are included yet."
+      ],
+      "required_fixes": [
+        "Generate diagrams, plots, tables, graph data, captions, alt text, and static fallbacks."
+      ]
+    },
+    {
+      "agent_id": "red_team",
+      "agent_role": "Red-team agent",
+      "score": 89,
+      "passed": false,
+      "findings": [
+        "The legal and official-reporting caveats are strong, but submission readiness could still be overread without checklist gates."
+      ],
+      "required_fixes": [
+        "Keep submission, registry, live-source, and legal-certification gates explicit in all final outputs."
+      ]
+    },
+    {
+      "agent_id": "devils_advocate",
+      "agent_role": "Devil's-advocate agent",
+      "score": 83,
+      "passed": false,
+      "findings": [
+        "The current note has not yet confronted alternative explanations, weak assumptions, or whether the ontology is too repo-specific."
+      ],
+      "required_fixes": [
+        "Add discussion of generalisability, counterarguments, and limits of repo-local evidence."
+      ]
+    }
+  ],
+  "improvement_loop": {
+    "status": "fixes_required",
+    "next_actions": [
+      "Complete the publication quality panel contracts.",
+      "Develop the ontology methods protocol and evidence inventory.",
+      "Develop the results/discussion report and generated visual assets.",
+      "Draft the journal-targeted manuscript and supplement.",
+      "Rerun all panel scorecards until every required score is greater than 95/100."
+    ]
+  },
+  "reviewed_at": "2026-07-02T00:00:00Z"
+}

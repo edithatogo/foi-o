@@ -101,3 +101,15 @@ uv run foi-o-nz repository-release-metadata docs/23-release-package.md examples/
 The resulting package is ready for manual publication review when the repo-local
 checks pass and every external registry or live-source gate is either completed
 by an operator or explicitly recorded as still external.
+
+## Publication Quality Review
+
+Publication-facing outputs are reviewed through the panel defined in
+`docs/29-publication-quality-panel.md`. The current baseline panel review for
+this methods draft is `examples/publication-panel-review.methods-paper.json`,
+and the initial MIRO checklist adherence report is
+`examples/reporting-checklist-adherence.methods-paper-miro.json`.
+
+The baseline review does not mark this draft as journal-ready. It records the
+remaining work needed for the full protocol, results report, generated diagrams,
+plots, tables, Cosmograph-compatible graph assets, manuscript, and supplement.

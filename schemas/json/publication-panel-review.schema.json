@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/publication-panel-review.schema.json",
+  "title": "FOI-O NZ publication panel review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "review_id",
+    "artifact_id",
+    "artifact_path",
+    "artifact_type",
+    "threshold",
+    "overall_passed",
+    "scores",
+    "improvement_loop",
+    "reviewed_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.publication-panel-review.v0.1.0"
+    },
+    "review_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_type": {
+      "enum": [
+        "protocol",
+        "analysis_results",
+        "generated_artifact",
+        "report_discussion_conclusion",
+        "manuscript",
+        "supplement",
+        "release_package"
+      ]
+    },
+    "threshold": {
+      "type": "number",
+      "exclusiveMinimum": 95,
+      "maximum": 100
+    },
+    "overall_passed": {
+      "type": "boolean"
+    },
+    "scores": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agent_id",
+          "agent_role",
+          "score",
+          "passed",
+          "findings",
+          "required_fixes"
+        ],
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "agent_role": {
+            "type": "string",
+            "minLength": 1
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "findings": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required_fixes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "improvement_loop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "next_actions"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "passed",
+            "fixes_required",
+            "blocked_external_gate"
+          ]
+        },
+        "next_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

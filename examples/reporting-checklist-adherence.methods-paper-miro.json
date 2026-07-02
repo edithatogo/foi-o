@@ -1,0 +1,54 @@
+{
+  "schema_version": "foi-o-nz.reporting-checklist-adherence.v0.1.0",
+  "adherence_id": "methods-paper-miro-baseline",
+  "artifact_id": "methods-paper-v0.9.0",
+  "artifact_path": "docs/23-methods-paper.md",
+  "checklist_id": "miro-ontology-reporting",
+  "checked_at": "2026-07-02T00:00:00Z",
+  "items": [
+    {
+      "item_id": "miro-topic-scope",
+      "applicability": "required",
+      "status": "partial",
+      "evidence_paths": [
+        "docs/23-methods-paper.md",
+        "docs/00-repo-charter.md"
+      ],
+      "score_impact": -5,
+      "reviewer_notes": "Topic and audience are present, but competency questions or equivalent protocol-level use cases are not yet explicit."
+    },
+    {
+      "item_id": "miro-development-method",
+      "applicability": "required",
+      "status": "partial",
+      "evidence_paths": [
+        "docs/23-methods-paper.md",
+        "docs/22-semantic-alignment.md"
+      ],
+      "score_impact": -8,
+      "reviewer_notes": "The methods note summarizes architecture but does not yet provide the full ontology development protocol."
+    },
+    {
+      "item_id": "miro-availability",
+      "applicability": "required",
+      "status": "partial",
+      "evidence_paths": [
+        "docs/23-release-package.md",
+        "examples/repository-release-metadata.v0.9.0.json"
+      ],
+      "score_impact": -4,
+      "reviewer_notes": "Repository and release metadata exist, but final journal package availability statements are not complete."
+    },
+    {
+      "item_id": "miro-evaluation",
+      "applicability": "required",
+      "status": "partial",
+      "evidence_paths": [
+        "docs/19-release-readiness-evidence.md",
+        "examples/event-evaluation.summary.json"
+      ],
+      "score_impact": -6,
+      "reviewer_notes": "Validation commands and examples exist, but the full results/discussion report is not yet written."
+    }
+  ]
+}

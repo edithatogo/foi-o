@@ -1,0 +1,23 @@
+{
+  "schema_version": "foi-o-nz.publication-panel-scorecard.v0.1.0",
+  "artifact_id": "methods-paper-v0.9.0",
+  "artifact_type": "manuscript",
+  "artifact_path": "docs/23-methods-paper.md",
+  "agent_id": "editor",
+  "agent_role": "Editor",
+  "score": 88,
+  "threshold": 95.1,
+  "passed": false,
+  "findings": [
+    "The draft is concise and bounded, but it reads as a methods note rather than a complete article.",
+    "The manuscript needs stronger article framing, figures, tables, and a linked results/discussion package."
+  ],
+  "required_fixes": [
+    "Expand into the journal-targeted manuscript after protocol and results tracks complete.",
+    "Add figure, table, and supplement callouts tied to generated assets."
+  ],
+  "residual_risks": [
+    "Journal fit cannot be scored above threshold until a target journal is selected."
+  ],
+  "reviewed_at": "2026-07-02T00:00:00Z"
+}

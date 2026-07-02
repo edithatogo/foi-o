@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/reporting-checklist-adherence.schema.json",
+  "title": "FOI-O NZ reporting checklist adherence report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "adherence_id",
+    "artifact_id",
+    "artifact_path",
+    "checklist_id",
+    "checked_at",
+    "items"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.reporting-checklist-adherence.v0.1.0"
+    },
+    "adherence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "checklist_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item_id",
+          "applicability",
+          "status",
+          "evidence_paths",
+          "score_impact",
+          "reviewer_notes"
+        ],
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "applicability": {
+            "enum": [
+              "required",
+              "optional",
+              "not_applicable",
+              "external_gate"
+            ]
+          },
+          "status": {
+            "enum": [
+              "met",
+              "partial",
+              "not_met",
+              "not_applicable",
+              "external_gate"
+            ]
+          },
+          "evidence_paths": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "score_impact": {
+            "type": "integer",
+            "minimum": -100,
+            "maximum": 0
+          },
+          "reviewer_notes": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

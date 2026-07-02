@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/publication-panel-scorecard.schema.json",
+  "title": "FOI-O NZ publication panel scorecard",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "artifact_type",
+    "artifact_path",
+    "agent_id",
+    "agent_role",
+    "score",
+    "threshold",
+    "passed",
+    "findings",
+    "required_fixes",
+    "residual_risks",
+    "reviewed_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.publication-panel-scorecard.v0.1.0"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_type": {
+      "enum": [
+        "protocol",
+        "analysis_results",
+        "generated_artifact",
+        "report_discussion_conclusion",
+        "manuscript",
+        "supplement",
+        "release_package"
+      ]
+    },
+    "artifact_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "threshold": {
+      "type": "number",
+      "exclusiveMinimum": 95,
+      "maximum": 100
+    },
+    "passed": {
+      "type": "boolean"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required_fixes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "residual_risks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
