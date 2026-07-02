@@ -8,7 +8,7 @@
 - [x] Task: Write RDF/SKOS parse and alignment tests (`c71cc97`)
     - [x] Validate ontology, vocab, and context parsing.
     - [x] Cover expected namespace bindings and core class/property presence.
-- [ ] Task: Implement ontology maturation baseline
+- [~] Task: Implement ontology maturation baseline
     - [ ] Add missing classes/properties and vocabulary entries.
     - [ ] Document alignment with PROV-O, DCAT, ODRL, SKOS, and legal-document standards.
 - [ ] Task: Conductor - User Manual Verification 'Ontology Gap Audit' (Protocol in workflow.md)

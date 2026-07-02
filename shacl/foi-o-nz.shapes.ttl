@@ -30,3 +30,30 @@ foio:DecisionLikeEventShape
     sh:minCount 1 ;
     sh:message "Final decision-like events require a human certification record." ;
   ] .
+
+foio:AgentActionShape
+  a sh:NodeShape ;
+  sh:targetClass foio:AgentAction ;
+  sh:property [
+    sh:path foio:machineCertificationAllowed ;
+    sh:hasValue false ;
+    sh:message "Agent actions must not allow machine certification." ;
+  ] .
+
+foio:ReviewTaskShape
+  a sh:NodeShape ;
+  sh:targetClass foio:ReviewTask ;
+  sh:property [
+    sh:path foio:humanReviewRequired ;
+    sh:hasValue true ;
+    sh:message "Review tasks must require human review." ;
+  ] .
+
+foio:DatasetPublicationShape
+  a sh:NodeShape ;
+  sh:targetClass foio:DatasetPublication ;
+  sh:property [
+    sh:path foio:publicationCaveat ;
+    sh:minCount 1 ;
+    sh:message "Dataset publications should carry caveats about source coverage and non-certification." ;
+  ] .

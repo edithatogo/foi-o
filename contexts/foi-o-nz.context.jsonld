@@ -6,6 +6,9 @@
       "@id": "foio:confidence",
       "@type": "xsd:decimal"
     },
+    "content_sha256": "foio:contentSha256",
+    "dataset_resources": "foio:hasDistribution",
+    "dcat": "http://www.w3.org/ns/dcat#",
     "event_id": "@id",
     "event_time": {
       "@id": "prov:generatedAtTime",
@@ -16,14 +19,30 @@
       "@type": "@id"
     },
     "evidence": "foio:hasEvidence",
-    "foio": "https://w3id.org/foi-o-nz/ontology#",
+    "foio": "https://w3id.org/foio-nz/ontology#",
+    "generated_output_included": {
+      "@id": "foio:generatedOutputIncluded",
+      "@type": "xsd:boolean"
+    },
+    "human_review_required": {
+      "@id": "foio:humanReviewRequired",
+      "@type": "xsd:boolean"
+    },
+    "legal_effect": "foio:legalEffect",
+    "legal_references": "foio:hasLegalReference",
     "lifecycle_state_after": "foio:lifecycleStateAfter",
+    "machine_certification_allowed": {
+      "@id": "foio:machineCertificationAllowed",
+      "@type": "xsd:boolean"
+    },
     "machine_generated": {
       "@id": "foio:machineGenerated",
       "@type": "xsd:boolean"
     },
+    "odrl": "http://www.w3.org/ns/odrl/2/",
     "payload": "foio:payload",
     "prov": "http://www.w3.org/ns/prov#",
+    "publication_caveats": "foio:publicationCaveat",
     "raw_state_field": "foio:rawStateField",
     "raw_state_value": "foio:rawStateValue",
     "request_ref": "foio:aboutRequest",
@@ -36,6 +55,11 @@
     "source_provenance": "prov:wasDerivedFrom",
     "source_record_id": "foio:sourceRecordId",
     "source_system": "foio:sourceSystem",
+    "source_url": {
+      "@id": "foio:sourceUrl",
+      "@type": "xsd:anyURI"
+    },
+    "source_version_id": "foio:sourceVersionId",
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   }
 }

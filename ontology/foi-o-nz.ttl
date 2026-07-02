@@ -1,6 +1,8 @@
 @prefix foio: <https://w3id.org/foio-nz/ontology#> .
 @prefix prov: <http://www.w3.org/ns/prov#> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix odrl: <http://www.w3.org/ns/odrl/2/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -59,6 +61,48 @@ foio:LegalReference a owl:Class ;
 foio:ReportingMetric a owl:Class ;
   rdfs:label "Reporting metric" .
 
+foio:ReviewTask a owl:Class ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:label "Review task" ;
+  rdfs:comment "A human-review task derived from candidate signals, risks, or certification-boundary requirements." .
+
+foio:RiskAssessment a owl:Class ;
+  rdfs:subClassOf prov:Entity ;
+  rdfs:label "Risk assessment" .
+
+foio:RedactionCandidate a owl:Class ;
+  rdfs:subClassOf prov:Entity ;
+  rdfs:label "Redaction candidate" ;
+  rdfs:comment "A candidate sensitive span or review signal, not a redaction decision." .
+
+foio:Chunk a owl:Class ;
+  rdfs:subClassOf prov:Entity ;
+  rdfs:label "Text chunk" .
+
+foio:DatasetPublication a owl:Class ;
+  rdfs:subClassOf dcat:Dataset ;
+  rdfs:label "Dataset publication" ;
+  rdfs:comment "A publication package or dataset metadata record for FOI-O NZ derived artefacts." .
+
+foio:DisclosureLog a owl:Class ;
+  rdfs:subClassOf dcat:Catalog ;
+  rdfs:label "Disclosure log" .
+
+foio:ProviderRun a owl:Class ;
+  rdfs:subClassOf prov:Activity ;
+  rdfs:label "Provider run" ;
+  rdfs:comment "A bounded model, embedding, or extraction provider run with provenance and safety metadata." .
+
+foio:LegalSourceVersion a owl:Class ;
+  rdfs:subClassOf prov:Entity ;
+  rdfs:label "Legal source version" ;
+  rdfs:comment "A versioned statutory, guidance, or policy source used for process rules or evidence." .
+
+foio:PermissionPolicy a owl:Class ;
+  rdfs:subClassOf odrl:Policy ;
+  rdfs:label "Permission policy" ;
+  rdfs:comment "A rights, reuse, access, prohibition, or duty policy associated with a publication artefact." .
+
 foio:normalisedState a owl:ObjectProperty ;
   rdfs:domain foio:AccessRequest ;
   rdfs:range skos:Concept ;
@@ -70,6 +114,18 @@ foio:sourceState a owl:DatatypeProperty ;
   rdfs:label "source state" ;
   rdfs:comment "The source state exactly as observed in FYI/Alaveteli or another source system." .
 
+foio:sourceSystem a owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:label "source system" .
+
+foio:sourceUrl a owl:DatatypeProperty ;
+  rdfs:range xsd:anyURI ;
+  rdfs:label "source URL" .
+
+foio:contentSha256 a owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:label "content SHA-256" .
+
 foio:assertionStatus a owl:ObjectProperty ;
   rdfs:domain foio:ProcessEvent ;
   rdfs:range skos:Concept ;
@@ -80,6 +136,23 @@ foio:requiresHumanCertification a owl:DatatypeProperty ;
   rdfs:range xsd:boolean ;
   rdfs:label "requires human certification" .
 
+foio:humanReviewRequired a owl:DatatypeProperty ;
+  rdfs:range xsd:boolean ;
+  rdfs:label "human review required" .
+
+foio:legalEffect a owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:label "legal effect" .
+
+foio:machineCertificationAllowed a owl:DatatypeProperty ;
+  rdfs:range xsd:boolean ;
+  rdfs:label "machine certification allowed" ;
+  rdfs:comment "Must remain false for bounded agent/model outputs." .
+
+foio:generatedOutputIncluded a owl:DatatypeProperty ;
+  rdfs:range xsd:boolean ;
+  rdfs:label "generated output included" .
+
 foio:hasHumanCertification a owl:ObjectProperty ;
   rdfs:domain foio:DecisionLikeEvent ;
   rdfs:range foio:HumanCertification ;
@@ -89,6 +162,29 @@ foio:hasEvidence a owl:ObjectProperty ;
   rdfs:domain foio:ProcessEvent ;
   rdfs:range foio:Evidence ;
   rdfs:label "has evidence" .
+
+foio:hasLegalReference a owl:ObjectProperty ;
+  rdfs:range foio:LegalReference ;
+  rdfs:label "has legal reference" .
+
+foio:hasDistribution a owl:ObjectProperty ;
+  rdfs:domain foio:DatasetPublication ;
+  rdfs:range dcat:Distribution ;
+  rdfs:label "has distribution" .
+
+foio:hasPolicy a owl:ObjectProperty ;
+  rdfs:range foio:PermissionPolicy ;
+  rdfs:label "has policy" .
+
+foio:publicationCaveat a owl:DatatypeProperty ;
+  rdfs:domain foio:DatasetPublication ;
+  rdfs:range xsd:string ;
+  rdfs:label "publication caveat" .
+
+foio:sourceVersionId a owl:DatatypeProperty ;
+  rdfs:domain foio:LegalSourceVersion ;
+  rdfs:range xsd:string ;
+  rdfs:label "source version identifier" .
 
 foio:machineGenerated a owl:DatatypeProperty ;
   rdfs:domain foio:ProcessEvent ;

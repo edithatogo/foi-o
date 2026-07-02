@@ -6,9 +6,13 @@ foio-event:scheme a skos:ConceptScheme ;
   dcterms:title "FOI-O NZ event type vocabulary" .
 
 foio-event:RequestObserved a skos:Concept ; skos:prefLabel "Request observed" ; skos:inScheme foio-event:scheme .
+foio-event:MessageObserved a skos:Concept ; skos:prefLabel "Message observed" ; skos:inScheme foio-event:scheme .
 foio-event:StateObserved a skos:Concept ; skos:prefLabel "State observed" ; skos:inScheme foio-event:scheme .
 foio-event:DeadlineCalculated a skos:Concept ; skos:prefLabel "Deadline calculated" ; skos:inScheme foio-event:scheme .
 foio-event:ExtensionNotified a skos:Concept ; skos:prefLabel "Extension notified" ; skos:inScheme foio-event:scheme .
+foio-event:TransferNotified a skos:Concept ; skos:prefLabel "Transfer notified" ; skos:inScheme foio-event:scheme .
+foio-event:ClarificationRequested a skos:Concept ; skos:prefLabel "Clarification requested" ; skos:inScheme foio-event:scheme .
+foio-event:ChargeNoticeSent a skos:Concept ; skos:prefLabel "Charge notice sent" ; skos:inScheme foio-event:scheme .
 foio-event:SearchPlanDrafted a skos:Concept ; skos:prefLabel "Search plan drafted" ; skos:inScheme foio-event:scheme .
 foio-event:LegalIssueFlagged a skos:Concept ; skos:prefLabel "Legal issue flagged" ; skos:inScheme foio-event:scheme .
 foio-event:HumanDecisionCertified a skos:Concept ; skos:prefLabel "Human decision certified" ; skos:inScheme foio-event:scheme .
