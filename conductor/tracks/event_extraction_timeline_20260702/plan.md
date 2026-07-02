@@ -15,7 +15,7 @@
     - [x] Preserve conservative matching and confidence/provenance semantics.
 - [x] Task: Conductor - User Manual Verification 'Extraction Baseline' (Protocol in workflow.md) (`c7059c3`)
 
-## Phase 2: Timeline Reconstruction
+## Phase 2: Timeline Reconstruction [checkpoint: c51a82c]
 
 - [x] Task: Write timeline ordering tests (`0b68211`)
     - [x] Test deterministic ordering by observed date, source order, and fallback provenance.
@@ -23,7 +23,7 @@
 - [x] Task: Implement timeline reconstruction improvements (`0b68211`)
     - [x] Add or refine timeline helpers and output examples.
     - [x] Ensure timelines retain event ids, request ids, source state, confidence, and evidence references.
-- [ ] Task: Conductor - User Manual Verification 'Timeline Reconstruction' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Timeline Reconstruction' (Protocol in workflow.md) (`c51a82c`)
 
 ## Phase 3: Evaluation Fixtures
 
