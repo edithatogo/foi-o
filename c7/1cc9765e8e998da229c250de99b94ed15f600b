@@ -1,0 +1,14 @@
+Task: Write RDF/SKOS parse and alignment tests
+
+Files changed:
+- tests/test_semantic_alignment.py
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Added semantic alignment tests for namespace consistency, required ontology terms, SKOS event coverage, JSON-LD context terms, and SHACL profile presence.
+
+Verification:
+- uv run pytest -q tests/test_semantic_alignment.py -> expected red state: 5 failures for current semantic gaps.
+
+Risks:
+- Implementation must update ontology/SHACL/SKOS/context surfaces to satisfy contracts.
