@@ -16,7 +16,7 @@
     - [x] Keep external dataset fetches optional and documented.
 - [x] Task: Conductor - User Manual Verification 'Corpus Intake Contract' (Protocol in workflow.md) (`f9b4933`)
 
-## Phase 2: Request JSON-LD Profile
+## Phase 2: Request JSON-LD Profile [checkpoint: 7228cb7]
 
 - [x] Task: Write request JSON-LD profile validation tests (`557292c`)
     - [x] Validate committed request JSON-LD examples against schema and RDF parse expectations.
@@ -24,7 +24,7 @@
 - [x] Task: Implement request profile JSON-LD updates (`14485b1`)
     - [x] Align context, examples, and docs with request-profile schema fields.
     - [x] Keep JSON-LD generation deterministic and fixture-friendly.
-- [ ] Task: Conductor - User Manual Verification 'Request JSON-LD Profile' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Request JSON-LD Profile' (Protocol in workflow.md) (`7228cb7`)
 
 ## Phase 3: Goldset Workflow
 
