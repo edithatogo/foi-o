@@ -1,0 +1,34 @@
+Task: Implement release evidence package
+
+Summary:
+- Added release checklist Pydantic model, validation helper, schema, example fixture, and CLI generator.
+- Registered checklist examples in scripts/validate_examples.py and tests/validate_repo.py.
+- Added docs/23-release-package.md and linked checklist evidence from docs/19-release-readiness-evidence.md.
+
+Files changed:
+- src/foi_o_nz/release_package.py
+- src/foi_o_nz/constants.py
+- src/foi_o_nz/schema_codegen.py
+- src/foi_o_nz/cli.py
+- schemas/json/release-checklist.schema.json
+- examples/release-checklist.v0.9.0.json
+- docs/23-release-package.md
+- docs/19-release-readiness-evidence.md
+- scripts/validate_examples.py
+- tests/test_release_package.py
+- tests/validate_repo.py
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_release_package.py tests/test_release_readiness_docs.py tests/test_schema_codegen_shacl.py: 7 passed
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed, 106 files formatted
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with known warning-only top-level schema drift findings
+- uv run foi-o-nz release-checklist --output /tmp/foi-o-release-checklist.json --release-version 0.9.0: passed
+- git diff --check: passed
+
+Risks:
+- External registry publication remains manual/external.
+- Schema-drift warning-only findings remain unchanged for pre-existing schemas.
