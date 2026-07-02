@@ -31,7 +31,7 @@
 - [x] Task: Implement reporting documentation (`83b3fd1`)
     - [x] Document derivable versus non-derivable metrics.
     - [x] Include sample commands and expected fixture outputs.
-- [ ] Task: Conductor - User Manual Verification 'Publication-Safe Reporting Docs' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Publication-Safe Reporting Docs' (Protocol in workflow.md)
 
 ## Phase 4: Reporting Closeout
 
