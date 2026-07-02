@@ -30,13 +30,13 @@
 
 ## Phase 4: Final Review and Archive Readiness
 
-- [ ] Task: Run final repo-local verification
-    - [ ] Run `uv run ruff check src tests scripts`.
-    - [ ] Run `uv run ruff format --check src tests scripts`.
-    - [ ] Run `uv run pytest -q`.
-    - [ ] Run available Pixi/Mojo validation tasks, or document the exact unavailable external gate.
-- [ ] Task: Run Conductor review and apply high-confidence fixes
-    - [ ] Run `conductor-review` for the track scope.
-    - [ ] Apply high-confidence fixes without changing the approved scope.
-    - [ ] Rerun focused checks affected by fixes.
+- [x] Task: Run final repo-local verification (`f6abd77`)
+    - [x] Run `uv run ruff check src tests scripts`.
+    - [x] Run `uv run ruff format --check src tests scripts`.
+    - [x] Run `uv run pytest -q`.
+    - [x] Run available Pixi/Mojo validation tasks, or document the exact unavailable external gate.
+- [x] Task: Run Conductor review and apply high-confidence fixes (`f6abd77`)
+    - [x] Run `conductor-review` for the track scope. The shell command was unavailable; applied the loaded `conductor-review` skill protocol manually.
+    - [x] Apply high-confidence fixes without changing the approved scope.
+    - [x] Rerun focused checks affected by fixes.
 - [ ] Task: Conductor - User Manual Verification 'Final Review and Archive Readiness' (Protocol in workflow.md)
