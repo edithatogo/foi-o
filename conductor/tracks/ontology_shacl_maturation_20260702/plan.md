@@ -13,7 +13,7 @@
     - [x] Document alignment with PROV-O, DCAT, ODRL, SKOS, and legal-document standards.
 - [x] Task: Conductor - User Manual Verification 'Ontology Gap Audit' (Protocol in workflow.md) (`1badee3`)
 
-## Phase 2: SHACL Safety Profiles
+## Phase 2: SHACL Safety Profiles [checkpoint: 100b968]
 
 - [x] Task: Write SHACL validation tests (`95aa510`)
     - [x] Cover required evidence/provenance fields and certification-boundary constraints.
@@ -21,7 +21,7 @@
 - [x] Task: Implement SHACL profile updates (`f532c27`)
     - [x] Add shapes for request profiles, core events, agent actions, and publication metadata.
     - [x] Keep unsafe certification claims invalid or review-required.
-- [~] Task: Conductor - User Manual Verification 'SHACL Safety Profiles' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'SHACL Safety Profiles' (Protocol in workflow.md) (`100b968`)
 
 ## Phase 3: Semantic Export Consistency
 
