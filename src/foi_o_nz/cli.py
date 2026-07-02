@@ -59,7 +59,7 @@ from foi_o_nz.quality import assess_events_jsonl
 from foi_o_nz.rdf_export import export_rdf
 from foi_o_nz.redaction import propose_redactions_jsonl
 from foi_o_nz.replay import write_guardrail_replay
-from foi_o_nz.reporting import metric_table
+from foi_o_nz.reporting import metric_table, write_psc_aggregate_report
 from foi_o_nz.reproducibility import write_reproducibility_manifest
 from foi_o_nz.retrieval import search_chunks_jsonl
 from foi_o_nz.review_queue import write_review_queue
@@ -1154,6 +1154,20 @@ def export_mcp_bundle_command(
 def reporting_metrics() -> None:
     """Print the current PSC/OIA reporting metric descriptors."""
     console.print_json(json.dumps(metric_table()))
+
+
+@app.command("psc-report")
+def psc_report_command(
+    events: Annotated[Path, typer.Argument(help="Event JSONL input")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="PSC report JSON output")],
+    profile: Annotated[
+        Path,
+        typer.Option("--profile", help="PSC reporting profile YAML"),
+    ] = Path("mappings/psc-oia-statistics-profile.yaml"),
+) -> None:
+    """Generate a deterministic public FYI-derived PSC-style aggregate report."""
+    result = write_psc_aggregate_report(events, output, profile_path=profile)
+    console.print_json(json.dumps(result))
 
 
 @app.command("legal-source-status")

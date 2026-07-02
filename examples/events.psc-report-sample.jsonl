@@ -1,0 +1,4 @@
+{"event_type":"RequestObserved","request_id":"100"}
+{"event_type":"DecisionCommunicated","request_ref":{"source_request_id":100}}
+{"event_type":"ExtensionNotified","request_id":"100"}
+{"event_type":"ComplaintObserved","request_id":"100"}

@@ -1,0 +1,317 @@
+{
+  "input": "examples/events.psc-report-sample.jsonl",
+  "input_event_count": 4,
+  "limitations": [
+    "FOI-O NZ aggregate reports are not official PSC reporting.",
+    "Values are public FYI-derived indicators from the supplied event stream only.",
+    "Partial, agency-internal-required, and not-derivable metrics must not be used as official performance statistics."
+  ],
+  "metric_count": 11,
+  "metrics": [
+    {
+      "derivability": "public_fyi_derivable",
+      "event_count": 1,
+      "event_dependencies": [
+        "RequestObserved"
+      ],
+      "exclusions": [
+        "Private or non-FYI requests.",
+        "Agency-internal case-management records not present in public source data."
+      ],
+      "matched_event_types": [
+        "RequestObserved"
+      ],
+      "metric_id": "fyi.public_platform_requests",
+      "name": "Public FYI request records observed",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Counts only records present in the public FYI-derived corpus.",
+        "Does not represent whole-agency OIA workload."
+      ],
+      "public_indicator_count": 1,
+      "request_count": 1,
+      "status": "derived_public_indicator",
+      "value": 1,
+      "warnings": [
+        "public_fyi_indicator_only: count is limited to the supplied public event stream"
+      ]
+    },
+    {
+      "derivability": "partially_derivable",
+      "event_count": 1,
+      "event_dependencies": [
+        "DecisionCommunicated",
+        "ReleaseMade",
+        "RefusalCommunicated",
+        "Closed"
+      ],
+      "exclusions": [
+        "Non-public OIA requests.",
+        "Agency completions not represented by observable correspondence."
+      ],
+      "matched_event_types": [
+        "DecisionCommunicated"
+      ],
+      "metric_id": "psc.completed_requests",
+      "name": "Completed OIA requests",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Public FYI records can identify many public-platform completions but not all agency OIA requests.",
+        "Some closures, withdrawals, or administrative completions may not be visible publicly."
+      ],
+      "public_indicator_count": 1,
+      "request_count": 1,
+      "status": "partial_indicator",
+      "value": 1,
+      "warnings": [
+        "partial_indicator_not_official_report: public data may omit agency-internal records"
+      ]
+    },
+    {
+      "derivability": "partially_derivable",
+      "event_count": 2,
+      "event_dependencies": [
+        "DeadlineCalculated",
+        "DecisionCommunicated",
+        "ExtensionNotified"
+      ],
+      "exclusions": [
+        "Informal pauses or agency-internal validity decisions not observable in public records."
+      ],
+      "matched_event_types": [
+        "DecisionCommunicated",
+        "ExtensionNotified"
+      ],
+      "metric_id": "psc.timeliness",
+      "name": "Responses within legislative timeframe",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Requires reliable received date, decision date, extensions, and working-day calendar.",
+        "Public dates may differ from agency receipt and decision timestamps."
+      ],
+      "public_indicator_count": 1,
+      "request_count": 1,
+      "status": "partial_indicator",
+      "value": 1,
+      "warnings": [
+        "partial_indicator_not_official_report: public data may omit agency-internal records"
+      ]
+    },
+    {
+      "derivability": "partially_derivable",
+      "event_count": 1,
+      "event_dependencies": [
+        "ExtensionNotified"
+      ],
+      "exclusions": [
+        "Extensions notified outside the public correspondence thread."
+      ],
+      "matched_event_types": [
+        "ExtensionNotified"
+      ],
+      "metric_id": "psc.extensions",
+      "name": "Extensions notified",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Extension notices may be extractable from correspondence.",
+        "Absence of public extension text is not evidence that no extension occurred."
+      ],
+      "public_indicator_count": 1,
+      "request_count": 1,
+      "status": "partial_indicator",
+      "value": 1,
+      "warnings": [
+        "partial_indicator_not_official_report: public data may omit agency-internal records"
+      ]
+    },
+    {
+      "derivability": "partially_derivable",
+      "event_count": 0,
+      "event_dependencies": [
+        "TransferNotified"
+      ],
+      "exclusions": [
+        "Internal routing that does not produce public transfer correspondence."
+      ],
+      "matched_event_types": [],
+      "metric_id": "psc.transfers",
+      "name": "Transfers",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Needs correspondence evidence and a distinction between full and partial transfer.",
+        "Agency-internal transfer records may not appear in public correspondence."
+      ],
+      "public_indicator_count": 0,
+      "request_count": 0,
+      "status": "partial_indicator",
+      "value": 0,
+      "warnings": [
+        "partial_indicator_not_official_report: public data may omit agency-internal records"
+      ]
+    },
+    {
+      "derivability": "partially_derivable",
+      "event_count": 0,
+      "event_dependencies": [
+        "RefusalCommunicated"
+      ],
+      "exclusions": [
+        "Partial releases where refusal grounds are not machine-observable.",
+        "Informal withdrawals or no-information-held outcomes unless explicitly extracted."
+      ],
+      "matched_event_types": [],
+      "metric_id": "psc.refusals",
+      "name": "Refusals",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Needs decision-letter evidence and statutory-basis extraction.",
+        "Public FYI state labels alone are insufficient to classify refusal categories."
+      ],
+      "public_indicator_count": 0,
+      "request_count": 0,
+      "status": "partial_indicator",
+      "value": 0,
+      "warnings": [
+        "partial_indicator_not_official_report: public data may omit agency-internal records"
+      ]
+    },
+    {
+      "derivability": "partially_derivable",
+      "event_count": 0,
+      "event_dependencies": [
+        "PublicationObserved",
+        "ReleaseMade"
+      ],
+      "exclusions": [
+        "Agency disclosure-log records not linked to the FYI request corpus."
+      ],
+      "matched_event_types": [],
+      "metric_id": "psc.published_responses",
+      "name": "Published responses",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "FYI responses are already public, but agency disclosure-log publication is a separate event.",
+        "Public FYI source data cannot prove agency publication policy compliance."
+      ],
+      "public_indicator_count": 0,
+      "request_count": 0,
+      "status": "partial_indicator",
+      "value": 0,
+      "warnings": [
+        "partial_indicator_not_official_report: public data may omit agency-internal records"
+      ]
+    },
+    {
+      "derivability": "partially_derivable",
+      "event_count": 3,
+      "event_dependencies": [
+        "RequestObserved",
+        "DecisionCommunicated",
+        "ExtensionNotified"
+      ],
+      "exclusions": [
+        "Agency-internal paused periods or validity determinations not visible in public correspondence.",
+        "Non-public request records."
+      ],
+      "matched_event_types": [
+        "DecisionCommunicated",
+        "ExtensionNotified",
+        "RequestObserved"
+      ],
+      "metric_id": "psc.average_time_to_respond",
+      "name": "Average time to respond",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Requires reliable agency receipt and response timestamps.",
+        "Public FYI timestamps may not match agency case-management timestamps.",
+        "Working-day calculations are indicative unless matched to authoritative calendars and extension records."
+      ],
+      "public_indicator_count": 1,
+      "request_count": 1,
+      "status": "partial_indicator",
+      "value": 1,
+      "warnings": [
+        "partial_indicator_not_official_report: public data may omit agency-internal records"
+      ]
+    },
+    {
+      "derivability": "agency_internal_required",
+      "event_count": 1,
+      "event_dependencies": [
+        "ComplaintObserved"
+      ],
+      "exclusions": [
+        "Complaints not publicly mentioned in the FYI thread.",
+        "Ombudsman outcomes unavailable in the public corpus."
+      ],
+      "matched_event_types": [
+        "ComplaintObserved"
+      ],
+      "metric_id": "psc.ombudsman_complaints",
+      "name": "Ombudsman complaints",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "FYI may show requester comments about complaints.",
+        "Official complaint status comes from Ombudsman or agency reporting."
+      ],
+      "public_indicator_count": 1,
+      "request_count": 1,
+      "status": "agency_internal_required",
+      "value": null,
+      "warnings": [
+        "agency_internal_required_for_official_metric: public observations are context only"
+      ]
+    },
+    {
+      "derivability": "not_derivable",
+      "event_count": 0,
+      "event_dependencies": [],
+      "exclusions": [
+        "Any inferred demographic or organisational classification from public names or correspondence."
+      ],
+      "matched_event_types": [],
+      "metric_id": "psc.requester_category_breakdown",
+      "name": "Requester category breakdown",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Public FYI data does not reliably expose official requester category fields.",
+        "Inferring requester category from names or text would be unsafe and outside scope."
+      ],
+      "public_indicator_count": 0,
+      "request_count": 0,
+      "status": "not_derivable",
+      "value": null,
+      "warnings": [
+        "not_derivable_from_public_fyi_data"
+      ]
+    },
+    {
+      "derivability": "not_derivable",
+      "event_count": 0,
+      "event_dependencies": [],
+      "exclusions": [
+        "Any modelled cost, staff-time estimate, or productivity inference from public text alone."
+      ],
+      "matched_event_types": [],
+      "metric_id": "psc.processing_costs",
+      "name": "Processing costs and staff time",
+      "official_reporting_caveat": "FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.",
+      "public_data_limitations": [
+        "Public FYI correspondence does not expose agency staff time or internal cost accounting.",
+        "Estimating cost from response length or elapsed time would be speculative."
+      ],
+      "public_indicator_count": 0,
+      "request_count": 0,
+      "status": "not_derivable",
+      "value": null,
+      "warnings": [
+        "not_derivable_from_public_fyi_data"
+      ]
+    }
+  ],
+  "output": "examples/psc-report.small.json",
+  "profile_schema_version": "foi-o-nz.psc-oia-statistics-profile.v0.2.0",
+  "schema_version": "foi-o-nz.psc-report.v0.1.0",
+  "source_profile": "New Zealand Public Service Commission OIA statistics",
+  "source_url": "https://www.publicservice.govt.nz/data/oia-statistics"
+}

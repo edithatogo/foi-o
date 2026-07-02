@@ -18,6 +18,7 @@ PAIR_GLOBS = [
     ("ledger-entry*.json", "ledger-entry.schema.json"),
     ("quality-report*.json", "quality-report.schema.json"),
     ("reporting-metric*.json", "reporting-metric.schema.json"),
+    ("psc-report*.json", "psc-report.schema.json"),
     ("risk-assessment*.json", "risk-assessment.schema.json"),
     ("dataset-metadata*.json", "dataset-metadata.schema.json"),
     ("retrieval-result*.json", "retrieval-result.schema.json"),
