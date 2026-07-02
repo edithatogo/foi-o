@@ -18,7 +18,7 @@
 - [x] Task: Write LanceDB integration tests (`a1d8c65`)
     - [ ] Cover optional dependency absence, fixture embedding inputs, table creation, and query results.
     - [ ] Keep tests deterministic without live downloads or service keys.
-- [ ] Task: Implement LanceDB semantic retrieval path
+- [~] Task: Implement LanceDB semantic retrieval path
     - [ ] Harden `build-lancedb` and retrieval integration around optional dependencies.
     - [ ] Preserve lexical/deterministic fallback when LanceDB is unavailable.
 - [ ] Task: Conductor - User Manual Verification 'LanceDB Retrieval' (Protocol in workflow.md)

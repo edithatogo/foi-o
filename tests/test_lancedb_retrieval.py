@@ -4,9 +4,9 @@ from pathlib import Path
 
 import pytest
 
+from foi_o_nz import vector_index
 from foi_o_nz.embeddings import embedding_record
 from foi_o_nz.io import write_jsonl
-from foi_o_nz import vector_index
 
 
 def _embedding_jsonl(path: Path) -> Path:
