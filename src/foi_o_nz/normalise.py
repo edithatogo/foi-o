@@ -12,7 +12,15 @@ from foi_o_nz.dates import calculate_indicative_clock, parse_datetime
 from foi_o_nz.extractors import build_message_events, iter_message_records
 from foi_o_nz.io import read_json_records, write_json, write_jsonl
 from foi_o_nz.manifest import build_run_manifest
-from foi_o_nz.models import Actor, CoreEvent, EvidenceRef, RequestProfile, RequestRef, StateMapping
+from foi_o_nz.models import (
+    Actor,
+    CoreEvent,
+    EvidenceRef,
+    RequestProfile,
+    RequestRef,
+    SourceProvenance,
+    StateMapping,
+)
 from foi_o_nz.state_machine import map_alaveteli_state
 
 
@@ -47,6 +55,14 @@ def _parse_warc_ids(value: Any) -> list[str]:
     return []
 
 
+def _raw_state(record: dict[str, Any]) -> tuple[str, str]:
+    if record.get("state") not in {None, ""}:
+        return "state", str(record["state"])
+    if record.get("source_state") not in {None, ""}:
+        return "source_state", str(record["source_state"])
+    return "unknown", "unknown"
+
+
 def _event_id(
     kind: str, request_id: str | int, source_state: str | None = None, extra: str = ""
 ) -> str:
@@ -55,13 +71,16 @@ def _event_id(
 
 
 def build_request_profile(
-    record: dict[str, Any], *, source: str = SOURCE_SYSTEM_FYI_ARCHIVE
+    record: dict[str, Any],
+    *,
+    source: str = SOURCE_SYSTEM_FYI_ARCHIVE,
+    input_path: Path | None = None,
 ) -> RequestProfile:
     """Build a normalised request profile from an FYI archive-style record."""
     request_id = record.get("request_id") or record.get("id") or record.get("url_title")
     if request_id is None:
         raise ValueError("record is missing request_id/id/url_title")
-    source_state = str(record.get("state") or record.get("source_state") or "unknown")
+    raw_state_field, source_state = _raw_state(record)
     mapping = map_alaveteli_state(source_state)
     evidence_id = f"evidence:{source}:{request_id}:manifest"
     first_sent = parse_datetime(
@@ -82,6 +101,15 @@ def build_request_profile(
             confidence=mapping.confidence,
             evidence_ids=[evidence_id],
             notes=mapping.notes,
+        ),
+        source_provenance=SourceProvenance(
+            input_path=str(input_path) if input_path is not None else None,
+            source_record_id=str(request_id),
+            raw_state_field=raw_state_field,  # type: ignore[arg-type]
+            raw_state_value=source_state,
+            mapping_method="rule",
+            mapping_confidence=mapping.confidence,
+            evidence_id=evidence_id,
         ),
         first_sent=first_sent,
         last_updated=last_updated,
@@ -227,12 +255,14 @@ def build_attachment_events(profile: RequestProfile, *, event_time: datetime) ->
 
 def normalise_records(
     records: list[dict[str, Any]],
+    *,
+    input_path: Path | None = None,
 ) -> tuple[list[RequestProfile], list[CoreEvent]]:
     """Normalise raw manifest records into request profiles and core events."""
     profiles: list[RequestProfile] = []
     events: list[CoreEvent] = []
     for record in records:
-        profile = build_request_profile(record)
+        profile = build_request_profile(record, input_path=input_path)
         profiles.append(profile)
         events.extend(build_observed_events(profile))
         messages = iter_message_records(record)
@@ -248,10 +278,16 @@ def normalise_manifest_file(
     events_output: Path,
     parquet_dir: Path | None = None,
     run_manifest_output: Path | None = None,
+    live_source_url: str | None = None,
 ) -> dict[str, Any]:
     """Normalise a manifest file and write JSONL plus optional Parquet outputs."""
+    if live_source_url is not None and not input_path.exists():
+        raise RuntimeError(
+            "Live FYI/archive manifest access is an external gate; provide a local fixture "
+            f"manifest before normalising: {input_path}"
+        )
     records = read_json_records(input_path)
-    profiles, events = normalise_records(records)
+    profiles, events = normalise_records(records, input_path=input_path)
     request_dicts = [profile.model_dump(mode="json", exclude_none=True) for profile in profiles]
     event_dicts = [event.model_dump(mode="json", exclude_none=True) for event in events]
     request_count = write_jsonl(requests_output, request_dicts)
@@ -271,6 +307,9 @@ def normalise_manifest_file(
         "event_count": event_count,
         "parquet_written": parquet_written,
     }
+    if live_source_url is not None:
+        result["live_source_url"] = live_source_url
+        result["live_source_gate"] = "local fixture input used; live fetch not performed"
     if run_manifest_output is not None:
         outputs = [requests_output, events_output, *[Path(path) for path in parquet_written]]
         manifest = build_run_manifest(

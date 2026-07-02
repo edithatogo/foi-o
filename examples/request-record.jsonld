@@ -14,14 +14,23 @@
   "title": "Monkeypox surveillance and contact tracing strategy",
   "authority": "ministry_of_health",
   "source_state": "successful",
-  "normalised_state": "decision_communicated",
+  "normalised_state": "ReleasedInFull",
   "state_mapping": {
     "method": "rule",
     "confidence": 0.55,
     "evidence_ids": [
-      "manifest:20001"
+      "evidence:fyi-archive-nz:20001:manifest"
     ],
     "notes": "Source state preserved. Inspect correspondence before distinguishing full vs partial release."
+  },
+  "source_provenance": {
+    "input_path": "examples/request-record.jsonld",
+    "source_record_id": "20001",
+    "raw_state_field": "state",
+    "raw_state_value": "successful",
+    "mapping_method": "rule",
+    "mapping_confidence": 0.55,
+    "evidence_id": "evidence:fyi-archive-nz:20001:manifest"
   },
   "first_sent": null,
   "last_updated": null,

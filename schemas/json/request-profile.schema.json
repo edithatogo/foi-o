@@ -96,6 +96,65 @@
         }
       }
     },
+    "source_provenance": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "input_path": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw_state_field": {
+          "type": "string",
+          "enum": [
+            "state",
+            "source_state",
+            "unknown"
+          ]
+        },
+        "raw_state_value": {
+          "type": "string"
+        },
+        "mapping_method": {
+          "type": "string",
+          "enum": [
+            "manual",
+            "rule",
+            "model",
+            "hybrid",
+            "unknown"
+          ]
+        },
+        "mapping_confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "source_record_id",
+        "raw_state_field",
+        "raw_state_value",
+        "mapping_method",
+        "evidence_id"
+      ]
+    },
     "first_sent": {
       "type": [
         "string",

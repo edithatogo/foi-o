@@ -6,7 +6,7 @@
     - [x] Review normalisation code, request-profile schema, examples, and docs for source-state handling.
     - [x] Identify missing fixture coverage for live-style archive manifest records.
     - [x] Record repo-local versus live-source proof requirements.
-- [ ] Task: Write fixture intake tests
+- [~] Task: Write fixture intake tests
     - [ ] Add tests for source-state preservation and normalised state mapping.
     - [ ] Add tests for JSONL/JSON array archive input variants.
     - [ ] Add tests that live-source configuration can fail closed without breaking fixture mode.

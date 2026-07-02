@@ -354,6 +354,10 @@ def normalise_manifest(
         Path | None,
         typer.Option(help="Optional provenance run-manifest JSON output"),
     ] = None,
+    live_source_url: Annotated[
+        str | None,
+        typer.Option(help="Optional live FYI/archive source URL recorded as an external gate"),
+    ] = None,
 ) -> None:
     """Normalise FYI archive-style manifest records into request profiles and events."""
     manifest = normalise_manifest_file(
@@ -362,6 +366,7 @@ def normalise_manifest(
         events_output=events_output,
         parquet_dir=parquet_dir,
         run_manifest_output=run_manifest_output,
+        live_source_url=live_source_url,
     )
     console.print_json(json.dumps(manifest))
 

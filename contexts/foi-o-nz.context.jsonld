@@ -24,6 +24,8 @@
     },
     "payload": "foio:payload",
     "prov": "http://www.w3.org/ns/prov#",
+    "raw_state_field": "foio:rawStateField",
+    "raw_state_value": "foio:rawStateValue",
     "request_ref": "foio:aboutRequest",
     "requires_human_certification": {
       "@id": "foio:requiresHumanCertification",
@@ -31,6 +33,8 @@
     },
     "schema": "https://schema.org/",
     "skos": "http://www.w3.org/2004/02/skos/core#",
+    "source_provenance": "prov:wasDerivedFrom",
+    "source_record_id": "foio:sourceRecordId",
     "source_system": "foio:sourceSystem",
     "xsd": "http://www.w3.org/2001/XMLSchema#"
   }

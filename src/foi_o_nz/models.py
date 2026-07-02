@@ -264,6 +264,20 @@ class StateMapping(BaseModel):
     notes: str | None = None
 
 
+class SourceProvenance(BaseModel):
+    """Source-record provenance for request profile normalisation."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    input_path: str | None = None
+    source_record_id: str
+    raw_state_field: Literal["state", "source_state", "unknown"]
+    raw_state_value: str
+    mapping_method: Literal["manual", "rule", "model", "hybrid", "unknown"]
+    mapping_confidence: float | None = Field(default=None, ge=0, le=1)
+    evidence_id: str
+
+
 class LegalClock(BaseModel):
     """Indicative legal clock metadata.
 
@@ -297,6 +311,7 @@ class RequestProfile(BaseModel):
     source_state: str
     normalised_state: str | None = None
     state_mapping: StateMapping | None = None
+    source_provenance: SourceProvenance | None = None
     first_sent: datetime | None = None
     last_updated: datetime | None = None
     content_sha256: str | None = None

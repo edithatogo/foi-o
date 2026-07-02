@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from foi_o_nz.normalise import (
     build_observed_events,
     build_request_profile,
@@ -33,6 +35,13 @@ def test_build_request_profile_maps_state_and_clock() -> None:
     assert profile.state_mapping.method == "rule"
     assert profile.legal_clock is not None
     assert profile.legal_clock.decision_due_date is not None
+    assert profile.source_provenance is not None
+    assert profile.source_provenance.source_record_id == "123"
+    assert profile.source_provenance.raw_state_field == "state"
+    assert profile.source_provenance.raw_state_value == "partially_successful"
+    assert profile.source_provenance.mapping_method == "rule"
+    assert profile.source_provenance.mapping_confidence == 0.58
+    assert profile.source_provenance.evidence_id == "evidence:fyi-archive-nz:123:manifest"
 
 
 def test_build_observed_events() -> None:
@@ -66,6 +75,59 @@ def test_normalise_manifest_file_jsonl(tmp_path: Path) -> None:
     assert requests_output.exists()
     assert events_output.exists()
     assert run_manifest.exists()
+
+
+@pytest.mark.parametrize(
+    ("payload", "filename"),
+    [
+        ([RECORD], "manifest-array.json"),
+        ({"records": [RECORD]}, "manifest-records-wrapper.json"),
+    ],
+)
+def test_normalise_manifest_file_json_variants_include_source_provenance(
+    tmp_path: Path, payload: object, filename: str
+) -> None:
+    input_path = tmp_path / filename
+    input_path.write_text(json.dumps(payload), encoding="utf-8")
+    requests_output = tmp_path / "requests.jsonl"
+    events_output = tmp_path / "events.jsonl"
+
+    manifest = normalise_manifest_file(
+        input_path,
+        requests_output=requests_output,
+        events_output=events_output,
+    )
+
+    assert manifest["request_count"] == 1
+    request = json.loads(requests_output.read_text(encoding="utf-8").splitlines()[0])
+    assert request["source_state"] == "partially_successful"
+    assert request["normalised_state"] == "ReleasedInPart"
+    assert request["source_provenance"] == {
+        "input_path": str(input_path),
+        "source_record_id": "123",
+        "raw_state_field": "state",
+        "raw_state_value": "partially_successful",
+        "mapping_method": "rule",
+        "mapping_confidence": 0.58,
+        "evidence_id": "evidence:fyi-archive-nz:123:manifest",
+    }
+
+
+def test_live_source_configuration_fails_closed_before_outputs(tmp_path: Path) -> None:
+    missing_input = tmp_path / "missing-live-manifest.jsonl"
+    requests_output = tmp_path / "requests.jsonl"
+    events_output = tmp_path / "events.jsonl"
+
+    with pytest.raises(RuntimeError, match="external gate"):
+        normalise_manifest_file(
+            missing_input,
+            requests_output=requests_output,
+            events_output=events_output,
+            live_source_url="https://huggingface.co/datasets/edithatogo/fyi-archive-nz",
+        )
+
+    assert not requests_output.exists()
+    assert not events_output.exists()
 
 
 def test_normalise_records_extracts_message_events() -> None:
