@@ -21,7 +21,7 @@ def build_tool_manifest() -> dict[str, Any]:
             requires_human_certification=policy["requires_human_certification"],
             prohibited_follow_on_actions=policy["prohibited_follow_on_actions"],
         )
-    for tool in [
+    extra_tools: list[dict[str, Any]] = [
         {
             "name": "search_chunks",
             "description": "Retrieve request-scoped context from deterministic text chunks.",
@@ -93,7 +93,8 @@ def build_tool_manifest() -> dict[str, Any]:
             "requires_human_certification": False,
             "prohibited_follow_on_actions": ["treat_test_pass_as_operational_authorisation"],
         },
-    ]:
+    ]
+    for tool in extra_tools:
         tools_by_name[tool["name"]] = _tool_descriptor(
             name=tool["name"],
             description=tool["description"],

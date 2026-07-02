@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast
 
 UNSAFE_DESCRIPTOR_PHRASES = (
     "approve redaction",
@@ -80,6 +80,7 @@ def validate_tool_manifest_descriptors(manifest: dict[str, Any]) -> dict[str, An
         if not isinstance(tool, dict):
             errors.append(f"tools.{index}: expected mapping")
             continue
+        tool = cast("dict[str, Any]", tool)
         name = str(tool.get("name") or "")
         if not name:
             errors.append(f"tools.{index}.name: required")
