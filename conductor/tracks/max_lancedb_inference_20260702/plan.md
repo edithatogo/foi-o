@@ -2,9 +2,9 @@
 
 ## Phase 1: Provider Interface
 
-- [~] Task: Audit current embeddings, retrieval, and MAX client surfaces
-    - [ ] Review deterministic embeddings, vector index, retrieval, MAX client, agent packs, and docs.
-    - [ ] Identify provider-selection and provenance gaps.
+- [x] Task: Audit current embeddings, retrieval, and MAX client surfaces (`f6e869b`)
+    - [x] Review deterministic embeddings, vector index, retrieval, MAX client, agent packs, and docs.
+    - [x] Identify provider-selection and provenance gaps.
 - [ ] Task: Write provider-selection tests
     - [ ] Cover deterministic fallback, configured local/MAX provider, missing optional dependencies, and error reporting.
     - [ ] Verify no provider can emit certified legal outcomes.
