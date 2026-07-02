@@ -21,7 +21,7 @@
 - [x] Task: Implement legal-source versioning (`fa76fec`)
     - [x] Extend mapping files and docs for source-versioned OIA/Ombudsman references.
     - [x] Add live-source commands only if they fail closed and cache outputs outside Git by default.
-- [ ] Task: Conductor - User Manual Verification 'Source-Versioned References' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Source-Versioned References' (Protocol in workflow.md)
 
 ## Phase 3: Process Rule Quality Gates
 
