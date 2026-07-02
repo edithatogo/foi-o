@@ -25,9 +25,9 @@
 
 ## Phase 3: Publication-Safe Reporting Docs
 
-- [~] Task: Write documentation consistency checks
-    - [ ] Verify README/docs do not imply official PSC certification.
-    - [ ] Check documented commands match implemented CLI commands.
+- [x] Task: Write documentation consistency checks (`8f6f280`)
+    - [x] Verify README/docs do not imply official PSC certification.
+    - [x] Check documented commands match implemented CLI commands.
 - [ ] Task: Implement reporting documentation
     - [ ] Document derivable versus non-derivable metrics.
     - [ ] Include sample commands and expected fixture outputs.
