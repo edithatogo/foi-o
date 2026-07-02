@@ -1,6 +1,6 @@
 # Plan: Corpus profile and 100-request goldset
 
-## Phase 1: Corpus Intake Contract
+## Phase 1: Corpus Intake Contract [checkpoint: f9b4933]
 
 - [x] Task: Audit current manifest intake and request profile coverage (`a7a5f6e`)
     - [x] Review normalisation code, request-profile schema, examples, and docs for source-state handling.
@@ -14,7 +14,7 @@
     - [x] Extend or adjust normalisation helpers only where tests identify contract gaps.
     - [x] Ensure provenance fields identify source file, record id, and state mapping basis.
     - [x] Keep external dataset fetches optional and documented.
-- [ ] Task: Conductor - User Manual Verification 'Corpus Intake Contract' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Corpus Intake Contract' (Protocol in workflow.md) (`f9b4933`)
 
 ## Phase 2: Request JSON-LD Profile
 
