@@ -1,0 +1,14 @@
+Task: Write SHACL validation tests
+
+Files changed:
+- tests/test_shacl_safety_profiles.py
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Added SHACL tests for review-required candidate decision-like events, missing evidence, unsafe agent action certification, dataset publication caveats, and pySHACL degraded mode.
+
+Verification:
+- uv run pytest -q tests/test_shacl_safety_profiles.py -> expected red state: one failure because DecisionLikeEventShape still requires human certification for review-required candidate events.
+
+Risks:
+- Implementation must refine SHACL constraints without weakening final certification boundaries.
