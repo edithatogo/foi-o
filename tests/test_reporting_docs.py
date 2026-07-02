@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-
 README = Path("README.md")
 STATUS_DOC = Path("docs/11-implementation-status.md")
 

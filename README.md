@@ -89,6 +89,10 @@ uv run foi-o-nz search-chunks \
 uv run foi-o-nz propose-redactions \
   --input data/processed/request-chunks.jsonl \
   --output data/processed/redaction-candidates.jsonl
+uv run foi-o-nz reporting-metrics
+uv run foi-o-nz psc-report \
+  data/processed/events.jsonl \
+  --output data/processed/psc-report.json
 uv run foi-o-nz build-agent-pack \
   --request-id 12345 \
   --requests-jsonl data/processed/requests.jsonl \
@@ -121,6 +125,8 @@ uv run foi-o-nz repro-manifest \
 ```
 
 The normaliser accepts JSONL or JSON arrays containing FYI archive-style records with fields such as `request_id`, `url_title`, `title`, `authority`, `state`, `first_sent`, `last_updated`, `content_sha256`, `html_captured`, `attachments`, and `warc_record_ids`. It also looks for message-like fields (`messages`, `correspondence`, `communications`, `updates`) and emits conservative `MessageObserved` plus candidate process events such as `ExtensionNotified`, `TransferNotified`, `ClarificationRequested`, `ComplaintObserved`, and decision/release/refusal candidates that require human review.
+
+Reporting outputs are public FYI-derived research indicators, not official PSC reporting. `reporting-metrics` prints the derivability profile, and `psc-report` produces a deterministic aggregate report with warning and caveat fields. The committed sample at `examples/psc-report.small.json` is generated from `examples/events.psc-report-sample.jsonl`.
 
 ### Batch/vector/RDF utilities
 
@@ -172,6 +178,7 @@ foi-o-nz/
 | State mapper | Implemented | Rule-based FYI/Alaveteli state normalisation with confidence/evidence semantics. |
 | Manifest normaliser | Implemented | Converts FYI archive records into request profiles, deadline annotations, attachments, message events, and candidate process events. |
 | Event analytics | Implemented | Summaries for request profiles and event streams without mandatory dataframe dependencies. |
+| PSC reporting profile | Implemented | Derivability mapping and sample aggregate reports for public FYI-derived indicators, not official PSC reporting. |
 | Quality gates | Implemented | Scans event streams for missing evidence, certification-boundary violations, and provenance issues. |
 | RDF exporter | Implemented | Converts request/event JSONL into Turtle/JSON-LD-compatible RDF via RDFLib. |
 | Analytics bridge | Implemented | Optional Polars/DuckDB outputs, DuckDB bootstrap SQL, and summaries. |

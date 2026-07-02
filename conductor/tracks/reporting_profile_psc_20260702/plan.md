@@ -28,7 +28,7 @@
 - [x] Task: Write documentation consistency checks (`8f6f280`)
     - [x] Verify README/docs do not imply official PSC certification.
     - [x] Check documented commands match implemented CLI commands.
-- [ ] Task: Implement reporting documentation
+- [~] Task: Implement reporting documentation
     - [ ] Document derivable versus non-derivable metrics.
     - [ ] Include sample commands and expected fixture outputs.
 - [ ] Task: Conductor - User Manual Verification 'Publication-Safe Reporting Docs' (Protocol in workflow.md)
