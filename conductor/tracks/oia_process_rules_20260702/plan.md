@@ -15,12 +15,12 @@
 
 ## Phase 2: Source-Versioned References
 
-- [~] Task: Write source-reference validation tests
-    - [ ] Validate legislation/guidance mapping records include identifiers, source URLs, version/retrieval dates, and status.
-    - [ ] Cover unavailable live-source behavior.
-- [~] Task: Implement legal-source versioning
-    - [ ] Extend mapping files and docs for source-versioned OIA/Ombudsman references.
-    - [ ] Add live-source commands only if they fail closed and cache outputs outside Git by default.
+- [x] Task: Write source-reference validation tests (`fa76fec`)
+    - [x] Validate legislation/guidance mapping records include identifiers, source URLs, version/retrieval dates, and status.
+    - [x] Cover unavailable live-source behavior.
+- [x] Task: Implement legal-source versioning (`fa76fec`)
+    - [x] Extend mapping files and docs for source-versioned OIA/Ombudsman references.
+    - [x] Add live-source commands only if they fail closed and cache outputs outside Git by default.
 - [ ] Task: Conductor - User Manual Verification 'Source-Versioned References' (Protocol in workflow.md)
 
 ## Phase 3: Process Rule Quality Gates
