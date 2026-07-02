@@ -1,0 +1,1 @@
+Task summary: Publication workflow track setup. Files changed: conductor/tracks.md and four conductor/tracks/* publication track directories. Verification: metadata JSON parsing for publication tracks; git diff --check. Risks: GitHub issue/project linking, actual quality-panel contracts, and artifact scoring still need implementation.
