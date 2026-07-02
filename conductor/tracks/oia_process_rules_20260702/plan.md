@@ -23,7 +23,7 @@
     - [x] Add live-source commands only if they fail closed and cache outputs outside Git by default.
 - [x] Task: Conductor - User Manual Verification 'Source-Versioned References' (Protocol in workflow.md) (`ec84651`)
 
-## Phase 3: Process Rule Quality Gates
+## Phase 3: Process Rule Quality Gates [checkpoint: 478e438]
 
 - [x] Task: Write process-rule quality tests (`b622ceb`)
     - [x] Cover missing evidence, unsafe certification, stale references, and contradictory status signals.
@@ -31,7 +31,7 @@
 - [x] Task: Implement stronger quality gates (`b622ceb`)
     - [x] Add quality checks and schema/example updates for process-rule references.
     - [x] Update docs with exact pass/fail examples.
-- [~] Task: Conductor - User Manual Verification 'Process Rule Quality Gates' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Process Rule Quality Gates' (Protocol in workflow.md) (`478e438`)
 
 ## Phase 4: OIA Rules Closeout
 
