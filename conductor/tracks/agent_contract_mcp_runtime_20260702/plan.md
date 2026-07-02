@@ -1,6 +1,6 @@
 # Plan: Agent contract and MCP runtime hardening
 
-## Phase 1: Descriptor Contract
+## Phase 1: Descriptor Contract [checkpoint: e9942e7]
 
 - [x] Task: Audit current agent contracts (`aa94872`)
     - [x] Review agent policy, tool manifest, OpenAPI export, MCP bundle, MCP server, and docs.
@@ -11,7 +11,7 @@
 - [x] Task: Implement descriptor hardening (`f375422`)
     - [x] Update descriptors and exports to make non-dispositive boundaries machine-checkable.
     - [x] Ensure unsafe examples fail tests and safe examples remain stable.
-- [~] Task: Conductor - User Manual Verification 'Descriptor Contract' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Descriptor Contract' (Protocol in workflow.md) (`e9942e7`)
 
 ## Phase 2: Runtime Prototype
 
