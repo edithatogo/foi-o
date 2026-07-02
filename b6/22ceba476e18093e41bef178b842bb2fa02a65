@@ -1,0 +1,7 @@
+Track: oia_process_rules_20260702
+Phase: Process Rule Quality Gates
+Tasks: Write process-rule quality tests; Implement stronger quality gates
+Summary: Added warning-level checks for unversioned and stale/unverified legal references, quality-report limitations, a schema-validated warning example, validator wiring, and docs with pass/fail examples.
+Files changed: conductor/tracks/oia_process_rules_20260702/plan.md; docs/13-implementation-delta-v0.2.md; examples/quality-report.legal-reference-warning.json; schemas/json/quality-report.schema.json; scripts/validate_examples.py; src/foi_o_nz/cli.py; src/foi_o_nz/quality.py; tests/test_quality.py
+Verification: uv run pytest -q tests/test_quality.py tests/test_validation.py tests/test_legal_sources.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo
+Risks: Warnings identify repo-local proof gaps but do not validate legal correctness.
