@@ -33,7 +33,7 @@
     - [x] Ensure generated model outputs are excluded from Git unless reduced to safe fixtures.
 - [x] Task: Conductor - User Manual Verification 'Bounded Extraction Experiments' (Protocol in workflow.md) (`97735e7`)
 
-## Phase 4: Inference Track Closeout
+## Phase 4: Inference Track Closeout [checkpoint: 7160e3c]
 
 - [x] Task: Run inference validation (`ce58bba`)
     - [x] Run embeddings, retrieval, vector index, agent pack, and optional-provider tests.
@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`72574f3`)
     - [x] Run `conductor-review` for the track scope (manual fallback used because command is unavailable).
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [~] Task: Conductor - User Manual Verification 'Inference Track Closeout' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Inference Track Closeout' (Protocol in workflow.md) (`7160e3c`)
