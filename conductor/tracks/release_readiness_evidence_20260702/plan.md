@@ -1,12 +1,12 @@
 # Plan: Harden release-readiness evidence and kernel fallback validation
 
-## Phase 1: Evidence Baseline
+## Phase 1: Evidence Baseline [checkpoint: b832c40]
 
 - [x] Task: Audit current readiness and release claims (`d89edbf`)
     - [x] Review README, implementation reports, delta docs, kernel readiness examples, and Mojo audit examples.
     - [x] Identify claims that require repo-local command, test, schema, or manifest evidence.
     - [x] Record gaps directly in the implementation notes or a focused evidence checklist.
-- [ ] Task: Conductor - User Manual Verification 'Evidence Baseline' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Evidence Baseline' (Protocol in workflow.md) (`b832c40`)
 
 ## Phase 2: Kernel Fallback Proof
 
