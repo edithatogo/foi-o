@@ -13,7 +13,7 @@
     - [x] Keep generated publication payloads out of Git unless reduced to safe fixtures.
 - [x] Task: Conductor - User Manual Verification 'Release Evidence Package' (Protocol in workflow.md) (`58b100d`)
 
-## Phase 2: Dataset and Repository Publication Metadata
+## Phase 2: Dataset and Repository Publication Metadata [checkpoint: 7941c01]
 
 - [x] Task: Write publication metadata tests (`ac92d09`)
     - [x] Validate dataset metadata, Croissant-style JSON-LD, Hugging Face card scaffolds, and repository release metadata.
@@ -21,7 +21,7 @@
 - [x] Task: Implement publication metadata updates (`78f30d2`)
     - [x] Align metadata generators and docs with matured product scope.
     - [x] Add sample outputs that validate without live publication credentials.
-- [~] Task: Conductor - User Manual Verification 'Dataset and Repository Publication Metadata' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Dataset and Repository Publication Metadata' (Protocol in workflow.md) (`7941c01`)
 
 ## Phase 3: Methods Paper
 
