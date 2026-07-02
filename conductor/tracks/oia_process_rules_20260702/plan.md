@@ -11,7 +11,7 @@
 - [x] Task: Implement calendar support (`4ed7306`)
     - [x] Add fixture-backed calendar data or documented hooks for official calendar input.
     - [x] Keep default behavior deterministic and dependency-light.
-- [ ] Task: Conductor - User Manual Verification 'Calendar Contract' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Calendar Contract' (Protocol in workflow.md)
 
 ## Phase 2: Source-Versioned References
 
