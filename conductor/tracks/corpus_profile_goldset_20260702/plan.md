@@ -18,7 +18,7 @@
 
 ## Phase 2: Request JSON-LD Profile
 
-- [ ] Task: Write request JSON-LD profile validation tests
+- [~] Task: Write request JSON-LD profile validation tests
     - [ ] Validate committed request JSON-LD examples against schema and RDF parse expectations.
     - [ ] Cover missing source-state and provenance fields.
 - [ ] Task: Implement request profile JSON-LD updates
