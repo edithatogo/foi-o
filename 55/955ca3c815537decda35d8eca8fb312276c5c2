@@ -1,0 +1,7 @@
+Track: event_extraction_timeline_20260702
+Action: Archive completed track
+Summary: Moved completed track to conductor/archive/event_extraction_timeline_20260702, removed active tracks.md entry, updated conductor/history.md, and marked metadata completed.
+GitHub: Issue #13 closed; Project #10 item status verified Done.
+Files changed: conductor/tracks.md; conductor/history.md; conductor/archive/event_extraction_timeline_20260702/*; removed conductor/tracks/event_extraction_timeline_20260702/* via rename.
+Verification: uv run foi-o-nz validate-repo; gh issue view 13 --json number,state,title,projectItems,url
+Risks: Next roadmap track oia_process_rules_20260702 remains pending.
