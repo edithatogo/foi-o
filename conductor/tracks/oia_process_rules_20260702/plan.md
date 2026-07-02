@@ -33,7 +33,7 @@
     - [x] Update docs with exact pass/fail examples.
 - [x] Task: Conductor - User Manual Verification 'Process Rule Quality Gates' (Protocol in workflow.md) (`478e438`)
 
-## Phase 4: OIA Rules Closeout
+## Phase 4: OIA Rules Closeout [checkpoint: 317c6ce]
 
 - [x] Task: Run OIA process validation (`300106b`)
     - [x] Run date, state-machine, quality, mapping, and schema tests.
@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`a594412`)
     - [x] Run `conductor-review` for the track scope. Command unavailable; manual fallback recorded in `review.md`.
     - [x] Apply high-confidence fixes and rerun focused checks. CLI metadata fix committed in `c7bbdd9`.
-- [~] Task: Conductor - User Manual Verification 'OIA Rules Closeout' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'OIA Rules Closeout' (Protocol in workflow.md) (`317c6ce`)
