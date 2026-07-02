@@ -1,0 +1,14 @@
+Task: Start ontology SHACL track
+
+Files changed:
+- conductor/tracks/ontology_shacl_maturation_20260702/metadata.json
+
+Summary:
+- Marked Track 8 metadata in_progress and moved GitHub Project #10 item for Issue #18 to In Progress.
+
+Verification:
+- gh project item-edit succeeded.
+- Metadata inspected after update.
+
+Risks:
+- None.
