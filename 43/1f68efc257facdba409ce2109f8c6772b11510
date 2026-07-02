@@ -1,0 +1,27 @@
+Task: Implement ontology maturation baseline
+
+Files changed:
+- ontology/foi-o-nz.ttl
+- vocab/event-types.skos.ttl
+- src/foi_o_nz/jsonld_context.py
+- contexts/foi-o-nz.context.jsonld
+- shacl/foi-o-nz.shapes.ttl
+- docs/22-semantic-alignment.md
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Canonicalized FOIO namespace usage and expanded ontology/context/vocabulary coverage for review, risk, redaction, publication, provider, policy, and legal-source-version surfaces.
+- Added minimal SHACL profile stubs for agent actions, review tasks, and dataset publications.
+- Documented standards alignment with PROV-O, DCAT, ODRL, SKOS, and legal-document/source-version identifiers.
+
+Verification:
+- uv run pytest -q tests/test_semantic_alignment.py
+- uv run pytest -q tests/test_rdf_export.py tests/test_request_profile_jsonld.py tests/test_batch_and_context.py tests/test_validation.py tests/test_schema_codegen_shacl.py
+- uv run ruff check src/foi_o_nz/jsonld_context.py tests/test_semantic_alignment.py
+- uv run ruff format --check src/foi_o_nz/jsonld_context.py tests/test_semantic_alignment.py
+- uv run python scripts/validate_examples.py
+- uv run foi-o-nz validate-repo
+- git diff --check
+
+Risks:
+- SHACL profiles are baseline stubs; detailed safety constraints remain for Phase 2.
