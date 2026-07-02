@@ -22,6 +22,8 @@ def test_legal_source_mapping_records_versions_and_status() -> None:
     assert "nz.ombudsman.oia-guide" in mapping["sources"]
     oia_source = mapping["sources"]["nz.oia.act"]
     assert oia_source["work_id"] == "act_public_1982_156"
+    assert oia_source["jurisdiction"] == "NZ"
+    assert oia_source["provider_candidate"] == "legislation.govt.nz"
     assert oia_source["source_status"] == "official_snapshot"
     assert oia_source["retrieved_at"] == "2026-07-02T00:00:00Z"
     assert oia_source["version_id"].startswith("legislation.govt.nz:")
@@ -33,6 +35,8 @@ def test_key_legal_references_are_source_versioned() -> None:
         "source_id",
         "reference",
         "concept",
+        "jurisdiction",
+        "provider_candidate",
         "uri",
         "work_id",
         "version_id",
@@ -43,6 +47,11 @@ def test_key_legal_references_are_source_versioned() -> None:
 
     for reference in mapping["key_references_initial"]:
         assert required <= set(reference), reference
+        assert reference["jurisdiction"] == "NZ"
+        assert reference["provider_candidate"] in {
+            "legislation.govt.nz",
+            "ombudsman.parliament.nz",
+        }
         assert reference["applicability_basis"] in {
             "current_at_event_time",
             "current_at_extraction_time",

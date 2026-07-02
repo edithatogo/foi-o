@@ -14,6 +14,8 @@ Each statutory or guidance reference should carry:
 source_id: nz.oia.act
 source_title: Official Information Act 1982
 provision: s 15
+jurisdiction: NZ
+provider_candidate: legislation.govt.nz
 source_uri: https://www.legislation.govt.nz/...
 work_id: act_public_1982_156
 version_id: act_public_1982_156_en_YYYY-MM-DD
@@ -27,7 +29,8 @@ The New Zealand Legislation API conceptual model of works, versions, and formats
 
 `mappings/nz-legislation-sources.yaml` is the repo-local source-version
 registry. It records source status, retrieval timestamp, version identifier,
-canonical URI, and applicability basis for statute and guidance references.
+canonical URI, jurisdiction, provider candidate, and applicability basis for
+statute and guidance references.
 
 Use `foi-o-nz legal-source-status` for local validation. `--live` does not fetch
 network sources; it fails closed unless an ignored cache directory such as

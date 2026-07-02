@@ -12,7 +12,9 @@ from foi_o_nz.dates import parse_datetime
 SOURCE_REQUIRED_FIELDS = {
     "title",
     "kind",
+    "jurisdiction",
     "canonical_uri",
+    "provider_candidate",
     "work_id",
     "version_id",
     "retrieved_at",
@@ -22,6 +24,8 @@ REFERENCE_REQUIRED_FIELDS = {
     "source_id",
     "reference",
     "concept",
+    "jurisdiction",
+    "provider_candidate",
     "uri",
     "work_id",
     "version_id",

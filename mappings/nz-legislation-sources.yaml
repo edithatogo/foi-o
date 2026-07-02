@@ -3,6 +3,8 @@ sources:
   nz.oia.act:
     title: Official Information Act 1982
     kind: statute
+    jurisdiction: NZ
+    provider_candidate: legislation.govt.nz
     work_id: act_public_1982_156
     canonical_uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
     api_docs: https://api.legislation.govt.nz/docs/
@@ -14,6 +16,8 @@ sources:
   nz.lgoima.act:
     title: Local Government Official Information and Meetings Act 1987
     kind: statute
+    jurisdiction: NZ
+    provider_candidate: legislation.govt.nz
     work_id: act_public_1987_0174
     canonical_uri: https://www.legislation.govt.nz/act/public/1987/0174/latest/whole.html
     version_id: legislation.govt.nz:act_public_1987_0174:latest:retrieved_2026-07-02
@@ -24,6 +28,8 @@ sources:
   nz.ombudsman.oia-guide:
     title: The OIA for Ministers and agencies
     kind: guidance
+    jurisdiction: NZ
+    provider_candidate: ombudsman.parliament.nz
     work_id: ombudsman_oia_ministers_agencies_guide
     canonical_uri: https://www.ombudsman.parliament.nz/resources/oia-ministers-and-agencies-guide-processing-official-information-requests
     version_id: ombudsman:oia-ministers-agencies-guide:retrieved_2026-07-02
@@ -35,6 +41,8 @@ key_references_initial:
   - source_id: nz.oia.act
     reference: s 14
     concept: transfer
+    jurisdiction: NZ
+    provider_candidate: legislation.govt.nz
     uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
     work_id: act_public_1982_156
     version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
@@ -44,6 +52,8 @@ key_references_initial:
   - source_id: nz.oia.act
     reference: s 15
     concept: decision_timeframe
+    jurisdiction: NZ
+    provider_candidate: legislation.govt.nz
     uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
     work_id: act_public_1982_156
     version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
@@ -53,6 +63,8 @@ key_references_initial:
   - source_id: nz.oia.act
     reference: s 15A
     concept: extension
+    jurisdiction: NZ
+    provider_candidate: legislation.govt.nz
     uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
     work_id: act_public_1982_156
     version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
@@ -62,6 +74,8 @@ key_references_initial:
   - source_id: nz.oia.act
     reference: ss 6, 9, 18
     concept: withholding_or_refusal_grounds
+    jurisdiction: NZ
+    provider_candidate: legislation.govt.nz
     uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
     work_id: act_public_1982_156
     version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
@@ -71,6 +85,8 @@ key_references_initial:
   - source_id: nz.ombudsman.oia-guide
     reference: processing official information requests
     concept: ombudsman_processing_guidance
+    jurisdiction: NZ
+    provider_candidate: ombudsman.parliament.nz
     uri: https://www.ombudsman.parliament.nz/resources/oia-ministers-and-agencies-guide-processing-official-information-requests
     work_id: ombudsman_oia_ministers_agencies_guide
     version_id: ombudsman:oia-ministers-agencies-guide:retrieved_2026-07-02
