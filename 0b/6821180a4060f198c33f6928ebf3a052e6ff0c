@@ -1,0 +1,7 @@
+Task summary: Added deterministic event timeline reconstruction with tests, CLI, and example.
+
+Files changed: tests/test_event_extraction_timeline.py; src/foi_o_nz/timeline.py; src/foi_o_nz/cli.py; examples/event-timeline.small.json; conductor/tracks/event_extraction_timeline_20260702/plan.md.
+
+Verification: uv run pytest -q tests/test_event_extraction_timeline.py; uv run ruff check src/foi_o_nz/timeline.py src/foi_o_nz/cli.py tests/test_event_extraction_timeline.py; uv run ruff format --check src/foi_o_nz/timeline.py src/foi_o_nz/cli.py tests/test_event_extraction_timeline.py; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo.
+
+Risks: additive timeline output and CLI; extraction behavior unchanged.
