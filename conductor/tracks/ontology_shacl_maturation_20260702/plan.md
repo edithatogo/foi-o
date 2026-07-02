@@ -18,9 +18,9 @@
 - [x] Task: Write SHACL validation tests (`95aa510`)
     - [x] Cover required evidence/provenance fields and certification-boundary constraints.
     - [x] Cover pySHACL installed and parse-only degraded modes.
-- [~] Task: Implement SHACL profile updates
-    - [ ] Add shapes for request profiles, core events, agent actions, and publication metadata.
-    - [ ] Keep unsafe certification claims invalid or review-required.
+- [x] Task: Implement SHACL profile updates (`f532c27`)
+    - [x] Add shapes for request profiles, core events, agent actions, and publication metadata.
+    - [x] Keep unsafe certification claims invalid or review-required.
 - [ ] Task: Conductor - User Manual Verification 'SHACL Safety Profiles' (Protocol in workflow.md)
 
 ## Phase 3: Semantic Export Consistency
