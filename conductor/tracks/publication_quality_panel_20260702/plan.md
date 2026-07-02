@@ -51,14 +51,14 @@
 
 ## Phase 4: Final quality gate and archive
 
-- [ ] Task: Final repo-local verification
-    - [ ] Run `uv run pytest -q`.
-    - [ ] Run `uv run ruff check src tests scripts`.
-    - [ ] Run `uv run ruff format --check src tests scripts`.
-    - [ ] Run available Pixi/Mojo checks or record unavailable external gates.
-    - [ ] Run final `conductor-review` if available and apply high-confidence fixes.
+- [x] Task: Final repo-local verification (`9093ce9`, `05bfe48`)
+    - [x] Run `uv run pytest -q`.
+    - [x] Run `uv run ruff check src tests scripts`.
+    - [x] Run `uv run ruff format --check src tests scripts`.
+    - [x] Run available Pixi/Mojo checks or record unavailable external gates.
+    - [x] Record `conductor-review` as unavailable on PATH; no automated Conductor review fixes applied.
 - [ ] Task: Archive completed track
-    - [ ] Mark metadata as completed.
+    - [x] Mark metadata as completed.
     - [ ] Move the track to `conductor/archive/publication_quality_panel_20260702/`.
     - [ ] Update `conductor/tracks.md`.
     - [ ] Commit, attach git notes, and push commits/notes if remote access is available.
