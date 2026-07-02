@@ -1,0 +1,4 @@
+Task summary: Checkpointed Track 5 Phase 1 PSC reporting mapping baseline.
+Files changed: conductor/tracks/reporting_profile_psc_20260702/plan.md; conductor/tracks/reporting_profile_psc_20260702/phase-1-verification.md.
+Verification: Focused reporting/schema/table tests, example validation, repo validation, Ruff check/format, reporting-metrics CLI.
+Risks: Aggregate report generation remains Phase 2 work.
