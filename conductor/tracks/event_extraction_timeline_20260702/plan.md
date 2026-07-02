@@ -35,7 +35,7 @@
     - [x] Keep fixture size small enough for committed validation.
 - [x] Task: Conductor - User Manual Verification 'Evaluation Fixtures' (Protocol in workflow.md) (`c89e528`)
 
-## Phase 4: Event Track Closeout
+## Phase 4: Event Track Closeout [checkpoint: 03335cb]
 
 - [x] Task: Run event extraction validation (`5d8f194`)
     - [x] Run targeted event extraction, quality, and evaluation tests.
@@ -43,4 +43,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`1fda6ff`)
     - [x] Run `conductor-review` for the track scope.
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [~] Task: Conductor - User Manual Verification 'Event Track Closeout' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Event Track Closeout' (Protocol in workflow.md) (`03335cb`)
