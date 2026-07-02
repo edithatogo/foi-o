@@ -1,0 +1,7 @@
+Task summary: Documented request profile JSON-LD provenance contract for Track 2 Phase 2.
+
+Files changed: docs/03-process-profile.md; conductor/tracks/corpus_profile_goldset_20260702/plan.md.
+
+Verification: uv run pytest -q tests/test_request_profile_jsonld.py; uv run python scripts/validate_examples.py.
+
+Risks: docs-only change.
