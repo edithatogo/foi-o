@@ -1,0 +1,16 @@
+Task: Write release validation documentation checks and update evidence note
+
+Summary:
+- Added tests/test_release_readiness_docs.py to enforce release validation command documentation and local path references.
+- Added repeatable release validation sequence to docs/19-release-readiness-evidence.md.
+- Preserved external gate language for optional services/toolchains.
+
+Red test:
+- uv run pytest -q tests/test_release_readiness_docs.py failed before docs update because required commands were absent.
+
+Verification:
+- uv run pytest -q tests/test_release_readiness_docs.py: 2 passed
+- uv run ruff check tests/test_release_readiness_docs.py: passed
+
+Risks:
+- Full release validation still needs to run in Phase 4.
