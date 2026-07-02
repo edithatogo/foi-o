@@ -2,10 +2,10 @@
 
 ## Phase 1: Extraction Baseline
 
-- [~] Task: Audit current extraction and timeline behavior
-    - [ ] Review extractors, normalise pipeline, event schemas, quality gates, and evaluation helpers.
-    - [ ] Identify missing fixture cases for correspondence fields and candidate events.
-    - [ ] Record certification-boundary assumptions for every candidate event class.
+- [x] Task: Audit current extraction and timeline behavior (`bdef63c`)
+    - [x] Review extractors, normalise pipeline, event schemas, quality gates, and evaluation helpers.
+    - [x] Identify missing fixture cases for correspondence fields and candidate events.
+    - [x] Record certification-boundary assumptions for every candidate event class.
 - [ ] Task: Write extraction fixture tests
     - [ ] Cover message-like input fields across supported manifest shapes.
     - [ ] Cover candidate ExtensionNotified, TransferNotified, ClarificationRequested, ComplaintObserved, decision, release, refusal, and charge signals.
