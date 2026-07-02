@@ -1,0 +1,9 @@
+{
+  "track_id": "publication_quality_panel_20260702",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-07-02T00:00:00Z",
+  "updated_at": "2026-07-02T00:00:00Z",
+  "depends_on": [],
+  "description": "Create a multi-agent publication quality panel, scoring loop, and reporting-checklist contract for protocol, analysis, artefacts, report, manuscript, and supplement outputs."
+}
