@@ -16,11 +16,11 @@
 ## Phase 2: Runtime Prototype
 
 - [x] Task: Write MCP runtime tests (`d4878f0`)
-    - [ ] Cover fixture-backed state mapping, validation, quality gate, and context/resource behaviors.
-    - [ ] Cover missing FastMCP dependency with explicit degraded-mode messaging.
-- [~] Task: Implement MCP runtime hardening
-    - [ ] Refine server startup, tool registration, and error handling for read-only fixture mode.
-    - [ ] Keep all write, certify, release, refusal, redaction, and charge operations absent.
+    - [x] Cover fixture-backed state mapping, validation, quality gate, and context/resource behaviors.
+    - [x] Cover missing FastMCP dependency with explicit degraded-mode messaging.
+- [x] Task: Implement MCP runtime hardening (`ab36781`)
+    - [x] Refine server startup, tool registration, and error handling for read-only fixture mode.
+    - [x] Keep all write, certify, release, refusal, redaction, and charge operations absent.
 - [ ] Task: Conductor - User Manual Verification 'Runtime Prototype' (Protocol in workflow.md)
 
 ## Phase 3: Agent Guardrail Replay
