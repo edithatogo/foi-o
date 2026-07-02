@@ -15,7 +15,7 @@
 
 ## Phase 2: Aggregate Report Generation
 
-- [ ] Task: Write aggregate report tests
+- [~] Task: Write aggregate report tests
     - [ ] Use committed fixtures to produce deterministic aggregate summaries.
     - [ ] Verify warning/caveat fields appear for partial or non-derivable metrics.
 - [ ] Task: Implement aggregate report outputs

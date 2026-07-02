@@ -4,14 +4,17 @@ from pathlib import Path
 
 from foi_o_nz.io import write_json
 from foi_o_nz.reporting import (
+    build_psc_aggregate_report,
     load_psc_reporting_profile,
     metric_table,
     validate_psc_reporting_profile,
+    write_psc_aggregate_report,
 )
 from foi_o_nz.validation import validate_json_schema
 
 PROFILE_PATH = Path("mappings/psc-oia-statistics-profile.yaml")
 REPORTING_METRIC_SCHEMA = Path("schemas/json/reporting-metric.schema.json")
+PSC_REPORT_SCHEMA = Path("schemas/json/psc-report.schema.json")
 
 
 def test_psc_reporting_profile_metrics_validate_against_schema() -> None:
@@ -63,3 +66,51 @@ def test_metric_table_uses_reporting_metric_schema(tmp_path: Path) -> None:
         assert validation.ok, validation.errors
         assert metric["official_reporting_caveat"]
         assert "not official PSC reporting" in metric["official_reporting_caveat"]
+
+
+def test_build_psc_aggregate_report_flags_derivability_boundaries(tmp_path: Path) -> None:
+    events = tmp_path / "events.jsonl"
+    events.write_text(
+        "\n".join(
+            [
+                '{"event_type":"RequestObserved","request_id":"100"}',
+                '{"event_type":"DecisionCommunicated","request_ref":{"source_request_id":100}}',
+                '{"event_type":"ExtensionNotified","request_id":"100"}',
+                '{"event_type":"ComplaintObserved","request_id":"100"}',
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    report = build_psc_aggregate_report(events)
+    metrics = {metric["metric_id"]: metric for metric in report["metrics"]}
+
+    assert report["schema_version"] == "foi-o-nz.psc-report.v0.1.0"
+    assert report["input_event_count"] == 4
+    assert metrics["fyi.public_platform_requests"]["value"] == 1
+    assert metrics["psc.completed_requests"]["status"] == "partial_indicator"
+    assert metrics["psc.completed_requests"]["value"] == 1
+    assert metrics["psc.ombudsman_complaints"]["status"] == "agency_internal_required"
+    assert metrics["psc.ombudsman_complaints"]["value"] is None
+    assert metrics["psc.ombudsman_complaints"]["public_indicator_count"] == 1
+    assert metrics["psc.processing_costs"]["status"] == "not_derivable"
+    assert metrics["psc.processing_costs"]["value"] is None
+    assert metrics["psc.processing_costs"]["event_count"] == 0
+    assert all(metric["official_reporting_caveat"] for metric in report["metrics"])
+    assert any("not official PSC reporting" in item for item in report["limitations"])
+
+
+def test_write_psc_aggregate_report_validates_against_schema(tmp_path: Path) -> None:
+    events = tmp_path / "events.jsonl"
+    output = tmp_path / "psc-report.json"
+    events.write_text(
+        '{"event_type":"RequestObserved","request_id":"100"}\n',
+        encoding="utf-8",
+    )
+
+    report = write_psc_aggregate_report(events, output)
+
+    assert report["output"] == str(output)
+    validation = validate_json_schema(output, PSC_REPORT_SCHEMA)
+    assert validation.ok, validation.errors
