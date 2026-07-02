@@ -1,0 +1,1 @@
+Task: Plan update for guardrail replay tests\n\nSummary:\n- Marked the guardrail replay contract tests task complete with commit c4fb82e.\n\nFiles changed:\n- conductor/tracks/agent_contract_mcp_runtime_20260702/plan.md\n\nVerification:\n- Plan-only update; red-test evidence is attached to c4fb82e.\n\nRisks:\n- None; no code changes.
