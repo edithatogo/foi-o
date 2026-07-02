@@ -1,0 +1,4 @@
+Task summary: Implemented deterministic PSC aggregate report generation for Track 5 Phase 2.
+Files changed: src/foi_o_nz/reporting.py; src/foi_o_nz/cli.py; schemas/json/psc-report.schema.json; scripts/validate_examples.py; examples/events.psc-report-sample.jsonl; examples/psc-report.small.json; conductor plan.
+Verification: reporting/analytics/schema tests, example validation, repo validation, Ruff check/format, psc-report CLI smoke.
+Risks: Aggregate values are public FYI-derived indicators only and not official PSC reporting.
