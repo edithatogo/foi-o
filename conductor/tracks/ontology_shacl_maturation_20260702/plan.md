@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`65e191e`)
     - [x] Check `conductor-review` availability and record the manual fallback.
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [~] Task: Conductor - User Manual Verification 'Ontology Track Closeout' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Ontology Track Closeout' (Protocol in workflow.md) (`ec65724`)
