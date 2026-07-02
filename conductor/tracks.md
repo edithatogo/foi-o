@@ -4,12 +4,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: Event extraction timeline and provenance**
-  *Link: [./tracks/event_extraction_timeline_20260702/](./tracks/event_extraction_timeline_20260702/)*
-  *GitHub: [Issue #13](https://github.com/edithatogo/foi-o/issues/13), [Project #10](https://github.com/users/edithatogo/projects/10)*
-
----
-
 - [ ] **Track: OIA process rules and legal-source versioning**
   *Link: [./tracks/oia_process_rules_20260702/](./tracks/oia_process_rules_20260702/)*
   *GitHub: [Issue #14](https://github.com/edithatogo/foi-o/issues/14), [Project #10](https://github.com/users/edithatogo/projects/10)*
