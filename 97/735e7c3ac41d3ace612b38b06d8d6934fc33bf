@@ -1,0 +1,22 @@
+Phase checkpoint: Bounded Extraction Experiments
+
+Files changed:
+- conductor/tracks/max_lancedb_inference_20260702/phase-3-verification.md
+- conductor/tracks/max_lancedb_inference_20260702/plan.md
+
+Summary:
+- Captured Phase 3 verification evidence for bounded local/MAX extraction request packs, candidate-output safety, and CLI smoke validation.
+- Recorded manual conductor-review fallback because the executable is unavailable.
+
+Verification:
+- uv run pytest -q tests/test_bounded_extraction.py tests/test_inference_providers.py tests/test_lancedb_retrieval.py tests/test_embeddings.py tests/test_retrieval_redaction_diff_pack_repro.py tests/test_agent_policy.py -> 25 passed
+- uv run ruff check src tests scripts -> passed
+- uv run ruff format --check src tests scripts -> passed
+- uv run python scripts/validate_examples.py -> examples ok
+- uv run foi-o-nz validate-repo -> repository validation ok
+- uv run foi-o-nz schema-drift -> ok with warning-only baseline top-level schema drift
+- uv run foi-o-nz prepare-local-extraction smoke -> one candidate-only request pack written
+
+Risks:
+- Live MAX/model execution and quality measurement remain external gates.
+- Generated model outputs are not committed or certified by this phase.
