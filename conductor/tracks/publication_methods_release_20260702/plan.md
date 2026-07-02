@@ -11,7 +11,7 @@
 - [x] Task: Implement release evidence package (`92b82a4`)
     - [x] Add or update release checklist, reproducibility commands, and metadata examples.
     - [x] Keep generated publication payloads out of Git unless reduced to safe fixtures.
-- [ ] Task: Conductor - User Manual Verification 'Release Evidence Package' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Release Evidence Package' (Protocol in workflow.md)
 
 ## Phase 2: Dataset and Repository Publication Metadata
 
