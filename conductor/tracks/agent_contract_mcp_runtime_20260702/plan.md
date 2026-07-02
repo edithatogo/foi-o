@@ -38,7 +38,7 @@
 - [x] Task: Run agent contract validation (`fc9517d`)
     - [x] Run agent policy, OpenAPI, tool-manifest, MCP bundle, replay, and server tests.
     - [x] Run optional FastMCP checks if installed or document the external gate.
-- [~] Task: Run Conductor review and apply high-confidence fixes
-    - [ ] Run `conductor-review` for the track scope.
-    - [ ] Apply high-confidence fixes and rerun focused checks.
+- [x] Task: Run Conductor review and apply high-confidence fixes (`5ad9a3c`)
+    - [x] Run `conductor-review` for the track scope.
+    - [x] Apply high-confidence fixes and rerun focused checks.
 - [ ] Task: Conductor - User Manual Verification 'Agent Contract Closeout' (Protocol in workflow.md)
