@@ -15,7 +15,7 @@
 
 ## Phase 2: Runtime Prototype
 
-- [~] Task: Write MCP runtime tests
+- [x] Task: Write MCP runtime tests (`d4878f0`)
     - [ ] Cover fixture-backed state mapping, validation, quality gate, and context/resource behaviors.
     - [ ] Cover missing FastMCP dependency with explicit degraded-mode messaging.
 - [ ] Task: Implement MCP runtime hardening
