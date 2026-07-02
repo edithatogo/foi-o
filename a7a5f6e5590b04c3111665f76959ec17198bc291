@@ -1,0 +1,7 @@
+Task summary: Audited Track 2 corpus intake and request profile coverage.
+
+Files changed: conductor/tracks/corpus_profile_goldset_20260702/audit.md; conductor/tracks/corpus_profile_goldset_20260702/plan.md.
+
+Verification: inspected normalise/io/goldset/CLI/tests/schemas/examples; no runtime code changed.
+
+Risks: audit-only documentation; implementation gaps remain for source provenance, input variants, fail-closed live config, stale JSON-LD example, and request profile context terms.
