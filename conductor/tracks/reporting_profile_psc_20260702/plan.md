@@ -11,7 +11,7 @@
 - [x] Task: Implement reporting mapping updates (`243d067`)
     - [x] Update mapping files, schemas, and docs for derivability status.
     - [x] Keep official-reporting caveats explicit.
-- [ ] Task: Conductor - User Manual Verification 'Reporting Mapping Baseline' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Reporting Mapping Baseline' (Protocol in workflow.md)
 
 ## Phase 2: Aggregate Report Generation
 
