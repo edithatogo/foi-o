@@ -2,10 +2,10 @@
 
 ## Phase 1: Corpus Intake Contract
 
-- [~] Task: Audit current manifest intake and request profile coverage
-    - [ ] Review normalisation code, request-profile schema, examples, and docs for source-state handling.
-    - [ ] Identify missing fixture coverage for live-style archive manifest records.
-    - [ ] Record repo-local versus live-source proof requirements.
+- [x] Task: Audit current manifest intake and request profile coverage (`a7a5f6e`)
+    - [x] Review normalisation code, request-profile schema, examples, and docs for source-state handling.
+    - [x] Identify missing fixture coverage for live-style archive manifest records.
+    - [x] Record repo-local versus live-source proof requirements.
 - [ ] Task: Write fixture intake tests
     - [ ] Add tests for source-state preservation and normalised state mapping.
     - [ ] Add tests for JSONL/JSON array archive input variants.
