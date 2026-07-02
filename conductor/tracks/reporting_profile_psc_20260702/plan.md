@@ -33,7 +33,7 @@
     - [x] Include sample commands and expected fixture outputs.
 - [x] Task: Conductor - User Manual Verification 'Publication-Safe Reporting Docs' (Protocol in workflow.md) (`8475370`)
 
-## Phase 4: Reporting Closeout
+## Phase 4: Reporting Closeout [checkpoint: 1030bc4]
 
 - [x] Task: Run reporting validation (`3d6ef3b`)
     - [x] Run reporting, analytics, mapping, schema, and table-contract tests.
@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`3c43df1`)
     - [x] Run `conductor-review` for the track scope. Command unavailable; manual fallback recorded in `review.md`.
     - [x] Apply high-confidence fixes and rerun focused checks. Fixes committed in `a0b7c8d` and `11e3cbc`.
-- [~] Task: Conductor - User Manual Verification 'Reporting Closeout' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Reporting Closeout' (Protocol in workflow.md) (`1030bc4`)
