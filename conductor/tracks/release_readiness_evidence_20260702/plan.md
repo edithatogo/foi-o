@@ -2,10 +2,10 @@
 
 ## Phase 1: Evidence Baseline
 
-- [~] Task: Audit current readiness and release claims
-    - [ ] Review README, implementation reports, delta docs, kernel readiness examples, and Mojo audit examples.
-    - [ ] Identify claims that require repo-local command, test, schema, or manifest evidence.
-    - [ ] Record gaps directly in the implementation notes or a focused evidence checklist.
+- [x] Task: Audit current readiness and release claims (`d89edbf`)
+    - [x] Review README, implementation reports, delta docs, kernel readiness examples, and Mojo audit examples.
+    - [x] Identify claims that require repo-local command, test, schema, or manifest evidence.
+    - [x] Record gaps directly in the implementation notes or a focused evidence checklist.
 - [ ] Task: Conductor - User Manual Verification 'Evidence Baseline' (Protocol in workflow.md)
 
 ## Phase 2: Kernel Fallback Proof
