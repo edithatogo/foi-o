@@ -35,7 +35,7 @@
 
 ## Phase 4: Reporting Closeout
 
-- [ ] Task: Run reporting validation
+- [~] Task: Run reporting validation
     - [ ] Run reporting, analytics, mapping, schema, and table-contract tests.
     - [ ] Generate sample fixture reports and validate outputs.
 - [ ] Task: Run Conductor review and apply high-confidence fixes
