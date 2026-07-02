@@ -1,0 +1,7 @@
+Track: oia_process_rules_20260702
+Phase: Source-Versioned References
+Tasks: Write source-reference validation tests; Implement legal-source versioning
+Summary: Added legal-source mapping validation, fail-closed legal-source-status command, version/status/retrieval metadata for OIA/LGOIMA/Ombudsman sources, source-versioned key references, and documentation for live-source external gates.
+Files changed: conductor/tracks/oia_process_rules_20260702/plan.md; docs/06-legal-versioning.md; mappings/nz-legislation-sources.yaml; src/foi_o_nz/cli.py; src/foi_o_nz/legal_sources.py; tests/test_legal_sources.py
+Verification: uv run pytest -q tests/test_legal_sources.py tests/test_validation.py tests/test_dates.py; uv run foi-o-nz legal-source-status; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo
+Risks: Live NZ Legislation/Ombudsman retrieval remains an explicit external gate; command does not fetch network sources.
