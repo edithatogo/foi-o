@@ -38,7 +38,7 @@
 - [x] Task: Run OIA process validation (`300106b`)
     - [ ] Run date, state-machine, quality, mapping, and schema tests.
     - [ ] Run available Mojo clock tests or document Modular external gate.
-- [ ] Task: Run Conductor review and apply high-confidence fixes
+- [~] Task: Run Conductor review and apply high-confidence fixes
     - [ ] Run `conductor-review` for the track scope.
     - [ ] Apply high-confidence fixes and rerun focused checks.
 - [ ] Task: Conductor - User Manual Verification 'OIA Rules Closeout' (Protocol in workflow.md)
