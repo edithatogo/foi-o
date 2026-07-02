@@ -1,0 +1,4 @@
+Task summary: Fixed review finding where clock CLI stripped holiday calendar source metadata.
+Files changed: src/foi_o_nz/cli.py; tests/test_dates.py.
+Verification: uv run pytest -q tests/test_dates.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts.
+Risks: Low; CLI now preserves existing date behavior and emits richer metadata when a source-aware calendar is supplied.
