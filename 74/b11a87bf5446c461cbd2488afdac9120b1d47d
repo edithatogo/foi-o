@@ -1,0 +1,17 @@
+Task: Start publication_methods_release_20260702
+
+Summary:
+- Marked the publication, methods paper, and release package track in progress.
+- Updated the GitHub Project #10 item for Issue #19 to In Progress.
+
+Files changed:
+- conductor/tracks.md
+- conductor/tracks/publication_methods_release_20260702/metadata.json
+
+Verification:
+- gh issue view confirmed Issue #19 was open and Todo.
+- gh project item-list confirmed item id PVTI_lAHOAOYc4M4BcO_5zgxes1Y.
+- gh project item-edit succeeded.
+
+Risks:
+- No implementation work completed yet.
