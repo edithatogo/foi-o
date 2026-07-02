@@ -1,0 +1,23 @@
+Task: Run ontology validation
+
+Files changed:
+- conductor/tracks/ontology_shacl_maturation_20260702/phase-4-validation.md
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Captured full repo-local validation evidence for Track 8 closeout.
+
+Verification:
+- uv run ruff check src tests scripts -> passed
+- uv run ruff format --check src tests scripts -> passed
+- uv run pytest -q -> 158 passed
+- uv run python scripts/validate_examples.py -> examples ok
+- uv run foi-o-nz validate-repo -> repository validation ok
+- uv run foi-o-nz schema-drift -> ok with warning-only baseline top-level schema drift
+- pixi run mojo-format-check -> passed
+- pixi run mojo-test -> passed
+- pixi run mojo-build -> passed
+- git diff --check -> passed
+
+Risks:
+- Live legal-source retrieval, provision-level statutory parsing, external registry validation, and publication checks remain external gates.
