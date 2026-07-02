@@ -18,9 +18,9 @@
 - [x] Task: Write aggregate report tests (`371304f`)
     - [x] Use committed fixtures to produce deterministic aggregate summaries.
     - [x] Verify warning/caveat fields appear for partial or non-derivable metrics.
-- [~] Task: Implement aggregate report outputs
-    - [ ] Add or refine CLI/reporting functions for sample aggregate reports.
-    - [ ] Ensure outputs validate against schemas or table contracts.
+- [x] Task: Implement aggregate report outputs (`57be802`)
+    - [x] Add or refine CLI/reporting functions for sample aggregate reports.
+    - [x] Ensure outputs validate against schemas or table contracts.
 - [ ] Task: Conductor - User Manual Verification 'Aggregate Report Generation' (Protocol in workflow.md)
 
 ## Phase 3: Publication-Safe Reporting Docs
