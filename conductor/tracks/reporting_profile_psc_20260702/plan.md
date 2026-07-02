@@ -13,7 +13,7 @@
     - [x] Keep official-reporting caveats explicit.
 - [x] Task: Conductor - User Manual Verification 'Reporting Mapping Baseline' (Protocol in workflow.md) (`fc5c3df`)
 
-## Phase 2: Aggregate Report Generation
+## Phase 2: Aggregate Report Generation [checkpoint: 89cc1b6]
 
 - [x] Task: Write aggregate report tests (`371304f`)
     - [x] Use committed fixtures to produce deterministic aggregate summaries.
@@ -21,7 +21,7 @@
 - [x] Task: Implement aggregate report outputs (`57be802`)
     - [x] Add or refine CLI/reporting functions for sample aggregate reports.
     - [x] Ensure outputs validate against schemas or table contracts.
-- [~] Task: Conductor - User Manual Verification 'Aggregate Report Generation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Aggregate Report Generation' (Protocol in workflow.md) (`89cc1b6`)
 
 ## Phase 3: Publication-Safe Reporting Docs
 
