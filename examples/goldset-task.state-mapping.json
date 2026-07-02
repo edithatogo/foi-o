@@ -1,0 +1,56 @@
+{
+  "schema_version": "foi-o-nz.goldset-task.v0.1.0",
+  "task_id": "foio-nz:gold:state-mapping-example",
+  "task_type": "state_mapping",
+  "source_id": "20001",
+  "request_id": "20001",
+  "priority": "medium",
+  "text": "Monkeypox surveillance and contact tracing strategy\nAuthority: ministry_of_health\nSource state: successful\nNormalised state: ReleasedInFull",
+  "candidate_labels": [
+    "Received",
+    "AwaitingClarification",
+    "ReleasedInFull",
+    "ReleasedInPart",
+    "Refused",
+    "NoDocumentsFound",
+    "Withdrawn",
+    "Closed",
+    "Unknown"
+  ],
+  "prefilled_label": "ReleasedInFull",
+  "evidence": {
+    "source_state": "successful",
+    "normalised_state": "ReleasedInFull",
+    "mapping_confidence": 0.55,
+    "state_mapping": {
+      "method": "rule",
+      "confidence": 0.55,
+      "evidence_ids": [
+        "evidence:fyi-archive-nz:20001:manifest"
+      ],
+      "notes": "Source state preserved. Inspect correspondence before distinguishing full vs partial release."
+    },
+    "source_provenance": {
+      "input_path": "examples/request-record.jsonld",
+      "source_record_id": "20001",
+      "raw_state_field": "state",
+      "raw_state_value": "successful",
+      "mapping_method": "rule",
+      "mapping_confidence": 0.55,
+      "evidence_id": "evidence:fyi-archive-nz:20001:manifest"
+    },
+    "event_hints": [
+      {
+        "event_id": "foio-nz:event:state-20001",
+        "event_type": "StateObserved",
+        "assertion_status": "inferred",
+        "confidence": 0.55,
+        "evidence_ids": [
+          "evidence:fyi-archive-nz:20001:manifest"
+        ]
+      }
+    ]
+  },
+  "instructions": "Review whether the normalised state is supported by the source state and event hints. Do not certify a legal outcome.",
+  "decision_boundary": "Annotation supports evaluation only; it does not certify an OIA decision."
+}

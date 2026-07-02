@@ -31,7 +31,7 @@ from foi_o_nz.diff import diff_jsonl
 from foi_o_nz.duckdb_export import build_duckdb_database, write_duckdb_bootstrap_sql
 from foi_o_nz.embeddings import embed_jsonl
 from foi_o_nz.evaluation import evaluate_event_jsonl
-from foi_o_nz.goldset import write_goldset_sample, write_goldset_tasks
+from foi_o_nz.goldset import write_goldset_sample, write_goldset_tasks, write_request_goldset_tasks
 from foi_o_nz.graph_export import write_graph_export
 from foi_o_nz.io import read_json_records, write_json, write_jsonl
 from foi_o_nz.jsonld_context import write_context
@@ -1047,8 +1047,17 @@ def trace_artifacts_command(
 
 @app.command("build-goldset")
 def build_goldset_command(
-    chunks_jsonl: Annotated[Path, typer.Option("--chunks-jsonl", help="Chunk JSONL input")],
     output: Annotated[Path, typer.Option("--output", "-o", help="Goldset task JSONL output")],
+    chunks_jsonl: Annotated[
+        Path | None, typer.Option("--chunks-jsonl", help="Chunk JSONL input")
+    ] = None,
+    requests_jsonl: Annotated[
+        Path | None,
+        typer.Option("--requests-jsonl", help="Request profile JSONL input for state tasks"),
+    ] = None,
+    events_jsonl: Annotated[
+        Path | None, typer.Option("--events-jsonl", help="Optional core event hints JSONL")
+    ] = None,
     risks_jsonl: Annotated[
         Path | None, typer.Option("--risks-jsonl", help="Optional risk assessment JSONL")
     ] = None,
@@ -1057,9 +1066,20 @@ def build_goldset_command(
     ] = None,
 ) -> None:
     """Build bounded human annotation/evaluation tasks from chunk/risk records."""
-    result = write_goldset_tasks(
-        chunks_jsonl, output, risks_jsonl=risks_jsonl, summary_output=summary_output
-    )
+    if requests_jsonl is not None:
+        result = write_request_goldset_tasks(
+            requests_jsonl,
+            output,
+            events_jsonl=events_jsonl,
+            summary_output=summary_output,
+        )
+    elif chunks_jsonl is not None:
+        result = write_goldset_tasks(
+            chunks_jsonl, output, risks_jsonl=risks_jsonl, summary_output=summary_output
+        )
+    else:
+        console.print("Provide either --requests-jsonl or --chunks-jsonl.", style="red")
+        raise typer.Exit(code=1)
     console.print_json(json.dumps(result))
 
 

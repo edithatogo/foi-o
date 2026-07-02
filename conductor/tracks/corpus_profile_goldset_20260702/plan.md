@@ -28,7 +28,7 @@
 
 ## Phase 3: Goldset Workflow
 
-- [ ] Task: Write goldset sampling and annotation export tests
+- [~] Task: Write goldset sampling and annotation export tests
     - [ ] Test deterministic 100-request sampling parameters with a smaller fixture fallback.
     - [ ] Test annotation-task outputs include source state, normalised state, confidence, event hints, and evidence references.
 - [ ] Task: Implement reproducible goldset workflow

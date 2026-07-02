@@ -5,7 +5,7 @@ from pathlib import Path
 
 from foi_o_nz.annotation import write_annotation_tasks
 from foi_o_nz.attestation import write_attestation
-from foi_o_nz.goldset import write_goldset_sample
+from foi_o_nz.goldset import write_goldset_sample, write_request_goldset_tasks
 from foi_o_nz.graph_export import build_graph, graph_to_mermaid, write_graph_export
 from foi_o_nz.io import write_jsonl
 from foi_o_nz.process_advice import build_process_advice, write_process_advice
@@ -214,6 +214,40 @@ def test_goldset_sampling_is_deterministic_and_bounded(tmp_path: Path) -> None:
     assert output.read_text(encoding="utf-8") == lines_first
 
 
+def test_goldset_sampling_supports_100_request_workflow(tmp_path: Path) -> None:
+    records = tmp_path / "requests.jsonl"
+    output = tmp_path / "gold.jsonl"
+    manifest = tmp_path / "gold.manifest.json"
+    write_jsonl(
+        records,
+        [
+            {
+                "request_id": str(index),
+                "authority": f"Authority {index % 5}",
+                "source_state": "successful" if index % 2 else "waiting_response",
+                "normalised_state": "ReleasedInFull" if index % 2 else "Received",
+            }
+            for index in range(150)
+        ],
+    )
+
+    result = write_goldset_sample(
+        records,
+        output,
+        manifest,
+        kind="request",
+        limit=100,
+        per_stratum=100,
+        seed="track-2-fixture",
+    )
+
+    assert result["candidate_count"] == 150
+    assert result["selected_count"] == 100
+    sampled = [json.loads(line) for line in output.read_text(encoding="utf-8").splitlines()]
+    assert len(sampled) == 100
+    assert all(item["record_kind"] == "request" for item in sampled)
+
+
 def test_annotation_tasks_can_export_label_studio(tmp_path: Path) -> None:
     paths = _write_fixture_streams(tmp_path)
     queue = tmp_path / "review.jsonl"
@@ -224,3 +258,72 @@ def test_annotation_tasks_can_export_label_studio(tmp_path: Path) -> None:
     assert result["annotation_count"] == 1
     assert data[0]["data"]["request_id"] == "12345"
     assert "agent_boundary" in data[0]["meta"]
+
+
+def test_request_goldset_tasks_include_state_provenance_and_event_hints(
+    tmp_path: Path,
+) -> None:
+    requests = tmp_path / "requests.jsonl"
+    events = tmp_path / "events.jsonl"
+    output = tmp_path / "request-tasks.jsonl"
+    summary = tmp_path / "request-tasks.summary.json"
+    write_jsonl(
+        requests,
+        [
+            {
+                "request_id": "123",
+                "title": "Example request",
+                "authority": "Example Ministry",
+                "source_state": "successful",
+                "normalised_state": "ReleasedInFull",
+                "state_mapping": {
+                    "method": "rule",
+                    "confidence": 0.55,
+                    "evidence_ids": ["evidence:fyi-archive-nz:123:manifest"],
+                    "notes": "Inspect correspondence before distinguishing full versus partial release.",
+                },
+                "source_provenance": {
+                    "input_path": "fixtures/fyi-manifest.jsonl",
+                    "source_record_id": "123",
+                    "raw_state_field": "state",
+                    "raw_state_value": "successful",
+                    "mapping_method": "rule",
+                    "mapping_confidence": 0.55,
+                    "evidence_id": "evidence:fyi-archive-nz:123:manifest",
+                },
+            }
+        ],
+    )
+    write_jsonl(
+        events,
+        [
+            {
+                "event_id": "foio-nz:event:state-123",
+                "event_type": "StateObserved",
+                "assertion_status": "inferred",
+                "confidence": 0.55,
+                "request_ref": {"source_request_id": "123"},
+                "evidence": [{"evidence_id": "evidence:fyi-archive-nz:123:manifest"}],
+            }
+        ],
+    )
+
+    result = write_request_goldset_tasks(
+        requests,
+        output,
+        events_jsonl=events,
+        summary_output=summary,
+    )
+
+    assert result["task_count"] == 1
+    task = json.loads(output.read_text(encoding="utf-8").splitlines()[0])
+    assert task["task_type"] == "state_mapping"
+    assert task["prefilled_label"] == "ReleasedInFull"
+    assert task["evidence"]["source_state"] == "successful"
+    assert task["evidence"]["normalised_state"] == "ReleasedInFull"
+    assert task["evidence"]["mapping_confidence"] == 0.55
+    assert task["evidence"]["source_provenance"]["source_record_id"] == "123"
+    assert task["evidence"]["event_hints"][0]["event_type"] == "StateObserved"
+    assert task["evidence"]["event_hints"][0]["evidence_ids"] == [
+        "evidence:fyi-archive-nz:123:manifest"
+    ]

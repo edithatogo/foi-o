@@ -237,3 +237,125 @@ def write_goldset_tasks(
     if summary_output is not None:
         write_json(summary_output, summary)
     return summary
+
+
+def _request_id_from_event(event: dict[str, Any]) -> str | None:
+    request_ref = event.get("request_ref")
+    if not isinstance(request_ref, dict):
+        return None
+    value = request_ref.get("source_request_id")
+    return str(value) if value is not None else None
+
+
+def _event_hint(event: dict[str, Any]) -> dict[str, Any]:
+    evidence = event.get("evidence") if isinstance(event.get("evidence"), list) else []
+    evidence_ids = [
+        str(item.get("evidence_id"))
+        for item in evidence
+        if isinstance(item, dict) and item.get("evidence_id") is not None
+    ]
+    return {
+        "event_id": event.get("event_id"),
+        "event_type": event.get("event_type"),
+        "assertion_status": event.get("assertion_status"),
+        "confidence": event.get("confidence"),
+        "evidence_ids": evidence_ids,
+    }
+
+
+def tasks_from_requests(
+    requests: list[dict[str, Any]], events: list[dict[str, Any]] | None = None
+) -> list[GoldsetTask]:
+    """Build state-mapping annotation tasks from request profiles and event hints."""
+    events_by_request: dict[str, list[dict[str, Any]]] = {}
+    for event in events or []:
+        request_id = _request_id_from_event(event)
+        if request_id is not None:
+            events_by_request.setdefault(request_id, []).append(event)
+
+    tasks: list[GoldsetTask] = []
+    for request in requests:
+        request_id = str(request.get("request_id") or request.get("source_id") or "unknown")
+        title = str(request.get("title") or "Untitled request")
+        authority = str(request.get("authority") or "Unknown authority")
+        source_state = str(request.get("source_state") or "unknown")
+        normalised_state = str(request.get("normalised_state") or "Unknown")
+        state_mapping = (
+            request.get("state_mapping") if isinstance(request.get("state_mapping"), dict) else {}
+        )
+        mapping_confidence = state_mapping.get("confidence")
+        priority: Literal["low", "medium", "high"] = (
+            "high"
+            if isinstance(mapping_confidence, int | float) and mapping_confidence < 0.5
+            else "medium"
+        )
+        event_hints = [_event_hint(event) for event in events_by_request.get(request_id, [])]
+        text = (
+            f"{title}\n"
+            f"Authority: {authority}\n"
+            f"Source state: {source_state}\n"
+            f"Normalised state: {normalised_state}"
+        )
+        tasks.append(
+            GoldsetTask(
+                task_id=_task_id("state_mapping", request_id, text),
+                task_type="state_mapping",
+                source_id=request_id,
+                request_id=request_id,
+                priority=priority,
+                text=text,
+                candidate_labels=[
+                    "Received",
+                    "AwaitingClarification",
+                    "ReleasedInFull",
+                    "ReleasedInPart",
+                    "Refused",
+                    "NoDocumentsFound",
+                    "Withdrawn",
+                    "Closed",
+                    "Unknown",
+                ],
+                prefilled_label=normalised_state,
+                evidence={
+                    "source_state": source_state,
+                    "normalised_state": normalised_state,
+                    "mapping_confidence": mapping_confidence,
+                    "state_mapping": state_mapping,
+                    "source_provenance": request.get("source_provenance"),
+                    "event_hints": event_hints,
+                },
+                instructions="Review whether the normalised state is supported by the source state and event hints. Do not certify a legal outcome.",
+            )
+        )
+    return tasks
+
+
+def write_request_goldset_tasks(
+    requests_jsonl: Path,
+    output: Path,
+    *,
+    events_jsonl: Path | None = None,
+    summary_output: Path | None = None,
+) -> dict[str, Any]:
+    """Write request-profile state-mapping goldset tasks."""
+    requests = list(iter_jsonl(requests_jsonl))
+    events = list(iter_jsonl(events_jsonl)) if events_jsonl is not None else None
+    tasks = tasks_from_requests(requests, events)
+    records = [task.model_dump(mode="json", exclude_none=True) for task in tasks]
+    write_jsonl(output, records)
+    priority_counts = {"low": 0, "medium": 0, "high": 0}
+    for task in tasks:
+        priority_counts[task.priority] += 1
+    summary = {
+        "ok": True,
+        "output": str(output),
+        "task_count": len(tasks),
+        "priority_counts": priority_counts,
+        "task_type_counts": {"state_mapping": len(tasks)},
+        "limitations": [
+            "Request goldset tasks support evaluation only and do not certify OIA decisions."
+        ],
+    }
+    if summary_output is not None:
+        write_json(summary_output, summary)
+    return summary
