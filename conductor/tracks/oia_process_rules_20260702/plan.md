@@ -2,7 +2,7 @@
 
 ## Phase 1: Calendar Contract
 
-- [ ] Task: Audit current clock helpers and mappings
+- [~] Task: Audit current clock helpers and mappings
     - [ ] Review date helpers, Mojo clock kernels, mappings, examples, and docs.
     - [ ] Identify calendar assumptions that are currently hard-coded or undocumented.
 - [ ] Task: Write working-day calendar tests
