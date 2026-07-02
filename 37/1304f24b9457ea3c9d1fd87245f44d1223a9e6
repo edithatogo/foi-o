@@ -1,0 +1,4 @@
+Task summary: Added PSC aggregate report contract tests for Track 5 Phase 2.
+Files changed: tests/test_reporting.py; conductor/tracks/reporting_profile_psc_20260702/plan.md.
+Verification: uv run pytest -q tests/test_reporting.py fails at collection because aggregate builder/writer functions are intentionally not implemented yet.
+Risks: Red test state is expected until aggregate implementation completes.
