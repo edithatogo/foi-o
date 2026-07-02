@@ -1,0 +1,21 @@
+Task: Run Conductor review and apply high-confidence fixes
+
+Summary:
+- conductor-review was unavailable on PATH, so the track-scope review used the manual Conductor review fallback.
+- Fixed stale roadmap/status statements for ontology and prior archived roadmap tracks.
+- Marked the active ontology track in progress in conductor/tracks.md before closeout.
+
+Files changed:
+- README.md
+- docs/11-implementation-status.md
+- conductor/tracks.md
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_semantic_alignment.py tests/test_shacl_safety_profiles.py tests/test_rdf_export.py tests/test_request_profile_jsonld.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py: 28 passed
+- uv run ruff check src tests scripts: passed
+- uv run python scripts/validate_examples.py: examples ok
+- git diff --check: passed
+
+Risks:
+- conductor-review executable remains unavailable on PATH; manual review evidence is recorded instead.
