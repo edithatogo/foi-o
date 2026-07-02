@@ -26,7 +26,7 @@
     - [x] Keep JSON-LD generation deterministic and fixture-friendly.
 - [x] Task: Conductor - User Manual Verification 'Request JSON-LD Profile' (Protocol in workflow.md) (`7228cb7`)
 
-## Phase 3: Goldset Workflow
+## Phase 3: Goldset Workflow [checkpoint: f888a4e]
 
 - [x] Task: Write goldset sampling and annotation export tests (`fc67144`)
     - [x] Test deterministic 100-request sampling parameters with a smaller fixture fallback.
@@ -35,7 +35,7 @@
     - [x] Add or refine CLI/docs for generating 100-request goldsets.
     - [x] Produce committed small examples that validate without live data.
     - [x] Document live full-size run commands and external gates.
-- [ ] Task: Conductor - User Manual Verification 'Goldset Workflow' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Goldset Workflow' (Protocol in workflow.md) (`f888a4e`)
 
 ## Phase 4: Corpus Profile Closeout
 
