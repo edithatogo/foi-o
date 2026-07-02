@@ -8,9 +8,9 @@
 - [x] Task: Write descriptor conformance tests (`83db169`)
     - [x] Validate OpenAPI/tool-manifest/MCP-bundle descriptors for safe read-only semantics.
     - [x] Add negative fixtures for unsafe certification-capable tool descriptions.
-- [~] Task: Implement descriptor hardening
-    - [ ] Update descriptors and exports to make non-dispositive boundaries machine-checkable.
-    - [ ] Ensure unsafe examples fail tests and safe examples remain stable.
+- [x] Task: Implement descriptor hardening (`f375422`)
+    - [x] Update descriptors and exports to make non-dispositive boundaries machine-checkable.
+    - [x] Ensure unsafe examples fail tests and safe examples remain stable.
 - [ ] Task: Conductor - User Manual Verification 'Descriptor Contract' (Protocol in workflow.md)
 
 ## Phase 2: Runtime Prototype
