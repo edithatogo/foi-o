@@ -1,0 +1,14 @@
+Task: Write inference safety tests
+
+Files changed:
+- tests/test_bounded_extraction.py
+- conductor/tracks/max_lancedb_inference_20260702/plan.md
+
+Summary:
+- Added tests for candidate-only extraction request packs, prompt provenance, no generated-output inclusion, machine-review requirements, and prepare-local-extraction CLI output.
+
+Verification:
+- uv run pytest -q tests/test_bounded_extraction.py tests/test_inference_providers.py -> expected red state: ModuleNotFoundError for foi_o_nz.bounded_extraction.
+
+Risks:
+- Implementation must introduce the module, CLI command, and stricter candidate output review validation.
