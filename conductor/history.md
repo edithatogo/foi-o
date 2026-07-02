@@ -21,7 +21,6 @@ GitHub Project: https://github.com/users/edithatogo/projects/10
 
 | Conductor Track | GitHub Issue | Project Status | Local Plan |
 | --- | --- | --- | --- |
-| `corpus_profile_goldset_20260702` | [#12](https://github.com/edithatogo/foi-o/issues/12) | Todo | `conductor/tracks/corpus_profile_goldset_20260702/plan.md` |
 | `event_extraction_timeline_20260702` | [#13](https://github.com/edithatogo/foi-o/issues/13) | Todo | `conductor/tracks/event_extraction_timeline_20260702/plan.md` |
 | `oia_process_rules_20260702` | [#14](https://github.com/edithatogo/foi-o/issues/14) | Todo | `conductor/tracks/oia_process_rules_20260702/plan.md` |
 | `reporting_profile_psc_20260702` | [#15](https://github.com/edithatogo/foi-o/issues/15) | Todo | `conductor/tracks/reporting_profile_psc_20260702/plan.md` |
@@ -35,3 +34,4 @@ GitHub Project: https://github.com/users/edithatogo/projects/10
 | Conductor Track | GitHub Issue | Project Status | Local Plan |
 | --- | --- | --- | --- |
 | `release_readiness_evidence_20260702` | [#1](https://github.com/edithatogo/foi-o/issues/1) | Done | `conductor/archive/release_readiness_evidence_20260702/plan.md` |
+| `corpus_profile_goldset_20260702` | [#12](https://github.com/edithatogo/foi-o/issues/12) | Done | `conductor/archive/corpus_profile_goldset_20260702/plan.md` |
