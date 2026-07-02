@@ -1,0 +1,19 @@
+Phase checkpoint: SHACL Safety Profiles
+
+Files changed:
+- conductor/tracks/ontology_shacl_maturation_20260702/phase-2-verification.md
+
+Summary:
+- Captured Phase 2 verification evidence for SHACL safety profiles, pySHACL validation, degraded parse-only mode, and manual conductor-review fallback.
+
+Verification:
+- uv run pytest -q tests/test_shacl_safety_profiles.py tests/test_semantic_alignment.py tests/test_schema_codegen_shacl.py tests/test_validation.py -> 17 passed
+- uv run ruff check src tests scripts -> passed
+- uv run ruff format --check src tests scripts -> passed
+- uv run python scripts/validate_examples.py -> examples ok
+- uv run foi-o-nz validate-repo -> repository validation ok
+- uv run foi-o-nz schema-drift -> ok with warning-only baseline top-level schema drift
+- git diff --check -> passed
+
+Risks:
+- SHACL validates RDF profile data; JSON Schema remains primary JSON payload contract.
