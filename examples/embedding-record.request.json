@@ -10,11 +10,24 @@
     0.3779644730092272
   ],
   "embedding_model": "foi-o-nz-feature-hash-v0.5.8",
+  "embedding_provider": "deterministic.feature_hash",
   "kind": "request",
   "metadata": {
     "event_type": null,
     "normalised_state": "Received",
     "request_id": "12345"
+  },
+  "provider_provenance": {
+    "available": true,
+    "endpoint": null,
+    "fallback": true,
+    "fallback_provider_id": null,
+    "legal_effect": "none",
+    "machine_certification_allowed": false,
+    "message": "Deterministic feature-hash provider selected as local fallback.",
+    "model": "foi-o-nz-feature-hash",
+    "provider_id": "deterministic.feature_hash",
+    "runtime": "python"
   },
   "source_id": "12345",
   "text": "Example OIA request\nExample Ministry\nwaiting_response\nReceived"

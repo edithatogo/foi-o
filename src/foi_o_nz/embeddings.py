@@ -15,6 +15,10 @@ from collections.abc import Iterable
 from pathlib import Path
 from typing import Any
 
+from foi_o_nz.inference_providers import (
+    InferenceProviderStatus,
+    select_embedding_provider,
+)
 from foi_o_nz.io import iter_jsonl, write_jsonl
 
 _TOKEN_RE = re.compile(r"[\wāēīōūĀĒĪŌŪ]+", re.UNICODE)
@@ -80,8 +84,10 @@ def embedding_record(
     *,
     kind: str,
     dimensions: int = 128,
+    provider_status: InferenceProviderStatus | None = None,
 ) -> dict[str, Any]:
     """Build one vector-store-ready embedding record."""
+    provider_status = provider_status or select_embedding_provider()
     if kind == "request":
         text = request_text(record)
         source_id = str(record.get("request_id") or record.get("url_title") or "unknown")
@@ -95,6 +101,8 @@ def embedding_record(
         "kind": kind,
         "text": text,
         "embedding_model": f"foi-o-nz-feature-hash-v0.5.{dimensions}",
+        "embedding_provider": provider_status.provider_id,
+        "provider_provenance": provider_status.as_provenance(),
         "embedding": hash_embedding(text, dimensions=dimensions),
         "metadata": {
             "request_id": record.get("request_id")
@@ -113,10 +121,13 @@ def iter_embedding_records(
     *,
     kind: str,
     dimensions: int = 128,
+    provider_status: InferenceProviderStatus | None = None,
 ) -> Iterable[dict[str, Any]]:
     """Yield embedding records for an iterable of request/event records."""
     for record in records:
-        yield embedding_record(record, kind=kind, dimensions=dimensions)
+        yield embedding_record(
+            record, kind=kind, dimensions=dimensions, provider_status=provider_status
+        )
 
 
 def embed_jsonl(
@@ -125,9 +136,15 @@ def embed_jsonl(
     *,
     kind: str,
     dimensions: int = 128,
+    provider_status: InferenceProviderStatus | None = None,
 ) -> int:
     """Embed a request/event JSONL file to vector JSONL."""
     return write_jsonl(
         output_path,
-        iter_embedding_records(iter_jsonl(input_path), kind=kind, dimensions=dimensions),
+        iter_embedding_records(
+            iter_jsonl(input_path),
+            kind=kind,
+            dimensions=dimensions,
+            provider_status=provider_status,
+        ),
     )

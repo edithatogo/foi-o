@@ -8,7 +8,7 @@
 - [x] Task: Write provider-selection tests (`e153f66`)
     - [ ] Cover deterministic fallback, configured local/MAX provider, missing optional dependencies, and error reporting.
     - [ ] Verify no provider can emit certified legal outcomes.
-- [ ] Task: Implement bounded provider interface
+- [~] Task: Implement bounded provider interface
     - [ ] Add or refine provider abstractions only where tests require.
     - [ ] Record provider, model, runtime, and fallback provenance in outputs.
 - [ ] Task: Conductor - User Manual Verification 'Provider Interface' (Protocol in workflow.md)

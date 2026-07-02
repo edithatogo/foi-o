@@ -3,13 +3,48 @@
   "$id": "https://w3id.org/foi-o-nz/schemas/embedding-record.schema.json",
   "title": "FOI-O NZ Embedding Record",
   "type": "object",
-  "required": ["source_id", "kind", "text", "embedding_model", "embedding", "metadata"],
+  "required": [
+    "source_id",
+    "kind",
+    "text",
+    "embedding_model",
+    "embedding_provider",
+    "provider_provenance",
+    "embedding",
+    "metadata"
+  ],
   "additionalProperties": false,
   "properties": {
     "source_id": {"type": "string", "minLength": 1},
     "kind": {"type": "string", "enum": ["request", "event"]},
     "text": {"type": "string"},
     "embedding_model": {"type": "string", "minLength": 1},
+    "embedding_provider": {"type": "string", "minLength": 1},
+    "provider_provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "provider_id",
+        "model",
+        "runtime",
+        "available",
+        "fallback",
+        "legal_effect",
+        "machine_certification_allowed"
+      ],
+      "properties": {
+        "provider_id": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "runtime": {"type": "string", "minLength": 1},
+        "available": {"type": "boolean"},
+        "fallback": {"type": "boolean"},
+        "fallback_provider_id": {"type": ["string", "null"]},
+        "endpoint": {"type": ["string", "null"]},
+        "legal_effect": {"type": "string", "const": "none"},
+        "machine_certification_allowed": {"type": "boolean", "const": false},
+        "message": {"type": "string"}
+      }
+    },
     "embedding": {
       "type": "array",
       "minItems": 1,

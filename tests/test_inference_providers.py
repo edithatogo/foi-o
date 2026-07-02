@@ -78,6 +78,5 @@ def test_candidate_output_rejects_certified_legal_outcomes() -> None:
 
     assert report["ok"] is False
     assert any(
-        finding["code"] == "certified_model_output_rejected"
-        for finding in report["findings"]
+        finding["code"] == "certified_model_output_rejected" for finding in report["findings"]
     )
