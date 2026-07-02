@@ -2,9 +2,9 @@
 
 ## Phase 1: Descriptor Contract
 
-- [~] Task: Audit current agent contracts
-    - [ ] Review agent policy, tool manifest, OpenAPI export, MCP bundle, MCP server, and docs.
-    - [ ] Identify descriptor drift and unsafe-capability gaps.
+- [x] Task: Audit current agent contracts (`aa94872`)
+    - [x] Review agent policy, tool manifest, OpenAPI export, MCP bundle, MCP server, and docs.
+    - [x] Identify descriptor drift and unsafe-capability gaps.
 - [ ] Task: Write descriptor conformance tests
     - [ ] Validate OpenAPI/tool-manifest/MCP-bundle descriptors for safe read-only semantics.
     - [ ] Add negative fixtures for unsafe certification-capable tool descriptions.
