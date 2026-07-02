@@ -4,12 +4,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: MAX and LanceDB bounded inference**
-  *Link: [./tracks/max_lancedb_inference_20260702/](./tracks/max_lancedb_inference_20260702/)*
-  *GitHub: [Issue #17](https://github.com/edithatogo/foi-o/issues/17), [Project #10](https://github.com/users/edithatogo/projects/10)*
-
----
-
 - [ ] **Track: Ontology and SHACL maturation**
   *Link: [./tracks/ontology_shacl_maturation_20260702/](./tracks/ontology_shacl_maturation_20260702/)*
   *GitHub: [Issue #18](https://github.com/edithatogo/foi-o/issues/18), [Project #10](https://github.com/users/edithatogo/projects/10)*
