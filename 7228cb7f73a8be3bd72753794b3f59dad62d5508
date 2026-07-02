@@ -1,0 +1,7 @@
+Task summary: Track 2 Phase 2 request JSON-LD profile checkpoint.
+
+Files changed: none; checkpoint commit only.
+
+Verification: uv run pytest -q tests/test_request_profile_jsonld.py tests/test_normalise.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo.
+
+Risks: none beyond preserving the verification boundary as an empty checkpoint.
