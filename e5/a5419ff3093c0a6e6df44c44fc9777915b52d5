@@ -1,0 +1,22 @@
+Task: Run Conductor review and apply high-confidence fixes
+
+Summary:
+- conductor-review was unavailable on PATH, so the final review used the manual Conductor review fallback.
+- Fixed stale status docs after the release package/methods paper work completed.
+- README now includes the release package surface, and docs/11 no longer lists publication work as remaining.
+
+Files changed:
+- README.md
+- docs/11-implementation-status.md
+- docs/19-release-readiness-evidence.md
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_methods_paper.py tests/test_publication_metadata.py tests/test_release_package.py tests/test_release_readiness_docs.py tests/test_reporting_docs.py: 12 passed
+- uv run ruff check src tests scripts: passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- git diff --check: passed
+
+Risks:
+- conductor-review executable remains unavailable on PATH; manual fallback is recorded.
