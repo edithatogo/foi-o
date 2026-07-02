@@ -35,9 +35,9 @@
 
 ## Phase 4: Inference Track Closeout
 
-- [~] Task: Run inference validation
-    - [ ] Run embeddings, retrieval, vector index, agent pack, and optional-provider tests.
-    - [ ] Run MAX/LanceDB live checks only when dependencies and credentials are available.
+- [x] Task: Run inference validation (`ce58bba`)
+    - [x] Run embeddings, retrieval, vector index, agent pack, and optional-provider tests.
+    - [x] Run MAX/LanceDB live checks only when dependencies and credentials are available.
 - [ ] Task: Run Conductor review and apply high-confidence fixes
     - [ ] Run `conductor-review` for the track scope.
     - [ ] Apply high-confidence fixes and rerun focused checks.
