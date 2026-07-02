@@ -1,0 +1,8 @@
+Track: oia_process_rules_20260702
+Phase: Source-Versioned References
+Checkpoint: ec84651
+Review: conductor-review command not installed on PATH; manual review performed using conductor-review skill protocol. No high-confidence fixes required.
+Automated verification: git diff --name-only d916083..HEAD; uv run pytest -q tests/test_legal_sources.py tests/test_dates.py tests/test_validation.py; uv run foi-o-nz legal-source-status; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo; fail-closed live check via uv run foi-o-nz legal-source-status --live with missing cache returned external_gate and exit 1
+Manual verification steps: Run uv run foi-o-nz legal-source-status and confirm mapping_ok true, then run with --live and a missing cache directory and confirm the command exits non-zero with live_source_status external_gate.
+User confirmation: autonomous comprehensive mode; repo-local validation and manual review evidence used for checkpoint.
+Risks: Process-rule quality gates remain pending.
