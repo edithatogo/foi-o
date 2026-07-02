@@ -28,9 +28,9 @@
 - [x] Task: Write paper evidence checks (`b0b1c2e`)
     - [x] Verify cited commands, schemas, examples, and docs exist.
     - [x] Check claims avoid official-status, legal-advice, and autonomous-decision overreach.
-- [~] Task: Draft methods paper
-    - [ ] Add a concise methods paper under docs or publication notes.
-    - [ ] Cover motivation, architecture, data model, human-certification boundary, evaluation, limitations, and reproducibility.
+- [x] Task: Draft methods paper (`6245088`)
+    - [x] Add a concise methods paper under docs or publication notes.
+    - [x] Cover motivation, architecture, data model, human-certification boundary, evaluation, limitations, and reproducibility.
 - [ ] Task: Conductor - User Manual Verification 'Methods Paper' (Protocol in workflow.md)
 
 ## Phase 4: Final Release Closeout
