@@ -31,7 +31,7 @@
 - [x] Task: Draft methods paper (`6245088`)
     - [x] Add a concise methods paper under docs or publication notes.
     - [x] Cover motivation, architecture, data model, human-certification boundary, evaluation, limitations, and reproducibility.
-- [ ] Task: Conductor - User Manual Verification 'Methods Paper' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Methods Paper' (Protocol in workflow.md)
 
 ## Phase 4: Final Release Closeout
 
