@@ -1,6 +1,6 @@
 # Plan: PSC reporting profile and aggregate reports
 
-## Phase 1: Reporting Mapping Baseline
+## Phase 1: Reporting Mapping Baseline [checkpoint: fc5c3df]
 
 - [x] Task: Audit current PSC mappings and reporting helpers (`254410b`)
     - [x] Review mapping YAML, reporting module, analytics, table contracts, and docs.
@@ -11,7 +11,7 @@
 - [x] Task: Implement reporting mapping updates (`243d067`)
     - [x] Update mapping files, schemas, and docs for derivability status.
     - [x] Keep official-reporting caveats explicit.
-- [~] Task: Conductor - User Manual Verification 'Reporting Mapping Baseline' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Reporting Mapping Baseline' (Protocol in workflow.md) (`fc5c3df`)
 
 ## Phase 2: Aggregate Report Generation
 
