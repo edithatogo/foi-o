@@ -2,7 +2,7 @@
 
 ## Phase 1: Reporting Mapping Baseline
 
-- [ ] Task: Audit current PSC mappings and reporting helpers
+- [~] Task: Audit current PSC mappings and reporting helpers
     - [ ] Review mapping YAML, reporting module, analytics, table contracts, and docs.
     - [ ] Identify missing derivability classifications and fixture coverage.
 - [ ] Task: Write reporting mapping tests
