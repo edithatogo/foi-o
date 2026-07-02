@@ -1,0 +1,13 @@
+Task: Record methods paper tests
+
+Summary:
+- Updated publication track plan to mark methods paper evidence checks complete with b0b1c2e.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; red-test evidence committed in b0b1c2e.
+
+Risks:
+- Methods paper draft still required.
