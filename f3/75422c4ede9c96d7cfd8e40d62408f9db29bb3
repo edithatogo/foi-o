@@ -1,0 +1,4 @@
+Task summary: Implemented Track 6 descriptor conformance hardening.
+Files changed: src/foi_o_nz/agent_contract.py; src/foi_o_nz/tool_manifest.py; src/foi_o_nz/openapi.py; tests/test_agent_descriptors.py; examples/mcp-bundle.small.json; conductor plan.
+Verification: Descriptor/tool/MCP/OpenAPI/policy tests, example validation, repo validation, Ruff check/format.
+Risks: Runtime FastMCP write/degraded-mode behavior remains Phase 2 work.
