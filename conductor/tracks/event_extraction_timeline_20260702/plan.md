@@ -1,6 +1,6 @@
 # Plan: Event extraction timeline and provenance
 
-## Phase 1: Extraction Baseline
+## Phase 1: Extraction Baseline [checkpoint: c7059c3]
 
 - [x] Task: Audit current extraction and timeline behavior (`bdef63c`)
     - [x] Review extractors, normalise pipeline, event schemas, quality gates, and evaluation helpers.
@@ -13,7 +13,7 @@
 - [x] Task: Implement extraction hardening (`4aa1869`)
     - [x] Adjust rule extractors only to satisfy tested public fixture cases.
     - [x] Preserve conservative matching and confidence/provenance semantics.
-- [ ] Task: Conductor - User Manual Verification 'Extraction Baseline' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Extraction Baseline' (Protocol in workflow.md) (`c7059c3`)
 
 ## Phase 2: Timeline Reconstruction
 
