@@ -107,6 +107,14 @@ def validate_candidate_output(record: dict[str, Any]) -> dict[str, Any]:
     event_type = str(record.get("event_type") or "")
     assertion_status = str(record.get("assertion_status") or "")
     machine_generated = record.get("machine_generated") is True
+    if machine_generated and record.get("human_review_required") is not True:
+        findings.append(
+            {
+                "severity": "error",
+                "code": "model_output_review_required",
+                "message": "Machine-generated provider outputs must be routed for human review.",
+            }
+        )
     if assertion_status == "certified" and machine_generated:
         findings.append(
             {

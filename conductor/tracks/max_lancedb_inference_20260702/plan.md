@@ -28,7 +28,7 @@
 - [x] Task: Write inference safety tests (`0fedbb0`)
     - [x] Cover candidate extraction, provenance, review-required flags, and unsafe certification rejection.
     - [x] Verify prompt/docs boundaries for local model experiments.
-- [ ] Task: Implement bounded inference commands/docs
+- [~] Task: Implement bounded inference commands/docs
     - [ ] Add commands or docs for optional MAX/local extraction paths.
     - [ ] Ensure generated model outputs are excluded from Git unless reduced to safe fixtures.
 - [ ] Task: Conductor - User Manual Verification 'Bounded Extraction Experiments' (Protocol in workflow.md)

@@ -18,6 +18,7 @@ from foi_o_nz.annotation import write_annotation_tasks
 from foi_o_nz.attestation import write_attestation
 from foi_o_nz.batch import normalise_manifest_batch
 from foi_o_nz.benchmarks import write_local_benchmarks
+from foi_o_nz.bounded_extraction import write_extraction_requests
 from foi_o_nz.cas import materialise_jsonl_cas, write_cas_manifest
 from foi_o_nz.chunks import chunk_jsonl
 from foi_o_nz.dataset_metadata import (
@@ -33,6 +34,7 @@ from foi_o_nz.embeddings import embed_jsonl
 from foi_o_nz.evaluation import evaluate_event_jsonl
 from foi_o_nz.goldset import write_goldset_sample, write_goldset_tasks, write_request_goldset_tasks
 from foi_o_nz.graph_export import write_graph_export
+from foi_o_nz.inference_providers import InferenceProviderConfig
 from foi_o_nz.io import read_json_records, write_json, write_jsonl
 from foi_o_nz.jsonld_context import write_context
 from foi_o_nz.kernel_manifest import (
@@ -616,6 +618,36 @@ def search_lancedb(
             table_name=table_name,
             top_k=top_k,
             dimensions=dimensions,
+        )
+    except ValueError as exc:
+        console.print(str(exc), style="red", markup=False)
+        raise typer.Exit(code=2) from exc
+    console.print_json(json.dumps(result))
+
+
+@app.command("prepare-local-extraction")
+def prepare_local_extraction(
+    input: Annotated[Path, typer.Option("--input", "-i", help="Input JSON/JSONL records")],
+    output: Annotated[Path, typer.Option("--output", "-o", help="Output request-pack JSONL")],
+    text_field: Annotated[str, typer.Option(help="Input field containing source text")] = "text",
+    provider: Annotated[
+        str, typer.Option(help="Bounded provider selection: deterministic or max")
+    ] = "deterministic",
+    model: Annotated[str | None, typer.Option(help="Optional local/MAX model name")] = None,
+    endpoint: Annotated[str | None, typer.Option(help="Optional local/MAX endpoint")] = None,
+    max_chars: Annotated[
+        int, typer.Option(help="Maximum prompt text characters per record")
+    ] = 4000,
+) -> None:
+    """Prepare candidate-only prompt packs for local/MAX extraction experiments."""
+    try:
+        config = InferenceProviderConfig(provider=provider, model=model, endpoint=endpoint)  # type: ignore[arg-type]
+        result = write_extraction_requests(
+            input,
+            output,
+            text_field=text_field,
+            provider_config=config,
+            max_chars=max_chars,
         )
     except ValueError as exc:
         console.print(str(exc), style="red", markup=False)
