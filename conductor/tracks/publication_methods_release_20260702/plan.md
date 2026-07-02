@@ -2,7 +2,7 @@
 
 ## Phase 1: Release Evidence Package
 
-- [ ] Task: Audit release evidence and publication metadata
+- [~] Task: Audit release evidence and publication metadata
     - [ ] Review README, implementation reports, dataset metadata, reproducibility manifests, and release docs.
     - [ ] Identify claims needing repo-local proof or external-gate notes.
 - [ ] Task: Write release checklist validation tests
