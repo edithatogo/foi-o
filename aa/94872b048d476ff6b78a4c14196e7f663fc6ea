@@ -1,0 +1,4 @@
+Task summary: Audited Track 6 agent contract and MCP descriptor/runtime gaps.
+Files changed: conductor/tracks/agent_contract_mcp_runtime_20260702/plan.md; conductor/tracks/agent_contract_mcp_runtime_20260702/audit.md.
+Verification: Reviewed agent policy, tool manifest, OpenAPI, MCP bundle/server, replay tests, and docs.
+Risks: Audit only; no runtime behavior changed.
