@@ -6,14 +6,14 @@
     - [x] Review normalisation code, request-profile schema, examples, and docs for source-state handling.
     - [x] Identify missing fixture coverage for live-style archive manifest records.
     - [x] Record repo-local versus live-source proof requirements.
-- [~] Task: Write fixture intake tests
-    - [ ] Add tests for source-state preservation and normalised state mapping.
-    - [ ] Add tests for JSONL/JSON array archive input variants.
-    - [ ] Add tests that live-source configuration can fail closed without breaking fixture mode.
-- [ ] Task: Implement corpus intake hardening
-    - [ ] Extend or adjust normalisation helpers only where tests identify contract gaps.
-    - [ ] Ensure provenance fields identify source file, record id, and state mapping basis.
-    - [ ] Keep external dataset fetches optional and documented.
+- [x] Task: Write fixture intake tests (`e536bbc`)
+    - [x] Add tests for source-state preservation and normalised state mapping.
+    - [x] Add tests for JSONL/JSON array archive input variants.
+    - [x] Add tests that live-source configuration can fail closed without breaking fixture mode.
+- [x] Task: Implement corpus intake hardening (`e536bbc`)
+    - [x] Extend or adjust normalisation helpers only where tests identify contract gaps.
+    - [x] Ensure provenance fields identify source file, record id, and state mapping basis.
+    - [x] Keep external dataset fetches optional and documented.
 - [ ] Task: Conductor - User Manual Verification 'Corpus Intake Contract' (Protocol in workflow.md)
 
 ## Phase 2: Request JSON-LD Profile
