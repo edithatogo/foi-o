@@ -6,13 +6,13 @@
     - [x] Review extractors, normalise pipeline, event schemas, quality gates, and evaluation helpers.
     - [x] Identify missing fixture cases for correspondence fields and candidate events.
     - [x] Record certification-boundary assumptions for every candidate event class.
-- [~] Task: Write extraction fixture tests
-    - [ ] Cover message-like input fields across supported manifest shapes.
-    - [ ] Cover candidate ExtensionNotified, TransferNotified, ClarificationRequested, ComplaintObserved, decision, release, refusal, and charge signals.
-    - [ ] Verify candidate dispositive events require human review/certification.
-- [ ] Task: Implement extraction hardening
-    - [ ] Adjust rule extractors only to satisfy tested public fixture cases.
-    - [ ] Preserve conservative matching and confidence/provenance semantics.
+- [x] Task: Write extraction fixture tests (`4418298`)
+    - [x] Cover message-like input fields across supported manifest shapes.
+    - [x] Cover candidate ExtensionNotified, TransferNotified, ClarificationRequested, ComplaintObserved, decision, release, refusal, and charge signals.
+    - [x] Verify candidate dispositive events require human review/certification.
+- [x] Task: Implement extraction hardening (`4aa1869`)
+    - [x] Adjust rule extractors only to satisfy tested public fixture cases.
+    - [x] Preserve conservative matching and confidence/provenance semantics.
 - [ ] Task: Conductor - User Manual Verification 'Extraction Baseline' (Protocol in workflow.md)
 
 ## Phase 2: Timeline Reconstruction
