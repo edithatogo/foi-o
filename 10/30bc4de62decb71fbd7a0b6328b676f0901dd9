@@ -1,0 +1,4 @@
+Task summary: Checkpointed Track 5 PSC reporting closeout with final verification evidence.
+Files changed: conductor/tracks/reporting_profile_psc_20260702/plan.md; conductor/tracks/reporting_profile_psc_20260702/final-verification.md.
+Verification: Ruff check/format, full pytest (123), example validation, repo validation, Mojo format/test/build.
+Risks: Official PSC reporting and real-corpus reporting examples remain outside repo-local Track 5 closeout.
