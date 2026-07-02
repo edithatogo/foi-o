@@ -1,0 +1,175 @@
+{
+  "schema_version": "foi-o-nz.arxiv-readiness.v0.1.0",
+  "readiness_id": "foi-o-manuscript-arxiv-local-20260702",
+  "artifact_id": "journal-submission-package",
+  "checked_at": "2026-07-02T13:16:25Z",
+  "arxiv_requirements_snapshot": {
+    "retrieved_at": "2026-07-02",
+    "sources": [
+      {
+        "name": "arXiv Submit TeX/LaTeX help",
+        "url": "https://info.arxiv.org/help/submit_tex.html"
+      },
+      {
+        "name": "arXiv TeX Live help",
+        "url": "https://info.arxiv.org/help/faq/texlive.html"
+      },
+      {
+        "name": "Overleaf checklist for arXiv submissions",
+        "url": "https://docs.overleaf.com/troubleshooting-and-support/checklist-for-arxiv-submissions"
+      }
+    ],
+    "texlive_default": "TeX Live 2025",
+    "texlive_alternatives": [
+      "TeX Live 2023"
+    ],
+    "submission_root_rule": "arXiv compiles from the root of the submitted directory even when the top-level TeX file is in a subdirectory.",
+    "human_submission_required": true
+  },
+  "recommended_pipeline": [
+    {
+      "step_id": "compile-source",
+      "purpose": "Build the generated LaTeX source before packaging.",
+      "tool": "latexmk with local XeLaTeX",
+      "status": "required",
+      "notes": "Local build used TeX Live 2026/Homebrew, so arXiv TeX Live 2025 parity remains a bounded external check."
+    },
+    {
+      "step_id": "flatten-source",
+      "purpose": "Flatten the Pandoc-generated TeX source before sanitizer handoff.",
+      "tool": "latexpand",
+      "status": "conditional",
+      "notes": "Applied locally because it creates a single-file source package for a simple manuscript."
+    },
+    {
+      "step_id": "sanitize-source",
+      "purpose": "Create the default cleaned arXiv upload directory.",
+      "tool": "arxiv-latex-cleaner",
+      "status": "required",
+      "notes": "Ran through uvx. The cleaner warned about preserving conditionals, and the cleaned source still rebuilt."
+    },
+    {
+      "step_id": "privacy-and-metadata-scan",
+      "purpose": "Inspect generated source and PDF metadata for obvious local paths, secrets, JavaScript, encryption, and PDF metadata issues.",
+      "tool": "ripgrep and pdfinfo",
+      "status": "required",
+      "notes": "A stronger gitleaks or trufflehog pass remains recommended before public upload."
+    }
+  ],
+  "tool_checks": [
+    {
+      "tool": "pandoc",
+      "role": "compile",
+      "requirement_level": "required",
+      "command": "pandoc docs/27-submission-manuscript.md --standalone --from markdown+yaml_metadata_block --to latex --output build/submission/foi-o-nz-submission-manuscript.tex",
+      "expected_output": "Standalone LaTeX source generated from the manuscript Markdown.",
+      "status": "passed",
+      "evidence_paths": [
+        "docs/27-submission-manuscript.md"
+      ]
+    },
+    {
+      "tool": "latexpand",
+      "role": "flattening",
+      "requirement_level": "conditional",
+      "command": "latexpand build/submission/foi-o-nz-submission-manuscript.tex > build/submission/foi-o-nz-submission-manuscript.expanded.tex",
+      "expected_output": "A flattened TeX source for sanitizer handoff.",
+      "status": "passed",
+      "evidence_paths": [
+        "docs/27-submission-manuscript.md"
+      ]
+    },
+    {
+      "tool": "latexmk with local XeLaTeX",
+      "role": "compile",
+      "requirement_level": "required",
+      "command": "latexmk -xelatex -interaction=nonstopmode -halt-on-error -output-directory=build/submission build/submission/foi-o-nz-submission-manuscript.expanded.tex",
+      "expected_output": "A seven-page PDF built from the expanded TeX source.",
+      "status": "passed",
+      "evidence_paths": [
+        "docs/27-submission-manuscript.md"
+      ]
+    },
+    {
+      "tool": "arxiv-latex-cleaner",
+      "role": "sanitization",
+      "requirement_level": "required",
+      "command": "uvx --from arxiv-latex-cleaner arxiv_latex_cleaner build/submission/arxiv-source",
+      "expected_output": "A cleaned arXiv source directory that rebuilds locally.",
+      "status": "passed",
+      "evidence_paths": [
+        "docs/30-arxiv-readiness.md"
+      ]
+    },
+    {
+      "tool": "ALC-NG",
+      "role": "secondary_sanitization",
+      "requirement_level": "optional",
+      "command": "alc-ng build/submission/arxiv-source --out build/submission/arxiv-source-alc-ng",
+      "expected_output": "A stricter cleaned source package if the optional tool is installed and preserves the PDF.",
+      "status": "not_applicable"
+    },
+    {
+      "tool": "gitleaks or trufflehog",
+      "role": "privacy_scan",
+      "requirement_level": "required",
+      "command": "gitleaks detect --no-git --source build/submission/arxiv-source_arXiv",
+      "expected_output": "No secrets or credentials in the cleaned upload package.",
+      "status": "external_gate"
+    },
+    {
+      "tool": "ripgrep and pdfinfo",
+      "role": "metadata_scan",
+      "requirement_level": "conditional",
+      "command": "rg -n \"AKIA|SECRET|PASSWORD|TOKEN|BEGIN RSA|PRIVATE KEY|/Users/doughnut|/Volumes/PortableSSD\" build/submission docs/26-journal-target-requirements.md docs/27-submission-manuscript.md docs/28-submission-supplement.md examples/arxiv-readiness.manuscript-planned.json && pdfinfo build/submission/foi-o-nz-submission-manuscript.pdf",
+      "expected_output": "No committed source hits for secrets or local paths; PDF metadata reports no JavaScript, no encryption, and seven pages.",
+      "status": "passed",
+      "evidence_paths": [
+        "docs/27-submission-manuscript.md",
+        "docs/28-submission-supplement.md"
+      ]
+    }
+  ],
+  "package_checks": [
+    {
+      "check_id": "cleaned-source-rebuilds",
+      "status": "passed",
+      "reviewer_notes": "The arxiv-latex-cleaner output rebuilt locally with latexmk and XeLaTeX.",
+      "evidence_paths": [
+        "docs/27-submission-manuscript.md"
+      ]
+    },
+    {
+      "check_id": "root-relative-paths",
+      "status": "passed",
+      "reviewer_notes": "The cleaned source package uses a single root-level main.tex file.",
+      "evidence_paths": [
+        "docs/30-arxiv-readiness.md"
+      ]
+    },
+    {
+      "check_id": "source-disclosure-review",
+      "status": "external_gate",
+      "reviewer_notes": "Basic ripgrep checks were clean except generated LaTeX build metadata; a dedicated secret scanner remains recommended before public upload.",
+      "evidence_paths": [
+        "docs/29-publication-quality-panel.md",
+        "docs/30-arxiv-readiness.md"
+      ]
+    },
+    {
+      "check_id": "texlive-version-parity",
+      "status": "external_gate",
+      "reviewer_notes": "Local compilation used TeX Live 2026/Homebrew, while arXiv currently defaults to TeX Live 2025.",
+      "evidence_paths": [
+        "docs/30-arxiv-readiness.md"
+      ]
+    }
+  ],
+  "human_gates": [
+    "Confirm arXiv category and subject classification.",
+    "Confirm author list, affiliations, funding, conflicts, and submission authority.",
+    "Approve final arXiv upload after local package validation.",
+    "Run a dedicated secret scanner if available before public source upload."
+  ],
+  "overall_status": "external_gate"
+}
