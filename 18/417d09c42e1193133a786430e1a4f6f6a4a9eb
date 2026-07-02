@@ -1,0 +1,13 @@
+Task: Record methods paper draft
+
+Summary:
+- Updated publication track plan to mark methods paper draft complete with 6245088.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; methods paper validation is recorded on 6245088.
+
+Risks:
+- Phase checkpoint still needs review/verification and push.
