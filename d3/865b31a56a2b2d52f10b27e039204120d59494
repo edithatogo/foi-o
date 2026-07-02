@@ -1,0 +1,14 @@
+Task: Record publication review fix
+
+Summary:
+- Updated publication track plan to mark final review complete with e5a5419.
+- Recorded manual review fallback because conductor-review is unavailable on PATH.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; review-fix validation is recorded on e5a5419.
+
+Risks:
+- Final closeout verification task remains pending.
