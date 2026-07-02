@@ -1,0 +1,21 @@
+Phase checkpoint: Semantic Export Consistency
+
+Files changed:
+- conductor/tracks/ontology_shacl_maturation_20260702/phase-3-verification.md
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Captured Phase 3 verification evidence for RDF, dataset metadata, graph export, docs, and tests.
+- Manual conductor-review fallback found no remaining high-confidence Phase 3 fixes.
+
+Verification:
+- uv run pytest -q tests/test_rdf_export.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py tests/test_semantic_alignment.py tests/test_shacl_safety_profiles.py tests/test_request_profile_jsonld.py -> 28 passed
+- uv run ruff check src tests scripts -> passed
+- uv run ruff format --check src tests scripts -> passed
+- uv run python scripts/validate_examples.py -> examples ok
+- uv run foi-o-nz validate-repo -> repository validation ok
+- uv run foi-o-nz schema-drift -> ok with warning-only baseline top-level schema drift
+- git diff --check -> passed
+
+Risks:
+- RDF semantic fields now prefer identifier URIs; consumers should resolve labels from SKOS vocabularies.
