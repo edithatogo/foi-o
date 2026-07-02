@@ -18,9 +18,9 @@
 - [x] Task: Write publication metadata tests (`ac92d09`)
     - [x] Validate dataset metadata, Croissant-style JSON-LD, Hugging Face card scaffolds, and repository release metadata.
     - [x] Cover rights/notice boundaries for source archive content.
-- [~] Task: Implement publication metadata updates
-    - [ ] Align metadata generators and docs with matured product scope.
-    - [ ] Add sample outputs that validate without live publication credentials.
+- [x] Task: Implement publication metadata updates (`78f30d2`)
+    - [x] Align metadata generators and docs with matured product scope.
+    - [x] Add sample outputs that validate without live publication credentials.
 - [ ] Task: Conductor - User Manual Verification 'Dataset and Repository Publication Metadata' (Protocol in workflow.md)
 
 ## Phase 3: Methods Paper
