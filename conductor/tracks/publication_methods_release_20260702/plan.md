@@ -35,7 +35,7 @@
 
 ## Phase 4: Final Release Closeout
 
-- [ ] Task: Run release validation
+- [~] Task: Run release validation
     - [ ] Run full repo-local validation, release metadata checks, example validation, and docs checks.
     - [ ] Run publication dry-run checks where available and document live external gates.
 - [ ] Task: Run Conductor review and apply high-confidence fixes
