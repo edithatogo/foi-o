@@ -18,12 +18,12 @@
 
 ## Phase 2: Request JSON-LD Profile
 
-- [~] Task: Write request JSON-LD profile validation tests
-    - [ ] Validate committed request JSON-LD examples against schema and RDF parse expectations.
-    - [ ] Cover missing source-state and provenance fields.
-- [~] Task: Implement request profile JSON-LD updates
-    - [ ] Align context, examples, and docs with request-profile schema fields.
-    - [ ] Keep JSON-LD generation deterministic and fixture-friendly.
+- [x] Task: Write request JSON-LD profile validation tests (`557292c`)
+    - [x] Validate committed request JSON-LD examples against schema and RDF parse expectations.
+    - [x] Cover missing source-state and provenance fields.
+- [x] Task: Implement request profile JSON-LD updates (`14485b1`)
+    - [x] Align context, examples, and docs with request-profile schema fields.
+    - [x] Keep JSON-LD generation deterministic and fixture-friendly.
 - [ ] Task: Conductor - User Manual Verification 'Request JSON-LD Profile' (Protocol in workflow.md)
 
 ## Phase 3: Goldset Workflow
