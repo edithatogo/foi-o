@@ -28,13 +28,13 @@
 
 ## Phase 3: Goldset Workflow
 
-- [~] Task: Write goldset sampling and annotation export tests
-    - [ ] Test deterministic 100-request sampling parameters with a smaller fixture fallback.
-    - [ ] Test annotation-task outputs include source state, normalised state, confidence, event hints, and evidence references.
-- [ ] Task: Implement reproducible goldset workflow
-    - [ ] Add or refine CLI/docs for generating 100-request goldsets.
-    - [ ] Produce committed small examples that validate without live data.
-    - [ ] Document live full-size run commands and external gates.
+- [x] Task: Write goldset sampling and annotation export tests (`fc67144`)
+    - [x] Test deterministic 100-request sampling parameters with a smaller fixture fallback.
+    - [x] Test annotation-task outputs include source state, normalised state, confidence, event hints, and evidence references.
+- [x] Task: Implement reproducible goldset workflow (`fc67144`)
+    - [x] Add or refine CLI/docs for generating 100-request goldsets.
+    - [x] Produce committed small examples that validate without live data.
+    - [x] Document live full-size run commands and external gates.
 - [ ] Task: Conductor - User Manual Verification 'Goldset Workflow' (Protocol in workflow.md)
 
 ## Phase 4: Corpus Profile Closeout
