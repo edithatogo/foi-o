@@ -14,6 +14,19 @@ This note records the repo-local evidence surface for the current release-readin
 | RDF/SHACL degraded-mode path | `src/foi_o_nz/rdf_export.py`, `src/foi_o_nz/shacl_validation.py`, related tests | `uv run pytest -q tests/test_rdf_export.py tests/test_schema_codegen_shacl.py` |
 | Reproducibility and manifests | `src/foi_o_nz/reproducibility.py`, `examples/reproducibility-manifest.examples.json` | `uv run pytest -q tests/test_retrieval_redaction_diff_pack_repro.py` |
 
+## Repeatable release validation sequence
+
+Run these commands before claiming repo-local release readiness:
+
+```bash
+uv run ruff check src tests scripts
+uv run ruff format --check src tests scripts
+uv run pytest -q
+uv run python scripts/validate_examples.py
+```
+
+If any command fails, the release is not repo-locally ready. If any optional live service or native toolchain is unavailable, record it under external gates rather than treating it as repo-local proof.
+
 ## External gates
 
 | Gate | Current handling |

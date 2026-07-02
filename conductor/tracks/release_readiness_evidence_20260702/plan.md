@@ -20,7 +20,7 @@
 
 ## Phase 3: Release Gate Documentation
 
-- [ ] Task: Write tests or checks for release validation documentation
+- [~] Task: Write tests or checks for release validation documentation
     - [ ] Add a lightweight check that documented release commands point at existing scripts, tasks, or files where practical.
     - [ ] Confirm examples used in docs remain small committed fixtures.
 - [ ] Task: Implement release gate documentation updates
