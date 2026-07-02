@@ -21,7 +21,7 @@
 - [x] Task: Implement publication metadata updates (`78f30d2`)
     - [x] Align metadata generators and docs with matured product scope.
     - [x] Add sample outputs that validate without live publication credentials.
-- [ ] Task: Conductor - User Manual Verification 'Dataset and Repository Publication Metadata' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Dataset and Repository Publication Metadata' (Protocol in workflow.md)
 
 ## Phase 3: Methods Paper
 
