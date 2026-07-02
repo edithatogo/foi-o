@@ -1,0 +1,4 @@
+Task summary: Added PSC reporting mapping contract tests for Track 5.
+Files changed: conductor/tracks/reporting_profile_psc_20260702/plan.md; tests/test_reporting.py.
+Verification: uv run pytest -q tests/test_reporting.py fails at collection because reporting loader/validator functions are intentionally not implemented yet.
+Risks: Red test state is expected until the implementation task completes.
