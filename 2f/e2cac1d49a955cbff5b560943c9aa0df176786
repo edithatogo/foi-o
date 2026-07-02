@@ -1,0 +1,1 @@
+Task: Plan update for provider-selection tests\n\nSummary:\n- Marked provider-selection tests complete with commit e153f66.\n\nFiles changed:\n- conductor/tracks/max_lancedb_inference_20260702/plan.md\n\nVerification:\n- Plan-only update; red-test evidence is attached to e153f66.\n\nRisks:\n- None; no code changes.
