@@ -1,0 +1,4 @@
+Task summary: Implemented PSC reporting metric derivability profile.
+Files changed: src/foi_o_nz/reporting.py; src/foi_o_nz/models.py; mappings/psc-oia-statistics-profile.yaml; schemas/json/reporting-metric.schema.json; examples/reporting-metric.completed-requests.json; scripts/validate_examples.py; tests/test_reporting.py; docs/11-implementation-status.md; conductor plan.
+Verification: reporting/schema tests, example validation, Ruff check/format, reporting-metrics CLI, repo validation.
+Risks: Aggregate report generation remains Phase 2 work.
