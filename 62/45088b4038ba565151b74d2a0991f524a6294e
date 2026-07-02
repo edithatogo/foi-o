@@ -1,0 +1,30 @@
+Task: Draft methods paper
+
+Summary:
+- Added docs/23-methods-paper.md with abstract, motivation, architecture, data model, human certification boundary, validation, limitations, and reproducibility sections.
+- Updated release checklist code/fixture to mark the methods paper as repo-local.
+- Updated repository-release metadata fixture and release package docs to include the methods paper artifact.
+
+Files changed:
+- docs/23-methods-paper.md
+- docs/23-release-package.md
+- src/foi_o_nz/release_package.py
+- examples/release-checklist.v0.9.0.json
+- examples/repository-release-metadata.v0.9.0.json
+- tests/test_methods_paper.py
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_methods_paper.py tests/test_publication_metadata.py tests/test_release_package.py tests/test_release_readiness_docs.py tests/test_schema_codegen_shacl.py: 13 passed
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with known warning-only top-level schema drift findings
+- uv run foi-o-nz repository-release-metadata docs/23-release-package.md examples/release-checklist.v0.9.0.json examples/dataset-metadata.examples.json docs/23-methods-paper.md --output /tmp/foi-o-repository-release.json --release-version 0.9.0 --base-dir .: passed
+- uv run foi-o-nz release-checklist --output /tmp/foi-o-release-checklist.json --release-version 0.9.0: passed
+- git diff --check: passed
+
+Risks:
+- Methods paper is a local draft for manual publication review.
+- Registry submission remains an external/manual gate.
