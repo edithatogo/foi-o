@@ -340,7 +340,7 @@
       "safety_class": "low"
     },
     {
-      "description": "Report remaining blockers before Mojo-native kernel release certification.",
+      "description": "Report remaining blockers before Mojo-native kernel release readiness.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "kernel_readiness",

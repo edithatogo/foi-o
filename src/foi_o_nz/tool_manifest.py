@@ -78,7 +78,7 @@ def build_tool_manifest() -> dict[str, Any]:
         },
         {
             "name": "kernel_readiness",
-            "description": "Report remaining blockers before Mojo-native kernel release certification.",
+            "description": "Report remaining blockers before Mojo-native kernel release readiness.",
             "legal_effect": "none",
             "safety_class": "runtime_validation",
             "requires_human_certification": False,
@@ -160,7 +160,7 @@ def _description_for_action(action_type: str) -> str:
         "kernel_status": "Report Mojo/MAX native-kernel availability and fallback mode.",
         "kernel_eval": "Evaluate one deterministic kernel operation without certifying legal outcomes.",
         "kernel_conformance": "Run deterministic kernel conformance checks across Mojo and fallback semantics.",
-        "kernel_readiness": "Report remaining blockers before Mojo-native release certification.",
+        "kernel_readiness": "Report remaining blockers before Mojo-native release readiness.",
         "export_kernel_manifest": "Export deterministic kernel operation metadata for native/fallback parity planning.",
         "mojo_audit": "Statically audit Mojo source declarations against fallback kernel operations.",
     }

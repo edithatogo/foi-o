@@ -12,6 +12,7 @@ UNSAFE_DESCRIPTOR_PHRASES = (
     "certify release",
     "certify refusal",
     "certify legal",
+    "release certification",
     "finalise decision",
     "finalize decision",
     "refuse request",
