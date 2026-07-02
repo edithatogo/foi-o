@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`e5a5419`)
     - [x] Check `conductor-review` availability and record the manual fallback.
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [ ] Task: Conductor - User Manual Verification 'Final Release Closeout' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Final Release Closeout' (Protocol in workflow.md)
