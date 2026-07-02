@@ -11,7 +11,7 @@
 - [x] Task: Implement bounded provider interface (`bb12507`)
     - [x] Add or refine provider abstractions only where tests require.
     - [x] Record provider, model, runtime, and fallback provenance in outputs.
-- [ ] Task: Conductor - User Manual Verification 'Provider Interface' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Provider Interface' (Protocol in workflow.md)
 
 ## Phase 2: LanceDB Retrieval
 
