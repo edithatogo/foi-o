@@ -4,7 +4,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [ ] **Track: Create a multi-agent publication quality panel, scoring loop, and reporting-checklist contract for protocol, analysis, artefacts, report, manuscript, and supplement outputs.**
+- [~] **Track: Create a multi-agent publication quality panel, scoring loop, and reporting-checklist contract for protocol, analysis, artefacts, report, manuscript, and supplement outputs.**
 *Link: [./tracks/publication_quality_panel_20260702/](./tracks/publication_quality_panel_20260702/)*
 
 ---
