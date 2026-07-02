@@ -1,6 +1,6 @@
 schema_version: foi-o-nz.psc-oia-statistics-profile.v0.2.0
 source: New Zealand Public Service Commission OIA statistics
-source_url: https://www.publicservice.govt.nz/
+source_url: https://www.publicservice.govt.nz/data/oia-statistics
 official_reporting_caveat: &official_caveat
   FOI-O NZ output is not official PSC reporting; it is a public FYI-derived indicator for research and reconciliation only.
 metrics:
@@ -91,6 +91,20 @@ metrics:
       - Public FYI source data cannot prove agency publication policy compliance.
     exclusions:
       - Agency disclosure-log records not linked to the FYI request corpus.
+    official_reporting_caveat: *official_caveat
+  psc.average_time_to_respond:
+    name: Average time to respond
+    source_reporting_scheme: PSC OIA statistics
+    definition: Average working days taken to respond to completed OIA requests.
+    derivability: partially_derivable
+    event_dependencies: [RequestObserved, DecisionCommunicated, ExtensionNotified]
+    public_data_limitations:
+      - Requires reliable agency receipt and response timestamps.
+      - Public FYI timestamps may not match agency case-management timestamps.
+      - Working-day calculations are indicative unless matched to authoritative calendars and extension records.
+    exclusions:
+      - Agency-internal paused periods or validity determinations not visible in public correspondence.
+      - Non-public request records.
     official_reporting_caveat: *official_caveat
   psc.ombudsman_complaints:
     name: Ombudsman complaints

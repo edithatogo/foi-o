@@ -27,8 +27,19 @@ def test_psc_reporting_profile_metrics_validate_against_schema() -> None:
 def test_reporting_profile_covers_public_partial_internal_and_not_derivable() -> None:
     profile = load_psc_reporting_profile(PROFILE_PATH)
     metrics = profile["metrics"]
+    metric_ids = {metric["metric_id"] for metric in metrics}
     derivability = {metric["derivability"] for metric in metrics}
 
+    assert {
+        "psc.completed_requests",
+        "psc.timeliness",
+        "psc.published_responses",
+        "psc.extensions",
+        "psc.transfers",
+        "psc.refusals",
+        "psc.average_time_to_respond",
+        "psc.ombudsman_complaints",
+    } <= metric_ids
     assert {
         "public_fyi_derivable",
         "partially_derivable",
