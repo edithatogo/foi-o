@@ -1,0 +1,7 @@
+Task summary: Started Track 2 corpus profile/goldset work in local Conductor state and GitHub Project.
+
+Files changed: conductor/tracks.md; conductor/tracks/corpus_profile_goldset_20260702/metadata.json.
+
+Verification: GitHub Project item for issue #12 moved to In Progress; local metadata JSON parse validated in prior archive sweep.
+
+Risks: coordination-only update.
