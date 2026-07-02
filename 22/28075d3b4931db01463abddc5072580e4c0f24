@@ -1,0 +1,4 @@
+Task summary: Archived Track 5 PSC reporting profile and aggregate reports.
+Files changed: conductor/tracks.md; conductor/history.md; conductor/archive/reporting_profile_psc_20260702/*.
+Verification: gh issue view 15 confirmed CLOSED and Project status Done; uv run foi-o-nz validate-repo passed.
+Risks: Official PSC reporting and real-corpus reporting examples remain outside repo-local Track 5 scope.
