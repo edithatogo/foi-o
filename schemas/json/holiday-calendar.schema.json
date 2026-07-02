@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/holiday-calendar.schema.json",
+  "title": "FOI-O NZ source-aware holiday calendar",
+  "description": "Repo-local public-holiday calendar fixture with source metadata for indicative clock calculations.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "jurisdiction",
+    "calendar_year",
+    "source_name",
+    "source_url",
+    "source_status",
+    "retrieved_at",
+    "regional_anniversary_days_included",
+    "dates",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.holiday-calendar.v0.1.0"
+    },
+    "jurisdiction": {
+      "const": "NZ"
+    },
+    "calendar_year": {
+      "type": "integer",
+      "minimum": 1982
+    },
+    "source_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "source_status": {
+      "enum": ["official_snapshot", "fixture", "external_gate", "unknown"]
+    },
+    "source_last_updated": {
+      "type": ["string", "null"],
+      "format": "date"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "regional_anniversary_days_included": {
+      "type": "boolean"
+    },
+    "dates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "date"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "observed_date": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -54,6 +54,19 @@ The request profile contract keeps source and derived values separate:
 
 Current generated profile states use the implementation vocabulary such as `ReleasedInFull`, `ReleasedInPart`, `Refused`, `NoDocumentsFound`, `Received`, and `AwaitingClarification`. Historical planning labels in this document remain design notes until replaced by the implementation vocabulary.
 
+## Indicative clock calendar contract
+
+The OIA clock helpers support a source-aware holiday calendar fixture at
+`examples/nz-public-holidays-2026.govt-nz.json`. The fixture is a repo-local
+snapshot of national public holidays from Govt.nz, with source URL, retrieval
+timestamp, status, and an explicit note that regional anniversary days are not
+included.
+
+Clock calculations remain indicative. When no holiday calendar is supplied they
+emit `public_holidays_not_supplied`; when the national fixture is supplied they
+retain calendar source metadata and still warn that regional anniversary days
+must be supplied separately when relevant.
+
 ## Event families
 
 | Family | Example event types |

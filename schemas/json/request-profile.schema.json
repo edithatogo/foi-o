@@ -229,6 +229,38 @@
             "null"
           ]
         },
+        "calendar_source_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "calendar_source_url": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "calendar_source_status": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "calendar_retrieved_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "regional_anniversary_days_included": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
         "confidence": {
           "type": [
             "number",

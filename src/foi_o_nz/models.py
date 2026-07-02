@@ -292,6 +292,11 @@ class LegalClock(BaseModel):
     decision_due_date: date | None = None
     transfer_due_date: date | None = None
     calculation_method: str | None = None
+    calendar_source_name: str | None = None
+    calendar_source_url: AnyUrl | None = None
+    calendar_source_status: str | None = None
+    calendar_retrieved_at: datetime | None = None
+    regional_anniversary_days_included: bool | None = None
     confidence: float | None = Field(default=None, ge=0, le=1)
     warnings: list[str] = Field(default_factory=list)
 

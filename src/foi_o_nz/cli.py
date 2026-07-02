@@ -1352,6 +1352,10 @@ def validate_repo() -> None:
         for path in sorted(Path("examples").glob("guardrail-replay*.json"))
     )
     example_schema_pairs.extend(
+        (path, Path("schemas/json/holiday-calendar.schema.json"))
+        for path in sorted(Path("examples").glob("nz-public-holidays*.json"))
+    )
+    example_schema_pairs.extend(
         (path, Path("schemas/json/native-kernel-status.schema.json"))
         for path in sorted(Path("examples").glob("native-kernel-status*.json"))
     )
