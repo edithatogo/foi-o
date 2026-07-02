@@ -1,0 +1,19 @@
+Task: Implement LanceDB semantic retrieval path
+
+Files changed:
+- src/foi_o_nz/vector_index.py
+- tests/test_lancedb_retrieval.py
+- conductor/tracks/max_lancedb_inference_20260702/plan.md
+
+Summary:
+- Added LanceDB availability status, table query path, deterministic in-memory fallback, query validation, and retrieval provenance.
+- Normalised retrieval rows with no-legal-effect and no-machine-certification guardrails.
+
+Verification:
+- uv run pytest -q tests/test_lancedb_retrieval.py
+- uv run ruff check src/foi_o_nz/vector_index.py tests/test_lancedb_retrieval.py
+- uv run ruff format --check src/foi_o_nz/vector_index.py tests/test_lancedb_retrieval.py
+
+Risks:
+- LanceDB remains optional and local; fixture-backed schema/query coverage does not prove external service behavior.
+- Fallback search uses deterministic feature hashes and is suitable for reproducible local retrieval, not semantic legal judgement.
