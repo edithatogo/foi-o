@@ -1,0 +1,13 @@
+Task: Record release checklist tests
+
+Summary:
+- Updated the publication track plan to mark the release checklist validation tests complete with 7436c21.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; red-test evidence committed in 7436c21.
+
+Risks:
+- Implementation is still required to make tests pass.
