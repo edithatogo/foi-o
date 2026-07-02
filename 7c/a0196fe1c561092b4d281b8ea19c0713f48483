@@ -1,0 +1,7 @@
+Track: event_extraction_timeline_20260702
+Phase: Evaluation Fixtures
+Tasks: Write event evaluation tests; Implement event evaluation updates
+Summary: Added file-backed deterministic event-evaluation tests, versioned event-evaluation report output, committed schema/example, validator wiring, and documentation for the extractor-quality-only boundary.
+Files changed: README.md; docs/07-evaluation-plan.md; scripts/validate_examples.py; src/foi_o_nz/cli.py; src/foi_o_nz/evaluation.py; tests/test_evaluation.py; examples/event-evaluation.summary.json; schemas/json/event-evaluation.schema.json; conductor/tracks/event_extraction_timeline_20260702/plan.md
+Verification: uv run pytest -q tests/test_evaluation.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo
+Risks: Evaluation output is for extraction quality only and remains non-certifying for legal or dispositive outcomes.
