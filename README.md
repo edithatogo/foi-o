@@ -218,6 +218,7 @@ foi-o-nz/
 | Tamper-evident ledgers | Implemented | SHA-256 JSON canonicalisation and hash chaining for request/event/chunk/embedding streams. |
 | Risk triage | Implemented | Deterministic review-trigger scans for privacy/health/withholding/AI-workload signals; never a legal decision. |
 | Dataset metadata | Implemented | FOI-O NZ metadata, Frictionless-style datapackages, Croissant-style JSON-LD, and Hugging Face dataset-card scaffolds. |
+| Release package | Implemented | Machine-readable release checklist, repository-release metadata, methods paper draft, and explicit external publication gates. |
 | Agent contracts | Implemented | OpenAPI skeleton and bounded tool manifest for future agent runtime integration. |
 | Local retrieval | Implemented | BM25-ish lexical search plus deterministic feature-hash vector blending over agent chunks. |
 | Redaction candidates | Implemented | Regex-based sensitive-span candidates with hashed/masked previews; no redaction decision. |

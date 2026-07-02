@@ -38,7 +38,7 @@
 - [x] Task: Run release validation (`95955c6`)
     - [x] Run full repo-local validation, release metadata checks, example validation, and docs checks.
     - [x] Run publication dry-run checks where available and document live external gates.
-- [ ] Task: Run Conductor review and apply high-confidence fixes
+- [~] Task: Run Conductor review and apply high-confidence fixes
     - [ ] Run `conductor-review` for the track scope.
     - [ ] Apply high-confidence fixes and rerun focused checks.
 - [ ] Task: Conductor - User Manual Verification 'Final Release Closeout' (Protocol in workflow.md)

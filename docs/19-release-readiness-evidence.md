@@ -51,7 +51,7 @@ uv run pytest -q tests/test_publication_metadata.py
 | --- | --- | --- |
 | `README.md` | Current for Track 7. Labels local/MAX extraction packs and LanceDB retrieval as experimental, candidate-only, and optional, with live MAX/model execution still external-gated. | Keep aligned with this evidence note as tracks complete. |
 | `IMPLEMENTATION_REPORT.md` | Current through v0.8 and separates sandbox limitations from implemented fallback proof. | Use as historical evidence; avoid treating older validation counts as current test counts. |
-| `docs/11-implementation-status.md` | Previously stale because it only described the v0.1 scaffold and listed later experimental surfaces as not implemented. | Updated in this track to distinguish implemented, experimental, planned, and external-gated surfaces. |
+| `docs/11-implementation-status.md` | Previously stale because it only described the v0.1 scaffold and listed later experimental surfaces as not implemented. | Updated in this track to distinguish implemented, experimental, completed-roadmap, and external-gated surfaces. |
 | `docs/18-implementation-delta-v0.8.md` | Current for static Mojo audit/kernel manifest scope. | Keep the native-release caveat. |
 | `examples/kernel-readiness.fallback.json` | Repo-local readiness fixture. | Validate through kernel manifest/readiness tests. |
 | `examples/mojo-audit.static.json` | Repo-local static audit fixture. | Validate through schema/example checks. |

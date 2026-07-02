@@ -1,6 +1,6 @@
 # Implementation status
 
-This status page separates implemented repo-local surfaces, experimental optional surfaces, planned roadmap work, and external gates. It supersedes the older v0.1-only status snapshot.
+This status page separates implemented repo-local surfaces, experimental optional surfaces, completed roadmap work, and external gates. It supersedes the older v0.1-only status snapshot.
 
 ## Implemented and repo-local
 
@@ -17,6 +17,7 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - Python fallback kernel contract, native-kernel discovery/status reports, conformance reports, static Mojo source audit, kernel manifests, kernel fixtures, and readiness reports.
 - PSC reporting metric profile with schema-validated derivability classifications, public-data limitations, exclusions, and explicit non-official-reporting caveats.
 - PSC sample aggregate reports from event JSONL, including schema validation, warning fields, and `value: null` handling for metrics unavailable from public FYI data.
+- Publication release package with release checklist, repository-release metadata, methods paper draft, rights notices, validation commands, and explicit external/manual publication gates.
 - Test fixtures and examples for the implemented dependency-light surfaces.
 
 ## Experimental or optional
@@ -24,10 +25,6 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - Mojo/MAX native kernels are preferred where the Modular toolchain is available, but Python fallback semantics remain the compatibility contract.
 - FastMCP server support is present as an optional runtime surface and must degrade clearly when FastMCP is unavailable.
 - Polars, DuckDB, LanceDB, pySHACL, MAX/OpenAI, and experiment libraries are optional extras and are not required for dependency-light validation. Local/MAX request-pack preparation is repo-local; live model execution remains an external gate.
-
-## Remaining planned roadmap work
-
-- Publication metadata, release package, and methods paper.
 
 ## External gates
 
