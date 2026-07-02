@@ -1,0 +1,23 @@
+Task: Write tests and harden kernel fallback readiness evidence
+
+Summary:
+- Added committed-example alignment coverage for Mojo audit, kernel manifest, and kernel readiness examples.
+- Added repo_local_validation_commands to kernel readiness report, schema, and fallback example.
+- Preserved external native Mojo checks separately in next_external_checks.
+
+Files changed:
+- tests/test_mojo_audit_kernel_manifest.py
+- src/foi_o_nz/kernel_manifest.py
+- schemas/json/kernel-readiness.schema.json
+- examples/kernel-readiness.fallback.json
+- conductor/tracks/release_readiness_evidence_20260702/plan.md
+
+Red test:
+- New test failed before implementation with KeyError: repo_local_validation_commands.
+
+Verification:
+- uv run pytest -q tests/test_mojo_audit_kernel_manifest.py::test_committed_kernel_examples_remain_aligned_with_generators tests/test_mojo_audit_kernel_manifest.py: 6 passed
+- uv run python scripts/validate_examples.py: examples ok
+
+Risks:
+- Native Mojo release certification still requires external Modular toolchain checks.
