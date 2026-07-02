@@ -39,7 +39,7 @@
 
 ## Phase 4: Corpus Profile Closeout
 
-- [ ] Task: Run corpus profile validation
+- [~] Task: Run corpus profile validation
     - [ ] Run targeted corpus/goldset tests.
     - [ ] Run schema/example validation commands affected by this track.
     - [ ] Update docs with exact commands and expected outputs.

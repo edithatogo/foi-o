@@ -47,3 +47,13 @@ uv run foi-o-nz build-goldset \
 ```
 
 These tasks are annotation and evaluation aids only. They include source state, normalised state, mapping confidence, source provenance, and event hints so reviewers can judge whether the mapping is supported. They do not certify OIA outcomes.
+
+## Repo-Local Validation
+
+```bash
+uv run pytest -q tests/test_normalise.py tests/test_request_profile_jsonld.py tests/test_review_advice_graph_attestation_gold_annotation.py
+uv run python scripts/validate_examples.py
+uv run foi-o-nz validate-repo
+```
+
+Expected repo-local result: all selected tests pass, example validation prints `examples ok`, and repository validation prints `repository validation ok`.
