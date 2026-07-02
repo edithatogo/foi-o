@@ -1,0 +1,27 @@
+Task: Run release validation
+
+Summary:
+- Added final Phase 4 validation evidence for publication release closeout.
+- Reran full repo-local validation, publication metadata dry-runs, and Mojo/Pixi gates.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/phase-4-validation.md
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed
+- uv run pytest -q: 166 passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with known warning-only top-level schema drift findings
+- uv run foi-o-nz release-checklist --output /tmp/foi-o-release-checklist.json --release-version 0.9.0: passed
+- uv run foi-o-nz repository-release-metadata docs/23-release-package.md examples/release-checklist.v0.9.0.json examples/dataset-metadata.examples.json docs/23-methods-paper.md --output /tmp/foi-o-repository-release.json --release-version 0.9.0 --base-dir .: passed
+- pixi run mojo-format-check: passed
+- pixi run mojo-test: passed
+- pixi run mojo-build: passed
+- git diff --check: passed
+
+Risks:
+- Publication registries, live pulls, and manual release approval remain external gates.
+- Known schema-drift warning-only findings remain unchanged.
