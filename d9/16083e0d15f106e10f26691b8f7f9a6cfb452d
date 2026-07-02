@@ -1,0 +1,8 @@
+Track: oia_process_rules_20260702
+Phase: Calendar Contract
+Checkpoint: d916083
+Review: conductor-review command not installed on PATH; manual review performed using conductor-review skill protocol. No high-confidence fixes required.
+Automated verification: git diff --name-only 43a1c63..HEAD; uv run pytest -q tests/test_dates.py tests/test_models.py tests/test_normalise.py tests/test_validation.py tests/test_schema_codegen_shacl.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo; pixi run mojo-format-check; pixi run mojo-test
+Manual verification steps: Run uv run foi-o-nz clock 2026-05-29 --decision-days 1 --transfer-days 1 --holidays examples/nz-public-holidays-2026.govt-nz.json and confirm 2026-06-02 due dates, calendar source metadata, and the regional-anniversary warning.
+User confirmation: autonomous comprehensive mode; repo-local validation and manual review evidence used for checkpoint.
+Risks: Source-versioned references and process-rule quality gates remain pending phases.
