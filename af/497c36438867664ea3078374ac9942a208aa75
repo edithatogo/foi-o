@@ -1,0 +1,21 @@
+Phase checkpoint: LanceDB Retrieval
+
+Files changed:
+- conductor/tracks/max_lancedb_inference_20260702/phase-2-verification.md
+- conductor/tracks/max_lancedb_inference_20260702/plan.md
+
+Summary:
+- Captured Phase 2 verification evidence, manual conductor-review fallback, and review fix commit 19a7f50.
+
+Verification:
+- uv run pytest -q tests/test_lancedb_retrieval.py tests/test_inference_providers.py tests/test_embeddings.py tests/test_retrieval_redaction_diff_pack_repro.py tests/test_agent_policy.py -> 21 passed
+- uv run ruff check src tests scripts -> passed
+- uv run ruff format --check src tests scripts -> passed
+- uv run python scripts/validate_examples.py -> examples ok
+- uv run foi-o-nz validate-repo -> repository validation ok
+- uv run foi-o-nz schema-drift -> ok with warning-only baseline top-level schema drift
+- git diff --check -> passed
+
+Risks:
+- LanceDB is validated as an optional local backend only.
+- MAX/local extraction remains for Phase 3.
