@@ -8,6 +8,10 @@ from typing import Any, Literal
 from foi_o_nz.io import iter_jsonl, write_json
 
 MatchMode = Literal["event_type", "event_type_state", "strict"]
+EVENT_EVALUATION_SCHEMA_VERSION = "foi-o-nz.event-evaluation.v0.1.0"
+EVENT_EVALUATION_LIMITATIONS = [
+    "Evaluation compares event keys for extractor quality only; it does not certify legal outcomes."
+]
 
 
 def _request_id(event: dict[str, Any]) -> str:
@@ -57,6 +61,7 @@ def evaluate_event_extraction(
     recall = true_positive / (true_positive + false_negative) if gold_keys else 0.0
     f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
     return {
+        "schema_version": EVENT_EVALUATION_SCHEMA_VERSION,
         "mode": mode,
         "predicted_count": len(predicted_keys),
         "gold_count": len(gold_keys),
@@ -68,6 +73,7 @@ def evaluate_event_extraction(
         "f1": f1,
         "false_positive_keys": [list(key) for key in sorted(predicted_keys - gold_keys)[:100]],
         "false_negative_keys": [list(key) for key in sorted(gold_keys - predicted_keys)[:100]],
+        "limitations": EVENT_EVALUATION_LIMITATIONS,
     }
 
 

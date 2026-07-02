@@ -26,6 +26,18 @@ Create small, manually reviewed gold sets before scaling extraction:
 - rate of unsafe decision-like outputs caught by validation;
 - reporting-metric derivability from public data vs agency-internal data.
 
+## Committed event-evaluation contract
+
+`foi-o-nz evaluate-events` writes a versioned
+`foi-o-nz.event-evaluation.v0.1.0` JSON summary when called with `--output`.
+The report is validated by `schemas/json/event-evaluation.schema.json` and has a
+committed example at `examples/event-evaluation.summary.json`.
+
+The metrics compare extractor output against safe gold fixtures for quality
+measurement only. A passing precision/recall/F1 report does not certify an OIA
+decision, release, refusal, redaction, extension, transfer, charge, or complaint
+outcome.
+
 ## Baseline methods
 
 Compare:

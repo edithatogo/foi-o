@@ -27,10 +27,10 @@
 
 ## Phase 3: Evaluation Fixtures
 
-- [ ] Task: Write event evaluation tests
+- [~] Task: Write event evaluation tests
     - [ ] Add safe fixture gold records for observed events and candidate events.
     - [ ] Verify precision/recall/F1 outputs are deterministic and schema-valid.
-- [ ] Task: Implement event evaluation updates
+- [~] Task: Implement event evaluation updates
     - [ ] Update evaluation docs, examples, and CLI output contracts as needed.
     - [ ] Keep fixture size small enough for committed validation.
 - [ ] Task: Conductor - User Manual Verification 'Evaluation Fixtures' (Protocol in workflow.md)

@@ -12,6 +12,7 @@ PAIR_GLOBS = [
     ("request*.jsonld", "request-profile.schema.json"),
     ("run-manifest*.json", "run-manifest.schema.json"),
     ("embedding-record*.json", "embedding-record.schema.json"),
+    ("event-evaluation*.json", "event-evaluation.schema.json"),
     ("transition-audit*.json", "transition-audit.schema.json"),
     ("chunk-record*.json", "chunk-record.schema.json"),
     ("ledger-entry*.json", "ledger-entry.schema.json"),

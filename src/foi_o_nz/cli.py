@@ -1252,6 +1252,10 @@ def validate_repo() -> None:
         for path in sorted(Path("examples").glob("embedding-record*.json"))
     )
     example_schema_pairs.extend(
+        (path, Path("schemas/json/event-evaluation.schema.json"))
+        for path in sorted(Path("examples").glob("event-evaluation*.json"))
+    )
+    example_schema_pairs.extend(
         (path, Path("schemas/json/transition-audit.schema.json"))
         for path in sorted(Path("examples").glob("transition-audit*.json"))
     )

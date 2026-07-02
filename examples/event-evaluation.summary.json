@@ -1,0 +1,29 @@
+{
+  "f1": 0.5,
+  "false_negative": 1,
+  "false_negative_keys": [
+    [
+      "12345",
+      "ReleaseMade",
+      "ReleasedInPart"
+    ]
+  ],
+  "false_positive": 1,
+  "false_positive_keys": [
+    [
+      "12345",
+      "ExtensionNotified",
+      "ExtensionApplied"
+    ]
+  ],
+  "gold_count": 2,
+  "limitations": [
+    "Evaluation compares event keys for extractor quality only; it does not certify legal outcomes."
+  ],
+  "mode": "event_type_state",
+  "precision": 0.5,
+  "predicted_count": 2,
+  "recall": 0.5,
+  "schema_version": "foi-o-nz.event-evaluation.v0.1.0",
+  "true_positive": 1
+}

@@ -130,7 +130,7 @@ uv run foi-o-nz export-jsonld-context --output contexts/foi-o-nz.context.jsonld
 uv run foi-o-nz validate-shacl data/processed/foi-o-nz.ttl --shapes shacl/foi-o-nz.shapes.ttl
 uv run foi-o-nz build-lancedb data/processed/request-embeddings.jsonl --database-dir data/vector/lancedb
 uv run foi-o-nz schema-drift
-uv run foi-o-nz evaluate-events --predicted data/processed/events.jsonl --gold data/gold/events.gold.jsonl
+uv run foi-o-nz evaluate-events --predicted data/processed/events.jsonl --gold data/gold/events.gold.jsonl --output data/processed/event-evaluation.json
 uv run foi-o-nz agent-action-template map_state --output data/processed/action.map-state.json
 uv run foi-o-nz evaluate-agent-action data/processed/action.map-state.json
 uv run foi-o-nz mcp-server

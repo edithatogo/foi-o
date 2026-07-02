@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/event-evaluation.schema.json",
+  "title": "FOI-O NZ event extraction evaluation report",
+  "description": "Deterministic event-extraction precision/recall/F1 report. Evaluation metrics are extractor-quality signals only and do not certify legal outcomes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mode",
+    "predicted_count",
+    "gold_count",
+    "true_positive",
+    "false_positive",
+    "false_negative",
+    "precision",
+    "recall",
+    "f1",
+    "false_positive_keys",
+    "false_negative_keys",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.event-evaluation.v0.1.0"
+    },
+    "mode": {
+      "enum": ["event_type", "event_type_state", "strict"]
+    },
+    "predicted_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "gold_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "true_positive": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "false_positive": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "false_negative": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "precision": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "recall": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "f1": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "false_positive_keys": {
+      "$ref": "#/$defs/event_key_list"
+    },
+    "false_negative_keys": {
+      "$ref": "#/$defs/event_key_list"
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "event_key_list": {
+      "type": "array",
+      "maxItems": 100,
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 5,
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
