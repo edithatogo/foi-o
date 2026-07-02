@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`72574f3`)
     - [x] Run `conductor-review` for the track scope (manual fallback used because command is unavailable).
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [ ] Task: Conductor - User Manual Verification 'Inference Track Closeout' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Inference Track Closeout' (Protocol in workflow.md)
