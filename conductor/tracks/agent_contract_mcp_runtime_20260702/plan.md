@@ -21,7 +21,7 @@
 - [x] Task: Implement MCP runtime hardening (`ab36781`)
     - [x] Refine server startup, tool registration, and error handling for read-only fixture mode.
     - [x] Keep all write, certify, release, refusal, redaction, and charge operations absent.
-- [ ] Task: Conductor - User Manual Verification 'Runtime Prototype' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Runtime Prototype' (Protocol in workflow.md)
 
 ## Phase 3: Agent Guardrail Replay
 
