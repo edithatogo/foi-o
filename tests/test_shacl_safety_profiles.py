@@ -53,9 +53,10 @@ foio:event-1
 
     assert result["mode"] == "pyshacl"
     assert result["ok"] is False
-    assert "Every FOI-O NZ process event should have at least one evidence reference" in result[
-        "report_text"
-    ]
+    assert (
+        "Every FOI-O NZ process event should have at least one evidence reference"
+        in result["report_text"]
+    )
 
 
 def test_agent_action_machine_certification_is_rejected(tmp_path: Path) -> None:

@@ -21,7 +21,7 @@
 - [x] Task: Implement SHACL profile updates (`f532c27`)
     - [x] Add shapes for request profiles, core events, agent actions, and publication metadata.
     - [x] Keep unsafe certification claims invalid or review-required.
-- [ ] Task: Conductor - User Manual Verification 'SHACL Safety Profiles' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'SHACL Safety Profiles' (Protocol in workflow.md)
 
 ## Phase 3: Semantic Export Consistency
 
