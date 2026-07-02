@@ -24,3 +24,13 @@ applicability_basis: current_at_event_time | current_at_extraction_time | unknow
 ## Implementation note
 
 The New Zealand Legislation API conceptual model of works, versions, and formats is a good fit for durable statutory references. The project should avoid bare string citations where a provision-level or version-level identifier is available.
+
+`mappings/nz-legislation-sources.yaml` is the repo-local source-version
+registry. It records source status, retrieval timestamp, version identifier,
+canonical URI, and applicability basis for statute and guidance references.
+
+Use `foi-o-nz legal-source-status` for local validation. `--live` does not fetch
+network sources; it fails closed unless an ignored cache directory such as
+`generated/legal-sources/` exists. This keeps live NZ Legislation/Ombudsman
+retrieval as an explicit external gate rather than silently mixing live state
+into committed fixtures.

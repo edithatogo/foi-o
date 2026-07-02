@@ -2,25 +2,78 @@ schema_version: foi-o-nz.nz-legislation-sources.v0.1.0
 sources:
   nz.oia.act:
     title: Official Information Act 1982
+    kind: statute
     work_id: act_public_1982_156
     canonical_uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
     api_docs: https://api.legislation.govt.nz/docs/
-    notes: Use version_id for date-sensitive legal references.
+    version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
+    retrieved_at: "2026-07-02T00:00:00Z"
+    source_status: official_snapshot
+    applicability_basis: current_at_extraction_time
+    notes: Use exact version_id for date-sensitive legal references when live API retrieval is available.
   nz.lgoima.act:
     title: Local Government Official Information and Meetings Act 1987
+    kind: statute
     work_id: act_public_1987_0174
     canonical_uri: https://www.legislation.govt.nz/act/public/1987/0174/latest/whole.html
+    version_id: legislation.govt.nz:act_public_1987_0174:latest:retrieved_2026-07-02
+    retrieved_at: "2026-07-02T00:00:00Z"
+    source_status: external_gate
+    applicability_basis: unknown
     notes: Deferred until OIA core stabilises.
+  nz.ombudsman.oia-guide:
+    title: The OIA for Ministers and agencies
+    kind: guidance
+    work_id: ombudsman_oia_ministers_agencies_guide
+    canonical_uri: https://www.ombudsman.parliament.nz/resources/oia-ministers-and-agencies-guide-processing-official-information-requests
+    version_id: ombudsman:oia-ministers-agencies-guide:retrieved_2026-07-02
+    retrieved_at: "2026-07-02T00:00:00Z"
+    source_status: official_snapshot
+    applicability_basis: current_at_extraction_time
+    notes: Processing guidance snapshot; not a substitute for current law or human legal review.
 key_references_initial:
   - source_id: nz.oia.act
     reference: s 14
     concept: transfer
+    uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
+    work_id: act_public_1982_156
+    version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
+    retrieved_at: "2026-07-02T00:00:00Z"
+    source_status: official_snapshot
+    applicability_basis: current_at_extraction_time
   - source_id: nz.oia.act
     reference: s 15
     concept: decision_timeframe
+    uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
+    work_id: act_public_1982_156
+    version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
+    retrieved_at: "2026-07-02T00:00:00Z"
+    source_status: official_snapshot
+    applicability_basis: current_at_extraction_time
   - source_id: nz.oia.act
     reference: s 15A
     concept: extension
+    uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
+    work_id: act_public_1982_156
+    version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
+    retrieved_at: "2026-07-02T00:00:00Z"
+    source_status: official_snapshot
+    applicability_basis: current_at_extraction_time
   - source_id: nz.oia.act
     reference: ss 6, 9, 18
     concept: withholding_or_refusal_grounds
+    uri: https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html
+    work_id: act_public_1982_156
+    version_id: legislation.govt.nz:act_public_1982_156:latest:retrieved_2026-07-02
+    retrieved_at: "2026-07-02T00:00:00Z"
+    source_status: official_snapshot
+    applicability_basis: current_at_extraction_time
+  - source_id: nz.ombudsman.oia-guide
+    reference: processing official information requests
+    concept: ombudsman_processing_guidance
+    uri: https://www.ombudsman.parliament.nz/resources/oia-ministers-and-agencies-guide-processing-official-information-requests
+    work_id: ombudsman_oia_ministers_agencies_guide
+    version_id: ombudsman:oia-ministers-agencies-guide:retrieved_2026-07-02
+    retrieved_at: "2026-07-02T00:00:00Z"
+    source_status: official_snapshot
+    applicability_basis: current_at_extraction_time

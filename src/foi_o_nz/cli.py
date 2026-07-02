@@ -41,6 +41,7 @@ from foi_o_nz.kernel_manifest import (
     write_kernel_readiness,
 )
 from foi_o_nz.ledger import build_ledger_jsonl, verify_ledger_jsonl
+from foi_o_nz.legal_sources import build_legal_source_status
 from foi_o_nz.lineage import write_lineage_graph
 from foi_o_nz.mcp_bundle import write_mcp_bundle
 from foi_o_nz.mojo_audit import write_mojo_audit
@@ -1153,6 +1154,33 @@ def export_mcp_bundle_command(
 def reporting_metrics() -> None:
     """Print the current PSC/OIA reporting metric descriptors."""
     console.print_json(json.dumps(metric_table()))
+
+
+@app.command("legal-source-status")
+def legal_source_status_command(
+    mapping: Annotated[
+        Path,
+        typer.Option("--mapping", help="Source-version mapping YAML"),
+    ] = Path("mappings/nz-legislation-sources.yaml"),
+    live: Annotated[
+        bool,
+        typer.Option(help="Check for a live-source cache; never fetch live sources directly"),
+    ] = False,
+    cache_dir: Annotated[
+        Path,
+        typer.Option(help="Ignored cache directory for externally fetched source snapshots"),
+    ] = Path("generated/legal-sources"),
+    output: Annotated[
+        Path | None, typer.Option("--output", "-o", help="Optional JSON status output")
+    ] = None,
+) -> None:
+    """Validate legal-source version metadata and fail closed for live-source gates."""
+    result = build_legal_source_status(mapping_path=mapping, live=live, cache_dir=cache_dir)
+    if output is not None:
+        write_json(output, result)
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
 
 
 @app.command("smoke-fixture")
