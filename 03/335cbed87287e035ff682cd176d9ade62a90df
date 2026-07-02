@@ -1,0 +1,9 @@
+Track: event_extraction_timeline_20260702
+Phase: Event Track Closeout
+Checkpoint: 03335cb
+Task: Conductor manual verification for event track closeout
+Full verification: uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run pytest -q (105 passed); uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo; pixi run mojo-format-check; pixi run mojo-test; pixi run mojo-build
+Final review: conductor-review command not installed on PATH; manual final review performed using conductor-review skill protocol. No high-confidence fixes required.
+Manual verification steps: Review conductor/tracks/event_extraction_timeline_20260702/final-verification.md, run uv run foi-o-nz evaluate-events with a predicted/gold event JSONL pair and confirm the output validates against schemas/json/event-evaluation.schema.json, then run uv run foi-o-nz build-timeline and confirm missing/invalid dates are warned rather than fabricated.
+User confirmation: autonomous comprehensive mode; repo-local validation and manual review evidence used for closeout.
+Risks: Archive move, GitHub issue closure, and Project Done update still pending.
