@@ -2,9 +2,9 @@
 
 ## Phase 1: Release Evidence Package
 
-- [~] Task: Audit release evidence and publication metadata
-    - [ ] Review README, implementation reports, dataset metadata, reproducibility manifests, and release docs.
-    - [ ] Identify claims needing repo-local proof or external-gate notes.
+- [x] Task: Audit release evidence and publication metadata (`0b2c374`)
+    - [x] Review README, implementation reports, dataset metadata, reproducibility manifests, and release docs.
+    - [x] Identify claims needing repo-local proof or external-gate notes.
 - [ ] Task: Write release checklist validation tests
     - [ ] Verify release metadata references existing files, commands, schemas, and evidence.
     - [ ] Verify external gates are explicitly labelled.
