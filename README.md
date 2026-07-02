@@ -212,7 +212,7 @@ foi-o-nz/
 | RDF exporter | Implemented | Converts request/event JSONL into Turtle/JSON-LD-compatible RDF via RDFLib. |
 | Analytics bridge | Implemented | Optional Polars/DuckDB outputs, DuckDB bootstrap SQL, and summaries. |
 | Mojo kernel | Experimental | Native state mapping, machine-working-day checks, and human-certification guard functions. |
-| Ontology/SKOS/SHACL | Seeded | First-pass semantic layer for later review. |
+| Ontology/SKOS/SHACL | Implemented | FOIO namespace, OWL/SKOS terms, SHACL safety profiles, semantic export alignment, and pySHACL/degraded-mode validation. |
 | MCP server | Experimental | Optional FastMCP server exposing state mapping, validation, and quality-gate tools only. |
 | Text chunks | Implemented | Creates deterministic request/event chunks for vector indexing and agent context windows. |
 | Tamper-evident ledgers | Implemented | SHA-256 JSON canonicalisation and hash chaining for request/event/chunk/embedding streams. |

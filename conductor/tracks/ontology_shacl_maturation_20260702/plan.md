@@ -38,7 +38,7 @@
 - [x] Task: Run ontology validation (`c3802ef`)
     - [x] Run RDF, JSON-LD, SKOS, SHACL, schema, and export tests.
     - [x] Run pySHACL path when dependency is installed or document external gate.
-- [ ] Task: Run Conductor review and apply high-confidence fixes
+- [~] Task: Run Conductor review and apply high-confidence fixes
     - [ ] Run `conductor-review` for the track scope.
     - [ ] Apply high-confidence fixes and rerun focused checks.
 - [ ] Task: Conductor - User Manual Verification 'Ontology Track Closeout' (Protocol in workflow.md)

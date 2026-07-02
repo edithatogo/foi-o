@@ -7,8 +7,12 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - Python package `foi_o_nz` with Typer CLI entry points.
 - Pydantic models and JSON Schemas for core events, request profiles, agent actions, reporting metrics, review tasks, manifests, kernel reports, and related records.
 - FYI/Alaveteli state mapping, JSON/JSONL manifest normalisation, event analytics, transition audit, quality gates, and schema validation helpers.
-- RDF/Turtle export, JSON-LD context export, SHACL parse/degraded-mode wrapper, ontology seed, SKOS vocabularies, and SHACL shapes.
+- RDF/Turtle export, JSON-LD context export, FOIO namespace, expanded ontology terms, SKOS vocabularies, SHACL safety profiles, semantic export alignment, and SHACL parse/degraded-mode wrapper.
 - Deterministic embeddings, chunking, lexical/vector-style retrieval, optional LanceDB table/search fallback, redaction candidates, risk scans, stream diffs, agent packs, ledgers, reproducibility manifests, CAS, lineage, traces, review queues, process advice, annotation tasks, graph export, table contracts, OCI layout summaries, attestations, and MCP bundle scaffolds.
+- Fixture-backed FYI corpus profiling, source-state preservation, request JSON-LD completion, and reproducible 100-request goldset sampling/task exports.
+- Observed correspondence event extraction, deterministic timeline reconstruction, confidence/provenance retention, and evaluation fixtures.
+- Source-aware NZ holiday calendars, OIA summer-exclusion clock handling, source-versioned legal/guidance references, and process-rule quality gates.
+- Hardened read-only MCP/tool contract descriptors, unsafe-tool rejection, and optional runtime degradation tests.
 - Candidate-only local/MAX extraction request packs with provider provenance, human-review routing, generated-output exclusion, and unsafe machine-certification rejection.
 - Python fallback kernel contract, native-kernel discovery/status reports, conformance reports, static Mojo source audit, kernel manifests, kernel fixtures, and readiness reports.
 - PSC reporting metric profile with schema-validated derivability classifications, public-data limitations, exclusions, and explicit non-official-reporting caveats.
@@ -21,14 +25,8 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - FastMCP server support is present as an optional runtime surface and must degrade clearly when FastMCP is unavailable.
 - Polars, DuckDB, LanceDB, pySHACL, MAX/OpenAI, and experiment libraries are optional extras and are not required for dependency-light validation. Local/MAX request-pack preparation is repo-local; live model execution remains an external gate.
 
-## Planned roadmap work
+## Remaining planned roadmap work
 
-- Live or fixture-backed corpus-profile workflow with a 100-request goldset.
-- Hardened event extraction timelines and evaluation fixtures.
-- Official NZ holiday/closure calendar support and source-versioned legal/guidance references.
-- Publication-safe reporting documentation and additional real-corpus reporting examples.
-- Hardened read-only MCP runtime contract and unsafe-tool descriptor tests.
-- Ontology/SHACL maturation and standards alignment.
 - Publication metadata, release package, and methods paper.
 
 ## External gates
