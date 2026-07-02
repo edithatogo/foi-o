@@ -2,6 +2,20 @@
 @prefix foio: <https://w3id.org/foio-nz/ontology#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+foio:RequestProfileShape
+  a sh:NodeShape ;
+  sh:targetClass foio:AccessRequest ;
+  sh:property [
+    sh:path foio:sourceSystem ;
+    sh:minCount 1 ;
+    sh:message "Request profiles should identify the source system." ;
+  ] ;
+  sh:property [
+    sh:path foio:sourceState ;
+    sh:minCount 1 ;
+    sh:message "Request profiles should preserve the source state." ;
+  ] .
+
 foio:ProcessEventShape
   a sh:NodeShape ;
   sh:targetClass foio:ProcessEvent ;
@@ -25,11 +39,27 @@ foio:DecisionLikeEventShape
     sh:hasValue true ;
     sh:message "Decision-like events must require human certification." ;
   ] ;
-  sh:property [
-    sh:path foio:hasHumanCertification ;
-    sh:minCount 1 ;
-    sh:message "Final decision-like events require a human certification record." ;
-  ] .
+  sh:or (
+    [
+      sh:property [
+        sh:path foio:hasHumanCertification ;
+        sh:minCount 1 ;
+        sh:message "Final decision-like events require a human certification record." ;
+      ]
+    ]
+    [
+      sh:property [
+        sh:path foio:humanReviewRequired ;
+        sh:hasValue true ;
+        sh:message "Candidate decision-like events must be routed to human review." ;
+      ] ;
+      sh:property [
+        sh:path foio:machineCertificationAllowed ;
+        sh:hasValue false ;
+        sh:message "Candidate decision-like events must not allow machine certification." ;
+      ]
+    ]
+  ) .
 
 foio:AgentActionShape
   a sh:NodeShape ;
@@ -52,6 +82,11 @@ foio:ReviewTaskShape
 foio:DatasetPublicationShape
   a sh:NodeShape ;
   sh:targetClass foio:DatasetPublication ;
+  sh:property [
+    sh:path foio:hasDistribution ;
+    sh:minCount 1 ;
+    sh:message "Dataset publications should describe at least one distribution." ;
+  ] ;
   sh:property [
     sh:path foio:publicationCaveat ;
     sh:minCount 1 ;
