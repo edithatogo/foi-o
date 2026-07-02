@@ -2,7 +2,7 @@
 
 ## Phase 1: Descriptor Contract
 
-- [ ] Task: Audit current agent contracts
+- [~] Task: Audit current agent contracts
     - [ ] Review agent policy, tool manifest, OpenAPI export, MCP bundle, MCP server, and docs.
     - [ ] Identify descriptor drift and unsafe-capability gaps.
 - [ ] Task: Write descriptor conformance tests
