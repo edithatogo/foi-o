@@ -1,0 +1,4 @@
+Task summary: Added Track 6 descriptor conformance tests for agent/MCP/OpenAPI contracts.
+Files changed: tests/test_agent_descriptors.py; conductor/tracks/agent_contract_mcp_runtime_20260702/plan.md.
+Verification: uv run pytest -q tests/test_agent_descriptors.py fails because foi_o_nz.agent_contract is intentionally not implemented yet.
+Risks: Red test state is expected until descriptor hardening implementation completes.
