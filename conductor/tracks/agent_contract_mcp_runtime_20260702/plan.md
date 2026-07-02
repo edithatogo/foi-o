@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`5ad9a3c`)
     - [x] Run `conductor-review` for the track scope.
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [ ] Task: Conductor - User Manual Verification 'Agent Contract Closeout' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Agent Contract Closeout' (Protocol in workflow.md)
