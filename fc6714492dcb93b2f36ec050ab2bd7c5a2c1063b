@@ -1,0 +1,7 @@
+Task summary: Added request-profile goldset workflow and state-mapping annotation tasks.
+
+Files changed: src/foi_o_nz/goldset.py; src/foi_o_nz/cli.py; tests/test_review_advice_graph_attestation_gold_annotation.py; docs/20-corpus-profile-goldset.md; examples/goldset-task.state-mapping.json; conductor/tracks/corpus_profile_goldset_20260702/plan.md.
+
+Verification: uv run pytest -q tests/test_review_advice_graph_attestation_gold_annotation.py; uv run ruff check src/foi_o_nz/goldset.py src/foi_o_nz/cli.py tests/test_review_advice_graph_attestation_gold_annotation.py; uv run ruff format --check src/foi_o_nz/goldset.py src/foi_o_nz/cli.py tests/test_review_advice_graph_attestation_gold_annotation.py; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo.
+
+Risks: build-goldset CLI accepts either request or chunk inputs; missing both exits with code 1.
