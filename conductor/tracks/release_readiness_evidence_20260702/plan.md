@@ -10,7 +10,7 @@
 
 ## Phase 2: Kernel Fallback Proof
 
-- [ ] Task: Write tests for kernel fallback and readiness evidence
+- [~] Task: Write tests for kernel fallback and readiness evidence
     - [ ] Add or extend tests covering Python fallback behavior when native kernels are unavailable.
     - [ ] Add or extend tests validating kernel manifest/readiness/audit examples against schemas.
 - [ ] Task: Implement fallback evidence hardening

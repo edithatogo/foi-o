@@ -6,6 +6,11 @@
   "conformance_case_count": 29,
   "missing_expected_operations": [],
   "mojo_declared_operation_count": 27,
+  "repo_local_validation_commands": [
+    "uv run pytest -q tests/test_kernel_fallback_native.py",
+    "uv run pytest -q tests/test_mojo_audit_kernel_manifest.py",
+    "uv run python scripts/validate_examples.py"
+  ],
   "next_external_checks": [
     "pixi run mojo-format-check",
     "pixi run mojo-test",

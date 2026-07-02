@@ -28,6 +28,12 @@ CERTIFICATION_OPERATION_HINTS = (
     "replay",
 )
 
+REPO_LOCAL_KERNEL_VALIDATION_COMMANDS = [
+    "uv run pytest -q tests/test_kernel_fallback_native.py",
+    "uv run pytest -q tests/test_mojo_audit_kernel_manifest.py",
+    "uv run python scripts/validate_examples.py",
+]
+
 
 def _case_id(index: int, operation: str) -> str:
     """Return a stable human-readable conformance case id."""
@@ -146,6 +152,7 @@ def build_kernel_readiness(*, mojo_root: Path = Path("mojo")) -> dict[str, Any]:
         "mojo_declared_operation_count": manifest["mojo_declared_operation_count"],
         "missing_expected_operations": audit["missing_expected_operations"],
         "blocked_by": blocked,
+        "repo_local_validation_commands": REPO_LOCAL_KERNEL_VALIDATION_COMMANDS,
         "next_external_checks": [
             "pixi run mojo-format-check",
             "pixi run mojo-test",

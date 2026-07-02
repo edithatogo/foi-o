@@ -14,6 +14,7 @@
     "mojo_declared_operation_count",
     "missing_expected_operations",
     "blocked_by",
+    "repo_local_validation_commands",
     "next_external_checks",
     "notes"
   ],
@@ -29,6 +30,11 @@
     "mojo_declared_operation_count": {"type": "integer", "minimum": 0},
     "missing_expected_operations": {"type": "array", "items": {"type": "string"}},
     "blocked_by": {"type": "array", "items": {"type": "string"}},
+    "repo_local_validation_commands": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
     "next_external_checks": {"type": "array", "items": {"type": "string"}},
     "notes": {"type": "array", "items": {"type": "string"}}
   }

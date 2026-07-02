@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from foi_o_nz.kernel_fallback import (
@@ -59,6 +60,27 @@ def test_kernel_manifest_and_readiness_validate(tmp_path: Path) -> None:
     ]:
         validation = validate_json_schema(path, schema)
         assert validation.ok, validation.errors
+
+
+def test_committed_kernel_examples_remain_aligned_with_generators() -> None:
+    audit = json.loads(Path("examples/mojo-audit.static.json").read_text(encoding="utf-8"))
+    manifest = json.loads(Path("examples/kernel-manifest.static.json").read_text(encoding="utf-8"))
+    readiness = json.loads(Path("examples/kernel-readiness.fallback.json").read_text(encoding="utf-8"))
+    generated_audit = build_mojo_audit()
+    generated_manifest = build_kernel_manifest()
+    generated_readiness = build_kernel_readiness()
+
+    assert audit["missing_expected_operations"] == generated_audit["missing_expected_operations"]
+    assert audit["declared_expected_count"] == generated_audit["declared_expected_count"]
+    assert manifest["operation_count"] == generated_manifest["operation_count"]
+    assert manifest["conformance_case_count"] == generated_manifest["conformance_case_count"]
+    assert readiness["operation_count"] == generated_readiness["operation_count"]
+    assert readiness["blocked_by"] == generated_readiness["blocked_by"]
+
+    commands = readiness["repo_local_validation_commands"]
+    assert "uv run pytest -q tests/test_kernel_fallback_native.py" in commands
+    assert "uv run pytest -q tests/test_mojo_audit_kernel_manifest.py" in commands
+    assert readiness["next_external_checks"]
 
 
 def test_kernel_fixture_export(tmp_path: Path) -> None:
