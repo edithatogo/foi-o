@@ -135,6 +135,8 @@ uv run foi-o-nz normalise-batch data/raw --requests-output data/processed/reques
 uv run foi-o-nz export-jsonld-context --output contexts/foi-o-nz.context.jsonld
 uv run foi-o-nz validate-shacl data/processed/foi-o-nz.ttl --shapes shacl/foi-o-nz.shapes.ttl
 uv run foi-o-nz build-lancedb data/processed/request-embeddings.jsonl --database-dir data/vector/lancedb
+uv run foi-o-nz search-lancedb data/processed/request-embeddings.jsonl --query "hospital policy" --database-dir data/vector/lancedb
+uv run foi-o-nz prepare-local-extraction --input data/processed/requests.jsonl --output data/processed/local-extraction-requests.jsonl --text-field title
 uv run foi-o-nz schema-drift
 uv run foi-o-nz evaluate-events --predicted data/processed/events.jsonl --gold data/gold/events.gold.jsonl --output data/processed/event-evaluation.json
 uv run foi-o-nz agent-action-template map_state --output data/processed/action.map-state.json
@@ -142,9 +144,11 @@ uv run foi-o-nz evaluate-agent-action data/processed/action.map-state.json
 uv run foi-o-nz mcp-server
 ```
 
-`build-lancedb` and `mcp-server` require optional extras. The default embedding
-provider is a deterministic feature-hashing baseline for reproducible local tests;
-it is not a semantic model.
+`build-lancedb`, LanceDB-backed search, and `mcp-server` require optional extras.
+The default embedding provider is a deterministic feature-hashing baseline for
+reproducible local tests; it is not a semantic model. `prepare-local-extraction`
+creates candidate-only local/MAX prompt packs with `generated_output_included:
+false`, `review_required: true`, and no machine certification.
 
 ### MCP runtime and agent descriptor checks
 
@@ -220,7 +224,8 @@ foi-o-nz/
 | Agent context packs | Implemented | Request-scoped packages combining request, events, chunks, risks, retrieval, redaction candidates, constraints, and provenance. |
 | Stream diffs | Implemented | Canonical JSONL added/removed/modified/unchanged reports for incremental archive processing. |
 | Reproducibility manifests | Implemented | Local tool availability and file SHA-256 manifests for CI/release evidence. |
-| MAX inference | Planned | To be used for local extraction/embeddings once process contracts are stable; v0.6 keeps deterministic embeddings local and dependency-light. |
+| Local/MAX inference packs | Experimental | Candidate-only prompt-pack generation for local/MAX extraction experiments with deterministic provider fallback, human-review routing, and no machine certification. |
+| LanceDB retrieval | Experimental | Optional local LanceDB table/search path over deterministic embedding JSONL with deterministic in-memory fallback. |
 
 ## Human/agent boundary
 
