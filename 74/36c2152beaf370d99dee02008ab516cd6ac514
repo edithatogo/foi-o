@@ -1,0 +1,15 @@
+Task: Write release checklist validation tests
+
+Summary:
+- Added tests for a machine-readable release checklist/package contract.
+- Tests require schema/example validation, real evidence paths, required validation commands, labelled external gates, rights notice wording, and missing-evidence error reporting.
+
+Files changed:
+- tests/test_release_package.py
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_release_package.py failed as expected during collection with ModuleNotFoundError: No module named 'foi_o_nz.release_package'.
+
+Risks:
+- Red test is intentional until the implementation task adds the release package module and fixtures.
