@@ -1,0 +1,14 @@
+Task: Record release evidence checkpoint
+
+Summary:
+- Updated the publication track plan with Phase 1 checkpoint 58b100d.
+- Marked Release Evidence Package manual verification complete.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; checkpoint evidence is recorded on 58b100d.
+
+Risks:
+- None beyond external gates recorded in phase verification.
