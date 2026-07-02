@@ -1,0 +1,4 @@
+Task summary: Aligned PSC reporting profile with official OIA statistics category coverage.
+Files changed: mappings/psc-oia-statistics-profile.yaml; tests/test_reporting.py.
+Verification: uv run pytest -q tests/test_reporting.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts.
+Risks: Uses official PSC OIA statistics page for category/source alignment; aggregate generation remains Phase 2 work.
