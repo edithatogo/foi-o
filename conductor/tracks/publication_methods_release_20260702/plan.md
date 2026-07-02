@@ -23,7 +23,7 @@
     - [x] Add sample outputs that validate without live publication credentials.
 - [x] Task: Conductor - User Manual Verification 'Dataset and Repository Publication Metadata' (Protocol in workflow.md) (`7941c01`)
 
-## Phase 3: Methods Paper
+## Phase 3: Methods Paper [checkpoint: 754b6c5]
 
 - [x] Task: Write paper evidence checks (`b0b1c2e`)
     - [x] Verify cited commands, schemas, examples, and docs exist.
@@ -31,7 +31,7 @@
 - [x] Task: Draft methods paper (`6245088`)
     - [x] Add a concise methods paper under docs or publication notes.
     - [x] Cover motivation, architecture, data model, human-certification boundary, evaluation, limitations, and reproducibility.
-- [~] Task: Conductor - User Manual Verification 'Methods Paper' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Methods Paper' (Protocol in workflow.md) (`754b6c5`)
 
 ## Phase 4: Final Release Closeout
 
