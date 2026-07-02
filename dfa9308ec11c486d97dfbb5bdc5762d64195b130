@@ -1,0 +1,7 @@
+Task summary: Started Track 3 event extraction/timeline work in local Conductor state and GitHub Project.
+
+Files changed: conductor/tracks.md; conductor/tracks/event_extraction_timeline_20260702/metadata.json.
+
+Verification: GitHub Project item for issue #13 moved to In Progress.
+
+Risks: coordination-only update.
