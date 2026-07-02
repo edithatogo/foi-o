@@ -1,6 +1,6 @@
 # Plan: OIA process rules and legal-source versioning
 
-## Phase 1: Calendar Contract
+## Phase 1: Calendar Contract [checkpoint: d916083]
 
 - [x] Task: Audit current clock helpers and mappings (`e57420c`)
     - [x] Review date helpers, Mojo clock kernels, mappings, examples, and docs.
@@ -11,7 +11,7 @@
 - [x] Task: Implement calendar support (`4ed7306`)
     - [x] Add fixture-backed calendar data or documented hooks for official calendar input.
     - [x] Keep default behavior deterministic and dependency-light.
-- [~] Task: Conductor - User Manual Verification 'Calendar Contract' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Calendar Contract' (Protocol in workflow.md) (`d916083`)
 
 ## Phase 2: Source-Versioned References
 
