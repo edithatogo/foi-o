@@ -4,6 +4,12 @@
 
 Make FOI-O NZ release-readiness claims easier to verify by tightening repo-local evidence around validation commands, kernel fallback contracts, and documentation status.
 
+## GitHub Linkage
+
+- Repository: https://github.com/edithatogo/foi-o
+- Issue: https://github.com/edithatogo/foi-o/issues/1
+- Project: https://github.com/users/edithatogo/projects/10
+
 ## Background
 
 The repository already contains a broad v0.8 surface: Python validation and analytics utilities, JSON Schemas, RDF/SHACL artifacts, deterministic retrieval/redaction/risk utilities, agent contracts, MCP bundle scaffolding, and experimental Mojo/MAX kernels with Python fallback behavior. The next maintenance slice should make it harder for release notes or readiness reports to outrun executable evidence.

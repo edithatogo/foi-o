@@ -1,0 +1,42 @@
+name: Conductor track
+description: Create or mirror a Conductor-managed track.
+title: "Track: "
+labels:
+  - conductor
+  - track
+body:
+  - type: input
+    id: track_id
+    attributes:
+      label: Conductor track ID
+      description: The directory name under conductor/tracks/.
+      placeholder: release_readiness_evidence_20260702
+    validations:
+      required: true
+  - type: input
+    id: track_path
+    attributes:
+      label: Local track path
+      description: Path to the local Conductor track directory.
+      placeholder: conductor/tracks/release_readiness_evidence_20260702/
+    validations:
+      required: true
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: Summarize the track objective from spec.md.
+    validations:
+      required: true
+  - type: textarea
+    id: conductor_rules
+    attributes:
+      label: Conductor rules
+      value: |
+        - Work must follow conductor/workflow.md.
+        - plan.md remains the detailed task source of truth.
+        - Task commits must include `Commit notes:` and git notes.
+        - Run conductor-review after each phase and at final track scope.
+        - Push after each phase when a remote is configured.
+    validations:
+      required: true

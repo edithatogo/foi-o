@@ -39,6 +39,8 @@ Generated and updated Conductor plans must be executed autonomously until all li
 - Commit after each task. Every task commit message or body must include `Commit notes:`.
 - Attach a git note to each task commit with the task summary, files changed, verification run, and remaining risks.
 - Push after each phase when a remote is configured. If no remote is configured, record that push is an external gate.
+- Link every track to a GitHub issue and add that issue to the repository's Conductor GitHub Project.
+- Pull requests must reference the Conductor track ID, local track path, linked issue, and project.
 - Run `conductor-review` after every phase and again at final track scope.
 - Automatically apply high-confidence review fixes that do not change approved scope.
 - Archive eligible completed tracks automatically, including registry updates.
