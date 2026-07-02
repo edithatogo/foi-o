@@ -1,0 +1,16 @@
+Quality fix: Format SHACL safety profile assertion
+
+Files changed:
+- tests/test_shacl_safety_profiles.py
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Applied ruff formatting to the SHACL safety profile test assertion while Phase 2 verification was in progress.
+
+Verification:
+- uv run pytest -q tests/test_shacl_safety_profiles.py tests/test_semantic_alignment.py tests/test_schema_codegen_shacl.py tests/test_validation.py
+- uv run ruff check src tests scripts
+- uv run ruff format --check src tests scripts
+
+Risks:
+- No behavioral change.
