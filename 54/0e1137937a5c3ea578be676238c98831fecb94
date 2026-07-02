@@ -1,0 +1,14 @@
+Task: Record ontology review fix
+
+Summary:
+- Updated the ontology track plan to mark the review task complete using commit 65e191e.
+- Reworded the review subtask to reflect conductor-review PATH unavailability and the manual fallback.
+
+Files changed:
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Verification:
+- Plan-only change; review-fix commit already passed focused tests, Ruff, example validation, and git diff --check.
+
+Risks:
+- conductor-review executable remains unavailable in this environment.
