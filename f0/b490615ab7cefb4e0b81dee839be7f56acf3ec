@@ -1,0 +1,14 @@
+Task: Record methods paper checkpoint
+
+Summary:
+- Updated the publication track plan with Phase 3 checkpoint 754b6c5.
+- Marked Methods Paper manual verification complete.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; checkpoint evidence is recorded on 754b6c5.
+
+Risks:
+- None beyond external/manual publication gates recorded in phase verification.
