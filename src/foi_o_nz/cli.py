@@ -1065,7 +1065,7 @@ def build_goldset_command(
         Path | None, typer.Option("--summary-output", help="Optional summary JSON output")
     ] = None,
 ) -> None:
-    """Build bounded human annotation/evaluation tasks from chunk/risk records."""
+    """Build bounded human annotation/evaluation tasks from request or chunk records."""
     if requests_jsonl is not None:
         result = write_request_goldset_tasks(
             requests_jsonl,
