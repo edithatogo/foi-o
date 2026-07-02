@@ -1,0 +1,4 @@
+Task summary: Marked Track 5 PSC aggregate implementation complete in the conductor plan.
+Files changed: conductor/tracks/reporting_profile_psc_20260702/plan.md.
+Verification: Plan references implementation commit 57be802.
+Risks: None; plan bookkeeping only.
