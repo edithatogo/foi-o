@@ -39,6 +39,21 @@ unknown
 
 Source states from FYI/Alaveteli must be preserved separately. A source state such as `successful` may map to `released_in_full`, `released_in_part`, or `decision_communicated` depending on correspondence evidence. A source state should never be treated as a final legal conclusion without evidence.
 
+## Request profile JSON-LD
+
+Request profiles are normalised source records, not legal determinations. The JSON-LD example at `examples/request-record.jsonld` must validate against `schemas/json/request-profile.schema.json` and parse as RDF using `contexts/foi-o-nz.context.jsonld`.
+
+The request profile contract keeps source and derived values separate:
+
+| Field | Meaning |
+|---|---|
+| `source_state` | The raw FYI/Alaveteli state label, preserved unchanged. |
+| `normalised_state` | The current FOI-O NZ lifecycle state produced by deterministic mapping. |
+| `state_mapping` | Mapping method, confidence, notes, and evidence identifiers. |
+| `source_provenance` | Input path when repo-local, source record id, raw state field/value, mapping basis, mapping confidence, and evidence id. |
+
+Current generated profile states use the implementation vocabulary such as `ReleasedInFull`, `ReleasedInPart`, `Refused`, `NoDocumentsFound`, `Received`, and `AwaitingClarification`. Historical planning labels in this document remain design notes until replaced by the implementation vocabulary.
+
 ## Event families
 
 | Family | Example event types |

@@ -21,7 +21,7 @@
 - [~] Task: Write request JSON-LD profile validation tests
     - [ ] Validate committed request JSON-LD examples against schema and RDF parse expectations.
     - [ ] Cover missing source-state and provenance fields.
-- [ ] Task: Implement request profile JSON-LD updates
+- [~] Task: Implement request profile JSON-LD updates
     - [ ] Align context, examples, and docs with request-profile schema fields.
     - [ ] Keep JSON-LD generation deterministic and fixture-friendly.
 - [ ] Task: Conductor - User Manual Verification 'Request JSON-LD Profile' (Protocol in workflow.md)
