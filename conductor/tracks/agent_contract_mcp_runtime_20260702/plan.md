@@ -25,7 +25,7 @@
 
 ## Phase 3: Agent Guardrail Replay
 
-- [ ] Task: Write guardrail replay tests for tool contracts
+- [~] Task: Write guardrail replay tests for tool contracts
     - [ ] Verify unsafe agent actions are blocked or routed to human review.
     - [ ] Verify safe preparatory actions retain provenance and warnings.
 - [ ] Task: Implement guardrail replay integration
