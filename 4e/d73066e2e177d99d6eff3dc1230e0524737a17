@@ -1,0 +1,7 @@
+Track: oia_process_rules_20260702
+Phase: Calendar Contract
+Tasks: Write working-day calendar tests; Implement calendar support
+Summary: Added source-aware HolidayCalendar loading, calendar provenance fields on LegalClock, a schema-validated Govt.nz 2026 national public-holiday fixture, request-profile schema updates, validator wiring, and docs for non-certifying calendar semantics.
+Files changed: conductor/tracks/oia_process_rules_20260702/plan.md; docs/03-process-profile.md; examples/nz-public-holidays-2026.govt-nz.json; schemas/json/holiday-calendar.schema.json; schemas/json/request-profile.schema.json; scripts/validate_examples.py; src/foi_o_nz/cli.py; src/foi_o_nz/dates.py; src/foi_o_nz/models.py; tests/test_dates.py
+Verification: uv run pytest -q tests/test_dates.py tests/test_models.py tests/test_normalise.py tests/test_validation.py tests/test_schema_codegen_shacl.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo
+Risks: Calendar fixture covers national public holidays only; regional anniversary days remain an explicit warning/external input.
