@@ -37,7 +37,7 @@
     - [x] Document live full-size run commands and external gates.
 - [x] Task: Conductor - User Manual Verification 'Goldset Workflow' (Protocol in workflow.md) (`f888a4e`)
 
-## Phase 4: Corpus Profile Closeout
+## Phase 4: Corpus Profile Closeout [checkpoint: 89be001]
 
 - [x] Task: Run corpus profile validation (`d9f6f7f`)
     - [x] Run targeted corpus/goldset tests.
@@ -46,4 +46,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`39399ed`)
     - [x] Run `conductor-review` for the track scope. The shell command was unavailable; applied the loaded `conductor-review` skill protocol manually.
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [ ] Task: Conductor - User Manual Verification 'Corpus Profile Closeout' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Corpus Profile Closeout' (Protocol in workflow.md) (`89be001`)
