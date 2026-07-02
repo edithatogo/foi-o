@@ -1,0 +1,25 @@
+Task: Conductor - User Manual Verification 'Ontology Track Closeout'
+
+Summary:
+- Added final closeout verification evidence for ontology_shacl_maturation_20260702.
+- Reran the full repo-local Python, example, schema/repo, Mojo, and whitespace gates after review fixes.
+
+Files changed:
+- conductor/tracks/ontology_shacl_maturation_20260702/final-verification.md
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Verification:
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed, 104 files already formatted
+- uv run pytest -q: 158 passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with warning-only top-level schema drift findings
+- pixi run mojo-format-check: passed
+- pixi run mojo-test: passed
+- pixi run mojo-build: passed
+- git diff --check: passed
+
+Risks:
+- conductor-review executable remains unavailable on PATH.
+- Schema drift warnings are warning-only and remain documented rather than changed in this ontology track.
