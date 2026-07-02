@@ -168,6 +168,13 @@ def test_graph_export_builds_json_and_mermaid(tmp_path: Path) -> None:
     )
     assert graph["node_count"] >= 4
     assert any(edge["label"] == "has_event" for edge in graph["edges"])
+    request_node = next(node for node in graph["nodes"] if node["id"] == "request:12345")
+    event_node = next(node for node in graph["nodes"] if node["id"] == "event:foio-nz:event:1")
+    assert request_node["properties"]["semantic_type"] == "foio:AccessRequest"
+    assert event_node["properties"]["semantic_type"] == "foio:ProcessEvent"
+    assert event_node["properties"]["event_type_uri"] == (
+        "https://w3id.org/foio-nz/event-type/RequestObserved"
+    )
     mermaid = graph_to_mermaid(graph)
     assert mermaid.startswith("flowchart LR")
     output = tmp_path / "graph.mmd"

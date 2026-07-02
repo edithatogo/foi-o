@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from foi_o_nz.chunks import chunk_jsonl, chunk_request_record
@@ -113,6 +114,12 @@ def test_dataset_metadata_and_frictionless(tmp_path: Path) -> None:
     assert card.exists()
     assert croissant_result["resource_count"] == 1
     assert card_result["resource_count"] == 1
+    croissant_data = json.loads(croissant.read_text(encoding="utf-8"))
+    assert croissant_data["@context"]["foio"] == "https://w3id.org/foio-nz/ontology#"
+    assert croissant_data["@context"]["dcat"] == "http://www.w3.org/ns/dcat#"
+    assert croissant_data["@context"]["odrl"] == "http://www.w3.org/ns/odrl/2/"
+    assert croissant_data["@type"] == ["Dataset", "foio:DatasetPublication"]
+    assert croissant_data["foio:publicationCaveat"] == croissant_data["foio:caveats"]
     assert "FOI-O NZ" in card.read_text(encoding="utf-8")
 
 
