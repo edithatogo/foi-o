@@ -7,7 +7,7 @@ from typing import Any
 
 from foi_o_nz.cas import CasManifest
 from foi_o_nz.chunks import ChunkRecord
-from foi_o_nz.dataset_metadata import DatasetMetadata
+from foi_o_nz.dataset_metadata import DatasetMetadata, RepositoryReleaseMetadata
 from foi_o_nz.goldset import GoldsetTask
 from foi_o_nz.io import write_json
 from foi_o_nz.ledger import LedgerEntry
@@ -25,6 +25,7 @@ SCHEMA_MODELS = {
     "request-profile.schema.json": RequestProfile,
     "chunk-record.schema.json": ChunkRecord,
     "dataset-metadata.schema.json": DatasetMetadata,
+    "repository-release-metadata.schema.json": RepositoryReleaseMetadata,
     "release-checklist.schema.json": ReleaseChecklist,
     "ledger-entry.schema.json": LedgerEntry,
     "risk-assessment.schema.json": RiskAssessment,

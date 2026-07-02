@@ -12,7 +12,6 @@ from foi_o_nz.dataset_metadata import (
 from foi_o_nz.io import write_jsonl
 from foi_o_nz.validation import validate_json_schema
 
-
 REPOSITORY_URL = "https://github.com/edithatogo/foi-o"
 RELEASE_EXAMPLE = Path("examples/repository-release-metadata.v0.9.0.json")
 RELEASE_SCHEMA = Path("schemas/json/repository-release-metadata.schema.json")

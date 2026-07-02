@@ -6,16 +6,16 @@
   ],
   "description": "Machine-readable FOI-O NZ process artifacts generated from public FYI/OIA source records.",
   "homepage": "https://github.com/edithatogo/foi-o",
-  "license": "MIT for code/metadata; source records retain their original rights and platform terms.",
+  "license": "MIT applies to code, schemas, ontology, examples, and documentation in this repository; source records retain their original rights and platform terms.",
   "name": "foi-o-nz-artifacts",
   "resources": [
     {
-      "bytes": 1205,
+      "bytes": 1528,
       "encoding": "utf-8",
       "media_type": "application/json",
       "name": "request-record",
       "path": "examples/request-record.jsonld",
-      "sha256": "b82337bd91d938f9fcee7aa2309dada0193735645253baf77acbd4c810b707a3"
+      "sha256": "9ccc88eb9c8ce9a688f2bee023c3aa11ab8d32416891e6ab56a458b4f1f325f3"
     },
     {
       "bytes": 706,

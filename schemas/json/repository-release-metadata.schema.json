@@ -1,0 +1,161 @@
+{
+  "$defs": {
+    "DatasetResource": {
+      "additionalProperties": false,
+      "description": "One resource in the generated dataset metadata.",
+      "properties": {
+        "bytes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bytes"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "encoding": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Encoding"
+        },
+        "media_type": {
+          "title": "Media Type",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "path": {
+          "title": "Path",
+          "type": "string"
+        },
+        "sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sha256"
+        }
+      },
+      "required": [
+        "name",
+        "path",
+        "media_type"
+      ],
+      "title": "DatasetResource",
+      "type": "object"
+    },
+    "PublicationTarget": {
+      "additionalProperties": false,
+      "description": "External publication target for repository release metadata.",
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "external_gate",
+            "manual_approval_required"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "status",
+        "reason"
+      ],
+      "title": "PublicationTarget",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Machine-readable metadata for a repository release package.",
+  "properties": {
+    "artifacts": {
+      "items": {
+        "$ref": "#/$defs/DatasetResource"
+      },
+      "title": "Artifacts",
+      "type": "array"
+    },
+    "package_name": {
+      "default": "foi-o-nz",
+      "title": "Package Name",
+      "type": "string"
+    },
+    "publication_targets": {
+      "items": {
+        "$ref": "#/$defs/PublicationTarget"
+      },
+      "title": "Publication Targets",
+      "type": "array"
+    },
+    "release_version": {
+      "title": "Release Version",
+      "type": "string"
+    },
+    "repository": {
+      "default": "https://github.com/edithatogo/foi-o",
+      "title": "Repository",
+      "type": "string"
+    },
+    "rights_notice": {
+      "title": "Rights Notice",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "foi-o-nz.repository-release.v0.1.0",
+      "default": "foi-o-nz.repository-release.v0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "validation_commands": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Validation Commands",
+      "type": "array"
+    }
+  },
+  "required": [
+    "release_version",
+    "rights_notice"
+  ],
+  "title": "RepositoryReleaseMetadata",
+  "type": "object"
+}

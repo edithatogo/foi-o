@@ -33,6 +33,26 @@ uv run pytest -q tests/test_release_package.py
 uv run python scripts/validate_examples.py
 ```
 
+## Repository release metadata
+
+The repository-release metadata fixture is:
+
+```bash
+examples/repository-release-metadata.v0.9.0.json
+```
+
+Regenerate it with:
+
+```bash
+uv run foi-o-nz repository-release-metadata \
+  docs/23-release-package.md \
+  examples/release-checklist.v0.9.0.json \
+  examples/dataset-metadata.examples.json \
+  --output examples/repository-release-metadata.v0.9.0.json \
+  --release-version 0.9.0 \
+  --base-dir .
+```
+
 ## Required repo-local validation
 
 Before claiming repo-local release readiness, run:

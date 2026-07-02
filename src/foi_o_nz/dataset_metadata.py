@@ -8,7 +8,10 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from foi_o_nz.constants import DATASET_METADATA_SCHEMA_VERSION
+from foi_o_nz.constants import (
+    DATASET_METADATA_SCHEMA_VERSION,
+    REPOSITORY_RELEASE_METADATA_SCHEMA_VERSION,
+)
 from foi_o_nz.io import write_json
 
 
@@ -26,6 +29,16 @@ class DatasetResource(BaseModel):
     description: str | None = None
 
 
+class PublicationTarget(BaseModel):
+    """External publication target for repository release metadata."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    name: str
+    status: Literal["external_gate", "manual_approval_required"]
+    reason: str
+
+
 class DatasetMetadata(BaseModel):
     """Minimal machine-readable metadata for repo/dataset publication."""
 
@@ -39,6 +52,23 @@ class DatasetMetadata(BaseModel):
     homepage: str | None = None
     resources: list[DatasetResource] = Field(default_factory=list)
     caveats: list[str] = Field(default_factory=list)
+
+
+class RepositoryReleaseMetadata(BaseModel):
+    """Machine-readable metadata for a repository release package."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    schema_version: Literal["foi-o-nz.repository-release.v0.1.0"] = (
+        REPOSITORY_RELEASE_METADATA_SCHEMA_VERSION
+    )
+    release_version: str
+    repository: str = "https://github.com/edithatogo/foi-o"
+    package_name: str = "foi-o-nz"
+    rights_notice: str
+    artifacts: list[DatasetResource] = Field(default_factory=list)
+    publication_targets: list[PublicationTarget] = Field(default_factory=list)
+    validation_commands: list[str] = Field(default_factory=list)
 
 
 def _resource_for_path(path: Path, *, base_dir: Path) -> DatasetResource:
@@ -84,7 +114,10 @@ def build_dataset_metadata(
         name=name,
         title=title,
         description="Machine-readable FOI-O NZ process artifacts generated from public FYI/OIA source records.",
-        license="MIT for code/metadata; source records retain their original rights and platform terms.",
+        license=(
+            "MIT applies to code, schemas, ontology, examples, and documentation in this "
+            "repository; source records retain their original rights and platform terms."
+        ),
         homepage="https://github.com/edithatogo/foi-o",
         resources=resources,
         caveats=[
@@ -179,6 +212,7 @@ def write_croissant_metadata(
         "foio:caveats": metadata.caveats,
         "foio:publicationCaveat": metadata.caveats,
         "foio:agentBoundary": "process-support-only; no autonomous OIA decision certification",
+        "foio:rightsNotice": metadata.license,
     }
     write_json(output, croissant)
     return {"ok": True, "output": str(output), "resource_count": len(metadata.resources)}
@@ -217,6 +251,10 @@ This card describes derived FOI-O NZ process artifacts. It does not publish or
 certify official agency decisions. Agent-generated, inferred, or asserted fields
 must remain distinguishable from human-certified events.
 
+## Rights
+
+{metadata.license}
+
 ## Resources
 
 | Path | Media type | SHA-256 |
@@ -231,3 +269,77 @@ must remain distinguishable from human-certified events.
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(card, encoding="utf-8")
     return {"ok": True, "output": str(output), "resource_count": len(metadata.resources)}
+
+
+def build_repository_release_metadata(
+    paths: list[Path],
+    *,
+    base_dir: Path,
+    release_version: str,
+) -> RepositoryReleaseMetadata:
+    """Build repository release metadata for selected publication artifacts."""
+    resources = [
+        _resource_for_path(path, base_dir=base_dir)
+        for path in paths
+        if path.exists() and path.is_file()
+    ]
+    return RepositoryReleaseMetadata(
+        release_version=release_version,
+        rights_notice=(
+            "MIT applies to code, schemas, ontology, examples, and documentation in "
+            "this repository. Source FYI/archive content retains its original rights "
+            "and platform terms and is not republished by this release package."
+        ),
+        artifacts=resources,
+        publication_targets=[
+            PublicationTarget(
+                name="GitHub release",
+                status="manual_approval_required",
+                reason="Requires maintainer tag, changelog, and release approval.",
+            ),
+            PublicationTarget(
+                name="Hugging Face dataset",
+                status="manual_approval_required",
+                reason="Requires credentials, terms review, and source-content boundary review.",
+            ),
+            PublicationTarget(
+                name="Zenodo or OSF deposit",
+                status="manual_approval_required",
+                reason="Requires registry metadata review and operator publication.",
+            ),
+            PublicationTarget(
+                name="Live archive/source refresh",
+                status="external_gate",
+                reason="Requires live source availability and source snapshot capture.",
+            ),
+        ],
+        validation_commands=[
+            "uv run ruff check src tests scripts",
+            "uv run ruff format --check src tests scripts",
+            "uv run pytest -q",
+            "uv run python scripts/validate_examples.py",
+            "uv run foi-o-nz validate-repo",
+        ],
+    )
+
+
+def write_repository_release_metadata(
+    paths: list[Path],
+    output: Path,
+    *,
+    base_dir: Path | None = None,
+    release_version: str,
+) -> dict[str, Any]:
+    """Write repository release metadata JSON."""
+    base = base_dir or Path.cwd()
+    metadata = build_repository_release_metadata(
+        paths, base_dir=base, release_version=release_version
+    )
+    write_json(output, metadata.model_dump(mode="json", exclude_none=True))
+    return {
+        "ok": True,
+        "output": str(output),
+        "release_version": metadata.release_version,
+        "artifact_count": len(metadata.artifacts),
+        "publication_target_count": len(metadata.publication_targets),
+    }

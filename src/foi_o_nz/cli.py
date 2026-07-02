@@ -26,6 +26,7 @@ from foi_o_nz.dataset_metadata import (
     write_dataset_metadata,
     write_frictionless_datapackage,
     write_huggingface_dataset_card,
+    write_repository_release_metadata,
 )
 from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_calendar
 from foi_o_nz.diff import diff_jsonl
@@ -1047,6 +1048,22 @@ def release_checklist_command(
 ) -> None:
     """Write the machine-readable publication release checklist."""
     result = write_release_checklist(output, release_version=release_version)
+    console.print_json(json.dumps(result))
+
+
+@app.command("repository-release-metadata")
+def repository_release_metadata_command(
+    paths: Annotated[list[Path], typer.Argument(help="Release artifact files to describe")],
+    output: Annotated[
+        Path, typer.Option("--output", "-o", help="Repository release metadata JSON")
+    ],
+    release_version: Annotated[str, typer.Option("--release-version", help="Release version")],
+    base_dir: Annotated[Path | None, typer.Option(help="Base directory for relative paths")] = None,
+) -> None:
+    """Write repository release metadata for selected artifacts."""
+    result = write_repository_release_metadata(
+        paths, output, base_dir=base_dir, release_version=release_version
+    )
     console.print_json(json.dumps(result))
 
 

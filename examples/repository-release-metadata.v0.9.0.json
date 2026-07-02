@@ -1,0 +1,61 @@
+{
+  "artifacts": [
+    {
+      "bytes": 2077,
+      "media_type": "application/octet-stream",
+      "name": "23-release-package",
+      "path": "docs/23-release-package.md",
+      "sha256": "ee1f1635eb320323d62bddbc848fdff457e38c74a86080f4e3f9ade82caff174"
+    },
+    {
+      "bytes": 3929,
+      "encoding": "utf-8",
+      "media_type": "application/json",
+      "name": "release-checklist.v0.9.0",
+      "path": "examples/release-checklist.v0.9.0.json",
+      "sha256": "3442e70e7da4cbaf0e139306fd295b5837ad6823acc25e50833c4902ff63a84e"
+    },
+    {
+      "bytes": 1266,
+      "encoding": "utf-8",
+      "media_type": "application/json",
+      "name": "dataset-metadata.examples",
+      "path": "examples/dataset-metadata.examples.json",
+      "sha256": "fb1e30aa79b12016ff52bce4f628e02ec7e013c0375a640461401e73592cbe0e"
+    }
+  ],
+  "package_name": "foi-o-nz",
+  "publication_targets": [
+    {
+      "name": "GitHub release",
+      "reason": "Requires maintainer tag, changelog, and release approval.",
+      "status": "manual_approval_required"
+    },
+    {
+      "name": "Hugging Face dataset",
+      "reason": "Requires credentials, terms review, and source-content boundary review.",
+      "status": "manual_approval_required"
+    },
+    {
+      "name": "Zenodo or OSF deposit",
+      "reason": "Requires registry metadata review and operator publication.",
+      "status": "manual_approval_required"
+    },
+    {
+      "name": "Live archive/source refresh",
+      "reason": "Requires live source availability and source snapshot capture.",
+      "status": "external_gate"
+    }
+  ],
+  "release_version": "0.9.0",
+  "repository": "https://github.com/edithatogo/foi-o",
+  "rights_notice": "MIT applies to code, schemas, ontology, examples, and documentation in this repository. Source FYI/archive content retains its original rights and platform terms and is not republished by this release package.",
+  "schema_version": "foi-o-nz.repository-release.v0.1.0",
+  "validation_commands": [
+    "uv run ruff check src tests scripts",
+    "uv run ruff format --check src tests scripts",
+    "uv run pytest -q",
+    "uv run python scripts/validate_examples.py",
+    "uv run foi-o-nz validate-repo"
+  ]
+}

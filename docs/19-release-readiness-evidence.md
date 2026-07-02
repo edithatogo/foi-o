@@ -14,6 +14,7 @@ This note records the repo-local evidence surface for the current release-readin
 | RDF/SHACL degraded-mode path | `src/foi_o_nz/rdf_export.py`, `src/foi_o_nz/shacl_validation.py`, related tests | `uv run pytest -q tests/test_rdf_export.py tests/test_schema_codegen_shacl.py` |
 | Reproducibility and manifests | `src/foi_o_nz/reproducibility.py`, `examples/reproducibility-manifest.examples.json` | `uv run pytest -q tests/test_retrieval_redaction_diff_pack_repro.py` |
 | Publication release checklist | `src/foi_o_nz/release_package.py`, `examples/release-checklist.v0.9.0.json`, `docs/23-release-package.md` | `uv run pytest -q tests/test_release_package.py` |
+| Publication metadata | `src/foi_o_nz/dataset_metadata.py`, `examples/dataset-metadata.examples.json`, `examples/repository-release-metadata.v0.9.0.json` | `uv run pytest -q tests/test_publication_metadata.py` |
 
 ## Repeatable release validation sequence
 
@@ -32,6 +33,7 @@ For publication-package readiness, also run:
 
 ```bash
 uv run pytest -q tests/test_release_package.py
+uv run pytest -q tests/test_publication_metadata.py
 ```
 
 ## External gates
