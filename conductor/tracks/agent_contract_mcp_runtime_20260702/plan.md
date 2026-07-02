@@ -11,7 +11,7 @@
 - [x] Task: Implement descriptor hardening (`f375422`)
     - [x] Update descriptors and exports to make non-dispositive boundaries machine-checkable.
     - [x] Ensure unsafe examples fail tests and safe examples remain stable.
-- [ ] Task: Conductor - User Manual Verification 'Descriptor Contract' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Descriptor Contract' (Protocol in workflow.md)
 
 ## Phase 2: Runtime Prototype
 
