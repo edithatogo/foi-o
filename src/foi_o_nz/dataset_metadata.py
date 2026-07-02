@@ -147,9 +147,11 @@ def write_croissant_metadata(
         "@context": {
             "@vocab": "https://schema.org/",
             "cr": "http://mlcommons.org/croissant/",
+            "dcat": "http://www.w3.org/ns/dcat#",
             "foio": "https://w3id.org/foio-nz/ontology#",
+            "odrl": "http://www.w3.org/ns/odrl/2/",
         },
-        "@type": "Dataset",
+        "@type": ["Dataset", "foio:DatasetPublication"],
         "name": metadata.name,
         "description": metadata.description,
         "license": metadata.license,
@@ -165,7 +167,17 @@ def write_croissant_metadata(
             }
             for resource in metadata.resources
         ],
+        "foio:hasDistribution": [
+            {
+                "@type": "dcat:Distribution",
+                "dcat:downloadURL": resource.path,
+                "dcat:mediaType": resource.media_type,
+                "foio:contentSha256": resource.sha256,
+            }
+            for resource in metadata.resources
+        ],
         "foio:caveats": metadata.caveats,
+        "foio:publicationCaveat": metadata.caveats,
         "foio:agentBoundary": "process-support-only; no autonomous OIA decision certification",
     }
     write_json(output, croissant)

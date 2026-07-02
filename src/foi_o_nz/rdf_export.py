@@ -13,11 +13,36 @@ from foi_o_nz.io import iter_jsonl
 FOIO = Namespace("https://w3id.org/foio-nz/ontology#")
 REQ = Namespace("https://w3id.org/foio-nz/request/")
 EVT = Namespace("https://w3id.org/foio-nz/event/")
+FOIO_EVENT = Namespace("https://w3id.org/foio-nz/event-type/")
+FOIO_ASSERT = Namespace("https://w3id.org/foio-nz/assertion-status/")
+FOIO_STATE = Namespace("https://w3id.org/foio-nz/state/")
 
 
 def _uri_fragment(value: Any) -> str:
     text = str(value).strip().replace("/", "_").replace(" ", "_")
     return "".join(ch for ch in text if ch.isalnum() or ch in "_-.:") or "unknown"
+
+
+def _camel_to_snake(value: Any) -> str:
+    text = str(value or "").strip()
+    if not text:
+        return "unknown"
+    out: list[str] = []
+    previous_lower = False
+    for char in text:
+        if char in {" ", "-", "."}:
+            out.append("_")
+            previous_lower = False
+            continue
+        if char == "_":
+            out.append(char)
+            previous_lower = False
+            continue
+        if char.isupper() and previous_lower:
+            out.append("_")
+        out.append(char.lower())
+        previous_lower = char.islower() or char.isdigit()
+    return "".join(out)
 
 
 def graph_from_request_profiles(records: list[dict[str, Any]]) -> Graph:
@@ -39,6 +64,7 @@ def graph_from_request_profiles(records: list[dict[str, Any]]) -> Graph:
             graph.add((request_uri, FOIO.hasAuthority, authority_uri))
         if state := record.get("normalised_state"):
             graph.add((request_uri, FOIO.lifecycleState, Literal(str(state))))
+            graph.add((request_uri, FOIO.normalisedState, FOIO_STATE[_camel_to_snake(state)]))
         if source_url := record.get("source_url"):
             graph.add((request_uri, PROV.wasDerivedFrom, URIRef(str(source_url))))
         if first_sent := record.get("first_sent"):
@@ -60,7 +86,8 @@ def graph_from_events(records: list[dict[str, Any]]) -> Graph:
             URIRef(event_id) if event_id.startswith("urn:") else EVT[_uri_fragment(event_id)]
         )
         graph.add((event_uri, RDF.type, FOIO.ProcessEvent))
-        graph.add((event_uri, FOIO.eventType, Literal(str(record.get("event_type")))))
+        event_type = str(record.get("event_type") or "unknown")
+        graph.add((event_uri, FOIO.eventType, FOIO_EVENT[_uri_fragment(event_type)]))
         graph.add(
             (
                 event_uri,
@@ -68,9 +95,10 @@ def graph_from_events(records: list[dict[str, Any]]) -> Graph:
                 Literal(str(record.get("event_time")), datatype=XSD.dateTime),
             )
         )
-        graph.add((event_uri, FOIO.assertionStatus, Literal(str(record.get("assertion_status")))))
+        assertion_status = str(record.get("assertion_status") or "unknown")
+        graph.add((event_uri, FOIO.assertionStatus, FOIO_ASSERT[_uri_fragment(assertion_status)]))
         if state := record.get("lifecycle_state_after"):
-            graph.add((event_uri, FOIO.lifecycleStateAfter, Literal(str(state))))
+            graph.add((event_uri, FOIO.lifecycleStateAfter, FOIO_STATE[_camel_to_snake(state)]))
         request_ref = record.get("request_ref")
         if isinstance(request_ref, dict) and request_ref.get("source_request_id") is not None:
             request_uri = REQ[_uri_fragment(request_ref.get("source_request_id"))]

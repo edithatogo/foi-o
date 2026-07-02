@@ -64,6 +64,18 @@ def test_export_rdf_uses_skos_identifier_uris_for_event_terms(tmp_path: Path) ->
     graph = Graph()
     graph.parse(output)
     event_uri = URIRef("https://w3id.org/foio-nz/event/foio-nz:event:decision")
-    assert (event_uri, URIRef("https://w3id.org/foio-nz/ontology#eventType"), FOIO_EVENT.DecisionCommunicated) in graph
-    assert (event_uri, URIRef("https://w3id.org/foio-nz/ontology#assertionStatus"), FOIO_ASSERT.inferred) in graph
-    assert (event_uri, URIRef("https://w3id.org/foio-nz/ontology#lifecycleStateAfter"), FOIO_STATE.released_in_full) in graph
+    assert (
+        event_uri,
+        URIRef("https://w3id.org/foio-nz/ontology#eventType"),
+        FOIO_EVENT.DecisionCommunicated,
+    ) in graph
+    assert (
+        event_uri,
+        URIRef("https://w3id.org/foio-nz/ontology#assertionStatus"),
+        FOIO_ASSERT.inferred,
+    ) in graph
+    assert (
+        event_uri,
+        URIRef("https://w3id.org/foio-nz/ontology#lifecycleStateAfter"),
+        FOIO_STATE.released_in_full,
+    ) in graph

@@ -33,3 +33,21 @@ Semantic alignment does not certify release, refusal, redaction, charging,
 extension, transfer, complaint, or publication outcomes. It records provenance,
 review requirements, legal-source identifiers, and publication caveats so humans
 can inspect the evidence trail.
+
+## Export consistency
+
+Repo-local exporters should expose the same semantic identifiers:
+
+- RDF event exports use SKOS event-type, assertion-status, and request-state
+  URIs rather than untyped literals.
+- Croissant-style dataset metadata advertises FOI-O NZ publication semantics and
+  DCAT/ODRL context terms while preserving schema.org compatibility.
+- Portable graph exports include `semantic_type` and term URI hints in node
+  properties so downstream tools can map graph JSON back to the ontology.
+
+Expected local checks:
+
+```bash
+uv run pytest -q tests/test_rdf_export.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py
+uv run pytest -q tests/test_semantic_alignment.py tests/test_shacl_safety_profiles.py
+```

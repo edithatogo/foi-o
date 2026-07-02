@@ -8,6 +8,7 @@ from typing import Any, Literal
 from foi_o_nz.io import iter_jsonl, write_json
 
 GraphFormat = Literal["json", "mermaid"]
+FOIO_BASE = "https://w3id.org/foio-nz/"
 
 
 def _node(node_id: str, label: str, kind: str, **properties: Any) -> dict[str, Any]:
@@ -60,11 +61,20 @@ def build_graph(
                 request_id=request_id,
                 authority=record.get("authority"),
                 state=record.get("normalised_state") or record.get("source_state"),
+                semantic_type="foio:AccessRequest",
             )
             authority = record.get("authority")
             if authority:
                 authority_node = f"authority:{authority}"
-                nodes.setdefault(authority_node, _node(authority_node, str(authority), "authority"))
+                nodes.setdefault(
+                    authority_node,
+                    _node(
+                        authority_node,
+                        str(authority),
+                        "authority",
+                        semantic_type="foio:Agency",
+                    ),
+                )
                 edges.append(_edge(request_node, authority_node, "made_to"))
     if events_jsonl is not None:
         previous_by_request: dict[str, str] = {}
@@ -79,11 +89,20 @@ def build_graph(
                 event_type=record.get("event_type"),
                 assertion_status=record.get("assertion_status"),
                 requires_human_certification=record.get("requires_human_certification"),
+                semantic_type="foio:ProcessEvent",
+                event_type_uri=f"{FOIO_BASE}event-type/{record.get('event_type')}",
             )
             if request_id is not None:
                 request_node = f"request:{request_id}"
                 nodes.setdefault(
-                    request_node, _node(request_node, request_id, "request", request_id=request_id)
+                    request_node,
+                    _node(
+                        request_node,
+                        request_id,
+                        "request",
+                        request_id=request_id,
+                        semantic_type="foio:AccessRequest",
+                    ),
                 )
                 edges.append(_edge(request_node, event_node, "has_event"))
                 previous = previous_by_request.get(request_id)
@@ -100,13 +119,20 @@ def build_graph(
                 "chunk",
                 token_estimate=record.get("token_estimate"),
                 source_record_type=record.get("source_record_type"),
+                semantic_type="foio:Chunk",
             )
             request_id = record.get("request_id")
             if request_id is not None:
                 request_node = f"request:{request_id}"
                 nodes.setdefault(
                     request_node,
-                    _node(request_node, str(request_id), "request", request_id=str(request_id)),
+                    _node(
+                        request_node,
+                        str(request_id),
+                        "request",
+                        request_id=str(request_id),
+                        semantic_type="foio:AccessRequest",
+                    ),
                 )
                 edges.append(_edge(request_node, chunk_node, "has_chunk"))
     if risks_jsonl is not None:
@@ -119,13 +145,20 @@ def build_graph(
                 "risk_assessment",
                 risk_level=record.get("risk_level"),
                 review_required=record.get("review_required"),
+                semantic_type="foio:RiskAssessment",
             )
             request_id = record.get("request_id")
             if request_id is not None:
                 request_node = f"request:{request_id}"
                 nodes.setdefault(
                     request_node,
-                    _node(request_node, str(request_id), "request", request_id=str(request_id)),
+                    _node(
+                        request_node,
+                        str(request_id),
+                        "request",
+                        request_id=str(request_id),
+                        semantic_type="foio:AccessRequest",
+                    ),
                 )
                 edges.append(_edge(request_node, risk_node, "has_risk_assessment"))
     return {
