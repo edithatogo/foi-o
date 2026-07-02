@@ -21,7 +21,7 @@ GitHub Project: https://github.com/users/edithatogo/projects/10
 
 | Conductor Track | GitHub Issue | Project Status | Local Plan |
 | --- | --- | --- | --- |
-| `agent_contract_mcp_runtime_20260702` | [#16](https://github.com/edithatogo/foi-o/issues/16) | Todo | `conductor/tracks/agent_contract_mcp_runtime_20260702/plan.md` |
+| `agent_contract_mcp_runtime_20260702` | [#16](https://github.com/edithatogo/foi-o/issues/16) | In Progress | `conductor/tracks/agent_contract_mcp_runtime_20260702/plan.md` |
 | `max_lancedb_inference_20260702` | [#17](https://github.com/edithatogo/foi-o/issues/17) | Todo | `conductor/tracks/max_lancedb_inference_20260702/plan.md` |
 | `ontology_shacl_maturation_20260702` | [#18](https://github.com/edithatogo/foi-o/issues/18) | Todo | `conductor/tracks/ontology_shacl_maturation_20260702/plan.md` |
 | `publication_methods_release_20260702` | [#19](https://github.com/edithatogo/foi-o/issues/19) | Todo | `conductor/tracks/publication_methods_release_20260702/plan.md` |
