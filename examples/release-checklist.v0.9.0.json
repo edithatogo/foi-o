@@ -73,10 +73,10 @@
       "status": "repo_local"
     },
     {
-      "description": "Short methods paper to be drafted later in this track.",
+      "description": "Short methods paper for the release package.",
       "name": "methods paper",
       "path": "docs/23-methods-paper.md",
-      "status": "planned"
+      "status": "repo_local"
     }
   ],
   "release_version": "0.9.0",

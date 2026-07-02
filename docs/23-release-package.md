@@ -48,6 +48,7 @@ uv run foi-o-nz repository-release-metadata \
   docs/23-release-package.md \
   examples/release-checklist.v0.9.0.json \
   examples/dataset-metadata.examples.json \
+  docs/23-methods-paper.md \
   --output examples/repository-release-metadata.v0.9.0.json \
   --release-version 0.9.0 \
   --base-dir .

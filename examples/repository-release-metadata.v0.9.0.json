@@ -1,19 +1,19 @@
 {
   "artifacts": [
     {
-      "bytes": 2077,
+      "bytes": 2106,
       "media_type": "application/octet-stream",
       "name": "23-release-package",
       "path": "docs/23-release-package.md",
-      "sha256": "ee1f1635eb320323d62bddbc848fdff457e38c74a86080f4e3f9ade82caff174"
+      "sha256": "bf7e6df5e1ef4e109f627147df57a1e0bcaf99f0ebba87fe1485511977628d13"
     },
     {
-      "bytes": 3929,
+      "bytes": 3922,
       "encoding": "utf-8",
       "media_type": "application/json",
       "name": "release-checklist.v0.9.0",
       "path": "examples/release-checklist.v0.9.0.json",
-      "sha256": "3442e70e7da4cbaf0e139306fd295b5837ad6823acc25e50833c4902ff63a84e"
+      "sha256": "e73dfc73822f5b672490bcc5bc14078c2c9db1106fec9cc1fc9141b226381ff7"
     },
     {
       "bytes": 1266,
@@ -22,6 +22,13 @@
       "name": "dataset-metadata.examples",
       "path": "examples/dataset-metadata.examples.json",
       "sha256": "fb1e30aa79b12016ff52bce4f628e02ec7e013c0375a640461401e73592cbe0e"
+    },
+    {
+      "bytes": 5103,
+      "media_type": "application/octet-stream",
+      "name": "23-methods-paper",
+      "path": "docs/23-methods-paper.md",
+      "sha256": "09e58fcc92fdbfa6bb3e6e6bc7f7d0e9ce3bb91a4527fe5234f2d9b646240327"
     }
   ],
   "package_name": "foi-o-nz",

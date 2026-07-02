@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-
 METHODS_PAPER = Path("docs/23-methods-paper.md")
 
 

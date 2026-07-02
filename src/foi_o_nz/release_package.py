@@ -140,9 +140,9 @@ def build_release_checklist(*, release_version: str | None = None) -> ReleaseChe
             ),
             ReleasePublicationArtifact(
                 name="methods paper",
-                status="planned",
+                status="repo_local",
                 path="docs/23-methods-paper.md",
-                description="Short methods paper to be drafted later in this track.",
+                description="Short methods paper for the release package.",
             ),
         ],
         external_gates=[
