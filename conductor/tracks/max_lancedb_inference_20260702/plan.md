@@ -13,7 +13,7 @@
     - [x] Record provider, model, runtime, and fallback provenance in outputs.
 - [x] Task: Conductor - User Manual Verification 'Provider Interface' (Protocol in workflow.md) (`f7183c4`)
 
-## Phase 2: LanceDB Retrieval
+## Phase 2: LanceDB Retrieval [checkpoint: af497c3]
 
 - [x] Task: Write LanceDB integration tests (`a1d8c65`)
     - [ ] Cover optional dependency absence, fixture embedding inputs, table creation, and query results.
@@ -21,7 +21,7 @@
 - [x] Task: Implement LanceDB semantic retrieval path (`902a74a`)
     - [x] Harden `build-lancedb` and retrieval integration around optional dependencies.
     - [x] Preserve lexical/deterministic fallback when LanceDB is unavailable.
-- [~] Task: Conductor - User Manual Verification 'LanceDB Retrieval' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'LanceDB Retrieval' (Protocol in workflow.md) (`af497c3`)
 
 ## Phase 3: Bounded Extraction Experiments
 
