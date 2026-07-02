@@ -1,0 +1,24 @@
+Task: Conductor - User Manual Verification 'Dataset and Repository Publication Metadata'
+
+Summary:
+- Added Phase 2 verification report for publication metadata.
+- Recorded manual Conductor review fallback because conductor-review is unavailable on PATH.
+- Documented repository release metadata, rights notices, repo URL consistency, and external publication gates.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/phase-2-verification.md
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_publication_metadata.py tests/test_release_package.py tests/test_release_readiness_docs.py tests/test_schema_codegen_shacl.py tests/test_ledger_chunks_risk_metadata.py: 16 passed
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with known warning-only top-level schema drift findings
+- uv run foi-o-nz repository-release-metadata docs/23-release-package.md examples/release-checklist.v0.9.0.json examples/dataset-metadata.examples.json --output /tmp/foi-o-repository-release.json --release-version 0.9.0 --base-dir .: passed
+- git diff --check: passed
+
+Risks:
+- Publication targets remain manual/external.
+- Methods paper remains Phase 3 work.
