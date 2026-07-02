@@ -1,0 +1,8 @@
+Track: oia_process_rules_20260702
+Phase: Process Rule Quality Gates
+Checkpoint: 478e438
+Review: conductor-review command not installed on PATH; manual review performed using conductor-review skill protocol. No high-confidence fixes required.
+Automated verification: git diff --name-only ec84651..HEAD; uv run pytest -q tests/test_quality.py tests/test_legal_sources.py tests/test_validation.py; uv run ruff check src tests scripts; uv run ruff format --check src tests scripts; uv run python scripts/validate_examples.py; uv run foi-o-nz validate-repo
+Manual verification steps: Run uv run foi-o-nz quality-gate on an event stream with a legal reference missing version fields and confirm warning findings are emitted while the limitation states quality gates do not certify legal correctness.
+User confirmation: autonomous comprehensive mode; repo-local validation and manual review evidence used for checkpoint.
+Risks: Final OIA rules closeout and full verification remain pending.
