@@ -1,0 +1,20 @@
+Task: Audit current readiness and release claims
+
+Summary:
+- Added docs/19-release-readiness-evidence.md with repo-local proof, external gates, and claim audit.
+- Updated docs/11-implementation-status.md to remove stale v0.1-only status and distinguish implemented, experimental, planned, and external-gated surfaces.
+- Marked release-readiness track in progress.
+
+Files changed:
+- conductor/tracks.md
+- conductor/tracks/release_readiness_evidence_20260702/metadata.json
+- conductor/tracks/release_readiness_evidence_20260702/plan.md
+- docs/11-implementation-status.md
+- docs/19-release-readiness-evidence.md
+
+Verification:
+- python -m json.tool conductor/tracks/release_readiness_evidence_20260702/metadata.json
+- grep check for stale status text in docs/11-implementation-status.md
+
+Risks:
+- Later tasks still need kernel proof tests and release-gate documentation checks.
