@@ -20,6 +20,10 @@ PSC_REPORT_LIMITATIONS = [
     "Values are public FYI-derived indicators from the supplied event stream only.",
     "Partial, agency-internal-required, and not-derivable metrics must not be used as official performance statistics.",
 ]
+VALUE_UNAVAILABLE_PARTIAL_METRICS = {
+    "psc.average_time_to_respond",
+    "psc.timeliness",
+}
 
 
 def load_psc_reporting_profile(path: Path = DEFAULT_PSC_PROFILE) -> dict[str, Any]:
@@ -147,11 +151,23 @@ def _aggregate_metric(metric: dict[str, Any], events: list[dict[str, Any]]) -> d
         ]
     elif derivability == "partially_derivable":
         status = "partial_indicator"
-        value = len(request_ids) if request_ids else len(matches)
+        value = (
+            None
+            if metric["metric_id"] in VALUE_UNAVAILABLE_PARTIAL_METRICS
+            else len(request_ids)
+            if request_ids
+            else len(matches)
+        )
         public_indicator_count = value
+        if value is None:
+            public_indicator_count = len(request_ids) if request_ids else len(matches)
         warnings = [
             "partial_indicator_not_official_report: public data may omit agency-internal records"
         ]
+        if value is None:
+            warnings.append(
+                "metric_value_not_calculated: matching public events are counted only as context"
+            )
     elif derivability == "agency_internal_required":
         status = "agency_internal_required"
         value = None

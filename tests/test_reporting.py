@@ -91,6 +91,10 @@ def test_build_psc_aggregate_report_flags_derivability_boundaries(tmp_path: Path
     assert metrics["fyi.public_platform_requests"]["value"] == 1
     assert metrics["psc.completed_requests"]["status"] == "partial_indicator"
     assert metrics["psc.completed_requests"]["value"] == 1
+    assert metrics["psc.timeliness"]["value"] is None
+    assert metrics["psc.timeliness"]["public_indicator_count"] == 1
+    assert metrics["psc.average_time_to_respond"]["value"] is None
+    assert metrics["psc.average_time_to_respond"]["public_indicator_count"] == 1
     assert metrics["psc.ombudsman_complaints"]["status"] == "agency_internal_required"
     assert metrics["psc.ombudsman_complaints"]["value"] is None
     assert metrics["psc.ombudsman_complaints"]["public_indicator_count"] == 1

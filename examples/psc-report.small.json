@@ -92,9 +92,10 @@
       "public_indicator_count": 1,
       "request_count": 1,
       "status": "partial_indicator",
-      "value": 1,
+      "value": null,
       "warnings": [
-        "partial_indicator_not_official_report: public data may omit agency-internal records"
+        "partial_indicator_not_official_report: public data may omit agency-internal records",
+        "metric_value_not_calculated: matching public events are counted only as context"
       ]
     },
     {
@@ -229,9 +230,10 @@
       "public_indicator_count": 1,
       "request_count": 1,
       "status": "partial_indicator",
-      "value": 1,
+      "value": null,
       "warnings": [
-        "partial_indicator_not_official_report: public data may omit agency-internal records"
+        "partial_indicator_not_official_report: public data may omit agency-internal records",
+        "metric_value_not_calculated: matching public events are counted only as context"
       ]
     },
     {
