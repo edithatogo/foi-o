@@ -33,7 +33,7 @@
     - [x] Update docs with operator-facing safety checks.
 - [x] Task: Conductor - User Manual Verification 'Agent Guardrail Replay' (Protocol in workflow.md) (`4819102`)
 
-## Phase 4: Agent Contract Closeout
+## Phase 4: Agent Contract Closeout [checkpoint: 16e49e4]
 
 - [x] Task: Run agent contract validation (`fc9517d`)
     - [x] Run agent policy, OpenAPI, tool-manifest, MCP bundle, replay, and server tests.
@@ -41,4 +41,4 @@
 - [x] Task: Run Conductor review and apply high-confidence fixes (`5ad9a3c`)
     - [x] Run `conductor-review` for the track scope.
     - [x] Apply high-confidence fixes and rerun focused checks.
-- [~] Task: Conductor - User Manual Verification 'Agent Contract Closeout' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Agent Contract Closeout' (Protocol in workflow.md) (`16e49e4`)
