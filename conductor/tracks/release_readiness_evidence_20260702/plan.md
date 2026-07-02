@@ -10,12 +10,12 @@
 
 ## Phase 2: Kernel Fallback Proof
 
-- [~] Task: Write tests for kernel fallback and readiness evidence
-    - [ ] Add or extend tests covering Python fallback behavior when native kernels are unavailable.
-    - [ ] Add or extend tests validating kernel manifest/readiness/audit examples against schemas.
-- [ ] Task: Implement fallback evidence hardening
-    - [ ] Adjust kernel readiness, audit, or manifest generation so claims are deterministic and schema-backed.
-    - [ ] Keep optional Mojo/MAX availability separate from Python fallback correctness.
+- [x] Task: Write tests for kernel fallback and readiness evidence (`a767556`)
+    - [x] Add or extend tests covering Python fallback behavior when native kernels are unavailable.
+    - [x] Add or extend tests validating kernel manifest/readiness/audit examples against schemas.
+- [x] Task: Implement fallback evidence hardening (`a767556`)
+    - [x] Adjust kernel readiness, audit, or manifest generation so claims are deterministic and schema-backed.
+    - [x] Keep optional Mojo/MAX availability separate from Python fallback correctness.
 - [ ] Task: Conductor - User Manual Verification 'Kernel Fallback Proof' (Protocol in workflow.md)
 
 ## Phase 3: Release Gate Documentation
