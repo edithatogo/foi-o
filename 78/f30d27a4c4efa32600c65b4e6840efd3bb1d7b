@@ -1,0 +1,36 @@
+Task: Implement publication metadata updates
+
+Summary:
+- Added repository release metadata model, writer, schema, fixture, and CLI command.
+- Strengthened dataset metadata, Croissant metadata, and Hugging Face card rights/repository notices.
+- Registered repository-release metadata in schema generation, scripts/validate_examples.py, and tests/validate_repo.py.
+- Updated release package and release-readiness docs with the new fixture and regeneration command.
+
+Files changed:
+- src/foi_o_nz/dataset_metadata.py
+- src/foi_o_nz/cli.py
+- src/foi_o_nz/constants.py
+- src/foi_o_nz/schema_codegen.py
+- schemas/json/repository-release-metadata.schema.json
+- examples/repository-release-metadata.v0.9.0.json
+- examples/dataset-metadata.examples.json
+- docs/23-release-package.md
+- docs/19-release-readiness-evidence.md
+- scripts/validate_examples.py
+- tests/test_publication_metadata.py
+- tests/validate_repo.py
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_publication_metadata.py tests/test_release_package.py tests/test_release_readiness_docs.py tests/test_schema_codegen_shacl.py tests/test_ledger_chunks_risk_metadata.py: 16 passed
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with known warning-only top-level schema drift findings
+- uv run foi-o-nz repository-release-metadata docs/23-release-package.md examples/release-checklist.v0.9.0.json examples/dataset-metadata.examples.json --output /tmp/foi-o-repository-release.json --release-version 0.9.0 --base-dir .: passed
+- git diff --check: passed
+
+Risks:
+- Publication targets remain manual/external.
+- Existing schema-drift warning-only findings are unchanged.
