@@ -31,7 +31,7 @@
 - [x] Task: Implement bounded inference commands/docs (`7a40e02`)
     - [x] Add commands or docs for optional MAX/local extraction paths.
     - [x] Ensure generated model outputs are excluded from Git unless reduced to safe fixtures.
-- [ ] Task: Conductor - User Manual Verification 'Bounded Extraction Experiments' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Bounded Extraction Experiments' (Protocol in workflow.md)
 
 ## Phase 4: Inference Track Closeout
 
