@@ -1,0 +1,15 @@
+Task: Write publication metadata tests
+
+Summary:
+- Added tests for dataset metadata, Croissant metadata, Hugging Face card rights/repository handling, and repository-release metadata contract.
+- Tests require repository-release schema/example and writer, plus explicit external/manual publication target labels.
+
+Files changed:
+- tests/test_publication_metadata.py
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_publication_metadata.py failed as expected with ImportError: write_repository_release_metadata is not implemented.
+
+Risks:
+- Red test is intentional until the implementation task adds repository-release metadata support.
