@@ -20,12 +20,12 @@
 
 ## Phase 3: Release Gate Documentation
 
-- [~] Task: Write tests or checks for release validation documentation
-    - [ ] Add a lightweight check that documented release commands point at existing scripts, tasks, or files where practical.
-    - [ ] Confirm examples used in docs remain small committed fixtures.
-- [ ] Task: Implement release gate documentation updates
-    - [ ] Update docs with a repeatable release-readiness command sequence.
-    - [ ] Label external gates such as live services, registry publication, or unavailable Mojo toolchains separately from repo-local proof.
+- [x] Task: Write tests or checks for release validation documentation (`95c5a24`)
+    - [x] Add a lightweight check that documented release commands point at existing scripts, tasks, or files where practical.
+    - [x] Confirm examples used in docs remain small committed fixtures.
+- [x] Task: Implement release gate documentation updates (`95c5a24`)
+    - [x] Update docs with a repeatable release-readiness command sequence.
+    - [x] Label external gates such as live services, registry publication, or unavailable Mojo toolchains separately from repo-local proof.
 - [ ] Task: Conductor - User Manual Verification 'Release Gate Documentation' (Protocol in workflow.md)
 
 ## Phase 4: Final Review and Archive Readiness
