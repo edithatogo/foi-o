@@ -1,0 +1,17 @@
+Task: Write semantic export consistency tests
+
+Files changed:
+- tests/test_rdf_export.py
+- tests/test_ledger_chunks_risk_metadata.py
+- tests/test_review_advice_graph_attestation_gold_annotation.py
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Added tests for RDF event/assertion/state SKOS URIs, Croissant metadata DCAT/ODRL/FOIO publication context, and graph-export semantic type hints.
+
+Verification:
+- uv run pytest -q tests/test_rdf_export.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py -> expected red state: three export-alignment failures.
+- uv run ruff check tests/test_rdf_export.py tests/test_ledger_chunks_risk_metadata.py tests/test_review_advice_graph_attestation_gold_annotation.py -> passed.
+
+Risks:
+- Implementation must update exporters without breaking existing examples.
