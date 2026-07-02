@@ -4,12 +4,6 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: Agent contract and MCP runtime hardening**
-  *Link: [./tracks/agent_contract_mcp_runtime_20260702/](./tracks/agent_contract_mcp_runtime_20260702/)*
-  *GitHub: [Issue #16](https://github.com/edithatogo/foi-o/issues/16), [Project #10](https://github.com/users/edithatogo/projects/10)*
-
----
-
 - [ ] **Track: MAX and LanceDB bounded inference**
   *Link: [./tracks/max_lancedb_inference_20260702/](./tracks/max_lancedb_inference_20260702/)*
   *GitHub: [Issue #17](https://github.com/edithatogo/foi-o/issues/17), [Project #10](https://github.com/users/edithatogo/projects/10)*
