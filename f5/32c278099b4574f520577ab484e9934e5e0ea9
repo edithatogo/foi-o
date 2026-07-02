@@ -1,0 +1,21 @@
+Task: Implement SHACL profile updates
+
+Files changed:
+- shacl/foi-o-nz.shapes.ttl
+- conductor/tracks/ontology_shacl_maturation_20260702/plan.md
+
+Summary:
+- Added request-profile provenance constraints.
+- Refined decision-like event constraints to allow review-required candidates while preserving final human-certification requirements.
+- Strengthened dataset publication constraints for distribution and caveat metadata.
+
+Verification:
+- uv run pytest -q tests/test_shacl_safety_profiles.py
+- uv run pytest -q tests/test_semantic_alignment.py tests/test_schema_codegen_shacl.py tests/test_validation.py
+- uv run ruff check tests/test_shacl_safety_profiles.py
+- uv run python scripts/validate_examples.py
+- uv run foi-o-nz validate-repo
+- git diff --check
+
+Risks:
+- Shapes validate RDF profiles only; JSON Schema remains the primary JSON payload contract.
