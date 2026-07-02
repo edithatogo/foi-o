@@ -35,9 +35,9 @@
 
 ## Phase 4: Reporting Closeout
 
-- [~] Task: Run reporting validation
-    - [ ] Run reporting, analytics, mapping, schema, and table-contract tests.
-    - [ ] Generate sample fixture reports and validate outputs.
+- [x] Task: Run reporting validation (`3d6ef3b`)
+    - [x] Run reporting, analytics, mapping, schema, and table-contract tests.
+    - [x] Generate sample fixture reports and validate outputs.
 - [ ] Task: Run Conductor review and apply high-confidence fixes
     - [ ] Run `conductor-review` for the track scope.
     - [ ] Apply high-confidence fixes and rerun focused checks.
