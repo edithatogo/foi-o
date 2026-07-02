@@ -35,7 +35,7 @@
 
 ## Phase 4: Ontology Track Closeout
 
-- [ ] Task: Run ontology validation
+- [~] Task: Run ontology validation
     - [ ] Run RDF, JSON-LD, SKOS, SHACL, schema, and export tests.
     - [ ] Run pySHACL path when dependency is installed or document external gate.
 - [ ] Task: Run Conductor review and apply high-confidence fixes
