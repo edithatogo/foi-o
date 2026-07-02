@@ -5,7 +5,7 @@
     "Coverage depends on the supplied source artifacts and must not be overclaimed."
   ],
   "description": "Machine-readable FOI-O NZ process artifacts generated from public FYI/OIA source records.",
-  "homepage": "https://github.com/edithatogo/foi-o-nz",
+  "homepage": "https://github.com/edithatogo/foi-o",
   "license": "MIT for code/metadata; source records retain their original rights and platform terms.",
   "name": "foi-o-nz-artifacts",
   "resources": [

@@ -90,9 +90,9 @@ foi-o-nz = "foi_o_nz.cli:app"
 foionz = "foi_o_nz.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/edithatogo/foi-o-nz"
-Repository = "https://github.com/edithatogo/foi-o-nz"
-Issues = "https://github.com/edithatogo/foi-o-nz/issues"
+Homepage = "https://github.com/edithatogo/foi-o"
+Repository = "https://github.com/edithatogo/foi-o"
+Issues = "https://github.com/edithatogo/foi-o/issues"
 "Related FYI archive dataset" = "https://huggingface.co/datasets/edithatogo/fyi-archive-nz"
 
 [tool.hatch.build.targets.wheel]

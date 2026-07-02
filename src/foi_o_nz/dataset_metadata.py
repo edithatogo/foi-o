@@ -85,7 +85,7 @@ def build_dataset_metadata(
         title=title,
         description="Machine-readable FOI-O NZ process artifacts generated from public FYI/OIA source records.",
         license="MIT for code/metadata; source records retain their original rights and platform terms.",
-        homepage="https://github.com/edithatogo/foi-o-nz",
+        homepage="https://github.com/edithatogo/foi-o",
         resources=resources,
         caveats=[
             "Derived process metadata is not an official agency record.",

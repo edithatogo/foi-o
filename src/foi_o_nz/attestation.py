@@ -23,7 +23,7 @@ def build_attestation(
     paths: list[Path],
     *,
     builder_id: str = "foi-o-nz.local",
-    build_type: str = "https://github.com/edithatogo/foi-o-nz/attestations/local-run/v0.1",
+    build_type: str = "https://github.com/edithatogo/foi-o/attestations/local-run/v0.1",
     invocation_id: str | None = None,
 ) -> dict[str, Any]:
     """Build an unsigned in-toto Statement v1 compatible provenance payload."""

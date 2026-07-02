@@ -1,6 +1,6 @@
 # FOI-O NZ
 
-[![CI](https://github.com/edithatogo/foi-o-nz/actions/workflows/ci.yml/badge.svg)](https://github.com/edithatogo/foi-o-nz/actions/workflows/ci.yml)
+[![CI](https://github.com/edithatogo/foi-o/actions/workflows/ci.yml/badge.svg)](https://github.com/edithatogo/foi-o/actions/workflows/ci.yml)
 [![Mojo/MAX](https://img.shields.io/badge/Mojo%20%2B%20MAX-experimental-orange)](https://docs.modular.com/)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000)](https://github.com/astral-sh/ruff)
