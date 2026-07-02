@@ -198,6 +198,7 @@ def create_server(
         **_decorator_kwargs(
             mcp.resource,
             _runtime_metadata("Return one committed FOI-O NZ JSON Schema as text."),
+            name="schema_resource",
             resource=True,
         ),
     )
@@ -211,6 +212,7 @@ def create_server(
             **_decorator_kwargs(
                 mcp.prompt,
                 _runtime_metadata("Provide bounded prompt context for cautious state mapping."),
+                name="state_mapping_context",
             )
         )
         def state_mapping_context_prompt(source_state: str) -> str:
@@ -240,7 +242,11 @@ def _runtime_metadata(description: str) -> dict[str, Any]:
 
 
 def _decorator_kwargs(
-    decorator: Any, metadata: dict[str, Any], *, resource: bool = False
+    decorator: Any,
+    metadata: dict[str, Any],
+    *,
+    name: str | None = None,
+    resource: bool = False,
 ) -> dict[str, Any]:
     """Adapt local descriptor metadata to fake or real FastMCP decorators."""
     signature = inspect.signature(decorator)
@@ -250,6 +256,8 @@ def _decorator_kwargs(
         "description": metadata["description"],
         "meta": metadata,
     }
+    if name is not None and "name" in signature.parameters:
+        common["name"] = name
     if resource:
         return {**common, "mime_type": "application/schema+json"}
     if "annotations" in signature.parameters:

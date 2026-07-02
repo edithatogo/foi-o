@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import inspect
 import json
 from pathlib import Path
@@ -93,6 +94,34 @@ def test_mcp_server_registers_read_only_safe_tools_and_prompt() -> None:
 
     prompt_text = server.prompts["state_mapping_context"]["func"]("waiting_response")
     assert "cannot certify" in prompt_text.lower()
+
+
+def test_live_fastmcp_descriptors_are_read_only_when_available() -> None:
+    if mcp_server.mcp_runtime_status()["ok"] is not True:
+        pytest.skip("FastMCP is not installed")
+
+    async def inspect_runtime() -> None:
+        server = mcp_server.create_server()
+        tools = await server.list_tools()
+        prompts = await server.list_prompts()
+        templates = await server.list_resource_templates()
+
+        assert {tool.name for tool in tools} == {
+            "map_state",
+            "validate_json",
+            "validate_jsonl",
+            "quality_gate",
+        }
+        assert {prompt.name for prompt in prompts} == {"state_mapping_context"}
+        assert {template.uri_template for template in templates} == {"foio://schema/{schema_name}"}
+        for descriptor in [*tools, *prompts, *templates]:
+            meta = descriptor.meta
+            assert meta["read_only"] is True
+            assert meta["machine_certification_allowed"] is False
+            assert meta["legal_effect"] == "none"
+            assert not find_unsafe_descriptor_text({"name": descriptor.name, **meta})
+
+    asyncio.run(inspect_runtime())
 
 
 def test_mcp_runtime_tools_are_fixture_backed_and_do_not_write(tmp_path: Path) -> None:
