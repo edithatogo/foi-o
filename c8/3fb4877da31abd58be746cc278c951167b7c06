@@ -1,0 +1,13 @@
+Task: Record publication evidence audit
+
+Summary:
+- Updated the publication track plan to mark the audit task complete with 0b2c374.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; audit evidence committed in 0b2c374.
+
+Risks:
+- None.
