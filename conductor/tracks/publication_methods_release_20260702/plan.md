@@ -25,7 +25,7 @@
 
 ## Phase 3: Methods Paper
 
-- [ ] Task: Write paper evidence checks
+- [~] Task: Write paper evidence checks
     - [ ] Verify cited commands, schemas, examples, and docs exist.
     - [ ] Check claims avoid official-status, legal-advice, and autonomous-decision overreach.
 - [ ] Task: Draft methods paper
