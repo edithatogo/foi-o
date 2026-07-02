@@ -21,7 +21,7 @@
 - [x] Task: Implement aggregate report outputs (`57be802`)
     - [x] Add or refine CLI/reporting functions for sample aggregate reports.
     - [x] Ensure outputs validate against schemas or table contracts.
-- [ ] Task: Conductor - User Manual Verification 'Aggregate Report Generation' (Protocol in workflow.md)
+- [~] Task: Conductor - User Manual Verification 'Aggregate Report Generation' (Protocol in workflow.md)
 
 ## Phase 3: Publication-Safe Reporting Docs
 
