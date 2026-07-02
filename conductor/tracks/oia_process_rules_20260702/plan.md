@@ -35,7 +35,7 @@
 
 ## Phase 4: OIA Rules Closeout
 
-- [ ] Task: Run OIA process validation
+- [~] Task: Run OIA process validation
     - [ ] Run date, state-machine, quality, mapping, and schema tests.
     - [ ] Run available Mojo clock tests or document Modular external gate.
 - [ ] Task: Run Conductor review and apply high-confidence fixes
