@@ -8,7 +8,7 @@
     - [x] Record gaps directly in the implementation notes or a focused evidence checklist.
 - [x] Task: Conductor - User Manual Verification 'Evidence Baseline' (Protocol in workflow.md) (`b832c40`)
 
-## Phase 2: Kernel Fallback Proof
+## Phase 2: Kernel Fallback Proof [checkpoint: 4563007]
 
 - [x] Task: Write tests for kernel fallback and readiness evidence (`a767556`)
     - [x] Add or extend tests covering Python fallback behavior when native kernels are unavailable.
@@ -16,7 +16,7 @@
 - [x] Task: Implement fallback evidence hardening (`a767556`)
     - [x] Adjust kernel readiness, audit, or manifest generation so claims are deterministic and schema-backed.
     - [x] Keep optional Mojo/MAX availability separate from Python fallback correctness.
-- [ ] Task: Conductor - User Manual Verification 'Kernel Fallback Proof' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Kernel Fallback Proof' (Protocol in workflow.md) (`4563007`)
 
 ## Phase 3: Release Gate Documentation
 
