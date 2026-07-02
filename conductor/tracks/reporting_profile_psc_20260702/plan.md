@@ -23,7 +23,7 @@
     - [x] Ensure outputs validate against schemas or table contracts.
 - [x] Task: Conductor - User Manual Verification 'Aggregate Report Generation' (Protocol in workflow.md) (`89cc1b6`)
 
-## Phase 3: Publication-Safe Reporting Docs
+## Phase 3: Publication-Safe Reporting Docs [checkpoint: 8475370]
 
 - [x] Task: Write documentation consistency checks (`8f6f280`)
     - [x] Verify README/docs do not imply official PSC certification.
@@ -31,7 +31,7 @@
 - [x] Task: Implement reporting documentation (`83b3fd1`)
     - [x] Document derivable versus non-derivable metrics.
     - [x] Include sample commands and expected fixture outputs.
-- [~] Task: Conductor - User Manual Verification 'Publication-Safe Reporting Docs' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Publication-Safe Reporting Docs' (Protocol in workflow.md) (`8475370`)
 
 ## Phase 4: Reporting Closeout
 
