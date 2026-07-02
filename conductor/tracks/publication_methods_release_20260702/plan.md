@@ -15,7 +15,7 @@
 
 ## Phase 2: Dataset and Repository Publication Metadata
 
-- [ ] Task: Write publication metadata tests
+- [~] Task: Write publication metadata tests
     - [ ] Validate dataset metadata, Croissant-style JSON-LD, Hugging Face card scaffolds, and repository release metadata.
     - [ ] Cover rights/notice boundaries for source archive content.
 - [ ] Task: Implement publication metadata updates
