@@ -5,7 +5,7 @@
 - [x] Task: Audit release evidence and publication metadata (`0b2c374`)
     - [x] Review README, implementation reports, dataset metadata, reproducibility manifests, and release docs.
     - [x] Identify claims needing repo-local proof or external-gate notes.
-- [ ] Task: Write release checklist validation tests
+- [~] Task: Write release checklist validation tests
     - [ ] Verify release metadata references existing files, commands, schemas, and evidence.
     - [ ] Verify external gates are explicitly labelled.
 - [ ] Task: Implement release evidence package
