@@ -1,0 +1,14 @@
+Task: Record publication metadata checkpoint
+
+Summary:
+- Updated the publication track plan with Phase 2 checkpoint 7941c01.
+- Marked Dataset and Repository Publication Metadata manual verification complete.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Plan-only change; checkpoint evidence is recorded on 7941c01.
+
+Risks:
+- None beyond external gates recorded in phase verification.
