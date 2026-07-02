@@ -2,7 +2,7 @@
 
 ## Phase 1: Extraction Baseline
 
-- [ ] Task: Audit current extraction and timeline behavior
+- [~] Task: Audit current extraction and timeline behavior
     - [ ] Review extractors, normalise pipeline, event schemas, quality gates, and evaluation helpers.
     - [ ] Identify missing fixture cases for correspondence fields and candidate events.
     - [ ] Record certification-boundary assumptions for every candidate event class.
