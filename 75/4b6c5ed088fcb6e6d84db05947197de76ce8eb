@@ -1,0 +1,24 @@
+Task: Conductor - User Manual Verification 'Methods Paper'
+
+Summary:
+- Added Phase 3 methods paper verification report.
+- Recorded manual Conductor review fallback because conductor-review is unavailable on PATH.
+- Documented methods paper evidence, validation commands, boundary checks, and publication metadata updates.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/phase-3-verification.md
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- uv run pytest -q tests/test_methods_paper.py tests/test_publication_metadata.py tests/test_release_package.py tests/test_release_readiness_docs.py tests/test_schema_codegen_shacl.py: 13 passed
+- uv run ruff check src tests scripts: passed
+- uv run ruff format --check src tests scripts: passed
+- uv run python scripts/validate_examples.py: examples ok
+- uv run foi-o-nz validate-repo: repository validation ok
+- uv run foi-o-nz schema-drift: ok with known warning-only top-level schema drift findings
+- uv run foi-o-nz repository-release-metadata docs/23-release-package.md examples/release-checklist.v0.9.0.json examples/dataset-metadata.examples.json docs/23-methods-paper.md --output /tmp/foi-o-repository-release.json --release-version 0.9.0 --base-dir .: passed
+- uv run foi-o-nz release-checklist --output /tmp/foi-o-release-checklist.json --release-version 0.9.0: passed
+- git diff --check: passed
+
+Risks:
+- Methods paper remains a local draft pending manual publication/release approval.
