@@ -1,0 +1,4 @@
+Task summary: Marked Track 5 PSC reporting mapping tests complete in the conductor plan.
+Files changed: conductor/tracks/reporting_profile_psc_20260702/plan.md.
+Verification: Plan references test commit 4e067cb.
+Risks: Tests remain red until implementation task completes.
