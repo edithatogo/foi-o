@@ -1,0 +1,16 @@
+Task: Audit release evidence and publication metadata
+
+Summary:
+- Added a Phase 1 audit for release evidence and publication metadata.
+- Confirmed existing dataset metadata, reproducibility manifest, release readiness docs, and archived Conductor evidence.
+- Identified the missing release checklist/package manifest and validation tests needed before publication closeout.
+
+Files changed:
+- conductor/tracks/publication_methods_release_20260702/audit.md
+- conductor/tracks/publication_methods_release_20260702/plan.md
+
+Verification:
+- Audit-only change based on repository inventory and existing docs/code inspection.
+
+Risks:
+- No implementation risk; no behavior changed.
