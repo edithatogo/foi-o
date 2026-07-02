@@ -18,7 +18,7 @@
     - [x] Keep optional Mojo/MAX availability separate from Python fallback correctness.
 - [x] Task: Conductor - User Manual Verification 'Kernel Fallback Proof' (Protocol in workflow.md) (`4563007`)
 
-## Phase 3: Release Gate Documentation
+## Phase 3: Release Gate Documentation [checkpoint: d9e45ea]
 
 - [x] Task: Write tests or checks for release validation documentation (`95c5a24`)
     - [x] Add a lightweight check that documented release commands point at existing scripts, tasks, or files where practical.
@@ -26,7 +26,7 @@
 - [x] Task: Implement release gate documentation updates (`95c5a24`)
     - [x] Update docs with a repeatable release-readiness command sequence.
     - [x] Label external gates such as live services, registry publication, or unavailable Mojo toolchains separately from repo-local proof.
-- [ ] Task: Conductor - User Manual Verification 'Release Gate Documentation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Release Gate Documentation' (Protocol in workflow.md) (`d9e45ea`)
 
 ## Phase 4: Final Review and Archive Readiness
 
