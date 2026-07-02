@@ -1,0 +1,4 @@
+Task summary: Archived Track 4 OIA process rules and legal-source versioning.
+Files changed: conductor/tracks.md; conductor/history.md; conductor/archive/oia_process_rules_20260702/*.
+Verification: gh issue view 14 confirmed CLOSED and Project status Done; uv run foi-o-nz validate-repo passed.
+Risks: Live legal-source retrieval and regional anniversary calendars remain documented external gates, not active repo-local blockers.
