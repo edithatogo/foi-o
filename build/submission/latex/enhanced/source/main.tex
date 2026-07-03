@@ -140,7 +140,7 @@ duplicated, redacted, or ambiguous. A platform label may not match the
 legal status of a request, a message timestamp may not be the statutory
 date that matters, and a visible attachment may not represent the full
 agency decision. Any reusable FOI data model therefore needs to preserve
-what was observed while clearly marking what was inferred {[}6-11{]}.
+what was observed while clearly marking what was inferred {[}6-13{]}.
 
 The problem is not only technical. FOI systems are part of democratic
 accountability, public-sector learning, journalism, research, and
@@ -153,6 +153,11 @@ journey of a request in language that policy analysts, lawyers,
 researchers, civic technologists, and public officials can all examine.
 At the same time, it must remain precise enough for machines to validate
 examples, detect missing evidence, and support reproducible analysis.
+Recent public-governance evidence reinforces this need: OECD
+trust-survey work links trust in public institutions to transparency,
+responsiveness, integrity, and evidence-informed decision-making, while
+open-government measurement frameworks treat access to information as a
+core dimension of accountable government {[}9,12,13{]}.
 
 The same distinction matters for agent-facing systems. Modern
 extraction, retrieval, summarisation, and validation tools can help
@@ -169,7 +174,7 @@ candidate interpretation, and human-certified outcome. The ontology and
 validation stack are designed so that agents may assist with routing,
 summarisation, event extraction, evidence checking, and review
 preparation, while authorised humans remain responsible for legally
-meaningful decisions {[}20-22{]}.
+meaningful decisions {[}22-24{]}.
 
 The New Zealand Official Information Act (OIA; see the
 \hyperlink{tab-abbreviations}{abbreviations table}) is used as the first
@@ -207,7 +212,7 @@ protocol, data model, and human-certification boundary. The Results
 section describes what the current repository actually implements and
 validates. The Discussion explains why this bounded architecture matters
 for comparative FOI research and safer agent-assisted public
-administration {[}20-22{]}.
+administration {[}22-24{]}.
 
 \section{Methods}\label{methods}
 
@@ -261,7 +266,7 @@ Framework (RDF; see the
 \hyperlink{tab-abbreviations}{abbreviations table}) and Shapes
 Constraint Language (SHACL; see the
 \hyperlink{tab-abbreviations}{abbreviations table}) artefacts, and
-bounded agent resources {[}12-17{]}.
+bounded agent resources {[}14-19{]}.
 
 \hyperlink{fig-repository-architecture}{Figure 2} shows the
 repository-level architecture, while
@@ -392,7 +397,7 @@ of truth:
   \hyperlink{tab-abbreviations}{abbreviations table}), Open Digital
   Rights Language (ODRL; see the
   \hyperlink{tab-abbreviations}{abbreviations table}), SKOS, and
-  legal-document references where appropriate {[}12-17{]};
+  legal-document references where appropriate {[}14-19{]};
 \item
   express safety and consistency constraints in SHACL;
 \item
@@ -499,7 +504,7 @@ analytics, quality gates, RDF export, reporting profiles, publication
 metadata, reproducibility manifests, local retrieval, redaction
 candidates, agent context packs, stream diffs, and read-only agent
 descriptors. The Mojo, Modular MAX, and LanceDB paths are experimental
-and optional {[}23{]}.
+and optional {[}25{]}.
 
 The first result is a set of machine-readable contracts that make the
 intended FOI-O data surfaces explicit. Request profiles define
@@ -525,7 +530,7 @@ can state, in a machine-readable way, what relationships and safety
 constraints are expected to hold. For example, a candidate event can
 carry evidence and provenance, while certified status requires a
 different kind of human-authorised record. That distinction is
-represented in the model, figures, and quality gates {[}12-17{]}.
+represented in the model, figures, and quality gates {[}14-19{]}.
 
 The third result is a validation and quality-gate workflow. The
 repository contains checks for examples, Python behavior, semantic
@@ -556,7 +561,7 @@ deterministic Python paths, examples, schemas, semantic assets, and
 tests. This makes the current package useful as a baseline for later
 corpus intake, gold-set evaluation, jurisdictional extension, or
 agent-assisted review while avoiding unsupported claims about live
-deployment readiness {[}23{]}.
+deployment readiness {[}25{]}.
 
 Taken together, these results show a working methods package rather than
 a finished global FOI platform. The implemented surfaces demonstrate
@@ -621,7 +626,7 @@ Jurisdiction-specific profiles can then add local vocabulary, calendar
 rules, statutory references, reporting categories, and quality gates. In
 this sense, New Zealand is a bootstrap case: it gives the project a
 concrete starting point, but the purpose is to make later comparative
-work easier {[}1-11{]}.
+work easier {[}1-13{]}.
 
 For public agencies and researchers, the approach could support several
 practical uses. It could help create shared resources that explain how
@@ -633,7 +638,7 @@ jurisdictions without forcing them into a single legal vocabulary. It
 could also support safer agent-assisted workflows, where tools prepare
 review packs, flag incomplete evidence, or summarise event streams while
 making clear that final legal or administrative judgement remains with
-authorised people {[}20-22{]}.
+authorised people {[}22-24{]}.
 
 The schema-first approach has pragmatic strengths. JSON Schema and
 Pydantic models make the operational contract easy to test before richer
@@ -645,7 +650,7 @@ SHACL add a route to semantic validation for users who need it, without
 making every basic validation task depend on a heavier semantic-web
 environment. This layered approach is especially useful for an early
 reusable infrastructure project because it allows simple local checks
-and richer ontology work to coexist {[}12-17{]}.
+and richer ontology work to coexist {[}14-19{]}.
 
 There are also tradeoffs. A schema-first package can be easier to test
 and adopt, but it may initially under-represent the full richness of
@@ -674,7 +679,7 @@ jurisdiction-specific mapping, and separate validation.
 The strongest contribution of FOI-O is therefore methodological. It
 shows how a public-information process ontology can be built around
 evidence preservation, bounded inference, human certification, semantic
-inspection, and reproducible publication {[}18,19,23{]}. That
+inspection, and reproducible publication {[}20,21,25{]}. That
 contribution is intentionally modest in operational scope but important
 for future work. If FOI systems are increasingly analysed with automated
 tools, then the infrastructure around those tools must make it clear
@@ -794,6 +799,14 @@ submission.
   Sector Digital Transformation. 2022 {[}cited 2026 Jul 3{]}. Available
   from:
   \url{https://openknowledge.worldbank.org/entities/publication/10b535a7-e9d4-51bd-96ed-6b917d5eb09e}.
+\item
+  OECD. OECD Survey on Drivers of Trust in Public Institutions: 2024
+  Results. 2024 {[}cited 2026 Jul 3{]}. Available from:
+  \url{https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2024-results_9a20554b-en.html}.
+\item
+  World Justice Project. WJP Rule of Law Index 2024: Open Government.
+  2024 {[}cited 2026 Jul 3{]}. Available from:
+  \url{https://worldjusticeproject.org/rule-of-law-index/global/2024/Open\%20Government/}.
 \item
   World Wide Web Consortium. Data Catalog Vocabulary (DCAT) - Version 3.
   2024 {[}cited 2026 Jul 3{]}. Available from:
