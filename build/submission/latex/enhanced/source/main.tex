@@ -241,7 +241,7 @@ jurisdictional adoption remain external gates.
 The design principles and implementation consequences are summarised in
 \hyperlink{tab-design-principles}{Table 1}.
 
-\begin{table}[htbp]
+\begin{table}[H]
 \small
 \hypertarget{tab-design-principles}{}
 \begin{center}\small\textbf{Table 1: Design principles used to develop the FOI-O methods package. Abbreviations: FOI, Freedom of Information.}\end{center}
@@ -473,7 +473,7 @@ summarises the corresponding model surfaces.
 \begin{center}\small\textbf{Figure 4: FOI-O data model. Request profiles organise observed and candidate process events; events cite evidence, carry assertion status and provenance, and may be generated or reviewed through agent action records. Certified status requires human-certification metadata, while review tasks, ledgers, reporting metrics, and release metadata remain downstream artefacts. Abbreviations: FOI-O, Freedom of Information Ontology.}\end{center}
 \end{figure}
 
-\begin{table}[htbp]
+\begin{table}[H]
 \small
 \hypertarget{tab-data-model-surfaces}{}
 \begin{center}\small\textbf{Table 5: Main data-model surfaces in the FOI-O implementation. Abbreviations: JSON-LD, JavaScript Object Notation for Linked Data; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
@@ -611,16 +611,22 @@ Semantic alignment & Ontology, vocabulary, and semantic constraints & SHACL safe
 \end{tabularx}
 \end{table}
 
+\clearpage
+
 \section{Discussion}\label{discussion}
 
-FOI-O treats public FOI workflow data as a process-modelling and
-validation problem. It does not treat that data as an autonomous
-legal-decision problem. This distinction matters for agent-facing
-systems in any jurisdiction. The same event stream that helps a reviewer
-find missing evidence could be misused. This can happen if a model
-treats candidate events as certified statutory outcomes. The repository
-therefore keeps assertion status, provenance, human review, and
-certification metadata close to the data model.
+FOI-O is designed to describe and check the process evidence around a
+FOI request. It asks questions such as: what was observed, where did
+that evidence come from, what candidate event might it support, and has
+a human reviewed it? It does not decide whether an agency acted
+lawfully, whether a refusal ground was valid, or whether a release,
+redaction, charge, transfer, extension, or complaint outcome was legally
+final. This distinction matters for agent-facing systems in any
+jurisdiction. The same event stream that helps a reviewer find missing
+evidence could be misused. This can happen if a model treats candidate
+events as certified statutory outcomes. The repository therefore keeps
+assertion status, provenance, human review, and certification metadata
+close to the data model.
 
 The value of this separation is broader than New Zealand. FOI systems
 differ, but most regimes have some version of observable activity,
