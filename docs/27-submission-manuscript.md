@@ -26,7 +26,7 @@ abstract: |
   jurisdictions. FOI-O models the request record first: request profiles,
   observed correspondence events, controlled vocabularies, and provenance make
   visible what was seen and how it was transformed. It then adds review queues,
-  publication metadata, and bounded agent contracts while keeping human
+  release metadata, and bounded agent contracts while keeping human
   certification of legally meaningful outcomes outside autonomous tooling. The
   repository currently provides JavaScript Object Notation (JSON) Schema
   contracts and Python data models for operational validation. It also provides
@@ -35,7 +35,7 @@ abstract: |
   Language (SHACL) assets for semantic inspection, supported by deterministic
   examples, release metadata, quality gates, and tests. This article describes
   the motivation, architecture, ontology-development method, validation
-  evidence, and publication readiness workflow. The project is not legal advice, is not an
+  evidence, and implementation boundaries. The project is not legal advice, is not an
   official government publication, and does not certify release, refusal,
   redaction, charging, extension, transfer, complaint, or publication outcomes.
 ---
@@ -135,11 +135,10 @@ how a request moved from source record to candidate event and then to any
 human-certified status. The current contribution is a bounded, reproducible
 methods package rather than a live public-service system. It defines an
 auditable data model, semantic layer, validation gates, local examples,
-repository architecture, process architecture, data-model diagrams, publication
+repository architecture, process architecture, data-model diagrams, release
 metadata, and tests that can be inspected without live credentials or private
-request content. The manuscript describes how those pieces fit together and
-where the boundary lies between repository-local proof and future external
-validation.
+request content. These pieces show where the boundary lies between
+repository-local proof and future external validation.
 
 The article is organised accordingly. The Methods section states the design
 principles, repository architecture, ontology-development protocol, data model,
@@ -229,7 +228,7 @@ process flow through validation and the human-certification boundary.
 \node[semantic, right=of events] (shacl) {RDF export and\\SHACL constraints};
 \node[runtime, right=of ontology] (cli) {Command-line\\workflows};
 \node[runtime, right=of shacl] (quality) {Validation and\\quality gates};
-\node[output, right=of cli] (publication) {Publication\\metadata};
+\node[output, right=of cli] (publication) {Release\\metadata};
 \node[output, right=of quality] (agent) {Read-only agent\\review surfaces};
 \node[qa, below=1.05cm of quality] (tests) {Tests, examples, and release checks};
 
@@ -250,7 +249,7 @@ process flow through validation and the human-certification boundary.
 \end{tikzpicture}%
 }
 \hypertarget{fig-repository-architecture}{}
-\begin{center}\small\textbf{Figure 2: FOI-O repository architecture. The repository is organised as reviewable documents and fixtures, machine-readable contracts, semantic assets, runtime workflows, publication metadata, read-only agent surfaces, and tests that bind the layers together. Abbreviations: FOI-O, Freedom of Information Ontology; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
+\begin{center}\small\textbf{Figure 2: FOI-O repository architecture. The repository is organised as reviewable documents and fixtures, machine-readable contracts, semantic assets, runtime workflows, release metadata, read-only agent surfaces, and tests that bind the layers together. Abbreviations: FOI-O, Freedom of Information Ontology; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
 \end{figure}
 
 \begin{figure}[H]
@@ -304,7 +303,7 @@ reproducibility proof.
 The ontology-development protocol uses repository evidence as the source of
 truth. The first step is scoping. FOI-O identifies process concepts from FOI
 request workflows, FYI/Alaveteli source states, statutory-process concepts,
-publication metadata, and reporting needs, using New Zealand OIA material as
+release metadata, and reporting needs, using New Zealand OIA material as
 the first worked example. This produces a practical concept inventory before
 the project attempts richer formal modelling.
 
@@ -323,7 +322,7 @@ Catalog Vocabulary (DCAT; see the \hyperlink{tab-abbreviations}{abbreviations ta
 Rights Language (ODRL; see the \hyperlink{tab-abbreviations}{abbreviations table}), SKOS, and legal-document references where appropriate
 [14-19]. Safety and consistency constraints are expressed in SHACL, and the
 resulting examples and code paths are validated through tests,
-release-readiness checks, and machine-readable publication metadata.
+release-readiness checks, and machine-readable release metadata.
 
 The core event contract defines observed and candidate process events. Semantic
 constraints define how machine-readable process statements are checked before
@@ -407,7 +406,7 @@ Release metadata & Evidence, rights notices, and external publication gates. \\
 
 The human boundary is redundant by design. It appears in schemas, model logic,
 quality gates, agent policies, Model Context Protocol (MCP; see the \hyperlink{tab-abbreviations}{abbreviations table}) and tool
-descriptors, SHACL shapes, examples, tests, and publication metadata. Agents may
+descriptors, SHACL shapes, examples, tests, and release metadata. Agents may
 map observed states, propose candidate events, assemble review packs, compute
 indicative clocks, and check evidence completeness. They must not certify legal
 outcomes.
@@ -423,8 +422,8 @@ from being represented as legal determinations.
 The current repository includes implemented surfaces in four groups. The
 contract layer covers JSON Schema examples, Pydantic models, state mapping, and
 manifest normalisation. The analysis layer covers event analytics, quality
-gates, RDF export, and reporting profiles. The publication layer covers
-publication metadata and reproducibility manifests. The agent-facing layer
+gates, RDF export, and reporting profiles. The release layer covers release
+metadata and reproducibility manifests. The agent-facing layer
 covers local retrieval, redaction candidates, agent context packs, stream
 diffs, and read-only agent descriptors. The Mojo, Modular MAX, and LanceDB
 paths are experimental and optional [25].
@@ -452,23 +451,21 @@ carry evidence and provenance, while certified status requires a different
 kind of human-authorised record. That distinction is represented in the model,
 figures, and quality gates [14-19].
 
-The third result is a validation and quality-gate workflow. The repository
-contains checks for examples, Python behavior, semantic alignment, publication
+The third result is a validation and quality-gate layer. The repository
+contains checks for examples, Python behavior, semantic alignment, release
 metadata, release evidence, and formatting or packaging constraints. These
 checks provide repository-local proof that the current package is internally
 consistent. They do not prove that every public request platform has been
 ingested, that all New Zealand agencies are represented, or that the model has
 been validated across other jurisdictions. Instead, they define a smaller and
 more defensible result: the implemented contracts, examples, diagrams, and
-publication artefacts can be rebuilt and checked locally.
+validation artefacts can be rebuilt and checked locally.
 
-The fourth result is a publication and release surface. The manuscript and
-supplementary material are treated as part of the research object rather than
-as afterthoughts. The generated bibliography, figures, glossary,
-abbreviations, and release metadata make the package easier to inspect as a
-complete methods artefact. This matters because an ontology or validation stack
-is difficult to reuse if the evidence, caveats, rights notices, and human gates
-are not packaged with it. The current package therefore records what is
+The fourth result is a release and reuse surface. Release metadata, examples,
+figures, glossary terms, and abbreviations make the package easier to inspect
+as a complete methods artefact. This matters because an ontology or validation
+stack is difficult to reuse if the evidence, caveats, rights notices, and human
+gates are not packaged with it. The current package therefore records what is
 implemented, what is experimental, what requires external approval, and what
 should not be treated as legal or operational certification.
 
@@ -501,7 +498,7 @@ Evidence surface & Evidence type & Validation evidence \\
 Schemas and examples & Machine-readable contracts and deterministic examples & Example validation suite \\
 Core Python behavior & Executable implementation and regression tests & Unit-test suite \\
 Release readiness & Release evidence and quality gates & Lint, format, and test checks \\
-Publication metadata & Versioned release and publication records & Metadata tests \\
+Release metadata & Versioned release and reuse records & Metadata tests \\
 Semantic alignment & Ontology, vocabulary, and semantic constraints & SHACL safety tests \\
 \bottomrule
 \end{tabularx}
@@ -535,7 +532,7 @@ and reporting obligations. A reusable ontology cannot assume that every
 jurisdiction will share New Zealand terms or deadlines. It can, however,
 provide a common pattern for describing the evidence trail: requests, observed
 correspondence, candidate events, provenance, assertion status, review tasks,
-publication metadata, and human-certification boundaries. Jurisdiction-specific
+release metadata, and human-certification boundaries. Jurisdiction-specific
 profiles can then add local vocabulary, calendar rules, statutory references,
 reporting categories, and quality gates. In this sense, New Zealand is a
 bootstrap case: it gives the project a concrete starting point, but the purpose
@@ -555,7 +552,7 @@ legal or administrative judgement remains with authorised people [22-24].
 The schema-first approach has pragmatic strengths. JSON Schema and Pydantic
 models make the operational contract easy to test before richer semantic
 alignment is attempted. They give immediate feedback when examples, command
-outputs, or publication metadata drift from the expected structure. SKOS
+outputs, or release metadata drift from the expected structure. SKOS
 vocabularies make state and event terminology inspectable by people who do not
 need to read application code. RDF and SHACL add a route to semantic validation
 for users who need it, without making every basic validation task depend on a
@@ -573,13 +570,12 @@ ontology files, and SHACL constraints provide semantic alignment. This is not a
 claim that the current model is complete. It is a claim that the model is
 structured so that incompleteness can be found, reviewed, and extended.
 
-The same tradeoff appears in the publication workflow. Local reproducibility is
-valuable because it lets readers rebuild the manuscript package, inspect the
-figures and tables, validate examples, and check the human-boundary claims
-without live credentials. However, local reproducibility is not the same as
-live validation. The current repository can prove local contracts, examples,
-deterministic transformations, and manuscript packaging. It does not yet prove
-live archive intake, large gold-set performance, external registry
+The same tradeoff appears in reproducibility. Local checks are valuable because
+they let readers inspect the figures and tables, validate examples, and check
+the human-boundary claims without live credentials. However, local
+reproducibility is not the same as live validation. The current repository can
+prove local contracts, examples, and deterministic transformations. It does not
+yet prove live archive intake, large gold-set performance, external registry
 publication, agency-internal reporting completeness, or transferability to
 every FOI regime. Those claims should remain external gates until they are
 supported by live-source evidence, human review, jurisdiction-specific mapping,
@@ -588,7 +584,7 @@ and separate validation.
 The strongest contribution of FOI-O is therefore methodological. It shows how a
 public-information process ontology can be built around evidence preservation,
 bounded inference, human certification, semantic inspection, and reproducible
-publication [20,21,25]. That contribution is intentionally modest in operational scope but
+validation [20,21,25]. That contribution is intentionally modest in operational scope but
 important for future work. If FOI systems are increasingly analysed with
 automated tools, then the infrastructure around those tools must make it clear
 which statements are observed, which are inferred, which are validated, and
@@ -628,15 +624,15 @@ extension. Its contribution is a reproducible, human-supervised process layer:
 schemas, vocabularies, semantic constraints, examples, release metadata, and
 tests that distinguish observed evidence, candidate inference, and certified
 human outcomes. This design offers a practical foundation for comparative FOI
-resources, future corpus evaluation, process analytics, publication packaging,
-and safer agent-assisted public-information workflows.
+resources, future corpus evaluation, process analytics, release packaging, and
+safer agent-assisted public-information workflows.
 
 # Data and Code Availability
 
 The code, schemas, ontology seed, examples, documentation, and validation
 contracts are maintained in the public GitHub repository for FOI-O. Source
-request and archive content is not republished by this manuscript and remains
-subject to its original rights and platform terms.
+request and archive content is not republished here and remains subject to its
+original rights and platform terms.
 
 # Ethics and Legal Boundary
 
@@ -646,8 +642,8 @@ would affect FOI request handling.
 
 # Author Contributions
 
-Dylan A Mordaunt conceptualised the work, developed the repository, prepared the
-manuscript, and approved the current submission draft.
+Dylan A Mordaunt conceptualised the work, developed the repository, prepared
+this article, and approved the current draft.
 
 # Funding
 
@@ -692,12 +688,11 @@ Conflict-of-interest declarations require human confirmation before submission.
 \begin{table}[H]
 \small
 \hypertarget{tab-abbreviations}{}
-\begin{center}\small\textbf{Table 7: Abbreviations used in the manuscript.}\end{center}
+\begin{center}\small\textbf{Table 7: Abbreviations used in this article.}\end{center}
 \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.20\linewidth}X}
 \toprule
 Abbreviation & Full term \\
 \midrule
-ALC-NG & ArXiv LaTeX Cleaner Next Generation \\
 DCAT & Data Catalog Vocabulary \\
 FOI & Freedom of Information \\
 FOI-O & Freedom of Information Ontology \\
@@ -723,10 +718,10 @@ SKOS & Simple Knowledge Organization System \\
 \begin{table}[H]
 \small
 \hypertarget{tab-glossary}{}
-\begin{center}\small\textbf{Table 8: Glossary of key terms used in the manuscript.}\end{center}
+\begin{center}\small\textbf{Table 8: Glossary of key terms used in this article.}\end{center}
 \begin{tabularx}{\linewidth}{>{\raggedright\arraybackslash}p{0.28\linewidth}X}
 \toprule
-Term & Meaning in this manuscript \\
+Term & Meaning in this article \\
 \midrule
 Agent-facing & Designed so software agents can read, validate, and prepare information without being allowed to make legal decisions. \\
 Candidate process event & A possible workflow event inferred from observed evidence and requiring review before it can be treated as certified. \\
