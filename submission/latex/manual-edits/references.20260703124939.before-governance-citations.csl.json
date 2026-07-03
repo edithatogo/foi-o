@@ -1,0 +1,234 @@
+[
+  {
+    "id": "nz-oia-1982",
+    "type": "legislation",
+    "title": "Official Information Act 1982",
+    "jurisdiction": "nz",
+    "authority": "New Zealand Parliament",
+    "issued": {"date-parts": [[1982]]},
+    "language": "en-NZ",
+    "URL": "https://www.legislation.govt.nz/act/public/1982/0156/latest/DLM64785.html"
+  },
+  {
+    "id": "ombudsman-oia-guides-resources-2025",
+    "type": "webpage",
+    "title": "Official Information Act guides and resources",
+    "author": [{"literal": "Office of the Ombudsman"}],
+    "issued": {"date-parts": [[2025, 3, 20]]},
+    "language": "en-NZ",
+    "URL": "https://www.ombudsman.parliament.nz/resources/official-information-act-guides-and-resources"
+  },
+  {
+    "id": "public-service-commission-oia-statistics",
+    "type": "webpage",
+    "title": "OIA statistics",
+    "author": [{"literal": "Public Service Commission Te Kawa Mataaho"}],
+    "issued": {"date-parts": [[2025]]},
+    "language": "en-NZ",
+    "URL": "https://www.publicservice.govt.nz/data/oia-statistics"
+  },
+  {
+    "id": "fyi-cli-repository",
+    "type": "software",
+    "title": "FYI CLI: privacy-focused CLI tool for managing FYI.org.nz official information requests",
+    "author": [{"literal": "edithatogo"}],
+    "issued": {"date-parts": [[2026]]},
+    "language": "en",
+    "URL": "https://github.com/edithatogo/fyi-cli"
+  },
+  {
+    "id": "fyi-archive-repository",
+    "type": "software",
+    "title": "FYI Archive",
+    "author": [{"literal": "edithatogo"}],
+    "issued": {"date-parts": [[2026]]},
+    "language": "en",
+    "URL": "https://github.com/edithatogo/fyi-archive"
+  },
+  {
+    "id": "unesco-monitoring-access-information-2025",
+    "type": "report",
+    "title": "Monitoring and reporting on access to information",
+    "author": [{"literal": "UNESCO"}],
+    "issued": {"date-parts": [[2025]]},
+    "language": "en",
+    "URL": "https://www.unesco.org/en/monitoring-access-information"
+  },
+  {
+    "id": "unesco-rti-rating",
+    "type": "webpage",
+    "title": "The Right to Information Rating",
+    "author": [{"literal": "UNESCO"}],
+    "issued": {"date-parts": [[2025]]},
+    "language": "en",
+    "URL": "https://www.unesco.org/en/world-media-trends/right-information-rti-rating"
+  },
+  {
+    "id": "oecd-open-government-stronger-democracies-2023",
+    "type": "report",
+    "title": "Open Government for Stronger Democracies: A Global Assessment",
+    "author": [{"literal": "OECD"}],
+    "issued": {"date-parts": [[2023]]},
+    "language": "en",
+    "URL": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/11/open-government-for-stronger-democracies_88aa0131/5478db5b-en.pdf"
+  },
+  {
+    "id": "oecd-government-at-a-glance-open-data-2025",
+    "type": "webpage",
+    "title": "Open government data: Government at a Glance 2025",
+    "author": [{"literal": "OECD"}],
+    "issued": {"date-parts": [[2025]]},
+    "language": "en",
+    "URL": "https://www.oecd.org/en/publications/2025/06/government-at-a-glance-2025_70e14c6c/full-report/open-government-data_619b668c.html"
+  },
+  {
+    "id": "open-government-partnership-rti-performance-2023",
+    "type": "report",
+    "title": "Right to Information Performance",
+    "author": [{"literal": "Open Government Partnership"}],
+    "issued": {"date-parts": [[2023, 1]]},
+    "language": "en",
+    "URL": "https://www.opengovpartnership.org/wp-content/uploads/2023/01/OGP_BL_PA_RighttoInfo_January2023.pdf"
+  },
+  {
+    "id": "world-bank-govtech-maturity-index-2022",
+    "type": "report",
+    "title": "GovTech Maturity Index, 2022 Update: Trends in Public Sector Digital Transformation",
+    "author": [{"literal": "World Bank"}],
+    "issued": {"date-parts": [[2022]]},
+    "language": "en",
+    "URL": "https://openknowledge.worldbank.org/entities/publication/10b535a7-e9d4-51bd-96ed-6b917d5eb09e"
+  },
+  {
+    "id": "w3c-dcat-version-3-2024",
+    "type": "report",
+    "title": "Data Catalog Vocabulary (DCAT) - Version 3",
+    "author": [{"literal": "World Wide Web Consortium"}],
+    "issued": {"date-parts": [[2024, 8, 22]]},
+    "language": "en",
+    "URL": "https://www.w3.org/TR/vocab-dcat-3/"
+  },
+  {
+    "id": "w3c-prov-o-2013",
+    "type": "report",
+    "title": "PROV-O: The PROV Ontology",
+    "author": [{"literal": "World Wide Web Consortium"}],
+    "issued": {"date-parts": [[2013, 4, 30]]},
+    "language": "en",
+    "URL": "https://www.w3.org/TR/prov-o/"
+  },
+  {
+    "id": "w3c-shacl-2017",
+    "type": "report",
+    "title": "Shapes Constraint Language (SHACL)",
+    "author": [{"literal": "World Wide Web Consortium"}],
+    "issued": {"date-parts": [[2017, 7, 20]]},
+    "language": "en",
+    "URL": "https://www.w3.org/TR/shacl/"
+  },
+  {
+    "id": "w3c-skos-reference-2009",
+    "type": "report",
+    "title": "SKOS Simple Knowledge Organization System Reference",
+    "author": [{"literal": "World Wide Web Consortium"}],
+    "issued": {"date-parts": [[2009, 8, 18]]},
+    "language": "en",
+    "URL": "https://www.w3.org/TR/skos-reference/"
+  },
+  {
+    "id": "json-schema-draft-2020-12",
+    "type": "webpage",
+    "title": "JSON Schema Draft 2020-12",
+    "author": [{"literal": "JSON Schema"}],
+    "issued": {"date-parts": [[2022]]},
+    "language": "en",
+    "URL": "https://json-schema.org/draft/2020-12"
+  },
+  {
+    "id": "moreau-rationale-prov-2015",
+    "type": "article-journal",
+    "title": "The rationale of PROV",
+    "author": [
+      {"family": "Moreau", "given": "Luc"},
+      {"family": "Groth", "given": "Paul"},
+      {"family": "Cheney", "given": "James"},
+      {"family": "Lebo", "given": "Timothy"},
+      {"family": "Miles", "given": "Simon"}
+    ],
+    "container-title": "Journal of Web Semantics",
+    "issued": {"date-parts": [[2015]]},
+    "DOI": "10.1016/j.websem.2015.04.001",
+    "language": "en",
+    "URL": "https://doi.org/10.1016/j.websem.2015.04.001"
+  },
+  {
+    "id": "process-mining-manifesto-2012",
+    "type": "chapter",
+    "title": "Process Mining Manifesto",
+    "author": [
+      {"family": "van der Aalst", "given": "Wil M. P."},
+      {"family": "Adriansyah", "given": "Arya"},
+      {"family": "de Medeiros", "given": "Ana Karla Alves"},
+      {"family": "Arcieri", "given": "Franco"},
+      {"family": "Baier", "given": "Thomas"},
+      {"family": "Blickle", "given": "Tobias"},
+      {"family": "Bose", "given": "Jagdish Chandra"},
+      {"family": "van den Brand", "given": "Peter"},
+      {"family": "Brandtjen", "given": "Ronny"},
+      {"family": "Buijs", "given": "Joos C. A. M."}
+    ],
+    "container-title": "Business Process Management Workshops",
+    "issued": {"date-parts": [[2012]]},
+    "DOI": "10.1007/978-3-642-28108-2_19",
+    "language": "en",
+    "URL": "https://doi.org/10.1007/978-3-642-28108-2_19"
+  },
+  {
+    "id": "van-der-aalst-process-mining-2016",
+    "type": "book",
+    "title": "Process Mining: Data Science in Action",
+    "author": [{"family": "van der Aalst", "given": "Wil M. P."}],
+    "publisher": "Springer",
+    "issued": {"date-parts": [[2016]]},
+    "DOI": "10.1007/978-3-662-49851-4",
+    "language": "en",
+    "URL": "https://doi.org/10.1007/978-3-662-49851-4"
+  },
+  {
+    "id": "nist-ai-rmf-2023",
+    "type": "report",
+    "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+    "author": [{"literal": "National Institute of Standards and Technology"}],
+    "issued": {"date-parts": [[2023, 1, 26]]},
+    "language": "en",
+    "URL": "https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf"
+  },
+  {
+    "id": "oecd-ai-principles-2024",
+    "type": "webpage",
+    "title": "AI principles",
+    "author": [{"literal": "OECD"}],
+    "issued": {"date-parts": [[2024, 5]]},
+    "language": "en",
+    "URL": "https://www.oecd.org/en/topics/sub-issues/ai-principles.html"
+  },
+  {
+    "id": "eu-ai-act-2024",
+    "type": "legislation",
+    "title": "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence",
+    "jurisdiction": "eu",
+    "authority": "European Parliament and Council of the European Union",
+    "issued": {"date-parts": [[2024, 6, 13]]},
+    "language": "en",
+    "URL": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
+  },
+  {
+    "id": "foi-o-repository",
+    "type": "software",
+    "title": "FOI-O: ontology and validation stack for Freedom of Information process modelling",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "language": "en",
+    "URL": "https://github.com/edithatogo/foi-o"
+  }
+]
