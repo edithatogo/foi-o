@@ -132,6 +132,37 @@
     "URL": "https://www.unesco.org/en/world-media-trends/right-information-rti-rating"
   },
   {
+    "id": "popper-open-society-enemies-2013",
+    "type": "book",
+    "title": "The Open Society and Its Enemies",
+    "author": [
+      {
+        "family": "Popper",
+        "given": "Karl R."
+      }
+    ],
+    "issued": {
+      "date-parts": [
+        [
+          2013
+        ]
+      ]
+    },
+    "original-date": {
+      "date-parts": [
+        [
+          1945
+        ]
+      ]
+    },
+    "publisher": "Princeton University Press",
+    "publisher-place": "Princeton",
+    "edition": "New one-volume edition",
+    "language": "en",
+    "ISBN": "9780691158136",
+    "URL": "https://press.princeton.edu/books/paperback/9780691158136/the-open-society-and-its-enemies"
+  },
+  {
     "id": "oecd-open-government-stronger-democracies-2023",
     "type": "report",
     "title": "Open Government for Stronger Democracies: A Global Assessment",

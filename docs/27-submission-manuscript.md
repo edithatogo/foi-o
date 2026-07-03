@@ -94,7 +94,16 @@ reproducible analysis. Recent public-governance evidence supports this need.
 OECD trust-survey work links trust in public institutions to transparency,
 responsiveness, integrity, and evidence-informed decisions. Open-government
 measurement frameworks also treat access to information as a core part of
-accountable government [9,12,13].
+accountable government [10,13,14].
+
+This also fits an older idea in democratic theory. Popper's open society
+concept stresses public criticism, correction, and the ability to challenge
+official power [8]. FOI gives that idea an administrative form. It lets people
+ask what government has done, inspect the records that support decisions, and
+test public claims against evidence. Computation can help this work when it
+sorts, links, checks, and explains records. It supports open government best
+when it widens scrutiny without replacing human judgement or public
+accountability.
 
 The same distinction matters for agent-facing systems. Modern extraction,
 retrieval, summary, and validation tools can help organise FOI material. They
@@ -108,7 +117,7 @@ workflow data as evidence for review, not as autonomous legal decision-making.
 Its core distinction is between observed evidence, candidate interpretation,
 and human-certified outcome. Agents may help with routing, summary, event
 extraction, evidence checks, and review preparation. Authorised humans remain
-responsible for legally meaningful decisions [22-24].
+responsible for legally meaningful decisions [23-25].
 
 The New Zealand Official Information Act (OIA; see the \hyperlink{tab-abbreviations}{abbreviations table}) is used as the
 first worked jurisdictional example. This starting point is deliberate, but it
@@ -139,7 +148,7 @@ principles, repository architecture, ontology-development protocol, data model,
 and human-certification boundary. The Results section describes what the
 current repository implements and validates. The Discussion explains why this
 bounded architecture matters for comparative FOI research and safer
-agent-assisted public administration [22-24].
+agent-assisted public administration [23-25].
 
 # Methods
 
@@ -191,7 +200,7 @@ layering pattern. Source request records and archive manifests are preserved
 upstream. FOI-O maps those records into request profiles, event streams,
 and controlled vocabularies. It also maps them into Resource Description
 Framework (RDF; see the \hyperlink{tab-abbreviations}{abbreviations table}) and Shapes Constraint Language (SHACL; see the
-\hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded agent resources [14-19].
+\hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded agent resources [15-20].
 
 \hyperlink{fig-repository-architecture}{Figure 2} shows the repository-level
 architecture, while \hyperlink{fig-process-architecture}{Figure 3} shows the
@@ -319,7 +328,7 @@ with the Provenance Ontology (PROV-O; see the \hyperlink{tab-abbreviations}{abbr
 sources traceable. Dataset and publication concepts are aligned with the Data
 Catalog Vocabulary (DCAT; see the \hyperlink{tab-abbreviations}{abbreviations table}). Rights and policy concepts use the Open Digital
 Rights Language (ODRL; see the \hyperlink{tab-abbreviations}{abbreviations table}), SKOS, and legal-document references where appropriate
-[14-19]. Safety and consistency constraints are expressed in SHACL. The
+[15-20]. Safety and consistency constraints are expressed in SHACL. The
 resulting examples and code paths are validated through tests,
 release-readiness checks, and machine-readable release metadata.
 
@@ -425,7 +434,7 @@ gates, RDF export, and reporting profiles. The release layer covers release
 metadata and reproducibility manifests. The agent-facing layer covers local
 retrieval, redaction candidates, agent context packs, stream diffs, and
 read-only agent descriptors. The Mojo, Modular MAX, and LanceDB paths remain
-experimental and optional [25].
+experimental and optional [26].
 
 The first result is a set of machine-readable contracts. They make the intended
 FOI-O data surfaces explicit. Request profiles define request-level metadata,
@@ -447,7 +456,7 @@ point is that the project can state, in a machine-readable way, which
 relationships and safety constraints should hold. For example, a candidate
 event can carry evidence and provenance. Certified status requires a different
 kind of human-authorised record. That distinction is shown in the model,
-figures, and quality gates [14-19].
+figures, and quality gates [15-20].
 
 The third result is a validation and quality-gate layer. The repository checks
 examples, Python behavior, semantic alignment, release metadata, release
@@ -484,7 +493,7 @@ reproducibility claim therefore rests on deterministic Python paths, examples,
 schemas, semantic assets, and tests. This makes the current package useful as a
 baseline for later corpus intake, gold-set evaluation, jurisdictional
 extension, or agent-assisted review. It also avoids unsupported claims about
-live deployment readiness [25].
+live deployment readiness [26].
 
 Taken together, these results show a working methods package rather than a
 finished global FOI platform. The implemented surfaces demonstrate that the
@@ -549,7 +558,7 @@ and human-certification boundaries. Jurisdiction-specific profiles can then add
 local vocabulary, calendar rules, statutory references, reporting categories,
 and quality gates. In this sense, New Zealand is a bootstrap case. It gives the
 project a concrete starting point. The purpose is to make later comparative
-work easier [1-13].
+work easier [1-14].
 
 For public agencies and researchers, the approach could support several uses.
 As an explanatory resource, it could show how FOI requests move through public
@@ -560,7 +569,7 @@ help map reporting categories across jurisdictions without forcing them into
 one legal vocabulary. As an agent-safety resource, it could support tools that
 prepare review packs, flag incomplete evidence, or summarise event streams. It
 would still make clear that final legal or administrative judgement remains
-with authorised people [22-24].
+with authorised people [23-25].
 
 The schema-first approach has practical strengths. JSON Schema and Pydantic
 models make the operational contract easy to test before richer semantic
@@ -571,7 +580,7 @@ read application code to review them. RDF and SHACL add a path to semantic
 validation for users who need it. Basic checks do not have to depend on a
 heavier semantic-web environment. This layered approach is useful for an early
 reusable infrastructure project because simple local checks and richer ontology
-work can coexist [14-19].
+work can coexist [15-20].
 
 There are tradeoffs. A schema-first package can be easier to test and adopt,
 but it may at first miss some legal and administrative detail. A
@@ -596,7 +605,7 @@ validation.
 The strongest contribution of FOI-O is methodological. It shows how a
 public-information process ontology can be built around evidence preservation,
 bounded inference, human certification, semantic inspection, and reproducible
-validation [20,21,25]. The contribution is modest in operational scope, but it
+validation [21,22,26]. The contribution is modest in operational scope, but it
 matters for future work. FOI systems are increasingly analysed with automated
 tools. The infrastructure around those tools must make clear which statements
 are observed, inferred, validated, or certified by humans. FOI-O provides one
@@ -674,24 +683,25 @@ Conflict-of-interest declarations require human confirmation before submission.
 5. edithatogo. FYI Archive [software]. 2026 [cited 2026 Jul 3]. Available from: <https://github.com/edithatogo/fyi-archive>.
 6. UNESCO. Monitoring and reporting on access to information. 2025 [cited 2026 Jul 3]. Available from: <https://www.unesco.org/en/monitoring-access-information>.
 7. UNESCO. The Right to Information Rating. 2025 [cited 2026 Jul 3]. Available from: <https://www.unesco.org/en/world-media-trends/right-information-rti-rating>.
-8. OECD. Open Government for Stronger Democracies: A Global Assessment. 2023 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/11/open-government-for-stronger-democracies_88aa0131/5478db5b-en.pdf>.
-9. OECD. Open government data: Government at a Glance 2025. 2025 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/en/publications/2025/06/government-at-a-glance-2025_70e14c6c/full-report/open-government-data_619b668c.html>.
-10. Open Government Partnership. Right to Information Performance. 2023 [cited 2026 Jul 3]. Available from: <https://www.opengovpartnership.org/wp-content/uploads/2023/01/OGP_BL_PA_RighttoInfo_January2023.pdf>.
-11. World Bank. GovTech Maturity Index, 2022 Update: Trends in Public Sector Digital Transformation. 2022 [cited 2026 Jul 3]. Available from: <https://openknowledge.worldbank.org/entities/publication/10b535a7-e9d4-51bd-96ed-6b917d5eb09e>.
-12. OECD. OECD Survey on Drivers of Trust in Public Institutions: 2024 Results. 2024 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2024-results_9a20554b-en.html>.
-13. World Justice Project. WJP Rule of Law Index 2024: Open Government. 2024 [cited 2026 Jul 3]. Available from: <https://worldjusticeproject.org/rule-of-law-index/global/2024/Open%20Government/>.
-14. World Wide Web Consortium. Data Catalog Vocabulary (DCAT) - Version 3. 2024 [cited 2026 Jul 3]. Available from: <https://www.w3.org/TR/vocab-dcat-3/>.
-15. World Wide Web Consortium. PROV-O: The PROV Ontology. 2013 [cited 2026 Jul 3]. Available from: <https://www.w3.org/TR/prov-o/>.
-16. World Wide Web Consortium. Shapes Constraint Language (SHACL). 2017 [cited 2026 Jul 3]. Available from: <https://www.w3.org/TR/shacl/>.
-17. World Wide Web Consortium. SKOS Simple Knowledge Organization System Reference. 2009 [cited 2026 Jul 3]. Available from: <https://www.w3.org/TR/skos-reference/>.
-18. JSON Schema. JSON Schema Draft 2020-12. 2022 [cited 2026 Jul 3]. Available from: <https://json-schema.org/draft/2020-12>.
-19. Moreau L, Groth P, Cheney J, Lebo T, Miles S. The rationale of PROV. Journal of Web Semantics. 2015. doi:10.1016/j.websem.2015.04.001.
-20. van der Aalst WMP, Adriansyah A, de Medeiros AKA, Arcieri F, Baier T, Blickle T, et al. Process Mining Manifesto. In: Business Process Management Workshops. 2012. doi:10.1007/978-3-642-28108-2_19.
-21. van der Aalst WMP. Process Mining: Data Science in Action. Springer; 2016. doi:10.1007/978-3-662-49851-4.
-22. National Institute of Standards and Technology. Artificial Intelligence Risk Management Framework (AI RMF 1.0). 2023 [cited 2026 Jul 3]. Available from: <https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf>.
-23. OECD. AI principles. 2024 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/en/topics/sub-issues/ai-principles.html>.
-24. Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence. 2024 [cited 2026 Jul 3]. Available from: <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>.
-25. Mordaunt DA. FOI-O: ontology and validation stack for Freedom of Information process modelling [software]. 2026 [cited 2026 Jul 3]. Available from: <https://github.com/edithatogo/foi-o>.
+8. Popper KR. The Open Society and Its Enemies. 2013 [cited 2026 Jul 3]. Available from: <https://press.princeton.edu/books/paperback/9780691158136/the-open-society-and-its-enemies>.
+9. OECD. Open Government for Stronger Democracies: A Global Assessment. 2023 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/11/open-government-for-stronger-democracies_88aa0131/5478db5b-en.pdf>.
+10. OECD. Open government data: Government at a Glance 2025. 2025 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/en/publications/2025/06/government-at-a-glance-2025_70e14c6c/full-report/open-government-data_619b668c.html>.
+11. Open Government Partnership. Right to Information Performance. 2023 [cited 2026 Jul 3]. Available from: <https://www.opengovpartnership.org/wp-content/uploads/2023/01/OGP_BL_PA_RighttoInfo_January2023.pdf>.
+12. World Bank. GovTech Maturity Index, 2022 Update: Trends in Public Sector Digital Transformation. 2022 [cited 2026 Jul 3]. Available from: <https://openknowledge.worldbank.org/entities/publication/10b535a7-e9d4-51bd-96ed-6b917d5eb09e>.
+13. OECD. OECD Survey on Drivers of Trust in Public Institutions: 2024 Results. 2024 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2024-results_9a20554b-en.html>.
+14. World Justice Project. WJP Rule of Law Index 2024: Open Government. 2024 [cited 2026 Jul 3]. Available from: <https://worldjusticeproject.org/rule-of-law-index/global/2024/Open%20Government/>.
+15. World Wide Web Consortium. Data Catalog Vocabulary (DCAT) - Version 3. 2024 [cited 2026 Jul 3]. Available from: <https://www.w3.org/TR/vocab-dcat-3/>.
+16. World Wide Web Consortium. PROV-O: The PROV Ontology. 2013 [cited 2026 Jul 3]. Available from: <https://www.w3.org/TR/prov-o/>.
+17. World Wide Web Consortium. Shapes Constraint Language (SHACL). 2017 [cited 2026 Jul 3]. Available from: <https://www.w3.org/TR/shacl/>.
+18. World Wide Web Consortium. SKOS Simple Knowledge Organization System Reference. 2009 [cited 2026 Jul 3]. Available from: <https://www.w3.org/TR/skos-reference/>.
+19. JSON Schema. JSON Schema Draft 2020-12. 2022 [cited 2026 Jul 3]. Available from: <https://json-schema.org/draft/2020-12>.
+20. Moreau L, Groth P, Cheney J, Lebo T, Miles S. The rationale of PROV. Journal of Web Semantics. 2015. doi:10.1016/j.websem.2015.04.001.
+21. van der Aalst WMP, Adriansyah A, de Medeiros AKA, Arcieri F, Baier T, Blickle T, et al. Process Mining Manifesto. In: Business Process Management Workshops. 2012. doi:10.1007/978-3-642-28108-2_19.
+22. van der Aalst WMP. Process Mining: Data Science in Action. Springer; 2016. doi:10.1007/978-3-662-49851-4.
+23. National Institute of Standards and Technology. Artificial Intelligence Risk Management Framework (AI RMF 1.0). 2023 [cited 2026 Jul 3]. Available from: <https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf>.
+24. OECD. AI principles. 2024 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/en/topics/sub-issues/ai-principles.html>.
+25. Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence. 2024 [cited 2026 Jul 3]. Available from: <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>.
+26. Mordaunt DA. FOI-O: ontology and validation stack for Freedom of Information process modelling [software]. 2026 [cited 2026 Jul 3]. Available from: <https://github.com/edithatogo/foi-o>.
 
 \clearpage
 
