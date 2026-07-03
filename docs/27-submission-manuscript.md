@@ -23,17 +23,19 @@ abstract: |
   not as the limit of the model. Key terms and abbreviations are defined after
   the references. The aim is to create reusable resources for comparing,
   validating, and improving public-information request processes across
-  jurisdictions. FOI-O models request profiles, observed correspondence events,
-  controlled vocabularies, provenance, review queues, publication metadata, and
-  bounded agent contracts while keeping human certification of legally
-  meaningful outcomes outside autonomous tooling. The repository
-  currently provides JavaScript Object Notation (JSON) Schema contracts, Python
-  data models, Simple Knowledge Organization System (SKOS) vocabularies, Web
-  Ontology Language (OWL), Resource Description Framework (RDF), and Shapes
-  Constraint Language (SHACL) assets, deterministic examples, release metadata,
-  quality gates, and tests. This article describes the motivation,
-  architecture, ontology-development method, validation evidence, and
-  publication readiness workflow. The project is not legal advice, is not an
+  jurisdictions. FOI-O models the request record first: request profiles,
+  observed correspondence events, controlled vocabularies, and provenance make
+  visible what was seen and how it was transformed. It then adds review queues,
+  publication metadata, and bounded agent contracts while keeping human
+  certification of legally meaningful outcomes outside autonomous tooling. The
+  repository currently provides JavaScript Object Notation (JSON) Schema
+  contracts and Python data models for operational validation. It also provides
+  Simple Knowledge Organization System (SKOS) vocabularies, Web Ontology
+  Language (OWL), Resource Description Framework (RDF), and Shapes Constraint
+  Language (SHACL) assets for semantic inspection, supported by deterministic
+  examples, release metadata, quality gates, and tests. This article describes
+  the motivation, architecture, ontology-development method, validation
+  evidence, and publication readiness workflow. The project is not legal advice, is not an
   official government publication, and does not certify release, refusal,
   redaction, charging, extension, transfer, complaint, or publication outcomes.
 ---
@@ -52,14 +54,18 @@ Freedom of Information (FOI; see the \hyperlink{tab-abbreviations}{abbreviations
 across many legal systems, but the process is often difficult to compare across
 institutions and jurisdictions. In this article, FOI refers to legal and
 administrative systems that allow people to request information from public
-bodies. A single request may involve intake, acknowledgement, clarification,
-extension, transfer, decision, release, refusal, redaction, complaint,
-publication, and later reporting [1-3]. Those steps are familiar to practitioners,
-but they are not always recorded in a consistent machine-readable form. They
-may be distributed across email, case-management tools, public request
-platforms, disclosure logs, spreadsheets, attachments, and statistical reports.
-As a result, the same administrative event can be visible as a message in one
-system, a platform state in another, and a reporting category in a third.
+bodies. A single request usually begins with intake: the request is received,
+registered, acknowledged, and sometimes clarified or transferred to another
+body. It then moves into decision-making, where deadlines, extensions,
+searches, consultations, charges, redactions, releases, and refusals may need
+to be recorded [1-3]. After the decision, the same request may still matter for
+complaints, publication, disclosure logs, performance statistics, and later
+reporting. Those steps are familiar to practitioners, but they are not always
+recorded in a consistent machine-readable form. Evidence may be distributed
+across email, case-management tools, public request platforms, disclosure logs,
+spreadsheets, attachments, and statistical reports. As a result, the same
+administrative event can be visible as a message in one system, a platform
+state in another, and a reporting category in a third.
 
 This makes FOI administration a useful but demanding target for process
 modelling. Researchers and public agencies can learn from public request
@@ -146,22 +152,26 @@ agent-assisted public administration [22-24].
 
 ## Design Principles
 
-FOI-O was developed around five design principles. First, source evidence is
-preserved before interpretation: observed labels, timestamps, correspondence
-records, platform states, and attachment references are retained before they are
-mapped to normalised process concepts. Second, observation is separated from
-certification: an extracted event may be useful for review, but it is not
-treated as a final legal or administrative outcome unless a human-authorised
-record supports that status. Third, semantics remain inspectable: schemas,
-controlled vocabularies, ontology files, validation rules, mappings, examples,
-and tests are kept as reviewable artefacts rather than hidden inside a model or
-prompt. Fourth, the system fails closed around legal outcomes: when evidence is
-missing, ambiguous, or generated by an automated component, the output is
-framed as a candidate signal for review rather than a certified decision.
-Fifth, local proof is preferred over aspirational claims: repository tests,
-examples, quality gates, and generated metadata define what the package can
-currently demonstrate, while live services and jurisdictional adoption remain
-external gates.
+FOI-O was developed around five design principles. The first two principles
+protect the evidential record. Source evidence is preserved before
+interpretation, so observed labels, timestamps, correspondence records, platform
+states, and attachment references are retained before they are mapped to
+normalised process concepts. Observation is also separated from certification:
+an extracted event may be useful for review, but it is not treated as a final
+legal or administrative outcome unless a human-authorised record supports that
+status.
+
+The next two principles protect interpretability and safety. Semantics remain
+inspectable because schemas, controlled vocabularies, ontology files,
+validation rules, mappings, examples, and tests are kept as reviewable
+artefacts rather than hidden inside a model or prompt. The system fails closed
+around legal outcomes: when evidence is missing, ambiguous, or generated by an
+automated component, the output is framed as a candidate signal for review
+rather than a certified decision. The final principle concerns evidence of
+implementation. Local proof is preferred over aspirational claims: repository
+tests, examples, quality gates, and generated metadata define what the package
+can currently demonstrate, while live services and jurisdictional adoption
+remain external gates.
 
 The design principles and implementation consequences are summarised in
 \hyperlink{tab-design-principles}{Table 1}.
@@ -292,24 +302,28 @@ reproducibility proof.
 ## Ontology Development Protocol
 
 The ontology-development protocol uses repository evidence as the source of
-truth:
+truth. The first step is scoping. FOI-O identifies process concepts from FOI
+request workflows, FYI/Alaveteli source states, statutory-process concepts,
+publication metadata, and reporting needs, using New Zealand OIA material as
+the first worked example. This produces a practical concept inventory before
+the project attempts richer formal modelling.
 
-1. identify process concepts from FOI request workflows, FYI/Alaveteli source
-   states, statutory-process concepts, publication metadata, and reporting
-   needs, using New Zealand OIA material as the first worked example;
-2. encode operational contracts as JavaScript Object Notation (JSON; see the
-   \hyperlink{tab-abbreviations}{abbreviations table}) Schemas and Pydantic models before adding richer semantic
-   alignments;
-3. define controlled vocabularies for request states, event types, assertion
-   status, and agent boundaries using the Simple Knowledge Organization System
-   (SKOS; see the \hyperlink{tab-abbreviations}{abbreviations table});
-4. align event, evidence, dataset, and policy concepts with the Provenance
-   Ontology (PROV-O; see the \hyperlink{tab-abbreviations}{abbreviations table}), Data Catalog Vocabulary (DCAT; see the \hyperlink{tab-abbreviations}{abbreviations table}),
-   Open Digital Rights Language (ODRL; see the \hyperlink{tab-abbreviations}{abbreviations table}), SKOS, and legal-document
-references where appropriate [14-19];
-5. express safety and consistency constraints in SHACL;
-6. validate examples and code paths through tests, release-readiness checks, and
-   machine-readable publication metadata.
+The second step is operational encoding. The project encodes the minimum
+contracts as JavaScript Object Notation (JSON; see the
+\hyperlink{tab-abbreviations}{abbreviations table}) Schemas and Pydantic models
+before adding semantic alignments. This makes examples and command outputs
+testable early. Controlled vocabularies are then defined for request states,
+event types, assertion status, and agent boundaries using the Simple Knowledge
+Organization System (SKOS; see the \hyperlink{tab-abbreviations}{abbreviations table}).
+
+The third step is semantic alignment. Event and evidence concepts are aligned
+with the Provenance Ontology (PROV-O; see the \hyperlink{tab-abbreviations}{abbreviations table}) so that transformations and sources
+remain traceable. Dataset and publication concepts are aligned with the Data
+Catalog Vocabulary (DCAT; see the \hyperlink{tab-abbreviations}{abbreviations table}), while rights and policy concepts use the Open Digital
+Rights Language (ODRL; see the \hyperlink{tab-abbreviations}{abbreviations table}), SKOS, and legal-document references where appropriate
+[14-19]. Safety and consistency constraints are expressed in SHACL, and the
+resulting examples and code paths are validated through tests,
+release-readiness checks, and machine-readable publication metadata.
 
 The core event contract defines observed and candidate process events. Semantic
 constraints define how machine-readable process statements are checked before
@@ -317,12 +331,19 @@ they are used in reports, review packs, or agent-facing workflows.
 
 ## Data Model
 
-The model is organised around request profiles, process events, agent actions,
-review tasks, ledgers, chunks, risk assessments, reporting metrics, and release
-metadata. Events carry assertion status, provenance, generator metadata,
-evidence references, and human-certification metadata. Candidate process events
-can support triage and review, but they are not promoted to certified outcomes
-unless an authorised human record supplies the certification evidence.
+The model is organised in three groups. The request and event core describes
+request profiles, process events, evidence references, assertion status,
+provenance, generator metadata, and human-certification metadata. This is the
+part of the model that records what happened, where the evidence came from, and
+how strongly a process statement can be asserted.
+
+The review and governance layer describes agent actions, review tasks, ledgers,
+chunks, and risk assessments. These records show how candidate outputs were
+generated and reviewed, without turning them into legal determinations. The
+reporting and release layer describes reporting metrics and release metadata.
+Candidate process events can support triage and review, but they are not
+promoted to certified outcomes unless an authorised human record supplies the
+certification evidence.
 
 \hyperlink{fig-data-model}{Figure 4} shows the main data-model relationships,
 and \hyperlink{tab-data-model-surfaces}{Table 5} summarises the corresponding
@@ -399,12 +420,14 @@ from being represented as legal determinations.
 
 ## Implemented Repository Surfaces
 
-The current repository includes implemented contracts for JSON Schema examples,
-Pydantic models, state mapping, manifest normalisation, event analytics,
-quality gates, RDF export, reporting profiles, publication metadata,
-reproducibility manifests, local retrieval, redaction candidates, agent context
-packs, stream diffs, and read-only agent descriptors. The Mojo, Modular MAX,
-and LanceDB paths are experimental and optional [25].
+The current repository includes implemented surfaces in four groups. The
+contract layer covers JSON Schema examples, Pydantic models, state mapping, and
+manifest normalisation. The analysis layer covers event analytics, quality
+gates, RDF export, and reporting profiles. The publication layer covers
+publication metadata and reproducibility manifests. The agent-facing layer
+covers local retrieval, redaction candidates, agent context packs, stream
+diffs, and read-only agent descriptors. The Mojo, Modular MAX, and LanceDB
+paths are experimental and optional [25].
 
 The first result is a set of machine-readable contracts that make the intended
 FOI-O data surfaces explicit. Request profiles define request-level metadata,
@@ -439,15 +462,15 @@ been validated across other jurisdictions. Instead, they define a smaller and
 more defensible result: the implemented contracts, examples, diagrams, and
 publication artefacts can be rebuilt and checked locally.
 
-The fourth result is a publication and release surface. The manuscript,
-supplementary material, arXiv-oriented LaTeX workflow, generated bibliography,
-figures, glossary, abbreviations, and release metadata are treated as part of
-the research object rather than as afterthoughts. This matters because an
-ontology or validation stack is difficult to reuse if the evidence, caveats,
-rights notices, and human gates are not packaged with it. The current package
-therefore records what is implemented, what is experimental, what requires
-external approval, and what should not be treated as legal or operational
-certification.
+The fourth result is a publication and release surface. The manuscript and
+supplementary material are treated as part of the research object rather than
+as afterthoughts. The generated bibliography, figures, glossary,
+abbreviations, and release metadata make the package easier to inspect as a
+complete methods artefact. This matters because an ontology or validation stack
+is difficult to reuse if the evidence, caveats, rights notices, and human gates
+are not packaged with it. The current package therefore records what is
+implemented, what is experimental, what requires external approval, and what
+should not be treated as legal or operational certification.
 
 The optional runtime surfaces are deliberately bounded. Mojo, Modular MAX, and
 LanceDB paths are present as experimental directions for local inference,
@@ -506,27 +529,28 @@ work at the modelling stage, but it protects downstream analysis from claiming
 more than the evidence can support.
 
 This structure is also useful for international comparison. Countries use
-different names for public-information laws, different response clocks,
-different exemptions, different appeal pathways, and different reporting
-obligations. A reusable ontology cannot assume that every jurisdiction will
-share New Zealand terms or deadlines. It can, however, provide a common pattern
-for describing requests, observed correspondence, candidate events, provenance,
-assertion status, review tasks, publication metadata, and human-certification
-boundaries. Jurisdiction-specific profiles can then add local vocabulary,
-calendar rules, statutory references, reporting categories, and quality gates.
-In this sense, New Zealand is a bootstrap case: it gives the project a concrete
-starting point, but the purpose is to make later comparative work easier [1-13].
+different names for public-information laws and different clocks for measuring
+time. They also use different exemptions, appeal pathways, publication duties,
+and reporting obligations. A reusable ontology cannot assume that every
+jurisdiction will share New Zealand terms or deadlines. It can, however,
+provide a common pattern for describing the evidence trail: requests, observed
+correspondence, candidate events, provenance, assertion status, review tasks,
+publication metadata, and human-certification boundaries. Jurisdiction-specific
+profiles can then add local vocabulary, calendar rules, statutory references,
+reporting categories, and quality gates. In this sense, New Zealand is a
+bootstrap case: it gives the project a concrete starting point, but the purpose
+is to make later comparative work easier [1-13].
 
 For public agencies and researchers, the approach could support several
-practical uses. It could help create shared resources that explain how FOI
-requests move through administrative systems. It could support process
-analytics that identify missing evidence, unclear status transitions, or
-places where public records do not support strong conclusions. It could help
-compare reporting categories across jurisdictions without forcing them into a
-single legal vocabulary. It could also support safer agent-assisted workflows,
-where tools prepare review packs, flag incomplete evidence, or summarise event
-streams while making clear that final legal or administrative judgement remains
-with authorised people [22-24].
+practical uses. As an explanatory resource, it could show how FOI requests move
+through administrative systems and where evidence is typically created. As a
+process-analytics resource, it could help identify missing evidence, unclear
+status transitions, or places where public records do not support strong
+conclusions. As a comparative resource, it could help map reporting categories
+across jurisdictions without forcing them into a single legal vocabulary. As an
+agent-safety resource, it could support tools that prepare review packs, flag
+incomplete evidence, or summarise event streams while making clear that final
+legal or administrative judgement remains with authorised people [22-24].
 
 The schema-first approach has pragmatic strengths. JSON Schema and Pydantic
 models make the operational contract easy to test before richer semantic
@@ -572,13 +596,17 @@ which are certified by humans. FOI-O provides one concrete way to encode that
 boundary and to extend it beyond the first New Zealand example.
 
 Future work should therefore proceed in evidence-led stages. The next step is
-not to claim universal coverage, but to add carefully documented source intake,
-gold-set review, jurisdiction-specific profiles, and comparative reporting
-examples. Each extension should preserve the same boundary between observed
-record, candidate inference, validation result, and human-certified outcome.
-That discipline is what makes the project potentially useful internationally:
-new jurisdictions can add their own law, language, calendars, and reporting
-rules without losing the common process structure that makes comparison
+not to claim universal coverage, but to add carefully documented source intake
+so that public request records can be transformed reproducibly. Gold-set review
+should then provide human-checked examples for evaluating event extraction and
+status mapping. Jurisdiction-specific profiles should add local law, language,
+calendars, reporting rules, and institutional practice without changing the
+shared evidence model. Comparative reporting examples should show which metrics
+are genuinely comparable and which remain jurisdiction-bound. Each extension
+should preserve the same boundary between observed record, candidate inference,
+validation result, and human-certified outcome. That discipline is what makes
+the project potentially useful internationally: new jurisdictions can add their
+own rules without losing the common process structure that makes comparison
 possible.
 
 # Limitations
