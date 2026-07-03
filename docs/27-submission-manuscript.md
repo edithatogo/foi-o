@@ -550,9 +550,11 @@ later analysis from claiming more than the evidence can support.
 This structure also helps international comparison. Countries use different
 names for public-information laws and different clocks for measuring time. They
 also use different exemptions, appeal paths, publication duties, and reporting
-rules. A reusable ontology cannot assume that every jurisdiction shares New
-Zealand terms or deadlines. It can, however, provide a common pattern for the
-evidence trail. That trail includes requests, observed correspondence,
+rules. For example, the United Kingdom uses the Freedom of Information Act
+2000, Australia uses the Freedom of Information Act 1982, and Canada uses the
+Access to Information Act. A reusable ontology cannot assume that every
+jurisdiction shares New Zealand terms or deadlines. It can, however, provide a
+common pattern for the evidence trail. That trail includes requests, observed correspondence,
 candidate events, provenance, assertion status, review tasks, release metadata,
 and human-certification boundaries. Jurisdiction-specific profiles can then add
 local vocabulary, calendar rules, statutory references, reporting categories,
