@@ -293,10 +293,18 @@ process flow through validation and the human-certification boundary.
 
 The Python control plane owns schema validation, FYI manifest normalisation,
 event extraction, quality gates, reporting profiles, RDF export, SHACL
-validation, release metadata, and command-line workflows. Optional surfaces such
-as FastMCP, pySHACL, LanceDB, Mojo, and Modular MAX add runtime capability when
-installed, but deterministic Python and fixture-backed paths remain the
-reproducibility proof.
+validation, release metadata, and command-line workflows. Optional surfaces add
+runtime capability when installed, but deterministic Python and fixture-backed
+paths remain the reproducibility proof. FastMCP provides a possible interface
+for exposing read-only tool contracts to agents. pySHACL provides an optional
+runtime for validating RDF graphs against SHACL constraints. LanceDB is an
+embedded vector database that could support local semantic retrieval over
+request text, evidence chunks, and ontology terms. Mojo and Modular MAX are
+being explored as local high-performance inference technologies that could
+eventually support bounded extraction or embedding workflows. They are not
+required for the current package because the present evidence depends on
+portable schemas, examples, semantic assets, and Python tests rather than on
+specialised runtimes, hardware, or model-serving installations.
 
 ## Ontology Development Protocol
 
@@ -423,10 +431,10 @@ The current repository includes implemented surfaces in four groups. The
 contract layer covers JSON Schema examples, Pydantic models, state mapping, and
 manifest normalisation. The analysis layer covers event analytics, quality
 gates, RDF export, and reporting profiles. The release layer covers release
-metadata and reproducibility manifests. The agent-facing layer
-covers local retrieval, redaction candidates, agent context packs, stream
-diffs, and read-only agent descriptors. The Mojo, Modular MAX, and LanceDB
-paths are experimental and optional [25].
+metadata and reproducibility manifests. The agent-facing layer covers local
+retrieval, redaction candidates, agent context packs, stream diffs, and
+read-only agent descriptors. The Mojo, Modular MAX, and LanceDB paths are
+experimental and optional [25].
 
 The first result is a set of machine-readable contracts that make the intended
 FOI-O data surfaces explicit. Request profiles define request-level metadata,
@@ -469,14 +477,23 @@ gates are not packaged with it. The current package therefore records what is
 implemented, what is experimental, what requires external approval, and what
 should not be treated as legal or operational certification.
 
-The optional runtime surfaces are deliberately bounded. Mojo, Modular MAX, and
-LanceDB paths are present as experimental directions for local inference,
-embedding, or retrieval workflows, but they are not required for the core
-validation result. The core reproducibility claim rests on deterministic Python
-paths, examples, schemas, semantic assets, and tests. This makes the current
-package useful as a baseline for later corpus intake, gold-set evaluation,
-jurisdictional extension, or agent-assisted review while avoiding unsupported
-claims about live deployment readiness [25].
+The optional runtime surfaces are deliberately bounded. LanceDB is relevant
+because FOI-O will eventually need to retrieve semantically similar requests,
+evidence snippets, ontology terms, and review examples without sending
+sensitive material to external services. Mojo and Modular MAX are relevant
+because larger-scale extraction and embedding workflows may benefit from local,
+high-performance inference once the data contracts and safety boundaries are
+stable. Their potential benefits are faster local processing, lower dependence
+on hosted providers, more reproducible retrieval experiments, and a clearer
+path to privacy-preserving agent assistance. They are not currently used as the
+core proof because they introduce optional dependencies, platform constraints,
+and model-selection questions that are not necessary to validate the ontology,
+schemas, examples, and human-certification boundary. The core reproducibility
+claim therefore rests on deterministic Python paths, examples, schemas,
+semantic assets, and tests. This makes the current package useful as a
+baseline for later corpus intake, gold-set evaluation, jurisdictional
+extension, or agent-assisted review while avoiding unsupported claims about
+live deployment readiness [25].
 
 Taken together, these results show a working methods package rather than a
 finished global FOI platform. The implemented surfaces demonstrate that the
