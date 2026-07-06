@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio-nz/schemas/process-mining-conformance.schema.json",
+  "title": "FOI-O NZ process mining conformance fixture report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope",
+    "claim_boundary",
+    "case_count",
+    "event_count",
+    "expected_release_path",
+    "observed_activity_sequence",
+    "human_certification_before_decision",
+    "human_certification_before_release",
+    "candidate_event_types",
+    "findings",
+    "ok"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.process-mining-conformance.v0.1.0"
+    },
+    "scope": {
+      "const": "fixture_only"
+    },
+    "claim_boundary": {
+      "const": "not_live_corpus_validation"
+    },
+    "case_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "event_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "expected_release_path": {
+      "$ref": "#/$defs/activity_sequence"
+    },
+    "observed_activity_sequence": {
+      "$ref": "#/$defs/activity_sequence"
+    },
+    "human_certification_before_decision": {
+      "type": "boolean"
+    },
+    "human_certification_before_release": {
+      "type": "boolean"
+    },
+    "candidate_event_types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "severity",
+          "code",
+          "message"
+        ],
+        "properties": {
+          "severity": {
+            "enum": [
+              "info",
+              "warning",
+              "error"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "ok": {
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "activity_sequence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

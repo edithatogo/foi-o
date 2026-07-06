@@ -1,0 +1,57 @@
+{
+  "conformsTo": "pic-traces/0.1.0",
+  "caseId": "nz-oia/fixture.no_deemed_refusal_before_deadline",
+  "packageRef": {
+    "id": "nz-oia-clocks",
+    "version": "0.1.0"
+  },
+  "engine": {
+    "name": "foi-o-nz",
+    "version": "0.9.0",
+    "adapter": "oia_rules"
+  },
+  "timestamp": "2026-07-05T17:28:23.786443Z",
+  "inputs": {
+    "nz-oia/variable.receipt_date": {
+      "valueState": "known",
+      "value": "2026-09-01"
+    },
+    "nz-oia/variable.current_date": {
+      "valueState": "known",
+      "value": "2026-09-28"
+    },
+    "nz-oia/variable.response_sent": {
+      "valueState": "known",
+      "value": false
+    }
+  },
+  "outputs": {
+    "nz-oia/decision.deemed_refusal": {
+      "valueState": "known",
+      "value": false
+    }
+  },
+  "steps": [
+    {
+      "stepId": "deemed_refusal",
+      "kind": "decision",
+      "inputsUsed": [
+        "nz-oia/variable.receipt_date",
+        "nz-oia/variable.current_date",
+        "nz-oia/variable.response_sent"
+      ],
+      "parameterVersions": [],
+      "result": {
+        "value": false,
+        "valueState": "known"
+      },
+      "sourceRefs": [
+        "OIA 1982 s 15",
+        "OIA 1982 s 28"
+      ],
+      "refs": {
+        "decision": "nz-oia/decision.deemed_refusal"
+      }
+    }
+  ]
+}

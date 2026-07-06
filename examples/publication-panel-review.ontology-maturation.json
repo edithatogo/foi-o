@@ -1,0 +1,78 @@
+{
+  "schema_version": "foi-o-nz.publication-panel-review.v0.1.0",
+  "review_id": "publication-panel-review.ontology-maturation.20260703",
+  "artifact_id": "ontology-maturation-package-20260703",
+  "artifact_path": "docs/24-ontology-methods-protocol.md",
+  "artifact_type": "protocol",
+  "threshold": 95.1,
+  "overall_passed": false,
+  "scores": [
+    {
+      "agent_id": "editor",
+      "agent_role": "Editor",
+      "score": 94,
+      "passed": false,
+      "findings": [
+        "The protocol is coherent and bounded, but final article integration is still pending."
+      ],
+      "required_fixes": [
+        "Integrate protocol evidence into the final manuscript and supplement after journal requirements are refreshed."
+      ]
+    },
+    {
+      "agent_id": "ontology_expert",
+      "agent_role": "Ontology/semantic-web expert",
+      "score": 94,
+      "passed": false,
+      "findings": [
+        "Competency questions, crosswalk, and coverage matrix are explicit; fuller formal ontology evaluation remains future work."
+      ],
+      "required_fixes": [
+        "Add human-reviewed competency-question outcomes after annotation task sets are completed."
+      ]
+    },
+    {
+      "agent_id": "reproducibility_expert",
+      "agent_role": "Data-engineering/reproducibility expert",
+      "score": 95,
+      "passed": false,
+      "findings": [
+        "Repo-local validation commands, asset manifest, and path checks are present; external gates remain correctly unresolved."
+      ],
+      "required_fixes": [
+        "Attach final command outputs or release artefacts when preparing a versioned publication package."
+      ]
+    },
+    {
+      "agent_id": "visualization_expert",
+      "agent_role": "Visualization/network-analysis expert",
+      "score": 93,
+      "passed": false,
+      "findings": [
+        "Graph data, Mermaid fallback, captions, and text alternatives are present, but final rendered plot assets remain journal-dependent."
+      ],
+      "required_fixes": [
+        "Render final static figures and verify dimensions, captions, and accessibility requirements against the selected venue."
+      ]
+    },
+    {
+      "agent_id": "red_team",
+      "agent_role": "Red-team agent",
+      "score": 96,
+      "passed": true,
+      "findings": [
+        "The package clearly separates NZ-local validation, global design intent, and external gates."
+      ],
+      "required_fixes": []
+    }
+  ],
+  "improvement_loop": {
+    "status": "fixes_required",
+    "next_actions": [
+      "Complete human-reviewed annotation task sets before claiming gold-standard results.",
+      "Render final publication figures after the target venue is selected.",
+      "Refresh journal and arXiv requirements before submission packaging."
+    ]
+  },
+  "reviewed_at": "2026-07-03T00:00:00+10:00"
+}

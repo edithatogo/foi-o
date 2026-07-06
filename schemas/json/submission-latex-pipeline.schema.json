@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/submission-latex-pipeline.schema.json",
+  "title": "FOI-O NZ submission LaTeX pipeline manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "manuscript",
+    "supplement",
+    "references",
+    "config",
+    "tools",
+    "targets",
+    "overall_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.submission-latex-pipeline.v0.1.0"
+    },
+    "generated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "manuscript": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supplement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "references": {
+      "type": "string",
+      "minLength": 1
+    },
+    "config": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["tool", "available"],
+        "properties": {
+          "tool": {"type": "string", "minLength": 1},
+          "available": {"type": "boolean"}
+        }
+      }
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "engine",
+          "arxiv_upload_candidate",
+          "accessibility_experiment",
+          "status",
+          "source_root",
+          "commands",
+          "checks",
+          "artifacts"
+        ],
+        "properties": {
+          "target": {"enum": ["arxiv", "enhanced"]},
+          "engine": {"enum": ["pdflatex", "xelatex", "lualatex"]},
+          "arxiv_upload_candidate": {"type": "boolean"},
+          "accessibility_experiment": {"type": "boolean"},
+          "status": {"enum": ["planned", "passed", "failed", "external_gate"]},
+          "source_root": {"type": "string", "minLength": 1},
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["command", "cwd", "status", "returncode", "log_path"],
+              "properties": {
+                "command": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                },
+                "cwd": {"type": "string", "minLength": 1},
+                "status": {"enum": ["planned", "passed", "failed", "skipped"]},
+                "returncode": {"type": ["integer", "null"]},
+                "log_path": {"type": ["string", "null"]}
+              }
+            }
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["check_id", "status", "message", "evidence_paths"],
+              "properties": {
+                "check_id": {"type": "string", "minLength": 1},
+                "status": {
+                  "enum": ["planned", "passed", "failed", "warning", "skipped", "external_gate"]
+                },
+                "message": {"type": "string", "minLength": 1},
+                "evidence_paths": {
+                  "type": "array",
+                  "items": {"type": "string", "minLength": 1}
+                }
+              }
+            }
+          },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["path", "sha256"],
+              "properties": {
+                "path": {"type": "string", "minLength": 1},
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "overall_status": {
+      "enum": ["planned", "passed", "failed", "external_gate"]
+    }
+  }
+}

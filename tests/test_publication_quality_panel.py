@@ -8,8 +8,12 @@ from foi_o_nz.validation import validate_json_schema
 PANEL_DOC = Path("docs/29-publication-quality-panel.md")
 SCORECARD_EXAMPLE = Path("examples/publication-panel-scorecard.editor.methods-paper.json")
 REVIEW_EXAMPLE = Path("examples/publication-panel-review.methods-paper.json")
+MATURATION_REVIEW_EXAMPLE = Path("examples/publication-panel-review.ontology-maturation.json")
 CHECKLIST_SOURCE_EXAMPLE = Path("examples/reporting-checklist-source.miro.json")
 CHECKLIST_ADHERENCE_EXAMPLE = Path("examples/reporting-checklist-adherence.methods-paper-miro.json")
+MATURATION_ADHERENCE_EXAMPLE = Path(
+    "examples/reporting-checklist-adherence.ontology-maturation-miro.json"
+)
 ARXIV_READINESS_DOC = Path("docs/30-arxiv-readiness.md")
 ARXIV_READINESS_EXAMPLE = Path("examples/arxiv-readiness.manuscript-planned.json")
 
@@ -67,12 +71,17 @@ def test_publication_panel_examples_validate_against_schemas() -> None:
     examples_and_schemas = [
         (SCORECARD_EXAMPLE, Path("schemas/json/publication-panel-scorecard.schema.json")),
         (REVIEW_EXAMPLE, Path("schemas/json/publication-panel-review.schema.json")),
+        (MATURATION_REVIEW_EXAMPLE, Path("schemas/json/publication-panel-review.schema.json")),
         (
             CHECKLIST_SOURCE_EXAMPLE,
             Path("schemas/json/reporting-checklist-source.schema.json"),
         ),
         (
             CHECKLIST_ADHERENCE_EXAMPLE,
+            Path("schemas/json/reporting-checklist-adherence.schema.json"),
+        ),
+        (
+            MATURATION_ADHERENCE_EXAMPLE,
             Path("schemas/json/reporting-checklist-adherence.schema.json"),
         ),
         (ARXIV_READINESS_EXAMPLE, Path("schemas/json/arxiv-readiness.schema.json")),
@@ -86,13 +95,26 @@ def test_publication_panel_examples_validate_against_schemas() -> None:
 
 
 def test_miro_adherence_report_links_existing_evidence_paths() -> None:
-    adherence = json.loads(CHECKLIST_ADHERENCE_EXAMPLE.read_text(encoding="utf-8"))
-    for item in adherence["items"]:
-        if item["applicability"] != "required":
-            continue
-        assert item["evidence_paths"], item
-        for evidence_path in item["evidence_paths"]:
-            assert Path(evidence_path).exists(), evidence_path
+    for adherence_path in [CHECKLIST_ADHERENCE_EXAMPLE, MATURATION_ADHERENCE_EXAMPLE]:
+        adherence = json.loads(adherence_path.read_text(encoding="utf-8"))
+        for item in adherence["items"]:
+            if item["applicability"] != "required":
+                continue
+            assert item["evidence_paths"], item
+            for evidence_path in item["evidence_paths"]:
+                assert Path(evidence_path).exists(), evidence_path
+
+
+def test_maturation_panel_review_records_remaining_external_work() -> None:
+    review = json.loads(MATURATION_REVIEW_EXAMPLE.read_text(encoding="utf-8"))
+
+    assert review["artifact_type"] == "protocol"
+    assert review["overall_passed"] is False
+    assert review["improvement_loop"]["status"] == "fixes_required"
+
+    next_actions = " ".join(review["improvement_loop"]["next_actions"]).lower()
+    assert "human-reviewed annotation task sets" in next_actions
+    assert "journal and arxiv requirements" in next_actions
 
 
 def test_arxiv_readiness_workflow_uses_default_and_value_add_tools() -> None:

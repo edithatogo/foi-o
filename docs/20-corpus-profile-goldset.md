@@ -48,6 +48,25 @@ uv run foi-o-nz build-goldset \
 
 These tasks are annotation and evaluation aids only. They include source state, normalised state, mapping confidence, source provenance, and event hints so reviewers can judge whether the mapping is supported. They do not certify OIA outcomes.
 
+## Empirical Task-Set Manifest
+
+The planned NZ-first empirical work is recorded in
+`examples/empirical-taskset-manifest.nz-first.json` and validated against
+`schemas/json/empirical-taskset-manifest.schema.json`.
+
+The manifest makes the current evidence boundary explicit:
+
+- the 100-request state-mapping set is planned, not completed;
+- timeline, outcome, legal-issue, and attachment tasks are smaller planned
+  annotation sets;
+- every task set has the claim boundary
+  `annotation_task_until_human_reviewed`;
+- the manifest-level boundary is `annotation_tasks_not_gold_standard`.
+
+Do not describe these task sets as a gold standard until source snapshots,
+reviewer instructions, human review, adjudication, and any agreement metrics
+are recorded.
+
 ## Repo-Local Validation
 
 ```bash

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+  <net id="foio_nz_core" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <name><text>FOI-O NZ core request Petri net</text></name>
+    <page id="page_core">
+      <place id="p_observed"><name><text>Request observed</text></name></place>
+      <place id="p_registered"><name><text>Request registered</text></name></place>
+      <place id="p_validity_checked"><name><text>Validity checked</text></name></place>
+      <place id="p_clarification_pending"><name><text>Clarification pending</text></name></place>
+      <place id="p_search_planned"><name><text>Search planned</text></name></place>
+      <place id="p_searching"><name><text>Searching</text></name></place>
+      <place id="p_consulting"><name><text>Consulting</text></name></place>
+      <place id="p_extension_or_charge"><name><text>Extension or charge assessed</text></name></place>
+      <place id="p_records_identified"><name><text>Records identified</text></name></place>
+      <place id="p_no_records"><name><text>No records found</text></name></place>
+      <place id="p_decision_pack"><name><text>Decision pack drafted</text></name></place>
+      <place id="p_human_certified"><name><text>Human certified</text></name></place>
+      <place id="p_release_full"><name><text>Release in full communicated</text></name></place>
+      <place id="p_release_part"><name><text>Release in part communicated</text></name></place>
+      <place id="p_refused"><name><text>Refusal or not-held communicated</text></name></place>
+      <place id="p_disclosure_candidate"><name><text>Disclosure-log candidate</text></name></place>
+      <place id="p_complaint_observed"><name><text>Complaint observed</text></name></place>
+      <place id="p_closed"><name><text>Closed</text></name></place>
+
+      <transition id="t_register"><name><text>Register request profile</text></name></transition>
+      <transition id="t_assess_validity"><name><text>Assess validity and scope</text></name></transition>
+      <transition id="t_request_clarification"><name><text>Request clarification</text></name></transition>
+      <transition id="t_plan_search"><name><text>Plan search</text></name></transition>
+      <transition id="t_search_records"><name><text>Search records</text></name></transition>
+      <transition id="t_consult"><name><text>Consult if required</text></name></transition>
+      <transition id="t_assess_extension_charge"><name><text>Assess extension or charge</text></name></transition>
+      <transition id="t_records_found"><name><text>Records found</text></name></transition>
+      <transition id="t_no_records"><name><text>No records found</text></name></transition>
+      <transition id="t_draft_decision"><name><text>Draft decision pack</text></name></transition>
+      <transition id="t_human_certification"><name><text>Human certifies decision-like outcome</text></name></transition>
+      <transition id="t_release_full"><name><text>Communicate release in full</text></name></transition>
+      <transition id="t_release_part"><name><text>Communicate release in part</text></name></transition>
+      <transition id="t_refuse"><name><text>Communicate refusal or no information held</text></name></transition>
+      <transition id="t_disclosure_log"><name><text>Create disclosure-log candidate</text></name></transition>
+      <transition id="t_record_complaint"><name><text>Record complaint or review observation</text></name></transition>
+      <transition id="t_close"><name><text>Close request</text></name></transition>
+
+      <arc id="a01" source="p_observed" target="t_register"/>
+      <arc id="a02" source="t_register" target="p_registered"/>
+      <arc id="a03" source="p_registered" target="t_assess_validity"/>
+      <arc id="a04" source="t_assess_validity" target="p_validity_checked"/>
+      <arc id="a05" source="p_validity_checked" target="t_request_clarification"/>
+      <arc id="a06" source="t_request_clarification" target="p_clarification_pending"/>
+      <arc id="a07" source="p_clarification_pending" target="t_assess_validity"/>
+      <arc id="a08" source="p_validity_checked" target="t_plan_search"/>
+      <arc id="a09" source="t_plan_search" target="p_search_planned"/>
+      <arc id="a10" source="p_search_planned" target="t_search_records"/>
+      <arc id="a11" source="t_search_records" target="p_searching"/>
+      <arc id="a12" source="p_search_planned" target="t_consult"/>
+      <arc id="a13" source="t_consult" target="p_consulting"/>
+      <arc id="a14" source="p_search_planned" target="t_assess_extension_charge"/>
+      <arc id="a15" source="t_assess_extension_charge" target="p_extension_or_charge"/>
+      <arc id="a16" source="p_searching" target="t_records_found"/>
+      <arc id="a17" source="t_records_found" target="p_records_identified"/>
+      <arc id="a18" source="p_searching" target="t_no_records"/>
+      <arc id="a19" source="t_no_records" target="p_no_records"/>
+      <arc id="a20" source="p_records_identified" target="t_draft_decision"/>
+      <arc id="a21" source="p_consulting" target="t_draft_decision"/>
+      <arc id="a22" source="p_extension_or_charge" target="t_draft_decision"/>
+      <arc id="a23" source="t_draft_decision" target="p_decision_pack"/>
+      <arc id="a24" source="p_decision_pack" target="t_human_certification"/>
+      <arc id="a25" source="p_no_records" target="t_human_certification"/>
+      <arc id="a26" source="t_human_certification" target="p_human_certified"/>
+      <arc id="a27" source="p_human_certified" target="t_release_full"/>
+      <arc id="a28" source="p_human_certified" target="t_release_part"/>
+      <arc id="a29" source="p_human_certified" target="t_refuse"/>
+      <arc id="a30" source="t_release_full" target="p_release_full"/>
+      <arc id="a31" source="t_release_part" target="p_release_part"/>
+      <arc id="a32" source="t_refuse" target="p_refused"/>
+      <arc id="a33" source="p_release_full" target="t_disclosure_log"/>
+      <arc id="a34" source="p_release_part" target="t_disclosure_log"/>
+      <arc id="a35" source="t_disclosure_log" target="p_disclosure_candidate"/>
+      <arc id="a36" source="p_refused" target="t_record_complaint"/>
+      <arc id="a37" source="t_record_complaint" target="p_complaint_observed"/>
+      <arc id="a38" source="p_disclosure_candidate" target="t_close"/>
+      <arc id="a39" source="p_complaint_observed" target="t_close"/>
+      <arc id="a40" source="t_close" target="p_closed"/>
+    </page>
+  </net>
+</pnml>

@@ -1,0 +1,35 @@
+flowchart LR
+  README["README core/profile boundary"]
+  Protocol["Methods protocol"]
+  Inventory["Evidence inventory"]
+  Claims["Claims register"]
+  Sources["Source register"]
+  Terms["Terminology crosswalk"]
+  Coverage["Schema/ontology coverage matrix"]
+  Assets["Generated asset manifest"]
+  Ontology["ontology/foi-o-nz.ttl"]
+  Shapes["shacl/foi-o-nz.shapes.ttl"]
+  Vocab["vocab/*.skos.ttl"]
+  Schemas["schemas/json/"]
+  Examples["examples/"]
+  Tests["tests/"]
+  Boundary["Human certification boundary"]
+  External["External gates"]
+
+  README --> Protocol
+  Protocol --> Inventory
+  Protocol --> Claims
+  Protocol --> Sources
+  Protocol --> Terms
+  Protocol --> Coverage
+  Protocol --> Assets
+  Coverage --> Schemas
+  Coverage --> Ontology
+  Coverage --> Shapes
+  Coverage --> Vocab
+  Coverage --> Examples
+  Coverage --> Tests
+  Claims --> Boundary
+  Claims --> External
+  Assets --> Examples
+  Assets --> External

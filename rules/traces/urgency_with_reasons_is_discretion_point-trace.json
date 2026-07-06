@@ -1,0 +1,52 @@
+{
+  "conformsTo": "pic-traces/0.1.0",
+  "caseId": "nz-oia/fixture.urgency_with_reasons_is_discretion_point",
+  "packageRef": {
+    "id": "nz-oia-clocks",
+    "version": "0.1.0"
+  },
+  "engine": {
+    "name": "foi-o-nz",
+    "version": "0.9.0",
+    "adapter": "oia_rules"
+  },
+  "timestamp": "2026-07-05T17:28:23.786443Z",
+  "inputs": {
+    "nz-oia/variable.urgency_reasons_provided": {
+      "valueState": "known",
+      "value": true
+    }
+  },
+  "outputs": {
+    "nz-oia/decision.urgency_flag": {
+      "valueState": "known",
+      "value": "human_decision_required",
+      "warnings": [
+        "urgency affects routing only and cannot be machine certified"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "stepId": "urgency_flag",
+      "kind": "decision",
+      "inputsUsed": [
+        "nz-oia/variable.urgency_reasons_provided"
+      ],
+      "parameterVersions": [],
+      "result": {
+        "value": "human_decision_required",
+        "valueState": "known",
+        "warnings": [
+          "urgency affects routing only and cannot be machine certified"
+        ]
+      },
+      "sourceRefs": [
+        "OIA 1982 s 12(3)"
+      ],
+      "refs": {
+        "decision": "nz-oia/decision.urgency_flag"
+      }
+    }
+  ]
+}

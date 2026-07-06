@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  id="Definitions_FOIO_NZ_StateMachine"
+  targetNamespace="https://w3id.org/foio-nz/process/bpmn/state-machine">
+  <process id="Process_FOIO_NZ_StateMachine" name="FOI-O NZ canonical state transitions" isExecutable="false">
+    <startEvent id="Start_StateMachine" name="Start"/>
+    <endEvent id="End_StateMachine" name="End"/>
+    <task id="State_Acknowledged" name="Acknowledged"/>
+    <task id="State_AwaitingClarification" name="AwaitingClarification"/>
+    <task id="State_ChargeAssessment" name="ChargeAssessment"/>
+    <task id="State_Closed" name="Closed"/>
+    <task id="State_ConsultationRequired" name="ConsultationRequired"/>
+    <task id="State_DecisionApproved" name="DecisionApproved"/>
+    <task id="State_DecisionDrafting" name="DecisionDrafting"/>
+    <task id="State_DocumentsIdentified" name="DocumentsIdentified"/>
+    <task id="State_Drafted" name="Drafted"/>
+    <task id="State_ExtensionApplied" name="ExtensionApplied"/>
+    <task id="State_HumanDecisionRequired" name="HumanDecisionRequired"/>
+    <task id="State_NoDocumentsFound" name="NoDocumentsFound"/>
+    <task id="State_Received" name="Received"/>
+    <task id="State_Refused" name="Refused"/>
+    <task id="State_ReleasedInFull" name="ReleasedInFull"/>
+    <task id="State_ReleasedInPart" name="ReleasedInPart"/>
+    <task id="State_SearchPlanning" name="SearchPlanning"/>
+    <task id="State_Searching" name="Searching"/>
+    <task id="State_Submitted" name="Submitted"/>
+    <task id="State_TransferredInFull" name="TransferredInFull"/>
+    <task id="State_ValidityChecking" name="ValidityChecking"/>
+    <task id="State_Withdrawn" name="Withdrawn"/>
+    <sequenceFlow id="Flow_Start_Drafted" sourceRef="Start_StateMachine" targetRef="State_Drafted"/>
+    <sequenceFlow id="Flow_001" sourceRef="State_ChargeAssessment" targetRef="State_DecisionDrafting"/>
+    <sequenceFlow id="Flow_002" sourceRef="State_ChargeAssessment" targetRef="State_SearchPlanning"/>
+    <sequenceFlow id="Flow_003" sourceRef="State_ChargeAssessment" targetRef="State_Searching"/>
+    <sequenceFlow id="Flow_004" sourceRef="State_ChargeAssessment" targetRef="State_Withdrawn"/>
+    <sequenceFlow id="Flow_005" sourceRef="State_DecisionApproved" targetRef="State_Refused"/>
+    <sequenceFlow id="Flow_006" sourceRef="State_DecisionApproved" targetRef="State_ReleasedInFull"/>
+    <sequenceFlow id="Flow_007" sourceRef="State_DecisionApproved" targetRef="State_ReleasedInPart"/>
+    <sequenceFlow id="Flow_008" sourceRef="State_DecisionDrafting" targetRef="State_HumanDecisionRequired"/>
+    <sequenceFlow id="Flow_009" sourceRef="State_DocumentsIdentified" targetRef="State_ConsultationRequired"/>
+    <sequenceFlow id="Flow_010" sourceRef="State_DocumentsIdentified" targetRef="State_DecisionDrafting"/>
+    <sequenceFlow id="Flow_011" sourceRef="State_DocumentsIdentified" targetRef="State_HumanDecisionRequired"/>
+    <sequenceFlow id="Flow_012" sourceRef="State_Drafted" targetRef="State_Submitted"/>
+    <sequenceFlow id="Flow_013" sourceRef="State_Drafted" targetRef="State_Withdrawn"/>
+    <sequenceFlow id="Flow_014" sourceRef="State_ExtensionApplied" targetRef="State_ConsultationRequired"/>
+    <sequenceFlow id="Flow_015" sourceRef="State_ExtensionApplied" targetRef="State_DecisionDrafting"/>
+    <sequenceFlow id="Flow_016" sourceRef="State_ExtensionApplied" targetRef="State_DocumentsIdentified"/>
+    <sequenceFlow id="Flow_017" sourceRef="State_ExtensionApplied" targetRef="State_HumanDecisionRequired"/>
+    <sequenceFlow id="Flow_018" sourceRef="State_ExtensionApplied" targetRef="State_SearchPlanning"/>
+    <sequenceFlow id="Flow_019" sourceRef="State_ExtensionApplied" targetRef="State_Searching"/>
+    <sequenceFlow id="Flow_020" sourceRef="State_HumanDecisionRequired" targetRef="State_DecisionApproved"/>
+    <sequenceFlow id="Flow_021" sourceRef="State_Received" targetRef="State_Acknowledged"/>
+    <sequenceFlow id="Flow_022" sourceRef="State_Received" targetRef="State_AwaitingClarification"/>
+    <sequenceFlow id="Flow_023" sourceRef="State_Received" targetRef="State_ChargeAssessment"/>
+    <sequenceFlow id="Flow_024" sourceRef="State_Received" targetRef="State_ExtensionApplied"/>
+    <sequenceFlow id="Flow_025" sourceRef="State_Received" targetRef="State_SearchPlanning"/>
+    <sequenceFlow id="Flow_026" sourceRef="State_Received" targetRef="State_TransferredInFull"/>
+    <sequenceFlow id="Flow_027" sourceRef="State_Received" targetRef="State_ValidityChecking"/>
+    <sequenceFlow id="Flow_028" sourceRef="State_Received" targetRef="State_Withdrawn"/>
+    <sequenceFlow id="Flow_029" sourceRef="State_SearchPlanning" targetRef="State_ConsultationRequired"/>
+    <sequenceFlow id="Flow_030" sourceRef="State_SearchPlanning" targetRef="State_Searching"/>
+    <sequenceFlow id="Flow_031" sourceRef="State_Searching" targetRef="State_ChargeAssessment"/>
+    <sequenceFlow id="Flow_032" sourceRef="State_Searching" targetRef="State_ConsultationRequired"/>
+    <sequenceFlow id="Flow_033" sourceRef="State_Searching" targetRef="State_DocumentsIdentified"/>
+    <sequenceFlow id="Flow_034" sourceRef="State_Searching" targetRef="State_ExtensionApplied"/>
+    <sequenceFlow id="Flow_035" sourceRef="State_Searching" targetRef="State_NoDocumentsFound"/>
+    <sequenceFlow id="Flow_036" sourceRef="State_Submitted" targetRef="State_AwaitingClarification"/>
+    <sequenceFlow id="Flow_037" sourceRef="State_Submitted" targetRef="State_Received"/>
+    <sequenceFlow id="Flow_End_Closed" sourceRef="State_Closed" targetRef="End_StateMachine"/>
+    <sequenceFlow id="Flow_End_NoDocumentsFound" sourceRef="State_NoDocumentsFound" targetRef="End_StateMachine"/>
+    <sequenceFlow id="Flow_End_Refused" sourceRef="State_Refused" targetRef="End_StateMachine"/>
+    <sequenceFlow id="Flow_End_ReleasedInFull" sourceRef="State_ReleasedInFull" targetRef="End_StateMachine"/>
+    <sequenceFlow id="Flow_End_ReleasedInPart" sourceRef="State_ReleasedInPart" targetRef="End_StateMachine"/>
+    <sequenceFlow id="Flow_End_Withdrawn" sourceRef="State_Withdrawn" targetRef="End_StateMachine"/>
+  </process>
+</definitions>

@@ -1,0 +1,347 @@
+{
+  "schema_version": "foi-o-nz.generated-asset-manifest.v0.1.0",
+  "manifest_id": "foi-o-publication-assets-20260703",
+  "generated_at": "2026-07-03T00:00:00+10:00",
+  "scope": "NZ-first FOI-O ontology maturation publication assets",
+  "assets": [
+    {
+      "asset_id": "architecture-flow-mermaid",
+      "asset_type": "diagram_source",
+      "path": "docs/assets/foi-o-process-architecture.mmd",
+      "status": "committed_source",
+      "title": "FOI-O process architecture",
+      "caption": "Source-to-agent architecture for the NZ-first FOI-O process model.",
+      "text_alternative": "Public request and archive sources flow into request profiles, process events, semantic assets, validation checks, and read-only agent review surfaces bounded by human certification.",
+      "source_inputs": [
+        "docs/02-system-architecture.md",
+        "docs/04-agent-boundaries.md"
+      ],
+      "generation_command": "manual Mermaid source maintained in docs/assets/foi-o-process-architecture.mmd",
+      "provenance": "Derived from repo-local architecture and agent-boundary documentation.",
+      "intended_location": "Methods figure and supplement architecture figure"
+    },
+    {
+      "asset_id": "architecture-flow-png",
+      "asset_type": "static_diagram",
+      "path": "docs/assets/foi-o-process-architecture.png",
+      "status": "committed_static",
+      "title": "FOI-O process architecture static fallback",
+      "caption": "Static rendering of the FOI-O process architecture.",
+      "text_alternative": "Static fallback for the architecture diagram described by the Mermaid source.",
+      "source_inputs": [
+        "docs/assets/foi-o-process-architecture.mmd"
+      ],
+      "generation_command": "render Mermaid source with the committed docs/assets/mermaid-puppeteer.json configuration",
+      "provenance": "Static fallback paired with committed Mermaid source.",
+      "intended_location": "Manuscript or supplement figure fallback"
+    },
+    {
+      "asset_id": "state-machine-mermaid",
+      "asset_type": "diagram_source",
+      "path": "examples/state-machine.mmd",
+      "status": "committed_source",
+      "title": "FOI-O NZ request state machine",
+      "caption": "Committed state-machine source for request-state transitions used in the NZ profile.",
+      "text_alternative": "A request moves through observed, received, clarification, extension, decision, release, refusal, complaint, and closed states, with unsafe finality requiring human certification.",
+      "source_inputs": [
+        "docs/03-process-profile.md",
+        "vocab/request-states.skos.ttl"
+      ],
+      "generation_command": "manual Mermaid source maintained in examples/state-machine.mmd",
+      "provenance": "Derived from process profile and request-state vocabulary.",
+      "intended_location": "Supplement state-machine figure"
+    },
+    {
+      "asset_id": "evidence-network-mermaid",
+      "asset_type": "diagram_source",
+      "path": "docs/assets/foi-o-evidence-network.mmd",
+      "status": "committed_source",
+      "title": "FOI-O evidence network",
+      "caption": "Evidence network linking protocol artefacts to schemas, ontology, vocabularies, tests, assets, and external gates.",
+      "text_alternative": "The protocol connects the core/profile boundary, evidence inventory, claims, sources, terminology, coverage matrix, generated assets, schemas, ontology, SHACL, vocabularies, examples, tests, human certification boundary, and external gates.",
+      "source_inputs": [
+        "docs/24-ontology-methods-protocol.md",
+        "docs/24-ontology-methods-evidence-inventory.md",
+        "docs/24-ontology-claims-register.md"
+      ],
+      "generation_command": "manual Mermaid source maintained in docs/assets/foi-o-evidence-network.mmd",
+      "provenance": "Derived from the maturation protocol and evidence artefacts.",
+      "intended_location": "Results graph fallback and supplement figure"
+    },
+    {
+      "asset_id": "evidence-network-graph-json",
+      "asset_type": "graph_data",
+      "path": "examples/graph-export.foi-o-evidence-network.json",
+      "status": "committed_source",
+      "title": "FOI-O evidence graph data",
+      "caption": "Cosmograph-compatible graph data for the FOI-O NZ ontology evidence network.",
+      "text_alternative": "Nodes represent protocol, evidence, claims, terminology, coverage, generated assets, schemas, ontology, SHACL, vocabularies, examples, tests, human boundaries, and external gates; edges describe evidence and support relationships.",
+      "source_inputs": [
+        "docs/24-ontology-methods-protocol.md",
+        "docs/24-schema-ontology-coverage-matrix.md",
+        "ontology/foi-o-nz.ttl",
+        "shacl/foi-o-nz.shapes.ttl",
+        "vocab/request-states.skos.ttl",
+        "vocab/event-types.skos.ttl"
+      ],
+      "generation_command": "manual graph-export fixture maintained in examples/graph-export.foi-o-evidence-network.json",
+      "provenance": "Repo-local graph export fixture for publication asset review.",
+      "intended_location": "Supplement graph data and Cosmograph input"
+    },
+    {
+      "asset_id": "coverage-matrix",
+      "asset_type": "table",
+      "path": "docs/24-schema-ontology-coverage-matrix.md",
+      "status": "committed_source",
+      "title": "Schema and ontology coverage matrix",
+      "caption": "Coverage matrix linking schemas, ontology terms, SKOS, SHACL, examples, tests, and boundary rules.",
+      "text_alternative": "The table maps request profiles, events, human certification, legal versioning, PSC reporting, publication metadata, and generated assets to their contracts, semantic surfaces, examples, tests, and boundary rules.",
+      "source_inputs": [
+        "schemas/json/",
+        "ontology/foi-o-nz.ttl",
+        "shacl/foi-o-nz.shapes.ttl",
+        "vocab/",
+        "examples/",
+        "tests/"
+      ],
+      "generation_command": "manual table compiled from repo-local inventory counts and paths",
+      "provenance": "Derived from repository inventory and semantic files inspected on 2026-07-03.",
+      "intended_location": "Results table and supplement coverage table"
+    },
+    {
+      "asset_id": "claims-register",
+      "asset_type": "table",
+      "path": "docs/24-ontology-claims-register.md",
+      "status": "committed_source",
+      "title": "FOI-O NZ claims register",
+      "caption": "Claim/evidence register separating supported claims, design intent, unsupported claims, and external gates.",
+      "text_alternative": "The table lists claims about FOI-O reusable design, NZ profile validation, source-state preservation, candidate events, human certification, clock warnings, legal versioning, PSC derivability, publication readiness, gold sets, and non-NZ validation.",
+      "source_inputs": [
+        "README.md",
+        "docs/19-release-readiness-evidence.md",
+        "docs/21-psc-reporting-profile.md",
+        "docs/22-semantic-alignment.md"
+      ],
+      "generation_command": "manual table maintained in docs/24-ontology-claims-register.md",
+      "provenance": "Derived from repo-local validation and boundary documents.",
+      "intended_location": "Methods evidence table and red-team review input"
+    },
+    {
+      "asset_id": "validation-coverage-summary",
+      "asset_type": "plot",
+      "path": "docs/25-validation-coverage-summary.md",
+      "status": "committed_source",
+      "title": "FOI-O NZ validation coverage summary",
+      "caption": "Validation coverage summary for the NZ-first ontology maturation package.",
+      "text_alternative": "The summary lists example validation, repository validation, schema drift, maturation tests, semantic tests, publication tests, full Python tests, Ruff checks, and Mojo/Pixi checks, with the claims each can and cannot prove.",
+      "source_inputs": [
+        "docs/19-release-readiness-evidence.md",
+        "docs/25-validation-coverage-summary.md",
+        "tests/test_ontology_maturation_plan.py"
+      ],
+      "generation_command": "manual table maintained in docs/25-validation-coverage-summary.md; render as a validation coverage plot only after venue requirements are selected",
+      "provenance": "Derived from repo-local validation commands and maturation tests.",
+      "intended_location": "Results validation table and later rendered supplement plot"
+    },
+    {
+      "asset_id": "maturation-summary-json",
+      "asset_type": "manifest",
+      "path": "examples/maturation-summary.ontology-maturation.json",
+      "status": "committed_source",
+      "title": "FOI-O NZ maturation summary",
+      "caption": "Regenerable JSON summary of maturation documents, assets, validation commands, inventory counts, and external gates.",
+      "text_alternative": "The summary records the FOI-O NZ validated profile boundary, repo inventory counts, required maturation documents and assets, validation commands, missing paths, and unresolved external gates.",
+      "source_inputs": [
+        "src/foi_o_nz/maturation.py",
+        "schemas/json/maturation-summary.schema.json"
+      ],
+      "generation_command": "uv run foi-o-nz maturation-summary --output examples/maturation-summary.ontology-maturation.json",
+      "provenance": "Generated from the current repository tree by foi_o_nz.maturation.",
+      "intended_location": "Supplement reproducibility manifest and release-readiness evidence"
+    },
+    {
+      "asset_id": "bpmn-process-model",
+      "asset_type": "diagram_source",
+      "path": "process_models/foi-o-nz-core.bpmn",
+      "status": "committed_source",
+      "title": "FOI-O NZ BPMN process model",
+      "caption": "BPMN 2.0 interchange model for the NZ-first FOI-O request workflow.",
+      "text_alternative": "The BPMN model starts with a request observation, registers and assesses the request, handles clarification, search, consultation, extension or charge assessment, routes records-found outcomes to decision drafting, requires human certification, communicates release/refusal outcomes, and closes through disclosure-log or complaint observation paths.",
+      "source_inputs": [
+        "examples/state-machine.mmd",
+        "src/foi_o_nz/state_machine.py",
+        "docs/31-process-models.md"
+      ],
+      "generation_command": "manual BPMN 2.0 source maintained in process_models/foi-o-nz-core.bpmn",
+      "provenance": "Derived from the current state machine, transition guards, and process-model documentation.",
+      "intended_location": "Supplement process-model artefact"
+    },
+    {
+      "asset_id": "pnml-petri-net",
+      "asset_type": "diagram_source",
+      "path": "process_models/foi-o-nz-core.pnml",
+      "status": "committed_source",
+      "title": "FOI-O NZ Petri net process model",
+      "caption": "PNML Petri net model for review of the NZ-first FOI-O request workflow.",
+      "text_alternative": "The Petri net represents places for observed, registered, validity checked, clarification, search, consultation, extension or charge, records, decision pack, human-certified, release/refusal, disclosure, complaint, and closed states, with transitions between them and human certification before final decision-like outcomes.",
+      "source_inputs": [
+        "examples/state-machine.mmd",
+        "src/foi_o_nz/state_machine.py",
+        "docs/31-process-models.md"
+      ],
+      "generation_command": "manual PNML source maintained in process_models/foi-o-nz-core.pnml",
+      "provenance": "Derived from the current state machine, transition guards, and process-model documentation.",
+      "intended_location": "Supplement formal process-model artefact"
+    },
+    {
+      "asset_id": "generated-state-machine-bpmn",
+      "asset_type": "diagram_source",
+      "path": "process_models/foi-o-nz-state-machine.bpmn",
+      "status": "committed_source",
+      "title": "FOI-O NZ generated BPMN state machine",
+      "caption": "BPMN 2.0 export generated from the canonical FOI-O NZ state-transition table.",
+      "text_alternative": "The generated BPMN file represents 22 request states and 37 allowed transitions from the canonical state machine.",
+      "source_inputs": [
+        "src/foi_o_nz/state_machine.py",
+        "src/foi_o_nz/process_models.py"
+      ],
+      "generation_command": "uv run foi-o-nz export-process-model --format bpmn --output process_models/foi-o-nz-state-machine.bpmn",
+      "provenance": "Generated from ALLOWED_TRANSITIONS in src/foi_o_nz/state_machine.py.",
+      "intended_location": "Supplement canonical state-transition BPMN artefact"
+    },
+    {
+      "asset_id": "generated-state-machine-pnml",
+      "asset_type": "diagram_source",
+      "path": "process_models/foi-o-nz-state-machine.pnml",
+      "status": "committed_source",
+      "title": "FOI-O NZ generated Petri net state machine",
+      "caption": "PNML export generated from the canonical FOI-O NZ state-transition table.",
+      "text_alternative": "The generated PNML file represents request lifecycle states as places and allowed state transitions as Petri net transitions.",
+      "source_inputs": [
+        "src/foi_o_nz/state_machine.py",
+        "src/foi_o_nz/process_models.py"
+      ],
+      "generation_command": "uv run foi-o-nz export-process-model --format pnml --output process_models/foi-o-nz-state-machine.pnml",
+      "provenance": "Generated from ALLOWED_TRANSITIONS in src/foi_o_nz/state_machine.py.",
+      "intended_location": "Supplement canonical state-transition PNML artefact"
+    },
+    {
+      "asset_id": "generated-state-machine-mermaid",
+      "asset_type": "diagram_source",
+      "path": "process_models/foi-o-nz-state-machine.mmd",
+      "status": "committed_source",
+      "title": "FOI-O NZ generated Mermaid state machine",
+      "caption": "Mermaid state diagram generated from the canonical FOI-O NZ state-transition table.",
+      "text_alternative": "The generated Mermaid diagram lists each canonical allowed state transition and terminal transition to the end state.",
+      "source_inputs": [
+        "src/foi_o_nz/state_machine.py",
+        "src/foi_o_nz/process_models.py"
+      ],
+      "generation_command": "uv run foi-o-nz export-process-model --format mermaid --output process_models/foi-o-nz-state-machine.mmd",
+      "provenance": "Generated from ALLOWED_TRANSITIONS in src/foi_o_nz/state_machine.py.",
+      "intended_location": "Documentation fallback and supplement state-transition diagram source"
+    },
+    {
+      "asset_id": "process-model-conformance",
+      "asset_type": "manifest",
+      "path": "examples/process-model-conformance.ontology-maturation.json",
+      "status": "committed_source",
+      "title": "FOI-O NZ process-model conformance report",
+      "caption": "Conformance report comparing hand-authored workflow BPMN/PNML models with generated canonical state-transition exports.",
+      "text_alternative": "The report records counts for core and generated BPMN and PNML models, intentional abstraction differences, preserved human-certification routing in the core workflow models, and validation findings.",
+      "source_inputs": [
+        "process_models/foi-o-nz-core.bpmn",
+        "process_models/foi-o-nz-core.pnml",
+        "process_models/foi-o-nz-state-machine.bpmn",
+        "process_models/foi-o-nz-state-machine.pnml",
+        "src/foi_o_nz/process_models.py"
+      ],
+      "generation_command": "uv run foi-o-nz process-model-conformance --output examples/process-model-conformance.ontology-maturation.json",
+      "provenance": "Generated by comparing committed process-model artefacts with canonical state-machine exports.",
+      "intended_location": "Supplement process-model validation artefact"
+    },
+    {
+      "asset_id": "process-mining-event-log",
+      "asset_type": "data",
+      "path": "examples/process-mining-events.fixture.jsonl",
+      "status": "committed_source",
+      "title": "FOI-O NZ process-mining fixture event log",
+      "caption": "Small fixture-only FOI-O NZ event log for process-mining interchange checks.",
+      "text_alternative": "The fixture contains one request case with nine events from request observation through registration, deadline calculation, search planning, decision-pack drafting, human certification, decision communication, release, and closure.",
+      "source_inputs": [
+        "schemas/json/core-event.schema.json",
+        "docs/32-process-mining-fixtures.md"
+      ],
+      "generation_command": "manual JSONL fixture maintained in examples/process-mining-events.fixture.jsonl",
+      "provenance": "Synthetic repo-local fixture for import/export validation only; not live corpus evidence.",
+      "intended_location": "Supplement process-mining fixture input"
+    },
+    {
+      "asset_id": "process-mining-xes",
+      "asset_type": "data",
+      "path": "examples/process-mining.fixture.xes",
+      "status": "committed_source",
+      "title": "FOI-O NZ XES process-mining fixture",
+      "caption": "XES export of the FOI-O NZ process-mining fixture event log.",
+      "text_alternative": "The XES log has one trace for fixture-nz:pm-001 and nine events preserving event type, event time, assertion status, lifecycle state, and human-certification requirement.",
+      "source_inputs": [
+        "examples/process-mining-events.fixture.jsonl",
+        "src/foi_o_nz/process_mining.py"
+      ],
+      "generation_command": "uv run foi-o-nz export-process-mining --format xes --events examples/process-mining-events.fixture.jsonl --output examples/process-mining.fixture.xes",
+      "provenance": "Generated from the committed process-mining fixture event log.",
+      "intended_location": "Supplement process-mining interchange artefact"
+    },
+    {
+      "asset_id": "process-mining-ocel",
+      "asset_type": "data",
+      "path": "examples/process-mining.fixture.ocel.json",
+      "status": "committed_source",
+      "title": "FOI-O NZ OCEL process-mining fixture",
+      "caption": "OCEL-style JSON export of the FOI-O NZ process-mining fixture event log.",
+      "text_alternative": "The OCEL-style JSON contains one FOI request object and nine linked events with assertion status, lifecycle state, machine-generation flag, and human-certification requirement.",
+      "source_inputs": [
+        "examples/process-mining-events.fixture.jsonl",
+        "schemas/json/process-mining-ocel.schema.json",
+        "src/foi_o_nz/process_mining.py"
+      ],
+      "generation_command": "uv run foi-o-nz export-process-mining --format ocel --events examples/process-mining-events.fixture.jsonl --output examples/process-mining.fixture.ocel.json",
+      "provenance": "Generated from the committed process-mining fixture event log and validated against schemas/json/process-mining-ocel.schema.json.",
+      "intended_location": "Supplement object-centric process-mining interchange artefact"
+    },
+    {
+      "asset_id": "process-mining-conformance",
+      "asset_type": "manifest",
+      "path": "examples/process-mining-conformance.fixture.json",
+      "status": "committed_source",
+      "title": "FOI-O NZ process-mining fixture conformance report",
+      "caption": "Fixture-only conformance report comparing the committed event sequence with the expected release path.",
+      "text_alternative": "The report records one fixture case, nine events, the expected and observed release-path sequences, human certification before decision communication and release, candidate event types, and fixture-only findings.",
+      "source_inputs": [
+        "examples/process-mining-events.fixture.jsonl",
+        "schemas/json/process-mining-conformance.schema.json",
+        "src/foi_o_nz/process_mining.py"
+      ],
+      "generation_command": "uv run foi-o-nz process-mining-conformance --events examples/process-mining-events.fixture.jsonl --output examples/process-mining-conformance.fixture.json",
+      "provenance": "Generated from the committed process-mining fixture event log; not live corpus conformance evidence.",
+      "intended_location": "Supplement process-mining conformance artefact"
+    },
+    {
+      "asset_id": "empirical-taskset-manifest",
+      "asset_type": "manifest",
+      "path": "examples/empirical-taskset-manifest.nz-first.json",
+      "status": "committed_source",
+      "title": "FOI-O NZ empirical task-set manifest",
+      "caption": "NZ-first annotation task-set plan for state mapping, timeline extraction, outcome classification, legal issue flagging, and attachment characterisation.",
+      "text_alternative": "The manifest specifies one 100-request state-mapping task set and smaller planned timeline, outcome, legal-issue, and attachment task sets, all marked as annotation tasks rather than gold standards.",
+      "source_inputs": [
+        "docs/20-corpus-profile-goldset.md",
+        "docs/24-ontology-methods-protocol.md",
+        "schemas/json/empirical-taskset-manifest.schema.json"
+      ],
+      "generation_command": "manual manifest maintained in examples/empirical-taskset-manifest.nz-first.json",
+      "provenance": "Repo-local NZ-first empirical planning artefact; not human-reviewed gold-standard evidence.",
+      "intended_location": "Supplement empirical-plan artefact"
+    }
+  ]
+}

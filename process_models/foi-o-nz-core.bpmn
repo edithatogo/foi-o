@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_FOIO_NZ_Core"
+  targetNamespace="https://w3id.org/foio-nz/process/bpmn">
+  <process id="Process_FOIO_NZ_Core" name="FOI-O NZ core request workflow" isExecutable="false">
+    <startEvent id="Start_RequestObserved" name="Request observed"/>
+    <task id="Task_RegisterRequest" name="Register request profile"/>
+    <task id="Task_AssessValidity" name="Assess validity and scope"/>
+    <exclusiveGateway id="Gateway_ClarificationNeeded" name="Clarification needed?"/>
+    <task id="Task_RequestClarification" name="Request clarification"/>
+    <task id="Task_SearchPlanning" name="Plan search"/>
+    <parallelGateway id="Gateway_ProcessWork" name="Process work"/>
+    <task id="Task_SearchRecords" name="Search records"/>
+    <task id="Task_Consultation" name="Consult if required"/>
+    <task id="Task_ExtensionOrChargeAssessment" name="Assess extension or charge"/>
+    <exclusiveGateway id="Gateway_RecordsFound" name="Records found?"/>
+    <task id="Task_DraftDecisionPack" name="Draft decision pack"/>
+    <userTask id="Task_HumanCertification" name="Human certifies decision-like outcome"/>
+    <exclusiveGateway id="Gateway_Outcome" name="Certified outcome"/>
+    <task id="Task_ReleaseFull" name="Communicate release in full"/>
+    <task id="Task_ReleasePart" name="Communicate release in part"/>
+    <task id="Task_Refuse" name="Communicate refusal or no information held"/>
+    <task id="Task_DisclosureLog" name="Create disclosure-log candidate"/>
+    <task id="Task_ComplaintObserved" name="Record complaint or review observation"/>
+    <endEvent id="End_Closed" name="Closed"/>
+
+    <sequenceFlow id="Flow_01" sourceRef="Start_RequestObserved" targetRef="Task_RegisterRequest"/>
+    <sequenceFlow id="Flow_02" sourceRef="Task_RegisterRequest" targetRef="Task_AssessValidity"/>
+    <sequenceFlow id="Flow_03" sourceRef="Task_AssessValidity" targetRef="Gateway_ClarificationNeeded"/>
+    <sequenceFlow id="Flow_04" sourceRef="Gateway_ClarificationNeeded" targetRef="Task_RequestClarification" name="yes"/>
+    <sequenceFlow id="Flow_05" sourceRef="Task_RequestClarification" targetRef="Task_AssessValidity"/>
+    <sequenceFlow id="Flow_06" sourceRef="Gateway_ClarificationNeeded" targetRef="Task_SearchPlanning" name="no"/>
+    <sequenceFlow id="Flow_07" sourceRef="Task_SearchPlanning" targetRef="Gateway_ProcessWork"/>
+    <sequenceFlow id="Flow_08" sourceRef="Gateway_ProcessWork" targetRef="Task_SearchRecords"/>
+    <sequenceFlow id="Flow_09" sourceRef="Gateway_ProcessWork" targetRef="Task_Consultation"/>
+    <sequenceFlow id="Flow_10" sourceRef="Gateway_ProcessWork" targetRef="Task_ExtensionOrChargeAssessment"/>
+    <sequenceFlow id="Flow_11" sourceRef="Task_SearchRecords" targetRef="Gateway_RecordsFound"/>
+    <sequenceFlow id="Flow_12" sourceRef="Task_Consultation" targetRef="Task_DraftDecisionPack"/>
+    <sequenceFlow id="Flow_13" sourceRef="Task_ExtensionOrChargeAssessment" targetRef="Task_DraftDecisionPack"/>
+    <sequenceFlow id="Flow_14" sourceRef="Gateway_RecordsFound" targetRef="Task_DraftDecisionPack" name="yes"/>
+    <sequenceFlow id="Flow_15" sourceRef="Gateway_RecordsFound" targetRef="Task_HumanCertification" name="no records"/>
+    <sequenceFlow id="Flow_16" sourceRef="Task_DraftDecisionPack" targetRef="Task_HumanCertification"/>
+    <sequenceFlow id="Flow_17" sourceRef="Task_HumanCertification" targetRef="Gateway_Outcome"/>
+    <sequenceFlow id="Flow_18" sourceRef="Gateway_Outcome" targetRef="Task_ReleaseFull" name="release full"/>
+    <sequenceFlow id="Flow_19" sourceRef="Gateway_Outcome" targetRef="Task_ReleasePart" name="release part"/>
+    <sequenceFlow id="Flow_20" sourceRef="Gateway_Outcome" targetRef="Task_Refuse" name="refuse or not held"/>
+    <sequenceFlow id="Flow_21" sourceRef="Task_ReleaseFull" targetRef="Task_DisclosureLog"/>
+    <sequenceFlow id="Flow_22" sourceRef="Task_ReleasePart" targetRef="Task_DisclosureLog"/>
+    <sequenceFlow id="Flow_23" sourceRef="Task_Refuse" targetRef="Task_ComplaintObserved"/>
+    <sequenceFlow id="Flow_24" sourceRef="Task_DisclosureLog" targetRef="End_Closed"/>
+    <sequenceFlow id="Flow_25" sourceRef="Task_ComplaintObserved" targetRef="End_Closed"/>
+  </process>
+</definitions>

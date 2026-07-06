@@ -1,0 +1,67 @@
+{
+  "conformsTo": "pic-traces/0.1.0",
+  "caseId": "nz-oia/fixture.extension_unknown_ground_invalid",
+  "packageRef": {
+    "id": "nz-oia-clocks",
+    "version": "0.1.0"
+  },
+  "engine": {
+    "name": "foi-o-nz",
+    "version": "0.9.0",
+    "adapter": "oia_rules"
+  },
+  "timestamp": "2026-07-05T17:28:23.786443Z",
+  "inputs": {
+    "nz-oia/variable.receipt_date": {
+      "valueState": "known",
+      "value": "2026-02-02"
+    },
+    "nz-oia/variable.extension_notice_date": {
+      "valueState": "known",
+      "value": "2026-02-20"
+    },
+    "nz-oia/variable.extension_ground": {
+      "valueState": "known",
+      "value": "administrative_convenience"
+    },
+    "nz-oia/variable.extension_period_working_days": {
+      "valueState": "known",
+      "value": 10
+    }
+  },
+  "outputs": {
+    "nz-oia/decision.extension_validity": {
+      "valueState": "known",
+      "value": false,
+      "warnings": [
+        "extension ground is not one of the verified statutory ground labels"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "stepId": "extension_validity",
+      "kind": "decision",
+      "inputsUsed": [
+        "nz-oia/variable.receipt_date",
+        "nz-oia/variable.extension_notice_date",
+        "nz-oia/variable.extension_ground",
+        "nz-oia/variable.extension_period_working_days"
+      ],
+      "parameterVersions": [],
+      "result": {
+        "value": false,
+        "valueState": "known",
+        "warnings": [
+          "extension ground is not one of the verified statutory ground labels"
+        ]
+      },
+      "sourceRefs": [
+        "OIA 1982 s 15A"
+      ],
+      "refs": {
+        "decision": "nz-oia/decision.extension_validity"
+      }
+    }
+  ]
+}

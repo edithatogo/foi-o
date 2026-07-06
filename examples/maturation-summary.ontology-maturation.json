@@ -1,0 +1,217 @@
+{
+  "core_profile_boundary": {
+    "core": "FOI-O reusable process-modelling method and conceptual frame",
+    "non_nz_validation_status": "design_intent_only",
+    "validated_profile": "FOI-O NZ"
+  },
+  "external_gates": [
+    "live_fyi_archive_pulls",
+    "live_legal_source_refresh",
+    "human_reviewed_goldsets",
+    "official_reporting_validation",
+    "registry_publication",
+    "journal_submission",
+    "arxiv_upload",
+    "human_legal_author_approval"
+  ],
+  "inventory": {
+    "documentation_files": 43,
+    "example_files": 64,
+    "json_schema_files": 53,
+    "mapping_files": 3,
+    "owl_ontology_files": 1,
+    "python_test_modules": 49,
+    "shacl_files": 1,
+    "skos_vocabulary_files": 4
+  },
+  "maturation_assets": [
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/generated-asset-manifest.foi-o-publication.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/graph-export.foi-o-evidence-network.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/empirical-taskset-manifest.nz-first.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/maturation-summary.ontology-maturation.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/process-model-conformance.ontology-maturation.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/process-mining-conformance.fixture.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/process-mining-events.fixture.jsonl"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/process-mining.fixture.ocel.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/process-mining.fixture.xes"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/publication-panel-review.ontology-maturation.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "examples/reporting-checklist-adherence.ontology-maturation-miro.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "schemas/json/generated-asset-manifest.schema.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "schemas/json/empirical-taskset-manifest.schema.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "schemas/json/maturation-summary.schema.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "schemas/json/process-model-conformance.schema.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "schemas/json/process-mining-conformance.schema.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "schemas/json/process-mining-ocel.schema.json"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/assets/foi-o-evidence-network.mmd"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "process_models/foi-o-nz-core.bpmn"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "process_models/foi-o-nz-core.pnml"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "process_models/foi-o-nz-state-machine.bpmn"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "process_models/foi-o-nz-state-machine.pnml"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "process_models/foi-o-nz-state-machine.mmd"
+    }
+  ],
+  "maturation_documents": [
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/24-ontology-methods-protocol.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/24-ontology-methods-evidence-inventory.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/24-ontology-claims-register.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/24-ontology-source-register.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/24-ontology-terminology-crosswalk.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/24-schema-ontology-coverage-matrix.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/25-generated-asset-index.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/25-ontology-results-discussion.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/25-validation-coverage-summary.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/31-process-models.md"
+    },
+    {
+      "exists": true,
+      "kind": "file",
+      "path": "docs/32-process-mining-fixtures.md"
+    }
+  ],
+  "missing_paths": [],
+  "ok": true,
+  "schema_version": "foi-o-nz.maturation-summary.v0.1.0",
+  "scope": "NZ-first FOI-O ontology maturation evidence",
+  "validation_commands": [
+    "uv run python scripts/validate_examples.py",
+    "uv run foi-o-nz validate-repo",
+    "uv run foi-o-nz schema-drift",
+    "uv run pytest -q tests/test_ontology_maturation_plan.py",
+    "uv run pytest -q",
+    "uv run ruff check src tests scripts",
+    "uv run ruff format --check src tests scripts",
+    "pixi run mojo-format-check",
+    "pixi run mojo-test",
+    "pixi run mojo-build"
+  ]
+}

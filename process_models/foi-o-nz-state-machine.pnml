@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pnml>
+  <net id="foio_nz_state_machine" type="http://www.pnml.org/version-2009/grammar/ptnet">
+    <name><text>FOI-O NZ canonical state-transition Petri net</text></name>
+    <page id="page_state_machine">
+      <place id="p_Acknowledged"><name><text>Acknowledged</text></name></place>
+      <place id="p_AwaitingClarification"><name><text>AwaitingClarification</text></name></place>
+      <place id="p_ChargeAssessment"><name><text>ChargeAssessment</text></name></place>
+      <place id="p_Closed"><name><text>Closed</text></name></place>
+      <place id="p_ConsultationRequired"><name><text>ConsultationRequired</text></name></place>
+      <place id="p_DecisionApproved"><name><text>DecisionApproved</text></name></place>
+      <place id="p_DecisionDrafting"><name><text>DecisionDrafting</text></name></place>
+      <place id="p_DocumentsIdentified"><name><text>DocumentsIdentified</text></name></place>
+      <place id="p_Drafted"><name><text>Drafted</text></name></place>
+      <place id="p_ExtensionApplied"><name><text>ExtensionApplied</text></name></place>
+      <place id="p_HumanDecisionRequired"><name><text>HumanDecisionRequired</text></name></place>
+      <place id="p_NoDocumentsFound"><name><text>NoDocumentsFound</text></name></place>
+      <place id="p_Received"><name><text>Received</text></name></place>
+      <place id="p_Refused"><name><text>Refused</text></name></place>
+      <place id="p_ReleasedInFull"><name><text>ReleasedInFull</text></name></place>
+      <place id="p_ReleasedInPart"><name><text>ReleasedInPart</text></name></place>
+      <place id="p_SearchPlanning"><name><text>SearchPlanning</text></name></place>
+      <place id="p_Searching"><name><text>Searching</text></name></place>
+      <place id="p_Submitted"><name><text>Submitted</text></name></place>
+      <place id="p_TransferredInFull"><name><text>TransferredInFull</text></name></place>
+      <place id="p_ValidityChecking"><name><text>ValidityChecking</text></name></place>
+      <place id="p_Withdrawn"><name><text>Withdrawn</text></name></place>
+      <transition id="t_001"><name><text>ChargeAssessment to DecisionDrafting</text></name></transition>
+      <arc id="arc_001_in" source="p_ChargeAssessment" target="t_001"/>
+      <arc id="arc_001_out" source="t_001" target="p_DecisionDrafting"/>
+      <transition id="t_002"><name><text>ChargeAssessment to SearchPlanning</text></name></transition>
+      <arc id="arc_002_in" source="p_ChargeAssessment" target="t_002"/>
+      <arc id="arc_002_out" source="t_002" target="p_SearchPlanning"/>
+      <transition id="t_003"><name><text>ChargeAssessment to Searching</text></name></transition>
+      <arc id="arc_003_in" source="p_ChargeAssessment" target="t_003"/>
+      <arc id="arc_003_out" source="t_003" target="p_Searching"/>
+      <transition id="t_004"><name><text>ChargeAssessment to Withdrawn</text></name></transition>
+      <arc id="arc_004_in" source="p_ChargeAssessment" target="t_004"/>
+      <arc id="arc_004_out" source="t_004" target="p_Withdrawn"/>
+      <transition id="t_005"><name><text>DecisionApproved to Refused</text></name></transition>
+      <arc id="arc_005_in" source="p_DecisionApproved" target="t_005"/>
+      <arc id="arc_005_out" source="t_005" target="p_Refused"/>
+      <transition id="t_006"><name><text>DecisionApproved to ReleasedInFull</text></name></transition>
+      <arc id="arc_006_in" source="p_DecisionApproved" target="t_006"/>
+      <arc id="arc_006_out" source="t_006" target="p_ReleasedInFull"/>
+      <transition id="t_007"><name><text>DecisionApproved to ReleasedInPart</text></name></transition>
+      <arc id="arc_007_in" source="p_DecisionApproved" target="t_007"/>
+      <arc id="arc_007_out" source="t_007" target="p_ReleasedInPart"/>
+      <transition id="t_008"><name><text>DecisionDrafting to HumanDecisionRequired</text></name></transition>
+      <arc id="arc_008_in" source="p_DecisionDrafting" target="t_008"/>
+      <arc id="arc_008_out" source="t_008" target="p_HumanDecisionRequired"/>
+      <transition id="t_009"><name><text>DocumentsIdentified to ConsultationRequired</text></name></transition>
+      <arc id="arc_009_in" source="p_DocumentsIdentified" target="t_009"/>
+      <arc id="arc_009_out" source="t_009" target="p_ConsultationRequired"/>
+      <transition id="t_010"><name><text>DocumentsIdentified to DecisionDrafting</text></name></transition>
+      <arc id="arc_010_in" source="p_DocumentsIdentified" target="t_010"/>
+      <arc id="arc_010_out" source="t_010" target="p_DecisionDrafting"/>
+      <transition id="t_011"><name><text>DocumentsIdentified to HumanDecisionRequired</text></name></transition>
+      <arc id="arc_011_in" source="p_DocumentsIdentified" target="t_011"/>
+      <arc id="arc_011_out" source="t_011" target="p_HumanDecisionRequired"/>
+      <transition id="t_012"><name><text>Drafted to Submitted</text></name></transition>
+      <arc id="arc_012_in" source="p_Drafted" target="t_012"/>
+      <arc id="arc_012_out" source="t_012" target="p_Submitted"/>
+      <transition id="t_013"><name><text>Drafted to Withdrawn</text></name></transition>
+      <arc id="arc_013_in" source="p_Drafted" target="t_013"/>
+      <arc id="arc_013_out" source="t_013" target="p_Withdrawn"/>
+      <transition id="t_014"><name><text>ExtensionApplied to ConsultationRequired</text></name></transition>
+      <arc id="arc_014_in" source="p_ExtensionApplied" target="t_014"/>
+      <arc id="arc_014_out" source="t_014" target="p_ConsultationRequired"/>
+      <transition id="t_015"><name><text>ExtensionApplied to DecisionDrafting</text></name></transition>
+      <arc id="arc_015_in" source="p_ExtensionApplied" target="t_015"/>
+      <arc id="arc_015_out" source="t_015" target="p_DecisionDrafting"/>
+      <transition id="t_016"><name><text>ExtensionApplied to DocumentsIdentified</text></name></transition>
+      <arc id="arc_016_in" source="p_ExtensionApplied" target="t_016"/>
+      <arc id="arc_016_out" source="t_016" target="p_DocumentsIdentified"/>
+      <transition id="t_017"><name><text>ExtensionApplied to HumanDecisionRequired</text></name></transition>
+      <arc id="arc_017_in" source="p_ExtensionApplied" target="t_017"/>
+      <arc id="arc_017_out" source="t_017" target="p_HumanDecisionRequired"/>
+      <transition id="t_018"><name><text>ExtensionApplied to SearchPlanning</text></name></transition>
+      <arc id="arc_018_in" source="p_ExtensionApplied" target="t_018"/>
+      <arc id="arc_018_out" source="t_018" target="p_SearchPlanning"/>
+      <transition id="t_019"><name><text>ExtensionApplied to Searching</text></name></transition>
+      <arc id="arc_019_in" source="p_ExtensionApplied" target="t_019"/>
+      <arc id="arc_019_out" source="t_019" target="p_Searching"/>
+      <transition id="t_020"><name><text>HumanDecisionRequired to DecisionApproved</text></name></transition>
+      <arc id="arc_020_in" source="p_HumanDecisionRequired" target="t_020"/>
+      <arc id="arc_020_out" source="t_020" target="p_DecisionApproved"/>
+      <transition id="t_021"><name><text>Received to Acknowledged</text></name></transition>
+      <arc id="arc_021_in" source="p_Received" target="t_021"/>
+      <arc id="arc_021_out" source="t_021" target="p_Acknowledged"/>
+      <transition id="t_022"><name><text>Received to AwaitingClarification</text></name></transition>
+      <arc id="arc_022_in" source="p_Received" target="t_022"/>
+      <arc id="arc_022_out" source="t_022" target="p_AwaitingClarification"/>
+      <transition id="t_023"><name><text>Received to ChargeAssessment</text></name></transition>
+      <arc id="arc_023_in" source="p_Received" target="t_023"/>
+      <arc id="arc_023_out" source="t_023" target="p_ChargeAssessment"/>
+      <transition id="t_024"><name><text>Received to ExtensionApplied</text></name></transition>
+      <arc id="arc_024_in" source="p_Received" target="t_024"/>
+      <arc id="arc_024_out" source="t_024" target="p_ExtensionApplied"/>
+      <transition id="t_025"><name><text>Received to SearchPlanning</text></name></transition>
+      <arc id="arc_025_in" source="p_Received" target="t_025"/>
+      <arc id="arc_025_out" source="t_025" target="p_SearchPlanning"/>
+      <transition id="t_026"><name><text>Received to TransferredInFull</text></name></transition>
+      <arc id="arc_026_in" source="p_Received" target="t_026"/>
+      <arc id="arc_026_out" source="t_026" target="p_TransferredInFull"/>
+      <transition id="t_027"><name><text>Received to ValidityChecking</text></name></transition>
+      <arc id="arc_027_in" source="p_Received" target="t_027"/>
+      <arc id="arc_027_out" source="t_027" target="p_ValidityChecking"/>
+      <transition id="t_028"><name><text>Received to Withdrawn</text></name></transition>
+      <arc id="arc_028_in" source="p_Received" target="t_028"/>
+      <arc id="arc_028_out" source="t_028" target="p_Withdrawn"/>
+      <transition id="t_029"><name><text>SearchPlanning to ConsultationRequired</text></name></transition>
+      <arc id="arc_029_in" source="p_SearchPlanning" target="t_029"/>
+      <arc id="arc_029_out" source="t_029" target="p_ConsultationRequired"/>
+      <transition id="t_030"><name><text>SearchPlanning to Searching</text></name></transition>
+      <arc id="arc_030_in" source="p_SearchPlanning" target="t_030"/>
+      <arc id="arc_030_out" source="t_030" target="p_Searching"/>
+      <transition id="t_031"><name><text>Searching to ChargeAssessment</text></name></transition>
+      <arc id="arc_031_in" source="p_Searching" target="t_031"/>
+      <arc id="arc_031_out" source="t_031" target="p_ChargeAssessment"/>
+      <transition id="t_032"><name><text>Searching to ConsultationRequired</text></name></transition>
+      <arc id="arc_032_in" source="p_Searching" target="t_032"/>
+      <arc id="arc_032_out" source="t_032" target="p_ConsultationRequired"/>
+      <transition id="t_033"><name><text>Searching to DocumentsIdentified</text></name></transition>
+      <arc id="arc_033_in" source="p_Searching" target="t_033"/>
+      <arc id="arc_033_out" source="t_033" target="p_DocumentsIdentified"/>
+      <transition id="t_034"><name><text>Searching to ExtensionApplied</text></name></transition>
+      <arc id="arc_034_in" source="p_Searching" target="t_034"/>
+      <arc id="arc_034_out" source="t_034" target="p_ExtensionApplied"/>
+      <transition id="t_035"><name><text>Searching to NoDocumentsFound</text></name></transition>
+      <arc id="arc_035_in" source="p_Searching" target="t_035"/>
+      <arc id="arc_035_out" source="t_035" target="p_NoDocumentsFound"/>
+      <transition id="t_036"><name><text>Submitted to AwaitingClarification</text></name></transition>
+      <arc id="arc_036_in" source="p_Submitted" target="t_036"/>
+      <arc id="arc_036_out" source="t_036" target="p_AwaitingClarification"/>
+      <transition id="t_037"><name><text>Submitted to Received</text></name></transition>
+      <arc id="arc_037_in" source="p_Submitted" target="t_037"/>
+      <arc id="arc_037_out" source="t_037" target="p_Received"/>
+    </page>
+  </net>
+</pnml>

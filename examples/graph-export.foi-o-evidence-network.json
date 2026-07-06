@@ -1,0 +1,222 @@
+{
+  "schema_version": "foi-o-nz.graph.v0.1.0",
+  "node_count": 13,
+  "edge_count": 16,
+  "nodes": [
+    {
+      "id": "doc:readme",
+      "label": "README core/profile boundary",
+      "kind": "document",
+      "properties": {
+        "path": "README.md",
+        "semantic_type": "scope_boundary"
+      }
+    },
+    {
+      "id": "doc:protocol",
+      "label": "Methods protocol",
+      "kind": "document",
+      "properties": {
+        "path": "docs/24-ontology-methods-protocol.md",
+        "semantic_type": "protocol"
+      }
+    },
+    {
+      "id": "doc:inventory",
+      "label": "Evidence inventory",
+      "kind": "document",
+      "properties": {
+        "path": "docs/24-ontology-methods-evidence-inventory.md",
+        "semantic_type": "evidence_inventory"
+      }
+    },
+    {
+      "id": "doc:claims",
+      "label": "Claims register",
+      "kind": "document",
+      "properties": {
+        "path": "docs/24-ontology-claims-register.md",
+        "semantic_type": "claims_register"
+      }
+    },
+    {
+      "id": "doc:terminology",
+      "label": "Terminology crosswalk",
+      "kind": "document",
+      "properties": {
+        "path": "docs/24-ontology-terminology-crosswalk.md",
+        "semantic_type": "terminology_crosswalk"
+      }
+    },
+    {
+      "id": "doc:coverage",
+      "label": "Schema ontology coverage matrix",
+      "kind": "document",
+      "properties": {
+        "path": "docs/24-schema-ontology-coverage-matrix.md",
+        "semantic_type": "coverage_matrix"
+      }
+    },
+    {
+      "id": "asset:manifest",
+      "label": "Generated asset manifest",
+      "kind": "manifest",
+      "properties": {
+        "path": "examples/generated-asset-manifest.foi-o-publication.json",
+        "semantic_type": "asset_manifest"
+      }
+    },
+    {
+      "id": "semantic:ontology",
+      "label": "FOI-O NZ ontology",
+      "kind": "ontology",
+      "properties": {
+        "path": "ontology/foi-o-nz.ttl",
+        "semantic_uri": "https://w3id.org/foio-nz/ontology"
+      }
+    },
+    {
+      "id": "semantic:shacl",
+      "label": "FOI-O NZ SHACL shapes",
+      "kind": "shacl",
+      "properties": {
+        "path": "shacl/foi-o-nz.shapes.ttl",
+        "semantic_type": "validation_shapes"
+      }
+    },
+    {
+      "id": "semantic:vocab",
+      "label": "SKOS vocabularies",
+      "kind": "vocabulary",
+      "properties": {
+        "path": "vocab/",
+        "semantic_type": "controlled_vocabulary"
+      }
+    },
+    {
+      "id": "contract:schemas",
+      "label": "JSON schemas",
+      "kind": "schema",
+      "properties": {
+        "path": "schemas/json/",
+        "semantic_type": "operational_contract"
+      }
+    },
+    {
+      "id": "evidence:tests",
+      "label": "Tests and examples",
+      "kind": "validation_evidence",
+      "properties": {
+        "path": "tests/",
+        "semantic_type": "repo_local_proof"
+      }
+    },
+    {
+      "id": "gate:external",
+      "label": "External gates",
+      "kind": "external_gate",
+      "properties": {
+        "examples": "live sources, human review, registry publication, journal submission",
+        "semantic_type": "unresolved_external_gate"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "doc:readme",
+      "target": "doc:protocol",
+      "label": "bounds_scope",
+      "properties": {}
+    },
+    {
+      "source": "doc:protocol",
+      "target": "doc:inventory",
+      "label": "uses_inventory",
+      "properties": {}
+    },
+    {
+      "source": "doc:protocol",
+      "target": "doc:claims",
+      "label": "uses_claim_register",
+      "properties": {}
+    },
+    {
+      "source": "doc:protocol",
+      "target": "doc:terminology",
+      "label": "uses_crosswalk",
+      "properties": {}
+    },
+    {
+      "source": "doc:protocol",
+      "target": "doc:coverage",
+      "label": "uses_coverage_matrix",
+      "properties": {}
+    },
+    {
+      "source": "doc:protocol",
+      "target": "asset:manifest",
+      "label": "requires_assets",
+      "properties": {}
+    },
+    {
+      "source": "doc:coverage",
+      "target": "semantic:ontology",
+      "label": "covers",
+      "properties": {}
+    },
+    {
+      "source": "doc:coverage",
+      "target": "semantic:shacl",
+      "label": "covers",
+      "properties": {}
+    },
+    {
+      "source": "doc:coverage",
+      "target": "semantic:vocab",
+      "label": "covers",
+      "properties": {}
+    },
+    {
+      "source": "doc:coverage",
+      "target": "contract:schemas",
+      "label": "covers",
+      "properties": {}
+    },
+    {
+      "source": "doc:coverage",
+      "target": "evidence:tests",
+      "label": "validated_by",
+      "properties": {}
+    },
+    {
+      "source": "doc:claims",
+      "target": "gate:external",
+      "label": "classifies",
+      "properties": {}
+    },
+    {
+      "source": "asset:manifest",
+      "target": "gate:external",
+      "label": "records_publication_gates",
+      "properties": {}
+    },
+    {
+      "source": "semantic:ontology",
+      "target": "semantic:shacl",
+      "label": "constrained_by",
+      "properties": {}
+    },
+    {
+      "source": "semantic:vocab",
+      "target": "semantic:ontology",
+      "label": "aligns_with",
+      "properties": {}
+    },
+    {
+      "source": "contract:schemas",
+      "target": "semantic:ontology",
+      "label": "semantic_alignment",
+      "properties": {}
+    }
+  ]
+}

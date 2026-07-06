@@ -1,0 +1,56 @@
+{
+  "canonical_state_count": 22,
+  "canonical_transition_count": 37,
+  "core_bpmn": {
+    "human_certification_before_outcome": true,
+    "is_generated": false,
+    "path": "process_models/foi-o-nz-core.bpmn",
+    "sequence_flow_count": 25,
+    "task_count": 14
+  },
+  "core_pnml": {
+    "arc_count": 40,
+    "human_certification_before_outcome": true,
+    "is_generated": false,
+    "path": "process_models/foi-o-nz-core.pnml",
+    "place_count": 18,
+    "transition_count": 17
+  },
+  "findings": [
+    {
+      "code": "abstraction_expected",
+      "message": "Hand-authored core BPMN/PNML models are process-review abstractions; generated state-machine models are canonical transition exports.",
+      "severity": "info"
+    },
+    {
+      "code": "state_transition_count_difference",
+      "message": "Generated models expose each canonical state transition; core models collapse related administrative work into higher-level workflow activities.",
+      "severity": "info"
+    }
+  ],
+  "generated_bpmn": {
+    "human_certification_before_outcome": false,
+    "is_generated": true,
+    "path": "process_models/foi-o-nz-state-machine.bpmn",
+    "sequence_flow_count": 44,
+    "task_count": 22
+  },
+  "generated_pnml": {
+    "arc_count": 74,
+    "human_certification_before_outcome": false,
+    "is_generated": true,
+    "path": "process_models/foi-o-nz-state-machine.pnml",
+    "place_count": 22,
+    "transition_count": 37
+  },
+  "human_certification_preserved": true,
+  "intentional_abstractions": [
+    "Core BPMN groups search, consultation, extension, and charge assessment as workflow activities.",
+    "Generated BPMN exposes state-to-state transitions from ALLOWED_TRANSITIONS.",
+    "Core PNML is a process-review net; generated PNML is a state-transition net.",
+    "Neither model is executable legal workflow or decision certification."
+  ],
+  "ok": true,
+  "schema_version": "foi-o-nz.process-model-conformance.v0.1.0",
+  "scope": "Core workflow process models compared with generated canonical state-machine exports"
+}

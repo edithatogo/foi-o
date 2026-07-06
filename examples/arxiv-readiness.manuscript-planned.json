@@ -28,6 +28,13 @@
   },
   "recommended_pipeline": [
     {
+      "step_id": "prepare-two-target-latex",
+      "purpose": "Generate both the conservative arXiv source target and the enhanced tagged-PDF experiment target from the manuscript source.",
+      "tool": "scripts/build_submission_latex.py",
+      "status": "required",
+      "notes": "The arXiv target remains the compatibility gate; the enhanced target is a local accessibility artifact unless it also passes arXiv checks."
+    },
+    {
       "step_id": "compile-source",
       "purpose": "Build the generated LaTeX source under the arXiv default TeX Live generation before packaging.",
       "tool": "latexmk with TeX Live 2025",
@@ -65,14 +72,38 @@
   ],
   "tool_checks": [
     {
+      "tool": "scripts/build_submission_latex.py",
+      "role": "lint",
+      "requirement_level": "required",
+      "command": "uv run python scripts/build_submission_latex.py all --strict",
+      "expected_output": "A JSON manifest with separate arXiv and enhanced targets, command logs, source hygiene checks, PDF metadata checks, and explicit TeX Live parity status.",
+      "status": "planned",
+      "evidence_paths": [
+        "submission/latex/latexmkrc",
+        "examples/submission-latex-pipeline.planned.json"
+      ]
+    },
+    {
       "tool": "latexmk with TeX Live 2025",
       "role": "compile",
       "requirement_level": "required",
-      "command": "latexmk -pdf docs/27-submission-manuscript.tex",
-      "expected_output": "A clean PDF build log from the generated LaTeX source.",
+      "command": "FOIO_LATEX_TARGET=arxiv latexmk -r latexmkrc main.tex",
+      "expected_output": "Two clean arXiv-target PDF build logs from the generated LaTeX source.",
       "status": "planned",
       "evidence_paths": [
-        "docs/27-submission-manuscript.md"
+        "docs/27-submission-manuscript.md",
+        "submission/latex/latexmkrc"
+      ]
+    },
+    {
+      "tool": "latexmk with LuaLaTeX",
+      "role": "compile",
+      "requirement_level": "conditional",
+      "command": "FOIO_LATEX_TARGET=enhanced latexmk -r latexmkrc main.tex",
+      "expected_output": "An enhanced local PDF build with \\DocumentMetadata-based tagged-PDF/accessibility checks recorded.",
+      "status": "planned",
+      "evidence_paths": [
+        "submission/latex/latexmkrc"
       ]
     },
     {

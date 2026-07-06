@@ -46,6 +46,7 @@ from foi_o_nz.kernel_manifest import (
 from foi_o_nz.ledger import build_ledger_jsonl, verify_ledger_jsonl
 from foi_o_nz.legal_sources import build_legal_source_status
 from foi_o_nz.lineage import write_lineage_graph
+from foi_o_nz.maturation import write_maturation_summary
 from foi_o_nz.mcp_bundle import write_mcp_bundle
 from foi_o_nz.mojo_audit import write_mojo_audit
 from foi_o_nz.native_kernel import (
@@ -58,6 +59,16 @@ from foi_o_nz.normalise import build_observed_events, build_request_profile, nor
 from foi_o_nz.oci_layout import materialise_oci_layout
 from foi_o_nz.openapi import write_openapi_contract
 from foi_o_nz.process_advice import write_process_advice
+from foi_o_nz.process_mining import (
+    ProcessMiningFormat,
+    write_process_mining_conformance,
+    write_process_mining_export,
+)
+from foi_o_nz.process_models import (
+    ProcessModelFormat,
+    write_process_model,
+    write_process_model_conformance,
+)
 from foi_o_nz.quality import assess_events_jsonl
 from foi_o_nz.rdf_export import export_rdf
 from foi_o_nz.redaction import propose_redactions_jsonl
@@ -222,6 +233,77 @@ def export_kernel_fixtures_command(
     """Export kernel conformance fixtures for native Mojo harnesses."""
     records = write_kernel_fixtures(output)
     console.print_json(json.dumps({"ok": True, "output": str(output), "case_count": len(records)}))
+
+
+@app.command("maturation-summary")
+def maturation_summary_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Maturation summary JSON output")],
+) -> None:
+    """Export the NZ-first ontology maturation evidence summary."""
+    result = write_maturation_summary(output)
+    console.print_json(json.dumps({"ok": result["ok"], "output": str(output)}))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+@app.command("export-process-model")
+def export_process_model_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Process model output file")],
+    fmt: Annotated[
+        ProcessModelFormat,
+        typer.Option("--format", help="Process model format: bpmn, pnml, or mermaid"),
+    ] = "bpmn",
+) -> None:
+    """Export canonical state-transition process models from the state machine."""
+    result = write_process_model(output, fmt)
+    console.print_json(json.dumps(result))
+
+
+@app.command("process-model-conformance")
+def process_model_conformance_command(
+    output: Annotated[
+        Path, typer.Option("--output", "-o", help="Process model conformance JSON output")
+    ],
+) -> None:
+    """Compare core BPMN/PNML process models with generated canonical exports."""
+    result = write_process_model_conformance(output)
+    console.print_json(json.dumps({"ok": result["ok"], "output": str(output)}))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+@app.command("export-process-mining")
+def export_process_mining_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Process-mining output file")],
+    events: Annotated[
+        Path,
+        typer.Option("--events", help="Input JSONL or JSON event log"),
+    ] = Path("examples/process-mining-events.fixture.jsonl"),
+    fmt: Annotated[
+        ProcessMiningFormat,
+        typer.Option("--format", help="Process-mining format: xes or ocel"),
+    ] = "xes",
+) -> None:
+    """Export fixture-only process-mining data from committed FOI-O NZ events."""
+    result = write_process_mining_export(events_path=events, output=output, fmt=fmt)
+    console.print_json(json.dumps(result))
+
+
+@app.command("process-mining-conformance")
+def process_mining_conformance_command(
+    output: Annotated[
+        Path, typer.Option("--output", "-o", help="Process-mining conformance JSON output")
+    ],
+    events: Annotated[
+        Path,
+        typer.Option("--events", help="Input JSONL or JSON event log"),
+    ] = Path("examples/process-mining-events.fixture.jsonl"),
+) -> None:
+    """Check fixture-only process-mining conformance against the release path."""
+    result = write_process_mining_conformance(events, output)
+    console.print_json(json.dumps({"ok": result["ok"], "output": str(output)}))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
 
 
 @app.command("kernel-readiness")

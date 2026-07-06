@@ -1,0 +1,97 @@
+{
+  "conformsTo": "pic-crosswalk/0.1.0",
+  "jurisdictionScope": {
+    "country": "NZ",
+    "domain": "official-information",
+    "consumer": "foi-o",
+    "package": "oia-rules"
+  },
+  "provenance": {
+    "curator": "Codex Track 2",
+    "method": "ai-proposed",
+    "source": "foi-o local checkout f5527950f22a2980339472ccc4e11dbb52cf6c25 and OIA source notes",
+    "notes": "Candidate mapping rows for fixture validation and later upstream review."
+  },
+  "rows": [
+    {
+      "id": "nz-oia/variable.receipt_date",
+      "label": "OIA request receipt date",
+      "kind": "variable",
+      "dataType": "date",
+      "period": "case",
+      "mappings": [{"system": "foi-o", "ref": "RequestProfile.first_sent", "method": "ai-proposed"}],
+      "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05"],
+      "definition": "Date on which the OIA request is received for statutory clock purposes."
+    },
+    {
+      "id": "nz-oia/variable.extension_notice_date",
+      "label": "OIA extension notice date",
+      "kind": "variable",
+      "dataType": "date",
+      "period": "case",
+      "mappings": [{"system": "foi-o", "ref": "CoreEvent ExtensionNotified.event_time", "method": "ai-proposed"}],
+      "sourceRefs": ["OIA 1982 s 15A, latest as at 2025-04-05"],
+      "definition": "Date on which the extension notice is communicated."
+    },
+    {
+      "id": "nz-oia/variable.extension_ground",
+      "label": "OIA extension ground label",
+      "kind": "variable",
+      "dataType": "string",
+      "period": "case",
+      "mappings": [{"system": "foi-o", "ref": "CoreEvent ExtensionAssessed.payload.ground", "method": "ai-proposed"}],
+      "sourceRefs": ["OIA 1982 s 15A, latest as at 2025-04-05"],
+      "definition": "Machine-readable label for the asserted extension ground."
+    },
+    {
+      "id": "nz-oia/variable.extension_period_working_days",
+      "label": "OIA extension period in working days",
+      "kind": "variable",
+      "dataType": "integer",
+      "period": "case",
+      "mappings": [{"system": "foi-o", "ref": "CoreEvent ExtensionNotified.payload.extension_period_working_days", "method": "ai-proposed"}],
+      "sourceRefs": ["OIA 1982 s 15A, latest as at 2025-04-05"],
+      "definition": "Asserted extension period; reasonableness remains a human-review field."
+    },
+    {
+      "id": "nz-oia/variable.transfer_notice_date",
+      "label": "OIA transfer notice date",
+      "kind": "variable",
+      "dataType": "date",
+      "period": "case",
+      "mappings": [{"system": "foi-o", "ref": "CoreEvent TransferNotified.event_time", "method": "ai-proposed"}],
+      "sourceRefs": ["OIA 1982 s 14, latest as at 2025-04-05"],
+      "definition": "Date on which an agency gives notice of transfer."
+    },
+    {
+      "id": "nz-oia/variable.current_date",
+      "label": "Assessment date",
+      "kind": "variable",
+      "dataType": "date",
+      "period": "case",
+      "mappings": [{"system": "foi-o", "ref": "RuleInvocation.assessment_date", "method": "ai-proposed"}],
+      "sourceRefs": ["OIA 1982 s 28, latest as at 2025-04-05"],
+      "definition": "Date on which overdue or deemed-refusal status is assessed."
+    },
+    {
+      "id": "nz-oia/variable.response_sent",
+      "label": "Response sent indicator",
+      "kind": "variable",
+      "dataType": "boolean",
+      "period": "case",
+      "mappings": [{"system": "foi-o", "ref": "CoreEvent DecisionCommunicated observed", "method": "ai-proposed"}],
+      "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05", "OIA 1982 s 28, latest as at 2025-04-05"],
+      "definition": "Whether the response or decision has been communicated by the assessment date."
+    },
+    {
+      "id": "nz-oia/variable.urgency_reasons_provided",
+      "label": "Urgency reasons provided",
+      "kind": "variable",
+      "dataType": "boolean",
+      "period": "case",
+      "mappings": [{"system": "foi-o", "ref": "CoreEvent RequestObserved.payload.urgency_reasons", "method": "ai-proposed"}],
+      "sourceRefs": ["OIA 1982 s 12(3), latest as at 2025-04-05"],
+      "definition": "Whether the requester gave reasons for seeking urgency."
+    }
+  ]
+}

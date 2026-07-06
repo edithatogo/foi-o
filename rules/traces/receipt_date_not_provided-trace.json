@@ -1,0 +1,54 @@
+{
+  "conformsTo": "pic-traces/0.1.0",
+  "caseId": "nz-oia/fixture.receipt_date_not_provided",
+  "packageRef": {
+    "id": "nz-oia-clocks",
+    "version": "0.1.0"
+  },
+  "engine": {
+    "name": "foi-o-nz",
+    "version": "0.9.0",
+    "adapter": "oia_rules"
+  },
+  "timestamp": "2026-07-05T17:28:23.786443Z",
+  "inputs": {
+    "nz-oia/variable.receipt_date": {
+      "valueState": "not_provided"
+    }
+  },
+  "outputs": {
+    "nz-oia/decision.response_deadline": {
+      "valueState": "unknown",
+      "warnings": [
+        "receipt date is required to calculate the response deadline"
+      ]
+    }
+  },
+  "steps": [
+    {
+      "stepId": "response_deadline",
+      "kind": "decision",
+      "inputsUsed": [
+        "nz-oia/variable.receipt_date"
+      ],
+      "parameterVersions": [
+        {
+          "id": "nz-oia/parameter.working_day_limit",
+          "effectiveFrom": "2025-04-05"
+        }
+      ],
+      "result": {
+        "valueState": "unknown",
+        "warnings": [
+          "receipt date is required to calculate the response deadline"
+        ]
+      },
+      "sourceRefs": [
+        "OIA 1982 s 15"
+      ],
+      "refs": {
+        "decision": "nz-oia/decision.response_deadline"
+      }
+    }
+  ]
+}

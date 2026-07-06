@@ -1,0 +1,48 @@
+{
+  "candidate_event_types": [
+    "DecisionPackDrafted",
+    "SearchPlanDrafted"
+  ],
+  "case_count": 1,
+  "claim_boundary": "not_live_corpus_validation",
+  "event_count": 9,
+  "expected_release_path": [
+    "RequestObserved",
+    "RequestRegistered",
+    "DeadlineCalculated",
+    "SearchPlanDrafted",
+    "DecisionPackDrafted",
+    "HumanDecisionCertified",
+    "DecisionCommunicated",
+    "ReleaseMade",
+    "Closed"
+  ],
+  "findings": [
+    {
+      "code": "fixture_only",
+      "message": "Conformance is checked only for the committed fixture event log; it is not live corpus validation.",
+      "severity": "info"
+    },
+    {
+      "code": "candidate_events_preserved",
+      "message": "Candidate events are preserved in the fixture and not treated as certified outcomes.",
+      "severity": "info"
+    }
+  ],
+  "human_certification_before_decision": true,
+  "human_certification_before_release": true,
+  "observed_activity_sequence": [
+    "RequestObserved",
+    "RequestRegistered",
+    "DeadlineCalculated",
+    "SearchPlanDrafted",
+    "DecisionPackDrafted",
+    "HumanDecisionCertified",
+    "DecisionCommunicated",
+    "ReleaseMade",
+    "Closed"
+  ],
+  "ok": true,
+  "schema_version": "foi-o-nz.process-mining-conformance.v0.1.0",
+  "scope": "fixture_only"
+}

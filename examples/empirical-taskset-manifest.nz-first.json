@@ -1,0 +1,118 @@
+{
+  "schema_version": "foi-o-nz.empirical-taskset-manifest.v0.1.0",
+  "manifest_id": "foi-o-nz-empirical-tasksets-20260703",
+  "scope": "NZ-first empirical annotation planning",
+  "claim_boundary": "annotation_tasks_not_gold_standard",
+  "jurisdiction": "NZ",
+  "task_sets": [
+    {
+      "task_set_id": "nz-state-mapping-100",
+      "task_type": "state_mapping",
+      "planned_count": 100,
+      "review_status": "planned",
+      "source_basis": "Deterministic request-profile sample from a supplied NZ FYI/archive manifest or repo-local fixture equivalent.",
+      "evidence_fields": [
+        "source_state",
+        "normalised_state",
+        "state_mapping.method",
+        "state_mapping.confidence",
+        "source_provenance.raw_state_value",
+        "event_hints"
+      ],
+      "competency_questions": [
+        "Can reviewers recover the source state separately from the normalised state?",
+        "Is the proposed normalised state supported by provenance and event hints?",
+        "Are low-confidence or ambiguous mappings still labelled as reviewable rather than certified?"
+      ],
+      "claim_boundary": "annotation_task_until_human_reviewed"
+    },
+    {
+      "task_set_id": "nz-timeline-extraction-30",
+      "task_type": "timeline_extraction",
+      "planned_count": 30,
+      "review_status": "planned",
+      "source_basis": "Request-profile and core-event records from the same NZ source snapshot as the state-mapping sample.",
+      "evidence_fields": [
+        "event_type",
+        "event_time",
+        "assertion_status",
+        "evidence.excerpt",
+        "lifecycle_state_after"
+      ],
+      "competency_questions": [
+        "Can reviewers distinguish observed dates from inferred or candidate dates?",
+        "Are candidate events retained without being promoted to certified outcomes?",
+        "Can timeline gaps be recorded as unknown rather than filled heuristically?"
+      ],
+      "claim_boundary": "annotation_task_until_human_reviewed"
+    },
+    {
+      "task_set_id": "nz-outcome-classification-30",
+      "task_type": "outcome_classification",
+      "planned_count": 30,
+      "review_status": "planned",
+      "source_basis": "Request outcome events and release/refusal indicators from NZ request records.",
+      "evidence_fields": [
+        "event_type",
+        "assertion_status",
+        "requires_human_certification",
+        "human_certification",
+        "payload.outcome"
+      ],
+      "competency_questions": [
+        "Is the outcome classification evidence-backed rather than inferred from terminal state alone?",
+        "Are final decision-like outcomes blocked unless human certification evidence is present?",
+        "Can partial release, refusal, no-records, and closure outcomes remain distinct?"
+      ],
+      "claim_boundary": "annotation_task_until_human_reviewed"
+    },
+    {
+      "task_set_id": "nz-legal-issue-flagging-20",
+      "task_type": "legal_issue_flagging",
+      "planned_count": 20,
+      "review_status": "planned",
+      "source_basis": "Legal references, withholding-ground flags, public-interest flags, and guidance-source metadata from NZ records.",
+      "evidence_fields": [
+        "legal_references.source_id",
+        "legal_references.version",
+        "legal_references.retrieved_at",
+        "event_type",
+        "quality_flags"
+      ],
+      "competency_questions": [
+        "Are legal-source versions and retrieval dates preserved?",
+        "Are legal issue flags treated as review prompts rather than legal conclusions?",
+        "Can unsupported legal claims be rejected or left unknown?"
+      ],
+      "claim_boundary": "annotation_task_until_human_reviewed"
+    },
+    {
+      "task_set_id": "nz-attachment-characterisation-20",
+      "task_type": "attachment_characterisation",
+      "planned_count": 20,
+      "review_status": "planned",
+      "source_basis": "Attachment observation events and request profile evidence references from NZ request records.",
+      "evidence_fields": [
+        "event_type",
+        "evidence.evidence_type",
+        "evidence.source_url",
+        "evidence.content_sha256",
+        "payload.attachment_count"
+      ],
+      "competency_questions": [
+        "Can attachment presence be separated from release outcome?",
+        "Are public-data limitations visible when attachments are missing or unavailable?",
+        "Can attachment-derived evidence be traced to a stable source reference or hash?"
+      ],
+      "claim_boundary": "annotation_task_until_human_reviewed"
+    }
+  ],
+  "external_gates": [
+    "source snapshot supplied or live archive pull approved",
+    "reviewer protocol and adjudication rules approved",
+    "human review completed and recorded",
+    "inter-annotator agreement calculated where multiple reviewers are used",
+    "gold-standard label only applied after adjudication"
+  ],
+  "ok": true
+}

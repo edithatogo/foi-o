@@ -41,6 +41,14 @@ This repository is intentionally **bleeding edge, but bounded**:
 - **Epistemic status is first-class**: `observed`, `inferred`, `asserted`, `certified`, `unknown`.
 - **Human certification boundary is hard-coded**: agents can draft, flag, route, validate, and summarise; they cannot certify release/refusal/redaction/charging/extension/complaint outcomes.
 
+## Core/profile boundary
+
+FOI-O is the reusable process-modelling method and conceptual frame for freedom
+of information workflows. FOI-O NZ is the only implemented and validated
+jurisdictional profile in this repository. References to global reuse describe a
+design intent and future validation path, not an empirical claim that other
+jurisdictions are already modelled or tested here.
+
 ## Quick start
 
 ### Python control plane

@@ -1,0 +1,68 @@
+{
+  "schema_version": "foi-o-nz.reporting-checklist-adherence.v0.1.0",
+  "adherence_id": "ontology-maturation-miro-20260703",
+  "artifact_id": "ontology-maturation-package-20260703",
+  "artifact_path": "docs/24-ontology-methods-protocol.md",
+  "checklist_id": "miro-ontology-reporting",
+  "checked_at": "2026-07-03T00:00:00+10:00",
+  "items": [
+    {
+      "item_id": "miro-topic-scope",
+      "applicability": "required",
+      "status": "met",
+      "evidence_paths": [
+        "docs/24-ontology-methods-protocol.md",
+        "README.md"
+      ],
+      "score_impact": 0,
+      "reviewer_notes": "The package states the core/profile boundary and keeps the current validated scope NZ-first."
+    },
+    {
+      "item_id": "miro-competency-questions",
+      "applicability": "required",
+      "status": "met",
+      "evidence_paths": [
+        "docs/24-ontology-methods-protocol.md",
+        "docs/24-ontology-claims-register.md"
+      ],
+      "score_impact": 0,
+      "reviewer_notes": "Competency questions cover source-state preservation, candidate events, certification, clock warnings, legal source versioning, PSC derivability, public-data limits, and asset provenance."
+    },
+    {
+      "item_id": "miro-development-method",
+      "applicability": "required",
+      "status": "met",
+      "evidence_paths": [
+        "docs/24-ontology-methods-protocol.md",
+        "docs/24-ontology-methods-evidence-inventory.md",
+        "docs/24-ontology-terminology-crosswalk.md"
+      ],
+      "score_impact": 0,
+      "reviewer_notes": "The ontology development method, evidence inventory, and terminology crosswalk are explicit and repo-local."
+    },
+    {
+      "item_id": "miro-evaluation",
+      "applicability": "required",
+      "status": "partial",
+      "evidence_paths": [
+        "docs/07-evaluation-plan.md",
+        "docs/20-corpus-profile-goldset.md",
+        "docs/25-validation-coverage-summary.md"
+      ],
+      "score_impact": -4,
+      "reviewer_notes": "Validation coverage is explicit, but planned annotation task sets are not yet human-reviewed gold standards."
+    },
+    {
+      "item_id": "miro-visualisation",
+      "applicability": "required",
+      "status": "partial",
+      "evidence_paths": [
+        "docs/25-generated-asset-index.md",
+        "examples/generated-asset-manifest.foi-o-publication.json",
+        "examples/graph-export.foi-o-evidence-network.json"
+      ],
+      "score_impact": -3,
+      "reviewer_notes": "Graph data, fallback source, captions, and text alternatives are present; final venue-specific rendered figures remain external."
+    }
+  ]
+}

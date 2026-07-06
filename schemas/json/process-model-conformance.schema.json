@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.nz/schemas/process-model-conformance.schema.json",
+  "title": "FOI-O NZ process model conformance report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope",
+    "core_bpmn",
+    "generated_bpmn",
+    "core_pnml",
+    "generated_pnml",
+    "canonical_state_count",
+    "canonical_transition_count",
+    "intentional_abstractions",
+    "human_certification_preserved",
+    "findings",
+    "ok"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o-nz.process-model-conformance.v0.1.0"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "core_bpmn": {
+      "$ref": "#/$defs/bpmn_summary"
+    },
+    "generated_bpmn": {
+      "$ref": "#/$defs/bpmn_summary"
+    },
+    "core_pnml": {
+      "$ref": "#/$defs/pnml_summary"
+    },
+    "generated_pnml": {
+      "$ref": "#/$defs/pnml_summary"
+    },
+    "canonical_state_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "canonical_transition_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "intentional_abstractions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "human_certification_preserved": {
+      "type": "boolean"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "severity",
+          "code",
+          "message"
+        ],
+        "properties": {
+          "severity": {
+            "enum": [
+              "info",
+              "warning",
+              "error"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "ok": {
+      "type": "boolean"
+    }
+  },
+  "$defs": {
+    "bpmn_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "task_count",
+        "sequence_flow_count",
+        "human_certification_before_outcome",
+        "is_generated"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sequence_flow_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "human_certification_before_outcome": {
+          "type": "boolean"
+        },
+        "is_generated": {
+          "type": "boolean"
+        }
+      }
+    },
+    "pnml_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "place_count",
+        "transition_count",
+        "arc_count",
+        "human_certification_before_outcome",
+        "is_generated"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "place_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "transition_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "arc_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "human_certification_before_outcome": {
+          "type": "boolean"
+        },
+        "is_generated": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

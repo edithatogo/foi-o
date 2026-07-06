@@ -1,0 +1,167 @@
+{
+  "schema_version": "foi-o-nz.submission-latex-pipeline.v0.1.0",
+  "generated_at": "2026-07-03T00:00:00+00:00",
+  "manuscript": "docs/27-submission-manuscript.md",
+  "supplement": "docs/28-submission-supplement.md",
+  "references": "submission/references/references.csl.json",
+  "config": "submission/latex/latexmkrc",
+  "tools": [
+    {
+      "tool": "pandoc",
+      "available": true
+    },
+    {
+      "tool": "latexmk",
+      "available": true
+    },
+    {
+      "tool": "pdflatex",
+      "available": true
+    },
+    {
+      "tool": "lualatex",
+      "available": true
+    },
+    {
+      "tool": "arxiv_latex_cleaner",
+      "available": false
+    },
+    {
+      "tool": "sourceright",
+      "available": true
+    }
+  ],
+  "targets": [
+    {
+      "target": "arxiv",
+      "engine": "pdflatex",
+      "arxiv_upload_candidate": true,
+      "accessibility_experiment": false,
+      "status": "planned",
+      "source_root": "build/submission/latex/arxiv/source",
+      "commands": [
+        {
+          "command": [
+            "pandoc",
+            "docs/27-submission-manuscript.md",
+            "--standalone",
+            "--to",
+            "latex"
+          ],
+          "cwd": ".",
+          "status": "planned",
+          "returncode": null,
+          "log_path": null
+        },
+        {
+          "command": [
+            "sourceright",
+            "validate-csl",
+            "--json",
+            "references.csl.json"
+          ],
+          "cwd": ".",
+          "status": "planned",
+          "returncode": null,
+          "log_path": null
+        },
+        {
+          "command": [
+            "latexmk",
+            "-r",
+            "latexmkrc",
+            "main.tex"
+          ],
+          "cwd": "build/submission/latex/arxiv/source",
+          "status": "planned",
+          "returncode": null,
+          "log_path": null
+        }
+      ],
+      "checks": [
+        {
+          "check_id": "texlive-2025-parity",
+          "status": "planned",
+          "message": "Confirm the arXiv package under TeX Live 2025 before upload.",
+          "evidence_paths": []
+        },
+        {
+          "check_id": "vancouver-reference-shape",
+          "status": "planned",
+          "message": "References must be numbered Vancouver-style.",
+          "evidence_paths": [
+            "docs/27-submission-manuscript.md"
+          ]
+        },
+        {
+          "check_id": "sourceright-csl-validation",
+          "status": "planned",
+          "message": "SourceRight must validate the CSL reference source.",
+          "evidence_paths": [
+            "submission/references/references.csl.json"
+          ]
+        },
+        {
+          "check_id": "vancouver-bibliography-generated",
+          "status": "planned",
+          "message": "Generate references.vancouver.md and main.bbl from CSL records.",
+          "evidence_paths": [
+            "build/submission/latex/arxiv/source/references.vancouver.md",
+            "build/submission/latex/arxiv/source/main.bbl"
+          ]
+        }
+      ],
+      "artifacts": []
+    },
+    {
+      "target": "enhanced",
+      "engine": "lualatex",
+      "arxiv_upload_candidate": false,
+      "accessibility_experiment": true,
+      "status": "planned",
+      "source_root": "build/submission/latex/enhanced/source",
+      "commands": [
+        {
+          "command": [
+            "latexmk",
+            "-r",
+            "latexmkrc",
+            "main.tex"
+          ],
+          "cwd": "build/submission/latex/enhanced/source",
+          "status": "planned",
+          "returncode": null,
+          "log_path": null
+        }
+      ],
+      "checks": [
+        {
+          "check_id": "documentmetadata-enabled",
+          "status": "planned",
+          "message": "Enhanced source must start with \\DocumentMetadata.",
+          "evidence_paths": []
+        },
+        {
+          "check_id": "enhanced-figure-alt-text",
+          "status": "planned",
+          "message": "Included figures must expose alt-text metadata where figures are present.",
+          "evidence_paths": []
+        },
+        {
+          "check_id": "enhanced-table-header-structure",
+          "status": "planned",
+          "message": "Generated tables must retain reusable header structure for tagged-PDF experiments.",
+          "evidence_paths": []
+        },
+        {
+          "check_id": "enhanced-pdf-metadata-source",
+          "status": "planned",
+          "message": "Generated source must include PDF title and author metadata.",
+          "evidence_paths": []
+        }
+      ],
+      "artifacts": []
+    }
+  ],
+  "overall_status": "planned"
+}

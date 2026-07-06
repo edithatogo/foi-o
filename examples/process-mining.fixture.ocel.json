@@ -1,0 +1,165 @@
+{
+  "claim_boundary": "not_live_corpus_validation",
+  "event_types": [
+    "Closed",
+    "DeadlineCalculated",
+    "DecisionCommunicated",
+    "DecisionPackDrafted",
+    "HumanDecisionCertified",
+    "ReleaseMade",
+    "RequestObserved",
+    "RequestRegistered",
+    "SearchPlanDrafted"
+  ],
+  "events": [
+    {
+      "activity": "RequestObserved",
+      "attributes": {
+        "assertion_status": "observed",
+        "lifecycle_state_after": "Observed",
+        "machine_generated": false,
+        "requires_human_certification": false
+      },
+      "id": "foio-nz:event:pm-001-001",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-01T09:00:00Z"
+    },
+    {
+      "activity": "RequestRegistered",
+      "attributes": {
+        "assertion_status": "inferred",
+        "lifecycle_state_after": "Received",
+        "machine_generated": true,
+        "requires_human_certification": false
+      },
+      "id": "foio-nz:event:pm-001-002",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-01T09:05:00Z"
+    },
+    {
+      "activity": "DeadlineCalculated",
+      "attributes": {
+        "assertion_status": "inferred",
+        "lifecycle_state_after": "Received",
+        "machine_generated": true,
+        "requires_human_certification": false
+      },
+      "id": "foio-nz:event:pm-001-003",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-01T09:06:00Z"
+    },
+    {
+      "activity": "SearchPlanDrafted",
+      "attributes": {
+        "assertion_status": "candidate",
+        "lifecycle_state_after": "SearchInProgress",
+        "machine_generated": true,
+        "requires_human_certification": false
+      },
+      "id": "foio-nz:event:pm-001-004",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-02T10:00:00Z"
+    },
+    {
+      "activity": "DecisionPackDrafted",
+      "attributes": {
+        "assertion_status": "candidate",
+        "lifecycle_state_after": "DecisionPending",
+        "machine_generated": true,
+        "requires_human_certification": false
+      },
+      "id": "foio-nz:event:pm-001-005",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-07T11:00:00Z"
+    },
+    {
+      "activity": "HumanDecisionCertified",
+      "attributes": {
+        "assertion_status": "certified",
+        "lifecycle_state_after": "DecisionPending",
+        "machine_generated": false,
+        "requires_human_certification": true
+      },
+      "id": "foio-nz:event:pm-001-006",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-08T12:00:00Z"
+    },
+    {
+      "activity": "DecisionCommunicated",
+      "attributes": {
+        "assertion_status": "certified",
+        "lifecycle_state_after": "DecisionMade",
+        "machine_generated": false,
+        "requires_human_certification": true
+      },
+      "id": "foio-nz:event:pm-001-007",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-08T12:05:00Z"
+    },
+    {
+      "activity": "ReleaseMade",
+      "attributes": {
+        "assertion_status": "certified",
+        "lifecycle_state_after": "ReleasedInFull",
+        "machine_generated": false,
+        "requires_human_certification": true
+      },
+      "id": "foio-nz:event:pm-001-008",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-08T12:10:00Z"
+    },
+    {
+      "activity": "Closed",
+      "attributes": {
+        "assertion_status": "observed",
+        "lifecycle_state_after": "Closed",
+        "machine_generated": false,
+        "requires_human_certification": false
+      },
+      "id": "foio-nz:event:pm-001-009",
+      "objects": [
+        "fixture-nz:pm-001"
+      ],
+      "timestamp": "2026-07-09T09:00:00Z"
+    }
+  ],
+  "generated_at": "2026-07-03T00:00:00Z",
+  "notes": [
+    "This fixture demonstrates process-mining interchange only.",
+    "It is not a human-reviewed gold standard and does not prove process performance."
+  ],
+  "object_types": [
+    {
+      "name": "foi_request"
+    }
+  ],
+  "objects": [
+    {
+      "attributes": {
+        "jurisdiction": "NZ",
+        "regime": "OIA",
+        "source_system": "fixture-nz"
+      },
+      "id": "fixture-nz:pm-001",
+      "type": "foi_request"
+    }
+  ],
+  "schema_version": "foi-o-nz.process-mining-ocel.v0.1.0",
+  "scope": "fixture_only"
+}
