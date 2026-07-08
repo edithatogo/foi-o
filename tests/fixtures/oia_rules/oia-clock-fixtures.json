@@ -1,0 +1,313 @@
+{
+  "conformsTo": "pic-fixtures/0.1.0",
+  "provenance": {
+    "curator": "Dylan",
+    "method": "human",
+    "source": "Official Information Act 1982 source notes and local foi-o date conventions",
+    "interpreterOfRecord": "Dylan",
+    "disclaimer": "Human-reviewed fixtures approved by Dylan on 2026-07-05. These are not legal advice.",
+    "notes": "Approved by Dylan during guided review on 2026-07-05."
+  },
+  "cases": [
+    {
+      "caseId": "nz-oia/fixture.friday_before_public_holiday_response",
+      "description": "Receipt on Friday before a Monday public holiday; response deadline skips the holiday.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}, "calendar": {"holiday": "Sovereign's Birthday 2026"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-05-29", "valueState": "known", "epistemicStatus": "observed"}
+      },
+      "expected": {
+        "nz-oia/decision.response_deadline": {"value": "2026-06-29", "valueState": "known"}
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 2, latest as at 2025-04-05", "OIA 1982 s 15, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.friday_before_public_holiday_transfer",
+      "description": "Transfer deadline from the same Friday-before-holiday receipt date.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}, "calendar": {"holiday": "Sovereign's Birthday 2026"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-05-29", "valueState": "known", "epistemicStatus": "observed"}
+      },
+      "expected": {
+        "nz-oia/decision.transfer_deadline": {"value": "2026-06-15", "valueState": "known"}
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 2, latest as at 2025-04-05", "OIA 1982 s 14, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.receipt_during_december_january_shutdown",
+      "description": "Receipt during 25 December to 15 January exclusion; response clock starts after the exclusion period.",
+      "period": "2026-2027",
+      "entities": {"request": {"kind": "official_information_request"}, "calendar": {"shutdown": "25 December through 15 January"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-12-28", "valueState": "known", "epistemicStatus": "observed"}
+      },
+      "expected": {
+        "nz-oia/decision.response_deadline": {"value": "2027-02-15", "valueState": "known"}
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026-2027 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 2, latest as at 2025-04-05", "OIA 1982 s 15, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.receipt_before_december_january_shutdown",
+      "description": "Receipt immediately before the shutdown period; response deadline crosses the exclusion period.",
+      "period": "2026-2027",
+      "entities": {"request": {"kind": "official_information_request"}, "calendar": {"shutdown": "25 December through 15 January"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-12-23", "valueState": "known", "epistemicStatus": "observed"}
+      },
+      "expected": {
+        "nz-oia/decision.response_deadline": {"value": "2027-02-12", "valueState": "known"}
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026-2027 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 2, latest as at 2025-04-05", "OIA 1982 s 15, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.receipt_date_not_provided",
+      "description": "Missing receipt date propagates to unknown response deadline with a warning.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"valueState": "not_provided", "epistemicStatus": "unknown"}
+      },
+      "expected": {
+        "nz-oia/decision.response_deadline": {
+          "valueState": "unknown",
+          "warnings": ["receipt date is required to calculate the response deadline"]
+        }
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes and PIC value-state propagation requirement",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.extension_notice_after_original_deadline_invalid",
+      "description": "Extension notice after the original response deadline is invalid as a machine-checkable timing issue.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-02-02", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.extension_notice_date": {"value": "2026-03-04", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.extension_ground": {"value": "large_quantity", "valueState": "known", "epistemicStatus": "asserted"},
+        "nz-oia/variable.extension_period_working_days": {"value": 10, "valueState": "known", "epistemicStatus": "asserted"}
+      },
+      "expected": {
+        "nz-oia/decision.extension_validity": {
+          "value": false,
+          "valueState": "known",
+          "warnings": ["extension notice after original deadline"]
+        }
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05", "OIA 1982 s 15A, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.extension_large_quantity_notice_within_deadline",
+      "description": "Extension notice within original deadline with a statutory ground; reasonableness still requires review.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-02-02", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.extension_notice_date": {"value": "2026-02-20", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.extension_ground": {"value": "large_quantity", "valueState": "known", "epistemicStatus": "asserted"},
+        "nz-oia/variable.extension_period_working_days": {"value": 10, "valueState": "known", "epistemicStatus": "asserted"}
+      },
+      "expected": {
+        "nz-oia/decision.extension_validity": {
+          "value": true,
+          "valueState": "known",
+          "warnings": ["extension period reasonableness requires human review"]
+        }
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05", "OIA 1982 s 15A, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.extension_consultation_ground",
+      "description": "Extension notice within original deadline with consultation ground.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-07-09", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.extension_notice_date": {"value": "2026-08-06", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.extension_ground": {"value": "consultation_required", "valueState": "known", "epistemicStatus": "asserted"},
+        "nz-oia/variable.extension_period_working_days": {"value": 15, "valueState": "known", "epistemicStatus": "asserted"}
+      },
+      "expected": {
+        "nz-oia/decision.extension_validity": {
+          "value": true,
+          "valueState": "known",
+          "warnings": ["extension period reasonableness requires human review"]
+        }
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05", "OIA 1982 s 15A, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.extension_unknown_ground_invalid",
+      "description": "Extension notice with an unrecognised ground fails the machine-checkable ground label.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-02-02", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.extension_notice_date": {"value": "2026-02-20", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.extension_ground": {"value": "administrative_convenience", "valueState": "known", "epistemicStatus": "asserted"},
+        "nz-oia/variable.extension_period_working_days": {"value": 10, "valueState": "known", "epistemicStatus": "asserted"}
+      },
+      "expected": {
+        "nz-oia/decision.extension_validity": {
+          "value": false,
+          "valueState": "known",
+          "warnings": ["extension ground is not one of the verified statutory ground labels"]
+        }
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 15A, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.transfer_deadline_after_anzac_mondayisation",
+      "description": "Transfer deadline crosses Anzac Day Mondayisation in 2026.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}, "calendar": {"holiday": "Anzac Day Mondayisation 2026"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-04-24", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.transfer_notice_date": {"value": "2026-05-11", "valueState": "known", "epistemicStatus": "observed"}
+      },
+      "expected": {
+        "nz-oia/decision.transfer_deadline": {"value": "2026-05-11", "valueState": "known"}
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 2, latest as at 2025-04-05", "OIA 1982 s 14, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.deemed_refusal_after_deadline",
+      "description": "No response by the day after the calculated response deadline is flagged as deemed refusal for review routing.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-09-01", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.current_date": {"value": "2026-09-30", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.response_sent": {"value": false, "valueState": "known", "epistemicStatus": "observed"}
+      },
+      "expected": {
+        "nz-oia/decision.deemed_refusal": {"value": true, "valueState": "known"}
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05", "OIA 1982 s 28, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.no_deemed_refusal_before_deadline",
+      "description": "No response before the calculated response deadline is not yet a deemed refusal.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}},
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-09-01", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.current_date": {"value": "2026-09-28", "valueState": "known", "epistemicStatus": "observed"},
+        "nz-oia/variable.response_sent": {"value": false, "valueState": "known", "epistemicStatus": "observed"}
+      },
+      "expected": {
+        "nz-oia/decision.deemed_refusal": {"value": false, "valueState": "known"}
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes plus candidate 2026 holiday calendar",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05", "OIA 1982 s 28, latest as at 2025-04-05"]
+    },
+    {
+      "caseId": "nz-oia/fixture.urgency_with_reasons_is_discretion_point",
+      "description": "Urgency reasons create a process-routing discretion point, not a computed entitlement.",
+      "period": "2026",
+      "entities": {"request": {"kind": "official_information_request"}},
+      "inputs": {
+        "nz-oia/variable.urgency_reasons_provided": {"value": true, "valueState": "known", "epistemicStatus": "observed"}
+      },
+      "expected": {
+        "nz-oia/decision.urgency_flag": {
+          "value": "human_decision_required",
+          "valueState": "known",
+          "warnings": ["urgency affects routing only and cannot be machine certified"]
+        }
+      },
+      "provenance": {
+        "curator": "Dylan",
+        "method": "human",
+        "source": "OIA source notes",
+        "interpreterOfRecord": "Dylan",
+        "disclaimer": "Human-reviewed fixture approved by Dylan on 2026-07-05."
+      },
+      "sourceRefs": ["OIA 1982 s 12(3), latest as at 2025-04-05"]
+    }
+  ]
+}
