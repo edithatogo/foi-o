@@ -1,0 +1,59 @@
+{
+  "conformsTo": "pic-parameters/0.1.0",
+  "parameters": [
+    {
+      "id": "nz-oia/parameter.working_day_limit",
+      "label": "OIA decision working-day limit",
+      "unit": "working_days",
+      "calendar": {
+        "timezone": "Pacific/Auckland",
+        "convention": "OIA 1982 s 2 working day"
+      },
+      "values": [
+        {
+          "from": "2025-04-05",
+          "to": null,
+          "value": 20,
+          "sourceRefs": ["OIA 1982 s 15, latest as at 2025-04-05"],
+          "instrument": "Official Information Act 1982"
+        }
+      ]
+    },
+    {
+      "id": "nz-oia/parameter.transfer_limit",
+      "label": "OIA transfer working-day limit",
+      "unit": "working_days",
+      "calendar": {
+        "timezone": "Pacific/Auckland",
+        "convention": "OIA 1982 s 2 working day"
+      },
+      "values": [
+        {
+          "from": "2025-04-05",
+          "to": null,
+          "value": 10,
+          "sourceRefs": ["OIA 1982 s 14, latest as at 2025-04-05"],
+          "instrument": "Official Information Act 1982"
+        }
+      ]
+    },
+    {
+      "id": "nz-oia/parameter.holiday_exclusions",
+      "label": "OIA working-day exclusions",
+      "unit": "calendar_rule",
+      "calendar": {
+        "timezone": "Pacific/Auckland",
+        "convention": "OIA 1982 s 2 working day"
+      },
+      "values": [
+        {
+          "from": "2025-04-05",
+          "to": null,
+          "value": "saturday_sunday_waitangi_good_friday_easter_monday_anzac_sovereign_birthday_matariki_labour_mondayised_waitangi_or_anzac_dec25_to_jan15",
+          "sourceRefs": ["OIA 1982 s 2, latest as at 2025-04-05"],
+          "instrument": "Official Information Act 1982"
+        }
+      ]
+    }
+  ]
+}
