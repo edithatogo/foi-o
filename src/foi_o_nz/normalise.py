@@ -8,7 +8,7 @@ from typing import Any
 from uuid import NAMESPACE_URL, uuid5
 
 from foi_o_nz.constants import DEFAULT_REGIME, SOURCE_SYSTEM_FYI_ARCHIVE
-from foi_o_nz.dates import calculate_indicative_clock, parse_datetime
+from foi_o_nz.dates import parse_datetime
 from foi_o_nz.extractors import build_message_events, iter_message_records
 from foi_o_nz.io import read_json_records, write_json, write_jsonl
 from foi_o_nz.manifest import build_run_manifest
@@ -20,6 +20,10 @@ from foi_o_nz.models import (
     RequestRef,
     SourceProvenance,
     StateMapping,
+)
+from foi_o_nz.oia_rules.process import (
+    deadline_event_quality_flags,
+    legal_clock_from_oia_rules,
 )
 from foi_o_nz.state_machine import map_alaveteli_state
 
@@ -117,7 +121,7 @@ def build_request_profile(
         html_captured=record.get("html_captured"),
         attachments=_parse_attachments(record.get("attachments")),
         warc_record_ids=_parse_warc_ids(record.get("warc_record_ids")),
-        legal_clock=calculate_indicative_clock(first_sent),
+        legal_clock=legal_clock_from_oia_rules(first_sent),
     )
 
 
@@ -211,7 +215,7 @@ def build_observed_events(
             assertion_status="inferred",
             confidence=profile.legal_clock.confidence,
             payload=profile.legal_clock.model_dump(mode="json", exclude_none=True),
-            quality_flags=["indicative_deadline_not_certified"],
+            quality_flags=deadline_event_quality_flags(profile.legal_clock),
         )
     events = [request_event, state_event]
     if clock_event is not None:
