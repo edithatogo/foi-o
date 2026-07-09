@@ -28,7 +28,7 @@ from foi_o_nz.dataset_metadata import (
     write_huggingface_dataset_card,
     write_repository_release_metadata,
 )
-from foi_o_nz.dates import add_working_days, calculate_indicative_clock, load_holiday_calendar
+from foi_o_nz.dates import add_working_days, load_holiday_calendar
 from foi_o_nz.diff import diff_jsonl
 from foi_o_nz.duckdb_export import build_duckdb_database, write_duckdb_bootstrap_sql
 from foi_o_nz.embeddings import embed_jsonl
@@ -56,6 +56,7 @@ from foi_o_nz.native_kernel import (
 )
 from foi_o_nz.normalise import build_observed_events, build_request_profile, normalise_manifest_file
 from foi_o_nz.oci_layout import materialise_oci_layout
+from foi_o_nz.oia_rules.process import legal_clock_from_oia_rules
 from foi_o_nz.openapi import write_openapi_contract
 from foi_o_nz.process_advice import write_process_advice
 from foi_o_nz.quality import assess_events_jsonl
@@ -293,13 +294,24 @@ def clock(
     parsed_date = date.fromisoformat(received_date)
     received_at = datetime(parsed_date.year, parsed_date.month, parsed_date.day, tzinfo=UTC)
     holiday_calendar = load_holiday_calendar(holidays) if holidays is not None else None
-    legal_clock = calculate_indicative_clock(
-        received_at,
-        decision_working_days=decision_days,
-        transfer_working_days=transfer_days,
-        holidays=holiday_calendar,
-        include_oia_summer_exclusion=not no_summer_exclusion,
-    )
+    # Default path dispatches through oia_rules (20/10 working days).
+    # Custom intervals or disabled summer exclusion keep the dates helper.
+    if decision_days == 20 and transfer_days == 10 and not no_summer_exclusion:
+        legal_clock = legal_clock_from_oia_rules(
+            received_at,
+            holidays=holiday_calendar,
+            include_oia_summer_exclusion=True,
+        )
+    else:
+        from foi_o_nz.dates import calculate_indicative_clock
+
+        legal_clock = calculate_indicative_clock(
+            received_at,
+            decision_working_days=decision_days,
+            transfer_working_days=transfer_days,
+            holidays=holiday_calendar,
+            include_oia_summer_exclusion=not no_summer_exclusion,
+        )
     if legal_clock is None:
         raise typer.Exit(code=1)
     console.print_json(json.dumps(legal_clock.model_dump(mode="json", exclude_none=True)))
