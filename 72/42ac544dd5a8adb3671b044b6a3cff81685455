@@ -1,0 +1,1 @@
+Review evidence: uv sync --frozen passed; ruff check passed; ruff format --check passed; pytest passed 284 tests; workflow YAML parsed. Remaining blocker: strict basedpyright reports 434 existing findings and remains non-blocking by design.
