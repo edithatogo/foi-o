@@ -1,0 +1,28 @@
+# Specification: FOI-O V2 empirical-governance overlay
+
+## Objective
+
+Integrate the reviewed FOI-O V2 R2 work package into the existing `foi-o-nz`
+package as an additive empirical-governance layer. The programme source of truth
+remains `edithatogo/rulesandprocesses` track
+`foi_o_v2_triangulation_20260708`; this local track owns only repository-native
+implementation, tests, migration decisions, and checkpoints.
+
+## Requirements
+
+- Preserve the `foi-o-nz` package name and `foi_o_nz` namespace.
+- Extend existing event, provenance, annotation, gold-set, legal-source,
+  transition-audit, state-mapping, and `oia_rules` surfaces by reference.
+- Validate positive and negative fixtures for every empirical contract.
+- Keep automated labels, mappings, and rule results non-certified by default.
+- Preserve bitemporal source information, source rights, raw platform states,
+  uncertainty, conflicts, and unknowns.
+- Keep publication, gold promotion, legal certification, and remote actions human-gated.
+
+## Acceptance criteria
+
+- ADR and documentation numbering is reconciled with the live repository.
+- Schemas, examples, Pydantic models, and public exports pass native checks.
+- Existing V0.8/V1 tests continue to pass.
+- Import provenance, decisions, risks, outputs, traceability, and gates are recorded.
+- No push, issue/PR mutation, release, dataset publication, or legal certification occurs.

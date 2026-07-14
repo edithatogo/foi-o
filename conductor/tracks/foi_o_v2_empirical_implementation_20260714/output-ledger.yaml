@@ -1,0 +1,14 @@
+version: 1
+outputs:
+  - id: O-FOIO-V2-ADRS
+    paths: [adr/0006-extend-existing-surfaces.md, adr/0007-four-axis-label-governance.md, adr/0008-multidimensional-evidence.md, adr/0009-bitemporal-source-packs.md, adr/0010-nz-mver-before-scaled-comparison.md]
+    status: integrated_local
+  - id: O-FOIO-V2-DOCS
+    paths: [docs/33-v2-empirical-triangulation.md, docs/34-v2-evidence-and-derivability.md, docs/35-v2-legal-source-packs.md, docs/36-v2-sampling-annotation-and-evaluation.md, docs/37-v2-process-analysis.md, docs/38-v2-data-ethics-security-and-release.md, docs/39-v2-rule-evaluation.md, docs/40-v2-platform-state-mapping.md]
+    status: integrated_local
+  - id: O-FOIO-V2-CONTRACTS
+    paths: [schemas/json, examples/v2, src/foi_o_nz/empirical_contracts.py]
+    status: integrated_local_validated
+  - id: O-FOIO-V2-GOVERNANCE
+    paths: [codebooks, contracts, integration, migrations]
+    status: integrated_local

@@ -1,0 +1,17 @@
+version: 1
+decisions:
+  - id: D-001
+    decision: preserve_foi_o_nz_package_and_namespace
+    rationale: V1 compatibility boundary
+  - id: D-002
+    decision: extend_existing_ids_and_runtime_surfaces
+    rationale: avoid duplicate event provenance annotation goldset state mapping and rules subsystems
+  - id: D-003
+    decision: renumber_adrs_0006_to_0010_and_docs_33_to_40
+    rationale: reconcile with live repository namespaces
+  - id: D-004
+    decision: keep_rule_and_mapping_outputs_candidate_only
+    rationale: automated outputs cannot certify legal or administrative outcomes
+  - id: D-005
+    decision: keep_master_programme_governance_in_rulesandprocesses
+    rationale: local track owns implementation detail only

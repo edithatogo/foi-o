@@ -1,0 +1,17 @@
+version: 1
+risks:
+  - id: R-001
+    risk: empirical fixtures could be promoted as gold without independent review
+    mitigation: promotion remains human-gated and is not performed in this track
+  - id: R-002
+    risk: deterministic rule outputs could be misread as legal findings
+    mitigation: preserve candidate trace language and legal_claims_permitted false contracts
+  - id: R-003
+    risk: raw platform states could be overwritten by normalized mappings
+    mitigation: mappings remain versioned hypotheses and raw states remain source evidence
+  - id: R-004
+    risk: benchmark contamination through reuse for authoring or threshold selection
+    mitigation: sealed temporal benchmark and contamination policy remain mandatory follow-up gates
+  - id: R-005
+    risk: bundle packaging metadata is not editable-installable
+    mitigation: validate without installing the staging distribution and retain the failure in audit evidence
