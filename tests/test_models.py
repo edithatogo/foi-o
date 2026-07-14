@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from typing import Any
 
 import pytest
 from pydantic import ValidationError
@@ -8,8 +9,8 @@ from pydantic import ValidationError
 from foi_o_nz.models import Actor, CoreEvent, EvidenceRef, RequestRef
 
 
-def _base_event(**overrides: object) -> dict[str, object]:
-    data: dict[str, object] = {
+def _base_event(**overrides: object) -> dict[str, Any]:
+    data: dict[str, Any] = {
         "event_id": "foio-nz:event:test",
         "event_type": "RequestObserved",
         "event_time": datetime(2026, 7, 1, tzinfo=UTC),
