@@ -73,6 +73,21 @@ pixi run mojo-build
 
 The Mojo layer is deliberately small but expanding in v0.8: deterministic state mapping, text-planning helpers, machine-working-day checks, and certification-boundary guards. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
 
+## Version and jurisdiction policy
+
+The package version is the version of the reusable FOI-O core/profile contract.
+Every release must keep `pyproject.toml`, `pixi.toml`, `CITATION.cff`, the
+runtime version, and the generated OpenAPI contract aligned. A release tag is
+published only after the release-metadata check passes and the exact tag commit
+is recorded in the programme citation ledger.
+
+Jurisdiction profiles are additive and independently governed. The current
+validated package is `foi-o-nz`; planned profiles use identifiers such as
+`foi-o-au-com` and `foi-o-au-nsw`. A profile may be `candidate`, `validated`,
+or `stable`, but only human-reviewed source manifests can promote a profile
+to a certified surface. Profiles do not replace FOI-O core semantics or the
+authoritative `legislation` source provider.
+
 ### Normalise FYI manifest records
 
 ```bash

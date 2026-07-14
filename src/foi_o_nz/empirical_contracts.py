@@ -378,8 +378,10 @@ class JurisdictionProfile(StrictModel):
         """Prevent cross-jurisdiction leakage and unsupported validation claims."""
         if any(source.jurisdiction != self.jurisdiction for source in self.sources):
             raise ValueError("profile sources must match the profile jurisdiction")
-        declared = set(self.supported_surfaces) | set(self.unsupported_surfaces) | set(
-            self.uncertain_surfaces
+        declared = (
+            set(self.supported_surfaces)
+            | set(self.unsupported_surfaces)
+            | set(self.uncertain_surfaces)
         )
         if len(declared) != len(
             self.supported_surfaces + self.unsupported_surfaces + self.uncertain_surfaces
@@ -393,7 +395,9 @@ class JurisdictionProfile(StrictModel):
             if self.provenance.certified_by is None or self.provenance.certified_at is None:
                 raise ValueError("validated profile requires certification provenance")
             if any(source.review_status != "approved" for source in self.sources):
-                raise ValueError("validated profile certification requires approved normative sources")
+                raise ValueError(
+                    "validated profile certification requires approved normative sources"
+                )
         return self
 
 

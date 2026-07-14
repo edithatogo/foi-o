@@ -6,32 +6,46 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
 
 permissions:
   contents: read
 
 jobs:
   python:
-    name: Python quality and tests
+    name: Python quality and tests (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.14"]
     steps:
-      - uses: actions/checkout@v4
-      - name: Install uv
-        uses: astral-sh/setup-uv@v6
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
-          python-version: '3.12'
+          persist-credentials: false
+      - name: Install uv
+        uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
+        with:
+          version: "0.11.8"
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Sync dependencies
-        run: uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf
+        run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: Ruff lint
         run: uv run ruff check src tests scripts
       - name: Ruff format check
         run: uv run ruff format --check src tests scripts
+      - name: BasedPyright changed-contract gate
+        run: uv run basedpyright src/foi_o_nz/empirical_contracts.py
       - name: Run tests
         run: uv run pytest -q
       - name: Validate repository artefacts
         run: uv run foi-o-nz validate-repo
+      - name: Validate release metadata
+        run: uv run python scripts/check_release_metadata.py
       - name: Schema drift smoke check
         run: uv run foi-o-nz schema-drift
       - name: End-to-end smoke pipeline
@@ -75,9 +89,11 @@ jobs:
     name: Mojo/MAX experimental core
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
       - name: Set up Pixi
-        uses: prefix-dev/setup-pixi@v0.9.0
+        uses: prefix-dev/setup-pixi@fef5c9568ca6c4ff7707bf840ab0692ba3f08293 # v0.9.0
         with:
           pixi-version: latest
           cache: true
@@ -92,23 +108,27 @@ jobs:
     name: Security and supply-chain checks
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install uv
-        uses: astral-sh/setup-uv@v6
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
-          python-version: '3.12'
+          persist-credentials: false
+      - name: Install uv
+        uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
+        with:
+          version: "0.11.8"
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.14'
       - name: Sync dependencies
-        run: uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf
+        run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: pip-audit
-        run: uv run pip-audit || true
+        run: uv run pip-audit
       - name: Generate SBOM
         run: |
           mkdir -p dist
           uv run cyclonedx-py environment --output-format json --output-file dist/sbom.cdx.json
       - name: Upload SBOM
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: sbom
           path: dist/sbom.cdx.json
