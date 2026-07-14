@@ -1,25 +1,5 @@
 {
     "files": {
-        "./src/foi_o_nz/analytics.py": [
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 27,
-                    "endColumn": 32,
-                    "lineCount": 1
-                }
-            }
-        ],
-        "./src/foi_o_nz/dates.py": [
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 28,
-                    "endColumn": 81,
-                    "lineCount": 1
-                }
-            }
-        ],
         "./src/foi_o_nz/extractors.py": [
             {
                 "code": "reportArgumentType",

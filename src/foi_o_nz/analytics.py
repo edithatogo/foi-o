@@ -51,6 +51,8 @@ def duckdb_summary(parquet_path: Path) -> list[dict[str, Any]]:
 
 
 def _confidence_band(value: object) -> str:
+    if not isinstance(value, (str, int, float)):
+        return "unknown"
     try:
         confidence = float(value)
     except (TypeError, ValueError):
