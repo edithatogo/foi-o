@@ -38,8 +38,8 @@ jobs:
         run: uv run ruff check src tests scripts
       - name: Ruff format check
         run: uv run ruff format --check src tests scripts
-      - name: BasedPyright changed-contract gate
-        run: uv run basedpyright src/foi_o_nz/empirical_contracts.py
+      - name: BasedPyright baseline gate
+        run: uv run basedpyright
       - name: Run tests
         run: uv run pytest -q
       - name: Validate repository artefacts
