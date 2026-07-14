@@ -76,6 +76,7 @@ dev = [
   "pytest-cov>=6.0.0",
   "hypothesis>=6.130.0",
   "ruff>=0.15.16",
+  "basedpyright>=1.39.9",
   "ty>=0.0.46",
   "pre-commit>=4.0.0",
   "typos>=1.28.0",
