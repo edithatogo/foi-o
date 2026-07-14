@@ -26,7 +26,7 @@ changes materially.
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 3 |
-| Python test modules | 53 |
+| Python test modules | 54 |
 
 ## Semantic Snapshot
 
