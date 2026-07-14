@@ -24,10 +24,16 @@
 
 ## Human and empirical follow-up gates
 
+- [ ] Export a versioned FOI-O extraction contract for `nlp-policy-nz`, including
+  ontology, schema, codebook, provenance, and candidate-status identifiers.
+- [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
+  initial ontology-based baseline without overwriting raw archive records.
 - [ ] `[HUMAN]` Pin and approve the target revision for upstream review.
 - [ ] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
 - [ ] Build an independent `oia_rules` event-time fixture set without reusing authoring data.
 - [ ] Populate and review NZ historical source packs and the source-rights registry.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
-- [ ] `[HUMAN]` Authorize any issue/PR, dataset, release, or preprint action.
+- [x] `[HUMAN]` Authorize creation of the GitHub issues required to coordinate
+  recommended repository changes.
+- [ ] `[HUMAN]` Authorize any PR, dataset, release, or preprint action.

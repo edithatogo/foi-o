@@ -14,5 +14,6 @@ gates:
     status: pending
     human_gate: sample_annotation_adjudication_and_source_pack_approval
   remote_delivery:
-    status: blocked_by_prompt
-    includes: [push, issue, pull_request, release, dataset, preprint]
+    status: partially_authorized
+    authorized: [github_issue]
+    still_gated: [push, pull_request, release, dataset, preprint]

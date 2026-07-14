@@ -1,5 +1,6 @@
 # Track FOI-O V2 empirical implementation context
 
+- [GitHub issue #23](https://github.com/edithatogo/foi-o/issues/23)
 - [Specification](./spec.md)
 - [Implementation Plan](./plan.md)
 - [Metadata](./metadata.json)
@@ -11,3 +12,4 @@
 - [Release gates](./release-gates.yaml)
 - [Conversation and import log](./conversation-import-log.md)
 - [Final repo-local verification](./final-verification.md)
+- [Cross-repository architecture reconciliation](./architecture-reconciliation.md)

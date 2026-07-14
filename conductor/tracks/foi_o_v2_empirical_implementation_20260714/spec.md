@@ -18,6 +18,10 @@ implementation, tests, migration decisions, and checkpoints.
 - Preserve bitemporal source information, source rights, raw platform states,
   uncertainty, conflicts, and unknowns.
 - Keep publication, gold promotion, legal certification, and remote actions human-gated.
+- Preserve the confirmed `fyi-cli` -> `fyi-archive` -> Hugging Face source path.
+- Use `nlp-policy-nz` for ontology-pinned candidate extraction and keep derived
+  outputs separate from immutable archive manifests.
+- Defer `fe-reader`; it is not an immediate dependency for the V2 re-extraction.
 
 ## Acceptance criteria
 
@@ -26,3 +30,4 @@ implementation, tests, migration decisions, and checkpoints.
 - Existing V0.8/V1 tests continue to pass.
 - Import provenance, decisions, risks, outputs, traceability, and gates are recorded.
 - No push, issue/PR mutation, release, dataset publication, or legal certification occurs.
+- A linked GitHub issue may be created when explicitly authorized by the user.
