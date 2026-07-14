@@ -203,6 +203,12 @@ exclude_lines = [
 root = ["src", "tests", "scripts"]
 python-version = "3.12"
 
+[tool.basedpyright]
+include = ["src", "tests", "scripts"]
+exclude = ["**/__pycache__", "data", "generated", "external"]
+typeCheckingMode = "standard"
+baselineFile = "basedpyright-baseline.json"
+
 [tool.ty.rules]
 # Keep this relaxed until ty's third-party type story stabilises for pydantic/typer.
 unresolved-import = "ignore"

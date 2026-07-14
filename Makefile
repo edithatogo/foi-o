@@ -1,4 +1,4 @@
-.PHONY: help install sync lock lint format format-fix typecheck test test-cov \
+.PHONY: help install sync lock lint format format-fix typecheck typecheck-basedpyright test test-cov \
         quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk retrieval redactions agent-pack diff repro metadata openapi tool-manifest benchmark kernel-status kernel-conformance mojo-audit kernel-manifest kernel-fixtures kernel-readiness mojo-format mojo-test mojo-build \
         spell toml-check workflow-audit workflow-syntax security-audit sbom clean
 
@@ -29,6 +29,9 @@ format-fix: ## Apply formatting + lint fixes
 
 typecheck: ## ty type check
 	uv run ty check src tests
+
+typecheck-basedpyright: ## basedpyright type check with tracked baseline
+	uv run basedpyright
 
 test: ## Run Python tests
 	uv run pytest -q

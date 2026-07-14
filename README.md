@@ -88,6 +88,13 @@ or `stable`, but only human-reviewed source manifests can promote a profile
 to a certified surface. Profiles do not replace FOI-O core semantics or the
 authoritative `legislation` source provider.
 
+### Type-safety ratchet
+
+CI runs both `ty` and basedpyright. The tracked
+`basedpyright-baseline.json` records legacy findings so they cannot silently
+grow; new findings fail CI. Reduce the baseline with `make typecheck-basedpyright`
+and regenerate it only after reviewing the diff.
+
 ### Normalise FYI manifest records
 
 ```bash

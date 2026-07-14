@@ -47,6 +47,6 @@ def validate_with_shacl(
         "mode": "pyshacl",
         "data_triples": len(data),
         "shape_triples": len(shapes),
-        "report_triples": len(report_graph),
+        "report_triples": len(report_graph) if isinstance(report_graph, Graph) else 0,
         "report_text": report_text,
     }
