@@ -1,0 +1,23 @@
+{
+  "assertion_id": "assertion:002",
+  "subject": {
+    "kind": "decision",
+    "id": "decision:official:001"
+  },
+  "code_id": "foi_o.nz.decision_outcome_official",
+  "codebook_version": "2.0.0",
+  "epistemic_status": "certified",
+  "review_status": "approved",
+  "extraction_method": "official_source_import",
+  "requires_human_review": false,
+  "evidence_assertion_ids": [
+    "evidence:official:001"
+  ],
+  "certification_authority": {
+    "authority_type": "official_source",
+    "authority_id": "official-decision:001",
+    "role_or_source": "Final Ombudsman opinion",
+    "certified_at": "2026-07-09T08:12:00+10:00"
+  },
+  "created_at": "2026-07-09T08:12:00+10:00"
+}

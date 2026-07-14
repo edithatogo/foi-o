@@ -1,0 +1,29 @@
+{
+  "evidence_assertion_id": "evidence:001",
+  "supports": [
+    "assertion:001"
+  ],
+  "source_ref": {
+    "kind": "message",
+    "id": "message:authority:001",
+    "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_uri": "https://example.invalid/request/1/message/2"
+  },
+  "dimensions": {
+    "authority": "official_administration",
+    "directness": "direct",
+    "integrity": "hash_verified",
+    "temporal_applicability": "event_time_match",
+    "visibility": "public"
+  },
+  "display_grade": "F",
+  "observed_at": "2026-07-09T08:00:00+10:00",
+  "created_by": {
+    "kind": "software",
+    "id": "foi-o-nz",
+    "version": "2.0.0-alpha.2"
+  },
+  "limitations": [
+    "Platform timestamp may differ from agency dispatch time."
+  ]
+}

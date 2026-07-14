@@ -21,3 +21,13 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 - [x] **Track: Target a relevant journal, identify requirements, write the article, and prepare the supplement for FOI-O NZ ontology outputs.**
 *Link: [./archive/journal_submission_package_20260702/](./archive/journal_submission_package_20260702/)*
+
+---
+
+- [~] **Track: Implement the FOI-O V2 empirical-governance overlay in the existing NZ package.**
+*Link: [./tracks/foi_o_v2_empirical_implementation_20260714/](./tracks/foi_o_v2_empirical_implementation_20260714/)*
+
+---
+
+- [ ] **Track: Build evidence-backed Australian FOI jurisdiction profiles, piloting Commonwealth and NSW before the other seven jurisdictions.**
+*Link: [./tracks/australian_jurisdiction_profiles_20260714/](./tracks/australian_jurisdiction_profiles_20260714/)*

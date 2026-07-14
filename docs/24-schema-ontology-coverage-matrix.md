@@ -2,7 +2,7 @@
 
 This matrix links the operational schema layer, semantic layer, examples, tests,
 and agent-boundary rules. Counts are current for the repository state inspected
-on 2026-07-03 and should be regenerated when the ontology or schema inventory
+on 2026-07-14 and should be regenerated when the ontology or schema inventory
 changes materially.
 
 | Coverage area | Operational contract | Semantic surface | Example evidence | Test evidence | Boundary rule |
@@ -19,14 +19,14 @@ changes materially.
 
 | Artefact class | Count |
 | --- | ---:|
-| JSON Schema files | 53 |
-| Example files | 64 |
-| Documentation files | 43 |
+| JSON Schema files | 64 |
+| Example files | 118 |
+| Documentation files | 52 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 3 |
-| Python test modules | 50 |
+| Python test modules | 52 |
 
 ## Semantic Snapshot
 

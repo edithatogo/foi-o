@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical:codebook-entry:0.1.0",
+  "title": "FOI-O empirical codebook entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "code_id",
+    "label",
+    "jurisdiction_scope",
+    "definition",
+    "maturity",
+    "review_status",
+    "origins",
+    "version_introduced",
+    "change_control"
+  ],
+  "properties": {
+    "code_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._/-]+$"
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jurisdiction_scope": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "definition": {
+      "type": "string",
+      "minLength": 20
+    },
+    "maturity": {
+      "enum": [
+        "seed",
+        "pilot",
+        "adjudicated",
+        "validated",
+        "stable",
+        "deprecated"
+      ]
+    },
+    "review_status": {
+      "enum": [
+        "unreviewed",
+        "single_reviewed",
+        "dual_reviewed",
+        "adjudicated",
+        "approved",
+        "rejected"
+      ]
+    },
+    "origins": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "platform_state",
+          "empirical_request_trace",
+          "legislation",
+          "regulation",
+          "gazette",
+          "parliamentary_material",
+          "ombudsman_or_information_commissioner",
+          "review_decision",
+          "agency_guidance",
+          "domain_expert_seed",
+          "computational_extraction"
+        ]
+      }
+    },
+    "inclusion_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "exclusion_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "positive_example_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "negative_example_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "empirical_support_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "normative_source_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "known_ambiguities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "version_introduced": {
+      "type": "string",
+      "minLength": 1
+    },
+    "deprecated_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "change_control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_id",
+        "approval_required"
+      ],
+      "properties": {
+        "proposal_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "approved_by": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "maturity": {
+            "const": "stable"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "review_status": {
+            "const": "approved"
+          },
+          "empirical_support_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "change_control": {
+            "required": [
+              "approved_by",
+              "approved_at"
+            ],
+            "properties": {
+              "approved_by": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        "required": [
+          "empirical_support_count"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "maturity": {
+            "const": "deprecated"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "deprecated_by"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+contract: foi-o-v2-empirical-overlay
+version: 2.0.0-alpha.2
+compatibility: additive_optional
+schemas_dir: schemas/json
+requires_existing_ids: true
+certification_requires_human_or_official_authority: true

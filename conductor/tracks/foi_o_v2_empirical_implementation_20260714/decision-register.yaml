@@ -1,0 +1,26 @@
+version: 1
+decisions:
+  - id: D-001
+    decision: preserve_foi_o_nz_package_and_namespace
+    rationale: V1 compatibility boundary
+  - id: D-002
+    decision: extend_existing_ids_and_runtime_surfaces
+    rationale: avoid duplicate event provenance annotation goldset state mapping and rules subsystems
+  - id: D-003
+    decision: renumber_adrs_0006_to_0010_and_docs_33_to_40
+    rationale: reconcile with live repository namespaces
+  - id: D-004
+    decision: keep_rule_and_mapping_outputs_candidate_only
+    rationale: automated outputs cannot certify legal or administrative outcomes
+  - id: D-005
+    decision: keep_master_programme_governance_in_rulesandprocesses
+    rationale: local track owns implementation detail only
+  - id: D-006
+    decision: defer_fe_reader_from_immediate_programme
+    rationale: technical preview and not required for archive re-extraction
+  - id: D-007
+    decision: keep_alaveteli_as_source_intelligence_only
+    rationale: fyi-cli owns capture from the upstream public platform
+  - id: D-008
+    decision: separate_immutable_archive_from_versioned_nlp_derivatives
+    rationale: preserve raw evidence while enabling reproducible ontology-pinned re-extraction

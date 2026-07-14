@@ -1,0 +1,7 @@
+{
+  "manifest_version": "0.1.0",
+  "release_id": "foi-o-release/latest",
+  "created_at": "2026-07-14T10:00:00Z",
+  "core": {"id": "foi-o", "version": "2.0", "artifact": {"uri": "not-a-uri", "sha256": "bad"}},
+  "profiles": []
+}

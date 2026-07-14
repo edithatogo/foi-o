@@ -32,5 +32,7 @@
 | `max_lancedb_inference_20260702` | https://github.com/edithatogo/foi-o/issues/17 | https://github.com/users/edithatogo/projects/10 |
 | `ontology_shacl_maturation_20260702` | https://github.com/edithatogo/foi-o/issues/18 | https://github.com/users/edithatogo/projects/10 |
 | `publication_methods_release_20260702` | https://github.com/edithatogo/foi-o/issues/19 | https://github.com/users/edithatogo/projects/10 |
+| `foi_o_v2_empirical_implementation_20260714` | https://github.com/edithatogo/foi-o/issues/23 | https://github.com/users/edithatogo/projects/10 |
+| `australian_jurisdiction_profiles_20260714` | https://github.com/edithatogo/foi-o/issues/24 | https://github.com/users/edithatogo/projects/10 |
 
 Historical completed development slices are backfilled in [Development History Backfill](./history.md).

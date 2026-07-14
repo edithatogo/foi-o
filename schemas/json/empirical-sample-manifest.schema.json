@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical:empirical-sample-manifest:0.1.0",
+  "title": "FOI-O empirical sample manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "sample_id",
+    "population",
+    "snapshot_ref",
+    "sampling_design",
+    "random_seed",
+    "unit_manifest_ref",
+    "duplicate_cluster_registry_ref",
+    "split_policy",
+    "created_at"
+  ],
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "population": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "definition",
+        "coverage_start",
+        "coverage_end",
+        "unit"
+      ],
+      "properties": {
+        "definition": {
+          "type": "string",
+          "minLength": 20
+        },
+        "coverage_start": {
+          "type": "string",
+          "format": "date"
+        },
+        "coverage_end": {
+          "type": "string",
+          "format": "date"
+        },
+        "unit": {
+          "enum": [
+            "request",
+            "message",
+            "attachment",
+            "event"
+          ]
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "snapshot_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "snapshot_id",
+        "manifest_sha256"
+      ],
+      "properties": {
+        "snapshot_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manifest_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "doi_or_revision": {
+          "type": "string"
+        }
+      }
+    },
+    "sampling_design": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "design_type",
+        "population_estimation_allowed",
+        "weights_available"
+      ],
+      "properties": {
+        "design_type": {
+          "enum": [
+            "probability_stratified",
+            "rare_event_enrichment",
+            "census",
+            "purposive_qualitative"
+          ]
+        },
+        "strata_variables": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "population_estimation_allowed": {
+          "type": "boolean"
+        },
+        "weights_available": {
+          "type": "boolean"
+        },
+        "inclusion_probability_field": {
+          "type": "string"
+        },
+        "weight_field": {
+          "type": "string"
+        },
+        "finite_population_correction": {
+          "type": "boolean"
+        },
+        "replacement_rule": {
+          "type": "string"
+        }
+      }
+    },
+    "random_seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "unit_manifest_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "duplicate_cluster_registry_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "split_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "grouped_by",
+        "splits"
+      ],
+      "properties": {
+        "grouped_by": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "request_id",
+              "request_family",
+              "duplicate_cluster",
+              "authority",
+              "time_period",
+              "jurisdiction"
+            ]
+          }
+        },
+        "splits": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "exploration",
+              "train",
+              "validation",
+              "test",
+              "annotation_only"
+            ]
+          }
+        },
+        "temporal_holdout": {
+          "type": "boolean"
+        },
+        "jurisdiction_holdout": {
+          "type": "boolean"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "sampling_design": {
+            "properties": {
+              "design_type": {
+                "const": "probability_stratified"
+              }
+            },
+            "required": [
+              "design_type"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sampling_design": {
+            "required": [
+              "inclusion_probability_field",
+              "weight_field"
+            ],
+            "properties": {
+              "population_estimation_allowed": {
+                "const": true
+              },
+              "weights_available": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "sampling_design": {
+            "properties": {
+              "design_type": {
+                "const": "rare_event_enrichment"
+              }
+            },
+            "required": [
+              "design_type"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sampling_design": {
+            "properties": {
+              "population_estimation_allowed": {
+                "const": false
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

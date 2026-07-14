@@ -1,0 +1,23 @@
+{
+  "authority_identity_id": "x",
+  "canonical_name": "Bad authority",
+  "jurisdiction": "NZ-OIA",
+  "active_time": {
+    "from": "2000-01-01"
+  },
+  "names": [
+    {
+      "name": "Bad authority",
+      "valid_from": "2000-01-01",
+      "source_ids": []
+    }
+  ],
+  "platform_identifiers": [],
+  "identity_source_ids": [
+    "s1"
+  ],
+  "observed_at": "2026-07-09T02:00:00Z",
+  "review_status": "needs_review",
+  "identity_conflict": false,
+  "unexpected": "not allowed"
+}

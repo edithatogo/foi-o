@@ -1,0 +1,42 @@
+{
+  "sample_id": "nz-fyi-probability-2026-01",
+  "population": {
+    "definition": "All public FYI requests contained in frozen archive snapshot fyi-nz-2026-06-30.",
+    "coverage_start": "2012-01-01",
+    "coverage_end": "2026-06-30",
+    "unit": "request",
+    "exclusions": [
+      "Administrative test records documented in the exclusion manifest."
+    ]
+  },
+  "sampling_design": {
+    "design_type": "probability_stratified",
+    "strata_variables": [
+      "year",
+      "authority_type",
+      "raw_platform_status"
+    ],
+    "population_estimation_allowed": true,
+    "weights_available": true,
+    "inclusion_probability_field": "inclusion_probability",
+    "weight_field": "analysis_weight",
+    "finite_population_correction": true,
+    "replacement_rule": "No replacement after sample freeze; document inaccessible units."
+  },
+  "random_seed": 20260709,
+  "unit_manifest_ref": "samples/nz-probability-units.parquet",
+  "duplicate_cluster_registry_ref": "clusters/nz-request-families.parquet",
+  "split_policy": {
+    "grouped_by": [
+      "request_family",
+      "duplicate_cluster"
+    ],
+    "splits": [
+      "annotation_only",
+      "test"
+    ],
+    "temporal_holdout": true,
+    "jurisdiction_holdout": false
+  },
+  "created_at": "2026-07-09T08:50:00+10:00"
+}

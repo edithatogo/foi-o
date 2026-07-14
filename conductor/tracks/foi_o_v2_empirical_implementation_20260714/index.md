@@ -1,0 +1,16 @@
+# Track FOI-O V2 empirical implementation context
+
+- [GitHub issue #23](https://github.com/edithatogo/foi-o/issues/23)
+- [Specification](./spec.md)
+- [Implementation Plan](./plan.md)
+- [Deterministic execution runbook](./less-capable-model-runbook.md)
+- [Metadata](./metadata.json)
+- [Import and validation audit](./audit.md)
+- [Output ledger](./output-ledger.yaml)
+- [Decision register](./decision-register.yaml)
+- [Risk register](./risk-register.yaml)
+- [Traceability matrix](./traceability-matrix.yaml)
+- [Release gates](./release-gates.yaml)
+- [Conversation and import log](./conversation-import-log.md)
+- [Final repo-local verification](./final-verification.md)
+- [Cross-repository architecture reconciliation](./architecture-reconciliation.md)

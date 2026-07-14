@@ -1,0 +1,42 @@
+{
+  "run_id": "bad-comparison",
+  "analysis_type": "comparative",
+  "generated_at": "2026-07-09T03:00:00Z",
+  "event_stream_ref": {
+    "path_or_uri": "events.jsonl",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "schema_version": "1",
+    "snapshot_id": "s"
+  },
+  "event_selection": {
+    "allowed_epistemic_statuses": [
+      "observed"
+    ],
+    "requires_evidence_reference": true,
+    "unknown_handling": "retain_as_state"
+  },
+  "uncertainty_policy": {
+    "strategy": "not_applicable",
+    "abstentions_reported": true,
+    "extraction_uncertainty_propagated": false
+  },
+  "censoring_policy": {
+    "status": "not_applicable"
+  },
+  "outputs": [
+    {
+      "kind": "summary",
+      "path": "out.json",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "software": [
+    {
+      "name": "x",
+      "version": "1"
+    }
+  ],
+  "legal_claims_permitted": false,
+  "result_scope": "public_process_indicators_only",
+  "review_status": "draft"
+}

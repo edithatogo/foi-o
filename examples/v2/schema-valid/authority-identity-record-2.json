@@ -1,0 +1,42 @@
+{
+  "authority_identity_id": "nz.agency.example.former",
+  "canonical_name": "Former Example Department",
+  "jurisdiction": "NZ-OIA",
+  "active_time": {
+    "from": "1990-01-01",
+    "to": "2010-06-30"
+  },
+  "names": [
+    {
+      "name": "Former Example Department",
+      "valid_from": "1990-01-01",
+      "valid_to": "2010-06-30",
+      "name_type": "former_official",
+      "source_ids": [
+        "nz.gazette.example.1990"
+      ]
+    }
+  ],
+  "platform_identifiers": [],
+  "relationships": [
+    {
+      "relation": "predecessor_of",
+      "target_authority_identity_id": "nz.agency.example.current",
+      "effective_from": "2010-07-01",
+      "effective_to": null,
+      "source_ids": [
+        "nz.gazette.example.2010"
+      ]
+    }
+  ],
+  "identity_source_ids": [
+    "nz.gazette.example.1990",
+    "nz.gazette.example.2010"
+  ],
+  "observed_at": "2026-07-09T02:00:00Z",
+  "review_status": "needs_review",
+  "identity_conflict": true,
+  "conflict_notes": [
+    "Platform records use two spellings for the former department."
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical:label-assertion:0.1.0",
+  "title": "FOI-O empirical label assertion",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "assertion_id",
+    "subject",
+    "code_id",
+    "codebook_version",
+    "epistemic_status",
+    "review_status",
+    "extraction_method",
+    "requires_human_review",
+    "evidence_assertion_ids",
+    "created_at"
+  ],
+  "properties": {
+    "assertion_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "request",
+            "message",
+            "attachment",
+            "event",
+            "decision",
+            "review",
+            "authority",
+            "source_span"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "code_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "codebook_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "epistemic_status": {
+      "enum": [
+        "observed",
+        "inferred",
+        "asserted",
+        "certified",
+        "unknown"
+      ]
+    },
+    "review_status": {
+      "enum": [
+        "unreviewed",
+        "single_reviewed",
+        "dual_reviewed",
+        "adjudicated",
+        "approved",
+        "rejected"
+      ]
+    },
+    "extraction_method": {
+      "enum": [
+        "imported_metadata",
+        "deterministic_rule",
+        "statistical_model",
+        "language_model",
+        "human_annotation",
+        "official_source_import"
+      ]
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "requires_human_review": {
+      "type": "boolean"
+    },
+    "evidence_assertion_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "certification_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority_type",
+        "authority_id",
+        "role_or_source"
+      ],
+      "properties": {
+        "authority_type": {
+          "enum": [
+            "human",
+            "official_source"
+          ]
+        },
+        "authority_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role_or_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "certified_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "epistemic_status": {
+            "const": "certified"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "certification_authority"
+        ],
+        "properties": {
+          "review_status": {
+            "enum": [
+              "adjudicated",
+              "approved"
+            ]
+          },
+          "requires_human_review": {
+            "const": false
+          },
+          "evidence_assertion_ids": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "extraction_method": {
+            "enum": [
+              "statistical_model",
+              "language_model"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "requires_human_review": {
+            "const": true
+          },
+          "epistemic_status": {
+            "not": {
+              "const": "certified"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

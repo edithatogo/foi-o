@@ -1,0 +1,49 @@
+{
+  "assessment_id": "derive:002",
+  "claim_type": "certified_statutory_compliance",
+  "subject_ref": {
+    "kind": "request",
+    "id": "request:002"
+  },
+  "status": "not_derivable_from_public_platform",
+  "required_facts": [
+    {
+      "fact_id": "request_validity_date",
+      "description": "Date on which a valid request was received."
+    },
+    {
+      "fact_id": "decision_date",
+      "description": "Date on which the final decision was communicated."
+    },
+    {
+      "fact_id": "extensions",
+      "description": "All legally relevant extension and suspension events."
+    }
+  ],
+  "observed_facts": [
+    {
+      "fact_id": "decision_date",
+      "description": "Date on which the final decision was communicated."
+    }
+  ],
+  "missing_facts": [
+    {
+      "fact_id": "request_validity_date",
+      "description": "Date on which a valid request was received."
+    },
+    {
+      "fact_id": "extensions",
+      "description": "All legally relevant extension and suspension events."
+    }
+  ],
+  "allowed_outputs": [
+    "derivability_warning",
+    "observed_public_latency_if_dates_available"
+  ],
+  "prohibited_outputs": [
+    "certified_statutory_compliance",
+    "authority_non_compliance_ranking"
+  ],
+  "assessed_at": "2026-07-09T08:21:00+10:00",
+  "assessor_id": "human:reviewer-01"
+}

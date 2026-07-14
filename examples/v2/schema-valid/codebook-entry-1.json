@@ -1,0 +1,38 @@
+{
+  "code_id": "foi_o.nz.extension_notice_observed",
+  "label": "Extension notice observed",
+  "jurisdiction_scope": [
+    "NZ-OIA"
+  ],
+  "definition": "A public message or attachment directly records that the authority notified an extension of the response period.",
+  "maturity": "pilot",
+  "review_status": "dual_reviewed",
+  "origins": [
+    "empirical_request_trace",
+    "legislation"
+  ],
+  "inclusion_criteria": [
+    "A dated authority communication states that the response period is extended."
+  ],
+  "exclusion_criteria": [
+    "A requester predicts an extension without authority confirmation."
+  ],
+  "positive_example_ids": [
+    "example.extension.001"
+  ],
+  "negative_example_ids": [
+    "example.extension.negative.001"
+  ],
+  "empirical_support_count": 18,
+  "normative_source_ids": [
+    "nz.oia.s15a.v2024"
+  ],
+  "known_ambiguities": [
+    "Public sent date may not equal legal notification date."
+  ],
+  "version_introduced": "2.0.0-alpha.2",
+  "change_control": {
+    "proposal_id": "LCR-001",
+    "approval_required": true
+  }
+}

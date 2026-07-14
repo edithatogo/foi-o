@@ -11,7 +11,7 @@ MATURATION_SCHEMA_VERSION = "foi-o-nz.maturation-summary.v0.1.0"
 
 INVENTORY_PATTERNS = {
     "json_schema_files": "schemas/json/*.schema.json",
-    "example_files": "examples/*",
+    "example_files": "examples/**/*",
     "documentation_files": "docs/*.md",
     "owl_ontology_files": "ontology/*.ttl",
     "shacl_files": "shacl/*.ttl",
@@ -88,7 +88,8 @@ EXTERNAL_GATES = [
 def build_maturation_summary(base_dir: Path = Path()) -> dict[str, Any]:
     """Build a deterministic summary of the NZ-first maturation evidence surface."""
     inventory = {
-        key: len(sorted(base_dir.glob(pattern))) for key, pattern in INVENTORY_PATTERNS.items()
+        key: sum(path.is_file() for path in base_dir.glob(pattern))
+        for key, pattern in INVENTORY_PATTERNS.items()
     }
     docs = [_path_status(base_dir, path) for path in MATURATION_DOCS]
     assets = [_path_status(base_dir, path) for path in MATURATION_ASSETS]

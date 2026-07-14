@@ -1,0 +1,5 @@
+contract: foi-o-v1-baseline
+status: reference_only
+package: foi-o-nz
+namespace: foi_o_nz
+breaking_changes: false

@@ -1,0 +1,36 @@
+{
+  "pack_id": "source-pack:nz-oia:2026-07",
+  "jurisdiction": "NZ-OIA",
+  "version": "0.1.0",
+  "generated_at": "2026-07-09T08:30:00+10:00",
+  "law_at_event_time": true,
+  "normative_source_ids": [
+    "nz.oia.act.1982.version.2024-10-01"
+  ],
+  "components": {
+    "legislation_versions": [
+      "nz.oia.act.1982.version.2024-10-01"
+    ],
+    "regulations_and_instruments": [],
+    "gazettes": [],
+    "parliamentary_materials": [],
+    "review_findings": [],
+    "guidance": [
+      "nz.ombudsman.oia.guide.version.2025"
+    ],
+    "calendars": [
+      "calendar:nz:2026"
+    ],
+    "authority_identity_history": [
+      "authority-registry:nz:2026"
+    ]
+  },
+  "calendar_ids": [
+    "calendar:nz:2026"
+  ],
+  "authority_identity_registry_ids": [
+    "authority-registry:nz:2026"
+  ],
+  "rights_review_status": "pending",
+  "source_manifest_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+}

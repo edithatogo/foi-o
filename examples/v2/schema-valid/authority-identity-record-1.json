@@ -1,0 +1,41 @@
+{
+  "authority_identity_id": "au.cth.department_of_defence",
+  "canonical_name": "Department of Defence",
+  "jurisdiction": "AU-CTH",
+  "authority_types": [
+    "department"
+  ],
+  "active_time": {
+    "from": "1973-11-30",
+    "to": null
+  },
+  "names": [
+    {
+      "name": "Department of Defence",
+      "valid_from": "1973-11-30",
+      "valid_to": null,
+      "name_type": "official",
+      "source_ids": [
+        "au.gazette.defence.identity.1973"
+      ]
+    }
+  ],
+  "platform_identifiers": [
+    {
+      "platform": "righttoknow-au",
+      "identifier": "defence",
+      "valid_from": "2012-01-01",
+      "valid_to": null,
+      "source_uri": "https://www.righttoknow.org.au/body/defence"
+    }
+  ],
+  "relationships": [],
+  "identity_source_ids": [
+    "au.gazette.defence.identity.1973",
+    "rtk.body.defence"
+  ],
+  "observed_at": "2026-07-09T02:00:00Z",
+  "record_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "review_status": "approved",
+  "identity_conflict": false
+}

@@ -1,0 +1,14 @@
+version: 1
+claims:
+  - id: C-EMPIRICAL-GOVERNANCE
+    evidence: [schemas/json/codebook-entry.schema.json, schemas/json/label-assertion.schema.json, tests/test_empirical_schema_fixtures.py]
+  - id: C-EVIDENCE-DERIVABILITY
+    evidence: [schemas/json/evidence-assertion.schema.json, schemas/json/derivability-assessment.schema.json, docs/34-v2-evidence-and-derivability.md]
+  - id: C-BITEMPORAL-SOURCES
+    evidence: [schemas/json/normative-source.schema.json, schemas/json/jurisdiction-source-pack.schema.json, docs/35-v2-legal-source-packs.md]
+  - id: C-NONLEGAL-ANALYSIS
+    evidence: [schemas/json/process-analysis-run.schema.json, src/foi_o_nz/empirical_contracts.py, docs/37-v2-process-analysis.md]
+  - id: C-RAW-STATE-PRESERVATION
+    evidence: [integration/existing-surface-map.yaml, docs/40-v2-platform-state-mapping.md, src/foi_o_nz/normalise.py]
+  - id: C-RULE-CANDIDATE-BOUNDARY
+    evidence: [docs/39-v2-rule-evaluation.md, src/foi_o_nz/oia_rules]

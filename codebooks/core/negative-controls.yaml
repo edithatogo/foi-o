@@ -1,0 +1,40 @@
+negative_controls:
+- id: NC-001
+  source_pattern: platform status successful
+  prohibited: certified full release
+  allowed:
+  - raw platform state observed
+  - decision or release candidate
+  upgrade_requires:
+  - decision correspondence or attachment review
+  - human or official-source evidence
+- id: NC-002
+  source_pattern: platform status rejected
+  prohibited: certified statutory refusal ground
+  allowed:
+  - refusal candidate
+  - human review required
+  upgrade_requires:
+  - decision text
+  - statutory reference
+  - human review
+- id: NC-003
+  source_pattern: public response delay
+  prohibited: certified statutory non-compliance
+  allowed:
+  - observed public latency
+  - clock candidate
+  - derivability warning
+  upgrade_requires:
+  - validity date
+  - receipt date
+  - extensions and suspensions
+  - decision date
+- id: NC-004
+  source_pattern: model-generated legal concept
+  prohibited: gold fixture or certified legal mapping
+  allowed:
+  - candidate concept
+  upgrade_requires:
+  - independent human promotion
+  - source-span verification

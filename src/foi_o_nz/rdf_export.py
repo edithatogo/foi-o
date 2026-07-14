@@ -55,6 +55,11 @@ def graph_from_request_profiles(records: list[dict[str, Any]]) -> Graph:
         request_uri = REQ[_uri_fragment(record.get("request_id"))]
         graph.add((request_uri, RDF.type, FOIO.AccessRequest))
         graph.add((request_uri, DCTERMS.identifier, Literal(str(record.get("request_id")))))
+        source_system = record.get("source_system") or record.get("source")
+        if source_system:
+            graph.add((request_uri, FOIO.sourceSystem, Literal(str(source_system))))
+        if source_state := record.get("source_state"):
+            graph.add((request_uri, FOIO.sourceState, Literal(str(source_state))))
         if title := record.get("title"):
             graph.add((request_uri, DCTERMS.title, Literal(str(title))))
         if authority := record.get("authority"):
@@ -97,6 +102,13 @@ def graph_from_events(records: list[dict[str, Any]]) -> Graph:
         )
         assertion_status = str(record.get("assertion_status") or "unknown")
         graph.add((event_uri, FOIO.assertionStatus, FOIO_ASSERT[_uri_fragment(assertion_status)]))
+        graph.add(
+            (
+                event_uri,
+                FOIO.requiresHumanCertification,
+                Literal(bool(record.get("requires_human_certification")), datatype=XSD.boolean),
+            )
+        )
         if state := record.get("lifecycle_state_after"):
             graph.add((event_uri, FOIO.lifecycleStateAfter, FOIO_STATE[_camel_to_snake(state)]))
         request_ref = record.get("request_ref")
@@ -108,7 +120,9 @@ def graph_from_events(records: list[dict[str, Any]]) -> Graph:
                 evidence_uri = URIRef(
                     f"https://w3id.org/foio-nz/evidence/{_uri_fragment(evidence['evidence_id'])}"
                 )
+                graph.add((evidence_uri, RDF.type, FOIO.Evidence))
                 graph.add((evidence_uri, RDF.type, PROV.Entity))
+                graph.add((event_uri, FOIO.hasEvidence, evidence_uri))
                 graph.add((event_uri, PROV.wasDerivedFrom, evidence_uri))
     return graph
 

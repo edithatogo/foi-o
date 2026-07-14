@@ -1,0 +1,45 @@
+{
+  "sample_id": "nz-fyi-enrichment-2026-01",
+  "population": {
+    "definition": "All public FYI requests contained in frozen archive snapshot fyi-nz-2026-06-30.",
+    "coverage_start": "2012-01-01",
+    "coverage_end": "2026-06-30",
+    "unit": "request",
+    "exclusions": [
+      "Administrative test records documented in the exclusion manifest."
+    ]
+  },
+  "snapshot_ref": {
+    "snapshot_id": "fyi-nz-2026-06-30",
+    "manifest_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "doi_or_revision": "zenodo:pending"
+  },
+  "sampling_design": {
+    "design_type": "rare_event_enrichment",
+    "strata_variables": [
+      "internal_review",
+      "gone_postal",
+      "long_delay_outlier"
+    ],
+    "population_estimation_allowed": false,
+    "weights_available": false,
+    "replacement_rule": "Purposeful enrichment; do not estimate population prevalence."
+  },
+  "random_seed": 20260710,
+  "unit_manifest_ref": "samples/nz-enrichment-units.parquet",
+  "duplicate_cluster_registry_ref": "clusters/nz-request-families.parquet",
+  "split_policy": {
+    "grouped_by": [
+      "request_family",
+      "duplicate_cluster"
+    ],
+    "splits": [
+      "exploration",
+      "train",
+      "validation"
+    ],
+    "temporal_holdout": false,
+    "jurisdiction_holdout": false
+  },
+  "created_at": "2026-07-09T08:51:00+10:00"
+}

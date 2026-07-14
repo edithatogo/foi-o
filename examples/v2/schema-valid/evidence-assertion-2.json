@@ -1,0 +1,24 @@
+{
+  "evidence_assertion_id": "evidence:model:001",
+  "supports": [
+    "assertion:candidate:001"
+  ],
+  "source_ref": {
+    "kind": "model_output",
+    "id": "model-run:001"
+  },
+  "dimensions": {
+    "authority": "model_output",
+    "directness": "inferred",
+    "integrity": "derived",
+    "temporal_applicability": "unknown",
+    "visibility": "restricted"
+  },
+  "display_grade": "E",
+  "observed_at": "2026-07-09T08:00:00+10:00",
+  "created_by": {
+    "kind": "software",
+    "id": "extractor:extension",
+    "version": "0.1.0"
+  }
+}

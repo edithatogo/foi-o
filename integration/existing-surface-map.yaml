@@ -1,0 +1,94 @@
+new_contracts:
+  codebook-entry:
+    references:
+    - annotation labels
+    - goldset labels
+    does_not_replace:
+    - annotation schema
+    - goldset schema
+  label-assertion:
+    references:
+    - core event ID
+    - ledger ID
+    - trace span ID
+    - lineage ID
+    does_not_replace:
+    - core-event
+    - ledger-entry
+    - trace-span
+    - lineage-graph
+  evidence-assertion:
+    references:
+    - ledger ID
+    - trace span ID
+    - legal source ID
+    does_not_replace:
+    - ledger-entry
+    - trace-span
+    - legal-source records
+  derivability-assessment:
+    references:
+    - request/event IDs
+    does_not_replace:
+    - process advice
+    - event evaluation
+  normative-source:
+    extends:
+    - legal source registry
+    does_not_replace:
+    - current legal_sources module
+  jurisdiction-source-pack:
+    groups:
+    - normative source IDs
+    - calendar IDs
+    - authority identity IDs
+    does_not_embed_full_sources: true
+  empirical-sample-manifest:
+    references:
+    - archive snapshot ID
+    - dedup cluster registry
+    does_not_replace:
+    - goldset manifests
+  authority-identity-record:
+    references:
+    - normative source IDs
+    - platform authority IDs
+    does_not_replace:
+    - source authority metadata
+    - jurisdiction profile
+    purpose: time-versioned authority resolution and conflict preservation
+  process-analysis-run:
+    references:
+    - core event stream
+    - ledger
+    - lineage graph
+    - derivability assessment
+    - estimand registry
+    does_not_replace:
+    - core-event
+    - event-evaluation
+    - transition-audit
+    - reproducibility-manifest
+    legal_claims_permitted: false
+existing_rule_runtime:
+  surface: src/foi_o_nz/oia_rules/
+  status: implemented_and_dispatched_from_process_and_cli
+  v2_role: empirically_validate_and_emit_traceable_candidate_results
+  does_not_replace:
+  - oia_rules_runtime
+  - existing_process_dispatch
+  - existing_cli_dispatch
+  must_not_claim:
+  - automatic_legal_compliance
+  - certified_extension_validity
+platform_state_mapping:
+  extends:
+  - existing_alaveteli_state_mapping
+  - normaliser_source_state_preservation
+  v2_role: version_and_empirically_audit_candidate_event_mappings
+  does_not_replace:
+  - raw_platform_state
+  - source_snapshot
+  must_not_claim:
+  - certified_access_outcome
+  - certified_refusal_ground

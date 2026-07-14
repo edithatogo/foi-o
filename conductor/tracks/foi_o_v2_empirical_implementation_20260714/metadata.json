@@ -1,0 +1,11 @@
+{
+  "track_id": "foi_o_v2_empirical_implementation_20260714",
+  "type": "feature",
+  "status": "repo_local_implementation_complete_human_gates_pending",
+  "created_at": "2026-07-14T00:00:00+10:00",
+  "updated_at": "2026-07-14T20:30:00+10:00",
+  "github_issue": "https://github.com/edithatogo/foi-o/issues/23",
+  "depends_on_external": "edithatogo/rulesandprocesses:conductor/tracks/foi_o_v2_triangulation_20260708",
+  "description": "Repository-native implementation of the FOI-O V2 empirical-governance overlay.",
+  "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns"
+}
