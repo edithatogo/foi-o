@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -152,7 +152,7 @@ def _task_id(kind: str, source_id: str, text: str) -> str:
 def _prefilled_risk_label(risk: dict[str, Any] | None) -> str | None:
     if risk is None:
         return None
-    hits = risk.get("hits") if isinstance(risk.get("hits"), list) else []
+    hits = cast("list[Any]", risk.get("hits")) if isinstance(risk.get("hits"), list) else []
     categories = {str(hit.get("category")) for hit in hits if isinstance(hit, dict)}
     if "health_information" in categories:
         return "health"
@@ -248,7 +248,9 @@ def _request_id_from_event(event: dict[str, Any]) -> str | None:
 
 
 def _event_hint(event: dict[str, Any]) -> dict[str, Any]:
-    evidence = event.get("evidence") if isinstance(event.get("evidence"), list) else []
+    evidence = (
+        cast("list[Any]", event.get("evidence")) if isinstance(event.get("evidence"), list) else []
+    )
     evidence_ids = [
         str(item.get("evidence_id"))
         for item in evidence
@@ -281,7 +283,9 @@ def tasks_from_requests(
         source_state = str(request.get("source_state") or "unknown")
         normalised_state = str(request.get("normalised_state") or "Unknown")
         state_mapping = (
-            request.get("state_mapping") if isinstance(request.get("state_mapping"), dict) else {}
+            cast("dict[str, Any]", request.get("state_mapping"))
+            if isinstance(request.get("state_mapping"), dict)
+            else {}
         )
         mapping_confidence = state_mapping.get("confidence")
         priority: Literal["low", "medium", "high"] = (

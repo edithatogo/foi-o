@@ -74,32 +74,6 @@
                 }
             }
         ],
-        "./src/foi_o_nz/goldset.py": [
-            {
-                "code": "reportOptionalIterable",
-                "range": {
-                    "startColumn": 54,
-                    "endColumn": 58,
-                    "lineCount": 1
-                }
-            },
-            {
-                "code": "reportOptionalIterable",
-                "range": {
-                    "startColumn": 20,
-                    "endColumn": 28,
-                    "lineCount": 1
-                }
-            },
-            {
-                "code": "reportOptionalMemberAccess",
-                "range": {
-                    "startColumn": 43,
-                    "endColumn": 46,
-                    "lineCount": 1
-                }
-            }
-        ],
         "./src/foi_o_nz/normalise.py": [
             {
                 "code": "reportArgumentType",
@@ -212,24 +186,6 @@
                 "range": {
                     "startColumn": 28,
                     "endColumn": 81,
-                    "lineCount": 1
-                }
-            }
-        ],
-        "./tests/test_models.py": [
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 28,
-                    "endColumn": 36,
-                    "lineCount": 1
-                }
-            },
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 65,
-                    "endColumn": 83,
                     "lineCount": 1
                 }
             }
