@@ -1,0 +1,50 @@
+name: Release validation
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to validate"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-build:
+    name: Validate and build release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.14"
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
+        with:
+          version: "0.11.8"
+          enable-cache: false
+      - name: Sync locked release environment
+        run: uv sync --locked --extra dev
+      - name: Validate release metadata
+        env:
+          EXPECTED_RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: uv run python scripts/check_release_metadata.py
+      - name: Build distributions
+        run: uv build
+      - name: Verify distribution contents
+        run: uv run python -m zipfile -l dist/*.whl >/dev/null
+      - name: Generate checksums
+        run: sha256sum dist/* > dist/SHA256SUMS
+      - name: Upload distributions and checksums
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: foi-o-release-${{ github.event.inputs.tag || github.ref_name }}
+          path: dist/
