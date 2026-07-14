@@ -3,7 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from rdflib import Graph, Namespace, URIRef
+from rdflib import Graph, Literal, Namespace, URIRef
+from rdflib.namespace import XSD
 
 from foi_o_nz.rdf_export import export_rdf
 
@@ -21,6 +22,8 @@ def test_export_rdf_from_requests(tmp_path: Path) -> None:
                 "title": "Example request",
                 "authority": "Example Ministry",
                 "normalised_state": "Received",
+                "source": "fyi-archive-nz",
+                "source_state": "waiting_response",
                 "source_url": "https://fyi.org.nz/request/1_example",
                 "first_sent": "2026-06-01T00:00:00Z",
             }
@@ -37,6 +40,17 @@ def test_export_rdf_from_requests(tmp_path: Path) -> None:
     graph = Graph()
     graph.parse(output)
     assert len(graph) > 0
+    request_uri = URIRef("https://w3id.org/foio-nz/request/1")
+    assert (
+        request_uri,
+        URIRef("https://w3id.org/foio-nz/ontology#sourceSystem"),
+        Literal("fyi-archive-nz"),
+    ) in graph
+    assert (
+        request_uri,
+        URIRef("https://w3id.org/foio-nz/ontology#sourceState"),
+        Literal("waiting_response"),
+    ) in graph
 
 
 def test_export_rdf_uses_skos_identifier_uris_for_event_terms(tmp_path: Path) -> None:
@@ -78,4 +92,15 @@ def test_export_rdf_uses_skos_identifier_uris_for_event_terms(tmp_path: Path) ->
         event_uri,
         URIRef("https://w3id.org/foio-nz/ontology#lifecycleStateAfter"),
         FOIO_STATE.released_in_full,
+    ) in graph
+    evidence_uri = URIRef("https://w3id.org/foio-nz/evidence/evidence:1")
+    assert (
+        event_uri,
+        URIRef("https://w3id.org/foio-nz/ontology#hasEvidence"),
+        evidence_uri,
+    ) in graph
+    assert (
+        event_uri,
+        URIRef("https://w3id.org/foio-nz/ontology#requiresHumanCertification"),
+        Literal(True, datatype=XSD.boolean),
     ) in graph
