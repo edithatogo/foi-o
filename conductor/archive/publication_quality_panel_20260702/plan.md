@@ -14,7 +14,7 @@
     - [x] Add JSON Schema or equivalent contract files for scorecards and panel review summaries.
     - [x] Add example scorecard fixtures covering passing and failing reviews.
     - [x] Add validation through existing example/schema validation patterns.
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Panel and scoring contract design' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Panel and scoring contract design' (retrospectively reconciled after final track verification)
 
 ## Phase 2: Checklist discovery and machine-readable contracts
 
@@ -30,7 +30,7 @@
     - [x] Add machine-readable checklist contract schema or fixture format.
     - [x] Add at least one example checklist source snapshot and one adherence report fixture.
     - [x] Add validation commands or tests using repo-local fixtures.
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Checklist discovery and machine-readable contracts' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Checklist discovery and machine-readable contracts' (retrospectively reconciled after final track verification)
 
 ## Phase 3: Review loop integration
 
@@ -47,7 +47,7 @@
     - [x] Run `uv run python scripts/validate_examples.py`.
     - [x] Run Ruff checks on touched tests/scripts.
     - [x] Record `conductor-review` as unavailable on PATH; no automated Conductor review fixes applied.
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Review loop integration' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Review loop integration' (retrospectively reconciled after final track verification)
 
 ## Phase 4: Final quality gate and archive
 

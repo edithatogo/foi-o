@@ -6,12 +6,12 @@
     - [x] Confirm `publication_quality_panel_20260702` is archived as complete or explicitly approved as a dependency override.
     - [x] Confirm scorecard, panel-review, and checklist contracts exist.
     - [x] Stop and record a bounded blocker if the dependency is incomplete.
-- [ ] Task: Catalogue repo-local ontology development evidence
-    - [ ] Review `README.md`, `docs/00-repo-charter.md`, `docs/01-foundations-register.md`, `docs/02-system-architecture.md`, `docs/08-roadmap.md`, `docs/09-backlog.md`, `docs/11-implementation-status.md`, `docs/19-release-readiness-evidence.md`, `docs/22-semantic-alignment.md`, schemas, ontology, SHACL, vocab, mappings, prompts, examples, tests, and Conductor archive records.
-    - [ ] Produce `docs/24-ontology-methods-evidence-inventory.md` as the bounded evidence inventory for protocol inputs.
-    - [ ] Produce `docs/24-ontology-claims-register.md` with supported claims, repo-local evidence, unsupported claims, and external gates.
-    - [ ] Produce `docs/24-ontology-terminology-crosswalk.md` for source states, FOI-O states, event types, assertion statuses, legal-source terms, validation surfaces, and certification terms.
-    - [ ] Mark live-source and publication-only dependencies as external gates.
+- [x] Task: Catalogue repo-local ontology development evidence (reconciled against committed deliverables and focused validation)
+    - [x] Review `README.md`, `docs/00-repo-charter.md`, `docs/01-foundations-register.md`, `docs/02-system-architecture.md`, `docs/08-roadmap.md`, `docs/09-backlog.md`, `docs/11-implementation-status.md`, `docs/19-release-readiness-evidence.md`, `docs/22-semantic-alignment.md`, schemas, ontology, SHACL, vocab, mappings, prompts, examples, tests, and Conductor archive records.
+    - [x] Produce `docs/24-ontology-methods-evidence-inventory.md` as the bounded evidence inventory for protocol inputs.
+    - [x] Produce `docs/24-ontology-claims-register.md` with supported claims, repo-local evidence, unsupported claims, and external gates.
+    - [x] Produce `docs/24-ontology-terminology-crosswalk.md` for source states, FOI-O states, event types, assertion statuses, legal-source terms, validation surfaces, and certification terms.
+    - [x] Mark live-source and publication-only dependencies as external gates.
 - [x] Task: Write protocol structure tests first
     - [x] Add a focused test requiring `docs/24-ontology-methods-protocol.md`.
     - [x] Require headings for objectives, materials, ontology-development method, validation, governance, limitations, reproducibility, and planned analysis.
