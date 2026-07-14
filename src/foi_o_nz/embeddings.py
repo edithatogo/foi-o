@@ -13,7 +13,7 @@ import math
 import re
 from collections.abc import Iterable
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 from foi_o_nz.inference_providers import (
     InferenceProviderStatus,
@@ -63,8 +63,16 @@ def request_text(record: dict[str, Any]) -> str:
 
 def event_text(record: dict[str, Any]) -> str:
     """Extract indexable text from a core-event-like record."""
-    payload = record.get("payload") if isinstance(record.get("payload"), dict) else {}
-    evidence = record.get("evidence") if isinstance(record.get("evidence"), list) else []
+    payload = (
+        cast("dict[str, Any]", record.get("payload"))
+        if isinstance(record.get("payload"), dict)
+        else {}
+    )
+    evidence = (
+        cast("list[Any]", record.get("evidence"))
+        if isinstance(record.get("evidence"), list)
+        else []
+    )
     evidence_text = "\n".join(
         str(item.get("excerpt"))
         for item in evidence
