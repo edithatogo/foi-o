@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
+
+from foi_o_nz.io import write_json
 
 UnknownVersionBehavior = Literal["reject", "retain_with_warning"]
 
@@ -64,3 +67,27 @@ def negotiate_contract(
             else "unknown_version_rejected"
         ),
     )
+
+
+def build_capability_declaration(consumer_id: str = "foi-o-nz") -> CapabilityDeclaration:
+    """Build the default FOI-O producer declaration for downstream consumers."""
+    return CapabilityDeclaration(
+        consumer_id=consumer_id,
+        capabilities=[
+            ContractCapability(
+                contract_id="foi-o-nz.core-event",
+                supported_versions=["foi-o-nz.core-event.v0.1.0"],
+            ),
+            ContractCapability(
+                contract_id="foi-o-nz.request-profile",
+                supported_versions=["foi-o-nz.request-profile.v0.1.0"],
+            ),
+        ],
+    )
+
+
+def write_capability_declaration(output: Path, *, consumer_id: str = "foi-o-nz") -> dict[str, str]:
+    """Write the default declaration as portable JSON."""
+    declaration = build_capability_declaration(consumer_id)
+    write_json(output, declaration.model_dump(mode="json"))
+    return {"output": str(output), "consumer_id": consumer_id}

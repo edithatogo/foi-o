@@ -21,6 +21,7 @@ from foi_o_nz.benchmarks import write_local_benchmarks
 from foi_o_nz.bounded_extraction import write_extraction_requests
 from foi_o_nz.cas import materialise_jsonl_cas, write_cas_manifest
 from foi_o_nz.chunks import chunk_jsonl
+from foi_o_nz.contract_capabilities import write_capability_declaration
 from foi_o_nz.dataset_metadata import (
     write_croissant_metadata,
     write_dataset_metadata,
@@ -245,6 +246,18 @@ def maturation_summary_command(
     console.print_json(json.dumps({"ok": result["ok"], "output": str(output)}))
     if not result["ok"]:
         raise typer.Exit(code=1)
+
+
+@app.command("export-capabilities")
+def export_capabilities_command(
+    output: Annotated[
+        Path, typer.Option("--output", "-o", help="Capability declaration JSON output")
+    ],
+    consumer_id: Annotated[str, typer.Option(help="Declaration owner identifier")] = "foi-o-nz",
+) -> None:
+    """Export the versioned FOI-O consumer capability declaration."""
+    result = write_capability_declaration(output, consumer_id=consumer_id)
+    console.print_json(json.dumps(result))
 
 
 @app.command("export-process-model")
