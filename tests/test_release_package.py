@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 from foi_o_nz.release_package import (
     REQUIRED_RELEASE_VALIDATION_COMMANDS,
@@ -13,7 +14,7 @@ CHECKLIST_EXAMPLE = Path("examples/release-checklist.v0.9.0.json")
 CHECKLIST_SCHEMA = Path("schemas/json/release-checklist.schema.json")
 
 
-def _load_checklist(path: Path = CHECKLIST_EXAMPLE) -> dict[str, object]:
+def _load_checklist(path: Path = CHECKLIST_EXAMPLE) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
