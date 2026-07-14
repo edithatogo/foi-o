@@ -3,7 +3,9 @@ from pathlib import Path
 from foi_o_nz.contract_capabilities import (
     CapabilityDeclaration,
     ContractCapability,
+    build_capability_declaration,
     negotiate_contract,
+    write_capability_declaration,
 )
 from foi_o_nz.validation import validate_json_schema
 
@@ -42,6 +44,15 @@ def test_capability_negotiation_accepts_declared_version() -> None:
     )
     assert result.accepted is True
     assert result.reason == "supported"
+
+
+def test_default_capability_declaration_can_be_exported(tmp_path: Path) -> None:
+    output = tmp_path / "capabilities.json"
+    result = write_capability_declaration(output)
+    assert result["consumer_id"] == "foi-o-nz"
+    assert output.exists()
+    declaration = build_capability_declaration()
+    assert declaration.capabilities[0].contract_id == "foi-o-nz.core-event"
 
 
 def test_unknown_version_rejects_by_default_and_can_be_explicitly_retained() -> None:
