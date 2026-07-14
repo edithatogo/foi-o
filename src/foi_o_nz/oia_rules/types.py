@@ -1,4 +1,6 @@
-"""Value and result types used by the New Zealand OIA rule evaluators."""
+"""Typed DTOs for isolated OIA rule invocations and results."""
+
+from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Any
@@ -6,17 +8,17 @@ from typing import Any
 
 @dataclass
 class ValueObject:
-    """Represent a value together with its epistemic state and warnings."""
+    """A value with explicit epistemic / value-state metadata (PIC-aligned)."""
 
     value: Any = None
-    valueState: str = "known"  # noqa: N815 - external contract uses camelCase
-    epistemicStatus: str | None = None  # noqa: N815 - external contract uses camelCase
+    valueState: str = "known"  # noqa: N815 - PIC valueState field name
+    epistemicStatus: str | None = None  # noqa: N815 - PIC epistemicStatus field name
     warnings: list[str] | None = None
 
 
 @dataclass
 class RuleInvocation:
-    """Describe a deterministic rule invocation and its input values."""
+    """A single deterministic rule call with typed inputs."""
 
     decision_id: str  # e.g., "nz-oia/decision.response_deadline"
     inputs: dict[str, ValueObject]
@@ -26,7 +28,7 @@ class RuleInvocation:
 
 @dataclass
 class DiscretionPoint:
-    """Identify a decision that must remain subject to human judgment."""
+    """A non-computable issue requiring human certification."""
 
     discretion_id: str
     message: str
@@ -35,7 +37,7 @@ class DiscretionPoint:
 
 @dataclass
 class RuleResult:
-    """Return rule outputs, an audit trace, and any discretion points."""
+    """Outputs, optional PIC-style trace step, and optional discretion signal."""
 
     outputs: dict[str, ValueObject]
     trace_step: dict  # PIC trace step

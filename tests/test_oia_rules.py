@@ -118,7 +118,10 @@ def test_fixtures_conformance() -> None:
 
         for dec_id, expected_out in case["expected"].items():
             invocation = RuleInvocation(
-                decision_id=dec_id, inputs=inputs, parameter_set="0.1.0", invoked_by=case["caseId"]
+                decision_id=dec_id,
+                inputs=inputs,
+                parameter_set="0.1.0",
+                invoked_by=case["caseId"],
             )
             result = evaluate_invocation(invocation, holidays=holidays)
             actual_out = result.outputs[dec_id]
@@ -172,7 +175,10 @@ def test_missing_coverage_branches() -> None:
 
     # 6. evaluate_invocation unknown decision ID
     invocation = RuleInvocation(
-        decision_id="unknown_id", inputs={}, parameter_set="0.1.0", invoked_by="test"
+        decision_id="unknown_id",
+        inputs={},
+        parameter_set="0.1.0",
+        invoked_by="test",
     )
     with pytest.raises(ValueError, match="Unknown decision ID"):
         evaluate_invocation(invocation)

@@ -1,4 +1,10 @@
-"""Evaluate deterministic New Zealand OIA statutory-clock rules."""
+"""Pure OIA statutory clock decisions (ss 2, 12(3), 14, 15, 15A, 28).
+
+These functions are deterministic decision helpers. They do not certify
+compliance and must surface discretion points for human judgment.
+"""
+
+from __future__ import annotations
 
 from collections.abc import Iterable
 from datetime import date
@@ -13,14 +19,15 @@ from foi_o_nz.oia_rules.types import (
 
 
 def nz_working_days(start: date, n: int, calendar: Iterable[date] | None = None) -> date:
-    """Wrapper around add_working_days to satisfy track requirements."""
+    """Add *n* NZ OIA working days using the shared dates engine."""
     return add_working_days(start, n, holidays=calendar, include_oia_summer_exclusion=True)
 
 
 def evaluate_response_deadline(
-    receipt_date: ValueObject, holidays: Iterable[date] | None = None
+    receipt_date: ValueObject,
+    holidays: Iterable[date] | None = None,
 ) -> RuleResult:
-    """Calculate the response deadline from a receipt-date value."""
+    """Compute the s 15 response deadline (20 working days) from receipt."""
     if receipt_date.valueState == "not_provided":
         val = ValueObject(
             value=None,
@@ -83,9 +90,10 @@ def evaluate_response_deadline(
 
 
 def evaluate_transfer_deadline(
-    receipt_date: ValueObject, holidays: Iterable[date] | None = None
+    receipt_date: ValueObject,
+    holidays: Iterable[date] | None = None,
 ) -> RuleResult:
-    """Calculate the statutory transfer deadline from a receipt date."""
+    """Compute the s 14 transfer deadline (10 working days) from receipt."""
     if receipt_date.valueState != "known" or not receipt_date.value:
         val = ValueObject(value=None, valueState="unknown")
         return RuleResult(outputs={"nz-oia/decision.transfer_deadline": val}, trace_step={})
@@ -116,7 +124,7 @@ def evaluate_extension_validity(
     extension_period_working_days: ValueObject,
     holidays: Iterable[date] | None = None,
 ) -> RuleResult:
-    """Evaluate whether a proposed extension notice is valid."""
+    """Validate extension notice timing and ground; period reasonableness is discretion."""
     if (
         receipt_date.valueState != "known"
         or not receipt_date.value
@@ -140,7 +148,9 @@ def evaluate_extension_validity(
 
     if notice_dt > original_deadline:
         val = ValueObject(
-            value=False, valueState="known", warnings=["extension notice after original deadline"]
+            value=False,
+            valueState="known",
+            warnings=["extension notice after original deadline"],
         )
         return RuleResult(
             outputs={"nz-oia/decision.extension_validity": val},
@@ -217,7 +227,7 @@ def evaluate_deemed_refusal(
     response_sent: ValueObject,
     holidays: Iterable[date] | None = None,
 ) -> RuleResult:
-    """Evaluate whether the elapsed statutory clock implies deemed refusal."""
+    """Determine whether a deemed refusal arises after the response deadline."""
     if (
         receipt_date.valueState != "known"
         or not receipt_date.value
@@ -275,7 +285,7 @@ def evaluate_deemed_refusal(
 
 
 def evaluate_urgency_flag(urgency_reasons_provided: ValueObject) -> RuleResult:
-    """Evaluate whether supplied urgency reasons require human discretion."""
+    """Route urgency requests; never machine-certify urgency assessment."""
     if urgency_reasons_provided.valueState != "known" or urgency_reasons_provided.value is None:
         return RuleResult(
             outputs={"nz-oia/decision.urgency_flag": ValueObject(value=None, valueState="unknown")},
@@ -325,9 +335,10 @@ def evaluate_urgency_flag(urgency_reasons_provided: ValueObject) -> RuleResult:
 
 
 def evaluate_invocation(
-    invocation: RuleInvocation, holidays: Iterable[date] | None = None
+    invocation: RuleInvocation,
+    holidays: Iterable[date] | None = None,
 ) -> RuleResult:
-    """Dispatch a rule invocation to its deterministic evaluator."""
+    """Dispatch a rule invocation to the matching decision function."""
     inputs = invocation.inputs
     dec_id = invocation.decision_id
 
@@ -374,4 +385,5 @@ def evaluate_invocation(
         )
         return evaluate_urgency_flag(reasons)
 
-    raise ValueError(f"Unknown decision ID: {dec_id}")
+    msg = f"Unknown decision ID: {dec_id}"
+    raise ValueError(msg)
