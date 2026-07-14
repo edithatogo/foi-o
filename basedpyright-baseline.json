@@ -216,56 +216,6 @@
                 }
             }
         ],
-        "./tests/test_event_extraction_timeline.py": [
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 15,
-                    "endColumn": 34,
-                    "lineCount": 1
-                }
-            },
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 15,
-                    "endColumn": 34,
-                    "lineCount": 1
-                }
-            },
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 15,
-                    "endColumn": 34,
-                    "lineCount": 1
-                }
-            },
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 42,
-                    "endColumn": 61,
-                    "lineCount": 1
-                }
-            },
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 11,
-                    "endColumn": 44,
-                    "lineCount": 1
-                }
-            },
-            {
-                "code": "reportArgumentType",
-                "range": {
-                    "startColumn": 11,
-                    "endColumn": 39,
-                    "lineCount": 1
-                }
-            }
-        ],
         "./tests/test_models.py": [
             {
                 "code": "reportArgumentType",
