@@ -3,6 +3,7 @@
 - [GitHub issue #23](https://github.com/edithatogo/foi-o/issues/23)
 - [Specification](./spec.md)
 - [Implementation Plan](./plan.md)
+- [Deterministic execution runbook](./less-capable-model-runbook.md)
 - [Metadata](./metadata.json)
 - [Import and validation audit](./audit.md)
 - [Output ledger](./output-ledger.yaml)

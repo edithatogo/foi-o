@@ -1,5 +1,9 @@
 # Plan: FOI-O V2 empirical implementation
 
+Execution contract: follow [the deterministic runbook](./less-capable-model-runbook.md)
+one packet at a time. A packet is not complete until its exact commands, exit
+codes, outputs, and commit SHA are recorded below.
+
 ## Phase 1: Reviewed bundle import
 
 - [x] Task: Identify the target repository and preserve the starting state.
@@ -30,6 +34,10 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
 
 - [ ] Export a versioned FOI-O extraction contract for `nlp-policy-nz`, including
   ontology, schema, codebook, provenance, and candidate-status identifiers.
+- [x] Define the independently versioned `foi-o` core and jurisdiction-profile
+  family contract, including `foi-o-nz` and `foi-o-au-nsw` examples.
+  - Evidence: `docs/39-ontology-versioning-and-jurisdiction-profiles.md`;
+    `schemas/json/ontology-release-manifest.schema.json`; 54 schema-fixture tests passed.
 - [ ] Define contract-version compatibility, capability negotiation, migrations,
   and rejection behavior for unknown revisions.
 - [ ] Add consumer-contract tests for FOI-O, `fyi-archive`, `nlp-policy-nz`, and

@@ -1,5 +1,9 @@
 # Plan: Australian FOI jurisdiction profiles
 
+Execution contract: follow [the deterministic Australian runbook](./less-capable-model-runbook.md)
+in packet order. Record exact commands, results, artifacts, source digests, and
+commit SHA for every completed packet. Never mark a human gate complete.
+
 ## Phase 1: Profile and source contracts
 
 GitHub subissue: [#28](https://github.com/edithatogo/foi-o/issues/28).

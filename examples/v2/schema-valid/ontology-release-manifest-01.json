@@ -1,0 +1,40 @@
+{
+  "manifest_version": "0.1.0",
+  "release_id": "foi-o-release/2.0.0",
+  "created_at": "2026-07-14T10:00:00Z",
+  "core": {
+    "id": "foi-o",
+    "version": "2.0.0",
+    "artifact": {
+      "uri": "https://example.org/foi-o/2.0.0/core.jsonld",
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  "profiles": [
+    {
+      "id": "foi-o-nz",
+      "version": "2.0.0",
+      "jurisdiction": "NZ",
+      "core_compatibility": "^2.0.0",
+      "artifact": {
+        "uri": "https://example.org/foi-o-nz/2.0.0/profile.jsonld",
+        "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "status": "validated"
+    },
+    {
+      "id": "foi-o-au-nsw",
+      "version": "0.1.0",
+      "jurisdiction": "AU-NSW",
+      "core_compatibility": "^2.0.0",
+      "parent_profile": {"id": "foi-o-au", "compatibility": "^0.1.0"},
+      "artifact": {
+        "uri": "https://example.org/foi-o-au-nsw/0.1.0/profile.jsonld",
+        "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "status": "pilot"
+    }
+  ],
+  "migration_catalogue": "migrations/ontology-family.json",
+  "compatibility_matrix": "compatibility/ontology-family.json"
+}

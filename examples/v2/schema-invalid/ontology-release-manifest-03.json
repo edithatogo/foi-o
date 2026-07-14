@@ -1,0 +1,7 @@
+{
+  "manifest_version": "0.1.0",
+  "release_id": "foi-o-release/2.0.0",
+  "created_at": "2026-07-14T10:00:00Z",
+  "core": {"id": "foi-o-nz", "version": "2.0.0", "artifact": {"uri": "https://example.org/core", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}},
+  "profiles": [{"id": "foi-o-aus-nsw", "version": "0.1.0", "jurisdiction": "AUS-NSW", "core_compatibility": "latest", "parent_profile": {"id": "foi-o-aus", "compatibility": "latest"}, "artifact": {"uri": "https://example.org/nsw", "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}, "status": "pilot"}]
+}
