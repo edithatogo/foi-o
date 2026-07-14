@@ -11,7 +11,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -107,7 +107,7 @@ def task_from_risk_assessment(record: dict[str, Any], *, sequence: int = 0) -> R
     if not record.get("review_required"):
         return None
     source_id = _source_id(record, f"risk-{sequence}")
-    hits = record.get("hits") if isinstance(record.get("hits"), list) else []
+    hits = cast("list[Any]", record.get("hits")) if isinstance(record.get("hits"), list) else []
     categories = sorted(
         {str(hit.get("category")) for hit in hits if isinstance(hit, dict) and hit.get("category")}
     )
