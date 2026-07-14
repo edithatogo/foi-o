@@ -1,12 +1,13 @@
+"""Generate PIC trace fixtures from the FOI-O rules engine."""
+
 import json
-import os
+import logging
 import sys
-from datetime import date, datetime, UTC
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 # Add paths to PYTHONPATH
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-sys.path.insert(0, "/Volumes/PortableSSD/GitHub/foi-o/src")
 
 from foi_o_nz.oia_rules import (
     RuleInvocation,
@@ -14,11 +15,15 @@ from foi_o_nz.oia_rules import (
     evaluate_invocation,
 )
 
-def run():
+LOGGER = logging.getLogger(__name__)
+
+
+def run() -> None:
+    """Generate one trace document for each fixture case."""
     rules_dir = Path(__file__).parent
     fixtures_path = rules_dir / "fixtures" / "oia-clock-fixtures.json"
-    with open(fixtures_path, encoding="utf-8") as f:
-        fixtures = json.load(f)
+    with fixtures_path.open(encoding="utf-8") as fixture_file:
+        fixtures = json.load(fixture_file)
 
     # Use standard 2026 holidays snapshot
     holidays = {
@@ -55,7 +60,7 @@ def run():
         outputs_trace = {}
         steps_trace = []
 
-        for dec_id, expected_out in case["expected"].items():
+        for dec_id in case["expected"]:
             invocation = RuleInvocation(
                 decision_id=dec_id,
                 inputs=inputs,
@@ -95,10 +100,12 @@ def run():
 
         # Write trace file
         filename = case_id.replace("nz-oia/fixture.", "") + "-trace.json"
-        with open(traces_dir / filename, "w", encoding="utf-8") as tf:
-            json.dump(trace_doc, tf, indent=2)
+        with (traces_dir / filename).open("w", encoding="utf-8") as trace_file:
+            json.dump(trace_doc, trace_file, indent=2)
 
-    print(f"Generated {len(fixtures['cases'])} traces in {traces_dir}")
+    LOGGER.info("Generated %d traces in %s", len(fixtures["cases"]), traces_dir)
+
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     run()

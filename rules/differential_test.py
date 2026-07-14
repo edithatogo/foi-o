@@ -1,11 +1,13 @@
+"""Compare the declarative OIA rules with the legacy date engine."""
+
 import json
+import logging
 import sys
-from datetime import date, datetime, UTC
+from datetime import UTC, date, datetime
 from pathlib import Path
 
 # Add paths to PYTHONPATH
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
-sys.path.insert(0, "/Volumes/PortableSSD/GitHub/foi-o/src")
 
 from foi_o_nz.dates import calculate_indicative_clock
 from foi_o_nz.oia_rules import (
@@ -14,11 +16,15 @@ from foi_o_nz.oia_rules import (
     evaluate_invocation,
 )
 
-def run_diff():
+LOGGER = logging.getLogger(__name__)
+
+
+def run_diff() -> None:
+    """Run all differential fixtures and fail on any divergence."""
     rules_dir = Path(__file__).parent
     fixtures_path = rules_dir / "fixtures" / "oia-clock-fixtures.json"
-    with open(fixtures_path, encoding="utf-8") as f:
-        fixtures = json.load(f)
+    with fixtures_path.open(encoding="utf-8") as fixture_file:
+        fixtures = json.load(fixture_file)
 
     # Use standard 2026 holidays snapshot
     holidays = {
@@ -86,25 +92,31 @@ def run_diff():
                         "old": old_trans_val,
                         "new": new_trans_val
                     })
-            else:
-                if new_resp_val is not None or new_trans_val is not None:
-                    divergences.append({
-                        "caseId": case_id,
-                        "decision": "multiple",
-                        "old": None,
-                        "new": "has_values"
-                    })
+            elif new_resp_val is not None or new_trans_val is not None:
+                divergences.append({
+                    "caseId": case_id,
+                    "decision": "multiple",
+                    "old": None,
+                    "new": "has_values",
+                })
         else:
             # Missingness/unknown cases
             pass
 
     if divergences:
-        print(f"FAILED: Found {len(divergences)} divergences!")
+        LOGGER.error("FAILED: Found %d divergences!", len(divergences))
         for div in divergences:
-            print(f"Case: {div['caseId']}, Dec: {div['decision']}, Old kernel: {div['old']}, New rules: {div['new']}")
+            LOGGER.error(
+                "Case: %s, Dec: %s, Old kernel: %s, New rules: %s",
+                div["caseId"],
+                div["decision"],
+                div["old"],
+                div["new"],
+            )
         sys.exit(1)
-    else:
-        print("SUCCESS: 100% agreement between old kernel and new rules module!")
+    LOGGER.info("SUCCESS: 100%% agreement between old kernel and new rules module!")
+
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     run_diff()

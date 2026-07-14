@@ -1,0 +1,8 @@
+{
+  "title": "FOI-O NZ: Freedom of Information ontology and process model",
+  "description": "Versioned FOI-O ontology, schemas, extraction contracts, validation, and analytics for New Zealand Official Information Act request processes.",
+  "creators": [{"name": "Mordaunt, Dylan A", "orcid": "0000-0002-9775-0603"}],
+  "license": "MIT",
+  "keywords": ["freedom-of-information", "official-information-act", "ontology", "rules-as-code", "new-zealand"],
+  "related_identifiers": [{"identifier": "https://github.com/edithatogo/foi-o", "relation": "isIdenticalTo", "scheme": "url"}]
+}

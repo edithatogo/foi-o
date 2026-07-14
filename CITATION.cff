@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use FOI-O, please cite the versioned release used."
+type: software
+title: "FOI-O NZ: Freedom of Information ontology and process model"
+abstract: >-
+  Evidence-first ontology, schemas, extraction contracts, validation, and
+  analytics for New Zealand Official Information Act request processes.
+authors:
+  - family-names: Mordaunt
+    given-names: Dylan A
+    orcid: "https://orcid.org/0000-0002-9775-0603"
+repository-code: "https://github.com/edithatogo/foi-o"
+url: "https://github.com/edithatogo/foi-o"
+license: MIT
+keywords:
+  - freedom-of-information
+  - official-information-act
+  - ontology
+  - rules-as-code
+  - new-zealand
+version: "0.8.0"
+date-released: "2026-07-14"

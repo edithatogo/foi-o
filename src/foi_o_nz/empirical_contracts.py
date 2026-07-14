@@ -340,6 +340,63 @@ class NormativeSource(StrictModel):
     )
 
 
+class JurisdictionProfileProvenance(StrictModel):
+    """Pin the source manifest and generator used to build a profile."""
+
+    source_manifest_id: NonEmpty
+    source_manifest_sha256: Sha256
+    generated_at: datetime
+    generated_by: NonEmpty
+    certified_by: NonEmpty | None = None
+    certified_at: datetime | None = None
+
+    @model_validator(mode="after")
+    def validate_certification(self) -> JurisdictionProfileProvenance:
+        """Keep certification metadata complete when supplied."""
+        if (self.certified_by is None) != (self.certified_at is None):
+            raise ValueError("profile certification requires certifier and timestamp")
+        return self
+
+
+class JurisdictionProfile(StrictModel):
+    """Describe an additive jurisdiction profile without changing FOI-O core semantics."""
+
+    profile_id: Annotated[str, Field(pattern=r"^foi-o-[a-z0-9-]+-v[0-9]+\.[0-9]+\.[0-9]+$")]
+    jurisdiction: NonEmpty
+    name: NonEmpty
+    status: Literal["candidate", "validated", "stable", "deprecated"]
+    core_compatibility: NonEmpty
+    supported_surfaces: list[NonEmpty] = Field(min_length=1)
+    unsupported_surfaces: list[NonEmpty] = Field(min_length=1)
+    uncertain_surfaces: list[NonEmpty] = Field(min_length=1)
+    human_certified_surfaces: list[NonEmpty] = Field(default_factory=list)
+    sources: list[NormativeSource] = Field(min_length=1)
+    provenance: JurisdictionProfileProvenance
+
+    @model_validator(mode="after")
+    def validate_profile(self) -> JurisdictionProfile:
+        """Prevent cross-jurisdiction leakage and unsupported validation claims."""
+        if any(source.jurisdiction != self.jurisdiction for source in self.sources):
+            raise ValueError("profile sources must match the profile jurisdiction")
+        declared = set(self.supported_surfaces) | set(self.unsupported_surfaces) | set(
+            self.uncertain_surfaces
+        )
+        if len(declared) != len(
+            self.supported_surfaces + self.unsupported_surfaces + self.uncertain_surfaces
+        ):
+            raise ValueError("profile surfaces must be mutually exclusive")
+        if not set(self.human_certified_surfaces).issubset(self.supported_surfaces):
+            raise ValueError("human-certified surfaces must be supported surfaces")
+        if self.status in {"validated", "stable"}:
+            if not self.human_certified_surfaces:
+                raise ValueError("validated profile requires human-certified surfaces")
+            if self.provenance.certified_by is None or self.provenance.certified_at is None:
+                raise ValueError("validated profile requires certification provenance")
+            if any(source.review_status != "approved" for source in self.sources):
+                raise ValueError("validated profile certification requires approved normative sources")
+        return self
+
+
 class SamplingDesign(StrictModel):
     """Describe an estimand-aware empirical sampling design."""
 
