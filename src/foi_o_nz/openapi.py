@@ -14,7 +14,7 @@ def build_openapi_contract() -> dict[str, Any]:
         "openapi": "3.1.0",
         "info": {
             "title": "FOI-O NZ Agent Process API",
-            "version": "0.8.0",
+            "version": "0.8.1",
             "description": "Bounded process-support API. It exposes validation and drafting support, not autonomous OIA decision-making.",
         },
         "servers": [{"url": "http://localhost:8787", "description": "local development"}],
