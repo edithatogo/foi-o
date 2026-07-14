@@ -45,10 +45,12 @@ def build_duckdb_database(
             "CREATE OR REPLACE TABLE events AS SELECT * FROM read_json_auto(?)", [str(events_jsonl)]
         )
         tables.append("events")
-    counts = {
-        table: con.execute(f"SELECT count(*) FROM {table}").fetchone()[0]  # noqa: S608 table comes from fixed list
-        for table in tables
-    }
+    counts: dict[str, int] = {}
+    for table in tables:
+        row = con.execute(f"SELECT count(*) FROM {table}").fetchone()  # noqa: S608 table comes from fixed list
+        if row is None:
+            raise RuntimeError(f"DuckDB returned no count row for table {table!r}")
+        counts[table] = int(row[0])
     con.close()
     return {"database": str(database), "tables": tables, "counts": counts}
 
