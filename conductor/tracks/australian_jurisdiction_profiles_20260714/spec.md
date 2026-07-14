@@ -6,6 +6,22 @@ Extend FOI-O from its validated NZ profile to evidence-backed Australian
 profiles without weakening the jurisdiction-neutral core or treating Australian
 information-access regimes as legally interchangeable.
 
+## Provenance and integration
+
+This track incorporates conformance, source-triangulation, fixture-independence,
+and release-evidence lessons from `edithatogo/rac-conformance`. Those lessons
+are informative design provenance, not a claim that PIC is an adopted standard
+or a required runtime dependency.
+
+- Profile contracts and deterministic artifacts should be PIC-compatible where
+  that creates a tested consumer boundary.
+- `edithatogo/legislation` remains authoritative for pinned legal-source
+  manifests; FOI-O does not duplicate source capture.
+- `edithatogo/fyi-archive` remains authoritative for immutable public-example
+  manifests; FOI-O stores derived candidate and review artifacts separately.
+- `edithatogo/nlp-policy-nz` may produce ontology-pinned candidates but cannot
+  certify legal mappings, fixtures, or outcomes.
+
 ## Rollout
 
 1. Pilot Commonwealth and New South Wales.
@@ -27,6 +43,20 @@ information-access regimes as legally interchangeable.
   certify legal outcomes.
 - Require representative public examples and human-reviewed fixtures for every
   jurisdiction before that profile is described as validated.
+- Version the profile interface, capability declarations, migration behavior,
+  and rejection behavior for unknown contract versions.
+- Separate observed process events, deterministic calculations, interpretive
+  mappings, and human-only legal determinations in schemas and APIs.
+- Emit stable identifiers, temporal parameters, source references, candidate
+  fixtures, deterministic traces, value states, and epistemic status where a
+  named consumer exercises those artifacts.
+- Resolve source assertions deterministically from machine-readable primary and
+  official evidence, routing blocked, conflicting, stale, rights-uncertain, or
+  incomplete cases to a small human exception queue.
+- Require independent fixture promotion: extraction or implementation agents
+  may propose candidates but cannot certify their own outputs.
+- Exercise the profile contract through named FOI-O, archive, extraction, and
+  read-only agent/MCP consumers before adding fields or mappings.
 
 ## Minimum evidence per jurisdiction
 
@@ -49,6 +79,11 @@ information-access regimes as legally interchangeable.
   human-certified surfaces explicitly.
 - Later jurisdictions reuse the profile contract without copying Commonwealth
   or NSW legal assumptions.
+- A pilot go/no-go decision is recorded before implementation begins for the
+  remaining jurisdictions, which proceed as separately gated tranches.
+- A release-evidence bundle records tag/SHA, contract versions, capabilities,
+  tests, fixtures, provenance, empirical results, exceptions, migrations, and
+  limitations for downstream paper updates.
 
 ## Out of scope
 

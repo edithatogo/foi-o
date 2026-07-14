@@ -8,6 +8,11 @@ remains `edithatogo/rulesandprocesses` track
 `foi_o_v2_triangulation_20260708`; this local track owns only repository-native
 implementation, tests, migration decisions, and checkpoints.
 
+The conformance, triangulation, fixture-independence, and release-evidence
+extensions were adapted from `edithatogo/rac-conformance`. They are recorded as
+design provenance and optional interoperability guidance, not an external
+runtime dependency or standards claim.
+
 ## Requirements
 
 - Preserve the `foi-o-nz` package name and `foi_o_nz` namespace.
@@ -22,6 +27,12 @@ implementation, tests, migration decisions, and checkpoints.
 - Use `nlp-policy-nz` for ontology-pinned candidate extraction and keep derived
   outputs separate from immutable archive manifests.
 - Defer `fe-reader`; it is not an immediate dependency for the V2 re-extraction.
+- Version the extraction/profile contract and publish machine-readable
+  capabilities, migration behavior, and unsupported surfaces.
+- Require independent promotion of extracted candidates and deterministic
+  source-triangulation exceptions before gold or legal-mapping claims.
+- Produce a release-evidence bundle suitable for updating the deferred
+  RaC Conformance papers after the next FOI-O release.
 
 ## Acceptance criteria
 
@@ -31,3 +42,5 @@ implementation, tests, migration decisions, and checkpoints.
 - Import provenance, decisions, risks, outputs, traceability, and gates are recorded.
 - No push, issue/PR mutation, release, dataset publication, or legal certification occurs.
 - A linked GitHub issue may be created when explicitly authorized by the user.
+- Named archive, extraction, FOI-O, and read-only agent consumers pass contract
+  tests against the same pinned release evidence.

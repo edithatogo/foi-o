@@ -24,16 +24,32 @@
 
 ## Human and empirical follow-up gates
 
+GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
+[#26](https://github.com/edithatogo/foi-o/issues/26), and
+[#27](https://github.com/edithatogo/foi-o/issues/27).
+
 - [ ] Export a versioned FOI-O extraction contract for `nlp-policy-nz`, including
   ontology, schema, codebook, provenance, and candidate-status identifiers.
+- [ ] Define contract-version compatibility, capability negotiation, migrations,
+  and rejection behavior for unknown revisions.
+- [ ] Add consumer-contract tests for FOI-O, `fyi-archive`, `nlp-policy-nz`, and
+  one read-only agent/MCP surface.
 - [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
   initial ontology-based baseline without overwriting raw archive records.
 - [ ] `[HUMAN]` Pin and approve the target revision for upstream review.
 - [ ] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
 - [ ] Build an independent `oia_rules` event-time fixture set without reusing authoring data.
+- [ ] Build deterministic source-triangulation assertions and an explicit human
+  exception queue for blocked, conflicting, stale, rights-uncertain, or
+  insufficient evidence.
 - [ ] Populate and review NZ historical source packs and the source-rights registry.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
+- [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
+  versions, capabilities, tests, fixtures, provenance, empirical results,
+  exceptions, migrations, and limitations.
+- [ ] Trigger the RaC Conformance paper-update workflow only after the release
+  bundle is immutable and published.
 - [x] `[HUMAN]` Authorize creation of the GitHub issues required to coordinate
   recommended repository changes.
 - [ ] `[HUMAN]` Authorize any PR, dataset, release, or preprint action.
