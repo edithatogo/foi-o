@@ -99,14 +99,14 @@ class CodebookEntry(StrictModel):
     @model_validator(mode="after")
     def validate_maturity(self) -> CodebookEntry:
         """Enforce approval and evidence requirements for mature codes."""
-        if self.maturity is CodebookMaturity.STABLE:
-            if self.review_status is not ReviewStatus.APPROVED:
+        if self.maturity == CodebookMaturity.STABLE:
+            if self.review_status != ReviewStatus.APPROVED:
                 raise ValueError("stable code requires approved review status")
             if self.empirical_support_count < 1:
                 raise ValueError("stable code requires empirical support")
             if not self.change_control.approved_by or self.change_control.approved_at is None:
                 raise ValueError("stable code requires recorded approval")
-        if self.maturity is CodebookMaturity.DEPRECATED and not self.deprecated_by:
+        if self.maturity == CodebookMaturity.DEPRECATED and not self.deprecated_by:
             raise ValueError("deprecated code requires deprecated_by")
         return self
 
@@ -160,9 +160,9 @@ class LabelAssertion(StrictModel):
         if self.extraction_method in model_methods:
             if not self.requires_human_review:
                 raise ValueError("model outputs require human review")
-            if self.epistemic_status is EpistemicStatus.CERTIFIED:
+            if self.epistemic_status == EpistemicStatus.CERTIFIED:
                 raise ValueError("model output cannot certify an assertion")
-        if self.epistemic_status is EpistemicStatus.CERTIFIED:
+        if self.epistemic_status == EpistemicStatus.CERTIFIED:
             if self.certification_authority is None:
                 raise ValueError("certified assertion requires certification authority")
             if self.review_status not in {ReviewStatus.ADJUDICATED, ReviewStatus.APPROVED}:

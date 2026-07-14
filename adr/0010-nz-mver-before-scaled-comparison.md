@@ -13,7 +13,7 @@ Allow Australian capture/source ingestion in parallel, but gate cross-jurisdicti
 
 ## Consequences
 
-- Existing records and identifiers remain interpretable.
-- Migration and validation are explicit.
-- Human certification and release gates remain binding.
-- The decision should be revisited after the NZ minimum viable empirical release.
+- NZ remains the reference implementation until its sampling, annotation, evaluation, uncertainty, and rights gates are evidenced.
+- Australian ingestion and profile design may proceed, but comparative outcome claims remain blocked until the NZ gate passes.
+- Pilot go/no-go criteria must be machine-checkable and produce a release evidence bundle for human certification.
+- Failure to meet the gate narrows or defers comparative claims rather than being reported as successful validation.

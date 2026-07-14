@@ -13,7 +13,7 @@ Record authority, directness, integrity, temporal applicability, and visibility 
 
 ## Consequences
 
-- Existing records and identifiers remain interpretable.
-- Migration and validation are explicit.
-- Human certification and release gates remain binding.
-- The decision should be revisited after the NZ minimum viable empirical release.
+- Evidence can be compared without collapsing legal authority, directness, integrity, time, and access into one ordinal grade.
+- Consumers that display a summary grade must retain the underlying dimensions and document the deterministic projection.
+- Missing or unknown dimensions remain visible instead of being silently treated as weak evidence.
+- Validation and comparison tooling must evaluate each dimension independently.

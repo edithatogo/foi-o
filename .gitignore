@@ -14,7 +14,6 @@ coverage.xml
 .env
 .env.*
 .pixi/
-pixi.lock
 uv.lock
 
 # Generated data / build outputs
@@ -26,6 +25,7 @@ build/
 *.duckdb.wal
 *.parquet
 *.jsonl
+!examples/process-mining-events.fixture.jsonl
 
 # OS/editor
 .DS_Store

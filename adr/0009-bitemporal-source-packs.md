@@ -13,7 +13,7 @@ Resolve legal sources at event time using effective and observation time, versio
 
 ## Consequences
 
-- Existing records and identifiers remain interpretable.
-- Migration and validation are explicit.
-- Human certification and release gates remain binding.
-- The decision should be revisited after the NZ minimum viable empirical release.
+- Legal assertions can be reproduced against the source version effective for an event and the version actually observed by the system.
+- Jurisdiction profiles must publish effective intervals, observation timestamps, content hashes, version relationships, and source rights.
+- Missing effective dates or unresolved source conflicts block confirmed legal conclusions and enter the source-review queue.
+- Source-pack maintenance becomes a release responsibility independent of ontology schema releases.

@@ -13,7 +13,7 @@ Use distinct fields and registries for codebook maturity, record epistemic statu
 
 ## Consequences
 
-- Existing records and identifiers remain interpretable.
-- Migration and validation are explicit.
-- Human certification and release gates remain binding.
-- The decision should be revisited after the NZ minimum viable empirical release.
+- Consumers can distinguish code maturity from the confidence and review state of an individual assertion.
+- Automated extraction remains non-dispositive: model output cannot become certified without human or official authority.
+- Producers and validators must populate and test four independent fields instead of relying on a single overloaded status.
+- Mappings from legacy status fields require an explicit migration rule and may need human review where the old value was ambiguous.
