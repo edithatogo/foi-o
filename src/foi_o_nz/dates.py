@@ -13,6 +13,8 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from pydantic import AnyUrl
+
 from foi_o_nz.models import LegalClock
 
 STANDARD_CLOCK_WARNING = (
@@ -211,7 +213,9 @@ def calculate_indicative_clock(
         ),
         calculation_method="weekday_plus_optional_oia_summer_exclusion_v0.2.0",
         calendar_source_name=calendar.source_name if calendar is not None else None,
-        calendar_source_url=calendar.source_url if calendar is not None else None,
+        calendar_source_url=(
+            AnyUrl(calendar.source_url) if calendar is not None and calendar.source_url else None
+        ),
         calendar_source_status=calendar.source_status if calendar is not None else None,
         calendar_retrieved_at=calendar.retrieved_at if calendar is not None else None,
         regional_anniversary_days_included=(
