@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from enum import StrEnum
-from typing import Annotated, Literal
+from typing import Annotated, ClassVar, Literal
 
 from pydantic import AnyUrl, BaseModel, ConfigDict, Field, model_validator
 
@@ -20,7 +20,7 @@ Sha256 = Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")]
 class StrictModel(BaseModel):
     """Reject undeclared fields across all empirical contracts."""
 
-    model_config = ConfigDict(extra="forbid")
+    model_config: ClassVar[ConfigDict] = ConfigDict(extra="forbid")
 
 
 class CodebookMaturity(StrEnum):
