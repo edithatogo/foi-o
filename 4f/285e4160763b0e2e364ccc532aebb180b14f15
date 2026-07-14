@@ -1,0 +1,6 @@
+Task: Create and link cross-repository FOI-O re-extraction track
+Summary: docs(conductor): reconcile FOI-O re-extraction architecture
+
+Commit notes: Defer fe-reader, preserve the fyi-cli to fyi-archive source path, and define governed NLP re-extraction boundaries.
+Verification: metadata parse, registry/link inspection, git diff --check, and GitHub Project membership passed.
+Remaining risks: implementation, dataset publication, push, and pull request remain pending and separately gated.
