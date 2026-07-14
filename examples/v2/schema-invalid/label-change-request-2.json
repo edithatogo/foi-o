@@ -1,0 +1,25 @@
+{
+  "change_id": "LCR-001",
+  "code_id": "foi_o.nz.extension_notice_observed",
+  "change_type": "clarify",
+  "proposed_by": {
+    "kind": "human",
+    "id": "researcher:01"
+  },
+  "created_at": "2026-07-09T08:40:00+10:00",
+  "rationale": "too short",
+  "evidence_refs": [
+    "annotation-disagreement:001",
+    "evidence:001"
+  ],
+  "impact_assessment": {
+    "affected_versions": [
+      "2.0.0-alpha.1"
+    ],
+    "affected_assertions": 14,
+    "backward_compatible": true,
+    "notes": "Definition-only clarification."
+  },
+  "migration_plan": "Retain existing assertions and re-review the 14 affected cases.",
+  "review_status": "under_review"
+}

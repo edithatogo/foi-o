@@ -5,6 +5,14 @@ The experimental Mojo/MAX layer lives under ``mojo/`` and is validated separatel
 with ``pixi run mojo-test``.
 """
 
+from foi_o_nz.empirical_contracts import (
+    AuthorityIdentityRecord,
+    CodebookEntry,
+    EvidenceAssertion,
+    LabelAssertion,
+    NormativeSource,
+    ProcessAnalysisRun,
+)
 from foi_o_nz.models import (
     Actor,
     AgentAction,
@@ -21,10 +29,16 @@ __all__ = [
     "Actor",
     "AgentAction",
     "AlaveteliStateMapping",
+    "AuthorityIdentityRecord",
+    "CodebookEntry",
     "CoreEvent",
+    "EvidenceAssertion",
     "EvidenceRef",
     "HumanCertification",
+    "LabelAssertion",
     "LegalReference",
+    "NormativeSource",
+    "ProcessAnalysisRun",
     "RequestProfile",
     "RequestState",
     "__version__",

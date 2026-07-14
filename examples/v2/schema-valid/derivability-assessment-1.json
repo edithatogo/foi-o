@@ -1,0 +1,38 @@
+{
+  "assessment_id": "derive:001",
+  "claim_type": "observed_public_response_latency",
+  "subject_ref": {
+    "kind": "request",
+    "id": "request:001"
+  },
+  "status": "directly_derivable",
+  "required_facts": [
+    {
+      "fact_id": "request_validity_date",
+      "description": "Date on which a valid request was received."
+    },
+    {
+      "fact_id": "decision_date",
+      "description": "Date on which the final decision was communicated."
+    }
+  ],
+  "observed_facts": [
+    {
+      "fact_id": "request_validity_date",
+      "description": "Date on which a valid request was received."
+    },
+    {
+      "fact_id": "decision_date",
+      "description": "Date on which the final decision was communicated."
+    }
+  ],
+  "missing_facts": [],
+  "allowed_outputs": [
+    "observed_public_response_latency_days"
+  ],
+  "prohibited_outputs": [
+    "certified_statutory_compliance"
+  ],
+  "assessed_at": "2026-07-09T08:20:00+10:00",
+  "assessor_id": "foi-o-nz:derivability"
+}

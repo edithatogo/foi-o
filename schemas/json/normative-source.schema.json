@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical:normative-source:0.1.0",
+  "title": "FOI-O bitemporal normative source",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id",
+    "jurisdiction",
+    "source_type",
+    "title",
+    "provider",
+    "source_uri",
+    "authority_level",
+    "effective_time",
+    "observation_time",
+    "version",
+    "integrity",
+    "rights"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jurisdiction": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "enum": [
+        "act",
+        "amending_act",
+        "regulation",
+        "statutory_instrument",
+        "gazette",
+        "parliamentary_debate",
+        "explanatory_material",
+        "committee_report",
+        "ombudsman_guidance",
+        "information_commissioner_guidance",
+        "review_decision",
+        "court_or_tribunal_decision",
+        "agency_guidance",
+        "calendar",
+        "authority_identity_record"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_uri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "authority_level": {
+      "enum": [
+        "binding_law",
+        "binding_decision",
+        "authoritative_interpretation",
+        "official_guidance",
+        "administrative_material",
+        "contextual_material"
+      ]
+    },
+    "effective_time": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from"
+      ],
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date"
+        },
+        "to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
+      }
+    },
+    "observation_time": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observed_at",
+        "retrieved_at"
+      ],
+      "properties": {
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "version": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_version_id"
+      ],
+      "properties": {
+        "source_version_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "official_version_label": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string",
+          "default": "en"
+        }
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sha256"
+      ],
+      "properties": {
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "archived_uri": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "access_basis",
+        "redistribution_status"
+      ],
+      "properties": {
+        "access_basis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "redistribution_status": {
+          "enum": [
+            "permitted",
+            "restricted",
+            "metadata_only",
+            "unknown"
+          ]
+        },
+        "license_or_terms": {
+          "type": "string"
+        },
+        "rights_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relation",
+          "target_source_id"
+        ],
+        "properties": {
+          "relation": {
+            "enum": [
+              "amends",
+              "amended_by",
+              "supersedes",
+              "superseded_by",
+              "commences",
+              "interprets",
+              "cites",
+              "implements"
+            ]
+          },
+          "target_source_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "provision_index_ref": {
+      "type": "string"
+    },
+    "review_status": {
+      "enum": [
+        "needs_review",
+        "human_reviewed",
+        "approved",
+        "rejected"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "rights": {
+            "properties": {
+              "redistribution_status": {
+                "const": "permitted"
+              }
+            },
+            "required": [
+              "redistribution_status"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "rights": {
+            "required": [
+              "license_or_terms"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

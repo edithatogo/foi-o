@@ -1,0 +1,342 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical:process-analysis-run:0.1.0",
+  "title": "FOI-O process analysis run",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "analysis_type",
+    "generated_at",
+    "event_stream_ref",
+    "event_selection",
+    "uncertainty_policy",
+    "censoring_policy",
+    "outputs",
+    "software",
+    "legal_claims_permitted",
+    "result_scope",
+    "review_status"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "analysis_type": {
+      "enum": [
+        "descriptive",
+        "process_mining",
+        "survival",
+        "extractor_evaluation",
+        "comparative"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "event_stream_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path_or_uri",
+        "sha256",
+        "schema_version",
+        "snapshot_id"
+      ],
+      "properties": {
+        "path_or_uri": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "schema_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "snapshot_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lineage_graph_ref": {
+          "type": "string"
+        },
+        "ledger_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "event_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_epistemic_statuses",
+        "requires_evidence_reference",
+        "unknown_handling"
+      ],
+      "properties": {
+        "allowed_epistemic_statuses": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "observed",
+              "inferred",
+              "asserted",
+              "certified",
+              "unknown"
+            ]
+          }
+        },
+        "requires_evidence_reference": {
+          "type": "boolean"
+        },
+        "unknown_handling": {
+          "enum": [
+            "retain_as_state",
+            "exclude_with_count",
+            "sensitivity_analysis"
+          ]
+        },
+        "minimum_review_status": {
+          "enum": [
+            "unreviewed",
+            "single_reviewed",
+            "dual_reviewed",
+            "adjudicated",
+            "approved"
+          ]
+        },
+        "event_type_allowlist": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "uncertainty_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strategy",
+        "abstentions_reported",
+        "extraction_uncertainty_propagated"
+      ],
+      "properties": {
+        "strategy": {
+          "enum": [
+            "descriptive_stratification",
+            "sensitivity_bounds",
+            "probability_weighting",
+            "multiple_imputation",
+            "not_applicable"
+          ]
+        },
+        "abstentions_reported": {
+          "const": true
+        },
+        "extraction_uncertainty_propagated": {
+          "type": "boolean"
+        },
+        "sensitivity_analysis_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "censoring_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_applicable",
+            "right_censored",
+            "mixed"
+          ]
+        },
+        "censor_date_field": {
+          "type": "string"
+        },
+        "competing_event_fields": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "right_censored",
+                  "mixed"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "censor_date_field"
+            ]
+          }
+        }
+      ]
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "summary",
+              "transition_matrix",
+              "variant_table",
+              "duration_table",
+              "survival_estimate",
+              "object_centric_log",
+              "case_centric_log",
+              "evaluation_report",
+              "derivability_report"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "software": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "version"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "git_sha": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{7,40}$"
+          }
+        }
+      }
+    },
+    "pre_registration_ref": {
+      "type": "string"
+    },
+    "comparability_assessment_ref": {
+      "type": "string"
+    },
+    "estimand_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "legal_claims_permitted": {
+      "const": false
+    },
+    "result_scope": {
+      "const": "public_process_indicators_only"
+    },
+    "review_status": {
+      "enum": [
+        "draft",
+        "human_reviewed",
+        "approved",
+        "rejected"
+      ]
+    },
+    "approved_by": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "analysis_type": {
+            "const": "comparative"
+          }
+        },
+        "required": [
+          "analysis_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "comparability_assessment_ref",
+          "estimand_ids"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "review_status": {
+            "const": "approved"
+          }
+        },
+        "required": [
+          "review_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "approved_by"
+        ]
+      }
+    }
+  ]
+}

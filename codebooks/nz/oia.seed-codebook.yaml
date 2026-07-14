@@ -1,0 +1,32 @@
+codebook_id: foi-o-nz-oia-seed
+version: 0.1.0
+status: seed
+jurisdiction: NZ-OIA
+codes:
+- code_id: foi_o.nz.extension_notice_observed
+  label: Extension notice observed
+  origin:
+  - legislation
+  - empirical_request_trace
+  maturity: pilot
+  warning: Does not by itself certify the extension was valid.
+- code_id: foi_o.nz.transfer_notice_observed
+  label: Transfer notice observed
+  origin:
+  - legislation
+  - empirical_request_trace
+  maturity: seed
+  warning: Public message timing may not prove the statutory transfer date.
+- code_id: foi_o.core.off_platform_transition_observed
+  label: Off-platform transition observed
+  origin:
+  - platform_state
+  - empirical_request_trace
+  maturity: pilot
+  warning: Subsequent correspondence and outcome may be unavailable.
+- code_id: foi_o.core.decision_document_present
+  label: Decision document present
+  origin:
+  - empirical_request_trace
+  maturity: seed
+  warning: Presence does not certify completeness or legal correctness.

@@ -1,0 +1,18 @@
+{
+  "assertion_id": "assertion:001",
+  "subject": {
+    "kind": "event",
+    "id": "event:extension:001"
+  },
+  "code_id": "foi_o.nz.extension_notice_observed",
+  "codebook_version": "2.0.0-alpha.2",
+  "epistemic_status": "observed",
+  "review_status": "dual_reviewed",
+  "extraction_method": "statistical_model",
+  "confidence": 0.97,
+  "requires_human_review": false,
+  "evidence_assertion_ids": [
+    "evidence:001"
+  ],
+  "created_at": "2026-07-09T08:10:00+10:00"
+}

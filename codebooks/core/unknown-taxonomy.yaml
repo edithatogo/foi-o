@@ -1,0 +1,10 @@
+unknowns:
+  platform_missing: Field is not exposed by the public platform.
+  not_publicly_observable: The event may exist but is not visible in the public record.
+  off_platform: The matter moved to post, email, phone, portal, or another non-public
+    channel.
+  ambiguous_text: Evidence exists but does not support a reliable classification.
+  attachment_unavailable: A referenced document cannot be inspected.
+  legally_indeterminate: Visible facts still require human legal judgement.
+  source_version_unresolved: The law or guidance applicable at event time cannot be
+    resolved.

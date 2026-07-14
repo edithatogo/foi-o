@@ -1,0 +1,51 @@
+{
+  "run_id": "nz-au-comparison-pilot",
+  "analysis_type": "comparative",
+  "generated_at": "2026-07-09T03:00:00Z",
+  "event_stream_ref": {
+    "path_or_uri": "https://example.org/events.jsonl",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "schema_version": "1.0.0",
+    "snapshot_id": "combined-pilot"
+  },
+  "event_selection": {
+    "allowed_epistemic_statuses": [
+      "observed"
+    ],
+    "requires_evidence_reference": true,
+    "unknown_handling": "sensitivity_analysis",
+    "minimum_review_status": "adjudicated"
+  },
+  "uncertainty_policy": {
+    "strategy": "probability_weighting",
+    "abstentions_reported": true,
+    "extraction_uncertainty_propagated": true
+  },
+  "censoring_policy": {
+    "status": "right_censored",
+    "censor_date_field": "snapshot_date"
+  },
+  "outputs": [
+    {
+      "kind": "summary",
+      "path": "outputs/comparison.json",
+      "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    }
+  ],
+  "software": [
+    {
+      "name": "foi-o-nz",
+      "version": "2.0.0-alpha.2"
+    }
+  ],
+  "comparability_assessment_ref": "comparability-registry.yaml#foi_o.core.attachment_visible",
+  "estimand_ids": [
+    "E-ATTACH-001"
+  ],
+  "legal_claims_permitted": false,
+  "result_scope": "public_process_indicators_only",
+  "review_status": "approved",
+  "approved_by": [
+    "Dylan"
+  ]
+}

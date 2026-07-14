@@ -1,0 +1,33 @@
+{
+  "source_id": "nz.oia.act.1982.version.2024-10-01",
+  "jurisdiction": "NZ-OIA",
+  "source_type": "act",
+  "title": "Official Information Act 1982",
+  "provider": "New Zealand Legislation",
+  "source_uri": "https://www.legislation.govt.nz/act/public/1982/0156/latest/whole.html",
+  "authority_level": "binding_law",
+  "effective_time": {
+    "from": "2024-10-01",
+    "to": null
+  },
+  "observation_time": {
+    "observed_at": "2026-07-09T07:00:00+10:00",
+    "retrieved_at": "2026-07-09T07:05:00+10:00"
+  },
+  "version": {
+    "source_version_id": "2024-10-01",
+    "official_version_label": "Reprint as at 1 October 2024",
+    "language": "en"
+  },
+  "integrity": {
+    "sha256": "not-a-hash",
+    "archived_uri": "https://example.invalid/archive/nz-oia-2024"
+  },
+  "rights": {
+    "access_basis": "Official public legislation service",
+    "redistribution_status": "permitted",
+    "license_or_terms": "Confirm official source terms before release."
+  },
+  "relationships": [],
+  "review_status": "human_reviewed"
+}

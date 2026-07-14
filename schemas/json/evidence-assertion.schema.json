@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical:evidence-assertion:0.1.0",
+  "title": "FOI-O evidence assertion",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "evidence_assertion_id",
+    "supports",
+    "source_ref",
+    "dimensions",
+    "observed_at",
+    "created_by"
+  ],
+  "properties": {
+    "evidence_assertion_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "supports": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "contradicts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "ledger_entry",
+            "trace_span",
+            "lineage_node",
+            "legal_source",
+            "attachment",
+            "message",
+            "platform_record",
+            "human_annotation",
+            "model_output"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "content_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "source_uri": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority",
+        "directness",
+        "integrity",
+        "temporal_applicability",
+        "visibility"
+      ],
+      "properties": {
+        "authority": {
+          "enum": [
+            "binding_law",
+            "authoritative_interpretation",
+            "official_administration",
+            "platform_record",
+            "participant_account",
+            "model_output"
+          ]
+        },
+        "directness": {
+          "enum": [
+            "direct",
+            "corroborative",
+            "contextual",
+            "inferred"
+          ]
+        },
+        "integrity": {
+          "enum": [
+            "hash_verified",
+            "archived_unverified",
+            "live_unverified",
+            "derived"
+          ]
+        },
+        "temporal_applicability": {
+          "enum": [
+            "event_time_match",
+            "retrospective_context",
+            "prospective_context",
+            "unknown"
+          ]
+        },
+        "visibility": {
+          "enum": [
+            "public",
+            "restricted",
+            "internal_required",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "display_grade": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E"
+      ],
+      "description": "Optional non-authoritative summary for display only."
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "id"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "human",
+            "software",
+            "official_import"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source_ref": {
+            "properties": {
+              "kind": {
+                "const": "model_output"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "dimensions": {
+            "properties": {
+              "authority": {
+                "const": "model_output"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_ref": {
+            "properties": {
+              "kind": {
+                "const": "platform_record"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "dimensions": {
+            "properties": {
+              "authority": {
+                "const": "platform_record"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

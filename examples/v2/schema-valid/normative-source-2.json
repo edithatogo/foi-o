@@ -1,0 +1,36 @@
+{
+  "source_id": "nz.ombudsman.oia.guide.version.2025",
+  "jurisdiction": "NZ-OIA",
+  "source_type": "ombudsman_guidance",
+  "title": "Guide to processing official information requests",
+  "provider": "Office of the Ombudsman",
+  "source_uri": "https://www.ombudsman.parliament.nz/resources/example",
+  "authority_level": "authoritative_interpretation",
+  "effective_time": {
+    "from": "2025-01-01",
+    "to": null
+  },
+  "observation_time": {
+    "observed_at": "2026-07-09T07:10:00+10:00",
+    "retrieved_at": "2026-07-09T07:12:00+10:00"
+  },
+  "version": {
+    "source_version_id": "2025",
+    "language": "en"
+  },
+  "integrity": {
+    "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "rights": {
+    "access_basis": "Official public guidance",
+    "redistribution_status": "metadata_only",
+    "rights_notes": "Release metadata and permissible excerpts only."
+  },
+  "relationships": [
+    {
+      "relation": "interprets",
+      "target_source_id": "nz.oia.act.1982.version.2024-10-01"
+    }
+  ],
+  "review_status": "needs_review"
+}

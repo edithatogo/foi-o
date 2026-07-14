@@ -252,6 +252,10 @@ def test_coverage_matrix_inventory_counts_match_repo() -> None:
     for label, count in expected_counts.items():
         assert f"| {label} | {count} |" in matrix
 
+    assert summary["inventory"]["example_files"] == sum(
+        path.is_file() for path in Path("examples").rglob("*")
+    )
+
 
 def test_validation_coverage_summary_records_external_limits() -> None:
     summary = _read(VALIDATION_COVERAGE)

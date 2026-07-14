@@ -1,0 +1,42 @@
+{
+  "code_id": "foi_o.core.off_platform_transition_observed",
+  "label": "Off-platform transition observed",
+  "jurisdiction_scope": [
+    "Core"
+  ],
+  "definition": "A public message or attachment directly records that the authority notified an extension of the response period.",
+  "maturity": "stable",
+  "review_status": "approved",
+  "origins": [
+    "empirical_request_trace",
+    "legislation"
+  ],
+  "inclusion_criteria": [
+    "A dated authority communication states that the response period is extended."
+  ],
+  "exclusion_criteria": [
+    "A requester predicts an extension without authority confirmation."
+  ],
+  "positive_example_ids": [
+    "example.extension.001"
+  ],
+  "negative_example_ids": [
+    "example.extension.negative.001"
+  ],
+  "empirical_support_count": 73,
+  "normative_source_ids": [
+    "nz.oia.s15a.v2024"
+  ],
+  "known_ambiguities": [
+    "Public sent date may not equal legal notification date."
+  ],
+  "version_introduced": "2.0.0",
+  "change_control": {
+    "proposal_id": "LCR-002",
+    "approval_required": true,
+    "approved_by": [
+      "reviewer:method-lead"
+    ],
+    "approved_at": "2026-07-09T08:00:00+10:00"
+  }
+}

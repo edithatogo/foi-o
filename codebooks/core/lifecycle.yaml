@@ -1,0 +1,22 @@
+maturity_states:
+  seed: Proposed from one or more evidence streams; exploratory only.
+  pilot: Definition and examples exist and pilot annotation has begun.
+  adjudicated: Disagreements in a defined sample have been resolved.
+  validated: Reliability and extractor error profiles meet declared criteria.
+  stable: Approved for routine versioned use; still not a legal certification.
+  deprecated: Retained for historical interpretation; replacement identified.
+assertion_epistemic_states:
+- observed
+- inferred
+- asserted
+- certified
+- unknown
+review_states:
+- unreviewed
+- single_reviewed
+- dual_reviewed
+- adjudicated
+- approved
+- rejected
+certification_rule: Only a human with appropriate authority or an official source
+  can certify an assertion.
