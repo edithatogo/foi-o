@@ -14,7 +14,6 @@ coverage.xml
 .env
 .env.*
 .pixi/
-uv.lock
 
 # Generated data / build outputs
 data/
