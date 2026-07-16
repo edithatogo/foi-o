@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "foi-o.oia-event-time-fixtures.v0.1.0",
+  "status": "candidate",
+  "parameterSet": "0.1.0",
+  "independence": {
+    "authoringFixture": "tests/fixtures/oia_rules/oia-clock-fixtures.json",
+    "authoringFixtureSha256": "21b4af4a7975c1400ec4ab65a5579211646123fb84bbc87820ef8e33b6c7f882",
+    "method": "Synthetic boundary cases authored separately from the approved fixture, with case identifiers and input dates checked for disjointness. Expected outputs remain candidate assertions pending independent human review."
+  },
+  "humanReview": {
+    "status": "pending",
+    "promotionAllowed": false,
+    "requiredAction": "A human reviewer must independently calculate and approve each expected output before any gold or stable-label promotion."
+  },
+  "sources": [
+    {
+      "sourceId": "nz-oia-current",
+      "title": "Official Information Act 1982, latest version",
+      "url": "https://www.legislation.govt.nz/act/public/1982/0156/latest/whole.html",
+      "retrievedAt": "2026-07-16",
+      "status": "official_current"
+    },
+    {
+      "sourceId": "ombudsman-calculators",
+      "title": "Ombudsman official information calculators",
+      "url": "https://www.ombudsman.parliament.nz/agency-assistance/official-information-calculators",
+      "retrievedAt": "2026-07-16",
+      "status": "official_current"
+    },
+    {
+      "sourceId": "govt-nz-holidays-2026",
+      "title": "Govt.nz public holidays and anniversary dates",
+      "url": "https://www.govt.nz/browse/work/public-holidays-and-work/public-holidays-and-anniversary-dates/",
+      "retrievedAt": "2026-07-16",
+      "status": "official_snapshot"
+    }
+  ],
+  "cases": [
+    {
+      "caseId": "nz-oia/candidate-fixture.ordinary_response_march_2026",
+      "description": "Ordinary 20-working-day response calculation outside a national holiday boundary.",
+      "eventTime": "2026-03-03",
+      "decisionId": "nz-oia/decision.response_deadline",
+      "sourceRefs": ["nz-oia-current", "ombudsman-calculators"],
+      "inputs": {
+        "nz-oia/variable.receipt_date": {
+          "value": "2026-03-03",
+          "valueState": "known",
+          "epistemicStatus": "synthetic_candidate"
+        }
+      },
+      "expected": {"value": "2026-03-31", "valueState": "known"}
+    },
+    {
+      "caseId": "nz-oia/candidate-fixture.easter_transfer_2026",
+      "description": "Ten-working-day transfer calculation spanning Good Friday and Easter Monday.",
+      "eventTime": "2026-04-02",
+      "decisionId": "nz-oia/decision.transfer_deadline",
+      "sourceRefs": ["nz-oia-current", "ombudsman-calculators", "govt-nz-holidays-2026"],
+      "inputs": {
+        "nz-oia/variable.receipt_date": {
+          "value": "2026-04-02",
+          "valueState": "known",
+          "epistemicStatus": "synthetic_candidate"
+        }
+      },
+      "expected": {"value": "2026-04-20", "valueState": "known"}
+    },
+    {
+      "caseId": "nz-oia/candidate-fixture.extension_notice_on_deadline",
+      "description": "Extension notice on the candidate original response deadline with a supported ground.",
+      "eventTime": "2026-03-31",
+      "decisionId": "nz-oia/decision.extension_validity",
+      "sourceRefs": ["nz-oia-current"],
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-03-03", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.extension_notice_date": {"value": "2026-03-31", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.extension_ground": {"value": "consultation_required", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.extension_period_working_days": {"value": 7, "valueState": "known", "epistemicStatus": "synthetic_candidate"}
+      },
+      "expected": {
+        "value": true,
+        "valueState": "known",
+        "warnings": ["extension period reasonableness requires human review"]
+      }
+    },
+    {
+      "caseId": "nz-oia/candidate-fixture.extension_notice_day_after_deadline",
+      "description": "Extension notice one calendar day after the candidate original response deadline.",
+      "eventTime": "2026-04-01",
+      "decisionId": "nz-oia/decision.extension_validity",
+      "sourceRefs": ["nz-oia-current"],
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-03-03", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.extension_notice_date": {"value": "2026-04-01", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.extension_ground": {"value": "large_quantity", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.extension_period_working_days": {"value": 7, "valueState": "known", "epistemicStatus": "synthetic_candidate"}
+      },
+      "expected": {
+        "value": false,
+        "valueState": "known",
+        "warnings": ["extension notice after original deadline"]
+      }
+    },
+    {
+      "caseId": "nz-oia/candidate-fixture.deemed_refusal_on_deadline",
+      "description": "No response at the end of the candidate response deadline, before the after-deadline condition is met.",
+      "eventTime": "2026-09-09",
+      "decisionId": "nz-oia/decision.deemed_refusal",
+      "sourceRefs": ["nz-oia-current"],
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-08-12", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.current_date": {"value": "2026-09-09", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.response_sent": {"value": false, "valueState": "known", "epistemicStatus": "synthetic_candidate"}
+      },
+      "expected": {"value": false, "valueState": "known"}
+    },
+    {
+      "caseId": "nz-oia/candidate-fixture.deemed_refusal_after_deadline",
+      "description": "No response on the calendar day after the candidate response deadline.",
+      "eventTime": "2026-09-10",
+      "decisionId": "nz-oia/decision.deemed_refusal",
+      "sourceRefs": ["nz-oia-current"],
+      "inputs": {
+        "nz-oia/variable.receipt_date": {"value": "2026-08-12", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.current_date": {"value": "2026-09-10", "valueState": "known", "epistemicStatus": "synthetic_candidate"},
+        "nz-oia/variable.response_sent": {"value": false, "valueState": "known", "epistemicStatus": "synthetic_candidate"}
+      },
+      "expected": {"value": true, "valueState": "known"}
+    }
+  ]
+}
