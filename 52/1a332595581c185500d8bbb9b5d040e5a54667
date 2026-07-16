@@ -1,0 +1,5 @@
+Task: Record attachment approval integrity hardening in the Conductor plan.
+
+Summary: Added commit 43578ef, exact reviewed-pending byte-identity requirement, coverage, and validation evidence.
+
+Verification: git diff --check passed; uv sync --extra dev --extra rdf passed; full suite 393 passed, 2 skipped.
