@@ -1,0 +1,5 @@
+Task: Record the verified FYI attachment snapshot candidate in the Conductor plan.
+
+Summary: Added ff7a99b, pending manifest 42f8ed87, four correspondence blocks, three PDFs, validation results, and the distinction between verified candidate evidence and named-human rights clearance.
+
+Verification: git diff --check passed; uv sync --extra dev --extra rdf passed; full suite 392 passed, 2 skipped.
