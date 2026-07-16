@@ -1,0 +1,9 @@
+Task: Correct stale release-evidence blocker wording.
+
+Summary: The plan now records the bounded one-record governed reproducibility run as complete and identifies empirical comparison, historical source/right review, correspondence-backed state mapping, independent fixture promotion, annotation, adjudication, and reliability as the actual remaining release-evidence prerequisites.
+
+Files: conductor/tracks/foi_o_v2_empirical_implementation_20260714/plan.md.
+
+Verification: git diff check passed; uv sync --extra dev --extra rdf passed; full suite 353 passed, 2 skipped.
+
+Remaining gates: no release-evidence bundle is eligible yet, and no release or publication action is authorized.
