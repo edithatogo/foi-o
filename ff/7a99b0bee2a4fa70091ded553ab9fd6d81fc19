@@ -1,0 +1,9 @@
+Task: Verify a local-only FYI correspondence and attachment snapshot candidate.
+
+Summary: Captured request 11872 with clean fyi-cli revision c91e49d, preserved the empty canonical JSON attachment inventory, separately declared and hash-verified three PDF attachment links found in rendered HTML, and added a fail-closed verifier and readiness contract. The pending manifest is 42f8ed87738a31b857d37c94772fa8471890ce8f6caa81af5690f3b6f6fa707b; four correspondence blocks and 13,259,266 attachment bytes verify. The consolidated human-gate packet now includes this exact rights decision.
+
+Files: src/foi_o_nz/attachment_snapshot.py; tests/test_attachment_snapshot.py; schemas/json/fyi-attachment-snapshot-readiness.schema.json; examples/v2/fyi-attachment-snapshot-readiness.11872.json; empirical human-gate packet schema/example/tests; coverage inventory; Conductor gates, ledgers, risks, and decisions.
+
+Verification: actual local bundle verification passed; new module coverage 81.86%; 25 focused tests, examples validation, targeted Ruff, targeted ty, and git diff checks passed; uv sync --extra dev --extra rdf passed; full suite 392 passed, 2 skipped.
+
+Remaining risks: named-human approval of exact pending snapshot rights and the rendered-HTML supplement is required before audit use. Human mapping review and archive-wide evidence remain pending. Content is local only and not committed.
