@@ -48,6 +48,21 @@ the neutral core/profile contracts mature. The manifest does not claim that
 code has already been physically split into multiple packages. A future package
 split requires its own migration and backwards-compatibility gate.
 
+## Current profile maturity
+
+| Profile | Current maturity | Promotion boundary |
+|---|---|---|
+| `foi-o-nz` | Implemented repository profile | External corpus, publication, and legal-promotion evidence remains explicitly gated. |
+| `foi-o-au` | Country-contract planning | No promoted Australian country profile yet. |
+| Australian Commonwealth adapter | Candidate contract pilot | Requires immutable pins, rights-reviewed heldout data, independent annotation/adjudication, empirical metrics, and human approval. |
+| `foi-o-au-nsw` adapter | Candidate contract pilot | Same evidence gates, using NSW-specific legislation, examples, clocks, and review pathways. |
+| Other Australian subdivisions | Planned and disabled | Each jurisdiction must pass its own evidence and compatibility gates; no inheritance of legal conclusions from Commonwealth or NSW pilots. |
+
+Adapter experiments may live in downstream extraction repositories while their
+contracts are evaluated. They become FOI-O profile claims only after promotion
+evidence is recorded and approved. This distinction prevents implementation
+experiments from silently becoming assertions about the law.
+
 ## Human gates
 
 Automated agents may draft manifests, mappings, migrations, and candidate

@@ -44,3 +44,28 @@
 - Add SHACL validation profiles.
 - Align with PROV-O, DCAT, ODRL, SKOS, and legal-document standards.
 - Publish versioned releases.
+
+## Phase 7 — Empirical V2 contract and publication loop
+
+- Preserve V1 provenance, epistemic-status, and human-certification guarantees.
+- Require immutable source/profile/model pins and machine-readable capability
+  declarations for each extraction adapter.
+- Evaluate against rights-reviewed heldout data with independent annotation,
+  adjudication, per-capability metrics, and regression thresholds.
+- Feed accepted contracts into `fyi-archive` re-extraction and versioned Hugging
+  Face/Zenodo publication; retain failed and superseded evaluations as evidence.
+- Promote no adapter or ontology mapping without explicit human approval.
+
+## Phase 8 — Australian jurisdiction profiles
+
+- Maintain one versioned core (`foi-o`) and independently versioned country and
+  subdivision profiles (`foi-o-au`, `foi-o-au-nsw`, and peers), not long-lived
+  jurisdiction branches.
+- Pilot Commonwealth and NSW mappings first using legislation source packs and
+  jurisdiction-specific examples.
+- Keep all pilots candidate-only until source, rights, annotation, evaluation,
+  compatibility, and human legal-review gates pass.
+- Add the remaining states and territories incrementally; do not infer their
+  clocks, review pathways, or legal concepts from Commonwealth or NSW fixtures.
+- Publish compatibility manifests and migrations independently for the core,
+  country profile, and each subdivision profile.
