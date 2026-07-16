@@ -19,8 +19,8 @@
     "reviewed_at": {"const": null},
     "reviews": {
       "type": "array",
-      "minItems": 6,
-      "maxItems": 6,
+      "minItems": 7,
+      "maxItems": 7,
       "items": {"$ref": "#/$defs/review"}
     },
     "annotation_roles": {
@@ -48,7 +48,7 @@
     "sample_freeze_allowed": {"const": false},
     "empirical_comparison_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 9, "maxItems": 9, "uniqueItems": true,
+      "type": "array", "minItems": 10, "maxItems": 10, "uniqueItems": true,
       "items": {
         "enum": [
           "event_time_interval_review_pending",
@@ -56,7 +56,8 @@
           "nonlegislation_source_selection_review_pending",
           "source_pack_promotion_review_pending",
           "bounded_raw_state_mapping_review_pending",
-          "attachment_bearing_snapshot_missing",
+          "attachment_snapshot_rights_review_pending",
+          "supplemental_attachment_capture_review_pending",
           "annotation_protocol_review_pending",
           "annotation_roles_missing",
           "sample_execution_inputs_missing"
@@ -78,7 +79,8 @@
           "enum": [
             "oia-event-time-intervals", "psc-provider-scope",
             "nonlegislation-source-selection", "source-pack-promotion",
-            "bounded-raw-state-mapping", "annotation-protocol"
+            "bounded-raw-state-mapping", "attachment-snapshot-rights",
+            "annotation-protocol"
           ]
         },
         "artifact_path": {"type": "string", "minLength": 1},
@@ -104,9 +106,13 @@
             "normalised_state": {"const": "awaiting_response"}
           }
         },
-        "correspondence_count": {"const": 1},
-        "attachment_count": {"const": 0},
+        "correspondence_count": {"enum": [1, 4]},
+        "attachment_count": {"enum": [0, 3]},
         "archive_wide_claim_allowed": {"const": false},
+        "snapshot_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "request_id": {"const": "11872"},
+        "attachment_bytes": {"const": 13259266},
+        "rights_status": {"const": "pending"},
         "protocol_sha256": {"$ref": "#/$defs/sha256"}
       }
     }

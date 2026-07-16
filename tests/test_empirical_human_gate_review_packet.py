@@ -73,3 +73,18 @@ def test_raw_state_review_cannot_cure_missing_attachment_evidence() -> None:
     }
     assert raw_state["attachment_count"] == 0
     assert raw_state["archive_wide_claim_allowed"] is False
+
+
+def test_attachment_snapshot_requires_exact_bounded_rights_review() -> None:
+    payload = json.loads(PACKET.read_text())
+    snapshot = next(
+        review for review in payload["reviews"] if review["review_id"] == "attachment-snapshot-rights"
+    )
+    assert snapshot["snapshot_manifest_sha256"] == (
+        "42f8ed87738a31b857d37c94772fa8471890ce8f6caa81af5690f3b6f6fa707b"
+    )
+    assert snapshot["request_id"] == "11872"
+    assert snapshot["attachment_count"] == 3
+    assert snapshot["attachment_bytes"] == 13_259_266
+    assert snapshot["rights_status"] == "pending"
+    assert snapshot["decision"] == "pending"

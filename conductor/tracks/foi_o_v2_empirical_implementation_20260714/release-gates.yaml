@@ -108,11 +108,11 @@ gates:
     missing:
       - independent_annotation_and_adjudication
   raw_state_mapping_audit:
-    status: bounded_correspondence_verified_attachment_and_human_gates_pending
+    status: attachment_candidate_verified_rights_and_human_gates_pending
     verified_candidate_source_revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
     missing:
-      - nonempty_attachment_evidence
-      - separate_rights_cleared_attachment_bearing_snapshot
+      - named_human_attachment_snapshot_rights_approval
+      - named_human_supplemental_capture_review
       - named_human_mapping_review
       - archive_wide_evidence
     bounded_evidence:
@@ -123,6 +123,16 @@ gates:
       attachment_count: 0
       audit: examples/v2/bounded-raw-state-audit.35076.json
       promotion_allowed: false
+    attachment_candidate:
+      request_id: '11872'
+      readiness: examples/v2/fyi-attachment-snapshot-readiness.11872.json
+      pending_manifest_sha256: 42f8ed87738a31b857d37c94772fa8471890ce8f6caa81af5690f3b6f6fa707b
+      correspondence_count: 4
+      attachment_count: 3
+      attachment_bytes: 13259266
+      storage: local_only
+      rights_status: pending
+      ready_for_raw_state_mapping_audit: false
   annotation_protocol:
     status: candidate_protocol_prepared_human_and_input_gates_pending
     protocol: docs/41-v2-sampling-and-annotation-protocol.md

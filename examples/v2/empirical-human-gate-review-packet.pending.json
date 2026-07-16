@@ -68,6 +68,24 @@
       "approval_effect": "Approve only the bounded request 35076 candidate mapping; a separate attachment-bearing snapshot remains required and no archive-wide conclusion follows."
     },
     {
+      "review_id": "attachment-snapshot-rights",
+      "artifact_path": "examples/v2/fyi-attachment-snapshot-readiness.11872.json",
+      "artifact_sha256": "34fbf9f48343a09395706ae25fe53e651c27fb7e35cbc9f17d7c3cb9ac23cf8d",
+      "snapshot_manifest_sha256": "42f8ed87738a31b857d37c94772fa8471890ce8f6caa81af5690f3b6f6fa707b",
+      "request_id": "11872",
+      "correspondence_count": 4,
+      "attachment_count": 3,
+      "attachment_bytes": 13259266,
+      "rights_status": "pending",
+      "content_storage": "local_only",
+      "content_committed": false,
+      "archive_wide_claim_allowed": false,
+      "decision": "pending",
+      "approver": null,
+      "reviewed_at": null,
+      "approval_effect": "Approve exact pending manifest 42f8ed87 only for the bounded FOI-O raw-state mapping audit and separately accept the rendered-HTML attachment supplement; redistribution, publication, training, fine-tuning, release, dataset publication, and reviewed/gold promotion remain prohibited."
+    },
+    {
       "review_id": "annotation-protocol",
       "artifact_path": "docs/41-v2-sampling-and-annotation-protocol.md",
       "artifact_sha256": "9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8",
@@ -97,7 +115,8 @@
     "nonlegislation_source_selection_review_pending",
     "source_pack_promotion_review_pending",
     "bounded_raw_state_mapping_review_pending",
-    "attachment_bearing_snapshot_missing",
+    "attachment_snapshot_rights_review_pending",
+    "supplemental_attachment_capture_review_pending",
     "annotation_protocol_review_pending",
     "annotation_roles_missing",
     "sample_execution_inputs_missing"

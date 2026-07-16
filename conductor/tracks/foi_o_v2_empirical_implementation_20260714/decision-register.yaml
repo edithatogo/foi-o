@@ -33,3 +33,6 @@ decisions:
   - id: D-011
     decision: require_distinct_human_annotation_roles_before_sample_freeze
     rationale: protocol approval cannot substitute for two blinded annotators and a distinct adjudicator
+  - id: D-012
+    decision: separate_rendered_html_attachment_supplement_from_canonical_fyi_json_capture
+    rationale: request 11872 exposes three attachment links in rendered HTML while its FYI JSON attachment inventory is empty

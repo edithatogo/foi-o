@@ -30,3 +30,6 @@ risks:
   - id: R-010
     risk: a candidate annotation protocol could be mistaken for approval or completed empirical work
     mitigation: keep approval identities source population sample configuration annotations adjudication and reliability fail-closed until independently supplied
+  - id: R-011
+    risk: attachment links recovered from rendered FYI HTML could be mistaken for canonical JSON attachment capture or reuse approval
+    mitigation: preserve the empty canonical inventory declare the supplemental capture separately hash every byte and require exact named-human snapshot rights approval

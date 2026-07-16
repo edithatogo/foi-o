@@ -14,6 +14,8 @@ claims:
     evidence: [docs/39-v2-rule-evaluation.md, src/foi_o_nz/oia_rules]
   - id: C-BOUNDED-CORRESPONDENCE-STATE-AUDIT
     evidence: [examples/v2/bounded-raw-state-audit.35076.json, schemas/json/bounded-raw-state-audit.schema.json, tests/test_bounded_raw_state_audit.py]
+  - id: C-ATTACHMENT-SNAPSHOT-RIGHTS-BOUNDARY
+    evidence: [examples/v2/fyi-attachment-snapshot-readiness.11872.json, schemas/json/fyi-attachment-snapshot-readiness.schema.json, src/foi_o_nz/attachment_snapshot.py, tests/test_attachment_snapshot.py]
   - id: C-OIA-INTERVAL-CANDIDATE-BOUNDARY
     evidence: [mappings/nz-oia-applicability-interval-candidates.yaml, schemas/json/nz-oia-applicability-interval-candidates.schema.json, tests/test_source_pack_intervals.py]
   - id: C-NONLEGISLATION-SOURCE-EVIDENCE-BOUNDARY

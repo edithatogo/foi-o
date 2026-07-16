@@ -17,6 +17,7 @@ changes materially.
 | OIA event-time candidates | `schemas/json/oia-event-time-fixture-set.schema.json` | Exercises the existing `oia_rules` decision identifiers without changing legal mappings. | `tests/fixtures/oia_rules/oia-event-time-independent-candidates.json` | `tests/test_oia_rules_independent_fixtures.py` | Candidate cases pin and remain disjoint from the approved authoring fixture; promotion is forbidden pending independent human calculation and review. |
 | Source triangulation | `schemas/json/source-triangulation-result.schema.json` | Relates candidate claim support to existing evidence assertions and normative sources without certifying either. | `examples/v2/source-triangulation.example.json` | `tests/test_source_triangulation.py` | Two independent eligible sources are required; blocked, conflicting, stale, rights-uncertain, and insufficient evidence enter a deterministic human exception queue; promotion is always false. |
 | Raw-state audit readiness | `schemas/json/raw-state-audit-readiness.schema.json` | Tests whether immutable FYI state observations have the correspondence and attachment evidence needed to review candidate mappings. | `examples/v2/raw-state-audit-readiness.fc27.json` | `tests/test_raw_state_audit.py` | Input and mapping hashes are verified; aggregate coverage only is committed; absent evidence blocks mapping conclusions. |
+| FYI attachment snapshot readiness | `schemas/json/fyi-attachment-snapshot-readiness.schema.json` | Verifies a bounded correspondence-and-attachment evidence supplement without changing archive records or treating public availability as rights approval. | `examples/v2/fyi-attachment-snapshot-readiness.11872.json` | `tests/test_attachment_snapshot.py` | Request 11872 has four correspondence blocks and three hash-verified local PDF attachments, but the canonical FYI JSON inventory was empty; supplemental capture and exact snapshot rights require named-human review before audit use. |
 | NZ source rights and history | `schemas/json/source-rights-registry.schema.json`, `schemas/json/nz-nonlegislation-source-manifest.schema.json`, `schemas/json/nz-source-pack-review-readiness.schema.json` | Candidate rights classifications, the official OIA version sequence, and non-legislation evidence support source-pack review without certifying reuse or event-time applicability. | `mappings/nz-source-rights-registry.yaml`, `mappings/nz-oia-version-index.yaml`, `examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json`, `examples/v2/nz-source-pack-review-readiness.2026-07-16.json` | `tests/test_source_rights_registry.py`, `tests/test_nz_nonlegislation_source_manifest.py`, `tests/test_nz_source_pack_review_readiness.py` | Fifty official OIA PDFs and seven local-only non-legislation artifacts are hash-pinned. Ombudsman content is personal-use only; Public Service Commission provider scope, source selection, historical applicability, and source-pack promotion remain named-human gates. |
 | Human certification | `schemas/json/core-event.schema.json`, `schemas/json/agent-action.schema.json` | `foio:DecisionLikeEvent`, `foio:HumanCertification`, `foio:machineCertificationAllowed`; `foio:DecisionLikeEventShape` | `examples/agent-action.search-plan.json`, `examples/review-task.risk.json` | `tests/test_agent_policy.py`, `tests/test_shacl_safety_profiles.py` | Agents cannot certify decision-like outcomes. |
 | Legal source versioning | `schemas/json/process-advice.schema.json`, mapping YAML | `foio:LegalSourceVersion`, `foio:sourceVersionId` | `mappings/nz-legislation-sources.yaml` | `tests/test_legal_sources.py` | Live source refresh is an external gate. |
@@ -28,14 +29,14 @@ changes materially.
 
 | Artefact class | Count |
 | --- | ---:|
-| JSON Schema files | 83 |
-| Example files | 137 |
+| JSON Schema files | 84 |
+| Example files | 138 |
 | Documentation files | 53 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 6 |
-| Python test modules | 71 |
+| Python test modules | 72 |
 
 ## Semantic Snapshot
 
