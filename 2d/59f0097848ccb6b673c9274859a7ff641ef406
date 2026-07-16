@@ -1,0 +1,3 @@
+Governance checkpoint: reconciled downstream release gates.
+Changes: removed stale target-revision-approval missing item, recorded its narrow scope, added raw-state input gate, and documented release-bundle and paper-workflow prerequisites.
+Validation: full Python suite passed. No release bundle, publication, or paper workflow was claimed or triggered.
