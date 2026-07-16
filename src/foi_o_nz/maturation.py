@@ -86,7 +86,7 @@ EXTERNAL_GATES = [
 
 
 def build_maturation_summary(base_dir: Path = Path()) -> dict[str, Any]:
-    """Build a deterministic summary of the NZ-first maturation evidence surface."""
+    """Build a deterministic summary of the global FOI-O maturation evidence surface."""
     inventory = {
         key: sum(path.is_file() for path in base_dir.glob(pattern))
         for key, pattern in INVENTORY_PATTERNS.items()
@@ -96,7 +96,7 @@ def build_maturation_summary(base_dir: Path = Path()) -> dict[str, Any]:
     missing = [item["path"] for item in [*docs, *assets] if not item["exists"]]
     return {
         "schema_version": MATURATION_SCHEMA_VERSION,
-        "scope": "NZ-first FOI-O ontology maturation evidence",
+        "scope": "Global FOI-O maturation evidence originating in NZ with Australian jurisdiction iterations",
         "core_profile_boundary": {
             "core": "FOI-O reusable process-modelling method and conceptual frame",
             "validated_profile": "FOI-O NZ",

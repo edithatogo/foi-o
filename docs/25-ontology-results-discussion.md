@@ -2,14 +2,15 @@
 
 ## Results
 
-The current NZ-first maturation slice adds the publication evidence layer that
+The current global maturation slice preserves the NZ origin, incorporates
+Australian jurisdiction iterations, and adds the publication evidence layer that
 was planned but not yet explicit: protocol, evidence inventory, claims register,
 source register, terminology crosswalk, coverage matrix, generated asset index,
 asset manifest schema, and a small evidence-network graph export.
 
 | Result area | Current result | Evidence |
 | --- | --- | --- |
-| Core/profile boundary | FOI-O is the reusable method; FOI-O NZ is the only validated profile. | `README.md`, `docs/24-ontology-methods-protocol.md` |
+| Core/profile boundary | FOI-O is global; NZ is the mature reference implementation and Australian adapters remain candidate-only. | `README.md`, `docs/24-ontology-methods-protocol.md` |
 | Competency questions | Ten competency questions cover source-state preservation, candidate events, human certification, clock warnings, legal source versioning, PSC derivability, public-data limits, asset provenance, and global-claim boundaries. | `docs/24-ontology-methods-protocol.md` |
 | Evidence inventory | Repo-local materials and external gates are catalogued. | `docs/24-ontology-methods-evidence-inventory.md` |
 | Claims register | Supported, unsupported, and design-intent claims are separated. | `docs/24-ontology-claims-register.md` |
@@ -67,7 +68,8 @@ reviewer process, adjudication notes, and provenance are available.
 
 ## Conclusion
 
-The NZ-first ontology package is now better positioned for publication work
+The global ontology package, grounded in NZ and iterated through Australia, is
+now better positioned for publication work
 because its claims, evidence, terminology, competency questions, and generated
 assets are explicit. The next substantive implementation step should be the
-human-reviewed empirical task sets, not adding other countries.
+human-reviewed empirical task sets and independently promoted jurisdiction profiles.

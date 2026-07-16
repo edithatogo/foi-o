@@ -1,4 +1,4 @@
-# FOI-O NZ
+# FOI-O
 
 [![CI](https://github.com/edithatogo/foi-o/actions/workflows/ci.yml/badge.svg)](https://github.com/edithatogo/foi-o/actions/workflows/ci.yml)
 [![Mojo/MAX](https://img.shields.io/badge/Mojo%20%2B%20MAX-experimental-orange)](https://docs.modular.com/)
@@ -6,10 +6,14 @@
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000)](https://github.com/astral-sh/ruff)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE.md)
 
-**Agent-facing process model, ontology, validation stack, and analytical workbench for New Zealand Official Information Act administration.**
+**Global agent-facing process model, ontology, validation stack, and analytical workbench for freedom-of-information administration. Developed first through New Zealand's OIA and iterated through Australian jurisdictions.**
 
-FOI-O NZ is the currently implemented New Zealand profile in a versioned FOI-O
-ontology family. It is one part of a wider, deliberately separated FOI data and
+FOI-O is a global model with a jurisdiction-neutral core and independently
+versioned legal profiles. It started with New Zealand's OIA, whose package
+remains the mature reference implementation in this repository, and has since
+iterated through Australian Commonwealth and NSW adapters. Those Australian
+adapters remain candidate-only until their empirical and human legal-review
+gates pass. FOI-O is one part of a wider, deliberately separated FOI data and
 governance programme:
 
 | Repository | Role |
@@ -52,13 +56,14 @@ This repository is intentionally **bleeding edge, but bounded**:
 
 ## Core/profile boundary
 
-FOI-O is the reusable process-modelling method and conceptual frame for freedom
-of information workflows. FOI-O NZ is the only implemented and validated
-jurisdictional profile in this repository. Australian Commonwealth and New
-South Wales adapter work is a **candidate contract pilot**, not a promoted legal
-profile. References to global reuse describe a design and validation path, not
-an empirical claim that other jurisdictions are already modelled, legally
-approved, or production-ready.
+FOI-O's core is the global process-modelling method and conceptual frame for
+freedom-of-information workflows. New Zealand is its origin and mature
+reference implementation, not the limit of the model. Australian Commonwealth
+and New South Wales work represents the next jurisdiction iterations, but each
+remains a **candidate contract pilot**, not a promoted legal profile. Global
+scope therefore describes the architecture and governance method; it does not
+claim that every jurisdiction is already modelled, legally approved, or
+production-ready.
 
 ## Current programme status
 

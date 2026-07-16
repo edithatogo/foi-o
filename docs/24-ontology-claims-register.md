@@ -5,8 +5,8 @@ support, and how broad FOI-O claims should be phrased.
 
 | Claim | Status | Evidence | Required wording boundary |
 | --- | --- | --- | --- |
-| FOI-O is intended as a reusable method and conceptual frame for FOI process modelling. | Supported as design intent. | `README.md`, `docs/24-ontology-methods-protocol.md`, `docs/27-submission-manuscript.md` | Say "design intent" or "future validation path"; do not imply completed non-NZ validation. |
-| FOI-O NZ is the only implemented and validated jurisdictional profile. | Supported. | `README.md`, `docs/01-foundations-register.md`, this register | Do not add or imply other validated country profiles. |
+| FOI-O is a global reusable method and conceptual frame for FOI process modelling. | Supported as an architecture and governance claim. | `README.md`, `docs/24-ontology-methods-protocol.md`, `docs/27-submission-manuscript.md` | State that it originated in NZ and has iterated through Australian jurisdictions; do not imply universal legal validation. |
+| FOI-O is a global model that originated in NZ and has iterated through Australian jurisdictions. | Supported as an architecture and governance claim. | `README.md`, `docs/39-ontology-versioning-and-jurisdiction-profiles.md`, this register | Global does not mean universally legally validated. NZ is the mature reference implementation; Australian adapters remain candidate-only until promoted. |
 | The repository preserves source states separately from normalised states. | Supported by fixtures and tests. | `schemas/json/request-profile.schema.json`, `examples/request-record.jsonld`, `tests/test_request_profile_jsonld.py` | Treat mappings as process metadata, not legal conclusions. |
 | Candidate process events can cite evidence and assertion status. | Supported by schemas and examples. | `schemas/json/core-event.schema.json`, `examples/core-event.extension-notified.json` | Candidate events remain reviewable signals. |
 | Decision-like outcomes require human certification if final. | Supported by policy, SHACL, examples, and tests. | `docs/04-agent-boundaries.md`, `src/foi_o_nz/agent_policy.py`, `shacl/foi-o-nz.shapes.ttl`, `tests/test_agent_policy.py` | Do not describe agents as approving, refusing, redacting, extending, charging, transferring, or resolving complaints. |
@@ -19,7 +19,7 @@ support, and how broad FOI-O claims should be phrased.
 | NZ empirical annotation task sets are specified. | Supported as a plan only. | `examples/empirical-taskset-manifest.nz-first.json`, `schemas/json/empirical-taskset-manifest.schema.json`, `docs/20-corpus-profile-goldset.md` | Call them annotation task sets until source snapshots, human review, adjudication, and agreement evidence exist. |
 | The publication package has local validation artefacts. | Supported in repo-local form. | `docs/23-methods-paper.md`, `docs/28-submission-supplement.md`, `examples/generated-asset-manifest.foi-o-publication.json` | Do not claim journal, arXiv, registry, or peer-review completion. |
 | Gold sets exist for large-scale empirical claims. | Not yet supported. | `docs/07-evaluation-plan.md`, `docs/20-corpus-profile-goldset.md` | Call current planned sets annotation tasks until human review and adjudication evidence exist. |
-| FOI-O works across other countries. | Not supported as an empirical claim. | No non-NZ profile in this repository. | Say future work or design intent only. |
+| FOI-O has iterated beyond NZ through Australian jurisdictions. | Supported at candidate contract level. | Australian Commonwealth and NSW adapter contracts and source-pack schemas. | Do not describe an Australian adapter as empirically promoted or legally validated until its independent gates pass. |
 
 ## Fail-Closed Rule
 

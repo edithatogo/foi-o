@@ -38,6 +38,8 @@ def test_mcp_bundle_exports_resources_prompts_and_tools(tmp_path: Path) -> None:
     bundle = build_mcp_bundle()
     assert bundle["resources"]
     assert bundle["prompts"]
+    assert bundle["model_scope"] == "global_core_with_versioned_jurisdiction_profiles"
+    assert bundle["jurisdiction_policy"]["cross_jurisdiction_fallback_allowed"] is False
     assert any(tool["name"] == "map_state" for tool in bundle["tools"])
     output = tmp_path / "mcp.json"
     result = write_mcp_bundle(output)

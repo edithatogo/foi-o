@@ -1,4 +1,4 @@
-"""OpenAPI contract generator for an eventual agent-facing FOI-O NZ service."""
+"""OpenAPI contract generator for an agent-facing global FOI-O service."""
 
 from __future__ import annotations
 
@@ -13,15 +13,17 @@ def build_openapi_contract() -> dict[str, Any]:
     contract = {
         "openapi": "3.1.0",
         "info": {
-            "title": "FOI-O NZ Agent Process API",
+            "title": "FOI-O Global Agent Process API",
             "version": "0.8.1",
-            "description": "Bounded process-support API. It exposes validation and drafting support, not autonomous OIA decision-making.",
+            "description": "Bounded process-support API for a global FOI-O core developed from New Zealand and iterated through Australian jurisdictions. It exposes validation and drafting support, not autonomous legal decision-making.",
+            "x-foio-model-scope": "global_core_with_versioned_jurisdiction_profiles",
+            "x-foio-origin": "New Zealand OIA reference implementation",
         },
         "servers": [{"url": "http://localhost:8787", "description": "local development"}],
         "paths": {
             "/state/map": {
                 "post": {
-                    "summary": "Map an FYI/Alaveteli source state to a cautious FOI-O NZ state.",
+                    "summary": "Map a source-platform state to a cautious FOI-O core state using an explicit jurisdiction profile.",
                     "x-agent-boundary": "process-support-only",
                     "requestBody": {
                         "required": True,
@@ -160,8 +162,12 @@ def build_openapi_contract() -> dict[str, Any]:
                 "StateMapRequest": {
                     "type": "object",
                     "additionalProperties": False,
-                    "required": ["source_state"],
-                    "properties": {"source_state": {"type": "string"}},
+                    "required": ["source_state", "jurisdiction", "jurisdiction_profile"],
+                    "properties": {
+                        "source_state": {"type": "string"},
+                        "jurisdiction": {"type": "string", "minLength": 1},
+                        "jurisdiction_profile": {"type": "string", "minLength": 1},
+                    },
                 }
             }
         },

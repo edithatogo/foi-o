@@ -23,7 +23,7 @@
       "minLength": 1
     },
     "scope": {
-      "const": "NZ-first empirical annotation planning"
+      "const": "NZ reference-profile empirical annotation planning within the global FOI-O model"
     },
     "claim_boundary": {
       "const": "annotation_tasks_not_gold_standard"

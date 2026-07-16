@@ -12,6 +12,33 @@
     "name": {
       "type": "string"
     },
+    "model_scope": {
+      "const": "global_core_with_versioned_jurisdiction_profiles"
+    },
+    "origin": {
+      "type": "string"
+    },
+    "jurisdiction_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "explicit_profile_required": {"const": true},
+        "cross_jurisdiction_fallback_allowed": {"const": false},
+        "unpromoted_profile_outputs": {"const": "candidate_only"},
+        "current_iterations": {
+          "items": {"type": "string"},
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "explicit_profile_required",
+        "cross_jurisdiction_fallback_allowed",
+        "unpromoted_profile_outputs",
+        "current_iterations"
+      ],
+      "type": "object"
+    },
     "prompts": {
       "items": {
         "type": "object"
@@ -37,11 +64,14 @@
   "required": [
     "schema_version",
     "name",
+    "model_scope",
+    "origin",
+    "jurisdiction_policy",
     "resources",
     "prompts",
     "tools",
     "global_boundaries"
   ],
-  "title": "FOI-O NZ MCP Planning Bundle",
+  "title": "FOI-O Global MCP Planning Bundle",
   "type": "object"
 }

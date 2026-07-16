@@ -1,4 +1,9 @@
-"""Rules-as-code guardrails for FOI-O NZ agent actions."""
+"""Rules-as-code guardrails for global FOI-O agent actions.
+
+The current package retains its NZ module name for compatibility. Agent legal
+and process reasoning must nevertheless use an explicit versioned jurisdiction
+profile; Australian adapters are never allowed to inherit NZ rules implicitly.
+"""
 
 from __future__ import annotations
 
@@ -237,7 +242,7 @@ def classify_action(action_type: str) -> dict[str, Any]:
 def build_agent_action(
     action_type: ActionType,
     *,
-    agent_name: str = "foi-o-nz-agent",
+    agent_name: str = "foi-o-global-agent",
     inputs: list[str] | None = None,
     outputs: list[str] | None = None,
     requested_at: datetime | None = None,

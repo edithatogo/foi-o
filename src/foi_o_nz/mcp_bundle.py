@@ -15,15 +15,21 @@ def build_mcp_bundle() -> dict[str, Any]:
     resources = [
         {
             "uri": "foio-nz://schemas/core-event",
-            "name": "Core event JSON Schema",
+            "name": "Global FOI-O core event JSON Schema",
             "mimeType": "application/schema+json",
             "path": "schemas/json/core-event.schema.json",
         },
         {
             "uri": "foio-nz://ontology/core",
-            "name": "FOI-O NZ ontology seed",
+            "name": "FOI-O ontology seed developed from the NZ reference profile",
             "mimeType": "text/turtle",
             "path": "ontology/foi-o-nz.ttl",
+        },
+        {
+            "uri": "foio://schemas/jurisdiction-source-pack",
+            "name": "Versioned jurisdiction source-pack JSON Schema",
+            "mimeType": "application/schema+json",
+            "path": "schemas/json/jurisdiction-source-pack.schema.json",
         },
         {
             "uri": "foio-nz://vocab/request-states",
@@ -59,9 +65,23 @@ def build_mcp_bundle() -> dict[str, Any]:
     prompts = [
         {
             "name": "extract_candidate_events",
-            "description": "Extract candidate process events while preserving observed/inferred/asserted/certified status.",
-            "arguments": [{"name": "source_text", "required": True}],
-            "safety": "Outputs are candidates only; no legal decision certification.",
+            "description": "Extract candidate process events against an explicit versioned jurisdiction profile while preserving observed/inferred/asserted/certified status.",
+            "arguments": [
+                {"name": "source_text", "required": True},
+                {"name": "jurisdiction", "required": True},
+                {"name": "jurisdiction_profile", "required": True},
+            ],
+            "safety": "Outputs are candidates only; no legal decision certification or cross-jurisdiction fallback.",
+        },
+        {
+            "name": "select_jurisdiction_profile",
+            "description": "Validate an explicitly selected FOI-O jurisdiction profile and report its supported capabilities and promotion status.",
+            "arguments": [
+                {"name": "jurisdiction", "required": True},
+                {"name": "profile_id", "required": True},
+                {"name": "profile_version", "required": True},
+            ],
+            "safety": "Selection never implies legal approval; missing, incompatible, or unpromoted profiles fail closed or remain candidate-only.",
         },
         {
             "name": "draft_search_plan",
@@ -90,7 +110,15 @@ def build_mcp_bundle() -> dict[str, Any]:
     ]
     return {
         "schema_version": "foi-o-nz.mcp-bundle.v0.1.0",
-        "name": "foi-o-nz-mcp-planning-bundle",
+        "name": "foi-o-global-mcp-planning-bundle",
+        "model_scope": "global_core_with_versioned_jurisdiction_profiles",
+        "origin": "Developed from the New Zealand OIA profile and iterated through Australian Commonwealth and NSW adapters.",
+        "jurisdiction_policy": {
+            "explicit_profile_required": True,
+            "cross_jurisdiction_fallback_allowed": False,
+            "unpromoted_profile_outputs": "candidate_only",
+            "current_iterations": ["NZ", "AU-CTH", "AU-NSW"],
+        },
         "resources": resources,
         "prompts": prompts,
         "tools": tool_manifest["tools"],

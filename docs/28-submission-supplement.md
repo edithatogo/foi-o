@@ -1,5 +1,5 @@
 ---
-title: "Supplement: FOI-O NZ Ontology and Validation Package"
+title: "Supplement: FOI-O Global Ontology and Jurisdiction Validation Package"
 header-includes:
   - "\\usepackage{booktabs}"
   - "\\usepackage{array}"
@@ -10,14 +10,15 @@ header-includes:
   - "\\sloppy"
 ---
 
-# Supplement: FOI-O NZ Ontology and Validation Package
+# Supplement: FOI-O Global Ontology and Jurisdiction Validation Package
 
 ## S1. Scope
 
 This supplement supports the manuscript
 \path{docs/27-submission-manuscript.md}. It records the repository artefacts,
-validation commands, boundaries, and generated-asset plan for the FOI-O NZ
-submission package.
+validation commands, boundaries, and generated-asset plan for the global FOI-O
+submission package, which originated in New Zealand and has iterated through
+Australian jurisdictions.
 
 It also records the V2 extraction-contract boundary, the wider programme
 handoffs, and the candidate-only status of Australian jurisdiction adapters.

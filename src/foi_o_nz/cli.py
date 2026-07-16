@@ -241,7 +241,7 @@ def export_kernel_fixtures_command(
 def maturation_summary_command(
     output: Annotated[Path, typer.Option("--output", "-o", help="Maturation summary JSON output")],
 ) -> None:
-    """Export the NZ-first ontology maturation evidence summary."""
+    """Export the global FOI-O ontology maturation evidence summary."""
     result = write_maturation_summary(output)
     console.print_json(json.dumps({"ok": result["ok"], "output": str(output)}))
     if not result["ok"]:

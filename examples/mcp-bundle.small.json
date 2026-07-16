@@ -2,20 +2,62 @@
   "global_boundaries": [
     "No autonomous release/refusal/redaction/charge/extension/transfer certification.",
     "Observed/inferred/asserted/certified status must be preserved.",
-    "Machine-generated outputs must remain reviewable and auditable."
+    "Machine-generated outputs must remain reviewable and auditable.",
+    "Every legal or process interpretation must pin a compatible jurisdiction profile.",
+    "No rule, clock, vocabulary, or legal conclusion may leak between jurisdictions.",
+    "Unpromoted jurisdiction adapters produce candidate outputs only."
   ],
-  "name": "foi-o-nz-mcp-planning-bundle",
+  "jurisdiction_policy": {
+    "cross_jurisdiction_fallback_allowed": false,
+    "current_iterations": [
+      "NZ",
+      "AU-CTH",
+      "AU-NSW"
+    ],
+    "explicit_profile_required": true,
+    "unpromoted_profile_outputs": "candidate_only"
+  },
+  "model_scope": "global_core_with_versioned_jurisdiction_profiles",
+  "name": "foi-o-global-mcp-planning-bundle",
+  "origin": "Developed from the New Zealand OIA profile and iterated through Australian Commonwealth and NSW adapters.",
   "prompts": [
     {
       "arguments": [
         {
           "name": "source_text",
           "required": true
+        },
+        {
+          "name": "jurisdiction",
+          "required": true
+        },
+        {
+          "name": "jurisdiction_profile",
+          "required": true
         }
       ],
-      "description": "Extract candidate process events while preserving observed/inferred/asserted/certified status.",
+      "description": "Extract candidate process events against an explicit versioned jurisdiction profile while preserving observed/inferred/asserted/certified status.",
       "name": "extract_candidate_events",
-      "safety": "Outputs are candidates only; no legal decision certification."
+      "safety": "Outputs are candidates only; no legal decision certification or cross-jurisdiction fallback."
+    },
+    {
+      "arguments": [
+        {
+          "name": "jurisdiction",
+          "required": true
+        },
+        {
+          "name": "profile_id",
+          "required": true
+        },
+        {
+          "name": "profile_version",
+          "required": true
+        }
+      ],
+      "description": "Validate an explicitly selected FOI-O jurisdiction profile and report its supported capabilities and promotion status.",
+      "name": "select_jurisdiction_profile",
+      "safety": "Selection never implies legal approval; missing, incompatible, or unpromoted profiles fail closed or remain candidate-only."
     },
     {
       "arguments": [
@@ -55,15 +97,21 @@
   "resources": [
     {
       "mimeType": "application/schema+json",
-      "name": "Core event JSON Schema",
+      "name": "Global FOI-O core event JSON Schema",
       "path": "schemas/json/core-event.schema.json",
       "uri": "foio-nz://schemas/core-event"
     },
     {
       "mimeType": "text/turtle",
-      "name": "FOI-O NZ ontology seed",
+      "name": "FOI-O ontology seed developed from the NZ reference profile",
       "path": "ontology/foi-o-nz.ttl",
       "uri": "foio-nz://ontology/core"
+    },
+    {
+      "mimeType": "application/schema+json",
+      "name": "Versioned jurisdiction source-pack JSON Schema",
+      "path": "schemas/json/jurisdiction-source-pack.schema.json",
+      "uri": "foio://schemas/jurisdiction-source-pack"
     },
     {
       "mimeType": "text/turtle",
@@ -123,7 +171,7 @@
       "safety_class": "context_packaging"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "build_goldset_tasks",
@@ -171,7 +219,7 @@
       "safety_class": "medium"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "cas_manifest",
@@ -255,7 +303,7 @@
       "safety_class": "runtime_introspection"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "export_mcp_bundle",
@@ -267,7 +315,7 @@
       "safety_class": "medium"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "export_table_contracts",
@@ -364,7 +412,7 @@
       "safety_class": "runtime_introspection"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "lineage_graph",
@@ -376,7 +424,7 @@
       "safety_class": "medium"
     },
     {
-      "description": "Map source platform states to cautious FOI-O NZ states.",
+      "description": "Map source platform states to cautious FOI-O core states using an explicit jurisdiction profile.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "map_state",
@@ -388,7 +436,7 @@
       "safety_class": "low"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "materialise_cas",
@@ -400,7 +448,7 @@
       "safety_class": "low"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "materialise_oci",
@@ -447,7 +495,7 @@
       "safety_class": "low"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "replay_guardrails",
@@ -484,7 +532,7 @@
       "safety_class": "retrieval_only"
     },
     {
-      "description": "Bounded FOI-O NZ tool action.",
+      "description": "Bounded global FOI-O tool action.",
       "legal_effect": "none",
       "machine_certification_allowed": false,
       "name": "trace_artifacts",
