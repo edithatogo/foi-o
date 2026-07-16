@@ -29,3 +29,17 @@ Raw FYI and Right to Know states are source evidence and remain immutable. Their
 relationship to candidate process events is a versioned empirical mapping,
 reviewed against correspondence and attachments and monitored for platform/time
 drift. A source state cannot by itself certify a legal outcome.
+
+## Deterministic exception routing
+
+`foi_o_nz.source_triangulation` evaluates one candidate claim at a time. A
+candidate-supported result requires at least two distinct, available,
+event-time-matched, rights-usable, hash-verified supporting sources. Repeated
+assertions from the same source do not satisfy that independence threshold.
+
+The evaluator emits a stable human exception queue for blocked sources,
+support/contradiction conflicts, stale or temporally unknown sources,
+restricted or unknown rights, and insufficient independent evidence. Results
+always set `human_review_required` to true and `promotion_allowed` to false.
+The evaluator therefore supports review triage; it cannot promote a claim,
+fixture, label, or legal mapping.
