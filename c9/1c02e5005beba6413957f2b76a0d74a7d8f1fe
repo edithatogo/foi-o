@@ -1,0 +1,9 @@
+Task: Prepare OIA event-time applicability interval candidates for named-human review.
+
+Summary: Added a deterministic generator and 50-interval candidate artifact derived only from adjacent official as-at dates in the approved hash-pinned OIA version index. Every interval remains legally unapproved, the derivation is explicit, commencement and amendment evidence is required, and source-pack promotion is false.
+
+Files: src/foi_o_nz/source_pack_intervals.py; tests/test_source_pack_intervals.py; schemas/json/nz-oia-applicability-interval-candidates.schema.json; mappings/nz-oia-applicability-interval-candidates.yaml; docs/24-schema-ontology-coverage-matrix.md; examples/maturation-summary.ontology-maturation.json.
+
+Verification: targeted ty passed; 12 focused tests passed; Ruff and JSON/schema checks passed; Conductor review confirmed adjacency cannot be presented as legal applicability; uv sync --extra dev --extra rdf passed; full suite 368 passed, 2 skipped.
+
+Remaining gates: named-human legal review of every boundary against commencement/amendment evidence; non-legislation historical source artifacts; complete source-pack promotion.
