@@ -48,3 +48,13 @@ provide or approve the rights rule, baseline artifact, heldout selection, and
 immutable `nlp-policy-nz` pipeline/model revision. Until then, no raw records
 may be overwritten, no candidate may be promoted, and no empirical comparison
 may be claimed.
+
+## Repo-local input audit
+
+The read-only audit contract is implemented in
+`src/foi_o_nz/reextraction.py` and
+`schemas/json/reextraction-input-audit.schema.json`. Running it against the
+verified manifest produced
+`examples/v2/reextraction-input-audit.fc27.json`: 33,217 valid content digests,
+no duplicate or missing request identifiers, zero declared licences, and
+`ready_for_reextraction: false` with blocker `missing_declared_license`.

@@ -10,6 +10,7 @@ changes materially.
 | Request profile | `schemas/json/request-profile.schema.json` | `foio:AccessRequest`, `foio:sourceState`, `foio:normalisedState` in `ontology/foi-o-nz.ttl`; `vocab/request-states.skos.ttl` | `examples/request-record.jsonld` | `tests/test_request_profile_jsonld.py`, `tests/test_models.py` | Source state is preserved separately from normalised state. |
 | Core event | `schemas/json/core-event.schema.json` | `foio:ProcessEvent`, `foio:hasEvidence`, `foio:assertionStatus`; `vocab/event-types.skos.ttl` | `examples/core-event.extension-notified.json`, `examples/core-event.deadline-calculated.json` | `tests/test_event_extraction_timeline.py`, `tests/test_transitions.py` | Candidate events cite evidence and assertion status. |
 | Extraction contract | `schemas/json/extraction-contract.schema.json`, `schemas/json/consumer-extraction-contract.schema.json`, `contracts/foi-o-extraction-contract/0.1.0/manifest.json` | Pins `ontology/foi-o-nz.ttl`, the ontology-release manifest schema, and the candidate assertion-status vocabulary. | `examples/v2/schema-valid/extraction-contract-1.json`, three rejection fixtures, and four offline consumer fixtures | `tests/test_extraction_contract.py`, `tests/test_consumer_contracts.py`, `tests/test_empirical_schema_fixtures.py` | Consumers fail closed on unknown revisions; offline fixtures do not claim upstream approval; certification and promotion require human approval. |
+| Re-extraction readiness | `schemas/json/reextraction-input-audit.schema.json` | Consumes the pinned extraction contract and archive provenance without changing ontology terms. | `examples/v2/reextraction-input-audit.fc27.json` | `tests/test_reextraction_input_audit.py` | Hash mismatch is rejected; incomplete rights metadata blocks extraction; raw source records are never modified. |
 | Human certification | `schemas/json/core-event.schema.json`, `schemas/json/agent-action.schema.json` | `foio:DecisionLikeEvent`, `foio:HumanCertification`, `foio:machineCertificationAllowed`; `foio:DecisionLikeEventShape` | `examples/agent-action.search-plan.json`, `examples/review-task.risk.json` | `tests/test_agent_policy.py`, `tests/test_shacl_safety_profiles.py` | Agents cannot certify decision-like outcomes. |
 | Legal source versioning | `schemas/json/process-advice.schema.json`, mapping YAML | `foio:LegalSourceVersion`, `foio:sourceVersionId` | `mappings/nz-legislation-sources.yaml` | `tests/test_legal_sources.py` | Live source refresh is an external gate. |
 | PSC reporting | `schemas/json/reporting-metric.schema.json`, `schemas/json/psc-report.schema.json` | `foio:ReportingMetric` | `examples/reporting-metric.completed-requests.json`, `examples/psc-report.small.json` | `tests/test_reporting.py`, `tests/test_reporting_docs.py` | Public-data derivability is not official reporting. |
@@ -20,14 +21,14 @@ changes materially.
 
 | Artefact class | Count |
 | --- | ---:|
-| JSON Schema files | 67 |
-| Example files | 126 |
+| JSON Schema files | 68 |
+| Example files | 127 |
 | Documentation files | 52 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 3 |
-| Python test modules | 56 |
+| Python test modules | 57 |
 
 ## Semantic Snapshot
 

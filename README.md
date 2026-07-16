@@ -295,6 +295,7 @@ foi-o-nz/
 | Release package | Implemented | Machine-readable release checklist, repository-release metadata, methods paper draft, and explicit external publication gates. |
 | Agent contracts | Implemented | OpenAPI skeleton and bounded tool manifest for future agent runtime integration. |
 | V2 extraction contract | Implemented | Versioned, hash-pinned `nlp-policy-nz` candidate-extraction contract covering ontology, schemas, codebook, provenance, capabilities, status vocabulary, and migration behavior, with offline consumer fixtures for FOI-O, `fyi-archive`, `nlp-policy-nz`, and read-only MCP. This is not a V2 software release or upstream consumer approval. |
+| Re-extraction input audit | Implemented | Read-only manifest integrity and rights-completeness audit. The verified `fc27…` snapshot fails closed because all 33,217 records lack a declared licence; no extraction or empirical comparison is claimed. |
 | Local retrieval | Implemented | BM25-ish lexical search plus deterministic feature-hash vector blending over agent chunks. |
 | Redaction candidates | Implemented | Regex-based sensitive-span candidates with hashed/masked previews; no redaction decision. |
 | Agent context packs | Implemented | Request-scoped packages combining request, events, chunks, risks, retrieval, redaction candidates, constraints, and provenance. |

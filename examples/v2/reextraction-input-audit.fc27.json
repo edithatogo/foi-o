@@ -1,0 +1,24 @@
+{
+  "blockers": [
+    "missing_declared_license"
+  ],
+  "configuration": "default",
+  "dataset_repository": "edithatogo/fyi-archive-nz",
+  "dataset_revision": "fc27bfa471c598a31d975cfa2b603b1a11408e55",
+  "declared_record_count": 33217,
+  "duplicate_request_ids": [],
+  "manifest_sha256": "23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e",
+  "ready_for_reextraction": false,
+  "record_count": 33217,
+  "records_missing_request_id": 0,
+  "records_with_declared_license": 0,
+  "records_with_invalid_content_sha256": 0,
+  "records_with_valid_content_sha256": 33217,
+  "records_without_declared_license": 33217,
+  "rights_status": "incomplete",
+  "schema_version": "foi-o.reextraction-input-audit.v0.1.0",
+  "source_generated_at": "2026-07-13T01:57:41.585256+00:00",
+  "source_manifest_version": "0.10.3",
+  "source_records_modified": false,
+  "split": "requests"
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:reextraction-input-audit:0.1.0",
+  "title": "FOI-O governed re-extraction input audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dataset_repository",
+    "dataset_revision",
+    "configuration",
+    "split",
+    "manifest_sha256",
+    "source_generated_at",
+    "source_manifest_version",
+    "declared_record_count",
+    "record_count",
+    "records_with_valid_content_sha256",
+    "records_with_invalid_content_sha256",
+    "records_with_declared_license",
+    "records_without_declared_license",
+    "records_missing_request_id",
+    "duplicate_request_ids",
+    "rights_status",
+    "ready_for_reextraction",
+    "blockers",
+    "source_records_modified"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.reextraction-input-audit.v0.1.0"},
+    "dataset_repository": {"type": "string", "minLength": 1},
+    "dataset_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "configuration": {"type": "string", "minLength": 1},
+    "split": {"type": "string", "minLength": 1},
+    "manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_generated_at": {"type": "string", "minLength": 1},
+    "source_manifest_version": {"type": "string", "minLength": 1},
+    "declared_record_count": {"type": "integer", "minimum": 0},
+    "record_count": {"type": "integer", "minimum": 0},
+    "records_with_valid_content_sha256": {"type": "integer", "minimum": 0},
+    "records_with_invalid_content_sha256": {"type": "integer", "minimum": 0},
+    "records_with_declared_license": {"type": "integer", "minimum": 0},
+    "records_without_declared_license": {"type": "integer", "minimum": 0},
+    "records_missing_request_id": {"type": "integer", "minimum": 0},
+    "duplicate_request_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "rights_status": {"enum": ["complete", "incomplete"]},
+    "ready_for_reextraction": {"type": "boolean"},
+    "blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "declared_record_count_mismatch",
+          "duplicate_request_ids",
+          "invalid_content_sha256",
+          "missing_declared_license",
+          "missing_request_id"
+        ]
+      }
+    },
+    "source_records_modified": {"const": false}
+  }
+}
