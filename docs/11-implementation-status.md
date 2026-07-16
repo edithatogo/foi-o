@@ -26,6 +26,35 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - FastMCP server support is present as an optional runtime surface and must degrade clearly when FastMCP is unavailable.
 - Polars, DuckDB, LanceDB, pySHACL, MAX/OpenAI, and experiment libraries are optional extras and are not required for dependency-light validation. Local/MAX request-pack preparation is repo-local; live model execution remains an external gate.
 
+## FOI-O V2 and jurisdiction status
+
+- V2 is an additive empirical extraction and promotion contract. It must remain
+  at least as strict as V1 on provenance, evidence, epistemic status, validation,
+  and human certification.
+- The NZ package is the only implemented jurisdiction profile in this
+  repository. Its repo-local surfaces are implemented; external corpus,
+  publication, and legal-promotion evidence remains separately gated.
+- The FOI-O archive adapter and Australian Commonwealth and NSW adapters have
+  been reviewed as candidate contract pilots in `nlp-policy-nz`. That review is
+  not legal approval and does not promote them to certified profiles.
+- Commonwealth and NSW are the first Australian pilots. Other Australian state
+  and territory profiles remain planned and disabled pending jurisdiction-
+  specific legislation, examples, annotations, evaluation, and human review.
+
+## Cross-repository handoff status
+
+- `fyi-cli` supplies capture and delta inputs.
+- `fyi-archive` owns archive fidelity, dataset packaging, and delivery to
+  Hugging Face and preservation services.
+- `foi-process` is the document-evidence and OCR integration spine.
+- `nlp-policy-nz` owns review-bounded extraction evaluation; FOI-O consumes only
+  pinned, provenance-bearing candidates that satisfy its promotion contract.
+- `legislation` supplies versioned statutory source packs; `rulespec-nz`
+  supplies deterministic NZ rule specifications.
+- `rac-conformance` synchronizes cross-repository programme evidence.
+- Alaveteli supplies source metadata and workflow intelligence only. It is not
+  represented here as an FOI-O implementation repository.
+
 ## External gates
 
 - Native Mojo release certification requires `pixi run mojo-format-check`, `pixi run mojo-test`, and `pixi run mojo-build` with the Modular toolchain available.
@@ -33,3 +62,6 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - Live Hugging Face/archive pulls require network access, source availability, and any required credentials or terms compliance.
 - NZ Legislation/Ombudsman source retrieval requires live source access and source-version capture.
 - Registry or dataset publication requires the relevant service credentials and manual release approval.
+- Jurisdiction-profile promotion additionally requires immutable source,
+  profile, and model pins; rights-reviewed heldout data; independent annotation
+  and adjudication; empirical acceptance metrics; and explicit human approval.

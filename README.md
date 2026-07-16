@@ -8,27 +8,36 @@
 
 **Agent-facing process model, ontology, validation stack, and analytical workbench for New Zealand Official Information Act administration.**
 
-FOI-O NZ is the semantic/process layer that sits beside the existing FYI ecosystem:
+FOI-O NZ is the currently implemented New Zealand profile in a versioned FOI-O
+ontology family. It is one part of a wider, deliberately separated FOI data and
+governance programme:
 
 | Repository | Role |
 | --- | --- |
-| `fyi-cli` | Capture, local request management, Alaveteli-compatible monitoring, dashboards, exports. |
-| `fyi-archive` | Read-only archive orchestration, manifests, provenance, Hugging Face/Zenodo/OSF distribution. |
-| `foi-o-nz` | Process/event ontology, JSON Schema, SKOS, SHACL, agent safety contracts, analytics, evaluation, and future MCP resources/tools. |
+| [`fyi-cli`](https://github.com/edithatogo/fyi-cli) | Capture, delta inputs, local request management, and Alaveteli-compatible monitoring and exports. |
+| [`fyi-archive`](https://github.com/edithatogo/fyi-archive) | Read-only archive orchestration, manifests, provenance, dataset packaging, and publication to Hugging Face, Zenodo, and OSF. |
+| [`foi-process`](https://github.com/edithatogo/foi-process) | Integration spine for document evidence, OCR, and process views. |
+| [`foi-o`](https://github.com/edithatogo/foi-o) | Core ontology method plus versioned process and jurisdiction contracts; this repository currently packages the NZ implementation as `foi-o-nz`. |
+| [`nlp-policy-nz`](https://github.com/edithatogo/nlp-policy-nz) | Review-bounded extraction and empirical adapter evaluation; its outputs remain candidates until promoted by humans. |
+| [`rulespec-nz`](https://github.com/edithatogo/rulespec-nz) | Deterministic New Zealand rule specifications. |
+| [`legislation`](https://github.com/edithatogo/legislation) | Versioned legislation and source packs used by jurisdiction profiles. |
+| [`rac-conformance`](https://github.com/edithatogo/rac-conformance) | Cross-repository programme synchronization and conformance evidence. |
 
 The first milestone is **not** an autonomous FOI decision system. It is an auditable event model that lets agents help with process management while preserving human certification boundaries.
 
 ```mermaid
 flowchart LR
-  A[FYI.org.nz / fyi-archive-nz] --> B[FOI-O NZ manifest normaliser]
-  B --> C[Request profile JSONL]
-  B --> D[Core process events JSONL]
-  C --> E[Parquet / DuckDB / LanceDB]
-  D --> E
-  C --> F[Ontology / SKOS / SHACL]
-  D --> F
-  F --> G[Agent-facing MCP resources/tools]
-  G --> H[Human certified workflow]
+  A[FYI / Alaveteli public records] --> B[fyi-cli capture]
+  B --> C[fyi-archive provenance and packaging]
+  C --> D[Hugging Face / Zenodo / OSF]
+  C --> E[foi-process evidence and OCR]
+  E --> F[nlp-policy-nz candidate extraction]
+  G[legislation source packs] --> H[FOI-O core and jurisdiction profiles]
+  F --> H
+  H --> I[rulespec-nz and agent-facing contracts]
+  I --> J[Human review and certification]
+  K[rac-conformance] -. programme synchronization .-> B
+  K -.-> J
 ```
 
 ## Implementation stance
@@ -45,9 +54,39 @@ This repository is intentionally **bleeding edge, but bounded**:
 
 FOI-O is the reusable process-modelling method and conceptual frame for freedom
 of information workflows. FOI-O NZ is the only implemented and validated
-jurisdictional profile in this repository. References to global reuse describe a
-design intent and future validation path, not an empirical claim that other
-jurisdictions are already modelled or tested here.
+jurisdictional profile in this repository. Australian Commonwealth and New
+South Wales adapter work is a **candidate contract pilot**, not a promoted legal
+profile. References to global reuse describe a design and validation path, not
+an empirical claim that other jurisdictions are already modelled, legally
+approved, or production-ready.
+
+## Current programme status
+
+As at **16 July 2026**:
+
+- the NZ package and its dependency-light validation surfaces are implemented;
+- FOI-O V2 adds empirical extraction contracts and explicit promotion evidence,
+  while preserving the V1 provenance, epistemic-status, and human-certification
+  safeguards;
+- Australia is planned as `foi-o-au` plus independently versioned subdivision
+  profiles such as `foi-o-au-nsw`, rather than long-lived jurisdiction branches;
+- Commonwealth and NSW are the first adapter pilots, but remain candidate-only;
+  the other states and territories remain disabled until source, rights,
+  annotation, evaluation, and human-approval gates are met; and
+- `fyi-archive` is the packaging and publication boundary for the corresponding
+  Hugging Face datasets. FOI-O consumes pinned, provenance-bearing artifacts and
+  does not treat mutable remote data as certified legal evidence.
+
+No adapter or model output can autonomously approve a legal interpretation,
+withholding ground, release, refusal, redaction, charge, extension, transfer, or
+review outcome.
+
+## Documentation
+
+- [System architecture](docs/02-system-architecture.md)
+- [Roadmap](docs/08-roadmap.md)
+- [Implementation status](docs/11-implementation-status.md)
+- [Ontology and jurisdiction profile versioning](docs/39-ontology-versioning-and-jurisdiction-profiles.md)
 
 ## Quick start
 
