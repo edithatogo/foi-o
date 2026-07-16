@@ -163,7 +163,7 @@ def build_process_advice(
         {"action": "certify_refusal", "reason": "reserved for authorised human decision-maker"},
         {
             "action": "apply_redaction",
-            "reason": "candidate redaction spans require human legal review",
+            "reason": "candidate redaction spans require authorised review against applicable law",
         },
         {
             "action": "send_correspondence",

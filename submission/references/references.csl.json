@@ -499,65 +499,6 @@
     "URL": "https://doi.org/10.1007/978-3-662-49851-4"
   },
   {
-    "id": "nist-ai-rmf-2023",
-    "type": "report",
-    "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
-    "author": [
-      {
-        "literal": "National Institute of Standards and Technology"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2023,
-          1,
-          26
-        ]
-      ]
-    },
-    "language": "en",
-    "URL": "https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf"
-  },
-  {
-    "id": "oecd-ai-principles-2024",
-    "type": "webpage",
-    "title": "AI principles",
-    "author": [
-      {
-        "literal": "OECD"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          5
-        ]
-      ]
-    },
-    "language": "en",
-    "URL": "https://www.oecd.org/en/topics/sub-issues/ai-principles.html"
-  },
-  {
-    "id": "eu-ai-act-2024",
-    "type": "legislation",
-    "title": "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence",
-    "jurisdiction": "eu",
-    "authority": "European Parliament and Council of the European Union",
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          6,
-          13
-        ]
-      ]
-    },
-    "language": "en",
-    "URL": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
-  },
-  {
     "id": "foi-o-repository",
     "type": "software",
     "title": "FOI-O: ontology and validation stack for Freedom of Information process modelling",
