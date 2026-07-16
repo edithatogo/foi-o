@@ -194,9 +194,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
   - `BLOCKED 2026-07-16`: authoritative rights evidence, the complete
     50-version OIA PDF sequence, and 50 deterministic candidate event-time
     intervals are hash-pinned. The provider-scope registry is already approved.
-    Every candidate interval remains legally unapproved, non-legislation
-    historical sources are still absent, and source-pack promotion still
-    requires named human review. The older schema-valid examples remain
+    Every candidate interval remains legally unapproved. Seven official
+    non-legislation guidance artifacts are now locally stored and hash-pinned,
+    but PSC provider-scope interpretation, historical applicability, source
+    selection, and source-pack promotion still require named human review. The
+    source contents are not committed, and older schema-valid examples remain
     contract fixtures, not evidence.
   - [x] Evidence subtask: populate a candidate, hash-pinned source-rights
     registry and OIA historical version index from official provider evidence
@@ -214,6 +216,17 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     promotion. Verification: 12 focused tests; targeted type checking, Ruff,
     JSON/schema checks, and Conductor review passed; full suite 368 passed,
     2 skipped.
+  - [x] Non-legislation evidence subtask: acquire and independently verify two
+    Ombudsman guide revisions, four Public Service Commission agency-guidance
+    documents, and one PSC reporting-guidance document in local-only storage
+    (`c78c47c`). Output:
+    `examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json` (SHA-256
+    `4650961b…`). The Archives NZ candidate was excluded after direct retrieval
+    returned only an anti-bot shell. Ombudsman personal-use scope is preserved;
+    PSC provider scope, historical applicability, source selection, and
+    source-pack promotion remain pending. Verification: all seven byte sizes,
+    PDF signatures, and SHA-256 hashes reproduced; 19 focused tests, examples
+    validation, and targeted Ruff passed; full suite 372 passed, 2 skipped.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
   - `BLOCKED 2026-07-16`: approved request `35076` now supplies one real
     outgoing correspondence item supporting the bounded candidate mapping
