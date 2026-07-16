@@ -36,7 +36,7 @@ sources:
     retrieved_at: "2026-07-02T00:00:00Z"
     source_status: official_snapshot
     applicability_basis: current_at_extraction_time
-    notes: Processing guidance snapshot; not a substitute for current law or human legal review.
+    notes: Processing guidance snapshot; not a substitute for current law or advice from a qualified practitioner.
 key_references_initial:
   - source_id: nz.oia.act
     reference: s 14
