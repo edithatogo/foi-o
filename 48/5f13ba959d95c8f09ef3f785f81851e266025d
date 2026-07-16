@@ -1,0 +1,6 @@
+Task: V2-03 extraction contract compatibility
+Summary: Added strict semver exact/range negotiation, declared capability discovery, explicit migration lookup, and fail-closed reasons for malformed, unknown-major, unsupported-revision, and missing-capability requests.
+Files: contracts/foi-o-extraction-contract/0.1.0/manifest.json; schemas/json/extraction-contract.schema.json; examples/v2 extraction fixtures; src/foi_o_nz/empirical_contracts.py; src/foi_o_nz/contract_capabilities.py; tests/test_extraction_contract.py; Conductor plan.
+Verification: focused contract/capability/empirical/schema suite -> 77 passed before final edge assertions; uv sync --extra dev --extra rdf -> exit 0; uv run pytest -q -> 296 passed, 2 skipped; targeted Ruff checks passed.
+Remaining risks: compatibility is repo-local until each named consumer passes its offline contract fixture; no upstream action or promotion occurred.
+Why: consumers must discover support and reject unknown revisions without silent widening or guessed migrations.
