@@ -1,0 +1,9 @@
+Task: Prepare sampling and annotation protocol for named-human approval.
+
+Summary: Added a candidate protocol covering rights-scoped population freezing, duplicate-cluster isolation, probability versus enrichment samples, two independent blinded human annotators, a distinct adjudicator, immutable annotation/adjudication provenance, and pre-specified reliability/evaluation outputs. Added a strict pending readiness packet with no invented identities or empirical artifacts.
+
+Files: docs/41-v2-sampling-and-annotation-protocol.md; schemas/json/annotation-protocol-review-readiness.schema.json; examples/v2/annotation-protocol-review-readiness.2026-07-16.json; tests/test_annotation_protocol_review_readiness.py; docs/24-schema-ontology-coverage-matrix.md; examples/maturation-summary.ontology-maturation.json.
+
+Verification: 13 focused tests passed; Ruff and JSON/schema checks passed; Conductor review confirmed fail-closed human and empirical boundaries; uv sync --extra dev --extra rdf passed; full suite 364 passed, 2 skipped.
+
+Remaining gates: named protocol approval; two independent annotator IDs; distinct adjudicator ID; rights-approved source population; approved codebook revision; approved frozen sampling configuration.
