@@ -1,0 +1,3 @@
+Blocked task: Populate and review NZ historical source packs and source-rights registry.
+Evidence: current mapping lacks historical effective intervals, archived hashes, and reviewed redistribution decisions; schema-valid examples contain placeholder hashes and synthetic approval metadata.
+Validation: full Python suite passed. No source or rights conclusion was promoted.
