@@ -103,12 +103,15 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     rights rule, heldout selection, label/gold promotion, upstream PR, dataset,
     release, or publication. The real baseline artifact and immutable
     `nlp-policy-nz` pipeline/model revision remain missing.
-- [ ] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
-  - `PENDING HUMAN REVIEW 2026-07-16`: generic direction to continue authorizes
-    candidate-only repo work but does not promote labels, fixtures, or mappings.
+- [x] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
+  - `APPROVED 2026-07-16`: named reviewer `edithatogo` explicitly approved all
+    four hash-pinned review items. The approval is recorded at
+    `2026-07-16T09:34:52Z` in
+    `examples/v2/human-promotion-review-packet.approved.json` (`99fe183`).
   - [x] Review-packet subtask: SHA-256-pin the independent fixture set, legal
     source mapping, OIA version index, and rights registry in
-    `examples/v2/human-promotion-review-packet.pending.json` (`533fae4`). The
+    `examples/v2/human-promotion-review-packet.approved.json` (`533fae4`, then
+    approved in `99fe183`). The
     schema locks reviewer fields and decisions to pending and promotion to
     false, while explicitly excluding schema-valid contract examples as human
     approval evidence. Verification: 13 focused tests; example validation and
