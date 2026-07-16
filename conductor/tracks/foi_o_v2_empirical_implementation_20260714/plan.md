@@ -259,6 +259,12 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     tests, examples validation, targeted Ruff and type checks passed; full suite
     392 passed, 2 skipped. Exact snapshot rights, supplemental-capture review,
     mapping review, and archive-wide evidence remain pending.
+  - [x] Attachment-approval integrity subtask: require any approved bundle to
+    verify the exact reviewed pending manifest and reproduce every non-rights
+    artifact hash and size (`43578ef`). Missing reviewed evidence or content
+    drift fails closed. Verification: actual pending manifest `42f8ed87…`
+    remained unchanged; new module coverage 82.01%; 26 focused tests and
+    targeted Ruff/type checks passed; full suite 393 passed, 2 skipped.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
   - `BLOCKED 2026-07-16`: a hash-pinned candidate sampling and annotation
     protocol now exists, but it is not human-approved. No authentic frozen unit
