@@ -1,0 +1,4 @@
+Task: Build deterministic source-triangulation assertions and an explicit human exception queue.
+Files: source triangulation evaluator, schema, candidate example, tests, triangulation and inventory docs.
+Verification: focused 83 tests passed; new module coverage 98%; Ruff passed; full suite 314 passed, 2 skipped.
+Remaining risks: source rights and historical packs are not populated; results remain candidate-only and require human review.
