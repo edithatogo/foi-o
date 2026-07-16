@@ -14,7 +14,7 @@ gates:
     status: pending
     human_gate: sample_annotation_adjudication_and_source_pack_approval
   governed_reextraction:
-    status: blocked_human_gate
+    status: blocked_input_and_human_gates
     verified_candidate_source:
       repository: edithatogo/fyi-archive-nz
       revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
@@ -22,12 +22,23 @@ gates:
       split: requests
       manifest_sha256: 23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e
       record_count: 33217
+    target_revision_approval:
+      status: approved_for_repo_local_upstream_review_preparation
+      approved_on: 2026-07-16
+      excludes: [rights, heldout_selection, labels, gold, upstream_pr, dataset, release, publication]
     missing:
-      - human_target_revision_approval
       - rights_rule_for_null_record_licences
       - immutable_real_initial_baseline
       - immutable_nlp_pipeline_and_model_revision
       - runnable_raw_manifest_extraction_entrypoint
+  raw_state_mapping_audit:
+    status: blocked_input_gate
+    verified_candidate_source_revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
+    missing:
+      - mapped_raw_state_values
+      - correspondence_evidence
+      - nonempty_attachment_evidence
+      - rights_cleared_evidence_snapshot
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]

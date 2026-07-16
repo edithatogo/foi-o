@@ -155,8 +155,16 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
+  - `BLOCKED 2026-07-16`: there is no eligible immutable release target because
+    governed re-extraction, historical source/right review, correspondence-backed
+    state mapping, independent fixture promotion, and empirical annotation,
+    adjudication, and reliability evaluation remain incomplete. A readiness
+    checkpoint must not be presented as the required release-evidence bundle.
 - [ ] Trigger the RaC Conformance paper-update workflow only after the release
   bundle is immutable and published.
+  - `BLOCKED 2026-07-16`: the prerequisite immutable published release-evidence
+    bundle does not exist. No paper workflow has been triggered and no arXiv or
+    preprint action is authorized.
 - [x] `[HUMAN]` Authorize creation of the GitHub issues required to coordinate
   recommended repository changes.
 - [ ] `[HUMAN]` Authorize any PR, dataset, release, or preprint action.
