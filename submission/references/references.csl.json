@@ -576,5 +576,65 @@
     },
     "language": "en",
     "URL": "https://github.com/edithatogo/foi-o"
+  },
+  {
+    "id": "fyi-archive-nz-huggingface",
+    "type": "dataset",
+    "title": "FYI Archive NZ",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "publisher": "Hugging Face",
+    "URL": "https://huggingface.co/datasets/edithatogo/fyi-archive-nz"
+  },
+  {
+    "id": "foi-process-repository",
+    "type": "software",
+    "title": "FOI Process",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/foi-process"
+  },
+  {
+    "id": "nlp-policy-nz-repository",
+    "type": "software",
+    "title": "NLP Policy NZ",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/nlp-policy-nz"
+  },
+  {
+    "id": "legislation-repository",
+    "type": "software",
+    "title": "Legislation",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/legislation"
+  },
+  {
+    "id": "rulespec-nz-repository",
+    "type": "software",
+    "title": "RuleSpec NZ",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/rulespec-nz"
+  },
+  {
+    "id": "rac-conformance-repository",
+    "type": "software",
+    "title": "RAC Conformance",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/rac-conformance"
+  },
+  {
+    "id": "foi-o-zenodo-081",
+    "type": "software",
+    "title": "FOI-O NZ: Freedom of Information ontology and process model",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "version": "0.8.1",
+    "issued": {"date-parts": [[2026, 7, 15]]},
+    "publisher": "Zenodo",
+    "DOI": "10.5281/zenodo.21360138",
+    "URL": "https://doi.org/10.5281/zenodo.21360138"
   }
 ]

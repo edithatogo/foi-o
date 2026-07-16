@@ -19,6 +19,9 @@ This supplement supports the manuscript
 validation commands, boundaries, and generated-asset plan for the FOI-O NZ
 submission package.
 
+It also records the V2 extraction-contract boundary, the wider programme
+handoffs, and the candidate-only status of Australian jurisdiction adapters.
+
 The supplement does not include live FYI/archive request payloads, legal advice,
 agency-internal records, journal account uploads, or arXiv submission approval.
 
@@ -50,6 +53,8 @@ SKOS vocabularies & \path{vocab/*.skos.ttl} & Controlled vocabularies for reques
 Process models & \path{process_models/} & BPMN, PNML, and generated state-machine artefacts for workflow review and interchange. \\
 Mappings & \path{mappings/*.yaml} & FYI/Alaveteli state mapping, PSC reporting derivability, and legal-source reference metadata. \\
 Publication docs & \path{docs/23-release-package.md}, \path{docs/26-journal-target-requirements.md}, \path{docs/30-arxiv-readiness.md} & Release, journal, and preprint readiness evidence. \\
+Empirical contracts & \path{src/foi_o_nz/empirical_contracts.py}, \path{src/foi_o_nz/contract_capabilities.py} & Capability declarations, immutable dependency requirements, evidence thresholds, and human promotion gates. \\
+Jurisdiction profiles & \path{schemas/json/jurisdiction-source-pack.schema.json}, \path{examples/v2/schema-valid/}, \path{docs/39-ontology-versioning-and-jurisdiction-profiles.md} & Versioned core, country, and subdivision profile contracts; Australian examples remain candidate-only. \\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -86,6 +91,7 @@ Process-model and empirical-plan checks include:
 
 ```bash
 uv run pytest -q tests/test_process_models.py tests/test_process_mining.py tests/test_empirical_taskset_manifest.py
+uv run pytest -q tests/test_empirical_contracts.py tests/test_contract_capabilities.py tests/test_jurisdiction_profiles.py
 ```
 
 Native Mojo/MAX checks are external gates unless the local Modular/Pixi
@@ -137,6 +143,27 @@ Agents must not certify:
 
 This boundary is tested through agent-policy tests, quality-gate tests,
 publication metadata tests, SHACL safety profiles, and example validation.
+
+V2 additionally requires immutable source/profile/model pins, rights-reviewed
+heldout data, independent annotation and adjudication, empirical acceptance
+metrics, and explicit human promotion. The archive, Australian Commonwealth,
+and NSW adapters remain candidate pilots until those conditions are evidenced.
+
+## S5A. Cross-Repository Programme Handoffs
+
+| Repository or dataset | Handoff to FOI-O |
+| --- | --- |
+| `fyi-cli` | Capture and delta inputs from FYI/Alaveteli-compatible sources. |
+| `fyi-archive` | Archive fidelity, manifests, provenance, and dataset packaging. |
+| `edithatogo/fyi-archive-nz` on Hugging Face | Versioned public dataset distribution boundary. |
+| `foi-process` | Document-evidence and OCR integration spine. |
+| `nlp-policy-nz` | Review-bounded adapter extraction and empirical evaluation. |
+| `legislation` | Versioned statutory source packs. |
+| `rulespec-nz` | Deterministic New Zealand rule specifications. |
+| `rac-conformance` | Cross-repository programme conformance evidence. |
+
+Alaveteli is used as a source of public metadata and workflow intelligence. It
+is not represented as an FOI-O implementation repository.
 
 \clearpage
 
@@ -211,7 +238,7 @@ The default package workflow is:
 The following items remain outside repo-local automation:
 
 - live FYI/archive pulls;
-- live publication registry deposits;
+- publication of future, not-yet-deposited release versions;
 - Hugging Face, Zenodo, OSF, arXiv, or journal upload;
 - final author list, affiliations, funding, conflicts, acknowledgements, and
   cover letter;
@@ -233,3 +260,9 @@ The release package records repeatable local evidence and external gates in:
 Passing repo-local checks means the committed repository artefacts validate
 locally. It does not mean that a live source, registry, journal, or arXiv system
 has accepted the package.
+
+FOI-O v0.8.1 is preserved at
+\url{https://doi.org/10.5281/zenodo.21360138}; its concept DOI is
+\url{https://doi.org/10.5281/zenodo.21360137}. These identifiers establish
+software preservation and citation, not manuscript acceptance or legal
+validation.

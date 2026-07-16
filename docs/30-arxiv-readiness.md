@@ -10,6 +10,9 @@ category, certify authorship, or approve public release.
 The journal submission track must refresh this snapshot before producing an
 upload package.
 
+Snapshot refreshed from the official arXiv submission documentation on
+2026-07-16.
+
 - arXiv accepts TeX/LaTeX source packages as `.tar` or `.zip` archives.
 - arXiv compiles submissions from the root of the uploaded directory, even when
   the top-level file is in a subdirectory.
