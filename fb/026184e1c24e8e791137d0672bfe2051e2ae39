@@ -1,0 +1,5 @@
+Task: Record NZ non-legislation evidence acquisition in the Conductor plan.
+
+Summary: Added commit c78c47c, manifest hash, seven-source scope, Archives anti-bot exclusion, validation results, and remaining named-human gates.
+
+Verification: git diff --check passed; uv sync --extra dev --extra rdf passed; full suite 372 passed, 2 skipped.
