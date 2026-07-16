@@ -1,17 +1,17 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:foi-o:schema:nz-source-pack-review-readiness:0.1.0",
+  "$id": "urn:foi-o:schema:nz-source-pack-review-readiness:0.2.0",
   "title": "FOI-O NZ source-pack human review readiness",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "schema_version", "status", "approved_review_packet_sha256", "reviewer",
-    "approved_components", "event_time_intervals", "non_legislation_sources",
+    "approved_components", "provider_scope_interpretation", "event_time_intervals", "non_legislation_sources",
     "source_pack_ready", "source_pack_promotion_allowed", "blockers"
   ],
   "properties": {
-    "schema_version": {"const": "foi-o.nz-source-pack-review-readiness.v0.1.0"},
-    "status": {"const": "blocked_missing_source_pack_inputs"},
+    "schema_version": {"const": "foi-o.nz-source-pack-review-readiness.v0.2.0"},
+    "status": {"const": "candidate_inputs_acquired_human_review_pending"},
     "approved_review_packet_sha256": {"$ref": "#/$defs/sha256"},
     "reviewer": {
       "type": "object", "additionalProperties": false,
@@ -34,30 +34,50 @@
         }
       }
     },
+    "provider_scope_interpretation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["existing_registry_approved", "psc_scope_approved", "required_action"],
+      "properties": {
+        "existing_registry_approved": {"const": true},
+        "psc_scope_approved": {"const": false},
+        "required_action": {"type": "string", "minLength": 1}
+      }
+    },
     "event_time_intervals": {
       "type": "object", "additionalProperties": false,
-      "required": ["status", "interval_count", "required_action"],
+      "required": ["status", "interval_count", "artifact_path", "artifact_sha256", "human_approved", "required_action"],
       "properties": {
-        "status": {"const": "missing"},
-        "interval_count": {"const": 0},
+        "status": {"const": "candidate_human_legal_review_required"},
+        "interval_count": {"const": 50},
+        "artifact_path": {"const": "mappings/nz-oia-applicability-interval-candidates.yaml"},
+        "artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "human_approved": {"const": false},
         "required_action": {"type": "string", "minLength": 1}
       }
     },
     "non_legislation_sources": {
       "type": "object", "additionalProperties": false,
-      "required": ["status", "artifact_count", "required_action"],
+      "required": ["status", "artifact_count", "manifest_path", "manifest_sha256", "content_storage", "content_committed", "human_approved", "required_action"],
       "properties": {
-        "status": {"const": "missing_historical_artifacts"},
-        "artifact_count": {"const": 0},
+        "status": {"const": "candidate_artifacts_acquired_human_review_pending"},
+        "artifact_count": {"const": 7},
+        "manifest_path": {"const": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json"},
+        "manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "content_storage": {"const": "local_only"},
+        "content_committed": {"const": false},
+        "human_approved": {"const": false},
         "required_action": {"type": "string", "minLength": 1}
       }
     },
     "source_pack_ready": {"const": false},
     "source_pack_promotion_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true,
       "items": {
-        "enum": ["event_time_intervals_missing", "non_legislation_historical_sources_missing"]
+        "enum": [
+          "event_time_human_review_pending", "psc_provider_scope_review_pending",
+          "nonleg_source_selection_review_pending", "source_pack_promotion_pending"
+        ]
       }
     }
   },

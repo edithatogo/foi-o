@@ -16,7 +16,7 @@ gates:
     status: pending
     human_gate: sample_annotation_adjudication_and_source_pack_approval
   nz_source_pack:
-    status: interval_candidates_prepared_nonleg_sources_and_human_review_pending
+    status: candidate_sources_acquired_human_review_pending
     evidence:
       rights_registry: mappings/nz-source-rights-registry.yaml
       oia_version_index: mappings/nz-oia-version-index.yaml
@@ -24,9 +24,13 @@ gates:
       interval_candidates: mappings/nz-oia-applicability-interval-candidates.yaml
       interval_candidate_count: 50
       interval_candidates_legal_applicability_approved: false
+      nonlegislation_source_manifest: examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json
+      nonlegislation_source_count: 7
+      nonlegislation_source_content_storage: local_only
+      nonlegislation_source_content_committed: false
     missing:
       - human_event_time_applicability_review
-      - non_legislation_historical_source_artifacts
+      - human_psc_provider_scope_interpretation
       - human_non_legislation_source_review
       - human_source_pack_promotion
   governed_reextraction:

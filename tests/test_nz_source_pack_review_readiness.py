@@ -12,6 +12,8 @@ ROOT = Path(__file__).parents[1]
 READINESS = ROOT / "examples/v2/nz-source-pack-review-readiness.2026-07-16.json"
 SCHEMA = ROOT / "schemas/json/nz-source-pack-review-readiness.schema.json"
 APPROVAL = ROOT / "examples/v2/human-promotion-review-packet.approved.json"
+INTERVALS = ROOT / "mappings/nz-oia-applicability-interval-candidates.yaml"
+NONLEG = ROOT / "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json"
 
 
 def test_source_pack_readiness_is_schema_valid_and_fail_closed() -> None:
@@ -20,8 +22,10 @@ def test_source_pack_readiness_is_schema_valid_and_fail_closed() -> None:
     payload = json.loads(READINESS.read_text())
     assert payload["source_pack_ready"] is False
     assert payload["source_pack_promotion_allowed"] is False
-    assert payload["event_time_intervals"]["interval_count"] == 0
-    assert payload["non_legislation_sources"]["artifact_count"] == 0
+    assert payload["event_time_intervals"]["interval_count"] == 50
+    assert payload["event_time_intervals"]["human_approved"] is False
+    assert payload["non_legislation_sources"]["artifact_count"] == 7
+    assert payload["non_legislation_sources"]["human_approved"] is False
 
 
 def test_prior_named_human_approvals_are_exactly_hash_pinned() -> None:
@@ -38,10 +42,20 @@ def test_prior_named_human_approvals_are_exactly_hash_pinned() -> None:
         assert component["artifact_sha256"] == sha256(path.read_bytes()).hexdigest()
 
 
-def test_missing_inputs_are_not_inferred_from_as_at_dates_or_contract_examples() -> None:
+def test_acquired_candidates_are_exactly_pinned_without_inferred_approval() -> None:
     payload = json.loads(READINESS.read_text())
+    assert payload["event_time_intervals"]["artifact_sha256"] == sha256(
+        INTERVALS.read_bytes()
+    ).hexdigest()
+    assert payload["non_legislation_sources"]["manifest_sha256"] == sha256(
+        NONLEG.read_bytes()
+    ).hexdigest()
+    assert payload["provider_scope_interpretation"]["existing_registry_approved"] is True
+    assert payload["provider_scope_interpretation"]["psc_scope_approved"] is False
     assert payload["blockers"] == [
-        "event_time_intervals_missing",
-        "non_legislation_historical_sources_missing",
+        "event_time_human_review_pending",
+        "psc_provider_scope_review_pending",
+        "nonleg_source_selection_review_pending",
+        "source_pack_promotion_pending",
     ]
-    assert payload["status"] == "blocked_missing_source_pack_inputs"
+    assert payload["status"] == "candidate_inputs_acquired_human_review_pending"

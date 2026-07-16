@@ -1,6 +1,6 @@
 {
-  "schema_version": "foi-o.nz-source-pack-review-readiness.v0.1.0",
-  "status": "blocked_missing_source_pack_inputs",
+  "schema_version": "foi-o.nz-source-pack-review-readiness.v0.2.0",
+  "status": "candidate_inputs_acquired_human_review_pending",
   "approved_review_packet_sha256": "9c34d901a3c1f820d6bbdfd918231b39b20a7b7f357027c7bdce929ae1ec1d1c",
   "reviewer": {
     "reviewer_id": "edithatogo",
@@ -20,20 +20,35 @@
       "decision": "approved"
     }
   ],
+  "provider_scope_interpretation": {
+    "existing_registry_approved": true,
+    "psc_scope_approved": false,
+    "required_action": "A named human reviewer must decide whether the Public Service Commission's own CC BY 4.0 terms support a new publicservice.govt.nz provider-scope entry; the approved govt.nz scope is not silently broadened."
+  },
   "event_time_intervals": {
-    "status": "missing",
-    "interval_count": 0,
-    "required_action": "A named human legal reviewer must approve explicit inclusive/exclusive applicability intervals; ordered as-at dates alone are insufficient."
+    "status": "candidate_human_legal_review_required",
+    "interval_count": 50,
+    "artifact_path": "mappings/nz-oia-applicability-interval-candidates.yaml",
+    "artifact_sha256": "401cd17ae98b4aa7adc51e90f861838c29173ec6165c78ed4f448cd58cd82e83",
+    "human_approved": false,
+    "required_action": "A named human legal reviewer must verify and approve every inclusive/exclusive interval against commencement and amendment evidence; adjacent official as-at dates alone are insufficient."
   },
   "non_legislation_sources": {
-    "status": "missing_historical_artifacts",
-    "artifact_count": 0,
-    "required_action": "Acquire and hash-pin historically applicable Ombudsman, agency, and reporting materials under their approved provider scopes."
+    "status": "candidate_artifacts_acquired_human_review_pending",
+    "artifact_count": 7,
+    "manifest_path": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json",
+    "manifest_sha256": "4650961b6b3ce11dd69f226b651b611127e2ba37bf4c87d266c6799579432d18",
+    "content_storage": "local_only",
+    "content_committed": false,
+    "human_approved": false,
+    "required_action": "A named human reviewer must approve source selection, historical applicability, provider scope, and source-pack promotion; the locally stored source files are not committed or approved for redistribution."
   },
   "source_pack_ready": false,
   "source_pack_promotion_allowed": false,
   "blockers": [
-    "event_time_intervals_missing",
-    "non_legislation_historical_sources_missing"
+    "event_time_human_review_pending",
+    "psc_provider_scope_review_pending",
+    "nonleg_source_selection_review_pending",
+    "source_pack_promotion_pending"
   ]
 }
