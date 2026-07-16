@@ -32,7 +32,7 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
 [#26](https://github.com/edithatogo/foi-o/issues/26), and
 [#27](https://github.com/edithatogo/foi-o/issues/27).
 
-- [ ] Export a versioned FOI-O extraction contract for `nlp-policy-nz`, including
+- [~] Export a versioned FOI-O extraction contract for `nlp-policy-nz`, including
   ontology, schema, codebook, provenance, and candidate-status identifiers.
 - [x] Define the independently versioned `foi-o` core and jurisdiction-profile
   family contract, including `foi-o-nz` and `foi-o-au-nsw` examples.
