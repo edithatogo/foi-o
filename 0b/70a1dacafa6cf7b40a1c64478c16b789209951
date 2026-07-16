@@ -1,0 +1,3 @@
+Task: Build an independent oia_rules event-time fixture set without reusing authoring data.
+Validation: uv sync --extra dev --extra rdf; uv run pytest -q => 306 passed, 2 skipped.
+Boundary: synthetic candidate expectations are not gold and promotionAllowed remains false pending independent human review.
