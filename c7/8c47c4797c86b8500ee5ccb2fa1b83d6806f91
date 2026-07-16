@@ -1,0 +1,9 @@
+Task: Acquire and hash-pin authoritative NZ non-legislation source candidates.
+
+Summary: Downloaded and independently verified seven official PDFs to local-only temporary storage: two distinct Ombudsman guide revisions, four Public Service Commission agency-guidance documents, and one PSC reporting-guidance document. Added a strict metadata manifest and updated source-pack readiness to distinguish approved Ombudsman personal-use scope from pending PSC provider-scope interpretation. Excluded an Archives NZ endpoint because direct retrieval returned only an anti-bot shell.
+
+Files: examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json; schemas/json/nz-nonlegislation-source-manifest.schema.json; tests/test_nz_nonlegislation_source_manifest.py; source-pack readiness schema/example/tests; coverage inventory; Conductor release gates, output ledger, and traceability matrix.
+
+Verification: all seven local files reproduced declared byte sizes and SHA-256 hashes and had PDF magic; 19 focused tests passed; examples validation and targeted Ruff passed; uv sync --extra dev --extra rdf passed; full suite 372 passed, 2 skipped.
+
+Remaining risks: PSC provider-scope interpretation, historical applicability, source selection, and source-pack promotion require named human approval. Source content is not committed and redistribution remains false.
