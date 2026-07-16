@@ -15,3 +15,12 @@ outputs:
   - id: O-FOIO-V2-REEXTRACTION-READINESS
     paths: [conductor/tracks/foi_o_v2_empirical_implementation_20260714/reextraction-readiness.md]
     status: verified_candidate_input_blocked_human_gate
+  - id: O-FOIO-V2-BOUNDED-RAW-STATE-AUDIT
+    paths: [examples/v2/bounded-raw-state-audit.35076.json, schemas/json/bounded-raw-state-audit.schema.json]
+    status: bounded_correspondence_verified_attachment_evidence_missing
+  - id: O-FOIO-V2-NZ-SOURCE-PACK-REVIEW
+    paths: [examples/v2/nz-source-pack-review-readiness.2026-07-16.json, mappings/nz-oia-applicability-interval-candidates.yaml]
+    status: interval_candidates_prepared_named_human_review_pending
+  - id: O-FOIO-V2-ANNOTATION-PROTOCOL
+    paths: [docs/41-v2-sampling-and-annotation-protocol.md, examples/v2/annotation-protocol-review-readiness.2026-07-16.json]
+    status: candidate_protocol_named_human_approval_pending

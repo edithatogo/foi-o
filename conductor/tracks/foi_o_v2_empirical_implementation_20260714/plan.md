@@ -191,11 +191,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     coverage 98%; targeted Ruff checks passed; `uv sync --extra dev --extra rdf`
     (exit 0); `uv run pytest -q` (exit 0; 314 passed, 2 skipped).
 - [ ] Populate and review NZ historical source packs and the source-rights registry.
-  - `BLOCKED 2026-07-16`: authoritative rights evidence and the complete
-    50-version OIA PDF sequence are now hash-pinned, but event-time applicability
-    intervals, non-legislation historical sources, provider-scope interpretation,
-    and source-pack promotion still require a named human reviewer. The older
-    schema-valid examples remain contract fixtures, not evidence.
+  - `BLOCKED 2026-07-16`: authoritative rights evidence, the complete
+    50-version OIA PDF sequence, and 50 deterministic candidate event-time
+    intervals are hash-pinned. The provider-scope registry is already approved.
+    Every candidate interval remains legally unapproved, non-legislation
+    historical sources are still absent, and source-pack promotion still
+    requires named human review. The older schema-valid examples remain
+    contract fixtures, not evidence.
   - [x] Evidence subtask: populate a candidate, hash-pinned source-rights
     registry and OIA historical version index from official provider evidence
     while retaining human approval (`127bbf5`).
@@ -204,12 +206,21 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     76 passed); pinning helper coverage 100%; targeted Ruff checks passed;
     `uv sync --extra dev --extra rdf` (exit 0); `uv run pytest -q` (exit 0;
     326 passed, 2 skipped). Source HTML/PDF files were not committed.
+  - [x] Interval-candidate subtask: derive 50 explicit inclusive/exclusive
+    intervals only from adjacent approved official as-at dates (`c91c02e`).
+    Output: `mappings/nz-oia-applicability-interval-candidates.yaml` (SHA-256
+    `401cd17a…`). All intervals retain `legal_applicability_approved: false` and
+    require named-human commencement/amendment review before source-pack
+    promotion. Verification: 12 focused tests; targeted type checking, Ruff,
+    JSON/schema checks, and Conductor review passed; full suite 368 passed,
+    2 skipped.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
-  - `BLOCKED 2026-07-16`: the pinned `fc27bfa` manifest has 33,208 empty state
-    values, nine unmapped `dry-run` values, no records in a mapped FYI state,
-    no correspondence fields, and no non-empty attachment arrays. A substantive
-    mapping audit requires a rights-cleared correspondence/attachment-bearing
-    source snapshot; this manifest cannot answer the audit question.
+  - `BLOCKED 2026-07-16`: approved request `35076` now supplies one real
+    outgoing correspondence item supporting the bounded candidate mapping
+    `waiting_response` to `awaiting_response`. Its verified attachment inventory
+    is empty, so it cannot satisfy the attachment-bearing audit requirement or
+    support an archive-wide claim. Named human mapping review and a separate
+    rights-cleared non-empty attachment snapshot remain required.
   - [x] Readiness subtask: add a read-only, hash-verifying aggregate audit and
     reproduce `examples/v2/raw-state-audit-readiness.fc27.json` from the local
     pinned manifest without committing or modifying source records (`02f75c7`).
@@ -217,15 +228,28 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     passed); new module coverage 93%; targeted Ruff checks passed;
     `uv sync --extra dev --extra rdf` (exit 0); `uv run pytest -q` (exit 0;
     318 passed, 2 skipped).
+  - [x] Bounded correspondence subtask: verify the approved request `35076`
+    manifest, raw state, state mapping, one-item correspondence structure, and
+    empty attachment inventory without committing source content (`9b50e36`).
+    Output: `examples/v2/bounded-raw-state-audit.35076.json`. Promotion and
+    archive-wide mapping claims remain false. Verification: 9 focused tests;
+    targeted type checking, Ruff, JSON/schema checks, and Conductor review
+    passed; full suite 358 passed, 2 skipped.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
-  - `BLOCKED 2026-07-16`: no authentic frozen unit manifest, duplicate-cluster
-    registry, dual-annotation records, adjudication decisions, or agreement
-    outputs exist. The schema-valid sample examples use repeated placeholder
-    hashes, `zenodo:pending`, and paths to absent Parquet artifacts. Completion
-    requires a rights-approved source population, human-approved sampling and
-    annotation protocols, at least two independent human annotators, and an
-    identified adjudicator. No sample membership, labels, adjudication outcome,
-    or reliability statistic may be inferred from the contract fixtures.
+  - `BLOCKED 2026-07-16`: a hash-pinned candidate sampling and annotation
+    protocol now exists, but it is not human-approved. No authentic frozen unit
+    manifest, duplicate-cluster registry, dual-annotation records, adjudication
+    decisions, or agreement outputs exist. Completion requires a rights-approved
+    source population, protocol approval, an approved codebook and sampling
+    configuration, at least two independent human annotators, and a distinct
+    adjudicator. No sample membership, labels, adjudication outcome, or
+    reliability statistic may be inferred from contract fixtures.
+  - [x] Protocol-preparation subtask: add the candidate protocol at
+    `docs/41-v2-sampling-and-annotation-protocol.md` (SHA-256 `9747b22c…`) and a
+    fail-closed review-readiness packet (`d2ea156`). Verification: 13 focused
+    tests; Ruff, JSON/schema checks, and Conductor review passed; full suite
+    364 passed, 2 skipped. Approval, role identities, population, codebook, and
+    sampling configuration remain missing.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.

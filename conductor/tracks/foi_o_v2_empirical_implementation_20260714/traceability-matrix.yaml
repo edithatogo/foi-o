@@ -12,3 +12,9 @@ claims:
     evidence: [integration/existing-surface-map.yaml, docs/40-v2-platform-state-mapping.md, src/foi_o_nz/normalise.py]
   - id: C-RULE-CANDIDATE-BOUNDARY
     evidence: [docs/39-v2-rule-evaluation.md, src/foi_o_nz/oia_rules]
+  - id: C-BOUNDED-CORRESPONDENCE-STATE-AUDIT
+    evidence: [examples/v2/bounded-raw-state-audit.35076.json, schemas/json/bounded-raw-state-audit.schema.json, tests/test_bounded_raw_state_audit.py]
+  - id: C-OIA-INTERVAL-CANDIDATE-BOUNDARY
+    evidence: [mappings/nz-oia-applicability-interval-candidates.yaml, schemas/json/nz-oia-applicability-interval-candidates.schema.json, tests/test_source_pack_intervals.py]
+  - id: C-ANNOTATION-PROTOCOL-HUMAN-GATE
+    evidence: [docs/41-v2-sampling-and-annotation-protocol.md, examples/v2/annotation-protocol-review-readiness.2026-07-16.json, tests/test_annotation_protocol_review_readiness.py]

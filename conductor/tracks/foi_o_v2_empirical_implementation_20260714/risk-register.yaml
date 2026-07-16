@@ -21,3 +21,12 @@ risks:
   - id: R-007
     risk: synthetic placeholder-pinned nlp-policy-nz fixtures could be mistaken for a real empirical baseline
     mitigation: require a separately hashed real baseline and immutable pipeline/model revision before any comparison claim
+  - id: R-008
+    risk: adjacent official as-at dates could be misrepresented as legally reviewed applicability intervals
+    mitigation: retain legal_applicability_approved false for every candidate until named-human commencement and amendment review
+  - id: R-009
+    risk: one correspondence-bearing request with an empty attachment inventory could be generalized to archive-wide state mappings
+    mitigation: preserve bounded single-request scope and require separate rights-cleared nonempty attachment evidence plus named-human mapping review
+  - id: R-010
+    risk: a candidate annotation protocol could be mistaken for approval or completed empirical work
+    mitigation: keep approval identities source population sample configuration annotations adjudication and reliability fail-closed until independently supplied

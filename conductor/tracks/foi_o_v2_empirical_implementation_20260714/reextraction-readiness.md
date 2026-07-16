@@ -110,6 +110,24 @@ upstream inspections:
 1. Independent annotation and adjudication for empirical evaluation.
 2. Separate rights treatment for any expansion beyond the one approved record.
 
+## Related empirical follow-up gates
+
+- The approved request `35076` now supports a bounded candidate raw-state
+  observation: `waiting_response` maps to `awaiting_response` alongside one
+  verified outgoing correspondence item. Its attachment inventory is verified
+  empty, so named-human mapping review and a separate rights-cleared,
+  attachment-bearing snapshot remain required before a substantive or
+  archive-wide mapping claim.
+- Fifty deterministic OIA applicability interval candidates are recorded in
+  `mappings/nz-oia-applicability-interval-candidates.yaml`. They are derived
+  only from adjacent approved official as-at dates and all remain legally
+  unapproved pending named-human commencement and amendment review.
+- The candidate sampling and annotation protocol is hash-pinned at
+  `docs/41-v2-sampling-and-annotation-protocol.md`. Sample freezing remains
+  prohibited until named-human protocol approval, two independent annotators,
+  a distinct adjudicator, a rights-approved source population, an approved
+  codebook revision, and an approved sampling configuration are recorded.
+
 The verified `nlp-policy-nz` consumer resolves the earlier contract, entry-point,
 and model-pin blockers. The bounded source-content and rights evidence and its
 FOI-O handoff and bounded upstream execution now exist. Archived evaluation
