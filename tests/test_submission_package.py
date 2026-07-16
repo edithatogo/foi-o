@@ -38,11 +38,12 @@ def test_manuscript_contains_required_submission_sections() -> None:
         assert section in text
 
     assert (
-        'title: "FOI-O: An NZ-first ontology and verification methods package for Freedom of Information process modelling"'
+        'title: "FOI-O: A global ontology and verification framework for Freedom of Information process modelling"'
         in text
     )
     compact_text = " ".join(text.split())
-    assert "FOI-O NZ is the only implemented and validated jurisdictional profile" in compact_text
+    assert "global model that began with the New Zealand Official Information Act" in compact_text
+    assert "Australian adapters remain candidate-only" in compact_text
     assert "What the current package proves and does not prove" in text
     assert "Ontology, Process Model, and Interchange Artefacts" in text
     assert "finished global FOI platform" not in text

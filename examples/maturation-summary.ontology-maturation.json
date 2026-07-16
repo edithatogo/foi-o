@@ -201,7 +201,7 @@
   "missing_paths": [],
   "ok": true,
   "schema_version": "foi-o-nz.maturation-summary.v0.1.0",
-  "scope": "NZ-first FOI-O ontology maturation evidence",
+  "scope": "Global FOI-O maturation evidence originating in NZ with Australian jurisdiction iterations",
   "validation_commands": [
     "uv run python scripts/validate_examples.py",
     "uv run foi-o-nz validate-repo",

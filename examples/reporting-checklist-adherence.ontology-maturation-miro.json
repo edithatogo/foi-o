@@ -15,7 +15,7 @@
         "README.md"
       ],
       "score_impact": 0,
-      "reviewer_notes": "The package states the core/profile boundary and keeps the current validated scope NZ-first."
+      "reviewer_notes": "The package states the global core/profile boundary, preserves the NZ origin, and keeps Australian adapters candidate-only until promoted."
     },
     {
       "item_id": "miro-competency-questions",

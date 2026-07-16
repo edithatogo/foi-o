@@ -1,5 +1,5 @@
 ---
-title: "FOI-O: An NZ-first ontology and verification methods package for Freedom of Information process modelling"
+title: "FOI-O: A global ontology and verification framework for Freedom of Information process modelling"
 author:
   - "Dylan A Mordaunt\\textsuperscript{1,2,3}"
 date: "2026-07-16"
@@ -18,11 +18,12 @@ abstract: |
   support research, workflow review, and human-supervised agent help. Yet they
   also mix observed correspondence, platform states, inferred events, and legal
   outcomes. FOI-O is a reusable process-modelling method and verification
-  infrastructure for Freedom of Information administration. FOI-O NZ, based on
-  the New Zealand Official Information Act, is the only implemented and
-  validated jurisdictional profile in the current repository. Broader reuse is
-  a design intent and future validation path, not an empirical result of this
-  package. FOI-O models request records, observed correspondence, controlled
+  infrastructure for Freedom of Information administration. It is a global
+  model that began with the New Zealand Official Information Act and has since
+  iterated through Australian Commonwealth and New South Wales jurisdiction
+  adapters. The NZ package remains the mature reference implementation;
+  Australian adapters remain candidate-only pending empirical and human legal
+  review. FOI-O models request records, observed correspondence, controlled
   vocabularies, provenance, review queues, release metadata, and bounded agent
   contracts. Human certification of legally meaningful outcomes stays outside
   autonomous tooling. Its typed operational and semantic contracts are
@@ -114,15 +115,15 @@ and human-certified outcome. Agents may help with routing, summary, event
 extraction, evidence checks, and review preparation. Authorised humans remain
 responsible for legally meaningful decisions [23-25].
 
-The New Zealand Official Information Act (OIA; see the \hyperlink{tab-abbreviations}{abbreviations table}) is used as the
-first worked jurisdictional example. This starting point is deliberate. New
+The New Zealand Official Information Act (OIA; see the \hyperlink{tab-abbreviations}{abbreviations table}) supplied the
+first worked jurisdictional example. This origin is deliberate. New
 Zealand provides a concrete legal and administrative setting that the author
 understands, and FYI provides public request material that can test a practical
-model [1-5]. FOI-O is the reusable method and conceptual frame. FOI-O NZ is the
-only implemented and validated jurisdictional profile in the current
-repository. Later comparative use remains design intent until separate
-jurisdiction-specific profiles, source mappings, and validation evidence are
-added.
+model [1-5]. FOI-O is now the global reusable method and conceptual frame.
+FOI-O NZ remains its mature reference implementation. Australian Commonwealth
+and NSW adapters are the next iterations of the same core, but remain
+candidate-only until separate jurisdiction-specific sources, mappings,
+evaluation evidence, and human promotion gates pass.
 
 FOI regimes differ in deadlines, exemptions, appeal paths, proactive
 publication practice, reporting categories, and institutional culture. They
@@ -764,9 +765,11 @@ FOI outcomes. It should be treated as a research and validation artefact until
 live-source ingestion, jurisdiction-specific mappings, and operational use are
 separately reviewed.
 
-The main threats to validity are scope and evidence limits. FOI-O NZ is the
-only implemented and validated jurisdictional profile. The repository evidence
-is local and fixture-heavy. It does not yet prove live archive intake,
+The main threats to validity are scope and evidence limits. FOI-O's global
+scope is architectural and methodological, not a claim of universal legal
+validation. FOI-O NZ is the mature reference implementation, while Australian
+Commonwealth and NSW adapters remain candidate iterations. The repository
+evidence is local and fixture-heavy. It does not yet prove live archive intake,
 representative agency coverage, human-reviewed gold-standard labels,
 real-world process conformance, bottleneck frequencies, agency cycle times, or
 corpus-level process-mining results. Process-mining artefacts are included to
@@ -777,8 +780,10 @@ recorded.
 
 # Conclusion
 
-FOI-O provides an NZ-first ontology and validation methods package for
-modelling FOI administration in agent-facing workflows. Its strongest
+FOI-O provides a global ontology and validation framework for modelling FOI
+administration in agent-facing workflows. It began with New Zealand and has
+iterated through Australian jurisdictions without treating jurisdictional law
+as globally interchangeable. Its strongest
 contribution is evidence discipline: schemas, vocabularies, semantic
 constraints, process models, fixture interchange artefacts, release metadata,
 and tests distinguish observed evidence, candidate inference, validation

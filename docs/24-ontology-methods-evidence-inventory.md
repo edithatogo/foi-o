@@ -7,7 +7,7 @@ material at this stage.
 | Evidence class | Representative paths | Use in method | Status |
 | --- | --- | --- | --- |
 | Charter and scope | `docs/00-repo-charter.md`, `README.md`, ADRs in `adr/` | Defines mission, non-goals, standalone-repo rationale, and human-certification boundaries. | Repo-local. |
-| Foundations | `docs/01-foundations-register.md`, `mappings/nz-legislation-sources.yaml` | Defines NZ-first legal, guidance, reporting, platform, and technical source categories. | Repo-local source register; live refresh is external. |
+| Foundations | `docs/01-foundations-register.md`, `mappings/nz-legislation-sources.yaml` | Defines the NZ-origin legal, guidance, reporting, platform, and technical source categories used to bootstrap the global model. | Repo-local NZ reference register; Australian source packs are independently versioned and gated. |
 | Architecture | `docs/02-system-architecture.md`, `docs/assets/foi-o-process-architecture.mmd` | Describes source, archive, semantic, agent, reporting, and evaluation layers. | Repo-local. |
 | Process profile | `docs/03-process-profile.md`, `vocab/request-states.skos.ttl`, `vocab/event-types.skos.ttl` | Defines lifecycle states, event families, assertion status, and certification boundary. | Repo-local. |
 | Agent safety | `docs/04-agent-boundaries.md`, `src/foi_o_nz/agent_policy.py`, `schemas/json/agent-action.schema.json` | Defines safe, human-certified, risky, and prohibited autonomous actions. | Repo-local. |
