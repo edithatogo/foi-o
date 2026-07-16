@@ -14,6 +14,7 @@ changes materially.
 | OIA event-time candidates | `schemas/json/oia-event-time-fixture-set.schema.json` | Exercises the existing `oia_rules` decision identifiers without changing legal mappings. | `tests/fixtures/oia_rules/oia-event-time-independent-candidates.json` | `tests/test_oia_rules_independent_fixtures.py` | Candidate cases pin and remain disjoint from the approved authoring fixture; promotion is forbidden pending independent human calculation and review. |
 | Source triangulation | `schemas/json/source-triangulation-result.schema.json` | Relates candidate claim support to existing evidence assertions and normative sources without certifying either. | `examples/v2/source-triangulation.example.json` | `tests/test_source_triangulation.py` | Two independent eligible sources are required; blocked, conflicting, stale, rights-uncertain, and insufficient evidence enter a deterministic human exception queue; promotion is always false. |
 | Raw-state audit readiness | `schemas/json/raw-state-audit-readiness.schema.json` | Tests whether immutable FYI state observations have the correspondence and attachment evidence needed to review candidate mappings. | `examples/v2/raw-state-audit-readiness.fc27.json` | `tests/test_raw_state_audit.py` | Input and mapping hashes are verified; aggregate coverage only is committed; absent evidence blocks mapping conclusions. |
+| NZ source rights and history | `schemas/json/source-rights-registry.schema.json` | Candidate rights classifications and the official OIA version sequence support later source-pack review without certifying reuse or event-time applicability. | `mappings/nz-source-rights-registry.yaml`, `mappings/nz-oia-version-index.yaml` | `tests/test_source_rights_registry.py` | Provider pages and 50 official OIA PDFs are hash-pinned; every entry remains pending human rights/applicability review. |
 | Human certification | `schemas/json/core-event.schema.json`, `schemas/json/agent-action.schema.json` | `foio:DecisionLikeEvent`, `foio:HumanCertification`, `foio:machineCertificationAllowed`; `foio:DecisionLikeEventShape` | `examples/agent-action.search-plan.json`, `examples/review-task.risk.json` | `tests/test_agent_policy.py`, `tests/test_shacl_safety_profiles.py` | Agents cannot certify decision-like outcomes. |
 | Legal source versioning | `schemas/json/process-advice.schema.json`, mapping YAML | `foio:LegalSourceVersion`, `foio:sourceVersionId` | `mappings/nz-legislation-sources.yaml` | `tests/test_legal_sources.py` | Live source refresh is an external gate. |
 | PSC reporting | `schemas/json/reporting-metric.schema.json`, `schemas/json/psc-report.schema.json` | `foio:ReportingMetric` | `examples/reporting-metric.completed-requests.json`, `examples/psc-report.small.json` | `tests/test_reporting.py`, `tests/test_reporting_docs.py` | Public-data derivability is not official reporting. |
@@ -24,14 +25,14 @@ changes materially.
 
 | Artefact class | Count |
 | --- | ---:|
-| JSON Schema files | 71 |
+| JSON Schema files | 72 |
 | Example files | 129 |
 | Documentation files | 52 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
-| Mapping files | 3 |
-| Python test modules | 60 |
+| Mapping files | 5 |
+| Python test modules | 61 |
 
 ## Semantic Snapshot
 
