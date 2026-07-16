@@ -1,0 +1,3 @@
+Blocked task: Freeze empirical sample, dual-annotate, adjudicate, and evaluate reliability.
+Evidence: sample examples contain placeholder hashes, zenodo:pending, and absent Parquet references; no human annotation, adjudication, or agreement artifacts exist.
+Validation: full Python suite passed. No empirical result was invented.
