@@ -106,6 +106,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
 - [ ] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
   - `PENDING HUMAN REVIEW 2026-07-16`: generic direction to continue authorizes
     candidate-only repo work but does not promote labels, fixtures, or mappings.
+  - [x] Review-packet subtask: SHA-256-pin the independent fixture set, legal
+    source mapping, OIA version index, and rights registry in
+    `examples/v2/human-promotion-review-packet.pending.json` (`533fae4`). The
+    schema locks reviewer fields and decisions to pending and promotion to
+    false, while explicitly excluding schema-valid contract examples as human
+    approval evidence. Verification: 13 focused tests; example validation and
+    targeted Ruff passed; full suite 331 passed, 2 skipped.
 - [x] Build an independent `oia_rules` event-time fixture set without reusing
   authoring data (`0b70a1d`).
   - Output: six synthetic candidate cases in

@@ -10,6 +10,7 @@ gates:
   independent_rule_evaluation:
     status: pending
     human_gate: fixture_independence_and_promotion
+    review_packet: examples/v2/human-promotion-review-packet.pending.json
   nz_empirical_release:
     status: pending
     human_gate: sample_annotation_adjudication_and_source_pack_approval
