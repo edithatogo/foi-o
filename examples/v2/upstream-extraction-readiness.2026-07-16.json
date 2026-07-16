@@ -1,10 +1,10 @@
 {
-  "schema_version": "foi-o.upstream-extraction-readiness.v0.1.0",
-  "audited_at": "2026-07-16T04:00:00Z",
+  "schema_version": "foi-o.upstream-extraction-readiness.v0.2.0",
+  "audited_at": "2026-07-16T10:52:39Z",
   "upstreams": {
     "fyi_archive": {
       "repository": "https://github.com/edithatogo/fyi-archive",
-      "repository_revision": "7e405aae53d726cb9214218bd83c5b7796d781a7",
+      "repository_revision": "7b2d245a3319b1915eb522929ee669da5e3533fd",
       "verification_evidence": {
         "path": "versions/2026-07/backfill_verification.json",
         "sha256": "cc85852985b77ea8b9c0717903890faaf282ee5ae547d25512e0c4b472de041f"
@@ -12,7 +12,22 @@
       "verified_record_count": 33217,
       "published_manifest_revision": "fc27bfa471c598a31d975cfa2b603b1a11408e55",
       "published_manifest_sha256": "23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e",
-      "rights_metadata_complete": false
+      "rights_metadata_complete": false,
+      "approved_local_content_snapshot": {
+        "request_id": "35076",
+        "record_count": 1,
+        "content_bearing": true,
+        "published": false,
+        "reviewer": "edithatogo",
+        "reviewed_at": "2026-07-16T10:40:17Z",
+        "purpose": "foi-o-candidate-extraction",
+        "redistribution_allowed": false,
+        "reviewed_pending_manifest_sha256": "d850ca367c2069d7e6d9ac39e8534779d0f64f2b3d708d36f773c0e3a2e271e3",
+        "approved_manifest_sha256": "c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d",
+        "fyi_cli_revision": "c91e49dc7b2d9c3c42a5ad4a73ed7030ffd48eb1",
+        "page_html_sha256": "1b4d083b20929c33f1c706e8e022c5c4b6b0a847a7ae38c6b62017f88b9d3f51",
+        "request_json_sha256": "893db5bf83bbcf9661094723fa55a92239e022aacd9c212cf61e916de0ade523"
+      }
     },
     "nlp_policy_nz": {
       "repository": "https://github.com/edithatogo/nlp-policy-nz",
@@ -60,8 +75,8 @@
   },
   "ready_for_governed_reextraction": false,
   "blockers": [
+    "approved_snapshot_adapter_pending",
     "independent_annotation_pending",
-    "rights_metadata_incomplete",
     "synthetic_fixture_only"
   ],
   "source_records_modified": false

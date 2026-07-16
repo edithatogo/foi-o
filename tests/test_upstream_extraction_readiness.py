@@ -19,11 +19,26 @@ def test_upstream_readiness_audit_is_schema_valid_and_fail_closed() -> None:
     assert audit["ready_for_governed_reextraction"] is False
     assert audit["source_records_modified"] is False
     assert audit["upstreams"]["fyi_archive"]["verified_record_count"] == 33217
+    local = audit["upstreams"]["fyi_archive"]["approved_local_content_snapshot"]
+    assert local["content_bearing"] is True
+    assert local["published"] is False
+    assert local["redistribution_allowed"] is False
+    assert local["purpose"] == "foi-o-candidate-extraction"
+    assert (
+        local["reviewed_pending_manifest_sha256"]
+        == "d850ca367c2069d7e6d9ac39e8534779d0f64f2b3d708d36f773c0e3a2e271e3"
+    )
+    assert (
+        local["approved_manifest_sha256"]
+        == "c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d"
+    )
     assert audit["upstreams"]["nlp_policy_nz"]["fixture_record_count"] == 2
     assert audit["upstreams"]["nlp_policy_nz"]["fixture_is_synthetic"] is True
     assert audit["upstreams"]["nlp_policy_nz"]["raw_manifest_entrypoint_available"] is True
     assert audit["contract_alignment"]["compatible"] is True
     assert audit["blockers"] == sorted(audit["blockers"])
+    assert "rights_metadata_incomplete" not in audit["blockers"]
+    assert "approved_snapshot_adapter_pending" in audit["blockers"]
 
 
 def test_audit_pins_real_revisions_and_rejects_placeholder_evidence() -> None:

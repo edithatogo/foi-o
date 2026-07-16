@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:foi-o:schema:upstream-extraction-readiness:0.1.0",
+  "$id": "urn:foi-o:schema:upstream-extraction-readiness:0.2.0",
   "title": "FOI-O upstream extraction readiness audit",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "audited_at", "upstreams", "contract_alignment", "ready_for_governed_reextraction", "blockers", "source_records_modified"],
   "properties": {
-    "schema_version": {"const": "foi-o.upstream-extraction-readiness.v0.1.0"},
+    "schema_version": {"const": "foi-o.upstream-extraction-readiness.v0.2.0"},
     "audited_at": {"type": "string", "format": "date-time"},
     "upstreams": {
       "type": "object",
@@ -34,6 +34,7 @@
       "uniqueItems": true,
       "items": {
         "enum": [
+          "approved_snapshot_adapter_pending",
           "contract_version_mismatch",
           "independent_annotation_pending",
           "model_pin_missing",
@@ -58,7 +59,7 @@
     "archive": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["repository", "repository_revision", "verification_evidence", "verified_record_count", "published_manifest_revision", "published_manifest_sha256", "rights_metadata_complete"],
+      "required": ["repository", "repository_revision", "verification_evidence", "verified_record_count", "published_manifest_revision", "published_manifest_sha256", "rights_metadata_complete", "approved_local_content_snapshot"],
       "properties": {
         "repository": {"const": "https://github.com/edithatogo/fyi-archive"},
         "repository_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
@@ -66,7 +67,28 @@
         "verified_record_count": {"type": "integer", "minimum": 1},
         "published_manifest_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
         "published_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-        "rights_metadata_complete": {"const": false}
+        "rights_metadata_complete": {"const": false},
+        "approved_local_content_snapshot": {"$ref": "#/$defs/local_snapshot"}
+      }
+    },
+    "local_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["request_id", "record_count", "content_bearing", "published", "reviewer", "reviewed_at", "purpose", "redistribution_allowed", "reviewed_pending_manifest_sha256", "approved_manifest_sha256", "fyi_cli_revision", "page_html_sha256", "request_json_sha256"],
+      "properties": {
+        "request_id": {"type": "string", "minLength": 1},
+        "record_count": {"type": "integer", "minimum": 1},
+        "content_bearing": {"const": true},
+        "published": {"const": false},
+        "reviewer": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "format": "date-time"},
+        "purpose": {"const": "foi-o-candidate-extraction"},
+        "redistribution_allowed": {"const": false},
+        "reviewed_pending_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "approved_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "fyi_cli_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "page_html_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "request_json_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
       }
     },
     "nlp": {

@@ -2,9 +2,21 @@
 
 ## Status
 
-**Blocked at rights, source-evidence, and empirical human gates.**
+**A bounded local source is ready; governed evaluation remains blocked at
+baseline and empirical human gates.**
 The candidate target revision is approved for repo-local preparation only. No
 re-extraction or baseline comparison has been run.
+
+## Approved bounded local input
+
+One real request (`35076`) is now packaged as a content-bearing, immutable local
+snapshot. `edithatogo` approved pending manifest
+`d850ca367c2069d7e6d9ac39e8534779d0f64f2b3d708d36f773c0e3a2e271e3`
+at `2026-07-16T10:40:17Z` for local `foi-o-candidate-extraction` only. The
+separate approved bundle verifies at
+`c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d`.
+It has not been published or redistributed and is not approved for training,
+fine-tuning, release, dataset publication, or reviewed/gold-label promotion.
 
 ## Verified candidate raw input
 
@@ -49,17 +61,17 @@ upstream inspections:
 
 ## Missing governed inputs
 
-1. An explicit human-approved rights treatment for records whose licence field
-   is null.
-2. A real initial ontology-based baseline artifact with immutable revision,
+1. A real initial ontology-based baseline artifact with immutable revision,
    record identifiers, content digests, and output digest.
-3. A content-bearing, immutable input manifest suitable for the verified
-   `nlp-policy-nz` manifest-to-candidate entry point.
-4. A rights-reviewed record selection or heldout sample suitable for processing.
+2. An adapter/conformance run that maps the approved snapshot into the verified
+   `nlp-policy-nz` manifest entry point without altering source records.
+3. Independent annotation and adjudication for empirical evaluation.
+4. Separate rights treatment for any expansion beyond the one approved record.
 
 The verified `nlp-policy-nz` consumer resolves the earlier contract, entry-point,
-and model-pin blockers but cannot supply missing source rights or raw content.
-Its archived bounded evidence remains synthetic and placeholder-pinned, and no
+and model-pin blockers. The bounded source-content and rights evidence now
+exists, but its adapter compatibility has not been demonstrated. Archived
+evaluation evidence remains synthetic and placeholder-pinned, and no
 33,217-record extraction run or empirical comparison has been performed.
 
 ## Required human decision

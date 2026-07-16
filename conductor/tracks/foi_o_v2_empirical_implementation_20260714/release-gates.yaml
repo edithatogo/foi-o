@@ -26,10 +26,10 @@ gates:
       - human_event_time_applicability_review
       - non_legislation_historical_source_artifacts
   governed_reextraction:
-    status: blocked_input_and_human_gates
+    status: bounded_local_input_ready_empirical_gates_pending
     upstream_readiness_audit: examples/v2/upstream-extraction-readiness.2026-07-16.json
     verified_upstreams:
-      fyi_archive_revision: 7e405aae53d726cb9214218bd83c5b7796d781a7
+      fyi_archive_revision: 7b2d245a3319b1915eb522929ee669da5e3533fd
       nlp_policy_nz_revision: ee3fb0b4b686f565f4ba18856a2bda4284466328
     verified_candidate_source:
       repository: edithatogo/fyi-archive-nz
@@ -42,11 +42,19 @@ gates:
       status: approved_for_repo_local_upstream_review_preparation
       approved_on: 2026-07-16
       excludes: [rights, heldout_selection, labels, gold, upstream_pr, dataset, release, publication]
+    approved_local_content_snapshot:
+      request_id: '35076'
+      reviewed_pending_manifest_sha256: d850ca367c2069d7e6d9ac39e8534779d0f64f2b3d708d36f773c0e3a2e271e3
+      approved_manifest_sha256: c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d
+      reviewer: edithatogo
+      reviewed_at: 2026-07-16T10:40:17Z
+      purpose: foi-o-candidate-extraction
+      redistribution_allowed: false
+      published: false
     missing:
+      - approved_snapshot_consumer_adapter
       - independent_annotation_and_adjudication
-      - rights_rule_for_null_record_licences
       - immutable_real_initial_baseline
-      - content_bearing_rights_reviewed_input_manifest
   raw_state_mapping_audit:
     status: blocked_input_gate
     verified_candidate_source_revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
