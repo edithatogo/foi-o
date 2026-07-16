@@ -1,0 +1,9 @@
+Task: Audit the approved request 35076 raw state against bounded correspondence evidence.
+
+Summary: Added a strict bounded audit that verifies the approved manifest and three declared evidence artifacts, rights purpose, request identity, FYI described_state, state mapping, correspondence structure, and attachment inventory without reading correspondence text into the report. The observed waiting_response state maps to awaiting_response and is supported by one outgoing correspondence item as a candidate single-case observation. The empty attachment inventory remains an explicit blocker.
+
+Files: src/foi_o_nz/bounded_raw_state_audit.py; tests/test_bounded_raw_state_audit.py; schemas/json/bounded-raw-state-audit.schema.json; examples/v2/bounded-raw-state-audit.35076.json; docs/24-schema-ontology-coverage-matrix.md; examples/maturation-summary.ontology-maturation.json.
+
+Verification: targeted ty passed; 9 focused tests passed; Ruff and JSON/schema checks passed; Conductor review strengthened blocker/attachment invariants; uv sync --extra dev --extra rdf passed; full suite 358 passed, 2 skipped.
+
+Remaining risks/gates: named human mapping review is pending; no nonempty attachment evidence exists; one request cannot support an archive-wide mapping claim; promotion remains disabled.
