@@ -1,0 +1,6 @@
+Task: V2-04 offline consumer contract matrix
+Summary: Added schema-backed fixtures for FOI-O, fyi-archive, nlp-policy-nz, and a read-only MCP surface, plus a machine-readable compatibility matrix and tests against the same extraction manifest.
+Files: schemas/json/consumer-extraction-contract.schema.json; examples/v2/consumer-contracts/*.json; docs/compatibility/foi-o-v2-consumers.json; src/foi_o_nz/empirical_contracts.py; tests/test_consumer_contracts.py; README.md; coverage matrix; maturation summary; Conductor plan.
+Verification: focused consumer/negotiation suite -> 15 passed; uv sync --extra dev --extra rdf -> exit 0; uv run pytest -q -> 299 passed, 2 skipped; targeted Ruff and JSON checks passed.
+Remaining risks: all fixtures are repo-local offline declarations with upstream_verified false; sibling repository adoption and approval remain external.
+Why: every named consumer must exercise the same pinned contract without local checkout dependencies or invented upstream outcomes.
