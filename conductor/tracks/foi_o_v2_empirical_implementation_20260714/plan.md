@@ -60,8 +60,16 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     (exit 0; 296 passed, 2 skipped); targeted Ruff checks passed.
   - Rejection behavior: malformed versions, unknown majors, unsupported
     revisions, and missing capabilities fail closed with explicit reasons.
-- [~] Add consumer-contract tests for FOI-O, `fyi-archive`, `nlp-policy-nz`, and
-  one read-only agent/MCP surface.
+- [x] Add consumer-contract tests for FOI-O, `fyi-archive`, `nlp-policy-nz`, and
+  one read-only agent/MCP surface (`7ce5555`).
+  - Output: four schema-backed fixtures under
+    `examples/v2/consumer-contracts/` and the offline matrix at
+    `docs/compatibility/foi-o-v2-consumers.json`.
+  - Verification: focused consumer/negotiation suite (exit 0; 15 passed);
+    `uv sync --extra dev --extra rdf` (exit 0); `uv run pytest -q` (exit 0;
+    299 passed, 2 skipped); targeted Ruff and JSON checks passed.
+  - Boundary: every fixture is candidate-only and records
+    `upstream_verified: false`; no sibling checkout or upstream outcome was used.
 - [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
   initial ontology-based baseline without overwriting raw archive records.
 - [ ] `[HUMAN]` Pin and approve the target revision for upstream review.
