@@ -60,7 +60,7 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     (exit 0; 296 passed, 2 skipped); targeted Ruff checks passed.
   - Rejection behavior: malformed versions, unknown majors, unsupported
     revisions, and missing capabilities fail closed with explicit reasons.
-- [ ] Add consumer-contract tests for FOI-O, `fyi-archive`, `nlp-policy-nz`, and
+- [~] Add consumer-contract tests for FOI-O, `fyi-archive`, `nlp-policy-nz`, and
   one read-only agent/MCP surface.
 - [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
   initial ontology-based baseline without overwriting raw archive records.

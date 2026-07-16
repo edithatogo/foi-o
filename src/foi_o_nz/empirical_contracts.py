@@ -160,6 +160,53 @@ class ExtractionCompatibility(StrictModel):
     unknown_revision_behavior: Literal["reject"]
 
 
+class RejectedContractVersion(StrictModel):
+    """Record one version a consumer must reject and the expected reason."""
+
+    version: NonEmpty
+    reason: Literal[
+        "invalid_version_rejected",
+        "unknown_major_rejected",
+        "unsupported_revision_rejected",
+    ]
+
+
+class ConsumerExtractionContract(StrictModel):
+    """Offline candidate conformance declaration for one named consumer."""
+
+    schema_version: Literal["foi-o.consumer-extraction-contract.v0.1.0"]
+    consumer_id: Literal["foi-o-nz", "fyi-archive", "nlp-policy-nz", "foi-o-read-only-mcp"]
+    consumer_surface: Literal[
+        "producer_validation", "archive_derived_layer", "candidate_extraction", "read_only_mcp"
+    ]
+    contract_id: Literal["foi-o.extraction-contract"]
+    accepted_versions: list[Annotated[str, Field(pattern=r"^[0-9]+\.[0-9]+\.[0-9]+$")]] = Field(
+        min_length=1
+    )
+    rejected_versions: list[RejectedContractVersion] = Field(min_length=1)
+    required_capability_ids: list[NonEmpty] = Field(min_length=1)
+    read_only: bool
+    candidate_only: Literal[True]
+    machine_certification_allowed: Literal[False]
+    verification_scope: Literal["repo_local_offline"]
+    upstream_verified: Literal[False]
+
+    @model_validator(mode="after")
+    def validate_consumer_boundary(self) -> ConsumerExtractionContract:
+        """Keep MCP read-only and prevent contradictory version declarations."""
+        if self.consumer_surface == "read_only_mcp" and not self.read_only:
+            raise ValueError("read-only MCP consumer must declare read_only true")
+        accepted = set(self.accepted_versions)
+        rejected = {item.version for item in self.rejected_versions}
+        if accepted & rejected:
+            raise ValueError("accepted and rejected versions must not overlap")
+        if len(accepted) != len(self.accepted_versions) or len(rejected) != len(
+            self.rejected_versions
+        ):
+            raise ValueError("consumer version declarations must be unique")
+        return self
+
+
 class ExtractionContract(StrictModel):
     """Versioned, candidate-only extraction contract for downstream consumers."""
 

@@ -1,0 +1,65 @@
+{
+  "schema_version": "foi-o.consumer-contract-matrix.v0.1.0",
+  "extraction_contract_id": "foi-o.extraction-contract",
+  "extraction_contract_version": "0.1.0",
+  "verification_scope": "repo_local_offline",
+  "all_upstream_verified": false,
+  "consumers": [
+    {
+      "schema_version": "foi-o.consumer-extraction-contract.v0.1.0",
+      "consumer_id": "foi-o-nz",
+      "consumer_surface": "producer_validation",
+      "contract_id": "foi-o.extraction-contract",
+      "accepted_versions": ["0.1.0"],
+      "rejected_versions": [{"version": "1.0.0", "reason": "unknown_major_rejected"}, {"version": "latest", "reason": "invalid_version_rejected"}],
+      "required_capability_ids": ["foi-o-nz.label-assertion", "foi-o-nz.evidence-assertion"],
+      "read_only": false,
+      "candidate_only": true,
+      "machine_certification_allowed": false,
+      "verification_scope": "repo_local_offline",
+      "upstream_verified": false
+    },
+    {
+      "schema_version": "foi-o.consumer-extraction-contract.v0.1.0",
+      "consumer_id": "fyi-archive",
+      "consumer_surface": "archive_derived_layer",
+      "contract_id": "foi-o.extraction-contract",
+      "accepted_versions": ["0.1.0"],
+      "rejected_versions": [{"version": "1.0.0", "reason": "unknown_major_rejected"}, {"version": "latest", "reason": "invalid_version_rejected"}],
+      "required_capability_ids": ["foi-o-nz.label-assertion", "foi-o-nz.evidence-assertion"],
+      "read_only": false,
+      "candidate_only": true,
+      "machine_certification_allowed": false,
+      "verification_scope": "repo_local_offline",
+      "upstream_verified": false
+    },
+    {
+      "schema_version": "foi-o.consumer-extraction-contract.v0.1.0",
+      "consumer_id": "nlp-policy-nz",
+      "consumer_surface": "candidate_extraction",
+      "contract_id": "foi-o.extraction-contract",
+      "accepted_versions": ["0.1.0"],
+      "rejected_versions": [{"version": "1.0.0", "reason": "unknown_major_rejected"}, {"version": "latest", "reason": "invalid_version_rejected"}],
+      "required_capability_ids": ["foi-o-nz.label-assertion", "foi-o-nz.evidence-assertion"],
+      "read_only": false,
+      "candidate_only": true,
+      "machine_certification_allowed": false,
+      "verification_scope": "repo_local_offline",
+      "upstream_verified": false
+    },
+    {
+      "schema_version": "foi-o.consumer-extraction-contract.v0.1.0",
+      "consumer_id": "foi-o-read-only-mcp",
+      "consumer_surface": "read_only_mcp",
+      "contract_id": "foi-o.extraction-contract",
+      "accepted_versions": ["0.1.0"],
+      "rejected_versions": [{"version": "1.0.0", "reason": "unknown_major_rejected"}, {"version": "latest", "reason": "invalid_version_rejected"}],
+      "required_capability_ids": ["foi-o-nz.label-assertion"],
+      "read_only": true,
+      "candidate_only": true,
+      "machine_certification_allowed": false,
+      "verification_scope": "repo_local_offline",
+      "upstream_verified": false
+    }
+  ]
+}
