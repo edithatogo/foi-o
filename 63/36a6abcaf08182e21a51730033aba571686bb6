@@ -1,0 +1,9 @@
+Task: Reconcile named-human NZ source-pack review evidence.
+
+Summary: Added a strict readiness packet that verifies the prior approved human-review packet and exact current hashes for the OIA version index and provider-scope registry. It records those components as approved without mutating their approved bytes. It separately records zero event-time intervals and zero non-legislation historical artifacts, so complete source-pack readiness and promotion remain false.
+
+Files: schemas/json/nz-source-pack-review-readiness.schema.json; examples/v2/nz-source-pack-review-readiness.2026-07-16.json; tests/test_nz_source_pack_review_readiness.py; docs/24-schema-ontology-coverage-matrix.md; examples/maturation-summary.ontology-maturation.json.
+
+Verification: 14 focused tests passed; Ruff and JSON/schema checks passed; Conductor review confirmed missing inputs cannot be inferred from dates or fixtures; uv sync --extra dev --extra rdf passed; full suite 361 passed, 2 skipped.
+
+Remaining gates: named-human approval of explicit event-time intervals; acquisition of hash-pinned historically applicable non-legislation sources; complete source-pack promotion.
