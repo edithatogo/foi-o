@@ -1,6 +1,9 @@
 # Foundations register
 
-This register records the sources that should shape FOI-O NZ. It is intentionally New Zealand-first.
+This register records the New Zealand sources that shaped FOI-O's first
+jurisdiction profile. It documents the model's origin and NZ reference profile;
+it does not make New Zealand the default for the global core or for other
+jurisdictions.
 
 ## New Zealand legal and process sources
 
