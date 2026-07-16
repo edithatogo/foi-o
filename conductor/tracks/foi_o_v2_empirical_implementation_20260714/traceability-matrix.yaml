@@ -20,3 +20,5 @@ claims:
     evidence: [examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json, schemas/json/nz-nonlegislation-source-manifest.schema.json, tests/test_nz_nonlegislation_source_manifest.py]
   - id: C-ANNOTATION-PROTOCOL-HUMAN-GATE
     evidence: [docs/41-v2-sampling-and-annotation-protocol.md, examples/v2/annotation-protocol-review-readiness.2026-07-16.json, tests/test_annotation_protocol_review_readiness.py]
+  - id: C-CONSOLIDATED-EMPIRICAL-HUMAN-GATE
+    evidence: [examples/v2/empirical-human-gate-review-packet.pending.json, schemas/json/empirical-human-gate-review-packet.schema.json, tests/test_empirical_human_gate_review_packet.py]

@@ -24,3 +24,6 @@ outputs:
   - id: O-FOIO-V2-ANNOTATION-PROTOCOL
     paths: [docs/41-v2-sampling-and-annotation-protocol.md, examples/v2/annotation-protocol-review-readiness.2026-07-16.json]
     status: candidate_protocol_named_human_approval_pending
+  - id: O-FOIO-V2-EMPIRICAL-HUMAN-GATE-REVIEW
+    paths: [examples/v2/empirical-human-gate-review-packet.pending.json, schemas/json/empirical-human-gate-review-packet.schema.json]
+    status: exact_pending_review_packet_no_approval_inferred

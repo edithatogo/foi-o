@@ -1,0 +1,105 @@
+{
+  "schema_version": "foi-o.empirical-human-gate-review-packet.v0.1.0",
+  "packet_id": "foi-o-v2-empirical-human-gates-2026-07-16",
+  "status": "pending_named_human_review",
+  "created_at": "2026-07-16T12:05:02Z",
+  "reviewer": null,
+  "reviewed_at": null,
+  "reviews": [
+    {
+      "review_id": "oia-event-time-intervals",
+      "artifact_path": "mappings/nz-oia-applicability-interval-candidates.yaml",
+      "artifact_sha256": "401cd17ae98b4aa7adc51e90f861838c29173ec6165c78ed4f448cd58cd82e83",
+      "interval_count": 50,
+      "decision": "pending",
+      "approver": null,
+      "reviewed_at": null,
+      "approval_effect": "Approve all 50 inclusive/exclusive boundaries only after verifying commencement and amendment evidence; approval would not itself promote the complete source pack."
+    },
+    {
+      "review_id": "psc-provider-scope",
+      "artifact_path": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json",
+      "artifact_sha256": "4650961b6b3ce11dd69f226b651b611127e2ba37bf4c87d266c6799579432d18",
+      "rights_evidence_url": "https://www.publicservice.govt.nz/terms-and-conditions-copyright",
+      "rights_evidence_sha256": "2ad002bf09eb0f22fc9fd46bf944213f9538b8437d05f36b925a9c6e180d4ccb",
+      "rights_evidence_byte_size": 37456,
+      "proposed_scope": "publicservice.govt.nz provider-owned content",
+      "proposed_terms": "Creative Commons Attribution 4.0 International, excluding logos, emblems, trade marks, design elements, images requiring contact, linked third-party content, and any item-specific exception.",
+      "decision": "pending",
+      "approver": null,
+      "reviewed_at": null,
+      "approval_effect": "Approve a new provider-specific scope for the five PSC artifacts without broadening the already approved govt.nz entry."
+    },
+    {
+      "review_id": "nonlegislation-source-selection",
+      "artifact_path": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json",
+      "artifact_sha256": "4650961b6b3ce11dd69f226b651b611127e2ba37bf4c87d266c6799579432d18",
+      "source_count": 7,
+      "content_storage": "local_only",
+      "content_committed": false,
+      "decision": "pending",
+      "approver": null,
+      "reviewed_at": null,
+      "approval_effect": "Approve the seven candidate Ombudsman, agency, and reporting sources and their historical applicability for the NZ source pack; no redistribution approval is implied."
+    },
+    {
+      "review_id": "source-pack-promotion",
+      "artifact_path": "examples/v2/nz-source-pack-review-readiness.2026-07-16.json",
+      "artifact_sha256": "7bbb53370bac7ed35fd1b9d9beeec4b1995aeca5142344531c558fb9d7423197",
+      "decision": "pending",
+      "approver": null,
+      "reviewed_at": null,
+      "approval_effect": "Promote the reviewed interval and source metadata into the governed NZ source pack only after the preceding interval, provider-scope, selection, and applicability decisions are approved."
+    },
+    {
+      "review_id": "bounded-raw-state-mapping",
+      "artifact_path": "examples/v2/bounded-raw-state-audit.35076.json",
+      "artifact_sha256": "ef9a6d56a9dc6399f10084a928e30a865130b3ff81ef7b16b658249b3d4f489a",
+      "candidate_mapping": {
+        "raw_state": "waiting_response",
+        "normalised_state": "awaiting_response"
+      },
+      "correspondence_count": 1,
+      "attachment_count": 0,
+      "archive_wide_claim_allowed": false,
+      "decision": "pending",
+      "approver": null,
+      "reviewed_at": null,
+      "approval_effect": "Approve only the bounded request 35076 candidate mapping; a separate attachment-bearing snapshot remains required and no archive-wide conclusion follows."
+    },
+    {
+      "review_id": "annotation-protocol",
+      "artifact_path": "docs/41-v2-sampling-and-annotation-protocol.md",
+      "artifact_sha256": "9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8",
+      "protocol_sha256": "9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8",
+      "decision": "pending",
+      "approver": null,
+      "reviewed_at": null,
+      "approval_effect": "Approve the protocol design only; sample freeze still requires distinct human role assignments and all governed execution inputs."
+    }
+  ],
+  "annotation_roles": {
+    "annotator_ids": [],
+    "adjudicator_id": null,
+    "role_assignment_approved": false
+  },
+  "execution_inputs": {
+    "rights_approved_source_population_manifest": null,
+    "approved_codebook_revision": null,
+    "approved_sampling_configuration": null
+  },
+  "source_pack_promotion_allowed": false,
+  "sample_freeze_allowed": false,
+  "empirical_comparison_allowed": false,
+  "blockers": [
+    "event_time_interval_review_pending",
+    "psc_provider_scope_review_pending",
+    "nonlegislation_source_selection_review_pending",
+    "source_pack_promotion_review_pending",
+    "bounded_raw_state_mapping_review_pending",
+    "attachment_bearing_snapshot_missing",
+    "annotation_protocol_review_pending",
+    "annotation_roles_missing",
+    "sample_execution_inputs_missing"
+  ]
+}

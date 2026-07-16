@@ -15,6 +15,7 @@ gates:
   nz_empirical_release:
     status: pending
     human_gate: sample_annotation_adjudication_and_source_pack_approval
+    consolidated_pending_review_packet: examples/v2/empirical-human-gate-review-packet.pending.json
   nz_source_pack:
     status: candidate_sources_acquired_human_review_pending
     evidence:
@@ -127,6 +128,7 @@ gates:
     protocol: docs/41-v2-sampling-and-annotation-protocol.md
     protocol_sha256: 9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8
     readiness_packet: examples/v2/annotation-protocol-review-readiness.2026-07-16.json
+    consolidated_pending_review_packet: examples/v2/empirical-human-gate-review-packet.pending.json
     missing:
       - named_human_protocol_approval
       - two_independent_annotators
