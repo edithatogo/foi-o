@@ -8,15 +8,15 @@
   "properties": {
     "schema_version": {"const": "foi-o.human-promotion-review-packet.v0.1.0"},
     "packet_id": {"type": "string", "minLength": 1},
-    "overall_status": {"const": "pending_human_review"},
-    "promotion_allowed": {"const": false},
+    "overall_status": {"const": "approved"},
+    "promotion_allowed": {"const": true},
     "reviewer": {
       "type": "object",
       "additionalProperties": false,
       "required": ["reviewer_id", "reviewed_at"],
       "properties": {
-        "reviewer_id": {"type": "null"},
-        "reviewed_at": {"type": "null"}
+        "reviewer_id": {"type": "string", "minLength": 1},
+        "reviewed_at": {"type": "string", "format": "date-time"}
       }
     },
     "items": {
@@ -31,8 +31,8 @@
           "decision_kind": {"enum": ["fixture_promotion", "legal_mapping_approval", "rights_scope_approval"]},
           "artifact_path": {"type": "string", "minLength": 1},
           "artifact_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-          "decision": {"const": "pending"},
-          "promotion_allowed": {"const": false},
+          "decision": {"const": "approved"},
+          "promotion_allowed": {"const": true},
           "required_review": {"type": "string", "minLength": 1}
         }
       }
