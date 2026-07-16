@@ -1,0 +1,11 @@
+Task: Independently verify governed request 35076 re-extraction and produce a non-empirical delta.
+
+Summary: Added FOI-O-owned independent verification and deterministic delta contracts. Verification recomputes lexical candidates independently of nlp-policy-nz; checks the immutable packet, source manifest and seven source artifacts, content, extraction contract, archive/pipeline/verifier/model pins, candidate status, and no-model-execution boundary. Delta rejects drifted inputs, separates provenance-only timestamp changes, and permanently disables empirical, promotion, and publication claims.
+
+Files: src/foi_o_nz/governed_reextraction.py; tests/test_governed_reextraction.py; schemas/json/governed-reextraction-verification.schema.json; schemas/json/non-empirical-reextraction-delta.schema.json; docs/24-schema-ontology-coverage-matrix.md; examples/maturation-summary.ontology-maturation.json.
+
+Local-only artifacts (not committed): /private/tmp/foio-governed-reextraction-35076-verified/candidate.json SHA-256 90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007; verification.json SHA-256 23270c27202286e3476f39ccf5df2267cb41641f9cfdf3f1664b8f23e441a9a1; delta.json SHA-256 7af9bc5ea3f4737ac19ce4912f69832aff42cf90f012be93785eb44c53bef72c.
+
+Verification: targeted ty passed; 26 focused tests passed; Ruff and JSON/schema checks passed; Conductor review applied fail-closed delta pin checks; uv sync --extra dev --extra rdf passed; full suite 353 passed, 2 skipped.
+
+Remaining risks/gates: this is a one-record reproducibility run only, not empirical validation. Independent annotation/adjudication and the 33,217-record rights/content blockers remain. No model execution, source mutation, redistribution, push, PR, release, dataset, or publication occurred.
