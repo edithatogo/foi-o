@@ -76,9 +76,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     Face commit `fc27bfa471c598a31d975cfa2b603b1a11408e55`, `default/requests`,
     manifest SHA-256 `23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e`,
     33,217 records. All records have content digests, but all 33,217 licence
-    fields are null. The available `nlp-policy-nz` NZ baseline is explicitly
-    synthetic and placeholder-pinned; no real initial baseline artifact or
-    runnable raw-manifest extraction pipeline/model pin exists. See
+    fields are null. Read-only upstream inspection pins `fyi-archive` revision
+    `7e405aa` and `nlp-policy-nz` revision `4150ac3`; the latter has an adapter
+    and two-record evaluation, but remains synthetic and placeholder-pinned,
+    lacks a raw-manifest entry point and real model pin, and declares contract
+    `2.0.0` rather than this repository's candidate contract `0.1.0`. See
     `reextraction-readiness.md`.
   - [x] Readiness subtask: add a read-only, hash-verifying input audit and run it
     against the verified 33,217-record manifest without committing raw records
@@ -86,6 +88,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     33,217 valid content digests, no duplicate/missing request IDs, zero declared
     licences, `ready_for_reextraction: false`. Verification: 14 focused tests;
     82.79% module coverage; full suite 303 passed, 2 skipped.
+  - [x] Upstream readiness subtask: pin current archive/NLP revisions and
+    implementation evidence in a strict fail-closed audit (`ad65e7f`). Output:
+    `examples/v2/upstream-extraction-readiness.2026-07-16.json`. It separates
+    the archive's verified 33,217-record publication from extraction readiness
+    and records the synthetic fixture, placeholder source pins, missing raw
+    entry point/model pin, pending independent annotation, and contract-version
+    mismatch. Verification: 16 focused tests; example validation and targeted
+    Ruff passed; full suite 328 passed, 2 skipped.
 - [x] `[HUMAN]` Pin and approve the target revision for upstream review.
   - Scope of approval (2026-07-16): repeated human direction to continue permits
     repo-local preparation against verified Hugging Face commit
