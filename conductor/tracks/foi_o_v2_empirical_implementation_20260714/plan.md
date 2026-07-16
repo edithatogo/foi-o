@@ -231,9 +231,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
   - `BLOCKED 2026-07-16`: approved request `35076` now supplies one real
     outgoing correspondence item supporting the bounded candidate mapping
     `waiting_response` to `awaiting_response`. Its verified attachment inventory
-    is empty, so it cannot satisfy the attachment-bearing audit requirement or
-    support an archive-wide claim. Named human mapping review and a separate
-    rights-cleared non-empty attachment snapshot remain required.
+    is empty. A separate request `11872` candidate now verifies four
+    correspondence blocks and three local PDF attachments, but exact snapshot
+    rights and the rendered-HTML attachment supplement require named-human
+    approval before audit use. Named-human mapping review and archive-wide
+    evidence also remain required.
   - [x] Readiness subtask: add a read-only, hash-verifying aggregate audit and
     reproduce `examples/v2/raw-state-audit-readiness.fc27.json` from the local
     pinned manifest without committing or modifying source records (`02f75c7`).
@@ -248,6 +250,15 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     archive-wide mapping claims remain false. Verification: 9 focused tests;
     targeted type checking, Ruff, JSON/schema checks, and Conductor review
     passed; full suite 358 passed, 2 skipped.
+  - [x] Attachment-snapshot candidate subtask: capture request `11872` with
+    clean `fyi-cli` revision `c91e49d`, preserve its empty canonical JSON
+    attachment inventory, separately declare three attachment links recovered
+    from hash-pinned rendered HTML, and verify every local byte (`ff7a99b`). The
+    pending manifest SHA-256 is `42f8ed87…`; four correspondence blocks and
+    13,259,266 PDF bytes verify. New verifier coverage is 81.86%; 25 focused
+    tests, examples validation, targeted Ruff and type checks passed; full suite
+    392 passed, 2 skipped. Exact snapshot rights, supplemental-capture review,
+    mapping review, and archive-wide evidence remain pending.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
   - `BLOCKED 2026-07-16`: a hash-pinned candidate sampling and annotation
     protocol now exists, but it is not human-approved. No authentic frozen unit
@@ -266,8 +277,9 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
   - [x] Consolidated human-gate packet subtask: pin the interval, PSC provider
     scope, seven-source selection, source-pack promotion, bounded raw-state
     mapping, and annotation-protocol decisions in
-    `examples/v2/empirical-human-gate-review-packet.pending.json` (`ec4573b`;
-    SHA-256 `57c9f75e…`). Every decision remains pending; reviewer and timestamps
+    `examples/v2/empirical-human-gate-review-packet.pending.json` (`ec4573b`,
+    expanded with attachment-snapshot review in `ff7a99b`; current SHA-256
+    `19e66fb6…`). Every decision remains pending; reviewer and timestamps
     are null; annotator IDs are empty; the adjudicator, source population,
     codebook, and sampling configuration are null; attachment, sample-freeze,
     and empirical-comparison gates remain false. Verification: 24 focused tests,
