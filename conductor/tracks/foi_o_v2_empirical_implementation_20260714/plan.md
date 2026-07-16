@@ -122,14 +122,19 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     coverage 98%; targeted Ruff checks passed; `uv sync --extra dev --extra rdf`
     (exit 0); `uv run pytest -q` (exit 0; 314 passed, 2 skipped).
 - [ ] Populate and review NZ historical source packs and the source-rights registry.
-  - `BLOCKED 2026-07-16`: `mappings/nz-legislation-sources.yaml` records only
-    current-at-retrieval reference metadata and does not contain historical
-    effective intervals, archived content hashes, or reviewed redistribution
-    decisions. The schema-valid examples are contract fixtures, not evidence:
-    they contain repeated placeholder hashes, an `example.invalid` archive URI,
-    and synthetic reviewer metadata. Completion requires verified historical
-    source artifacts plus an identified human rights reviewer; none may be
-    inferred from those fixtures.
+  - `BLOCKED 2026-07-16`: authoritative rights evidence and the complete
+    50-version OIA PDF sequence are now hash-pinned, but event-time applicability
+    intervals, non-legislation historical sources, provider-scope interpretation,
+    and source-pack promotion still require a named human reviewer. The older
+    schema-valid examples remain contract fixtures, not evidence.
+  - [x] Evidence subtask: populate a candidate, hash-pinned source-rights
+    registry and OIA historical version index from official provider evidence
+    while retaining human approval (`127bbf5`).
+    Verification: four provider pages and all 50 official OIA PDFs fetched to
+    temporary storage and SHA-256-pinned; focused schema/history suite (exit 0;
+    76 passed); pinning helper coverage 100%; targeted Ruff checks passed;
+    `uv sync --extra dev --extra rdf` (exit 0); `uv run pytest -q` (exit 0;
+    326 passed, 2 skipped). Source HTML/PDF files were not committed.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
   - `BLOCKED 2026-07-16`: the pinned `fc27bfa` manifest has 33,208 empty state
     values, nine unmapped `dry-run` values, no records in a mapped FYI state,
@@ -163,8 +168,10 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
 - [ ] Trigger the RaC Conformance paper-update workflow only after the release
   bundle is immutable and published.
   - `BLOCKED 2026-07-16`: the prerequisite immutable published release-evidence
-    bundle does not exist. No paper workflow has been triggered and no arXiv or
-    preprint action is authorized.
+    bundle does not exist. An external arXiv record for the earlier methods
+    manuscript now exists as `arXiv:2607.02947`; this task did not create or
+    modify it, and it does not satisfy the V2 release-bundle prerequisite. No
+    RaC paper-update workflow has been triggered.
 - [x] `[HUMAN]` Authorize creation of the GitHub issues required to coordinate
   recommended repository changes.
 - [ ] `[HUMAN]` Authorize any PR, dataset, release, or preprint action.

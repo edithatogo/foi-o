@@ -13,6 +13,16 @@ gates:
   nz_empirical_release:
     status: pending
     human_gate: sample_annotation_adjudication_and_source_pack_approval
+  nz_source_pack:
+    status: candidate_evidence_complete_human_review_pending
+    evidence:
+      rights_registry: mappings/nz-source-rights-registry.yaml
+      oia_version_index: mappings/nz-oia-version-index.yaml
+      official_oia_versions_pinned: 50
+    missing:
+      - human_rights_and_provider_scope_approval
+      - human_event_time_applicability_review
+      - non_legislation_historical_source_artifacts
   governed_reextraction:
     status: blocked_input_and_human_gates
     verified_candidate_source:
