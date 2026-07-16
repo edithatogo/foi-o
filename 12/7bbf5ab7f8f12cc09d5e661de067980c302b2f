@@ -1,0 +1,4 @@
+Blocker reduction: NZ historical source and rights evidence.
+Files: source-rights schema/registry, 50-version OIA hash index, reproducible pinning helper, tests, source-pack/arXiv/inventory docs.
+Verification: 4 provider pages and 50 official PDFs fetched to temporary storage and SHA-256 pinned; focused 76 tests passed; pinning helper coverage 100%; Ruff passed; full suite 326 passed, 2 skipped.
+Remaining risks: human rights/provider-scope approval, event-time applicability review, and non-legislation historical sources remain outstanding. The task did not create or modify arXiv:2607.02947.
