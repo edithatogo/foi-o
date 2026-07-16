@@ -17,10 +17,10 @@
   "inventory": {
     "documentation_files": 52,
     "example_files": 132,
-    "json_schema_files": 75,
+    "json_schema_files": 77,
     "mapping_files": 5,
     "owl_ontology_files": 1,
-    "python_test_modules": 64,
+    "python_test_modules": 65,
     "shacl_files": 1,
     "skos_vocabulary_files": 4
   },

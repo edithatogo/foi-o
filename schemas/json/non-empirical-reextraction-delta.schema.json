@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:non-empirical-reextraction-delta:0.1.0",
+  "title": "FOI-O non-empirical re-extraction delta",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "classification", "baseline_sha256", "candidate_sha256",
+    "byte_identical", "baseline_candidate_count", "candidate_count",
+    "added_candidate_ids", "removed_candidate_ids", "changed_candidate_ids",
+    "provenance_changed_candidate_ids", "candidate_sets_identical",
+    "empirical_comparison", "empirical_claim_allowed", "comparison_blockers",
+    "review_status", "model_applied", "source_records_modified",
+    "promotion_allowed", "publication_allowed"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.non-empirical-reextraction-delta.v0.1.0"},
+    "classification": {"const": "non_empirical_reproducibility_delta"},
+    "baseline_sha256": {"$ref": "#/$defs/sha256"},
+    "candidate_sha256": {"$ref": "#/$defs/sha256"},
+    "byte_identical": {"type": "boolean"},
+    "baseline_candidate_count": {"type": "integer", "minimum": 0},
+    "candidate_count": {"type": "integer", "minimum": 0},
+    "added_candidate_ids": {"$ref": "#/$defs/ids"},
+    "removed_candidate_ids": {"$ref": "#/$defs/ids"},
+    "changed_candidate_ids": {"$ref": "#/$defs/ids"},
+    "provenance_changed_candidate_ids": {"$ref": "#/$defs/ids"},
+    "candidate_sets_identical": {"type": "boolean"},
+    "empirical_comparison": {"const": false},
+    "empirical_claim_allowed": {"const": false},
+    "comparison_blockers": {
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "items": {"enum": ["independent_annotation_pending", "synthetic_fixture_only"]}
+    },
+    "review_status": {"const": "candidate"},
+    "model_applied": {"const": false},
+    "source_records_modified": {"const": false},
+    "promotion_allowed": {"const": false},
+    "publication_allowed": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true}
+  }
+}
