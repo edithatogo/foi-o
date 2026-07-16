@@ -8,12 +8,18 @@ from pathlib import Path
 
 import pytest
 
-from foi_o_nz.reextraction import audit_reextraction_input
+from foi_o_nz.reextraction import (
+    audit_reextraction_input,
+    build_governed_reextraction_packet,
+)
 from foi_o_nz.validation import validate_json_schema
 
 ROOT = Path(__file__).parents[1]
 SCHEMA = ROOT / "schemas" / "json" / "reextraction-input-audit.schema.json"
 REPORT = ROOT / "examples" / "v2" / "reextraction-input-audit.fc27.json"
+READINESS = ROOT / "examples" / "v2" / "upstream-extraction-readiness.2026-07-16.json"
+PACKET = ROOT / "examples" / "v2" / "governed-reextraction-packet.35076.json"
+PACKET_SCHEMA = ROOT / "schemas" / "json" / "governed-reextraction-packet.schema.json"
 REVISION = "fc27bfa471c598a31d975cfa2b603b1a11408e55"
 
 
@@ -109,3 +115,81 @@ def test_committed_fc27_report_is_schema_valid_and_blocked_on_rights() -> None:
     assert report["records_without_declared_license"] == 33217
     assert report["ready_for_reextraction"] is False
     assert report["blockers"] == ["missing_declared_license"]
+
+
+def test_governed_packet_returns_exact_immutable_revisions() -> None:
+    packet = build_governed_reextraction_packet(READINESS)
+
+    assert packet.source_request_id == "35076"
+    assert packet.source_manifest_sha256 == (
+        "c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d"
+    )
+    assert packet.baseline_sha256 == (
+        "90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007"
+    )
+    assert packet.pipeline_revision == "7fc78f14c1da6c1b165c0984c2173ae96307a3f6"
+    assert packet.verifier_revision == "baf1b229e248c19d0922c0e75ef395ba22858b33"
+    assert packet.ready_for_candidate_reextraction is True
+    assert packet.ready_for_empirical_comparison is False
+    assert packet.storage == "local_only"
+    assert packet.redistribution_allowed is False
+    assert packet.training_allowed is False
+    assert packet.fine_tuning_allowed is False
+    assert packet.release_allowed is False
+    assert packet.dataset_publication_allowed is False
+    assert packet.promotion_allowed is False
+    assert packet.reviewed_gold_label_promotion_allowed is False
+    assert packet.publication_allowed is False
+    assert packet.source_records_modified is False
+
+
+def test_governed_packet_is_schema_valid_and_matches_builder() -> None:
+    result = validate_json_schema(PACKET, PACKET_SCHEMA)
+    assert not result.errors, result.errors
+    assert json.loads(PACKET.read_text(encoding="utf-8")) == build_governed_reextraction_packet(
+        READINESS
+    ).model_dump(mode="json")
+
+
+@pytest.mark.parametrize(
+    ("mutation", "message"),
+    [
+        (("upstreams", "fyi_archive", "approved_local_content_snapshot", "published"), "published"),
+        (("upstreams", "nlp_policy_nz", "initial_baseline", "review_status"), "candidate"),
+        (("upstreams", "nlp_policy_nz", "initial_baseline", "model_applied"), "model"),
+    ],
+)
+def test_governed_packet_rejects_unsafe_readiness(
+    tmp_path: Path, mutation: tuple[str, ...], message: str
+) -> None:
+    payload = json.loads(READINESS.read_text(encoding="utf-8"))
+    target = payload
+    for key in mutation[:-1]:
+        target = target[key]
+    field = mutation[-1]
+    target[field] = True if field != "review_status" else "reviewed"
+    path = tmp_path / "readiness.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match=message):
+        build_governed_reextraction_packet(path)
+
+
+def test_governed_packet_rejects_reintroduced_input_blocker(tmp_path: Path) -> None:
+    payload = json.loads(READINESS.read_text(encoding="utf-8"))
+    payload["blockers"].append("rights_metadata_incomplete")
+    path = tmp_path / "readiness.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="unresolved governed input blockers"):
+        build_governed_reextraction_packet(path)
+
+
+def test_governed_packet_rejects_archive_revision_drift(tmp_path: Path) -> None:
+    payload = json.loads(READINESS.read_text(encoding="utf-8"))
+    payload["upstreams"]["nlp_policy_nz"]["initial_baseline"]["archive_revision"] = "0" * 40
+    path = tmp_path / "readiness.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="baseline archive revision mismatch"):
+        build_governed_reextraction_packet(path)

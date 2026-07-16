@@ -52,6 +52,139 @@ class ReextractionInputAudit(BaseModel):
     source_records_modified: Literal[False] = False
 
 
+class GovernedReextractionPacket(BaseModel):
+    """Immutable inputs returned to FOI-O for local candidate re-extraction."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    schema_version: Literal["foi-o.governed-reextraction-packet.v0.1.0"] = (
+        "foi-o.governed-reextraction-packet.v0.1.0"
+    )
+    packet_id: Literal["foio-nz-35076-initial-baseline"] = "foio-nz-35076-initial-baseline"
+    purpose: Literal["foi-o-candidate-extraction"] = "foi-o-candidate-extraction"
+    source_request_id: str = Field(min_length=1)
+    source_manifest_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    source_content_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    reviewed_pending_manifest_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    archive_revision: str = Field(pattern=r"^[a-f0-9]{40}$")
+    fyi_cli_revision: str = Field(pattern=r"^[a-f0-9]{40}$")
+    pipeline_revision: str = Field(pattern=r"^[a-f0-9]{40}$")
+    verifier_revision: str = Field(pattern=r"^[a-f0-9]{40}$")
+    baseline_schema_version: Literal["nlp-policy-nz.foio-raw-extraction.v0.2.0"]
+    baseline_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    baseline_verification_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    contract_version: Literal["0.1.0"] = "0.1.0"
+    contract_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    model_id: Literal["nlpaueb/legal-bert-base-uncased"]
+    model_revision: str = Field(pattern=r"^[a-f0-9]{40}$")
+    model_weights_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+    model_applied_in_baseline: Literal[False] = False
+    rights_reviewer: str = Field(min_length=1)
+    rights_reviewed_at: str = Field(min_length=1)
+    storage: Literal["local_only"] = "local_only"
+    redistribution_allowed: Literal[False] = False
+    training_allowed: Literal[False] = False
+    fine_tuning_allowed: Literal[False] = False
+    release_allowed: Literal[False] = False
+    dataset_publication_allowed: Literal[False] = False
+    ready_for_candidate_reextraction: Literal[True] = True
+    ready_for_empirical_comparison: Literal[False] = False
+    comparison_blockers: tuple[
+        Literal["independent_annotation_pending", "synthetic_fixture_only"], ...
+    ]
+    human_promotion_required: Literal[True] = True
+    promotion_allowed: Literal[False] = False
+    reviewed_gold_label_promotion_allowed: Literal[False] = False
+    publication_allowed: Literal[False] = False
+    source_records_modified: Literal[False] = False
+
+
+def _require_packet(condition: bool, message: str) -> None:
+    if not condition:
+        raise ValueError(message)
+
+
+def build_governed_reextraction_packet(
+    readiness_path: Path,
+) -> GovernedReextractionPacket:
+    """Return exact approved revisions to FOI-O without authorizing promotion."""
+    payload = json.loads(readiness_path.read_bytes())
+    if not isinstance(payload, dict):
+        raise ValueError("readiness audit must be a JSON object")
+    _require_packet(
+        payload.get("schema_version") == "foi-o.upstream-extraction-readiness.v0.3.0",
+        "unsupported readiness audit schema",
+    )
+    upstreams = payload.get("upstreams")
+    _require_packet(isinstance(upstreams, dict), "readiness upstreams must be an object")
+    archive = upstreams.get("fyi_archive", {})
+    nlp = upstreams.get("nlp_policy_nz", {})
+    source = archive.get("approved_local_content_snapshot", {})
+    baseline = nlp.get("initial_baseline", {})
+    model = nlp.get("model", {})
+    _require_packet(source.get("published") is False, "approved source must remain unpublished")
+    _require_packet(
+        source.get("content_bearing") is True, "approved source must be content-bearing"
+    )
+    _require_packet(
+        source.get("redistribution_allowed") is False,
+        "approved source redistribution must remain disabled",
+    )
+    _require_packet(
+        source.get("purpose") == "foi-o-candidate-extraction",
+        "approved source purpose mismatch",
+    )
+    _require_packet(baseline.get("review_status") == "candidate", "baseline must be candidate")
+    _require_packet(baseline.get("model_applied") is False, "baseline model execution mismatch")
+    _require_packet(baseline.get("published") is False, "baseline must remain unpublished")
+    _require_packet(baseline.get("storage") == "local_only", "baseline must remain local-only")
+    _require_packet(
+        baseline.get("archive_revision") == archive.get("repository_revision"),
+        "baseline archive revision mismatch",
+    )
+    blockers = payload.get("blockers")
+    _require_packet(isinstance(blockers, list), "readiness blockers must be a list")
+    comparison_blockers = tuple(
+        blocker
+        for blocker in blockers
+        if blocker in {"independent_annotation_pending", "synthetic_fixture_only"}
+    )
+    unresolved_input_blockers = sorted(set(blockers) - set(comparison_blockers))
+    _require_packet(
+        not unresolved_input_blockers,
+        f"unresolved governed input blockers: {', '.join(unresolved_input_blockers)}",
+    )
+    _require_packet(
+        "independent_annotation_pending" in comparison_blockers,
+        "independent annotation gate must remain explicit",
+    )
+    _require_packet(
+        "synthetic_fixture_only" in comparison_blockers,
+        "synthetic fixture gate must remain explicit",
+    )
+
+    return GovernedReextractionPacket(
+        source_request_id=str(source["request_id"]),
+        source_manifest_sha256=str(source["approved_manifest_sha256"]),
+        source_content_sha256=str(source["page_html_sha256"]),
+        reviewed_pending_manifest_sha256=str(source["reviewed_pending_manifest_sha256"]),
+        archive_revision=str(archive["repository_revision"]),
+        fyi_cli_revision=str(source["fyi_cli_revision"]),
+        pipeline_revision=str(baseline["pipeline_revision"]),
+        verifier_revision=str(baseline["verifier_revision"]),
+        baseline_schema_version=baseline["schema_version"],
+        baseline_sha256=str(baseline["artifact_sha256"]),
+        baseline_verification_sha256=str(baseline["verification_report_sha256"]),
+        contract_sha256=str(baseline["contract_sha256"]),
+        model_id=model["model_id"],
+        model_revision=str(model["revision"]),
+        model_weights_sha256=str(model["weights_sha256"]),
+        rights_reviewer=str(source["reviewer"]),
+        rights_reviewed_at=str(source["reviewed_at"]),
+        comparison_blockers=comparison_blockers,
+    )
+
+
 def audit_reextraction_input(
     manifest_path: Path,
     *,
