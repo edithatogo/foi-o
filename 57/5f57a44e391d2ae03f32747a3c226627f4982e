@@ -1,0 +1,9 @@
+Task: Return immutable revisions to FOI-O for governed re-extraction.
+
+Summary: Added a strict governed re-extraction packet model and builder, JSON Schema, and canonical request 35076 packet. The packet pins approved source, archive, fyi-cli, NLP pipeline, independent verifier, extraction contract, initial baseline, and Legal-BERT revisions. It authorizes only local candidate extraction and explicitly forbids redistribution, training, fine-tuning, release, dataset publication, publication, and reviewed/gold-label promotion. It preserves independent-annotation and synthetic-fixture comparison blockers and rejects revision drift or new input blockers.
+
+Files: src/foi_o_nz/reextraction.py; tests/test_reextraction_input_audit.py; schemas/json/governed-reextraction-packet.schema.json; examples/v2/governed-reextraction-packet.35076.json; docs/24-schema-ontology-coverage-matrix.md; examples/maturation-summary.ontology-maturation.json.
+
+Verification: uv run pytest -q tests/test_reextraction_input_audit.py (11 passed); Ruff check and format check passed; JSON parsing, schema validation, and git diff check passed; uv sync --extra dev --extra rdf passed; uv run pytest -q (346 passed, 2 skipped).
+
+Remaining risks/gates: governed re-extraction has not been run; empirical comparison remains blocked by independent annotation and synthetic-only fixtures; no promotion, publication, release, dataset action, or remote action is authorized.
