@@ -1,0 +1,9 @@
+Task: Consolidate exact pending empirical human gates.
+
+Summary: Added one schema-backed packet pinning six review decisions: all 50 OIA interval candidates, PSC provider scope and terms evidence, seven non-legislation sources, complete source-pack promotion, bounded request 35076 raw-state mapping, and the sampling/annotation protocol. Roles and execution inputs remain unassigned, and all downstream permissions remain false.
+
+Files: schemas/json/empirical-human-gate-review-packet.schema.json; examples/v2/empirical-human-gate-review-packet.pending.json; tests/test_empirical_human_gate_review_packet.py; coverage inventory; Conductor release gates, output ledger, and traceability matrix.
+
+Verification: 24 focused tests passed; examples validation and targeted Ruff passed; uv sync --extra dev --extra rdf passed; full suite 377 passed, 2 skipped.
+
+Remaining risks: explicit named-human decisions, two annotators, one distinct adjudicator, attachment-bearing evidence, and governed sample inputs are still missing.
