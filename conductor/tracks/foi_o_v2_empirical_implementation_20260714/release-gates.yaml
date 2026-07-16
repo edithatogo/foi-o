@@ -26,8 +26,22 @@ gates:
       - human_event_time_applicability_review
       - non_legislation_historical_source_artifacts
   governed_reextraction:
-    status: bounded_local_input_ready_empirical_gates_pending
+    status: immutable_candidate_handoff_ready_execution_and_empirical_gates_pending
     upstream_readiness_audit: examples/v2/upstream-extraction-readiness.2026-07-16.json
+    governed_handoff:
+      packet: examples/v2/governed-reextraction-packet.35076.json
+      packet_sha256: 9cc0e849e170c12ba23b292736f40f728fb3bad5dbcf364e26ed279b7a760d82
+      implementation_commit: 575f57a
+      ready_for_candidate_reextraction: true
+      ready_for_empirical_comparison: false
+      storage: local_only
+      redistribution_allowed: false
+      training_allowed: false
+      fine_tuning_allowed: false
+      release_allowed: false
+      dataset_publication_allowed: false
+      publication_allowed: false
+      reviewed_gold_label_promotion_allowed: false
     verified_upstreams:
       fyi_archive_revision: 7b2d245a3319b1915eb522929ee669da5e3533fd
       nlp_policy_nz_revision: 7fc78f14c1da6c1b165c0984c2173ae96307a3f6
@@ -62,6 +76,7 @@ gates:
       storage: local_only
       published: false
     missing:
+      - governed_reextraction_execution
       - independent_annotation_and_adjudication
   raw_state_mapping_audit:
     status: blocked_input_gate

@@ -72,17 +72,12 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `upstream_verified: false`; no sibling checkout or upstream outcome was used.
 - [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
   initial ontology-based baseline without overwriting raw archive records.
-  - `BLOCKED 2026-07-16`: candidate raw input independently verified as Hugging
-    Face commit `fc27bfa471c598a31d975cfa2b603b1a11408e55`, `default/requests`,
-    manifest SHA-256 `23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e`,
-    33,217 records. All records have content digests, but all 33,217 licence
-    fields are null. Read-only upstream inspection pins `fyi-archive` revision
-    `7e405aa` and `nlp-policy-nz` revision `ee3fb0b`; the latter now enforces
-    contract `0.1.0`, exposes a fail-closed raw-manifest entry point, and pins a
-    real immutable Legal-BERT revision and weights digest. Its retained bounded
-    evaluation remains synthetic and placeholder-pinned, the verified archive
-    manifest lacks content-bearing inputs and rights metadata, and no governed
-    extraction or empirical comparison has run. See `reextraction-readiness.md`.
+  - `BLOCKED 2026-07-16`: the governed one-record local candidate handoff is now
+    ready and immutable, but no governed re-extraction or empirical comparison
+    has run. The wider 33,217-record Hugging Face manifest remains unusable for
+    this purpose because all licence fields are null and it lacks the
+    content-bearing inputs required by the consumer. Independent annotation and
+    adjudication also remain absent. See `reextraction-readiness.md`.
   - [x] Readiness subtask: add a read-only, hash-verifying input audit and run it
     against the verified 33,217-record manifest without committing raw records
     (`a15f4d5`). Output: `examples/v2/reextraction-input-audit.fc27.json`;
@@ -124,13 +119,25 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     and unpublished. The model pin is recorded but model execution is false
     (`5ff3631`). Verification: 10 focused tests; JSON/YAML parsing and targeted
     Ruff passed; full suite 339 passed, 2 skipped.
+  - [x] Governed handoff subtask: return the approved source, archive, fyi-cli,
+    NLP pipeline, independent verifier, extraction-contract, initial-baseline,
+    and model revisions to FOI-O in the schema-backed packet
+    `examples/v2/governed-reextraction-packet.35076.json` (`575f57a`; SHA-256
+    `9cc0e849e170c12ba23b292736f40f728fb3bad5dbcf364e26ed279b7a760d82`).
+    The packet authorizes local candidate extraction only; redistribution,
+    training, fine-tuning, release, dataset publication, publication, and
+    reviewed/gold-label promotion remain false. Verification: 11 focused tests;
+    JSON/schema checks, targeted Ruff, and Conductor review passed; `uv sync
+    --extra dev --extra rdf` succeeded; full suite 346 passed, 2 skipped.
 - [x] `[HUMAN]` Pin and approve the target revision for upstream review.
   - Scope of approval (2026-07-16): repeated human direction to continue permits
     repo-local preparation against verified Hugging Face commit
     `fc27bfa471c598a31d975cfa2b603b1a11408e55` only. It does not approve a
     rights rule, heldout selection, label/gold promotion, upstream PR, dataset,
-    release, or publication. A real baseline artifact, content-bearing
-    rights-reviewed input selection, and independent annotation remain missing.
+    release, or publication. Separately, reviewer `edithatogo` approved the
+    immutable one-record manifest `d850ca36…` only for local candidate
+    extraction; the verified baseline and governed handoff are now recorded.
+    Independent annotation remains missing.
 - [x] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
   - `APPROVED 2026-07-16`: named reviewer `edithatogo` explicitly approved all
     four hash-pinned review items. The approval is recorded at

@@ -2,10 +2,21 @@
 
 ## Status
 
-**A bounded local source and initial baseline are ready; governed comparison
-remains blocked at empirical human gates.**
-The candidate target revision is approved for repo-local preparation only. No
-re-extraction or baseline comparison has been run.
+**A bounded local source, initial baseline, and immutable candidate
+re-extraction handoff are ready; governed comparison remains blocked at
+empirical human gates.** No re-extraction or baseline comparison has been run.
+
+## Immutable FOI-O handoff
+
+The schema-backed packet at
+`examples/v2/governed-reextraction-packet.35076.json` returns every approved
+source, archive, fyi-cli, NLP pipeline, independent verifier, contract,
+baseline, and model revision to FOI-O. Its SHA-256 is
+`9cc0e849e170c12ba23b292736f40f728fb3bad5dbcf364e26ed279b7a760d82`
+and its implementation commit is `575f57a`. It is ready only for local
+candidate re-extraction. It forbids redistribution, training, fine-tuning,
+release, dataset publication, publication, and reviewed/gold-label promotion;
+it does not authorize empirical comparison or source-record mutation.
 
 ## Independently verified initial baseline
 
@@ -79,16 +90,19 @@ upstream inspections:
 3. Separate rights treatment for any expansion beyond the one approved record.
 
 The verified `nlp-policy-nz` consumer resolves the earlier contract, entry-point,
-and model-pin blockers. The bounded source-content and rights evidence now
-exists, but its adapter compatibility has not been demonstrated. Archived
-evaluation evidence remains synthetic and placeholder-pinned, and no
+and model-pin blockers. The bounded source-content and rights evidence and its
+FOI-O handoff now exist. Execution against the upstream consumer has not been
+demonstrated. Archived evaluation evidence remains synthetic and
+placeholder-pinned, and no
 33,217-record extraction run or empirical comparison has been performed.
 
-## Required human decision
+## Remaining human decisions
 
-Approve the rights rule, content-bearing heldout selection, and baseline
-artifact, then complete independent annotation and adjudication. Until then, no
-raw records may be overwritten, no candidate may be promoted, and no empirical
+No further human decision is required to return or use the approved request
+`35076` packet for local candidate extraction. Independent annotation and
+adjudication are still required before empirical comparison, and separate
+rights approval is required before expanding the source population. No raw
+records may be overwritten, no candidate may be promoted, and no empirical
 comparison may be claimed.
 
 ## Repo-local input audit
