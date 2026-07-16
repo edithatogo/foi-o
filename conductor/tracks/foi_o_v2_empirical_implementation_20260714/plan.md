@@ -86,12 +86,27 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     33,217 valid content digests, no duplicate/missing request IDs, zero declared
     licences, `ready_for_reextraction: false`. Verification: 14 focused tests;
     82.79% module coverage; full suite 303 passed, 2 skipped.
-- [ ] `[HUMAN]` Pin and approve the target revision for upstream review.
-  - Decision candidate: approve or reject the verified Hugging Face commit
-    above and specify the rights rule, real baseline artifact, heldout record
-    selection, and immutable `nlp-policy-nz` pipeline/model revision.
+- [x] `[HUMAN]` Pin and approve the target revision for upstream review.
+  - Scope of approval (2026-07-16): repeated human direction to continue permits
+    repo-local preparation against verified Hugging Face commit
+    `fc27bfa471c598a31d975cfa2b603b1a11408e55` only. It does not approve a
+    rights rule, heldout selection, label/gold promotion, upstream PR, dataset,
+    release, or publication. The real baseline artifact and immutable
+    `nlp-policy-nz` pipeline/model revision remain missing.
 - [ ] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
-- [ ] Build an independent `oia_rules` event-time fixture set without reusing authoring data.
+- [x] Build an independent `oia_rules` event-time fixture set without reusing
+  authoring data (`0b70a1d`).
+  - Output: six synthetic candidate cases in
+    `tests/fixtures/oia_rules/oia-event-time-independent-candidates.json`,
+    governed by `schemas/json/oia-event-time-fixture-set.schema.json`.
+  - Independence: the approved authoring fixture is SHA-256 pinned; automated
+    checks require disjoint case identifiers and input dates.
+  - Verification: focused OIA and maturation suite (exit 0; 19 passed);
+    targeted Ruff checks passed; `uv sync --extra dev --extra rdf` (exit 0);
+    `uv run pytest -q` (exit 0; 306 passed, 2 skipped).
+  - Human gate retained: expected outputs are synthetic candidate assertions,
+    not a gold oracle; `promotionAllowed` is false pending independent human
+    calculation and approval of every case.
 - [ ] Build deterministic source-triangulation assertions and an explicit human
   exception queue for blocked, conflicting, stale, rights-uncertain, or
   insufficient evidence.
