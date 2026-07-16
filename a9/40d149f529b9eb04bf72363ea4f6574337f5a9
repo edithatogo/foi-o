@@ -1,0 +1,9 @@
+Task: Record governed re-extraction handoff evidence.
+
+Summary: Updated the Conductor plan, readiness report, and release gates to pin implementation commit 575f57a and governed packet SHA-256 9cc0e849e170c12ba23b292736f40f728fb3bad5dbcf364e26ed279b7a760d82. The evidence marks only the immutable local candidate handoff ready and retains unrun extraction, independent annotation, empirical comparison, promotion, publication, release, dataset, and source-expansion gates.
+
+Files: conductor/tracks/foi_o_v2_empirical_implementation_20260714/plan.md; conductor/tracks/foi_o_v2_empirical_implementation_20260714/reextraction-readiness.md; conductor/tracks/foi_o_v2_empirical_implementation_20260714/release-gates.yaml.
+
+Verification: packet SHA-256 recomputed; implementation commit resolved; YAML parsed; packet/release-gate status cross-check passed; git diff check passed; uv sync --extra dev --extra rdf passed; uv run pytest -q (346 passed, 2 skipped).
+
+Remaining risks/gates: the governed extraction execution and empirical comparison have not run; independent annotation/adjudication is absent; all external delivery and publication actions remain gated.
