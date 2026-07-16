@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 from hashlib import sha256
 from pathlib import Path
 
@@ -137,7 +138,9 @@ def test_snapshot_rejects_inventory_not_backed_by_artifact(tmp_path: Path) -> No
 
 
 def test_approved_snapshot_requires_and_records_named_review(tmp_path: Path) -> None:
-    snapshot, _ = _write_snapshot(tmp_path)
+    reviewed_snapshot, reviewed_digest = _write_snapshot(tmp_path / "reviewed")
+    snapshot = tmp_path / "approved" / "snapshot"
+    shutil.copytree(reviewed_snapshot, snapshot)
     manifest = json.loads((snapshot / "manifest.json").read_text())
     rights = manifest["rights_review"]
     rights.update(
@@ -145,7 +148,7 @@ def test_approved_snapshot_requires_and_records_named_review(tmp_path: Path) -> 
             "status": "approved",
             "reviewer": "edithatogo",
             "reviewed_at": "2026-07-16T13:00:00Z",
-            "reviewed_snapshot_manifest_sha256": "b" * 64,
+            "reviewed_snapshot_manifest_sha256": reviewed_digest,
         }
     )
     (snapshot / "rights-review.json").write_text(json.dumps(rights) + "\n")
@@ -153,11 +156,61 @@ def test_approved_snapshot_requires_and_records_named_review(tmp_path: Path) -> 
     _refresh_artifact(snapshot, manifest, "rights-review.json")
     digest = _write_manifest(snapshot, manifest)
 
-    result = verify_attachment_snapshot(snapshot, expected_manifest_sha256=digest)
+    result = verify_attachment_snapshot(
+        snapshot,
+        expected_manifest_sha256=digest,
+        reviewed_snapshot_dir=reviewed_snapshot,
+    )
     assert result.rights_status == "approved"
     assert result.rights_reviewer == "edithatogo"
     assert result.ready_for_raw_state_mapping_audit is True
     assert result.blockers == ("human_mapping_review_pending", "single_request_only")
+
+    with pytest.raises(ValueError, match="approved snapshot requires reviewed pending snapshot"):
+        verify_attachment_snapshot(snapshot, expected_manifest_sha256=digest)
+
+
+def test_approved_snapshot_rejects_content_different_from_reviewed_pending(
+    tmp_path: Path,
+) -> None:
+    reviewed_snapshot, reviewed_digest = _write_snapshot(tmp_path / "reviewed")
+    snapshot = tmp_path / "approved" / "snapshot"
+    shutil.copytree(reviewed_snapshot, snapshot)
+    manifest = json.loads((snapshot / "manifest.json").read_text())
+    rights = manifest["rights_review"]
+    rights.update(
+        {
+            "status": "approved",
+            "reviewer": "edithatogo",
+            "reviewed_at": "2026-07-16T13:00:00Z",
+            "reviewed_snapshot_manifest_sha256": reviewed_digest,
+        }
+    )
+    (snapshot / "rights-review.json").write_text(json.dumps(rights) + "\n")
+    manifest["ready_for_raw_state_mapping_audit"] = True
+    (snapshot / "content/attachments/response.pdf").write_bytes(b"%PDF-different")
+    _refresh_artifact(snapshot, manifest, "content/attachments/response.pdf")
+    inventory_path = snapshot / "content/attachments.json"
+    inventory = json.loads(inventory_path.read_text())
+    artifact = next(
+        item
+        for item in manifest["artifacts"]
+        if item["path"] == "content/attachments/response.pdf"
+    )
+    inventory[0]["sha256"] = artifact["sha256"]
+    inventory[0]["size"] = artifact["size"]
+    inventory_path.write_text(json.dumps(inventory) + "\n")
+    _refresh_artifact(snapshot, manifest, "content/attachments.json")
+    manifest["supplemental_attachment_capture"]["attachment_bytes"] = artifact["size"]
+    _refresh_artifact(snapshot, manifest, "rights-review.json")
+    digest = _write_manifest(snapshot, manifest)
+
+    with pytest.raises(ValueError, match="approved snapshot content differs"):
+        verify_attachment_snapshot(
+            snapshot,
+            expected_manifest_sha256=digest,
+            reviewed_snapshot_dir=reviewed_snapshot,
+        )
 
 
 def test_snapshot_rejects_manifest_and_sidecar_mismatches(tmp_path: Path) -> None:

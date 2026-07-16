@@ -117,6 +117,7 @@ def verify_attachment_snapshot(
     snapshot_dir: Path,
     *,
     expected_manifest_sha256: str,
+    reviewed_snapshot_dir: Path | None = None,
 ) -> AttachmentSnapshotReadiness:
     """Verify one local attachment snapshot without promoting its rights state."""
     root = snapshot_dir.resolve()
@@ -156,6 +157,31 @@ def verify_attachment_snapshot(
     approved = _validate_rights(rights, manifest_digest)
     if manifest.get("ready_for_raw_state_mapping_audit") is not approved:
         raise ValueError("audit readiness does not match rights review")
+    if approved:
+        if reviewed_snapshot_dir is None:
+            raise ValueError("approved snapshot requires reviewed pending snapshot")
+        reviewed_digest = str(rights["reviewed_snapshot_manifest_sha256"])
+        reviewed_result = verify_attachment_snapshot(
+            reviewed_snapshot_dir,
+            expected_manifest_sha256=reviewed_digest,
+        )
+        if reviewed_result.rights_status != "pending":
+            raise ValueError("reviewed snapshot must retain pending rights status")
+        reviewed_manifest = _load_object(reviewed_snapshot_dir / "manifest.json")
+        reviewed_artifacts = {
+            str(artifact["path"]): (str(artifact["sha256"]), int(artifact["size"]))
+            for artifact in reviewed_manifest["artifacts"]
+            if artifact["path"] != "rights-review.json"
+        }
+        current_artifacts = {
+            relative: (str(artifact["sha256"]), int(artifact["size"]))
+            for relative, artifact in declared.items()
+            if relative != "rights-review.json"
+        }
+        if current_artifacts != reviewed_artifacts:
+            raise ValueError("approved snapshot content differs from reviewed pending snapshot")
+    elif reviewed_snapshot_dir is not None:
+        raise ValueError("reviewed snapshot is only valid for approved rights review")
 
     request = _load_object(root / "content/request.json")
     request_id = str(request.get("id") or "")
