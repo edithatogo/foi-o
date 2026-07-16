@@ -15,3 +15,9 @@ risks:
   - id: R-005
     risk: bundle packaging metadata is not editable-installable
     mitigation: validate without installing the staging distribution and retain the failure in audit evidence
+  - id: R-006
+    risk: the verified fyi-archive-nz candidate snapshot has null licence fields for all 33217 records
+    mitigation: require an explicit human-approved rights rule and rights-reviewed record selection before re-extraction
+  - id: R-007
+    risk: synthetic placeholder-pinned nlp-policy-nz fixtures could be mistaken for a real empirical baseline
+    mitigation: require a separately hashed real baseline and immutable pipeline/model revision before any comparison claim

@@ -12,3 +12,6 @@ outputs:
   - id: O-FOIO-V2-GOVERNANCE
     paths: [codebooks, contracts, integration, migrations]
     status: integrated_local
+  - id: O-FOIO-V2-REEXTRACTION-READINESS
+    paths: [conductor/tracks/foi_o_v2_empirical_implementation_20260714/reextraction-readiness.md]
+    status: verified_candidate_input_blocked_human_gate

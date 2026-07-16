@@ -72,7 +72,18 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `upstream_verified: false`; no sibling checkout or upstream outcome was used.
 - [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
   initial ontology-based baseline without overwriting raw archive records.
+  - `BLOCKED 2026-07-16`: candidate raw input independently verified as Hugging
+    Face commit `fc27bfa471c598a31d975cfa2b603b1a11408e55`, `default/requests`,
+    manifest SHA-256 `23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e`,
+    33,217 records. All records have content digests, but all 33,217 licence
+    fields are null. The available `nlp-policy-nz` NZ baseline is explicitly
+    synthetic and placeholder-pinned; no real initial baseline artifact or
+    runnable raw-manifest extraction pipeline/model pin exists. See
+    `reextraction-readiness.md`.
 - [ ] `[HUMAN]` Pin and approve the target revision for upstream review.
+  - Decision candidate: approve or reject the verified Hugging Face commit
+    above and specify the rights rule, real baseline artifact, heldout record
+    selection, and immutable `nlp-policy-nz` pipeline/model revision.
 - [ ] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
 - [ ] Build an independent `oia_rules` event-time fixture set without reusing authoring data.
 - [ ] Build deterministic source-triangulation assertions and an explicit human
