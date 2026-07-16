@@ -1,0 +1,9 @@
+Task: Bind approved attachment snapshots to the exact reviewed pending bytes.
+
+Summary: Added mandatory reviewed_snapshot_dir verification for approved rights state, recursively verified the pending manifest, required pending status, compared every non-rights artifact hash and size, and rejected missing or mismatched reviewed evidence.
+
+Files: src/foi_o_nz/attachment_snapshot.py; tests/test_attachment_snapshot.py.
+
+Verification: actual pending snapshot 42f8ed87 verified unchanged; approved and drift rejection tests passed; module coverage 82.01%; 26 focused tests, targeted Ruff and ty passed; uv sync --extra dev --extra rdf passed; full suite 393 passed, 2 skipped.
+
+Remaining gate: no approved snapshot is created until named-human approval of exact pending manifest 42f8ed87 is supplied.
