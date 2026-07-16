@@ -105,6 +105,17 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     independent annotation is pending (`60f2671`). Verification: 64 focused
     tests; JSON parsing, targeted Ruff, and diff checks passed; full suite 331
     passed, 2 skipped.
+  - [x] Bounded source subtask: record the named-human approval and independently
+    verified one-record content snapshot. Pending manifest `d850ca36…` remains
+    immutable; approved manifest `c929b312…` is local-only and excludes
+    redistribution, publication, training, fine-tuning, release, dataset
+    publication, and reviewed/gold-label promotion. This establishes the bounded
+    rights/content source only; consumer-adapter, baseline, and independent
+    annotation gates remain (`e322da3`). Verification: readiness schema and
+    exact-pin tests passed; targeted Ruff passed; `uv sync --extra dev --extra
+    rdf` succeeded; full suite 331 passed, 2 skipped. Conductor review bumped
+    the readiness contract to `v0.2.0` and removed instance-specific schema
+    constants.
 - [x] `[HUMAN]` Pin and approve the target revision for upstream review.
   - Scope of approval (2026-07-16): repeated human direction to continue permits
     repo-local preparation against verified Hugging Face commit
