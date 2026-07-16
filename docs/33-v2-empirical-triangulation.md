@@ -30,6 +30,14 @@ relationship to candidate process events is a versioned empirical mapping,
 reviewed against correspondence and attachments and monitored for platform/time
 drift. A source state cannot by itself certify a legal outcome.
 
+The pinned `fyi-archive-nz` manifest at revision `fc27bfa` is not sufficient for
+that review. The hash-verified aggregate readiness audit found 33,208 empty
+state values, nine unmapped `dry-run` values, no mapped FYI states, no
+correspondence fields, and no non-empty attachment arrays. These findings are
+properties of that manifest only; they are not findings about the underlying
+public request pages. A correspondence/attachment-bearing, rights-cleared input
+is required before the mapping hypotheses can be evaluated.
+
 ## Deterministic exception routing
 
 `foi_o_nz.source_triangulation` evaluates one candidate claim at a time. A
