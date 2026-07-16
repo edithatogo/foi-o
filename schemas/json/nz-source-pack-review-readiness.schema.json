@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:nz-source-pack-review-readiness:0.1.0",
+  "title": "FOI-O NZ source-pack human review readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "approved_review_packet_sha256", "reviewer",
+    "approved_components", "event_time_intervals", "non_legislation_sources",
+    "source_pack_ready", "source_pack_promotion_allowed", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.nz-source-pack-review-readiness.v0.1.0"},
+    "status": {"const": "blocked_missing_source_pack_inputs"},
+    "approved_review_packet_sha256": {"$ref": "#/$defs/sha256"},
+    "reviewer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["reviewer_id", "reviewed_at"],
+      "properties": {
+        "reviewer_id": {"const": "edithatogo"},
+        "reviewed_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "approved_components": {
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["component", "artifact_path", "artifact_sha256", "decision"],
+        "properties": {
+          "component": {"enum": ["oia_version_index", "provider_scope_registry"]},
+          "artifact_path": {"type": "string", "minLength": 1},
+          "artifact_sha256": {"$ref": "#/$defs/sha256"},
+          "decision": {"const": "approved"}
+        }
+      }
+    },
+    "event_time_intervals": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "interval_count", "required_action"],
+      "properties": {
+        "status": {"const": "missing"},
+        "interval_count": {"const": 0},
+        "required_action": {"type": "string", "minLength": 1}
+      }
+    },
+    "non_legislation_sources": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "artifact_count", "required_action"],
+      "properties": {
+        "status": {"const": "missing_historical_artifacts"},
+        "artifact_count": {"const": 0},
+        "required_action": {"type": "string", "minLength": 1}
+      }
+    },
+    "source_pack_ready": {"const": false},
+    "source_pack_promotion_allowed": {"const": false},
+    "blockers": {
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "items": {
+        "enum": ["event_time_intervals_missing", "non_legislation_historical_sources_missing"]
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

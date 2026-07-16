@@ -1,0 +1,39 @@
+{
+  "schema_version": "foi-o.nz-source-pack-review-readiness.v0.1.0",
+  "status": "blocked_missing_source_pack_inputs",
+  "approved_review_packet_sha256": "9c34d901a3c1f820d6bbdfd918231b39b20a7b7f357027c7bdce929ae1ec1d1c",
+  "reviewer": {
+    "reviewer_id": "edithatogo",
+    "reviewed_at": "2026-07-16T09:34:52Z"
+  },
+  "approved_components": [
+    {
+      "component": "oia_version_index",
+      "artifact_path": "mappings/nz-oia-version-index.yaml",
+      "artifact_sha256": "3b33127da1a2c2bb7c7f2c90f12de245fed05db565b05cecb620c1b6915a4497",
+      "decision": "approved"
+    },
+    {
+      "component": "provider_scope_registry",
+      "artifact_path": "mappings/nz-source-rights-registry.yaml",
+      "artifact_sha256": "6a2b0d958d19415e36fd59cbd5cf0632f9837c44819f8aafef02a0d635c9cc77",
+      "decision": "approved"
+    }
+  ],
+  "event_time_intervals": {
+    "status": "missing",
+    "interval_count": 0,
+    "required_action": "A named human legal reviewer must approve explicit inclusive/exclusive applicability intervals; ordered as-at dates alone are insufficient."
+  },
+  "non_legislation_sources": {
+    "status": "missing_historical_artifacts",
+    "artifact_count": 0,
+    "required_action": "Acquire and hash-pin historically applicable Ombudsman, agency, and reporting materials under their approved provider scopes."
+  },
+  "source_pack_ready": false,
+  "source_pack_promotion_allowed": false,
+  "blockers": [
+    "event_time_intervals_missing",
+    "non_legislation_historical_sources_missing"
+  ]
+}
