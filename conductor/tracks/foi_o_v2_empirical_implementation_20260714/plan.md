@@ -116,6 +116,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     rdf` succeeded; full suite 331 passed, 2 skipped. Conductor review bumped
     the readiness contract to `v0.2.0` and removed instance-specific schema
     constants.
+  - [x] Initial baseline subtask: generate a real one-record candidate baseline
+    with `nlp-policy-nz` revision `7fc78f1`, then independently recompute its
+    source, contract, content, candidate, span, and revision evidence with FOI-O
+    verifier `baf1b22`. Baseline SHA-256: `90550ce0…`; verification report
+    SHA-256: `0702d54e…`. Both remain local-only, candidate status, unpromoted,
+    and unpublished. The model pin is recorded but model execution is false
+    (`5ff3631`). Verification: 10 focused tests; JSON/YAML parsing and targeted
+    Ruff passed; full suite 339 passed, 2 skipped.
 - [x] `[HUMAN]` Pin and approve the target revision for upstream review.
   - Scope of approval (2026-07-16): repeated human direction to continue permits
     repo-local preparation against verified Hugging Face commit
