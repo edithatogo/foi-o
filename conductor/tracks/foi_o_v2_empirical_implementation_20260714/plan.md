@@ -32,8 +32,20 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
 [#26](https://github.com/edithatogo/foi-o/issues/26), and
 [#27](https://github.com/edithatogo/foi-o/issues/27).
 
-- [~] Export a versioned FOI-O extraction contract for `nlp-policy-nz`, including
-  ontology, schema, codebook, provenance, and candidate-status identifiers.
+- [x] Export a versioned FOI-O extraction contract for `nlp-policy-nz`, including
+  ontology, schema, codebook, provenance, and candidate-status identifiers (`dfab583`).
+  - Output: `contracts/foi-o-extraction-contract/0.1.0/manifest.json` plus
+    `schemas/json/extraction-contract.schema.json`, one valid fixture, three
+    rejection fixtures, Pydantic reference records, and SHA-256 pin checks.
+  - Verification: `uv run pytest -q tests/test_extraction_contract.py
+    tests/test_empirical_schema_fixtures.py tests/test_empirical_contracts.py`
+    (exit 0; 70 passed); `uv sync --extra dev --extra rdf` (exit 0);
+    `uv run pytest -q` (exit 0; 293 passed, 2 skipped).
+  - Residual repo-wide gates: `uv run ty check` exits 1 with 11 diagnostics in
+    untouched legacy files; whole-package coverage is 78.12% against the 80%
+    configured threshold, while `empirical_contracts.py` measured 90%.
+  - Human/external gates retained: upstream review, candidate promotion, gold
+    approval, legal certification, PRs, datasets, releases, and publication.
 - [x] Define the independently versioned `foi-o` core and jurisdiction-profile
   family contract, including `foi-o-nz` and `foi-o-au-nsw` examples.
   - Evidence: `docs/39-ontology-versioning-and-jurisdiction-profiles.md`;
