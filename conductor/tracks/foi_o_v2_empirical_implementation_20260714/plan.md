@@ -131,6 +131,18 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     source artifacts plus an identified human rights reviewer; none may be
     inferred from those fixtures.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
+  - `BLOCKED 2026-07-16`: the pinned `fc27bfa` manifest has 33,208 empty state
+    values, nine unmapped `dry-run` values, no records in a mapped FYI state,
+    no correspondence fields, and no non-empty attachment arrays. A substantive
+    mapping audit requires a rights-cleared correspondence/attachment-bearing
+    source snapshot; this manifest cannot answer the audit question.
+  - [x] Readiness subtask: add a read-only, hash-verifying aggregate audit and
+    reproduce `examples/v2/raw-state-audit-readiness.fc27.json` from the local
+    pinned manifest without committing or modifying source records (`02f75c7`).
+    Verification: focused state/normalisation/maturation suite (exit 0; 21
+    passed); new module coverage 93%; targeted Ruff checks passed;
+    `uv sync --extra dev --extra rdf` (exit 0); `uv run pytest -q` (exit 0;
+    318 passed, 2 skipped).
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
