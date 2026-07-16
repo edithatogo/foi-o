@@ -2,7 +2,7 @@
   "schema_version": "foi-o-nz.arxiv-readiness.v0.1.0",
   "readiness_id": "foi-o-manuscript-arxiv-local-20260702",
   "artifact_id": "journal-submission-package",
-  "checked_at": "2026-07-02T13:16:25Z",
+  "checked_at": "2026-07-16T01:00:00Z",
   "arxiv_requirements_snapshot": {
     "retrieved_at": "2026-07-02",
     "sources": [
@@ -115,7 +115,10 @@
       "requirement_level": "required",
       "command": "gitleaks detect --no-git --source build/submission/arxiv-source_arXiv",
       "expected_output": "No secrets or credentials in the cleaned upload package.",
-      "status": "external_gate"
+      "status": "passed",
+      "evidence_paths": [
+        "build/submission/latex/arxiv/source_arXiv"
+      ]
     },
     {
       "tool": "ripgrep and pdfinfo",
@@ -149,8 +152,8 @@
     },
     {
       "check_id": "source-disclosure-review",
-      "status": "external_gate",
-      "reviewer_notes": "Basic ripgrep checks were clean except generated LaTeX build metadata; a dedicated secret scanner remains recommended before public upload.",
+      "status": "passed",
+      "reviewer_notes": "The cleaned source package passed a dedicated gitleaks no-git scan and local-path checks.",
       "evidence_paths": [
         "docs/29-publication-quality-panel.md",
         "docs/30-arxiv-readiness.md"

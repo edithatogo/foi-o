@@ -2,7 +2,7 @@
 title: "FOI-O: An NZ-first ontology and verification methods package for Freedom of Information process modelling"
 author:
   - "Dylan A Mordaunt\\textsuperscript{1,2,3}"
-date: "2026-07-02"
+date: "2026-07-16"
 header-includes:
   - "\\sloppy"
   - "\\setlength{\\emergencystretch}{3em}"
@@ -22,22 +22,15 @@ abstract: |
   the New Zealand Official Information Act, is the only implemented and
   validated jurisdictional profile in the current repository. Broader reuse is
   a design intent and future validation path, not an empirical result of this
-  package. FOI-O models the request record first. Request profiles, observed
-  correspondence events, controlled vocabularies, and provenance make visible
-  what was seen and how it was changed. It then adds review queues, release
-  metadata, bounded agent contracts, semantic assets, process-model artefacts,
-  and fixture-only process-mining interchange examples. Human certification of
-  legally meaningful outcomes stays outside autonomous tooling. The repository
-  provides JavaScript Object Notation (JSON) Schema contracts, Python data
-  models, Simple Knowledge Organization System (SKOS) vocabularies, Web
-  Ontology Language (OWL), Resource Description Framework (RDF), and Shapes
-  Constraint Language (SHACL) assets. These are supported by deterministic
-  examples, release metadata, quality gates, tests, Business Process Model and
-  Notation (BPMN) and Petri Net Markup Language (PNML) process models, XES and
-  OCEL-style fixture exports, and a planned New Zealand annotation task-set
-  manifest. This article describes the motivation, architecture,
-  ontology-development method, validation evidence, and implementation
-  boundaries. The project is not legal advice, is not an official government
+  package. FOI-O models request records, observed correspondence, controlled
+  vocabularies, provenance, review queues, release metadata, and bounded agent
+  contracts. Human certification of legally meaningful outcomes stays outside
+  autonomous tooling. Its typed operational and semantic contracts are
+  supported by deterministic examples, process models, fixture-only
+  process-mining exports, quality gates, and tests. This article describes the motivation, architecture,
+  ontology-development method, the V2 empirical extraction contract, the
+  cross-repository data-publication pathway, the Australian profile strategy,
+  validation evidence, and implementation boundaries. The project is not legal advice, is not an official government
   publication, and does not certify release, refusal, redaction, charging,
   extension, transfer, complaint, or publication outcomes.
 ---
@@ -144,7 +137,7 @@ release metadata, and tests. These can be inspected without live credentials or
 private request content. Together, they show the boundary between
 repository-local proof and future external validation.
 
-This article contributes six repository-local artefact groups. First, it
+This article contributes eight repository-local artefact groups. First, it
 defines schema-first request and event contracts for observed and candidate FOI
 process evidence. Second, it provides an OWL, SKOS, RDF, and SHACL semantic
 layer for vocabulary and constraint review. Third, it encodes a
@@ -153,7 +146,12 @@ legal or administrative outcomes. Fourth, it adds BPMN and PNML process-model
 artefacts for review and interchange. Fifth, it provides fixture-only XES and
 OCEL-style process-mining exports with fixture conformance checks. Sixth, it
 records a New Zealand empirical annotation task-set manifest that remains a
-plan until human review and adjudication evidence exists.
+plan until human review and adjudication evidence exists. Seventh, it defines a
+V2 empirical extraction contract with explicit capability declarations,
+immutable dependency pins, evidence thresholds, and human promotion gates.
+Eighth, it defines independently versioned core, country, and subdivision
+profiles, with Australian Commonwealth and New South Wales adapters retained as
+candidate pilots rather than represented as validated legal profiles.
 
 The article is organised as follows. The Methods section states the design
 principles, repository architecture, ontology-development protocol, process
@@ -213,6 +211,21 @@ upstream. FOI-O maps those records into request profiles, event streams,
 and controlled vocabularies. It also maps them into Resource Description
 Framework (RDF; see the \hyperlink{tab-abbreviations}{abbreviations table}) and Shapes Constraint Language (SHACL; see the
 \hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded agent resources [15-20].
+
+The wider programme deliberately separates capture, archival fidelity,
+document processing, candidate extraction, ontology contracts, deterministic
+rules, and programme conformance. `fyi-cli` captures FYI/Alaveteli-compatible
+source and delta inputs [4]. `fyi-archive` preserves manifests and provenance,
+packages datasets, and publishes versioned outputs to Hugging Face and
+preservation services [5,27]. `foi-process` provides the integration spine for
+document evidence and optical character recognition (OCR) [28].
+`nlp-policy-nz` evaluates review-bounded extraction adapters [29]. The
+`legislation` repository supplies versioned statutory source packs [30], while
+`rulespec-nz` supplies deterministic New Zealand rule specifications [31].
+`rac-conformance` synchronises cross-repository conformance evidence [32].
+FOI-O consumes pinned, provenance-bearing inputs from these surfaces; it does
+not collapse them into one application or treat downstream model output as a
+certified legal record.
 
 \hyperlink{fig-repository-architecture}{Figure 2} shows the repository-level
 architecture, while \hyperlink{fig-process-architecture}{Figure 3} shows the
@@ -317,6 +330,30 @@ high-performance inference tools. They could later support bounded extraction
 or embedding workflows. They are not required for the current package. The
 present evidence depends on portable schemas, examples, semantic assets, and
 Python tests, not on specialised runtimes, hardware, or model-serving installs.
+
+## Empirical Extraction and Jurisdiction Profiles
+
+The V2 contract extends rather than replaces the V1 method. V1 established
+source provenance, epistemic status, evidence references, validation, and the
+human-certification boundary. V2 adds machine-readable capability declarations
+and promotion evidence. An adapter can be promoted only when its source,
+profile, model, and transformation versions are immutably identified; its
+evaluation data have a recorded rights basis; independent annotation and
+adjudication are documented; per-capability metrics meet declared thresholds;
+and a human reviewer explicitly approves the promotion. Missing evidence fails
+closed. A syntactically valid adapter is therefore not necessarily an
+empirically supported or legally approved profile.
+
+FOI-O uses a versioned ontology family rather than long-lived jurisdiction Git
+branches. `foi-o` identifies the jurisdiction-neutral core. Country profiles,
+such as `foi-o-nz` and the planned `foi-o-au`, declare compatible core-version
+ranges. Subdivision profiles, such as `foi-o-au-nsw`, additionally declare a
+compatible parent-country profile. The existing Python distribution remains
+the implemented NZ package while these contracts mature. Australian
+Commonwealth and NSW adapters are the first candidate pilots. They are not
+promoted legal profiles, and the remaining Australian states and territories
+remain disabled until each has jurisdiction-specific legislation, examples,
+annotation, evaluation, compatibility evidence, and human legal review [29,30].
 
 ## Ontology Development Protocol
 
@@ -463,7 +500,7 @@ from being represented as legal determinations.
 
 ## Implemented Repository Surfaces
 
-The current repository includes implemented surfaces in five groups. The
+The current repository includes implemented surfaces in seven groups. The
 contract layer covers JSON Schema examples, Pydantic models, state mapping, and
 manifest normalisation. The analysis layer covers event analytics, quality
 gates, RDF export, and reporting profiles. The release layer covers release
@@ -472,6 +509,10 @@ retrieval, redaction candidates, agent context packs, stream diffs, and
 read-only agent descriptors. The process-model layer covers state-machine,
 BPMN, PNML, XES, OCEL-style, and fixture-conformance artefacts. The Mojo,
 Modular MAX, and LanceDB paths remain experimental and optional [26].
+The empirical-contract layer covers capability declarations, immutable
+dependency requirements, evidence-count thresholds, and candidate-only
+promotion states. The jurisdiction layer covers versioned profile manifests,
+parent/core compatibility rules, and fail-closed Australian pilot declarations.
 
 The first result is a set of machine-readable contracts. They make the intended
 FOI-O data surfaces explicit. Request profiles define request-level metadata,
@@ -523,6 +564,22 @@ intentionally narrow: they show that the committed fixture path preserves the
 human-certification boundary and can be exported for review. They do not prove
 live-source process discovery, process performance, or agency conformance.
 
+The sixth result is an empirical extraction contract. Capability declarations
+make each adapter's claimed task surface inspectable instead of inferring it
+from a model name or prompt. Contract validation can reject absent provenance,
+insufficient evidence, incompatible versions, or an attempted promotion that
+lacks human approval. This is a governance result, not an accuracy claim: the
+current archive, Commonwealth, and NSW adapters remain candidate pilots until
+real heldout evaluation evidence satisfies those gates.
+
+The seventh result is a jurisdiction-versioning contract. The repository can
+represent a shared core, independently released country profiles, and
+independently released subdivision profiles without allowing one jurisdiction
+to silently redefine a core concept. Compatibility ranges and explicit
+migrations make legal and semantic change visible. The contract does not claim
+that Australian law has already been validated; it records exactly what must
+be supplied before such a claim is possible.
+
 The optional runtime surfaces are deliberately bounded. LanceDB is relevant
 because FOI-O may need to retrieve similar requests, evidence snippets,
 ontology terms, and review examples. It should be able to do this without
@@ -566,6 +623,8 @@ Semantic alignment & Ontology, vocabulary, and semantic constraints & SHACL safe
 Process models & State-machine, BPMN, and PNML workflow artefacts & Process-model parsing and conformance tests \\
 Process-mining fixtures & Fixture event log, XES, OCEL-style export, and fixture conformance & Fixture-only import and conformance tests \\
 Empirical task-set plan & Planned New Zealand annotation tasks & Schema validation and boundary tests \\
+V2 extraction contract & Capability and promotion-evidence declarations & Fail-closed contract and profile tests \\
+Jurisdiction profiles & Core, country, and subdivision compatibility manifests & Version, parent, and promotion-boundary tests \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -579,6 +638,7 @@ Empirical task-set plan & Planned New Zealand annotation tasks & Schema validati
 Surface & What this proves & What it does not prove \\
 \midrule
 FOI-O NZ profile & Local schemas, examples, semantic assets, and tests are internally consistent. & Non-NZ validation or official adoption. \\
+Australian adapters & Commonwealth and NSW candidate contracts can be represented and checked. & Legal approval, empirical promotion, or coverage of other states and territories. \\
 Process models & Workflow structures can be represented as review/interchange artefacts. & Executable legal workflow or certified decision-making. \\
 Process-mining fixtures & Deterministic fixture events can be exported and checked for one release path. & Live-corpus conformance, bottlenecks, cycle times, or agency performance. \\
 Empirical task-set manifest & Planned annotation tasks and external gates are explicit. & Human-reviewed gold-standard evidence. \\
@@ -661,8 +721,12 @@ let readers inspect the figures and tables, validate examples, and check the
 human-boundary claims without live credentials. Local reproducibility is not
 the same as live validation. The current repository can prove local contracts,
 examples, and deterministic transformations. It does not yet prove live archive
-intake, human-reviewed gold-standard performance, external registry publication,
-agency-internal reporting completeness, or transferability to every FOI regime.
+intake or human-reviewed gold-standard performance. The FOI-O v0.8.1 software
+release is preserved in Zenodo with version DOI
+\href{https://doi.org/10.5281/zenodo.21360138}{10.5281/zenodo.21360138} and
+concept DOI \href{https://doi.org/10.5281/zenodo.21360137}{10.5281/zenodo.21360137}
+[33]. That preservation evidence does not prove agency-internal reporting
+completeness or transferability to every FOI regime.
 Those claims should remain external gates until they are supported by
 live-source evidence, human review, jurisdiction-specific mapping, and separate
 validation.
@@ -678,8 +742,9 @@ concrete way to encode that boundary and extend it beyond the first New Zealand
 example.
 
 Future work should proceed in evidence-led stages. The next step is not to
-claim universal coverage. It is to add well documented source intake so that
-public request records can be transformed reproducibly. Gold-set review should
+claim universal coverage. It is to re-extract pinned archive releases through
+the V2 contract and publish versioned dataset outputs with complete lineage.
+Gold-set review should
 only follow completed annotation tasks, recorded reviewer process, adjudication,
 and provenance. Later jurisdiction-specific profiles should add local law,
 language, calendars, reporting rules, and institutional practice without
@@ -725,9 +790,14 @@ the current repository can prove.
 # Data and Code Availability
 
 The code, schemas, ontology seed, examples, documentation, and validation
-contracts are maintained in the public GitHub repository for FOI-O. Source
-request and archive content is not republished here. It remains subject to its
-original rights and platform terms.
+contracts are maintained in the public FOI-O repository [26]. Version 0.8.1 is
+archived in Zenodo [33]. The public NZ archive dataset is distributed through
+the `edithatogo/fyi-archive-nz` Hugging Face dataset repository [27], with
+packaging and provenance owned by `fyi-archive` rather than FOI-O. The related
+programme repositories used by this work are `fyi-cli` [4], `fyi-archive` [5],
+`foi-process` [28], `nlp-policy-nz` [29], `legislation` [30], `rulespec-nz`
+[31], and `rac-conformance` [32]. Source request and archive content remains
+subject to its original rights and platform terms.
 
 # Ethics and Legal Boundary
 
@@ -742,11 +812,13 @@ this article, and approved the current draft.
 
 # Funding
 
-Funding information requires human confirmation before submission.
+No specific external funding is reported in this review draft. Author
+confirmation is required before submission.
 
 # Conflicts of Interest
 
-Conflict-of-interest declarations require human confirmation before submission.
+No conflict of interest is reported in this review draft. Author confirmation
+is required before submission.
 
 # References
 
@@ -776,6 +848,13 @@ Conflict-of-interest declarations require human confirmation before submission.
 24. OECD. AI principles. 2024 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/en/topics/sub-issues/ai-principles.html>.
 25. Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence. 2024 [cited 2026 Jul 3]. Available from: <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>.
 26. Mordaunt DA. FOI-O: ontology and validation stack for Freedom of Information process modelling [software]. 2026 [cited 2026 Jul 3]. Available from: <https://github.com/edithatogo/foi-o>.
+27. Mordaunt DA. FYI Archive NZ [dataset]. Hugging Face; 2026 [cited 2026 Jul 16]. Available from: <https://huggingface.co/datasets/edithatogo/fyi-archive-nz>.
+28. Mordaunt DA. FOI Process [software]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/foi-process>.
+29. Mordaunt DA. NLP Policy NZ [software]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/nlp-policy-nz>.
+30. Mordaunt DA. Legislation [software and data]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/legislation>.
+31. Mordaunt DA. RuleSpec NZ [software]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/rulespec-nz>.
+32. Mordaunt DA. RAC Conformance [software]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/rac-conformance>.
+33. Mordaunt DA. FOI-O NZ: Freedom of Information ontology and process model. Version 0.8.1 [software]. Zenodo; 2026. doi:10.5281/zenodo.21360138.
 
 \clearpage
 
