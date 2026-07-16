@@ -144,6 +144,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `uv sync --extra dev --extra rdf` (exit 0); `uv run pytest -q` (exit 0;
     318 passed, 2 skipped).
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
+  - `BLOCKED 2026-07-16`: no authentic frozen unit manifest, duplicate-cluster
+    registry, dual-annotation records, adjudication decisions, or agreement
+    outputs exist. The schema-valid sample examples use repeated placeholder
+    hashes, `zenodo:pending`, and paths to absent Parquet artifacts. Completion
+    requires a rights-approved source population, human-approved sampling and
+    annotation protocols, at least two independent human annotators, and an
+    identified adjudicator. No sample membership, labels, adjudication outcome,
+    or reliability statistic may be inferred from the contract fixtures.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
