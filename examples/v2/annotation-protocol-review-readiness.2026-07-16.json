@@ -1,0 +1,23 @@
+{
+  "schema_version": "foi-o.annotation-protocol-review-readiness.v0.1.0",
+  "packet_id": "foi-o-v2-annotation-protocol-review-2026-07-16",
+  "protocol_path": "docs/41-v2-sampling-and-annotation-protocol.md",
+  "protocol_sha256": "9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8",
+  "protocol_decision": "pending",
+  "protocol_approver": null,
+  "annotator_ids": [],
+  "adjudicator_id": null,
+  "source_population_manifest": null,
+  "codebook_revision": null,
+  "sampling_configuration": null,
+  "ready_to_freeze_sample": false,
+  "promotion_allowed": false,
+  "blockers": [
+    "protocol_approval_pending",
+    "two_independent_annotators_missing",
+    "adjudicator_missing",
+    "rights_approved_source_population_missing",
+    "codebook_revision_missing",
+    "sampling_configuration_missing"
+  ]
+}

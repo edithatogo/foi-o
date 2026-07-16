@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:annotation-protocol-review-readiness:0.1.0",
+  "title": "FOI-O annotation protocol review readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "packet_id", "protocol_path", "protocol_sha256",
+    "protocol_decision", "protocol_approver", "annotator_ids", "adjudicator_id",
+    "source_population_manifest", "codebook_revision", "sampling_configuration",
+    "ready_to_freeze_sample", "promotion_allowed", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.annotation-protocol-review-readiness.v0.1.0"},
+    "packet_id": {"const": "foi-o-v2-annotation-protocol-review-2026-07-16"},
+    "protocol_path": {"const": "docs/41-v2-sampling-and-annotation-protocol.md"},
+    "protocol_sha256": {"const": "9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8"},
+    "protocol_decision": {"const": "pending"},
+    "protocol_approver": {"const": null},
+    "annotator_ids": {"type": "array", "maxItems": 0},
+    "adjudicator_id": {"const": null},
+    "source_population_manifest": {"const": null},
+    "codebook_revision": {"const": null},
+    "sampling_configuration": {"const": null},
+    "ready_to_freeze_sample": {"const": false},
+    "promotion_allowed": {"const": false},
+    "blockers": {
+      "type": "array", "minItems": 6, "maxItems": 6, "uniqueItems": true,
+      "items": {
+        "enum": [
+          "protocol_approval_pending", "two_independent_annotators_missing",
+          "adjudicator_missing", "rights_approved_source_population_missing",
+          "codebook_revision_missing", "sampling_configuration_missing"
+        ]
+      }
+    }
+  }
+}
