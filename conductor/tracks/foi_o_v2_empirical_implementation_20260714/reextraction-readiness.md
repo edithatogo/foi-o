@@ -2,7 +2,7 @@
 
 ## Status
 
-**Blocked at rights, upstream execution-contract, and empirical human gates.**
+**Blocked at rights, source-evidence, and empirical human gates.**
 The candidate target revision is approved for repo-local preparation only. No
 re-extraction or baseline comparison has been run.
 
@@ -36,14 +36,16 @@ upstream inspections:
   commits attachment-aware capture and retains a July verification report for
   33,217 merged and published records. This verifies archive orchestration; it
   does not cure the null record-level licence metadata in the pinned manifest.
-- `nlp-policy-nz` revision `4150ac35a2a3fba6e8cff0136ca1fc1c109192e4`
-  contains an adapter, comparison functions, and a two-record bounded
-  evaluation. The bounded input is synthetic, uses placeholder archive pins,
-  has no real model pin, and starts from already-produced extraction records
-  rather than a raw archive manifest.
-- The upstream fixture declares extraction contract `2.0.0`, while this
-  repository publishes candidate contract `foi-o-extraction-contract/0.1.0`.
-  No compatibility evidence bridges those versions, so the audit fails closed.
+- `nlp-policy-nz` revision `ee3fb0b4b686f565f4ba18856a2bda4284466328`
+  enforces extraction contract `0.1.0`, provides the fail-closed
+  `foio-extract-manifest` entry point, and pins
+  `nlpaueb/legal-bert-base-uncased` to immutable repository and weights
+  digests. Its deterministic lexical candidate pass does not apply the model,
+  so no model-derived result is claimed. The retained two-record bounded input
+  remains synthetic and placeholder-pinned.
+- Contract alignment, the raw-manifest entry point, and a real model pin are
+  therefore verified. The pinned 33,217-record archive manifest still does not
+  provide inline content or content paths required by the entry point.
 
 ## Missing governed inputs
 
@@ -51,23 +53,21 @@ upstream inspections:
    is null.
 2. A real initial ontology-based baseline artifact with immutable revision,
    record identifiers, content digests, and output digest.
-3. A real `nlp-policy-nz` pipeline/model pin, a runnable manifest-to-candidate
-   extraction entry point, and explicit compatibility with candidate contract
-   `0.1.0`.
+3. A content-bearing, immutable input manifest suitable for the verified
+   `nlp-policy-nz` manifest-to-candidate entry point.
 4. A rights-reviewed record selection or heldout sample suitable for processing.
 
-The existing `nlp-policy-nz` NZ adapter bundle cannot satisfy items 2-3. Its
-archived evidence explicitly describes the fixture as synthetic and
-placeholder-pinned; it uses repeated `a` digests/revisions and no real
-source/profile/model pins. Its adapter packages already-produced extraction
-records but does not implement a 33,217-record raw-manifest extraction run.
+The verified `nlp-policy-nz` consumer resolves the earlier contract, entry-point,
+and model-pin blockers but cannot supply missing source rights or raw content.
+Its archived bounded evidence remains synthetic and placeholder-pinned, and no
+33,217-record extraction run or empirical comparison has been performed.
 
 ## Required human decision
 
-Approve the rights rule, baseline artifact, heldout selection, contract
-alignment, and immutable `nlp-policy-nz` pipeline/model revision. Until then,
-no raw records may be overwritten, no candidate may be promoted, and no
-empirical comparison may be claimed.
+Approve the rights rule, content-bearing heldout selection, and baseline
+artifact, then complete independent annotation and adjudication. Until then, no
+raw records may be overwritten, no candidate may be promoted, and no empirical
+comparison may be claimed.
 
 ## Repo-local input audit
 

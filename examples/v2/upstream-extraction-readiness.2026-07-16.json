@@ -16,14 +16,22 @@
     },
     "nlp_policy_nz": {
       "repository": "https://github.com/edithatogo/nlp-policy-nz",
-      "repository_revision": "4150ac35a2a3fba6e8cff0136ca1fc1c109192e4",
+      "repository_revision": "ee3fb0b4b686f565f4ba18856a2bda4284466328",
       "adapter": {
         "path": "src/nlp_policy_nz/extraction/foio_adapter.py",
-        "sha256": "35ee0b75e0881c9ed793d06c0ecfecfb3cd00421bc2b4b4d0a544a0e0e71fead"
+        "sha256": "b287fbfc38bc6775db32b2c347d313bbedea80db430c4edddb3cf91804acc244"
+      },
+      "raw_manifest_entrypoint": {
+        "path": "src/nlp_policy_nz/extraction/foio_raw_manifest.py",
+        "sha256": "2343cce5af820b6d62d178ba22b35d5287947428f167b630826d9b216a7dcbea"
+      },
+      "consumer_pins": {
+        "path": "data/foio/consumer_pins.json",
+        "sha256": "29c47752add559cd18609d50f2f1575346f576375a155a6e0379a8d1b48d0aa0"
       },
       "bounded_fixture": {
         "path": "data/foio/bounded_evaluation_fixture.json",
-        "sha256": "2ea61ec3f39047969dc5f51bf9086da91fa50e0bde7eebd6f2bd5d45d731b5a3"
+        "sha256": "2202238a5a549507007770fd14fd2b5ae59dbe8787419f1df9162a7e4bba034d"
       },
       "evaluation_report": {
         "path": "artifacts/foio/bounded_evaluation_report.json",
@@ -33,22 +41,26 @@
       "fixture_is_synthetic": true,
       "fixture_uses_placeholder_archive_revision": true,
       "fixture_uses_placeholder_source_digest": true,
-      "raw_manifest_entrypoint_available": false,
-      "real_model_pin_available": false,
+      "raw_manifest_entrypoint_available": true,
+      "real_model_pin_available": true,
+      "model_applied_during_candidate_extraction": false,
+      "model": {
+        "model_id": "nlpaueb/legal-bert-base-uncased",
+        "revision": "15b570cbf88259610b082a167dacc190124f60f6",
+        "weights_file": "pytorch_model.bin",
+        "weights_sha256": "6b4f1da798ff101a66ad5cb11c6daa7f99cd41e7909277e01398576e8bd789bd"
+      },
       "independent_annotation_complete": false
     }
   },
   "contract_alignment": {
     "foi_o_candidate_contract": "foi-o-extraction-contract/0.1.0",
-    "nlp_policy_nz_declared_contract": "2.0.0",
-    "compatible": false
+    "nlp_policy_nz_declared_contract": "0.1.0",
+    "compatible": true
   },
   "ready_for_governed_reextraction": false,
   "blockers": [
-    "contract_version_mismatch",
     "independent_annotation_pending",
-    "model_pin_missing",
-    "raw_manifest_entrypoint_missing",
     "rights_metadata_incomplete",
     "synthetic_fixture_only"
   ],

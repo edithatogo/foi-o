@@ -23,8 +23,8 @@
       "required": ["foi_o_candidate_contract", "nlp_policy_nz_declared_contract", "compatible"],
       "properties": {
         "foi_o_candidate_contract": {"const": "foi-o-extraction-contract/0.1.0"},
-        "nlp_policy_nz_declared_contract": {"const": "2.0.0"},
-        "compatible": {"const": false}
+        "nlp_policy_nz_declared_contract": {"const": "0.1.0"},
+        "compatible": {"const": true}
       }
     },
     "ready_for_governed_reextraction": {"const": false},
@@ -72,20 +72,35 @@
     "nlp": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["repository", "repository_revision", "adapter", "bounded_fixture", "evaluation_report", "fixture_record_count", "fixture_is_synthetic", "fixture_uses_placeholder_archive_revision", "fixture_uses_placeholder_source_digest", "raw_manifest_entrypoint_available", "real_model_pin_available", "independent_annotation_complete"],
+      "required": ["repository", "repository_revision", "adapter", "raw_manifest_entrypoint", "consumer_pins", "bounded_fixture", "evaluation_report", "fixture_record_count", "fixture_is_synthetic", "fixture_uses_placeholder_archive_revision", "fixture_uses_placeholder_source_digest", "raw_manifest_entrypoint_available", "real_model_pin_available", "model_applied_during_candidate_extraction", "model", "independent_annotation_complete"],
       "properties": {
         "repository": {"const": "https://github.com/edithatogo/nlp-policy-nz"},
         "repository_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
         "adapter": {"$ref": "#/$defs/pin"},
+        "raw_manifest_entrypoint": {"$ref": "#/$defs/pin"},
+        "consumer_pins": {"$ref": "#/$defs/pin"},
         "bounded_fixture": {"$ref": "#/$defs/pin"},
         "evaluation_report": {"$ref": "#/$defs/pin"},
         "fixture_record_count": {"type": "integer", "minimum": 1},
         "fixture_is_synthetic": {"const": true},
         "fixture_uses_placeholder_archive_revision": {"const": true},
         "fixture_uses_placeholder_source_digest": {"const": true},
-        "raw_manifest_entrypoint_available": {"const": false},
-        "real_model_pin_available": {"const": false},
+        "raw_manifest_entrypoint_available": {"const": true},
+        "real_model_pin_available": {"const": true},
+        "model_applied_during_candidate_extraction": {"const": false},
+        "model": {"$ref": "#/$defs/model"},
         "independent_annotation_complete": {"const": false}
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_id", "revision", "weights_file", "weights_sha256"],
+      "properties": {
+        "model_id": {"const": "nlpaueb/legal-bert-base-uncased"},
+        "revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "weights_file": {"const": "pytorch_model.bin"},
+        "weights_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
       }
     }
   }

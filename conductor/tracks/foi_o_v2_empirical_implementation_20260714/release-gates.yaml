@@ -30,7 +30,7 @@ gates:
     upstream_readiness_audit: examples/v2/upstream-extraction-readiness.2026-07-16.json
     verified_upstreams:
       fyi_archive_revision: 7e405aae53d726cb9214218bd83c5b7796d781a7
-      nlp_policy_nz_revision: 4150ac35a2a3fba6e8cff0136ca1fc1c109192e4
+      nlp_policy_nz_revision: ee3fb0b4b686f565f4ba18856a2bda4284466328
     verified_candidate_source:
       repository: edithatogo/fyi-archive-nz
       revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
@@ -43,12 +43,10 @@ gates:
       approved_on: 2026-07-16
       excludes: [rights, heldout_selection, labels, gold, upstream_pr, dataset, release, publication]
     missing:
-      - extraction_contract_version_alignment
       - independent_annotation_and_adjudication
       - rights_rule_for_null_record_licences
       - immutable_real_initial_baseline
-      - immutable_nlp_pipeline_and_model_revision
-      - runnable_raw_manifest_extraction_entrypoint
+      - content_bearing_rights_reviewed_input_manifest
   raw_state_mapping_audit:
     status: blocked_input_gate
     verified_candidate_source_revision: fc27bfa471c598a31d975cfa2b603b1a11408e55

@@ -21,8 +21,8 @@ def test_upstream_readiness_audit_is_schema_valid_and_fail_closed() -> None:
     assert audit["upstreams"]["fyi_archive"]["verified_record_count"] == 33217
     assert audit["upstreams"]["nlp_policy_nz"]["fixture_record_count"] == 2
     assert audit["upstreams"]["nlp_policy_nz"]["fixture_is_synthetic"] is True
-    assert audit["upstreams"]["nlp_policy_nz"]["raw_manifest_entrypoint_available"] is False
-    assert audit["contract_alignment"]["compatible"] is False
+    assert audit["upstreams"]["nlp_policy_nz"]["raw_manifest_entrypoint_available"] is True
+    assert audit["contract_alignment"]["compatible"] is True
     assert audit["blockers"] == sorted(audit["blockers"])
 
 
@@ -34,4 +34,7 @@ def test_audit_pins_real_revisions_and_rejects_placeholder_evidence() -> None:
     nlp = audit["upstreams"]["nlp_policy_nz"]
     assert nlp["fixture_uses_placeholder_archive_revision"] is True
     assert nlp["fixture_uses_placeholder_source_digest"] is True
-    assert nlp["real_model_pin_available"] is False
+    assert nlp["real_model_pin_available"] is True
+    assert nlp["model_applied_during_candidate_extraction"] is False
+    assert len(nlp["model"]["revision"]) == 40
+    assert len(nlp["model"]["weights_sha256"]) == 64
