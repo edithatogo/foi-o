@@ -33,6 +33,12 @@
     "allowed_statuses": ["observed", "inferred", "asserted", "unknown"],
     "certified_status_allowed": false
   },
+  "compatibility": {
+    "exact_versions": ["0.1.0"],
+    "version_ranges": [{"minimum_inclusive": "0.1.0", "maximum_exclusive": "0.2.0"}],
+    "unknown_major_behavior": "reject",
+    "unknown_revision_behavior": "reject"
+  },
   "capability_ids": ["foi-o-nz.label-assertion", "foi-o-nz.evidence-assertion"],
   "migration_catalogue": [
     {

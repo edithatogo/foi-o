@@ -21,6 +21,7 @@
     "allowed_statuses": ["observed", "inferred", "asserted", "certified"],
     "certified_status_allowed": true
   },
+  "compatibility": {"exact_versions": ["0.1.0"], "version_ranges": [{"minimum_inclusive": "0.1.0", "maximum_exclusive": "0.2.0"}], "unknown_major_behavior": "reject", "unknown_revision_behavior": "reject"},
   "capability_ids": ["foi-o-nz.label-assertion"],
   "migration_catalogue": [{"migration_id": "migration", "from_version": "0.8.1", "to_contract_version": "0.1.0", "artifact_id": "pinned", "automatic_scope": "linkage_only", "human_promotion_required": true}],
   "artifacts": [{"artifact_id": "pinned", "kind": "ontology", "path": "ontology/foi-o-nz.ttl", "version": "0.1.0", "identifier": "https://w3id.org/foio-nz/ontology", "sha256": "27360decdeb6d2bbfdab68964aca3a610565b13e89b60289e6f9ab46e2a821f2"}],

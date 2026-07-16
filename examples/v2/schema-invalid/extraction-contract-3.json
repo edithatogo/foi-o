@@ -15,6 +15,7 @@
   "codebook": {"id": "seed", "version": "0.1.0", "artifact_id": "pinned"},
   "provenance_identifiers": ["source_ref.content_sha256"],
   "candidate_status_vocabulary": {"id": "candidate-status", "version": "0.1.0", "artifact_id": "pinned", "allowed_statuses": ["observed", "inferred", "asserted", "unknown"], "certified_status_allowed": false},
+  "compatibility": {"exact_versions": ["0.1.0"], "version_ranges": [{"minimum_inclusive": "0.1.0", "maximum_exclusive": "0.2.0"}], "unknown_major_behavior": "reject", "unknown_revision_behavior": "reject"},
   "capability_ids": ["foi-o-nz.label-assertion"],
   "migration_catalogue": [{"migration_id": "migration", "from_version": "0.8.1", "to_contract_version": "0.1.0", "artifact_id": "pinned", "automatic_scope": "linkage_only", "human_promotion_required": false}],
   "artifacts": [{"artifact_id": "pinned", "kind": "migration", "path": "migrations/v1-to-v2-empirical-overlay.md", "version": "0.1.0", "identifier": "migration", "sha256": "e7351ffde967d55ef56a9255c4d7bbc0d7ed02c832b21b8668f2d30a12904323"}],

@@ -50,7 +50,7 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
   family contract, including `foi-o-nz` and `foi-o-au-nsw` examples.
   - Evidence: `docs/39-ontology-versioning-and-jurisdiction-profiles.md`;
     `schemas/json/ontology-release-manifest.schema.json`; 54 schema-fixture tests passed.
-- [ ] Define contract-version compatibility, capability negotiation, migrations,
+- [~] Define contract-version compatibility, capability negotiation, migrations,
   and rejection behavior for unknown revisions.
 - [ ] Add consumer-contract tests for FOI-O, `fyi-archive`, `nlp-policy-nz`, and
   one read-only agent/MCP surface.

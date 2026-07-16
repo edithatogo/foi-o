@@ -133,6 +133,33 @@ class ExtractionMigration(StrictModel):
     human_promotion_required: Literal[True]
 
 
+class ExtractionVersionRange(StrictModel):
+    """Declare one bounded compatible semver interval."""
+
+    minimum_inclusive: Annotated[str, Field(pattern=r"^[0-9]+\.[0-9]+\.[0-9]+$")]
+    maximum_exclusive: Annotated[str, Field(pattern=r"^[0-9]+\.[0-9]+\.[0-9]+$")]
+
+    @model_validator(mode="after")
+    def validate_bounds(self) -> ExtractionVersionRange:
+        """Reject empty or reversed compatibility intervals."""
+        minimum = tuple(int(part) for part in self.minimum_inclusive.split("."))
+        maximum = tuple(int(part) for part in self.maximum_exclusive.split("."))
+        if minimum >= maximum:
+            raise ValueError("compatibility range must have an increasing upper bound")
+        return self
+
+
+class ExtractionCompatibility(StrictModel):
+    """Define fail-closed version compatibility for extraction consumers."""
+
+    exact_versions: list[Annotated[str, Field(pattern=r"^[0-9]+\.[0-9]+\.[0-9]+$")]] = Field(
+        min_length=1
+    )
+    version_ranges: list[ExtractionVersionRange] = Field(min_length=1)
+    unknown_major_behavior: Literal["reject"]
+    unknown_revision_behavior: Literal["reject"]
+
+
 class ExtractionContract(StrictModel):
     """Versioned, candidate-only extraction contract for downstream consumers."""
 
@@ -146,6 +173,7 @@ class ExtractionContract(StrictModel):
     codebook: ExtractionContractReference
     provenance_identifiers: list[NonEmpty] = Field(min_length=1)
     candidate_status_vocabulary: CandidateStatusVocabulary
+    compatibility: ExtractionCompatibility
     capability_ids: list[NonEmpty] = Field(min_length=1)
     migration_catalogue: list[ExtractionMigration] = Field(min_length=1)
     artifacts: list[ExtractionContractArtifact] = Field(min_length=1)

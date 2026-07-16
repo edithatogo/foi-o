@@ -15,6 +15,7 @@
     "codebook",
     "provenance_identifiers",
     "candidate_status_vocabulary",
+    "compatibility",
     "capability_ids",
     "migration_catalogue",
     "artifacts",
@@ -55,6 +56,29 @@
         "certified_status_allowed": {"const": false}
       }
     },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exact_versions", "version_ranges", "unknown_major_behavior", "unknown_revision_behavior"],
+      "properties": {
+        "exact_versions": {"$ref": "#/$defs/semverArray"},
+        "version_ranges": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["minimum_inclusive", "maximum_exclusive"],
+            "properties": {
+              "minimum_inclusive": {"$ref": "#/$defs/semver"},
+              "maximum_exclusive": {"$ref": "#/$defs/semver"}
+            }
+          }
+        },
+        "unknown_major_behavior": {"const": "reject"},
+        "unknown_revision_behavior": {"const": "reject"}
+      }
+    },
     "capability_ids": {"$ref": "#/$defs/nonEmptyUniqueArray"},
     "migration_catalogue": {
       "type": "array",
@@ -88,6 +112,13 @@
     "human_promotion_required": {"const": true}
   },
   "$defs": {
+    "semver": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "semverArray": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/semver"}
+    },
     "nonEmptyUniqueArray": {
       "type": "array",
       "minItems": 1,
