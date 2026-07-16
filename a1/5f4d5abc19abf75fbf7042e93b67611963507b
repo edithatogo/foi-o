@@ -1,0 +1,6 @@
+Subtask: governed re-extraction input audit
+Summary: Added a deterministic read-only audit for immutable archive manifests, including exact manifest-hash verification, record-count reconciliation, content-digest checks, duplicate/missing request IDs, and declared-license completeness.
+Files: src/foi_o_nz/reextraction.py; schemas/json/reextraction-input-audit.schema.json; tests/test_reextraction_input_audit.py; examples/v2/reextraction-input-audit.fc27.json; README.md; docs/24-schema-ontology-coverage-matrix.md; maturation summary; track readiness and plan.
+Real audit: edithatogo/fyi-archive-nz@fc27bfa471c598a31d975cfa2b603b1a11408e55, manifest SHA-256 23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e, 33217 records, 33217 valid content digests, zero duplicates/missing IDs, zero declared licences, ready_for_reextraction false.
+Verification: focused tests 14 passed; module coverage 82.79%; uv sync --extra dev --extra rdf exited 0; full pytest 303 passed, 2 skipped; Ruff and JSON checks passed.
+Remaining risks: rights rule, rights-reviewed selection, real baseline, immutable pipeline/model revision, and extraction entrypoint remain unavailable; no extraction or comparison occurred.
