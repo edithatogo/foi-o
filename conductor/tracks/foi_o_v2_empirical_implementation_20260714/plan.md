@@ -122,6 +122,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     coverage 98%; targeted Ruff checks passed; `uv sync --extra dev --extra rdf`
     (exit 0); `uv run pytest -q` (exit 0; 314 passed, 2 skipped).
 - [ ] Populate and review NZ historical source packs and the source-rights registry.
+  - `BLOCKED 2026-07-16`: `mappings/nz-legislation-sources.yaml` records only
+    current-at-retrieval reference metadata and does not contain historical
+    effective intervals, archived content hashes, or reviewed redistribution
+    decisions. The schema-valid examples are contract fixtures, not evidence:
+    they contain repeated placeholder hashes, an `example.invalid` archive URI,
+    and synthetic reviewer metadata. Completion requires verified historical
+    source artifacts plus an identified human rights reviewer; none may be
+    inferred from those fixtures.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
