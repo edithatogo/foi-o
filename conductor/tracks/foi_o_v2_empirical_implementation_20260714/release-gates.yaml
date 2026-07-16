@@ -26,7 +26,7 @@ gates:
       - human_event_time_applicability_review
       - non_legislation_historical_source_artifacts
   governed_reextraction:
-    status: immutable_candidate_handoff_ready_execution_and_empirical_gates_pending
+    status: bounded_local_reproducibility_run_complete_empirical_gates_pending
     upstream_readiness_audit: examples/v2/upstream-extraction-readiness.2026-07-16.json
     governed_handoff:
       packet: examples/v2/governed-reextraction-packet.35076.json
@@ -42,6 +42,27 @@ gates:
       dataset_publication_allowed: false
       publication_allowed: false
       reviewed_gold_label_promotion_allowed: false
+    governed_execution:
+      scope: request_35076_only
+      implementation_commit: ec5480b
+      local_artifact_directory: /private/tmp/foio-governed-reextraction-35076-verified
+      committed: false
+      read_only: true
+      candidate_sha256: 90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007
+      verification_sha256: 23270c27202286e3476f39ccf5df2267cb41641f9cfdf3f1664b8f23e441a9a1
+      non_empirical_delta_sha256: 7af9bc5ea3f4737ac19ce4912f69832aff42cf90f012be93785eb44c53bef72c
+      byte_identical_to_baseline: true
+      candidate_count: 1
+      added_candidates: 0
+      removed_candidates: 0
+      changed_candidates: 0
+      provenance_changed_candidates: 0
+      model_applied: false
+      source_records_modified: false
+      empirical_comparison: false
+      empirical_claim_allowed: false
+      promotion_allowed: false
+      publication_allowed: false
     verified_upstreams:
       fyi_archive_revision: 7b2d245a3319b1915eb522929ee669da5e3533fd
       nlp_policy_nz_revision: 7fc78f14c1da6c1b165c0984c2173ae96307a3f6
@@ -76,7 +97,6 @@ gates:
       storage: local_only
       published: false
     missing:
-      - governed_reextraction_execution
       - independent_annotation_and_adjudication
   raw_state_mapping_audit:
     status: blocked_input_gate

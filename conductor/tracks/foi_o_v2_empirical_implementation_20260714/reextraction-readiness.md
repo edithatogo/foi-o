@@ -2,9 +2,31 @@
 
 ## Status
 
-**A bounded local source, initial baseline, and immutable candidate
-re-extraction handoff are ready; governed comparison remains blocked at
-empirical human gates.** No re-extraction or baseline comparison has been run.
+**The bounded local candidate re-extraction and deterministic reproducibility
+delta are complete; empirical comparison remains blocked at human annotation
+and adjudication gates.**
+
+## Governed local execution
+
+Pinned `nlp-policy-nz` revision
+`7fc78f14c1da6c1b165c0984c2173ae96307a3f6` processed only approved request
+`35076` using the immutable handoff. The read-only local artifacts are held at
+`/private/tmp/foio-governed-reextraction-35076-verified` and are not committed:
+
+- candidate SHA-256:
+  `90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007`;
+- independent verification SHA-256:
+  `23270c27202286e3476f39ccf5df2267cb41641f9cfdf3f1664b8f23e441a9a1`;
+- non-empirical delta SHA-256:
+  `7af9bc5ea3f4737ac19ce4912f69832aff42cf90f012be93785eb44c53bef72c`.
+
+FOI-O independently recomputed the source, contract, candidate, span, archive,
+pipeline, verifier, and model evidence and verified all seven snapshot
+artifacts. Source-file hashes were identical before and after execution. The
+candidate is byte-identical to the initial baseline: one unchanged candidate
+and no added, removed, changed, or provenance-only records. The Legal-BERT pin
+is recorded but the model was not executed. This is a deterministic
+reproducibility result, not empirical validation or a promotion decision.
 
 ## Immutable FOI-O handoff
 
@@ -86,15 +108,13 @@ upstream inspections:
 ## Missing governed inputs
 
 1. Independent annotation and adjudication for empirical evaluation.
-2. A governed re-extraction run and delta comparison against this baseline.
-3. Separate rights treatment for any expansion beyond the one approved record.
+2. Separate rights treatment for any expansion beyond the one approved record.
 
 The verified `nlp-policy-nz` consumer resolves the earlier contract, entry-point,
 and model-pin blockers. The bounded source-content and rights evidence and its
-FOI-O handoff now exist. Execution against the upstream consumer has not been
-demonstrated. Archived evaluation evidence remains synthetic and
-placeholder-pinned, and no
-33,217-record extraction run or empirical comparison has been performed.
+FOI-O handoff and bounded upstream execution now exist. Archived evaluation
+evidence remains synthetic and placeholder-pinned, and no 33,217-record
+extraction run or empirical comparison has been performed.
 
 ## Remaining human decisions
 

@@ -72,12 +72,12 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `upstream_verified: false`; no sibling checkout or upstream outcome was used.
 - [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
   initial ontology-based baseline without overwriting raw archive records.
-  - `BLOCKED 2026-07-16`: the governed one-record local candidate handoff is now
-    ready and immutable, but no governed re-extraction or empirical comparison
-    has run. The wider 33,217-record Hugging Face manifest remains unusable for
-    this purpose because all licence fields are null and it lacks the
-    content-bearing inputs required by the consumer. Independent annotation and
-    adjudication also remain absent. See `reextraction-readiness.md`.
+  - `BLOCKED 2026-07-16`: the governed one-record local candidate re-extraction
+    and deterministic reproducibility delta are complete, but empirical
+    comparison remains blocked by absent independent annotation and
+    adjudication. The wider 33,217-record Hugging Face manifest remains unusable
+    because all licence fields are null and it lacks the content-bearing inputs
+    required by the consumer. See `reextraction-readiness.md`.
   - [x] Readiness subtask: add a read-only, hash-verifying input audit and run it
     against the verified 33,217-record manifest without committing raw records
     (`a15f4d5`). Output: `examples/v2/reextraction-input-audit.fc27.json`;
@@ -129,6 +129,20 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     reviewed/gold-label promotion remain false. Verification: 11 focused tests;
     JSON/schema checks, targeted Ruff, and Conductor review passed; `uv sync
     --extra dev --extra rdf` succeeded; full suite 346 passed, 2 skipped.
+  - [x] Governed execution subtask: run pinned `nlp-policy-nz` revision
+    `7fc78f1` against approved request `35076`, independently verify the local
+    candidate artifact, and produce a deterministic non-empirical delta
+    (`ec5480b`). The candidate SHA-256 is `90550ce0…`, independent verification
+    SHA-256 is `23270c27…`, and delta SHA-256 is `7af9bc5e…`; all three are
+    read-only under `/private/tmp/foio-governed-reextraction-35076-verified` and
+    are not committed. The new artifact is byte-identical to the initial
+    baseline: one unchanged candidate, no added/removed/changed/provenance-only
+    records. All seven source-artifact hashes were verified and source hashes
+    were unchanged before and after execution. Model execution, empirical
+    comparison, promotion, publication, and redistribution remain false.
+    Verification: targeted type checking; 26 focused tests; JSON/schema checks,
+    targeted Ruff, and Conductor review passed; `uv sync --extra dev --extra
+    rdf` succeeded; full suite 353 passed, 2 skipped.
 - [x] `[HUMAN]` Pin and approve the target revision for upstream review.
   - Scope of approval (2026-07-16): repeated human direction to continue permits
     repo-local preparation against verified Hugging Face commit
