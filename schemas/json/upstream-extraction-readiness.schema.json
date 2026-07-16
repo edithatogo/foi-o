@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:foi-o:schema:upstream-extraction-readiness:0.2.0",
+  "$id": "urn:foi-o:schema:upstream-extraction-readiness:0.3.0",
   "title": "FOI-O upstream extraction readiness audit",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "audited_at", "upstreams", "contract_alignment", "ready_for_governed_reextraction", "blockers", "source_records_modified"],
   "properties": {
-    "schema_version": {"const": "foi-o.upstream-extraction-readiness.v0.2.0"},
+    "schema_version": {"const": "foi-o.upstream-extraction-readiness.v0.3.0"},
     "audited_at": {"type": "string", "format": "date-time"},
     "upstreams": {
       "type": "object",
@@ -34,7 +34,6 @@
       "uniqueItems": true,
       "items": {
         "enum": [
-          "approved_snapshot_adapter_pending",
           "contract_version_mismatch",
           "independent_annotation_pending",
           "model_pin_missing",
@@ -94,7 +93,7 @@
     "nlp": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["repository", "repository_revision", "adapter", "raw_manifest_entrypoint", "consumer_pins", "bounded_fixture", "evaluation_report", "fixture_record_count", "fixture_is_synthetic", "fixture_uses_placeholder_archive_revision", "fixture_uses_placeholder_source_digest", "raw_manifest_entrypoint_available", "real_model_pin_available", "model_applied_during_candidate_extraction", "model", "independent_annotation_complete"],
+      "required": ["repository", "repository_revision", "adapter", "raw_manifest_entrypoint", "consumer_pins", "bounded_fixture", "evaluation_report", "initial_baseline", "fixture_record_count", "fixture_is_synthetic", "fixture_uses_placeholder_archive_revision", "fixture_uses_placeholder_source_digest", "raw_manifest_entrypoint_available", "real_model_pin_available", "model_applied_during_candidate_extraction", "model", "independent_annotation_complete"],
       "properties": {
         "repository": {"const": "https://github.com/edithatogo/nlp-policy-nz"},
         "repository_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
@@ -103,6 +102,7 @@
         "consumer_pins": {"$ref": "#/$defs/pin"},
         "bounded_fixture": {"$ref": "#/$defs/pin"},
         "evaluation_report": {"$ref": "#/$defs/pin"},
+        "initial_baseline": {"$ref": "#/$defs/initial_baseline"},
         "fixture_record_count": {"type": "integer", "minimum": 1},
         "fixture_is_synthetic": {"const": true},
         "fixture_uses_placeholder_archive_revision": {"const": true},
@@ -112,6 +112,27 @@
         "model_applied_during_candidate_extraction": {"const": false},
         "model": {"$ref": "#/$defs/model"},
         "independent_annotation_complete": {"const": false}
+      }
+    },
+    "initial_baseline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "artifact_sha256", "verification_report_sha256", "source_manifest_sha256", "pipeline_revision", "verifier_revision", "archive_revision", "contract_sha256", "retrieved_at", "record_count", "review_status", "model_applied", "storage", "published"],
+      "properties": {
+        "schema_version": {"const": "nlp-policy-nz.foio-raw-extraction.v0.2.0"},
+        "artifact_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "verification_report_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "source_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "pipeline_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "verifier_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "archive_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "contract_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "retrieved_at": {"type": "string", "format": "date-time"},
+        "record_count": {"type": "integer", "minimum": 0},
+        "review_status": {"const": "candidate"},
+        "model_applied": {"const": false},
+        "storage": {"const": "local_only"},
+        "published": {"const": false}
       }
     },
     "model": {

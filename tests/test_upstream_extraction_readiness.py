@@ -38,7 +38,17 @@ def test_upstream_readiness_audit_is_schema_valid_and_fail_closed() -> None:
     assert audit["contract_alignment"]["compatible"] is True
     assert audit["blockers"] == sorted(audit["blockers"])
     assert "rights_metadata_incomplete" not in audit["blockers"]
-    assert "approved_snapshot_adapter_pending" in audit["blockers"]
+    assert "approved_snapshot_adapter_pending" not in audit["blockers"]
+    baseline = audit["upstreams"]["nlp_policy_nz"]["initial_baseline"]
+    assert baseline["artifact_sha256"] == (
+        "90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007"
+    )
+    assert baseline["verification_report_sha256"] == (
+        "0702d54e59c966958a759eb03f28018c96d197f27b948febf3374c3da4a6fcbc"
+    )
+    assert baseline["review_status"] == "candidate"
+    assert baseline["model_applied"] is False
+    assert baseline["published"] is False
 
 
 def test_audit_pins_real_revisions_and_rejects_placeholder_evidence() -> None:

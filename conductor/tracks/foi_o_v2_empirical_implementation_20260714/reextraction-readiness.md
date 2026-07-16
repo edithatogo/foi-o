@@ -2,10 +2,23 @@
 
 ## Status
 
-**A bounded local source is ready; governed evaluation remains blocked at
-baseline and empirical human gates.**
+**A bounded local source and initial baseline are ready; governed comparison
+remains blocked at empirical human gates.**
 The candidate target revision is approved for repo-local preparation only. No
 re-extraction or baseline comparison has been run.
+
+## Independently verified initial baseline
+
+`nlp-policy-nz` revision `7fc78f14c1da6c1b165c0984c2173ae96307a3f6`
+generated a deterministic lexical baseline from the approved one-record
+snapshot. The local-only artifact SHA-256 is
+`90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007`.
+FOI-O verifier revision `baf1b229e248c19d0922c0e75ef395ba22858b33`
+independently recomputed the artifact, source, contract, content, revision,
+timestamp, candidate, and span evidence. Its report SHA-256 is
+`0702d54e59c966958a759eb03f28018c96d197f27b948febf3374c3da4a6fcbc`.
+The baseline contains one candidate obligation, did not execute the pinned
+model, remains human-review-bound, and is not published.
 
 ## Approved bounded local input
 
@@ -61,12 +74,9 @@ upstream inspections:
 
 ## Missing governed inputs
 
-1. A real initial ontology-based baseline artifact with immutable revision,
-   record identifiers, content digests, and output digest.
-2. An adapter/conformance run that maps the approved snapshot into the verified
-   `nlp-policy-nz` manifest entry point without altering source records.
-3. Independent annotation and adjudication for empirical evaluation.
-4. Separate rights treatment for any expansion beyond the one approved record.
+1. Independent annotation and adjudication for empirical evaluation.
+2. A governed re-extraction run and delta comparison against this baseline.
+3. Separate rights treatment for any expansion beyond the one approved record.
 
 The verified `nlp-policy-nz` consumer resolves the earlier contract, entry-point,
 and model-pin blockers. The bounded source-content and rights evidence now

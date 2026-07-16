@@ -1,6 +1,6 @@
 {
-  "schema_version": "foi-o.upstream-extraction-readiness.v0.2.0",
-  "audited_at": "2026-07-16T10:52:39Z",
+  "schema_version": "foi-o.upstream-extraction-readiness.v0.3.0",
+  "audited_at": "2026-07-16T11:10:49Z",
   "upstreams": {
     "fyi_archive": {
       "repository": "https://github.com/edithatogo/fyi-archive",
@@ -31,14 +31,14 @@
     },
     "nlp_policy_nz": {
       "repository": "https://github.com/edithatogo/nlp-policy-nz",
-      "repository_revision": "ee3fb0b4b686f565f4ba18856a2bda4284466328",
+      "repository_revision": "7fc78f14c1da6c1b165c0984c2173ae96307a3f6",
       "adapter": {
         "path": "src/nlp_policy_nz/extraction/foio_adapter.py",
         "sha256": "b287fbfc38bc6775db32b2c347d313bbedea80db430c4edddb3cf91804acc244"
       },
       "raw_manifest_entrypoint": {
         "path": "src/nlp_policy_nz/extraction/foio_raw_manifest.py",
-        "sha256": "2343cce5af820b6d62d178ba22b35d5287947428f167b630826d9b216a7dcbea"
+        "sha256": "caa2070238c37fae7636f2f46e8019b4d9802775e97540601e2afdb9d8344149"
       },
       "consumer_pins": {
         "path": "data/foio/consumer_pins.json",
@@ -51,6 +51,22 @@
       "evaluation_report": {
         "path": "artifacts/foio/bounded_evaluation_report.json",
         "sha256": "8e68703c7215e60936433ef4a0f207fef983e27a34dd682aa7a7de76fdf16c5c"
+      },
+      "initial_baseline": {
+        "schema_version": "nlp-policy-nz.foio-raw-extraction.v0.2.0",
+        "artifact_sha256": "90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007",
+        "verification_report_sha256": "0702d54e59c966958a759eb03f28018c96d197f27b948febf3374c3da4a6fcbc",
+        "source_manifest_sha256": "c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d",
+        "pipeline_revision": "7fc78f14c1da6c1b165c0984c2173ae96307a3f6",
+        "verifier_revision": "baf1b229e248c19d0922c0e75ef395ba22858b33",
+        "archive_revision": "7b2d245a3319b1915eb522929ee669da5e3533fd",
+        "contract_sha256": "a730b18e7adaa1d1179de47800b8a92d41c9c8000dc9b8e4923d994f380340fa",
+        "retrieved_at": "2026-07-16T10:52:39Z",
+        "record_count": 1,
+        "review_status": "candidate",
+        "model_applied": false,
+        "storage": "local_only",
+        "published": false
       },
       "fixture_record_count": 2,
       "fixture_is_synthetic": true,
@@ -75,7 +91,6 @@
   },
   "ready_for_governed_reextraction": false,
   "blockers": [
-    "approved_snapshot_adapter_pending",
     "independent_annotation_pending",
     "synthetic_fixture_only"
   ],

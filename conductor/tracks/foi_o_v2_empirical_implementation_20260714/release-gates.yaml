@@ -30,7 +30,7 @@ gates:
     upstream_readiness_audit: examples/v2/upstream-extraction-readiness.2026-07-16.json
     verified_upstreams:
       fyi_archive_revision: 7b2d245a3319b1915eb522929ee669da5e3533fd
-      nlp_policy_nz_revision: ee3fb0b4b686f565f4ba18856a2bda4284466328
+      nlp_policy_nz_revision: 7fc78f14c1da6c1b165c0984c2173ae96307a3f6
     verified_candidate_source:
       repository: edithatogo/fyi-archive-nz
       revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
@@ -51,10 +51,18 @@ gates:
       purpose: foi-o-candidate-extraction
       redistribution_allowed: false
       published: false
+    initial_baseline:
+      artifact_sha256: 90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007
+      verification_report_sha256: 0702d54e59c966958a759eb03f28018c96d197f27b948febf3374c3da4a6fcbc
+      pipeline_revision: 7fc78f14c1da6c1b165c0984c2173ae96307a3f6
+      verifier_revision: baf1b229e248c19d0922c0e75ef395ba22858b33
+      record_count: 1
+      review_status: candidate
+      model_applied: false
+      storage: local_only
+      published: false
     missing:
-      - approved_snapshot_consumer_adapter
       - independent_annotation_and_adjudication
-      - immutable_real_initial_baseline
   raw_state_mapping_audit:
     status: blocked_input_gate
     verified_candidate_source_revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
