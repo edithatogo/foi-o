@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-raw-state-audit:0.1.0",
+  "title": "FOI-O bounded correspondence-backed raw-state audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "request_id", "snapshot_manifest_sha256",
+    "request_json_sha256", "page_html_sha256", "attachment_inventory_sha256",
+    "mapping_sha256", "rights_reviewer", "rights_reviewed_at", "rights_purpose",
+    "storage", "raw_state_field", "raw_state_value", "normalised_state",
+    "correspondence_count", "outgoing_correspondence_count",
+    "incoming_correspondence_count", "attachment_count",
+    "correspondence_evidence_verified", "attachment_inventory_verified",
+    "nonempty_attachment_evidence", "candidate_mapping_supported",
+    "ready_for_bounded_human_mapping_review", "ready_for_archive_wide_mapping_claim",
+    "human_mapping_review_required", "promotion_allowed", "source_records_modified",
+    "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-raw-state-audit.v0.1.0"},
+    "request_id": {"type": "string", "minLength": 1},
+    "snapshot_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "request_json_sha256": {"$ref": "#/$defs/sha256"},
+    "page_html_sha256": {"$ref": "#/$defs/sha256"},
+    "attachment_inventory_sha256": {"$ref": "#/$defs/sha256"},
+    "mapping_sha256": {"$ref": "#/$defs/sha256"},
+    "rights_reviewer": {"type": "string", "minLength": 1},
+    "rights_reviewed_at": {"type": "string", "format": "date-time"},
+    "rights_purpose": {"const": "foi-o-candidate-extraction"},
+    "storage": {"const": "local_only"},
+    "raw_state_field": {"const": "described_state"},
+    "raw_state_value": {"type": "string", "minLength": 1},
+    "normalised_state": {"type": "string", "minLength": 1},
+    "correspondence_count": {"type": "integer", "minimum": 1},
+    "outgoing_correspondence_count": {"type": "integer", "minimum": 0},
+    "incoming_correspondence_count": {"type": "integer", "minimum": 0},
+    "attachment_count": {"type": "integer", "minimum": 0},
+    "correspondence_evidence_verified": {"const": true},
+    "attachment_inventory_verified": {"const": true},
+    "nonempty_attachment_evidence": {"type": "boolean"},
+    "candidate_mapping_supported": {"const": true},
+    "ready_for_bounded_human_mapping_review": {"const": true},
+    "ready_for_archive_wide_mapping_claim": {"const": false},
+    "human_mapping_review_required": {"const": true},
+    "promotion_allowed": {"const": false},
+    "source_records_modified": {"const": false},
+    "blockers": {
+      "type": "array", "minItems": 2, "uniqueItems": true,
+      "items": {
+        "enum": [
+          "human_mapping_review_pending", "no_nonempty_attachment_evidence",
+          "single_request_only"
+        ]
+      }
+    }
+  },
+  "allOf": [
+    {
+      "properties": {
+        "blockers": {"contains": {"const": "human_mapping_review_pending"}}
+      }
+    },
+    {
+      "properties": {
+        "blockers": {"contains": {"const": "single_request_only"}}
+      }
+    },
+    {
+      "if": {"properties": {"attachment_count": {"const": 0}}},
+      "then": {
+        "properties": {
+          "nonempty_attachment_evidence": {"const": false},
+          "blockers": {"contains": {"const": "no_nonempty_attachment_evidence"}}
+        }
+      },
+      "else": {
+        "properties": {
+          "nonempty_attachment_evidence": {"const": true},
+          "blockers": {"not": {"contains": {"const": "no_nonempty_attachment_evidence"}}}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
