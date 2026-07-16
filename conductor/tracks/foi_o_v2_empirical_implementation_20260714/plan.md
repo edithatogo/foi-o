@@ -94,6 +94,8 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     release, or publication. The real baseline artifact and immutable
     `nlp-policy-nz` pipeline/model revision remain missing.
 - [ ] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
+  - `PENDING HUMAN REVIEW 2026-07-16`: generic direction to continue authorizes
+    candidate-only repo work but does not promote labels, fixtures, or mappings.
 - [x] Build an independent `oia_rules` event-time fixture set without reusing
   authoring data (`0b70a1d`).
   - Output: six synthetic candidate cases in
@@ -107,9 +109,18 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
   - Human gate retained: expected outputs are synthetic candidate assertions,
     not a gold oracle; `promotionAllowed` is false pending independent human
     calculation and approval of every case.
-- [ ] Build deterministic source-triangulation assertions and an explicit human
+- [x] Build deterministic source-triangulation assertions and an explicit human
   exception queue for blocked, conflicting, stale, rights-uncertain, or
-  insufficient evidence.
+  insufficient evidence (`2ce322b`).
+  - Output: strict Pydantic input/result records and deterministic evaluator in
+    `src/foi_o_nz/source_triangulation.py`, machine-readable result schema, and
+    a candidate fail-closed example.
+  - Behavior: two distinct eligible supporting sources are required; exception
+    reasons and identifiers are stably sorted; human review is always required
+    and promotion is always disabled.
+  - Verification: focused empirical suite (exit 0; 83 passed); new module
+    coverage 98%; targeted Ruff checks passed; `uv sync --extra dev --extra rdf`
+    (exit 0); `uv run pytest -q` (exit 0; 314 passed, 2 skipped).
 - [ ] Populate and review NZ historical source packs and the source-rights registry.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
