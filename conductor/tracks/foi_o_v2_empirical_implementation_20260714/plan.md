@@ -263,6 +263,16 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     tests; Ruff, JSON/schema checks, and Conductor review passed; full suite
     364 passed, 2 skipped. Approval, role identities, population, codebook, and
     sampling configuration remain missing.
+  - [x] Consolidated human-gate packet subtask: pin the interval, PSC provider
+    scope, seven-source selection, source-pack promotion, bounded raw-state
+    mapping, and annotation-protocol decisions in
+    `examples/v2/empirical-human-gate-review-packet.pending.json` (`ec4573b`;
+    SHA-256 `57c9f75e…`). Every decision remains pending; reviewer and timestamps
+    are null; annotator IDs are empty; the adjudicator, source population,
+    codebook, and sampling configuration are null; attachment, sample-freeze,
+    and empirical-comparison gates remain false. Verification: 24 focused tests,
+    examples validation, and targeted Ruff passed; full suite 377 passed,
+    2 skipped.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
