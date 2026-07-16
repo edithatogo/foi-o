@@ -50,8 +50,16 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
   family contract, including `foi-o-nz` and `foi-o-au-nsw` examples.
   - Evidence: `docs/39-ontology-versioning-and-jurisdiction-profiles.md`;
     `schemas/json/ontology-release-manifest.schema.json`; 54 schema-fixture tests passed.
-- [~] Define contract-version compatibility, capability negotiation, migrations,
-  and rejection behavior for unknown revisions.
+- [x] Define contract-version compatibility, capability negotiation, migrations,
+  and rejection behavior for unknown revisions (`485f13b`).
+  - Output: strict exact-version and declared-range negotiation in
+    `src/foi_o_nz/contract_capabilities.py`, backed by the versioned manifest,
+    JSON Schema, Pydantic records, capability discovery, and migration lookup.
+  - Verification: focused contract/capability/empirical/schema suite (exit 0;
+    77 passed); `uv sync --extra dev --extra rdf` (exit 0); `uv run pytest -q`
+    (exit 0; 296 passed, 2 skipped); targeted Ruff checks passed.
+  - Rejection behavior: malformed versions, unknown majors, unsupported
+    revisions, and missing capabilities fail closed with explicit reasons.
 - [ ] Add consumer-contract tests for FOI-O, `fyi-archive`, `nlp-policy-nz`, and
   one read-only agent/MCP surface.
 - [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
