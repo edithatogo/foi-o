@@ -1,0 +1,4 @@
+Task subtask: Audit FYI raw-state mapping input readiness.
+Files: read-only audit module, schema, aggregate fc27 report, tests, inventory and triangulation docs.
+Verification: committed report reproduced from pinned manifest; focused 21 tests passed; new module coverage 93%; Ruff passed; full suite 318 passed, 2 skipped.
+Remaining risk: parent mapping audit is blocked because the pinned manifest has no mapped states, correspondence, or non-empty attachments.
