@@ -1,0 +1,6 @@
+Gate: governed FOI-O re-extraction readiness
+Summary: Independently verified the candidate Hugging Face source commit and downloaded-manifest digest, then recorded the human approval and missing empirical input gates without running extraction.
+Verified source: edithatogo/fyi-archive-nz@fc27bfa471c598a31d975cfa2b603b1a11408e55; default/requests; manifest SHA-256 23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e; 33217 records; every content digest present.
+Blockers: all 33217 licence fields null; no approved rights rule or heldout selection; available nlp-policy-nz NZ evidence is synthetic and placeholder-pinned; no real initial baseline, immutable model pin, or raw-manifest extraction entrypoint.
+Verification: three governance YAML files parsed; uv sync --extra dev --extra rdf exited 0; uv run pytest -q -> 299 passed, 2 skipped.
+Boundary: re-extraction remains unchecked; no external repository was modified, no dataset was published, and no candidate was promoted.
