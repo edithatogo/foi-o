@@ -70,7 +70,7 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     299 passed, 2 skipped); targeted Ruff and JSON checks passed.
   - Boundary: every fixture is candidate-only and records
     `upstream_verified: false`; no sibling checkout or upstream outcome was used.
-- [~] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
+- [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
   initial ontology-based baseline without overwriting raw archive records.
   - `BLOCKED 2026-07-16`: candidate raw input independently verified as Hugging
     Face commit `fc27bfa471c598a31d975cfa2b603b1a11408e55`, `default/requests`,
@@ -80,8 +80,12 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     synthetic and placeholder-pinned; no real initial baseline artifact or
     runnable raw-manifest extraction pipeline/model pin exists. See
     `reextraction-readiness.md`.
-  - [~] Readiness subtask: add a read-only, hash-verifying input audit and run it
-    against the verified 33,217-record manifest without committing raw records.
+  - [x] Readiness subtask: add a read-only, hash-verifying input audit and run it
+    against the verified 33,217-record manifest without committing raw records
+    (`a15f4d5`). Output: `examples/v2/reextraction-input-audit.fc27.json`;
+    33,217 valid content digests, no duplicate/missing request IDs, zero declared
+    licences, `ready_for_reextraction: false`. Verification: 14 focused tests;
+    82.79% module coverage; full suite 303 passed, 2 skipped.
 - [ ] `[HUMAN]` Pin and approve the target revision for upstream review.
   - Decision candidate: approve or reject the verified Hugging Face commit
     above and specify the rights rule, real baseline artifact, heldout record
