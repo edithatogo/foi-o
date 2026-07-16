@@ -1,0 +1,56 @@
+{
+  "schema_version": "foi-o.upstream-extraction-readiness.v0.1.0",
+  "audited_at": "2026-07-16T04:00:00Z",
+  "upstreams": {
+    "fyi_archive": {
+      "repository": "https://github.com/edithatogo/fyi-archive",
+      "repository_revision": "7e405aae53d726cb9214218bd83c5b7796d781a7",
+      "verification_evidence": {
+        "path": "versions/2026-07/backfill_verification.json",
+        "sha256": "cc85852985b77ea8b9c0717903890faaf282ee5ae547d25512e0c4b472de041f"
+      },
+      "verified_record_count": 33217,
+      "published_manifest_revision": "fc27bfa471c598a31d975cfa2b603b1a11408e55",
+      "published_manifest_sha256": "23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e",
+      "rights_metadata_complete": false
+    },
+    "nlp_policy_nz": {
+      "repository": "https://github.com/edithatogo/nlp-policy-nz",
+      "repository_revision": "4150ac35a2a3fba6e8cff0136ca1fc1c109192e4",
+      "adapter": {
+        "path": "src/nlp_policy_nz/extraction/foio_adapter.py",
+        "sha256": "35ee0b75e0881c9ed793d06c0ecfecfb3cd00421bc2b4b4d0a544a0e0e71fead"
+      },
+      "bounded_fixture": {
+        "path": "data/foio/bounded_evaluation_fixture.json",
+        "sha256": "2ea61ec3f39047969dc5f51bf9086da91fa50e0bde7eebd6f2bd5d45d731b5a3"
+      },
+      "evaluation_report": {
+        "path": "artifacts/foio/bounded_evaluation_report.json",
+        "sha256": "8e68703c7215e60936433ef4a0f207fef983e27a34dd682aa7a7de76fdf16c5c"
+      },
+      "fixture_record_count": 2,
+      "fixture_is_synthetic": true,
+      "fixture_uses_placeholder_archive_revision": true,
+      "fixture_uses_placeholder_source_digest": true,
+      "raw_manifest_entrypoint_available": false,
+      "real_model_pin_available": false,
+      "independent_annotation_complete": false
+    }
+  },
+  "contract_alignment": {
+    "foi_o_candidate_contract": "foi-o-extraction-contract/0.1.0",
+    "nlp_policy_nz_declared_contract": "2.0.0",
+    "compatible": false
+  },
+  "ready_for_governed_reextraction": false,
+  "blockers": [
+    "contract_version_mismatch",
+    "independent_annotation_pending",
+    "model_pin_missing",
+    "raw_manifest_entrypoint_missing",
+    "rights_metadata_incomplete",
+    "synthetic_fixture_only"
+  ],
+  "source_records_modified": false
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:upstream-extraction-readiness:0.1.0",
+  "title": "FOI-O upstream extraction readiness audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "audited_at", "upstreams", "contract_alignment", "ready_for_governed_reextraction", "blockers", "source_records_modified"],
+  "properties": {
+    "schema_version": {"const": "foi-o.upstream-extraction-readiness.v0.1.0"},
+    "audited_at": {"type": "string", "format": "date-time"},
+    "upstreams": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fyi_archive", "nlp_policy_nz"],
+      "properties": {
+        "fyi_archive": {"$ref": "#/$defs/archive"},
+        "nlp_policy_nz": {"$ref": "#/$defs/nlp"}
+      }
+    },
+    "contract_alignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["foi_o_candidate_contract", "nlp_policy_nz_declared_contract", "compatible"],
+      "properties": {
+        "foi_o_candidate_contract": {"const": "foi-o-extraction-contract/0.1.0"},
+        "nlp_policy_nz_declared_contract": {"const": "2.0.0"},
+        "compatible": {"const": false}
+      }
+    },
+    "ready_for_governed_reextraction": {"const": false},
+    "blockers": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "contract_version_mismatch",
+          "independent_annotation_pending",
+          "model_pin_missing",
+          "raw_manifest_entrypoint_missing",
+          "rights_metadata_incomplete",
+          "synthetic_fixture_only"
+        ]
+      }
+    },
+    "source_records_modified": {"const": false}
+  },
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "repository_revision", "verification_evidence", "verified_record_count", "published_manifest_revision", "published_manifest_sha256", "rights_metadata_complete"],
+      "properties": {
+        "repository": {"const": "https://github.com/edithatogo/fyi-archive"},
+        "repository_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "verification_evidence": {"$ref": "#/$defs/pin"},
+        "verified_record_count": {"type": "integer", "minimum": 1},
+        "published_manifest_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "published_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "rights_metadata_complete": {"const": false}
+      }
+    },
+    "nlp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "repository_revision", "adapter", "bounded_fixture", "evaluation_report", "fixture_record_count", "fixture_is_synthetic", "fixture_uses_placeholder_archive_revision", "fixture_uses_placeholder_source_digest", "raw_manifest_entrypoint_available", "real_model_pin_available", "independent_annotation_complete"],
+      "properties": {
+        "repository": {"const": "https://github.com/edithatogo/nlp-policy-nz"},
+        "repository_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+        "adapter": {"$ref": "#/$defs/pin"},
+        "bounded_fixture": {"$ref": "#/$defs/pin"},
+        "evaluation_report": {"$ref": "#/$defs/pin"},
+        "fixture_record_count": {"type": "integer", "minimum": 1},
+        "fixture_is_synthetic": {"const": true},
+        "fixture_uses_placeholder_archive_revision": {"const": true},
+        "fixture_uses_placeholder_source_digest": {"const": true},
+        "raw_manifest_entrypoint_available": {"const": false},
+        "real_model_pin_available": {"const": false},
+        "independent_annotation_complete": {"const": false}
+      }
+    }
+  }
+}

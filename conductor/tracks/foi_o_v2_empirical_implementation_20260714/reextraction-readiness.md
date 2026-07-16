@@ -2,8 +2,9 @@
 
 ## Status
 
-**Blocked at the human target-pin and rights gate.** No re-extraction or
-baseline comparison has been run.
+**Blocked at rights, upstream execution-contract, and empirical human gates.**
+The candidate target revision is approved for repo-local preparation only. No
+re-extraction or baseline comparison has been run.
 
 ## Verified candidate raw input
 
@@ -22,17 +23,37 @@ baseline comparison has been run.
 
 The Hugging Face dataset API returned the commit as the dataset SHA and the
 downloaded JSON manifest reproduced the SHA-256 already recorded in
-`fyi-archive/versions/2026-07/backfill_verification.json`. The source checkout
-itself remains untouched and dirty on another agent branch.
+`fyi-archive/versions/2026-07/backfill_verification.json`. The separate source
+checkout itself remains untouched.
+
+## Verified upstream implementation state
+
+The schema-backed audit at
+`examples/v2/upstream-extraction-readiness.2026-07-16.json` pins two read-only
+upstream inspections:
+
+- `fyi-archive` revision `7e405aae53d726cb9214218bd83c5b7796d781a7`
+  commits attachment-aware capture and retains a July verification report for
+  33,217 merged and published records. This verifies archive orchestration; it
+  does not cure the null record-level licence metadata in the pinned manifest.
+- `nlp-policy-nz` revision `4150ac35a2a3fba6e8cff0136ca1fc1c109192e4`
+  contains an adapter, comparison functions, and a two-record bounded
+  evaluation. The bounded input is synthetic, uses placeholder archive pins,
+  has no real model pin, and starts from already-produced extraction records
+  rather than a raw archive manifest.
+- The upstream fixture declares extraction contract `2.0.0`, while this
+  repository publishes candidate contract `foi-o-extraction-contract/0.1.0`.
+  No compatibility evidence bridges those versions, so the audit fails closed.
 
 ## Missing governed inputs
 
-1. Human approval or rejection of the candidate raw dataset commit and an
-   explicit rights treatment for records whose licence field is null.
+1. An explicit human-approved rights treatment for records whose licence field
+   is null.
 2. A real initial ontology-based baseline artifact with immutable revision,
    record identifiers, content digests, and output digest.
-3. A real `nlp-policy-nz` extraction pipeline/model revision and runnable
-   manifest-to-candidate extraction entry point.
+3. A real `nlp-policy-nz` pipeline/model pin, a runnable manifest-to-candidate
+   extraction entry point, and explicit compatibility with candidate contract
+   `0.1.0`.
 4. A rights-reviewed record selection or heldout sample suitable for processing.
 
 The existing `nlp-policy-nz` NZ adapter bundle cannot satisfy items 2-3. Its
@@ -43,11 +64,10 @@ records but does not implement a 33,217-record raw-manifest extraction run.
 
 ## Required human decision
 
-Approve or reject the candidate Hugging Face commit above. If approved, also
-provide or approve the rights rule, baseline artifact, heldout selection, and
-immutable `nlp-policy-nz` pipeline/model revision. Until then, no raw records
-may be overwritten, no candidate may be promoted, and no empirical comparison
-may be claimed.
+Approve the rights rule, baseline artifact, heldout selection, contract
+alignment, and immutable `nlp-policy-nz` pipeline/model revision. Until then,
+no raw records may be overwritten, no candidate may be promoted, and no
+empirical comparison may be claimed.
 
 ## Repo-local input audit
 

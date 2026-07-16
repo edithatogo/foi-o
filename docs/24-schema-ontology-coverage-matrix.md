@@ -11,6 +11,7 @@ changes materially.
 | Core event | `schemas/json/core-event.schema.json` | `foio:ProcessEvent`, `foio:hasEvidence`, `foio:assertionStatus`; `vocab/event-types.skos.ttl` | `examples/core-event.extension-notified.json`, `examples/core-event.deadline-calculated.json` | `tests/test_event_extraction_timeline.py`, `tests/test_transitions.py` | Candidate events cite evidence and assertion status. |
 | Extraction contract | `schemas/json/extraction-contract.schema.json`, `schemas/json/consumer-extraction-contract.schema.json`, `contracts/foi-o-extraction-contract/0.1.0/manifest.json` | Pins `ontology/foi-o-nz.ttl`, the ontology-release manifest schema, and the candidate assertion-status vocabulary. | `examples/v2/schema-valid/extraction-contract-1.json`, three rejection fixtures, and four offline consumer fixtures | `tests/test_extraction_contract.py`, `tests/test_consumer_contracts.py`, `tests/test_empirical_schema_fixtures.py` | Consumers fail closed on unknown revisions; offline fixtures do not claim upstream approval; certification and promotion require human approval. |
 | Re-extraction readiness | `schemas/json/reextraction-input-audit.schema.json` | Consumes the pinned extraction contract and archive provenance without changing ontology terms. | `examples/v2/reextraction-input-audit.fc27.json` | `tests/test_reextraction_input_audit.py` | Hash mismatch is rejected; incomplete rights metadata blocks extraction; raw source records are never modified. |
+| Upstream extraction readiness | `schemas/json/upstream-extraction-readiness.schema.json` | Pins upstream archive and NLP implementation evidence without importing or promoting upstream outputs. | `examples/v2/upstream-extraction-readiness.2026-07-16.json` | `tests/test_upstream_extraction_readiness.py` | Real repository and file hashes are recorded; synthetic placeholders, missing execution entry points/model pins, and contract mismatch block governed re-extraction. |
 | OIA event-time candidates | `schemas/json/oia-event-time-fixture-set.schema.json` | Exercises the existing `oia_rules` decision identifiers without changing legal mappings. | `tests/fixtures/oia_rules/oia-event-time-independent-candidates.json` | `tests/test_oia_rules_independent_fixtures.py` | Candidate cases pin and remain disjoint from the approved authoring fixture; promotion is forbidden pending independent human calculation and review. |
 | Source triangulation | `schemas/json/source-triangulation-result.schema.json` | Relates candidate claim support to existing evidence assertions and normative sources without certifying either. | `examples/v2/source-triangulation.example.json` | `tests/test_source_triangulation.py` | Two independent eligible sources are required; blocked, conflicting, stale, rights-uncertain, and insufficient evidence enter a deterministic human exception queue; promotion is always false. |
 | Raw-state audit readiness | `schemas/json/raw-state-audit-readiness.schema.json` | Tests whether immutable FYI state observations have the correspondence and attachment evidence needed to review candidate mappings. | `examples/v2/raw-state-audit-readiness.fc27.json` | `tests/test_raw_state_audit.py` | Input and mapping hashes are verified; aggregate coverage only is committed; absent evidence blocks mapping conclusions. |
@@ -25,14 +26,14 @@ changes materially.
 
 | Artefact class | Count |
 | --- | ---:|
-| JSON Schema files | 72 |
-| Example files | 129 |
+| JSON Schema files | 73 |
+| Example files | 130 |
 | Documentation files | 52 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 5 |
-| Python test modules | 61 |
+| Python test modules | 62 |
 
 ## Semantic Snapshot
 
