@@ -77,11 +77,12 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     manifest SHA-256 `23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e`,
     33,217 records. All records have content digests, but all 33,217 licence
     fields are null. Read-only upstream inspection pins `fyi-archive` revision
-    `7e405aa` and `nlp-policy-nz` revision `4150ac3`; the latter has an adapter
-    and two-record evaluation, but remains synthetic and placeholder-pinned,
-    lacks a raw-manifest entry point and real model pin, and declares contract
-    `2.0.0` rather than this repository's candidate contract `0.1.0`. See
-    `reextraction-readiness.md`.
+    `7e405aa` and `nlp-policy-nz` revision `ee3fb0b`; the latter now enforces
+    contract `0.1.0`, exposes a fail-closed raw-manifest entry point, and pins a
+    real immutable Legal-BERT revision and weights digest. Its retained bounded
+    evaluation remains synthetic and placeholder-pinned, the verified archive
+    manifest lacks content-bearing inputs and rights metadata, and no governed
+    extraction or empirical comparison has run. See `reextraction-readiness.md`.
   - [x] Readiness subtask: add a read-only, hash-verifying input audit and run it
     against the verified 33,217-record manifest without committing raw records
     (`a15f4d5`). Output: `examples/v2/reextraction-input-audit.fc27.json`;
@@ -96,13 +97,21 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     entry point/model pin, pending independent annotation, and contract-version
     mismatch. Verification: 16 focused tests; example validation and targeted
     Ruff passed; full suite 328 passed, 2 skipped.
+  - [x] Consumer readiness subtask: verify `nlp-policy-nz` revision `ee3fb0b`
+    consumes contract `0.1.0`, exposes a raw-manifest extraction entry point,
+    and pins Legal-BERT to immutable repository and weights digests. The audit
+    remains fail-closed because the available source manifest is not
+    content-bearing or rights-cleared, the baseline is synthetic, and
+    independent annotation is pending (`60f2671`). Verification: 64 focused
+    tests; JSON parsing, targeted Ruff, and diff checks passed; full suite 331
+    passed, 2 skipped.
 - [x] `[HUMAN]` Pin and approve the target revision for upstream review.
   - Scope of approval (2026-07-16): repeated human direction to continue permits
     repo-local preparation against verified Hugging Face commit
     `fc27bfa471c598a31d975cfa2b603b1a11408e55` only. It does not approve a
     rights rule, heldout selection, label/gold promotion, upstream PR, dataset,
-    release, or publication. The real baseline artifact and immutable
-    `nlp-policy-nz` pipeline/model revision remain missing.
+    release, or publication. A real baseline artifact, content-bearing
+    rights-reviewed input selection, and independent annotation remain missing.
 - [x] `[HUMAN]` Approve stable labels, gold fixtures, and official legal mappings.
   - `APPROVED 2026-07-16`: named reviewer `edithatogo` explicitly approved all
     four hash-pinned review items. The approval is recorded at
