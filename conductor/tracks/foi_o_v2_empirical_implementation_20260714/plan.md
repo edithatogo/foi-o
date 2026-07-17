@@ -190,8 +190,8 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
   - Verification: focused empirical suite (exit 0; 83 passed); new module
     coverage 98%; targeted Ruff checks passed; `uv sync --extra dev --extra rdf`
     (exit 0); `uv run pytest -q` (exit 0; 314 passed, 2 skipped).
-- [ ] Populate and review NZ historical source packs and the source-rights registry.
-  - `BLOCKED 2026-07-17`: authoritative rights evidence, the complete
+- [x] Populate and review NZ historical source packs and the source-rights registry.
+  - `COMPLETED 2026-07-17`: authoritative rights evidence, the complete
     50-version OIA PDF sequence, and 50 deterministic candidate event-time
     intervals are hash-pinned. Reviewer `edithatogo` has approved every
     inclusive/exclusive boundary against the relevant commencement and
@@ -201,9 +201,10 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `publicservice.govt.nz` content subject to attribution and every recorded
     exclusion. Reviewer `edithatogo` has approved the seven-source selection and
     recorded historical applicability without expanding source rights.
-    Source-pack promotion still requires named human review. Source contents
-    are not committed, and older schema-valid examples remain contract
-    fixtures, not evidence.
+    Reviewer `edithatogo` approved metadata-only source-pack promotion. Source
+    contents remain local-only and uncommitted; redistribution, publication,
+    release, and dataset publication remain prohibited. Older schema-valid
+    examples remain contract fixtures, not evidence.
   - [x] Evidence subtask: populate a candidate, hash-pinned source-rights
     registry and OIA historical version index from official provider evidence
     while retaining human approval (`127bbf5`).
@@ -256,6 +257,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `68a27725…`). Verification: 34 focused tests including negative manifest,
     rights, and promotion cases; examples validation, Ruff checks, and
     Conductor review passed; full suite 418 passed, 2 skipped.
+  - [x] Metadata-only source-pack promotion subtask: bind reviewer
+    `edithatogo`'s approval of readiness `a2ceffc2…`, materialize a governed pack
+    containing references and digests only, and prohibit source bytes,
+    redistribution, publication, release, and dataset publication (`943b100`).
+    Output: `examples/v2/nz-source-pack.governed-metadata.json`. Verification:
+    two independent agent reviews; 40 focused tests including source-content,
+    attribution, exclusion, digest, and publication drift; full suite 424
+    passed, 2 skipped.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
   - `BLOCKED 2026-07-17`: approved request `35076` supplies one real outgoing
     correspondence item for the bounded candidate mapping `waiting_response` to
