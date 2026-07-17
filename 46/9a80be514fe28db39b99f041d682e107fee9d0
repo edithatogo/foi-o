@@ -1,0 +1,5 @@
+Task: Govern empirical execution input artifacts
+Files: source-population, codebook, and sampling schemas; in-memory contract tests; exact inventory documentation
+Verification: Ruff; BasedPyright (0 errors); 8 focused tests; schema parsing and inventory checks; uv sync --extra dev --extra rdf; uv run pytest -q (458 passed, 2 skipped).
+Review fix: preserve excluded population records with explicit reasons while requiring eligible records to have no exclusion reason.
+Remaining risks: no concrete population, codebook, sampling configuration, role assignments, or execution authorization exists.
