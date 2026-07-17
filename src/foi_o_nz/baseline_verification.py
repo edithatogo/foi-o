@@ -6,7 +6,7 @@ import json
 import re
 from hashlib import sha256
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 _PATTERNS = (
     ("prohibition", "must not", re.compile(r"\bmust\s+not\b", re.IGNORECASE)),
@@ -83,10 +83,12 @@ def verify_initial_baseline(
     _require(rights.get("redistribution_allowed") is False, "source redistribution must be false")
     requests = source.get("requests")
     _require(isinstance(requests, list) and len(requests) == 1, "expected one source request")
+    requests = cast("list[dict[str, Any]]", requests)
 
     root = snapshot_dir.resolve()
     expected_records: list[dict[str, Any]] = []
     for request in requests:
+        _require(isinstance(request, dict), "source request must be an object")
         request_id = str(request.get("request_id") or "")
         content_path = (root / str(request.get("content_path") or "")).resolve()
         _require(root in content_path.parents, "content path escapes snapshot")

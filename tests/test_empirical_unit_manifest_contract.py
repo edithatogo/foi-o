@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import cast
 
 from foi_o_nz.validation import validate_json_schema
 
@@ -50,7 +51,9 @@ def test_candidate_unit_manifest_is_not_empirical(tmp_path: Path) -> None:
 def test_frozen_manifest_requires_empirical_rights_eligible_units(tmp_path: Path) -> None:
     payload = _manifest()
     payload.update(status="frozen", empirical_evidence=True, frozen_at="2026-07-17T01:00:00Z")
-    payload["units"][0]["rights_eligible"] = False
+    units = payload["units"]
+    units = cast(list[dict[str, object]], units)
+    units[0]["rights_eligible"] = False
     path = tmp_path / "units.json"
     path.write_text(json.dumps(payload))
     assert validate_json_schema(path, SCHEMA).errors
@@ -58,7 +61,9 @@ def test_frozen_manifest_requires_empirical_rights_eligible_units(tmp_path: Path
 
 def test_probability_unit_requires_probability_and_weight(tmp_path: Path) -> None:
     payload = _manifest()
-    payload["units"][0]["sampling_weight"] = None
+    units = payload["units"]
+    units = cast(list[dict[str, object]], units)
+    units[0]["sampling_weight"] = None
     path = tmp_path / "units.json"
     path.write_text(json.dumps(payload))
     assert validate_json_schema(path, SCHEMA).errors

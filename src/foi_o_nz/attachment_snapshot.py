@@ -59,7 +59,7 @@ class _CorrespondenceCounter(HTMLParser):
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag != "div":
             return
-        classes = set(dict(attrs).get("class", "").split())
+        classes = set((dict(attrs).get("class") or "").split())
         if "correspondence" in classes and "box" in classes:
             self.total += 1
             self.incoming += int("incoming" in classes)

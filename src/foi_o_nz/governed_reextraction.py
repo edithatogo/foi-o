@@ -6,7 +6,7 @@ import json
 from copy import deepcopy
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -155,10 +155,12 @@ def verify_governed_reextraction(
     )
     records = candidate.get("manifest", {}).get("records")
     _require(isinstance(records, list), "candidate records must be a list")
+    records = cast("list[dict[str, Any]]", records)
     retrieved_at_values = {record.get("source_trace", {}).get("retrieved_at") for record in records}
     _require(len(retrieved_at_values) == 1, "candidate timestamps must be consistent")
     retrieved_at = next(iter(retrieved_at_values))
-    _require(isinstance(retrieved_at, str) and retrieved_at, "candidate timestamp missing")
+    _require(isinstance(retrieved_at, str) and bool(retrieved_at), "candidate timestamp missing")
+    retrieved_at = cast("str", retrieved_at)
     independent = verify_initial_baseline(
         candidate_path,
         snapshot_dir=snapshot_dir,
@@ -193,11 +195,13 @@ def verify_governed_reextraction(
 def _candidate_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     records = payload.get("manifest", {}).get("records")
     _require(isinstance(records, list), "candidate records must be a list")
+    records = cast("list[dict[str, Any]]", records)
     result: dict[str, dict[str, Any]] = {}
     for record in records:
         _require(isinstance(record, dict), "candidate record must be an object")
         record_id = record.get("record_id")
-        _require(isinstance(record_id, str) and record_id, "candidate record_id missing")
+        _require(isinstance(record_id, str) and bool(record_id), "candidate record_id missing")
+        record_id = cast("str", record_id)
         _require(record_id not in result, "duplicate candidate record_id")
         result[record_id] = record
     return result

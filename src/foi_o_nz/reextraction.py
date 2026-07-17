@@ -7,7 +7,7 @@ import re
 from collections import Counter
 from hashlib import sha256
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal, cast
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -21,6 +21,7 @@ AuditBlocker = Literal[
     "missing_declared_license",
     "missing_request_id",
 ]
+ComparisonBlocker = Literal["independent_annotation_pending", "synthetic_fixture_only"]
 
 
 class ReextractionInputAudit(BaseModel):
@@ -89,9 +90,7 @@ class GovernedReextractionPacket(BaseModel):
     dataset_publication_allowed: Literal[False] = False
     ready_for_candidate_reextraction: Literal[True] = True
     ready_for_empirical_comparison: Literal[False] = False
-    comparison_blockers: tuple[
-        Literal["independent_annotation_pending", "synthetic_fixture_only"], ...
-    ]
+    comparison_blockers: tuple[ComparisonBlocker, ...]
     human_promotion_required: Literal[True] = True
     promotion_allowed: Literal[False] = False
     reviewed_gold_label_promotion_allowed: Literal[False] = False
@@ -117,8 +116,13 @@ def build_governed_reextraction_packet(
     )
     upstreams = payload.get("upstreams")
     _require_packet(isinstance(upstreams, dict), "readiness upstreams must be an object")
+    upstreams = cast("dict[str, Any]", upstreams)
     archive = upstreams.get("fyi_archive", {})
     nlp = upstreams.get("nlp_policy_nz", {})
+    _require_packet(isinstance(archive, dict), "archive readiness must be an object")
+    _require_packet(isinstance(nlp, dict), "NLP readiness must be an object")
+    archive = cast("dict[str, Any]", archive)
+    nlp = cast("dict[str, Any]", nlp)
     source = archive.get("approved_local_content_snapshot", {})
     baseline = nlp.get("initial_baseline", {})
     model = nlp.get("model", {})
@@ -144,11 +148,13 @@ def build_governed_reextraction_packet(
     )
     blockers = payload.get("blockers")
     _require_packet(isinstance(blockers, list), "readiness blockers must be a list")
+    blockers = cast("list[str]", blockers)
     comparison_blockers = tuple(
         blocker
         for blocker in blockers
         if blocker in {"independent_annotation_pending", "synthetic_fixture_only"}
     )
+    comparison_blockers = cast("tuple[ComparisonBlocker, ...]", comparison_blockers)
     unresolved_input_blockers = sorted(set(blockers) - set(comparison_blockers))
     _require_packet(
         not unresolved_input_blockers,
