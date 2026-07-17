@@ -1,0 +1,5 @@
+Task: Record bounded sampling and annotation protocol approval
+Protocol SHA-256: 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63
+Approval artifact SHA-256: b1bac3795db826865f01012bff2e2595c01eea5c3ffdf37976c0b8b5d15cb5cd
+Verification: Ruff; BasedPyright; 18 focused tests; exact schema/hash checks; uv sync --extra dev --extra rdf; uv run pytest -q (454 passed, 2 skipped).
+Remaining risks: two human annotators, a distinct human adjudicator, rights-approved population, approved codebook, and sampling configuration are missing; no execution or downstream approval follows.
