@@ -334,13 +334,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     cross-request evidence rejection; examples validation, scoped Ruff
     lint/format, and Conductor review passed; full suite 404 passed, 2 skipped.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
-  - `BLOCKED 2026-07-17`: a hash-pinned candidate sampling and annotation
-    protocol now exists, but it is not human-approved. No authentic frozen unit
+  - `BLOCKED 2026-07-17`: the hash-pinned sampling and annotation protocol is
+    approved for protocol design only. No authentic frozen unit
     manifest, duplicate-cluster registry, dual-annotation records, adjudication
     decisions, or agreement outputs exist. Completion requires a rights-approved
-    source population, protocol approval, an approved codebook and sampling
-    configuration, at least two independent human annotators, and a distinct
-    adjudicator. No sample membership, labels, adjudication outcome, or
+    source population, an approved codebook and sampling configuration, at
+    least two independent human annotators, and a distinct adjudicator. No
+    sample membership, labels, adjudication outcome, or
     reliability statistic may be inferred from contract fixtures.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
@@ -355,6 +355,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     extractor-matching rules (`5f483fd`). Verification: 12 focused tests,
     examples validation, Ruff, and full suite 426 passed, 2 skipped. This does
     not approve the protocol or supply human roles or execution inputs.
+  - [x] Protocol approval subtask: record `edithatogo`'s exact bounded approval
+    of protocol SHA-256 `3620198f…` in a separate review artifact, remove only
+    the protocol-review blocker, and preserve every sample, label,
+    adjudication, empirical-result, gold-promotion, publication, release, and
+    dataset-publication prohibition (`5e91540`). Verification: 18 focused
+    tests, Ruff, BasedPyright, exact hash/schema checks, and full suite 454
+    passed, 2 skipped. Human roles and execution inputs remain missing.
   - [x] Duplicate-cluster contract subtask: add a strict registry schema with
     population and algorithm pins, one split per cluster, and distinct
     candidate-fixture versus authentic frozen-evidence states (`3591647`).
