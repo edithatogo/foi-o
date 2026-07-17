@@ -1,0 +1,7 @@
+Task: Approve seven non-legislation sources
+
+Summary: Recorded edithatogo's exact selection and historical-applicability approval pinned to manifest 4650961b6b3ce11dd69f226b651b611127e2ba37bf4c87d266c6799579432d18.
+
+Verification: 34 focused tests; examples validation; Ruff checks; full suite 418 passed, 2 skipped; negative manifest-hash, rights, and promotion tests passed.
+
+Remaining risk: source-pack promotion remains a separate human gate; content rights are unchanged.
