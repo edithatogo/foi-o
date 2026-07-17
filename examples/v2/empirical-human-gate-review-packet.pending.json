@@ -44,11 +44,11 @@
     },
     {
       "review_id": "source-pack-promotion",
-      "artifact_path": "examples/v2/nz-source-pack-review-readiness.2026-07-16.json",
-      "artifact_sha256": "a2ceffc2004324e3c31ead67f44fb46f44dbe8f3617ce32154c55d3daff4e00a",
-      "decision": "pending",
-      "approver": null,
-      "reviewed_at": null,
+      "artifact_path": "examples/v2/nz-source-pack-promotion.approved.json",
+      "artifact_sha256": "56ac7559bb1f8862b986be9b0049cdeae9cdf6bccc62c3cda8eb933eb8ed427b",
+      "decision": "approved",
+      "approver": "edithatogo",
+      "reviewed_at": "2026-07-17T07:47:54Z",
       "approval_effect": "Promote the reviewed interval and source metadata into the governed NZ source pack only after the preceding interval, provider-scope, selection, and applicability decisions are approved."
     },
     {
@@ -116,11 +116,10 @@
     "approved_codebook_revision": null,
     "approved_sampling_configuration": null
   },
-  "source_pack_promotion_allowed": false,
+  "source_pack_promotion_allowed": true,
   "sample_freeze_allowed": false,
   "empirical_comparison_allowed": false,
   "blockers": [
-    "source_pack_promotion_review_pending",
     "annotation_protocol_review_pending",
     "annotation_roles_missing",
     "sample_execution_inputs_missing"

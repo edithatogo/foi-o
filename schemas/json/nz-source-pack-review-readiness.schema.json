@@ -7,6 +7,7 @@
   "required": [
     "schema_version", "status", "approved_review_packet_sha256", "reviewer",
     "approved_components", "provider_scope_interpretation", "event_time_intervals", "non_legislation_sources",
+    "promotion_artifact_path", "promotion_artifact_sha256", "governed_pack_path",
     "source_pack_ready", "source_pack_promotion_allowed", "blockers"
   ],
   "properties": {
@@ -75,10 +76,13 @@
         "approval_scope": {"type": "string", "minLength": 1}
       }
     },
-    "source_pack_ready": {"const": false},
-    "source_pack_promotion_allowed": {"const": false},
+    "promotion_artifact_path": {"const": "examples/v2/nz-source-pack-promotion.approved.json"},
+    "promotion_artifact_sha256": {"$ref": "#/$defs/sha256"},
+    "governed_pack_path": {"const": "examples/v2/nz-source-pack.governed-metadata.json"},
+    "source_pack_ready": {"const": true},
+    "source_pack_promotion_allowed": {"const": true},
     "blockers": {
-      "type": "array", "minItems": 1, "maxItems": 1, "uniqueItems": true,
+      "type": "array", "maxItems": 0,
       "items": {
         "enum": [
           "event_time_human_review_pending", "psc_provider_scope_review_pending",

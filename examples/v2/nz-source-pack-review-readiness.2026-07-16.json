@@ -49,9 +49,10 @@
     "review_artifact_sha256": "68a27725814f7106ed6d8b3cafc1e33db34355baeb29998612cd6dc62303559f",
     "approval_scope": "Selection and recorded historical applicability only; rights are unchanged and promotion remains pending."
   },
-  "source_pack_ready": false,
-  "source_pack_promotion_allowed": false,
-  "blockers": [
-    "source_pack_promotion_pending"
-  ]
+  "promotion_artifact_path": "examples/v2/nz-source-pack-promotion.approved.json",
+  "promotion_artifact_sha256": "56ac7559bb1f8862b986be9b0049cdeae9cdf6bccc62c3cda8eb933eb8ed427b",
+  "governed_pack_path": "examples/v2/nz-source-pack.governed-metadata.json",
+  "source_pack_ready": true,
+  "source_pack_promotion_allowed": true,
+  "blockers": []
 }

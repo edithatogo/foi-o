@@ -20,7 +20,7 @@ def test_human_gate_packet_is_schema_valid_and_pending() -> None:
     assert payload["status"] == "pending_named_human_review"
     assert payload["reviewer"] is None
     assert payload["reviewed_at"] is None
-    assert payload["source_pack_promotion_allowed"] is False
+    assert payload["source_pack_promotion_allowed"] is True
     assert payload["sample_freeze_allowed"] is False
     assert payload["empirical_comparison_allowed"] is False
 
@@ -38,6 +38,7 @@ def test_every_review_artifact_is_exactly_hash_pinned() -> None:
             "oia-event-time-intervals",
             "psc-provider-scope",
             "nonlegislation-source-selection",
+            "source-pack-promotion",
         }:
             assert review["decision"] == "approved"
             assert review["approver"] == "edithatogo"
@@ -71,7 +72,7 @@ def test_interval_review_is_approved_without_promoting_source_pack() -> None:
     assert interval["approver"] == "edithatogo"
     assert interval["interval_count"] == 50
     assert "event_time_interval_review_pending" not in payload["blockers"]
-    assert payload["source_pack_promotion_allowed"] is False
+    assert payload["source_pack_promotion_allowed"] is True
 
 
 def test_annotation_roles_and_execution_inputs_are_unassigned() -> None:
@@ -97,7 +98,7 @@ def test_seven_source_selection_is_approved_without_pack_promotion() -> None:
     assert review["decision"] == "approved"
     assert review["approver"] == "edithatogo"
     assert "nonlegislation_source_selection_review_pending" not in payload["blockers"]
-    assert payload["source_pack_promotion_allowed"] is False
+    assert payload["source_pack_promotion_allowed"] is True
 
 
 def test_request_35076_review_preserves_empty_attachment_evidence() -> None:
