@@ -17,8 +17,10 @@ source population and an approved role packet.
    immutable source span and provenance. Preserve request identifiers only as
    governed linkage keys.
 4. Assign duplicate or near-duplicate requests to immutable clusters before
-   splitting or sampling. A cluster must not cross annotation, adjudication,
-   development, or evaluation partitions.
+   splitting or sampling. A cluster must not cross exploration, development,
+   validation, or sealed evaluation/test partitions. The same cluster identity
+   follows a unit through annotation and adjudication; those are sequential
+   stages, not mutually exclusive partitions.
 
 ## Sampling design
 
@@ -57,6 +59,17 @@ source population and an approved role packet.
   set. Gold promotion remains a separate named-human decision.
 
 ## Reliability and evaluation
+
+Use UTF-8 character offsets with half-open `[start, end)` spans. Calculate all
+denominators explicitly: report missing evidence and abstentions separately,
+exclude unresolved units from extractor scoring but include them in coverage
+and unresolved-rate reporting, and never convert abstentions to negative
+labels. Use two-sided 95% cluster-bootstrap confidence intervals, resampling
+duplicate clusters and applying probability weights only to the probability
+sample. When kappa is undefined because a marginal is constant, report raw
+agreement and the undefined reason rather than substituting a value. Match
+extractor spans by exact offsets and overlap F1, using the pre-registered label
+taxonomy and threshold without post-freeze tuning.
 
 Report these pre-specified outputs without suppressing zero or adverse results:
 

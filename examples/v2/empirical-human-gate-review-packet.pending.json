@@ -98,8 +98,8 @@
     {
       "review_id": "annotation-protocol",
       "artifact_path": "docs/41-v2-sampling-and-annotation-protocol.md",
-      "artifact_sha256": "9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8",
-      "protocol_sha256": "9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8",
+      "artifact_sha256": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63",
+      "protocol_sha256": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63",
       "decision": "pending",
       "approver": null,
       "reviewed_at": null,

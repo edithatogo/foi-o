@@ -4,7 +4,7 @@
     "definition": "All public FYI requests contained in frozen archive snapshot fyi-nz-2026-06-30.",
     "coverage_start": "2012-01-01",
     "coverage_end": "2026-06-30",
-    "unit": "request",
+    "unit": "request_linked_candidate_assertion",
     "exclusions": [
       "Administrative test records documented in the exclusion manifest."
     ]
@@ -30,7 +30,9 @@
   },
   "random_seed": 20260709,
   "unit_manifest_ref": "samples/nz-probability-units.parquet",
+  "unit_manifest_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
   "duplicate_cluster_registry_ref": "clusters/nz-request-families.parquet",
+  "duplicate_cluster_registry_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
   "split_policy": {
     "grouped_by": [
       "request_family",

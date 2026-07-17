@@ -14,7 +14,7 @@
     "schema_version": {"const": "foi-o.annotation-protocol-review-readiness.v0.1.0"},
     "packet_id": {"const": "foi-o-v2-annotation-protocol-review-2026-07-16"},
     "protocol_path": {"const": "docs/41-v2-sampling-and-annotation-protocol.md"},
-    "protocol_sha256": {"const": "9747b22cbaf80cf6af9033e193e595add8c6b00fe624b841292ab416870887d8"},
+    "protocol_sha256": {"const": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63"},
     "protocol_decision": {"const": "pending"},
     "protocol_approver": {"const": null},
     "annotator_ids": {"type": "array", "maxItems": 0},

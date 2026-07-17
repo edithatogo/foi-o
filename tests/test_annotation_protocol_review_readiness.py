@@ -49,3 +49,6 @@ def test_protocol_forbids_placeholder_or_ai_generated_empirical_evidence() -> No
     assert "ai-proposed labels" in text
     assert "not substitutes" in text
     assert "not an empirical sample" in text
+    assert "half-open `[start, end)`" in text
+    assert "cluster-bootstrap confidence intervals" in text
+    assert "sequential stages" in " ".join(text.split())
