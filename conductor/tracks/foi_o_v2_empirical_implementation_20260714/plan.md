@@ -228,14 +228,17 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     PDF signatures, and SHA-256 hashes reproduced; 19 focused tests, examples
     validation, and targeted Ruff passed; full suite 372 passed, 2 skipped.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
-  - `BLOCKED 2026-07-16`: approved request `35076` now supplies one real
-    outgoing correspondence item supporting the bounded candidate mapping
-    `waiting_response` to `awaiting_response`. Its verified attachment inventory
-    is empty. A separate request `11872` candidate now verifies four
-    correspondence blocks and three local PDF attachments, but exact snapshot
-    rights and the rendered-HTML attachment supplement require named-human
-    approval before audit use. Named-human mapping review and archive-wide
-    evidence also remain required.
+  - `BLOCKED 2026-07-17`: approved request `35076` supplies one real outgoing
+    correspondence item for the bounded candidate mapping `waiting_response` to
+    `awaiting_response`, with an empty attachment inventory. Reviewer
+    `edithatogo` has now approved exact pending request `11872` manifest
+    `42f8ed87…` and its separately declared rendered-HTML supplement for the
+    local raw-state mapping audit only. The resulting approved manifest
+    `0c7cee55…` verifies four correspondence blocks and three local PDFs, and
+    supports the bounded candidate mapping `partially_successful` to
+    `released_in_part`. Named-human mapping review and archive-wide evidence
+    remain required; no redistribution, publication, training, release, dataset,
+    or reviewed/gold promotion is authorized.
   - [x] Readiness subtask: add a read-only, hash-verifying aggregate audit and
     reproduce `examples/v2/raw-state-audit-readiness.fc27.json` from the local
     pinned manifest without committing or modifying source records (`02f75c7`).
@@ -265,6 +268,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     drift fails closed. Verification: actual pending manifest `42f8ed87…`
     remained unchanged; new module coverage 82.01%; 26 focused tests and
     targeted Ruff/type checks passed; full suite 393 passed, 2 skipped.
+  - [x] Approved attachment audit subtask: bind reviewer `edithatogo`'s exact
+    approval of pending manifest `42f8ed87…` to a separate immutable local
+    bundle, verify all reviewed bytes, and produce a bounded request `11872`
+    raw-state audit without widening the approved purpose or publication rights
+    (`53bcfb2`). Verification: 38 focused tests; attachment module coverage
+    80.37%; example validation, scoped Ruff lint/format, type checks, and
+    Conductor review passed; full suite 395 passed, 2 skipped. Review replaced
+    class-order-dependent direction counts with HTML-parser counts.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
   - `BLOCKED 2026-07-16`: a hash-pinned candidate sampling and annotation
     protocol now exists, but it is not human-approved. No authentic frozen unit
