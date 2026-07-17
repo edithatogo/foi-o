@@ -17,6 +17,8 @@ EXAMPLES = (
     ROOT / "examples/v2/bounded-raw-state-audit.11872.json",
 )
 SCHEMA = ROOT / "schemas/json/bounded-raw-state-audit.schema.json"
+REVIEW = ROOT / "examples/v2/bounded-raw-state-mapping-review.11872.json"
+REVIEW_SCHEMA = ROOT / "schemas/json/bounded-raw-state-mapping-review.schema.json"
 
 
 def _write_snapshot(root: Path, *, attachments: list[object] | None = None) -> Path:
@@ -126,4 +128,44 @@ def test_schema_rejects_attachment_and_blocker_contradiction(tmp_path: Path) -> 
     path.write_text(json.dumps(payload), encoding="utf-8")
 
     result = validate_json_schema(path, SCHEMA)
+    assert result.errors
+
+
+def test_committed_bounded_mapping_review_is_exact_and_fail_closed() -> None:
+    result = validate_json_schema(REVIEW, REVIEW_SCHEMA)
+    assert not result.errors, result.errors
+    review = json.loads(REVIEW.read_text())
+    assert review["reviewer"] == "edithatogo"
+    assert review["request_id"] == "11872"
+    assert review["candidate_mapping"] == {
+        "raw_state": "partially_successful",
+        "normalised_state": "released_in_part",
+    }
+    audit_path = ROOT / review["audit_artifact_path"]
+    assert review["audit_artifact_sha256"] == sha256(audit_path.read_bytes()).hexdigest()
+    assert review["scope"] == "bounded_request_only"
+    assert review["archive_wide_claim_allowed"] is False
+    assert all(value is False for value in review["prohibited_actions"].values())
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("archive_wide_claim_allowed", True),
+        ("publication", True),
+        ("legal_certification", True),
+        ("reviewed_gold_label_promotion", True),
+    ],
+)
+def test_bounded_mapping_review_rejects_scope_expansion(
+    tmp_path: Path, field: str, value: bool
+) -> None:
+    review = json.loads(REVIEW.read_text())
+    if field == "archive_wide_claim_allowed":
+        review[field] = value
+    else:
+        review["prohibited_actions"][field] = value
+    invalid = tmp_path / "mapping-review.json"
+    invalid.write_text(json.dumps(review), encoding="utf-8")
+    result = validate_json_schema(invalid, REVIEW_SCHEMA)
     assert result.errors

@@ -16,8 +16,8 @@
   ],
   "inventory": {
     "documentation_files": 53,
-    "example_files": 139,
-    "json_schema_files": 84,
+    "example_files": 140,
+    "json_schema_files": 85,
     "mapping_files": 6,
     "owl_ontology_files": 1,
     "python_test_modules": 72,

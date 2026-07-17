@@ -31,7 +31,10 @@ def test_every_review_artifact_is_exactly_hash_pinned() -> None:
         path = ROOT / review["artifact_path"]
         assert path.is_file()
         assert review["artifact_sha256"] == sha256(path.read_bytes()).hexdigest()
-        if review["review_id"] == "attachment-snapshot-rights":
+        if review["review_id"] in {
+            "attachment-snapshot-rights",
+            "bounded-raw-state-mapping-11872",
+        }:
             assert review["decision"] == "approved"
             assert review["approver"] == "edithatogo"
         else:
@@ -101,3 +104,18 @@ def test_attachment_snapshot_requires_exact_bounded_rights_review() -> None:
     assert snapshot["decision"] == "approved"
     assert "attachment_snapshot_rights_review_pending" not in payload["blockers"]
     assert "supplemental_attachment_capture_review_pending" not in payload["blockers"]
+
+
+def test_request_11872_mapping_review_is_approved_without_curing_35076() -> None:
+    payload = json.loads(PACKET.read_text())
+    review = next(
+        review
+        for review in payload["reviews"]
+        if review["review_id"] == "bounded-raw-state-mapping-11872"
+    )
+    assert review["decision"] == "approved"
+    assert review["approver"] == "edithatogo"
+    assert review["artifact_sha256"] == (
+        "bfa25427c2ce03b4d948111ba51d54a3c3c8669236a5e69e073c528cffbd45fc"
+    )
+    assert "bounded_raw_state_mapping_review_pending" in payload["blockers"]

@@ -68,6 +68,15 @@
       "approval_effect": "Approve only the bounded request 35076 candidate mapping; a separate attachment-bearing snapshot remains required and no archive-wide conclusion follows."
     },
     {
+      "review_id": "bounded-raw-state-mapping-11872",
+      "artifact_path": "examples/v2/bounded-raw-state-mapping-review.11872.json",
+      "artifact_sha256": "bfa25427c2ce03b4d948111ba51d54a3c3c8669236a5e69e073c528cffbd45fc",
+      "decision": "approved",
+      "approver": "edithatogo",
+      "reviewed_at": "2026-07-17T02:56:22Z",
+      "approval_effect": "Approve only the bounded request 11872 candidate mapping partially_successful to released_in_part based on four correspondence blocks and three attachments; no request 35076 or archive-wide conclusion, legal certification, or prohibited downstream use follows."
+    },
+    {
       "review_id": "attachment-snapshot-rights",
       "artifact_path": "examples/v2/fyi-attachment-snapshot-readiness.11872.json",
       "artifact_sha256": "713514c00a4a363a8aa46459a9462fedd67cd0d9e3896e653a0f51efb81aaaa4",

@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-raw-state-mapping-review:0.1.0",
+  "title": "FOI-O bounded raw-state mapping human review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "reviewer", "reviewed_at", "request_id",
+    "audit_artifact_path", "audit_artifact_sha256", "candidate_mapping",
+    "evidence_summary", "scope", "archive_wide_claim_allowed",
+    "prohibited_actions"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-raw-state-mapping-review.v0.1.0"},
+    "status": {"const": "approved"},
+    "reviewer": {"const": "edithatogo"},
+    "reviewed_at": {"const": "2026-07-17T02:56:22Z"},
+    "request_id": {"const": "11872"},
+    "audit_artifact_path": {"const": "examples/v2/bounded-raw-state-audit.11872.json"},
+    "audit_artifact_sha256": {"const": "efcbd60cadb1d43d00f244a8e32f0016f6013a648a539d152d1843dd4fc1223a"},
+    "candidate_mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw_state", "normalised_state"],
+      "properties": {
+        "raw_state": {"const": "partially_successful"},
+        "normalised_state": {"const": "released_in_part"}
+      }
+    },
+    "evidence_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["correspondence_count", "attachment_count"],
+      "properties": {
+        "correspondence_count": {"const": 4},
+        "attachment_count": {"const": 3}
+      }
+    },
+    "scope": {"const": "bounded_request_only"},
+    "archive_wide_claim_allowed": {"const": false},
+    "prohibited_actions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "legal_certification", "publication", "redistribution", "training",
+        "fine_tuning", "release", "dataset_publication",
+        "reviewed_gold_label_promotion"
+      ],
+      "properties": {
+        "legal_certification": {"const": false},
+        "publication": {"const": false},
+        "redistribution": {"const": false},
+        "training": {"const": false},
+        "fine_tuning": {"const": false},
+        "release": {"const": false},
+        "dataset_publication": {"const": false},
+        "reviewed_gold_label_promotion": {"const": false}
+      }
+    }
+  }
+}

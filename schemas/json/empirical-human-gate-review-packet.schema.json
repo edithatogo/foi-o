@@ -19,8 +19,8 @@
     "reviewed_at": {"const": null},
     "reviews": {
       "type": "array",
-      "minItems": 7,
-      "maxItems": 7,
+      "minItems": 8,
+      "maxItems": 8,
       "items": {"$ref": "#/$defs/review"}
     },
     "annotation_roles": {
@@ -79,7 +79,8 @@
           "enum": [
             "oia-event-time-intervals", "psc-provider-scope",
             "nonlegislation-source-selection", "source-pack-promotion",
-            "bounded-raw-state-mapping", "attachment-snapshot-rights",
+            "bounded-raw-state-mapping", "bounded-raw-state-mapping-11872",
+            "attachment-snapshot-rights",
             "annotation-protocol"
           ]
         },
@@ -127,12 +128,33 @@
               "rights_status": {"const": "approved"}
             },
             "required": ["reviewed_snapshot_manifest_sha256"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_id": {"const": "bounded-raw-state-mapping-11872"}
+            }
+          },
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T02:56:22Z"}
+            }
           },
           "else": {
-            "properties": {
-              "decision": {"const": "pending"},
-              "approver": {"const": null},
-              "reviewed_at": {"const": null}
+            "if": {
+              "properties": {
+                "review_id": {"not": {"const": "attachment-snapshot-rights"}}
+              }
+            },
+            "then": {
+              "properties": {
+                "decision": {"const": "pending"},
+                "approver": {"const": null},
+                "reviewed_at": {"const": null}
+              }
             }
           }
         }
