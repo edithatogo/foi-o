@@ -402,6 +402,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     roles (`92ed642`). Verification: Ruff, BasedPyright, 7 focused tests, exact
     inventory checks, and full suite 452 passed, 2 skipped. No approved
     authorization or role assignment exists.
+  - [x] Execution-authorization enforcement subtask: require the exact approved
+    authorization bytes and hashes for the protocol, source population,
+    codebook, and sampling configuration; require authorized annotator and
+    adjudicator identities and codebook revision; and require approval to
+    precede unit-manifest creation (`9c3f90a`). Verification: Ruff,
+    BasedPyright, 14 focused contract tests, verifier coverage 94%, and full
+    suite 452 passed, 2 skipped. No actual authorization exists.
   - [x] Annotation-outcome hardening subtask: require controlled abstention
     reasons, require labels for non-abstaining annotations, and require labels
     for resolved adjudications so missing evidence and unresolved outcomes
