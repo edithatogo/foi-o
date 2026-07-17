@@ -360,6 +360,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     candidate-fixture versus authentic frozen-evidence states (`3591647`).
     Verification: 2 focused tests, Ruff, and full suite 428 passed, 2 skipped.
     No authentic registry or sample membership was created.
+  - [x] Empirical unit-freeze contract subtask: define immutable unit/source
+    hashes and spans, request linkage, duplicate-cluster membership, splits,
+    strata, probability/enrichment provenance, inclusion probabilities,
+    weights, accessibility, and rights eligibility with distinct candidate and
+    authentic frozen states (`29592da`). Verification: 7 focused tests, Ruff,
+    exact inventory checks, and full suite 442 passed, 2 skipped. No authentic
+    unit membership or sample freeze was created.
   - [x] Locked-annotation contract subtask: require unit/codebook pins,
     candidate blinding, reviewer identity, half-open spans, uncertainty,
     abstention, timestamps, and immutable lock provenance, while rejecting
