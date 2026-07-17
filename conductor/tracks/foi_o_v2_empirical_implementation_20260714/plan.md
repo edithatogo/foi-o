@@ -347,10 +347,10 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     inventory checks 14 passed, Ruff and JSON checks passed, and full suite 462
     passed, 2 skipped. The exact v0.1 protocol SHA-256 remains `3620198f…`.
   - `ACTIVE 2026-07-17`: the v0.2 analyst protocol permits separately authorized
-    bounded local agent execution in principle, but no exact packet or role
-    authorization exists. No rights/input approval, concrete roles, execution
-    authorization, analysis sets, reconciliation decisions, or diagnostics
-    exist yet. Agent results remain non-human-reviewed, non-gold,
+    bounded local agent execution in principle. The exact fixture rights and
+    execution inputs are now approved and promoted, but no concrete roles,
+    execution authorization, analysis sets, reconciliation decisions, or
+    diagnostics exist. Agent results remain non-human-reviewed, non-gold,
     non-release-qualifying, and non-publication-eligible.
   - [x] Fixture-only execution-packet subtask: construct the candidate v0.2
     fixture inputs and readiness artifact only—an exact committed synthetic
@@ -367,6 +367,20 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     two independent peer reviews plus orchestrated review passed; full suite 493
     passed, 2 skipped. Rights/input approval, concrete roles, execution
     authorization, analysis, reconciliation, and diagnostics remain absent.
+  - [x] Fixture rights/input approval-promotion subtask: record `edithatogo`'s
+    exact bounded approval of readiness SHA-256 `de4bdf129…` at implementation
+    commit `948d392`, preserve the approved candidate bytes, and derive a new
+    committed approved-input set with rights-eligible units and dependent hashes.
+    Keep execution disabled; concrete roles and v0.2 execution authorization
+    remain a later separate exact human gate (`fe875ab`). Output:
+    `examples/v2/analyst-fixture-packet/input-readiness.approved.json`, SHA-256
+    `814409acac7401118428bcad2d73df1b1eb8b1bf79c2fa8ce3ea0bdb560b8b6e`.
+    Verification: exact approval-statement SHA-256 `48a0f550…`; deterministic
+    seven-artifact promotion; historical base and final Git anchors; 45 focused
+    tests; BasedPyright and Ruff clean; two independent peer reviews plus
+    orchestrated review passed; full suite 503 passed, 2 skipped; post-commit
+    verifier passed against promotion commit `fe875ab`. Roles remain unassigned;
+    execution authorization is absent and `execution_allowed` remains false.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
