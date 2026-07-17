@@ -1,0 +1,3 @@
+Task: Record seven-source approval in Conductor plan
+
+Verification: uv sync --extra dev --extra rdf; full suite 418 passed, 2 skipped.
