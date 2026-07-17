@@ -333,15 +333,26 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `a2125c4b…`). Verification: 30 focused tests including scope-expansion and
     cross-request evidence rejection; examples validation, scoped Ruff
     lint/format, and Conductor review passed; full suite 404 passed, 2 skipped.
-- [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
-  - `BLOCKED 2026-07-17`: the hash-pinned sampling and annotation protocol is
-    approved for protocol design only. No authentic frozen unit
-    manifest, duplicate-cluster registry, dual-annotation records, adjudication
-    decisions, or agreement outputs exist. Completion requires a rights-approved
-    source population, an approved codebook and sampling configuration, at
-    least two independent human annotators, and a distinct adjudicator. No
-    sample membership, labels, adjudication outcome, or
-    reliability statistic may be inferred from contract fixtures.
+- [ ] Freeze the analyst sample, run independent dual analysis, reconcile, and
+  evaluate inter-analyst agreement.
+  - [x] Analyst-protocol reframing subtask: supersede the human-only execution
+    design with a versioned role-neutral protocol in which two independent
+    analysts and a distinct reconciler may be automated agents, with explicit
+    actor provenance, isolation, immutable locks, and claim-class boundaries.
+    Preserve the prior hash-approved protocol as historical v0.1 evidence;
+    agent-derived outputs must not be described as human-reviewed or promoted
+    to gold, legal certification, publication, dataset, or release status
+    without their separately required gates (`b46ca78`). Verification: 4 new
+    contract tests, focused empirical/schema suite 72 passed, repository
+    inventory checks 14 passed, Ruff and JSON checks passed, and full suite 462
+    passed, 2 skipped. The exact v0.1 protocol SHA-256 remains `3620198f…`.
+  - `ACTIVE 2026-07-17`: the v0.2 analyst protocol permits the user-authorized
+    bounded local agent execution. No frozen analyst unit manifest, locked
+    analysis sets, reconciliation decisions, or agreement outputs exist yet.
+    Next execution requires a committed fixture-only source population,
+    candidate codebook, sampling configuration, exact role/runtime records, and
+    a hash-pinned local authorization. Agent results remain non-human-reviewed,
+    non-gold, non-release-qualifying, and non-publication-eligible.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
