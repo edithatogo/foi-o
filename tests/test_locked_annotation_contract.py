@@ -20,6 +20,7 @@ def _record() -> dict[str, object]:
         "span": {"start": 0, "end": 1, "coordinate_system": "utf8_character_half_open"},
         "uncertainty": 0.5,
         "abstention": False,
+        "abstention_reason": None,
         "notes": "Schema fixture only; not an annotation.",
         "blinded_to_candidate": True,
         "created_at": "2026-07-17T00:00:00Z",
@@ -41,6 +42,26 @@ def test_locked_annotation_rejects_agent_identity(tmp_path: Path) -> None:
         annotator_id="agent:reviewer-1",
         locked_at="2026-07-17T01:00:00Z",
     )
+    path = tmp_path / "annotation.json"
+    path.write_text(json.dumps(payload))
+    assert validate_json_schema(path, SCHEMA).errors
+
+
+def test_abstention_requires_controlled_reason_and_null_outputs(tmp_path: Path) -> None:
+    payload = _record()
+    payload.update(abstention=True, label=None, span=None, abstention_reason=None)
+    path = tmp_path / "annotation.json"
+    path.write_text(json.dumps(payload))
+    assert validate_json_schema(path, SCHEMA).errors
+
+    payload["abstention_reason"] = "missing_evidence"
+    path.write_text(json.dumps(payload))
+    assert not validate_json_schema(path, SCHEMA).errors
+
+
+def test_non_abstention_requires_label(tmp_path: Path) -> None:
+    payload = _record()
+    payload["label"] = None
     path = tmp_path / "annotation.json"
     path.write_text(json.dumps(payload))
     assert validate_json_schema(path, SCHEMA).errors

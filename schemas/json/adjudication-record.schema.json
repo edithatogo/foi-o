@@ -20,6 +20,6 @@
   },
   "allOf": [
     {"if": {"properties": {"status": {"const": "locked_human_adjudication"}}}, "then": {"properties": {"empirical_evidence": {"const": true}, "adjudicator_id": {"pattern": "^human:[A-Za-z0-9._-]+$"}, "locked_at": {"type": "string", "format": "date-time"}, "annotation_refs": {"items": {"properties": {"annotator_id": {"pattern": "^human:[A-Za-z0-9._-]+$"}}}}}}, "else": {"properties": {"empirical_evidence": {"const": false}, "locked_at": {"const": null}}}},
-    {"if": {"properties": {"outcome": {"const": "unresolved"}}}, "then": {"properties": {"adjudicated_label": {"const": null}, "adjudicated_span": {"const": null}}}}
+    {"if": {"properties": {"outcome": {"const": "unresolved"}}}, "then": {"properties": {"adjudicated_label": {"const": null}, "adjudicated_span": {"const": null}}}, "else": {"properties": {"adjudicated_label": {"type": "string", "minLength": 1}}}}
   ]
 }

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:foi-o:schema:locked-annotation-record:0.1.0",
   "type": "object", "additionalProperties": false,
-  "required": ["schema_version", "record_id", "status", "empirical_evidence", "unit_sha256", "annotator_id", "codebook_revision", "label", "span", "uncertainty", "abstention", "notes", "blinded_to_candidate", "created_at", "locked_at"],
+  "required": ["schema_version", "record_id", "status", "empirical_evidence", "unit_sha256", "annotator_id", "codebook_revision", "label", "span", "uncertainty", "abstention", "abstention_reason", "notes", "blinded_to_candidate", "created_at", "locked_at"],
   "properties": {
     "schema_version": {"const": "foi-o.locked-annotation-record.v0.1.0"},
     "record_id": {"type": "string", "minLength": 1},
@@ -15,6 +15,7 @@
     "span": {"type": ["object", "null"], "additionalProperties": false, "required": ["start", "end", "coordinate_system"], "properties": {"start": {"type": "integer", "minimum": 0}, "end": {"type": "integer", "minimum": 0}, "coordinate_system": {"const": "utf8_character_half_open"}}},
     "uncertainty": {"type": "number", "minimum": 0, "maximum": 1},
     "abstention": {"type": "boolean"},
+    "abstention_reason": {"type": ["string", "null"], "enum": [null, "missing_evidence", "insufficient_evidence", "out_of_scope", "other"]},
     "notes": {"type": "string"},
     "blinded_to_candidate": {"const": true},
     "created_at": {"type": "string", "format": "date-time"},
@@ -22,6 +23,6 @@
   },
   "allOf": [
     {"if": {"properties": {"status": {"const": "locked_human_annotation"}}}, "then": {"properties": {"empirical_evidence": {"const": true}, "annotator_id": {"pattern": "^human:[A-Za-z0-9._-]+$"}, "locked_at": {"type": "string", "format": "date-time"}}}, "else": {"properties": {"empirical_evidence": {"const": false}, "locked_at": {"const": null}}}},
-    {"if": {"properties": {"abstention": {"const": true}}}, "then": {"properties": {"label": {"const": null}, "span": {"const": null}}}}
+    {"if": {"properties": {"abstention": {"const": true}}}, "then": {"properties": {"label": {"const": null}, "span": {"const": null}, "abstention_reason": {"type": "string"}}}, "else": {"properties": {"label": {"type": "string", "minLength": 1}, "abstention_reason": {"const": null}}}}
   ]
 }

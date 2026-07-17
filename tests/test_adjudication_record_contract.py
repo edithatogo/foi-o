@@ -45,3 +45,15 @@ def test_locked_adjudication_rejects_agent_identity(tmp_path: Path) -> None:
     path = tmp_path / "adjudication.json"
     path.write_text(json.dumps(payload))
     assert validate_json_schema(path, SCHEMA).errors
+
+
+def test_resolved_adjudication_requires_label(tmp_path: Path) -> None:
+    payload = _record()
+    payload["outcome"] = "resolved"
+    path = tmp_path / "adjudication.json"
+    path.write_text(json.dumps(payload))
+    assert validate_json_schema(path, SCHEMA).errors
+
+    payload["adjudicated_label"] = "approved-label"
+    path.write_text(json.dumps(payload))
+    assert not validate_json_schema(path, SCHEMA).errors
