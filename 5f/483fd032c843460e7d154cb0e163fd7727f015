@@ -1,0 +1,5 @@
+Task: Operationalize sampling and annotation protocol
+
+Summary: Applied independent review findings while retaining named-human approval and role gates.
+
+Verification: 12 focused tests; examples validation; Ruff; full suite 426 passed, 2 skipped.
