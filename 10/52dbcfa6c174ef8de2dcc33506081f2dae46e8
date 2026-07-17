@@ -1,0 +1,11 @@
+Task: Bounded request 35076 mapping approval
+
+Summary: Recorded reviewer edithatogo's approval of waiting_response to awaiting_response as a separate immutable review artifact pinned to audit SHA ef9a6d56a9dc6399f10084a928e30a865130b3ff81ef7b16b658249b3d4f489a.
+
+Files: request 35076 mapping review example; shared exact-case review schema; consolidated human-gate packet schema/example; positive, scope-expansion, and cross-wiring tests; generated inventory counts.
+
+Why: Preserve the exact bounded decision and its empty verified attachment inventory without creating an archive-wide claim.
+
+Verification: 30 focused tests; examples validation; scoped Ruff lint/format; git diff check; uv sync --extra dev --extra rdf; full suite 404 passed, 2 skipped; Conductor review added cross-request evidence rejection.
+
+Remaining risks: archive-wide mapping evidence remains absent; legal certification, publication, redistribution, training, fine-tuning, release, dataset publication, and reviewed/gold promotion remain false.
