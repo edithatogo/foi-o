@@ -1,0 +1,7 @@
+Task: Promote governed NZ source-pack metadata
+
+Summary: Bound edithatogo's approval of readiness a2ceffc2 and created a metadata-only governed pack with the complete approval chain and rights restrictions.
+
+Verification: two independent agent reviews; 40 focused tests; examples validation; Ruff checks; full suite 424 passed, 2 skipped.
+
+Remaining risks: no source bytes are promoted; publication/release/dataset actions remain prohibited; human annotation roles remain missing.
