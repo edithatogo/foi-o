@@ -381,6 +381,22 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     orchestrated review passed; full suite 503 passed, 2 skipped; post-commit
     verifier passed against promotion commit `fe875ab`. Roles remain unassigned;
     execution authorization is absent and `execution_allowed` remains false.
+  - [x] Pending role-authorization preparation subtask: bind the four fresh,
+    readiness-only canonical session locators, exact role prompts, redacted
+    context presentation, isolation rules, approved-input readiness, and output
+    boundaries in a committed request with execution disabled. Runtime UUIDs
+    and exact model snapshots are unavailable and must remain explicitly
+    unavailable; no analysis begins before separate hash-bound human approval
+    (`91013a0`). Output:
+    `examples/v2/analyst-fixture-packet/role-authorization-request.pending.json`,
+    SHA-256
+    `232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c`.
+    Verification: exact canonical prompt/actor enforcement; safe paths and full
+    historical/final Git anchors; independent 11-context rederivation; 32
+    focused tests; three read-only reviews passed; full suite 525 passed, 2
+    skipped; post-commit request verifier passed against `91013a0`. Human
+    approval, execution authorization, content presentation, and all handshakes
+    remain absent; `execution_allowed` remains false.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
