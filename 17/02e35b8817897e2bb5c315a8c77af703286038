@@ -1,0 +1,5 @@
+Task: Empirical cross-artifact verifier
+Files: src/foi_o_nz/empirical_verification.py; tests/test_empirical_verification.py; coverage matrix and inventory summary
+Verification: Ruff; basedpyright; 7 focused tests at 94% coverage; uv sync --extra dev --extra rdf; uv run pytest -q (449 passed, 2 skipped).
+Review fixes: cluster split and freeze chronology, kappa recomputation, CI containment, unit-level missing-evidence accounting.
+Remaining risks: verifier does not supply protocol approval, human assignments, approved codebook/sampling configuration, authentic artifacts, bootstrap computation, promotion, or publication.
