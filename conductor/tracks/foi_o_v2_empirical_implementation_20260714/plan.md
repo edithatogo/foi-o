@@ -334,7 +334,7 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     cross-request evidence rejection; examples validation, scoped Ruff
     lint/format, and Conductor review passed; full suite 404 passed, 2 skipped.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
-  - `BLOCKED 2026-07-16`: a hash-pinned candidate sampling and annotation
+  - `BLOCKED 2026-07-17`: a hash-pinned candidate sampling and annotation
     protocol now exists, but it is not human-approved. No authentic frozen unit
     manifest, duplicate-cluster registry, dual-annotation records, adjudication
     decisions, or agreement outputs exist. Completion requires a rights-approved
@@ -353,21 +353,22 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     mapping, and annotation-protocol decisions in
     `examples/v2/empirical-human-gate-review-packet.pending.json` (`ec4573b`,
     expanded with attachment-snapshot review in `ff7a99b`; current SHA-256
-    `19e66fb6…`). Every decision remains pending; reviewer and timestamps
-    are null; annotator IDs are empty; the adjudicator, source population,
-    codebook, and sampling configuration are null; attachment, sample-freeze,
-    and empirical-comparison gates remain false. Verification: 24 focused tests,
-    examples validation, and targeted Ruff passed; full suite 377 passed,
-    2 skipped.
+    `19e66fb6…`, subsequently updated by the approved review artifacts). OIA
+    intervals, PSC scope, seven-source selection/applicability, metadata-only
+    source-pack promotion, attachment rights, and both bounded raw-state
+    mappings are approved. Annotation protocol approval, human roles, source
+    population, codebook, and sampling configuration remain missing;
+    sample-freeze and empirical-comparison gates remain false.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
-  - `BLOCKED 2026-07-16`: there is no eligible immutable release target because
-    empirical comparison, historical source/right review, correspondence-backed
-    state mapping, independent fixture promotion, and empirical annotation,
-    adjudication, and reliability evaluation remain incomplete. The bounded
-    one-record governed reproducibility run is complete. A readiness checkpoint
-    must not be presented as the required release-evidence bundle.
+  - `BLOCKED 2026-07-17`: there is no eligible immutable release target because
+    empirical comparison, independent fixture promotion, and empirical
+    annotation, adjudication, and reliability evaluation remain incomplete.
+    Historical source/right review, metadata-only source-pack promotion, both
+    bounded correspondence-backed mappings, and the one-record governed
+    reproducibility run are complete. A readiness checkpoint must not be
+    presented as the required release-evidence bundle.
 - [ ] Trigger the RaC Conformance paper-update workflow only after the release
   bundle is immutable and published.
   - `BLOCKED 2026-07-16`: the prerequisite immutable published release-evidence
