@@ -236,9 +236,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     local raw-state mapping audit only. The resulting approved manifest
     `0c7cee55…` verifies four correspondence blocks and three local PDFs, and
     supports the bounded candidate mapping `partially_successful` to
-    `released_in_part`. Named-human mapping review and archive-wide evidence
-    remain required; no redistribution, publication, training, release, dataset,
-    or reviewed/gold promotion is authorized.
+    `released_in_part`. Reviewer `edithatogo` has approved that mapping for
+    request `11872` only. Request `35076` mapping review and archive-wide
+    evidence remain required; no legal certification, redistribution,
+    publication, training, release, dataset, or reviewed/gold promotion is
+    authorized.
   - [x] Readiness subtask: add a read-only, hash-verifying aggregate audit and
     reproduce `examples/v2/raw-state-audit-readiness.fc27.json` from the local
     pinned manifest without committing or modifying source records (`02f75c7`).
@@ -276,6 +278,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     80.37%; example validation, scoped Ruff lint/format, type checks, and
     Conductor review passed; full suite 395 passed, 2 skipped. Review replaced
     class-order-dependent direction counts with HTML-parser counts.
+  - [x] Bounded mapping approval subtask: record reviewer `edithatogo`'s exact
+    request `11872` approval as a separate hash-pinned review artifact without
+    modifying the candidate audit, approving request `35076`, or enabling an
+    archive-wide claim or any prohibited downstream use (`9eac898`). Output:
+    `examples/v2/bounded-raw-state-mapping-review.11872.json` (SHA-256
+    `bfa25427…`). Verification: 27 focused tests including four negative
+    scope-expansion cases; examples validation, scoped Ruff lint/format, and
+    Conductor review passed; full suite 401 passed, 2 skipped.
 - [ ] Freeze the empirical sample, dual-annotate, adjudicate, and evaluate reliability.
   - `BLOCKED 2026-07-16`: a hash-pinned candidate sampling and annotation
     protocol now exists, but it is not human-approved. No authentic frozen unit
