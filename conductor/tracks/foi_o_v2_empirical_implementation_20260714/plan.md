@@ -343,11 +343,18 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     adjudicator. No sample membership, labels, adjudication outcome, or
     reliability statistic may be inferred from contract fixtures.
   - [x] Protocol-preparation subtask: add the candidate protocol at
-    `docs/41-v2-sampling-and-annotation-protocol.md` (SHA-256 `9747b22c…`) and a
+    `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
+    `3620198f…`) and a
     fail-closed review-readiness packet (`d2ea156`). Verification: 13 focused
     tests; Ruff, JSON/schema checks, and Conductor review passed; full suite
     364 passed, 2 skipped. Approval, role identities, population, codebook, and
     sampling configuration remain missing.
+  - [x] Protocol operational-alignment subtask: correct duplicate-cluster split
+    semantics, align the primary assertion-level unit, require unit/cluster
+    digests, and pre-register span, abstention, confidence-interval, kappa, and
+    extractor-matching rules (`5f483fd`). Verification: 12 focused tests,
+    examples validation, Ruff, and full suite 426 passed, 2 skipped. This does
+    not approve the protocol or supply human roles or execution inputs.
   - [x] Consolidated human-gate packet subtask: pin the interval, PSC provider
     scope, seven-source selection, source-pack promotion, bounded raw-state
     mapping, and annotation-protocol decisions in
