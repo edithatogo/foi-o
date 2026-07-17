@@ -1,0 +1,7 @@
+Task: Pending role-authorization preparation subtask
+
+Summary: Bound four readiness-only canonical role locators, exact canonical handshake and future prompts, an 11-unit redacted context presentation, isolation plan, role provenance, and approved-input anchors in an execution-disabled pending request.
+
+Verification: focused 32 passed; full suite 525 passed, 2 skipped; Ruff and BasedPyright clean; three independent read-only reviews passed; post-commit verifier succeeded against preparation commit 91013a0, base commit 948d392, and promotion commit fe875ab.
+
+Boundary: request SHA-256 232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c. human_approval_present=false, execution_authorization_present=false, execution_allowed=false; contexts remain prepared_not_presented and handshakes incomplete.
