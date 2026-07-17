@@ -16,6 +16,7 @@ from foi_o_nz.analyst_packet_verification import (
     verify_fixture_manifests,
     verify_git_anchor,
 )
+from scripts.promote_analyst_fixture_inputs import main as promote_inputs
 
 ROOT = Path(__file__).parents[1]
 PACKET_FILES = {
@@ -26,6 +27,16 @@ PACKET_FILES = {
     "duplicate_cluster_registry": "cluster-registry.json",
     "redaction_manifest": "redaction-manifest.json",
     "local_rights_review": "local-rights-review.pending.json",
+}
+CANDIDATE_FILES = [*PACKET_FILES.values(), "readiness.json"]
+PROMOTED_FILES = {
+    "source_population": "source-population.json",
+    "codebook": "codebook.approved.json",
+    "sampling_configuration": "sampling-configuration.approved.json",
+    "unit_manifest": "unit-manifest.rights-approved.json",
+    "duplicate_cluster_registry": "cluster-registry.rights-approved.json",
+    "redaction_manifest": "redaction-manifest.json",
+    "local_rights_review": "local-rights-review.approved.json",
 }
 
 
@@ -49,32 +60,34 @@ def _committed_approved_bundle(
         destination = root / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / relative, destination)
-    for filename in PACKET_FILES.values():
+    for filename in CANDIDATE_FILES:
         shutil.copy2(ROOT / "examples/v2/analyst-fixture-packet" / filename, packet / filename)
 
-    artifacts = {
-        role: json.loads((packet / filename).read_text()) for role, filename in PACKET_FILES.items()
-    }
-    rights = artifacts["local_rights_review"]
-    rights.update(
-        status="approved_bounded_local_use",
-        local_analysis_allowed=True,
-        approved_by="human:test",
-        approved_at="2026-07-17T13:00:00Z",
+    run(["git", "init", "-q"], cwd=root, check=True)
+    run(["git", "config", "user.email", "fixture@example.invalid"], cwd=root, check=True)
+    run(["git", "config", "user.name", "Fixture"], cwd=root, check=True)
+    run(["git", "add", "."], cwd=root, check=True)
+    run(["git", "commit", "-qm", "candidate"], cwd=root, check=True)
+    base_commit = run(
+        ["git", "rev-parse", "HEAD"], cwd=root, check=True, capture_output=True, text=True
+    ).stdout.strip()
+    promote_inputs(
+        packet,
+        packet,
+        repository_root=root,
+        base_repository_commit=base_commit,
     )
-    for role in ["codebook", "sampling_configuration"]:
-        artifacts[role].update(
-            status="approved", approved_by="human:test", approved_at="2026-07-17T13:00:00Z"
-        )
-    for unit in artifacts["unit_manifest"]["units"]:
-        unit["rights_eligible_for_local_use"] = True
 
+    artifacts = {
+        role: json.loads((packet / filename).read_text())
+        for role, filename in PROMOTED_FILES.items()
+    }
     if mutation == "population_source":
         artifacts["source_population"]["sources"][0]["sha256"] = "0" * 64
     elif mutation == "rights_source":
-        rights["sources"][0]["sha256"] = "0" * 64
+        artifacts["local_rights_review"]["sources"][0]["sha256"] = "0" * 64
     elif mutation == "license":
-        rights["license_placeholder"]["sha256"] = "0" * 64
+        artifacts["local_rights_review"]["license_placeholder"]["sha256"] = "0" * 64
     elif mutation == "codebook_protocol":
         artifacts["codebook"]["protocol_sha256"] = "0" * 64
     elif mutation == "codebook_task":
@@ -83,24 +96,33 @@ def _committed_approved_bundle(
         artifacts["sampling_configuration"]["source_population_sha256"] = "0" * 64
     elif mutation == "sampling_codebook":
         artifacts["sampling_configuration"]["codebook_revision"] = "0" * 40
+    elif mutation == "cluster_pin":
+        artifacts["duplicate_cluster_registry"]["unit_manifest_sha256"] = "0" * 64
     elif mutation == "commitment_algorithm":
         artifacts["unit_manifest"]["ordered_unit_commitment_algorithm"] = "unregistered"
     elif mutation == "unit_rights":
         artifacts["unit_manifest"]["units"][0]["rights_eligible_for_local_use"] = False
     elif mutation == "rights_chronology":
-        rights["created_at"] = "2026-07-17T13:30:00Z"
+        artifacts["local_rights_review"]["created_at"] = "2026-07-17T13:30:00Z"
     elif mutation == "codebook_chronology":
         artifacts["codebook"]["created_at"] = "2026-07-17T13:30:00Z"
+    for role, filename in PROMOTED_FILES.items():
+        if (
+            role not in {"source_population", "redaction_manifest"}
+            or mutation == "population_source"
+        ):
+            _write_json(packet / filename, artifacts[role])
 
-    for role, filename in PACKET_FILES.items():
-        _write_json(packet / filename, artifacts[role])
-    unit_path = packet / PACKET_FILES["unit_manifest"]
-    cluster_path = packet / PACKET_FILES["duplicate_cluster_registry"]
-    cluster = json.loads(cluster_path.read_text())
-    cluster["unit_manifest_sha256"] = sha256(unit_path.read_bytes()).hexdigest()
-    if mutation == "cluster_pin":
-        cluster["unit_manifest_sha256"] = "0" * 64
-    _write_json(cluster_path, cluster)
+    readiness_path = packet / "input-readiness.approved.json"
+    readiness = json.loads(readiness_path.read_text())
+    for role, filename in PROMOTED_FILES.items():
+        section = (
+            "unchanged_artifacts"
+            if role in {"source_population", "redaction_manifest"}
+            else "approved_artifacts"
+        )
+        readiness[section][role]["sha256"] = sha256((packet / filename).read_bytes()).hexdigest()
+    _write_json(readiness_path, readiness)
 
     protocol_pin_path = "docs/42-v2-analyst-execution-protocol.md"
     if mutation == "protocol_substitution":
@@ -108,11 +130,16 @@ def _committed_approved_bundle(
         (root / protocol_pin_path).write_text("alternate protocol\n")
     pinned_protocol = root / protocol_pin_path
     pins = {
+        "approved_input_readiness": {
+            "path": "examples/v2/analyst-fixture-packet/input-readiness.approved.json",
+            "sha256": sha256(readiness_path.read_bytes()).hexdigest(),
+            "state": "locked",
+        },
         "protocol": {
             "path": protocol_pin_path,
             "sha256": sha256(pinned_protocol.read_bytes()).hexdigest(),
             "state": "locked",
-        }
+        },
     }
     pins.update(
         {
@@ -121,7 +148,7 @@ def _committed_approved_bundle(
                 "sha256": sha256((packet / filename).read_bytes()).hexdigest(),
                 "state": "locked",
             }
-            for role, filename in PACKET_FILES.items()
+            for role, filename in PROMOTED_FILES.items()
         }
     )
     actor = lambda actor_id, role, session: {  # noqa: E731
@@ -168,11 +195,8 @@ def _committed_approved_bundle(
     }
     authorization_path = packet / "authorization.approved.json"
     _write_json(authorization_path, authorization)
-    run(["git", "init", "-q"], cwd=root, check=True)
-    run(["git", "config", "user.email", "fixture@example.invalid"], cwd=root, check=True)
-    run(["git", "config", "user.name", "Fixture"], cwd=root, check=True)
     run(["git", "add", "."], cwd=root, check=True)
-    run(["git", "commit", "-qm", "fixture"], cwd=root, check=True)
+    run(["git", "commit", "-qm", "promoted authorization"], cwd=root, check=True)
     commit = run(
         ["git", "rev-parse", "HEAD"], cwd=root, check=True, capture_output=True, text=True
     ).stdout.strip()
@@ -380,19 +404,19 @@ def test_public_verifier_accepts_exact_committed_approved_bundle(tmp_path: Path)
 @pytest.mark.parametrize(
     ("mutation", "message"),
     [
-        ("population_source", "source population SHA-256 set mismatch"),
-        ("rights_source", "rights-review source SHA-256 set mismatch"),
-        ("license", "rights-review license placeholder mismatch"),
-        ("codebook_protocol", "codebook protocol pin mismatch"),
+        ("population_source", "candidate readiness artifact pins mismatch"),
+        ("rights_source", "approved rights transition changed candidate content"),
+        ("license", "approved rights transition changed candidate content"),
+        ("codebook_protocol", "approved codebook transition changed candidate content"),
         ("protocol_substitution", "protocol artifact is not the active analyst protocol"),
         ("codebook_task", "codebook.task_type"),
-        ("sampling_population", "sampling cross-artifact pin mismatch"),
-        ("sampling_codebook", "sampling cross-artifact pin mismatch"),
-        ("cluster_pin", "cluster unit-manifest pin mismatch"),
-        ("commitment_algorithm", "unit_manifest.ordered_unit_commitment_algorithm"),
-        ("unit_rights", "unit manifest value mismatch"),
-        ("rights_chronology", "rights: invalid approval chronology"),
-        ("codebook_chronology", "codebook: invalid approval chronology"),
+        ("sampling_population", "approved sampling transition changed candidate content"),
+        ("sampling_codebook", "approved sampling transition changed candidate content"),
+        ("cluster_pin", "approved cluster transition changed non-pin content"),
+        ("commitment_algorithm", "units.ordered_unit_commitment_algorithm"),
+        ("unit_rights", "approved unit transition changed non-rights content"),
+        ("rights_chronology", "approved rights transition changed candidate content"),
+        ("codebook_chronology", "approved codebook transition changed candidate content"),
     ],
 )
 def test_public_verifier_rejects_committed_relational_mutations(

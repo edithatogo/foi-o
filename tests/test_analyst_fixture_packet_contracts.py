@@ -190,6 +190,7 @@ def test_authorization_requires_every_execution_artifact_pin(tmp_path: Path) -> 
         "artifacts": {
             name: _pin(f"examples/v2/{name}.json")
             for name in [
+                "approved_input_readiness",
                 "protocol",
                 "source_population",
                 "codebook",

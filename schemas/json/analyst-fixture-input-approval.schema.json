@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:analyst-fixture-input-approval:0.1.0",
+  "$defs": {"sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "approval_id", "status", "approved_by", "approved_on", "recorded_at", "recording_note", "approval_statement", "approval_statement_sha256", "approved_readiness", "approved_repository_commit", "purpose", "rights_approved", "codebook_approved", "sampling_approved", "roles_approved", "execution_authorization_approved", "execution_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-fixture-input-approval.v0.1.0"}, "approval_id": {"type": "string", "minLength": 1}, "status": {"const": "approved_bounded_local_fixture_inputs"},
+    "approved_by": {"const": "human:edithatogo"}, "approved_on": {"const": "2026-07-17"}, "recorded_at": {"const": "2026-07-17T23:04:58+10:00"}, "recording_note": {"const": "recorded_at is provenance only and is not claimed as approval time"},
+    "approval_statement": {"const": "I, edithatogo, approve fixture readiness artifact SHA-256 de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd as committed in 948d392df7fbbf49ea9b33646a0bdbd845505811 for bounded local rights and execution-input promotion only. This approval does not authorize analyst execution, redistribution, publication, training, fine-tuning, release, dataset publication, gold promotion, legal certification, or paper updates. Concrete analyst and reconciler runtimes and a committed v0.2 execution authorization require separate exact approval."},
+    "approval_statement_sha256": {"const": "48a0f550f6628a96a003204b6375831d440270581c4281422df778c10bb85b1a"},
+    "approved_readiness": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "examples/v2/analyst-fixture-packet/readiness.json"}, "sha256": {"const": "de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd"}}},
+    "approved_repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}, "purpose": {"const": "bounded_local_agent_analysis"},
+    "rights_approved": {"const": true}, "codebook_approved": {"const": true}, "sampling_approved": {"const": true}, "roles_approved": {"const": false}, "execution_authorization_approved": {"const": false}, "execution_allowed": {"const": false},
+    "local_only": {"const": true}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false},
+    "prohibited_actions": {"type": "array", "minItems": 9, "maxItems": 9, "uniqueItems": true, "items": {"enum": ["redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update"]}}
+  }
+}

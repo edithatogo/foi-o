@@ -7,13 +7,24 @@ from dataclasses import dataclass
 from datetime import datetime
 from hashlib import sha256
 from pathlib import Path, PurePosixPath
-from subprocess import run
+from subprocess import CalledProcessError, run
 from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
 FORBIDDEN_CONTEXT_KEYS = frozenset({"assertion_status", "confidence"})
 SCHEMA_DIR = Path(__file__).parents[2] / "schemas" / "json"
+CANDIDATE_PACKET_NAMES = frozenset(
+    {
+        "source-population.json",
+        "codebook.json",
+        "sampling-configuration.json",
+        "unit-manifest.json",
+        "cluster-registry.json",
+        "redaction-manifest.json",
+        "local-rights-review.pending.json",
+    }
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -27,6 +38,17 @@ class AnalystPacketVerificationResult:
     redacted_context_count: int
     source_counts: dict[str, int]
     execution_allowed: bool
+
+
+@dataclass(frozen=True, slots=True)
+class ApprovedFixtureInputsVerificationResult:
+    """Verified approved inputs; never an execution authorization."""
+
+    base_readiness_sha256: str
+    approval_sha256: str
+    approved_input_readiness_sha256: str
+    unit_count: int
+    execution_allowed: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -320,20 +342,46 @@ def verify_git_anchor(
         if root not in resolved.parents or not resolved.is_file():
             raise ValueError("anchored artifact escapes repository root")
         relative = resolved.relative_to(root).as_posix()
-        run(
-            ["git", "ls-files", "--error-unmatch", "--", relative],
-            cwd=root,
-            check=True,
-            capture_output=True,
-        )
-        committed = run(
-            ["git", "show", f"{expected_repository_commit}:{relative}"],
-            cwd=root,
-            check=True,
-            capture_output=True,
-        ).stdout
+        try:
+            run(
+                ["git", "ls-files", "--error-unmatch", "--", relative],
+                cwd=root,
+                check=True,
+                capture_output=True,
+            )
+            committed = run(
+                ["git", "show", f"{expected_repository_commit}:{relative}"],
+                cwd=root,
+                check=True,
+                capture_output=True,
+            ).stdout
+        except CalledProcessError as error:
+            raise ValueError(f"{relative}: not tracked at anchored commit") from error
         if committed != resolved.read_bytes():
             raise ValueError(f"{relative}: differs from anchored commit")
+
+
+def verify_git_artifacts_at_commit(
+    repository_root: Path, expected_repository_commit: str, artifact_paths: list[Path]
+) -> None:
+    """Match current artifact bytes to a historical commit without requiring HEAD."""
+    root = repository_root.resolve(strict=True)
+    for artifact in artifact_paths:
+        resolved = artifact.resolve(strict=True)
+        if root not in resolved.parents or not resolved.is_file():
+            raise ValueError("historical artifact escapes repository root")
+        relative = resolved.relative_to(root).as_posix()
+        try:
+            committed = run(
+                ["git", "show", f"{expected_repository_commit}:{relative}"],
+                cwd=root,
+                check=True,
+                capture_output=True,
+            ).stdout
+        except CalledProcessError as error:
+            raise ValueError(f"{relative}: not present at base commit") from error
+        if committed != resolved.read_bytes():
+            raise ValueError(f"{relative}: differs from base commit")
 
 
 def _load_object(path: Path) -> dict[str, Any]:
@@ -350,6 +398,208 @@ def _validate_object(value: dict[str, Any], schema_name: str, label: str) -> Non
     if errors:
         location = ".".join(str(part) for part in errors[0].absolute_path) or "<root>"
         raise ValueError(f"{label}.{location}: {errors[0].message}")
+
+
+def _without(value: dict[str, Any], names: set[str]) -> dict[str, Any]:
+    return {key: child for key, child in value.items() if key not in names}
+
+
+def verify_approved_fixture_inputs(
+    *,
+    repository_root: Path,
+    packet_dir: Path,
+    expected_approval_sha256: str,
+    expected_approved_input_readiness_sha256: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> ApprovedFixtureInputsVerificationResult:
+    """Verify the deterministic input promotion while keeping execution disabled."""
+    root = repository_root.resolve(strict=True)
+    packet = packet_dir.resolve(strict=True)
+    if root not in packet.parents:
+        raise ValueError("approved-input packet escapes repository root")
+
+    names = {
+        "candidate_readiness": "readiness.json",
+        "candidate_source_population": "source-population.json",
+        "candidate_rights": "local-rights-review.pending.json",
+        "candidate_codebook": "codebook.json",
+        "candidate_sampling": "sampling-configuration.json",
+        "candidate_units": "unit-manifest.json",
+        "candidate_clusters": "cluster-registry.json",
+        "candidate_redaction": "redaction-manifest.json",
+        "approval": "input-approval.approved.json",
+        "rights": "local-rights-review.approved.json",
+        "codebook": "codebook.approved.json",
+        "sampling": "sampling-configuration.approved.json",
+        "units": "unit-manifest.rights-approved.json",
+        "clusters": "cluster-registry.rights-approved.json",
+        "approved_readiness": "input-readiness.approved.json",
+    }
+    paths = {role: packet / name for role, name in names.items()}
+    values = {role: _load_object(path) for role, path in paths.items()}
+
+    candidate_schemas = {
+        "candidate_readiness": "analyst-fixture-readiness.schema.json",
+        "candidate_source_population": "analyst-fixture-source-population.schema.json",
+        "candidate_rights": "analyst-local-rights-review.schema.json",
+        "candidate_codebook": "analyst-fixture-codebook.schema.json",
+        "candidate_sampling": "sampling-configuration.schema.json",
+        "candidate_units": "analyst-fixture-unit-manifest.schema.json",
+        "candidate_clusters": "analyst-fixture-cluster-registry.schema.json",
+        "candidate_redaction": "analyst-redaction-manifest.schema.json",
+    }
+    for role, schema in candidate_schemas.items():
+        _validate_object(values[role], schema, role)
+
+    if sha256(paths["candidate_readiness"].read_bytes()).hexdigest() != (
+        "de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd"
+    ):
+        raise ValueError("approved base readiness SHA-256 mismatch")
+    if sha256(paths["approval"].read_bytes()).hexdigest() != expected_approval_sha256:
+        raise ValueError("input approval SHA-256 mismatch")
+    if (
+        sha256(paths["approved_readiness"].read_bytes()).hexdigest()
+        != expected_approved_input_readiness_sha256
+    ):
+        raise ValueError("approved-input readiness SHA-256 mismatch")
+
+    schemas = {
+        "approval": "analyst-fixture-input-approval.schema.json",
+        "rights": "analyst-approved-local-rights-review.schema.json",
+        "codebook": "analyst-approved-fixture-codebook.schema.json",
+        "sampling": "analyst-approved-sampling-configuration.schema.json",
+        "units": "analyst-fixture-unit-manifest.schema.json",
+        "clusters": "analyst-fixture-cluster-registry.schema.json",
+        "approved_readiness": "analyst-fixture-approved-input-readiness.schema.json",
+    }
+    for role, schema in schemas.items():
+        _validate_object(values[role], schema, role)
+
+    approval = values["approval"]
+    statement_digest = sha256(approval["approval_statement"].encode("utf-8")).hexdigest()
+    if approval["approval_statement_sha256"] != statement_digest:
+        raise ValueError("approval statement SHA-256 mismatch")
+    if approval["approved_repository_commit"] != expected_base_repository_commit:
+        raise ValueError("approval base repository commit mismatch")
+    if approval["execution_allowed"] is not False:
+        raise ValueError("input approval cannot authorize execution")
+
+    candidate_rights = values["candidate_rights"]
+    rights = values["rights"]
+    if _without(
+        rights,
+        {
+            "schema_version",
+            "status",
+            "local_analysis_allowed",
+            "approved_by",
+            "approved_on",
+            "recorded_at",
+        },
+    ) != _without(
+        candidate_rights,
+        {"schema_version", "status", "local_analysis_allowed", "approved_by", "approved_at"},
+    ):
+        raise ValueError("approved rights transition changed candidate content")
+
+    candidate_codebook = values["candidate_codebook"]
+    codebook = values["codebook"]
+    if _without(
+        codebook, {"schema_version", "status", "approved_by", "approved_on", "recorded_at"}
+    ) != _without(candidate_codebook, {"schema_version", "status", "approved_by", "approved_at"}):
+        raise ValueError("approved codebook transition changed candidate content")
+
+    candidate_sampling = values["candidate_sampling"]
+    sampling = values["sampling"]
+    if _without(
+        sampling, {"schema_version", "status", "approved_by", "approved_on", "recorded_at"}
+    ) != _without(candidate_sampling, {"schema_version", "status", "approved_by", "approved_at"}):
+        raise ValueError("approved sampling transition changed candidate content")
+
+    candidate_units = values["candidate_units"]
+    units = values["units"]
+    expected_units = json.loads(json.dumps(candidate_units))
+    expected_units["locked_at"] = approval["recorded_at"]
+    for unit in expected_units["units"]:
+        if unit["rights_eligible_for_local_use"] is not False:
+            raise ValueError("candidate unit rights must be false")
+        unit["rights_eligible_for_local_use"] = True
+    if units != expected_units:
+        raise ValueError("approved unit transition changed non-rights content")
+
+    candidate_clusters = values["candidate_clusters"]
+    clusters = values["clusters"]
+    expected_clusters = dict(candidate_clusters)
+    expected_clusters["unit_manifest_sha256"] = sha256(paths["units"].read_bytes()).hexdigest()
+    expected_clusters["locked_at"] = approval["recorded_at"]
+    if clusters != expected_clusters:
+        raise ValueError("approved cluster transition changed non-pin content")
+
+    readiness = values["approved_readiness"]
+    if readiness["base_readiness"]["repository_commit"] != expected_base_repository_commit:
+        raise ValueError("approved readiness base commit mismatch")
+    if readiness["execution_allowed"] is not False:
+        raise ValueError("approved inputs cannot authorize execution")
+    expected_pins = {
+        "input_approval": paths["approval"],
+        "local_rights_review": paths["rights"],
+        "codebook": paths["codebook"],
+        "sampling_configuration": paths["sampling"],
+        "unit_manifest": paths["units"],
+        "duplicate_cluster_registry": paths["clusters"],
+    }
+    for role, path in expected_pins.items():
+        pin = readiness["approved_artifacts"][role]
+        relative = path.relative_to(root).as_posix()
+        if pin["path"] != relative or pin["sha256"] != sha256(path.read_bytes()).hexdigest():
+            raise ValueError(f"approved readiness {role} pin mismatch")
+    unchanged = {
+        "protocol": root / "docs/42-v2-analyst-execution-protocol.md",
+        "source_population": packet / "source-population.json",
+        "redaction_manifest": packet / "redaction-manifest.json",
+    }
+    for role, path in unchanged.items():
+        pin = readiness["unchanged_artifacts"][role]
+        if (
+            pin["path"] != path.relative_to(root).as_posix()
+            or pin["sha256"] != sha256(path.read_bytes()).hexdigest()
+        ):
+            raise ValueError(f"approved readiness {role} pin mismatch")
+
+    candidate_readiness = values["candidate_readiness"]
+    if candidate_readiness["protocol"] != {
+        "path": "docs/42-v2-analyst-execution-protocol.md",
+        "sha256": sha256(unchanged["protocol"].read_bytes()).hexdigest(),
+    }:
+        raise ValueError("candidate readiness protocol pin mismatch")
+    declared = {pin["path"]: pin["sha256"] for pin in candidate_readiness["artifacts"]}
+    candidate_paths = [packet / name for name in names.values() if name in CANDIDATE_PACKET_NAMES]
+    expected_declared = {
+        path.relative_to(root).as_posix(): sha256(path.read_bytes()).hexdigest()
+        for path in candidate_paths
+    }
+    if declared != expected_declared:
+        raise ValueError("candidate readiness artifact pins mismatch")
+
+    historical_paths = [
+        paths["candidate_readiness"],
+        *candidate_paths,
+        unchanged["protocol"],
+        root / "examples/process-mining-events.fixture.jsonl",
+        root / "examples/event-timeline.small.json",
+        root / "LICENSE.md",
+    ]
+    verify_git_artifacts_at_commit(root, expected_base_repository_commit, historical_paths)
+    final_paths = [paths["approved_readiness"], *expected_pins.values(), *unchanged.values()]
+    verify_git_anchor(root, expected_promotion_repository_commit, final_paths)
+
+    return ApprovedFixtureInputsVerificationResult(
+        base_readiness_sha256=readiness["base_readiness"]["sha256"],
+        approval_sha256=expected_approval_sha256,
+        approved_input_readiness_sha256=expected_approved_input_readiness_sha256,
+        unit_count=len(units["units"]),
+    )
 
 
 def _instant(value: str, label: str) -> datetime:
@@ -380,16 +630,14 @@ def verify_analyst_execution_packet(
         "analyst-execution-authorization.v0.2.schema.json",
         "authorization",
     )
-    verify_authorized_actor_separation(document)
-
     schema_by_role = {
         "source_population": "analyst-fixture-source-population.schema.json",
-        "codebook": "analyst-fixture-codebook.schema.json",
-        "sampling_configuration": "sampling-configuration.schema.json",
+        "codebook": "analyst-approved-fixture-codebook.schema.json",
+        "sampling_configuration": "analyst-approved-sampling-configuration.schema.json",
         "unit_manifest": "analyst-fixture-unit-manifest.schema.json",
         "duplicate_cluster_registry": "analyst-fixture-cluster-registry.schema.json",
         "redaction_manifest": "analyst-redaction-manifest.schema.json",
-        "local_rights_review": "analyst-local-rights-review.schema.json",
+        "local_rights_review": "analyst-approved-local-rights-review.schema.json",
     }
     artifact_paths: dict[str, Path] = {}
     for role, pin in document["artifacts"].items():
@@ -399,6 +647,21 @@ def verify_analyst_execution_packet(
         if sha256(path.read_bytes()).hexdigest() != pin["sha256"]:
             raise ValueError(f"{role}: artifact SHA-256 mismatch")
         artifact_paths[role] = path
+    approved_readiness_path = artifact_paths["approved_input_readiness"]
+    approved_readiness = _load_object(approved_readiness_path)
+    verify_approved_fixture_inputs(
+        repository_root=root,
+        packet_dir=approved_readiness_path.parent,
+        expected_approval_sha256=approved_readiness["approved_artifacts"]["input_approval"][
+            "sha256"
+        ],
+        expected_approved_input_readiness_sha256=document["artifacts"]["approved_input_readiness"][
+            "sha256"
+        ],
+        expected_base_repository_commit=approved_readiness["base_readiness"]["repository_commit"],
+        expected_promotion_repository_commit=expected_repository_commit,
+    )
+    verify_authorized_actor_separation(document)
     expected_protocol = (root / "docs/42-v2-analyst-execution-protocol.md").resolve(strict=True)
     if artifact_paths["protocol"] != expected_protocol:
         raise ValueError("protocol artifact is not the active analyst protocol")
@@ -486,9 +749,9 @@ def verify_analyst_execution_packet(
         "sampling": sampling,
     }.items():
         created = _instant(artifact["created_at"], f"{label}.created_at")
-        approved = _instant(artifact["approved_at"], f"{label}.approved_at")
-        if created > approved or approved > authorization_time:
-            raise ValueError(f"{label}: invalid approval chronology")
+        recorded = _instant(artifact["recorded_at"], f"{label}.recorded_at")
+        if created > recorded or recorded > authorization_time:
+            raise ValueError(f"{label}: invalid recording chronology")
     if (
         sampling["random_seed"] != 20260717
         or sampling["probability_sample_size"] != 11
