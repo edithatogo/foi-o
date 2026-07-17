@@ -1,0 +1,4 @@
+Task: Close annotation and adjudication outcome gaps
+Files: locked annotation and adjudication schemas and contract tests
+Verification: 11 focused tests; Ruff; uv sync --extra dev --extra rdf; uv run pytest -q (439 passed, 2 skipped).
+Remaining risks: task-conditioned span requirements, cross-artifact role/hash consistency, timestamp ordering, and empirical arithmetic remain verifier responsibilities.
