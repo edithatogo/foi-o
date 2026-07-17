@@ -1,0 +1,3 @@
+Task: Record empirical execution authorization checkpoint
+Verification: uv sync --extra dev --extra rdf; uv run pytest -q (452 passed, 2 skipped).
+Remaining risks: no protocol approval, human role assignments, approved population/codebook/sampling configuration, or authentic execution authorization exists.
