@@ -355,6 +355,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     extractor-matching rules (`5f483fd`). Verification: 12 focused tests,
     examples validation, Ruff, and full suite 426 passed, 2 skipped. This does
     not approve the protocol or supply human roles or execution inputs.
+  - [x] Duplicate-cluster contract subtask: add a strict registry schema with
+    population and algorithm pins, one split per cluster, and distinct
+    candidate-fixture versus authentic frozen-evidence states (`3591647`).
+    Verification: 2 focused tests, Ruff, and full suite 428 passed, 2 skipped.
+    No authentic registry or sample membership was created.
   - [x] Consolidated human-gate packet subtask: pin the interval, PSC provider
     scope, seven-source selection, source-pack promotion, bounded raw-state
     mapping, and annotation-protocol decisions in
