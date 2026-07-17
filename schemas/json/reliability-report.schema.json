@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:reliability-report:0.1.0",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "ci": {"type": "object", "additionalProperties": false, "required": ["lower", "upper"], "properties": {"lower": {"type": "number", "minimum": -1, "maximum": 1}, "upper": {"type": "number", "minimum": -1, "maximum": 1}}},
+    "rate": {"type": "object", "additionalProperties": false, "required": ["numerator", "denominator", "estimate"], "properties": {"numerator": {"type": "integer", "minimum": 0}, "denominator": {"type": "integer", "minimum": 0}, "estimate": {"type": ["number", "null"], "minimum": 0, "maximum": 1}}},
+    "rate_with_ci": {"type": "object", "additionalProperties": false, "required": ["numerator", "denominator", "estimate", "ci"], "properties": {"numerator": {"type": "integer", "minimum": 0}, "denominator": {"type": "integer", "minimum": 0}, "estimate": {"type": ["number", "null"], "minimum": 0, "maximum": 1}, "ci": {"oneOf": [{"$ref": "#/$defs/ci"}, {"type": "null"}]}}},
+    "estimate_with_ci": {"type": "object", "additionalProperties": false, "required": ["estimate", "ci"], "properties": {"estimate": {"type": ["number", "null"], "minimum": -1, "maximum": 1}, "ci": {"oneOf": [{"$ref": "#/$defs/ci"}, {"type": "null"}]}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "report_id", "status", "empirical_evidence", "promotion_allowed", "artifact_pins", "calculation", "counts", "nominal_agreement", "span_agreement", "rates", "disagreements", "computed_at", "limitations"],
+  "properties": {
+    "schema_version": {"const": "foi-o.reliability-report.v0.1.0"},
+    "report_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["candidate_contract_fixture", "computed_human_reliability"]},
+    "empirical_evidence": {"type": "boolean"},
+    "promotion_allowed": {"const": false},
+    "artifact_pins": {
+      "type": "object", "additionalProperties": false,
+      "required": ["protocol_sha256", "sample_manifest_sha256", "duplicate_cluster_registry_sha256", "annotation_set_sha256", "adjudication_set_sha256", "codebook_revision"],
+      "properties": {
+        "protocol_sha256": {"$ref": "#/$defs/sha256"}, "sample_manifest_sha256": {"$ref": "#/$defs/sha256"}, "duplicate_cluster_registry_sha256": {"$ref": "#/$defs/sha256"},
+        "annotation_set_sha256": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/sha256"}},
+        "adjudication_set_sha256": {"$ref": "#/$defs/sha256"}, "codebook_revision": {"type": "string", "minLength": 1}
+      }
+    },
+    "calculation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["confidence_level", "confidence_interval_method", "probability_weights_scope", "span_coordinate_system", "overlap_threshold", "bootstrap_seed", "bootstrap_replicates_requested", "bootstrap_replicates_valid", "bootstrap_replicates_invalid"],
+      "properties": {
+        "confidence_level": {"const": 0.95}, "confidence_interval_method": {"const": "two_sided_duplicate_cluster_bootstrap"}, "probability_weights_scope": {"const": "probability_sample_only"},
+        "span_coordinate_system": {"const": "utf8_character_half_open"}, "overlap_threshold": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+        "bootstrap_seed": {"type": "integer", "minimum": 0}, "bootstrap_replicates_requested": {"type": "integer", "minimum": 1}, "bootstrap_replicates_valid": {"type": "integer", "minimum": 0}, "bootstrap_replicates_invalid": {"type": "integer", "minimum": 0}
+      }
+    },
+    "counts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["units", "missing_evidence", "annotator_abstentions", "resolved_adjudications", "unresolved_adjudications", "label_counts"],
+      "properties": {
+        "units": {"type": "integer", "minimum": 0}, "missing_evidence": {"type": "integer", "minimum": 0},
+        "annotator_abstentions": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "integer", "minimum": 0}},
+        "resolved_adjudications": {"type": "integer", "minimum": 0}, "unresolved_adjudications": {"type": "integer", "minimum": 0},
+        "label_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "nominal_agreement": {
+      "type": "object", "additionalProperties": false, "required": ["eligible_pairs", "raw_agreement", "cohen_kappa", "kappa_undefined_reason"],
+      "properties": {
+        "eligible_pairs": {"type": "integer", "minimum": 0}, "raw_agreement": {"$ref": "#/$defs/rate_with_ci"}, "cohen_kappa": {"$ref": "#/$defs/estimate_with_ci"},
+        "kappa_undefined_reason": {"type": ["string", "null"], "enum": [null, "no_authentic_annotations", "no_eligible_pairs", "expected_agreement_equals_one"]}
+      },
+      "allOf": [
+        {"if": {"properties": {"cohen_kappa": {"properties": {"estimate": {"type": "null"}}}}}, "then": {"properties": {"kappa_undefined_reason": {"type": "string"}, "cohen_kappa": {"properties": {"ci": {"type": "null"}}}}}},
+        {"if": {"properties": {"cohen_kappa": {"properties": {"estimate": {"type": "number"}}}}}, "then": {"properties": {"kappa_undefined_reason": {"type": "null"}, "cohen_kappa": {"properties": {"ci": {"$ref": "#/$defs/ci"}}}}}}
+      ]
+    },
+    "span_agreement": {
+      "type": "object", "additionalProperties": false, "required": ["eligible_pairs", "exact_agreement", "overlap_f1"],
+      "properties": {"eligible_pairs": {"type": "integer", "minimum": 0}, "exact_agreement": {"$ref": "#/$defs/rate_with_ci"}, "overlap_f1": {"type": "object", "additionalProperties": false, "required": ["denominator", "estimate", "ci"], "properties": {"denominator": {"type": "integer", "minimum": 0}, "estimate": {"type": ["number", "null"], "minimum": 0, "maximum": 1}, "ci": {"oneOf": [{"$ref": "#/$defs/ci"}, {"type": "null"}]}}}}
+    },
+    "rates": {"type": "object", "additionalProperties": false, "required": ["adjudication", "unresolved"], "properties": {"adjudication": {"$ref": "#/$defs/rate"}, "unresolved": {"$ref": "#/$defs/rate"}}},
+    "disagreements": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["dimension", "value", "count"], "properties": {"dimension": {"enum": ["label", "stratum", "year", "state", "duplicate_cluster"]}, "value": {"type": "string", "minLength": 1}, "count": {"type": "integer", "minimum": 0}}}},
+    "computed_at": {"type": ["string", "null"], "format": "date-time"},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"const": "computed_human_reliability"}}}, "then": {"properties": {"empirical_evidence": {"const": true}, "computed_at": {"type": "string", "format": "date-time"}}}, "else": {"properties": {"empirical_evidence": {"const": false}, "computed_at": {"const": null}}}}
+  ]
+}

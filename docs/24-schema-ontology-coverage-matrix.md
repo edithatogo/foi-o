@@ -14,6 +14,7 @@ changes materially.
 | Upstream extraction readiness | `schemas/json/upstream-extraction-readiness.schema.json` | Pins upstream archive and NLP implementation evidence without importing or promoting upstream outputs. | `examples/v2/upstream-extraction-readiness.2026-07-16.json` | `tests/test_upstream_extraction_readiness.py`, `tests/test_initial_baseline_verification.py` | Contract alignment, a content-bearing approved source, raw-manifest entry point, immutable initial candidate baseline, independent baseline verification, and model pin are verified; independent annotation and governed comparison remain pending. |
 | Human promotion review | `schemas/json/human-promotion-review-packet.schema.json` | Keeps fixture, legal-mapping, and rights-scope decisions distinct and human-owned. | `examples/v2/human-promotion-review-packet.approved.json` | `tests/test_human_promotion_review_packet.py` | Candidate artifacts are SHA-256 pinned; `edithatogo` approved all four review items on 2026-07-16; schema-valid contract examples remain explicitly excluded as approval evidence. |
 | Empirical human-gate review | `schemas/json/empirical-human-gate-review-packet.schema.json` | Consolidates source-pack, bounded mapping, and annotation-protocol decisions without converting a pending review into certification. | `examples/v2/empirical-human-gate-review-packet.pending.json` | `tests/test_empirical_human_gate_review_packet.py` | Every artifact is hash-pinned; reviewer, approvals, annotator/adjudicator identities, source population, codebook, and sampling configuration remain empty; attachment evidence, sample freeze, and empirical comparison stay blocked. |
+| Reliability report | `schemas/json/reliability-report.schema.json` | Pins the protocol, authentic sample, duplicate clusters, two annotation sets, adjudication set, and codebook while preserving explicit denominators and registered undefined-statistic reasons. | No authentic report exists; contract fixtures are created only in-memory by tests. | `tests/test_reliability_report_contract.py` | Candidate fixtures cannot become empirical evidence or enable promotion; authentic calculation remains blocked on named humans and frozen inputs. |
 | OIA event-time candidates | `schemas/json/oia-event-time-fixture-set.schema.json` | Exercises the existing `oia_rules` decision identifiers without changing legal mappings. | `tests/fixtures/oia_rules/oia-event-time-independent-candidates.json` | `tests/test_oia_rules_independent_fixtures.py` | Candidate cases pin and remain disjoint from the approved authoring fixture; promotion is forbidden pending independent human calculation and review. |
 | Source triangulation | `schemas/json/source-triangulation-result.schema.json` | Relates candidate claim support to existing evidence assertions and normative sources without certifying either. | `examples/v2/source-triangulation.example.json` | `tests/test_source_triangulation.py` | Two independent eligible sources are required; blocked, conflicting, stale, rights-uncertain, and insufficient evidence enter a deterministic human exception queue; promotion is always false. |
 | Raw-state audit readiness | `schemas/json/raw-state-audit-readiness.schema.json` | Tests whether immutable FYI state observations have the correspondence and attachment evidence needed to review candidate mappings. | `examples/v2/raw-state-audit-readiness.fc27.json` | `tests/test_raw_state_audit.py` | Input and mapping hashes are verified; aggregate coverage only is committed; absent evidence blocks mapping conclusions. |
@@ -29,14 +30,14 @@ changes materially.
 
 | Artefact class | Count |
 | --- | ---:|
-| JSON Schema files | 93 |
+| JSON Schema files | 94 |
 | Example files | 146 |
 | Documentation files | 53 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 6 |
-| Python test modules | 76 |
+| Python test modules | 77 |
 
 ## Semantic Snapshot
 
