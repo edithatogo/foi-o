@@ -45,14 +45,16 @@
     },
     "event_time_intervals": {
       "type": "object", "additionalProperties": false,
-      "required": ["status", "interval_count", "artifact_path", "artifact_sha256", "human_approved", "required_action"],
+      "required": ["status", "interval_count", "artifact_path", "artifact_sha256", "human_approved", "review_artifact_path", "review_artifact_sha256", "approval_scope"],
       "properties": {
-        "status": {"const": "candidate_human_legal_review_required"},
+        "status": {"const": "approved_bounded_legal_review"},
         "interval_count": {"const": 50},
         "artifact_path": {"const": "mappings/nz-oia-applicability-interval-candidates.yaml"},
         "artifact_sha256": {"$ref": "#/$defs/sha256"},
-        "human_approved": {"const": false},
-        "required_action": {"type": "string", "minLength": 1}
+        "human_approved": {"const": true},
+        "review_artifact_path": {"const": "examples/v2/nz-oia-applicability-interval-review.approved.json"},
+        "review_artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "approval_scope": {"type": "string", "minLength": 1}
       }
     },
     "non_legislation_sources": {
@@ -72,7 +74,7 @@
     "source_pack_ready": {"const": false},
     "source_pack_promotion_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true,
+      "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true,
       "items": {
         "enum": [
           "event_time_human_review_pending", "psc_provider_scope_review_pending",

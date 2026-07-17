@@ -26,12 +26,14 @@
     "required_action": "A named human reviewer must decide whether the Public Service Commission's own CC BY 4.0 terms support a new publicservice.govt.nz provider-scope entry; the approved govt.nz scope is not silently broadened."
   },
   "event_time_intervals": {
-    "status": "candidate_human_legal_review_required",
+    "status": "approved_bounded_legal_review",
     "interval_count": 50,
     "artifact_path": "mappings/nz-oia-applicability-interval-candidates.yaml",
     "artifact_sha256": "401cd17ae98b4aa7adc51e90f861838c29173ec6165c78ed4f448cd58cd82e83",
-    "human_approved": false,
-    "required_action": "A named human legal reviewer must verify and approve every inclusive/exclusive interval against commencement and amendment evidence; adjacent official as-at dates alone are insufficient."
+    "human_approved": true,
+    "review_artifact_path": "examples/v2/nz-oia-applicability-interval-review.approved.json",
+    "review_artifact_sha256": "90c3ee2afed2c86b133b3a4af711ab23b95727934e2cc52acfc40b3ef4a3dfa3",
+    "approval_scope": "All 50 inclusive/exclusive boundaries only; source-pack promotion and broader legal certification remain prohibited."
   },
   "non_legislation_sources": {
     "status": "candidate_artifacts_acquired_human_review_pending",
@@ -46,7 +48,6 @@
   "source_pack_ready": false,
   "source_pack_promotion_allowed": false,
   "blockers": [
-    "event_time_human_review_pending",
     "psc_provider_scope_review_pending",
     "nonleg_source_selection_review_pending",
     "source_pack_promotion_pending"

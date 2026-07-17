@@ -35,6 +35,7 @@ def test_every_review_artifact_is_exactly_hash_pinned() -> None:
             "attachment-snapshot-rights",
             "bounded-raw-state-mapping",
             "bounded-raw-state-mapping-11872",
+            "oia-event-time-intervals",
         }:
             assert review["decision"] == "approved"
             assert review["approver"] == "edithatogo"
@@ -55,6 +56,18 @@ def test_packet_does_not_convert_rights_terms_into_provider_scope_approval() -> 
     assert provider["rights_evidence_byte_size"] == 37456
     assert provider["proposed_scope"] == "publicservice.govt.nz provider-owned content"
     assert provider["decision"] == "pending"
+
+
+def test_interval_review_is_approved_without_promoting_source_pack() -> None:
+    payload = json.loads(PACKET.read_text())
+    interval = next(
+        review for review in payload["reviews"] if review["review_id"] == "oia-event-time-intervals"
+    )
+    assert interval["decision"] == "approved"
+    assert interval["approver"] == "edithatogo"
+    assert interval["interval_count"] == 50
+    assert "event_time_interval_review_pending" not in payload["blockers"]
+    assert payload["source_pack_promotion_allowed"] is False
 
 
 def test_annotation_roles_and_execution_inputs_are_unassigned() -> None:

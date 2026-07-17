@@ -1,0 +1,18 @@
+{
+  "schema_version": "foi-o.nz-oia-applicability-interval-review.v0.1.0",
+  "status": "approved",
+  "reviewer": "edithatogo",
+  "reviewed_at": "2026-07-17T03:30:22Z",
+  "candidate_artifact_path": "mappings/nz-oia-applicability-interval-candidates.yaml",
+  "candidate_artifact_sha256": "401cd17ae98b4aa7adc51e90f861838c29173ec6165c78ed4f448cd58cd82e83",
+  "interval_count": 50,
+  "review_basis": "Reviewed all inclusive/exclusive boundaries against relevant commencement and amendment evidence.",
+  "all_boundaries_approved": true,
+  "source_pack_promotion_allowed": false,
+  "prohibited_actions": {
+    "publication": false,
+    "release": false,
+    "dataset_publication": false,
+    "legal_certification_beyond_reviewed_boundaries": false
+  }
+}

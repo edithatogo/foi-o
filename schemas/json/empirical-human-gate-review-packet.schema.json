@@ -48,7 +48,7 @@
     "sample_freeze_allowed": {"const": false},
     "empirical_comparison_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 7, "maxItems": 7, "uniqueItems": true,
+      "type": "array", "minItems": 6, "maxItems": 6, "uniqueItems": true,
       "items": {
         "enum": [
           "event_time_interval_review_pending",
@@ -150,7 +150,8 @@
                   "not": {
                     "enum": [
                       "attachment-snapshot-rights",
-                      "bounded-raw-state-mapping"
+                      "bounded-raw-state-mapping",
+                      "oia-event-time-intervals"
                     ]
                   }
                 }
@@ -176,6 +177,20 @@
               "decision": {"const": "approved"},
               "approver": {"const": "edithatogo"},
               "reviewed_at": {"const": "2026-07-17T03:23:18Z"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_id": {"const": "oia-event-time-intervals"}
+            }
+          },
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T03:30:22Z"}
             }
           }
         }

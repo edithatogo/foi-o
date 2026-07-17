@@ -8,12 +8,12 @@
   "reviews": [
     {
       "review_id": "oia-event-time-intervals",
-      "artifact_path": "mappings/nz-oia-applicability-interval-candidates.yaml",
-      "artifact_sha256": "401cd17ae98b4aa7adc51e90f861838c29173ec6165c78ed4f448cd58cd82e83",
+      "artifact_path": "examples/v2/nz-oia-applicability-interval-review.approved.json",
+      "artifact_sha256": "90c3ee2afed2c86b133b3a4af711ab23b95727934e2cc52acfc40b3ef4a3dfa3",
       "interval_count": 50,
-      "decision": "pending",
-      "approver": null,
-      "reviewed_at": null,
+      "decision": "approved",
+      "approver": "edithatogo",
+      "reviewed_at": "2026-07-17T03:30:22Z",
       "approval_effect": "Approve all 50 inclusive/exclusive boundaries only after verifying commencement and amendment evidence; approval would not itself promote the complete source pack."
     },
     {
@@ -45,7 +45,7 @@
     {
       "review_id": "source-pack-promotion",
       "artifact_path": "examples/v2/nz-source-pack-review-readiness.2026-07-16.json",
-      "artifact_sha256": "7bbb53370bac7ed35fd1b9d9beeec4b1995aeca5142344531c558fb9d7423197",
+      "artifact_sha256": "eaf67a72fe7a46ad6294383e805b34af97dab37d6738c0e8867e9133d10f5e4b",
       "decision": "pending",
       "approver": null,
       "reviewed_at": null,
@@ -120,7 +120,6 @@
   "sample_freeze_allowed": false,
   "empirical_comparison_allowed": false,
   "blockers": [
-    "event_time_interval_review_pending",
     "psc_provider_scope_review_pending",
     "nonlegislation_source_selection_review_pending",
     "source_pack_promotion_review_pending",
