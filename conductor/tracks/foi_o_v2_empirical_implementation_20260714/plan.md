@@ -366,6 +366,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     agent identities for authentic human annotations (`3395dc1`). Verification:
     2 focused tests, Ruff, and full suite 430 passed, 2 skipped. No annotation
     record or empirical evidence was created.
+  - [x] Adjudication contract subtask: preserve both locked annotation hashes
+    and reviewer identities, require a human-form adjudicator identity,
+    reasoned resolved/unresolved outcomes, and immutable lock provenance while
+    rejecting agent adjudicators (`f7aec30`). Verification: 2 focused tests,
+    Ruff, and full suite 432 passed, 2 skipped. No adjudication occurred.
   - [x] Consolidated human-gate packet subtask: pin the interval, PSC provider
     scope, seven-source selection, source-pack promotion, bounded raw-state
     mapping, and annotation-protocol decisions in
