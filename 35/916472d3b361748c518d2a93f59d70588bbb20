@@ -1,0 +1,5 @@
+Task: Add duplicate-cluster registry contract
+
+Verification: 2 focused tests; Ruff; uv sync --extra dev --extra rdf; full suite 428 passed, 2 skipped.
+
+Remaining risk: no authentic population or frozen registry exists; human protocol and role gates remain pending.
