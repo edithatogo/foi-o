@@ -1,0 +1,3 @@
+Task: Record empirical execution-input contract checkpoint
+Verification: uv sync --extra dev --extra rdf; uv run pytest -q (458 passed, 2 skipped).
+Remaining risks: concrete population, codebook, sampling configuration, two human annotators, distinct adjudicator, and execution authorization are missing.
