@@ -18,6 +18,7 @@ EXAMPLES = (
 )
 SCHEMA = ROOT / "schemas/json/bounded-raw-state-audit.schema.json"
 REVIEW = ROOT / "examples/v2/bounded-raw-state-mapping-review.11872.json"
+REVIEW_35076 = ROOT / "examples/v2/bounded-raw-state-mapping-review.35076.json"
 REVIEW_SCHEMA = ROOT / "schemas/json/bounded-raw-state-mapping-review.schema.json"
 
 
@@ -166,6 +167,38 @@ def test_bounded_mapping_review_rejects_scope_expansion(
     else:
         review["prohibited_actions"][field] = value
     invalid = tmp_path / "mapping-review.json"
+    invalid.write_text(json.dumps(review), encoding="utf-8")
+    result = validate_json_schema(invalid, REVIEW_SCHEMA)
+    assert result.errors
+
+
+def test_request_35076_mapping_review_is_exact_and_fail_closed() -> None:
+    result = validate_json_schema(REVIEW_35076, REVIEW_SCHEMA)
+    assert not result.errors, result.errors
+    review = json.loads(REVIEW_35076.read_text())
+    assert review["reviewer"] == "edithatogo"
+    assert review["request_id"] == "35076"
+    assert review["candidate_mapping"] == {
+        "raw_state": "waiting_response",
+        "normalised_state": "awaiting_response",
+    }
+    assert review["evidence_summary"] == {
+        "correspondence_count": 1,
+        "attachment_count": 0,
+    }
+    audit_path = ROOT / review["audit_artifact_path"]
+    assert review["audit_artifact_sha256"] == sha256(audit_path.read_bytes()).hexdigest()
+    assert review["archive_wide_claim_allowed"] is False
+    assert all(value is False for value in review["prohibited_actions"].values())
+
+
+@pytest.mark.parametrize("review_path", [REVIEW, REVIEW_35076])
+def test_bounded_mapping_review_rejects_cross_wired_request_evidence(
+    tmp_path: Path, review_path: Path
+) -> None:
+    review = json.loads(review_path.read_text())
+    review["request_id"] = "35076" if review["request_id"] == "11872" else "11872"
+    invalid = tmp_path / review_path.name
     invalid.write_text(json.dumps(review), encoding="utf-8")
     result = validate_json_schema(invalid, REVIEW_SCHEMA)
     assert result.errors

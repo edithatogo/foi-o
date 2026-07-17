@@ -53,8 +53,8 @@
     },
     {
       "review_id": "bounded-raw-state-mapping",
-      "artifact_path": "examples/v2/bounded-raw-state-audit.35076.json",
-      "artifact_sha256": "ef9a6d56a9dc6399f10084a928e30a865130b3ff81ef7b16b658249b3d4f489a",
+      "artifact_path": "examples/v2/bounded-raw-state-mapping-review.35076.json",
+      "artifact_sha256": "a2125c4b50763fc444f48185c72e23ec8e9c659e0c6b04d0f33ae68cf0a628a3",
       "candidate_mapping": {
         "raw_state": "waiting_response",
         "normalised_state": "awaiting_response"
@@ -62,10 +62,10 @@
       "correspondence_count": 1,
       "attachment_count": 0,
       "archive_wide_claim_allowed": false,
-      "decision": "pending",
-      "approver": null,
-      "reviewed_at": null,
-      "approval_effect": "Approve only the bounded request 35076 candidate mapping; a separate attachment-bearing snapshot remains required and no archive-wide conclusion follows."
+      "decision": "approved",
+      "approver": "edithatogo",
+      "reviewed_at": "2026-07-17T03:23:18Z",
+      "approval_effect": "Approve only the bounded request 35076 candidate mapping waiting_response to awaiting_response based on one outgoing correspondence item and an empty verified attachment inventory; no archive-wide conclusion, legal certification, or prohibited downstream use follows."
     },
     {
       "review_id": "bounded-raw-state-mapping-11872",
@@ -124,7 +124,6 @@
     "psc_provider_scope_review_pending",
     "nonlegislation_source_selection_review_pending",
     "source_pack_promotion_review_pending",
-    "bounded_raw_state_mapping_review_pending",
     "annotation_protocol_review_pending",
     "annotation_roles_missing",
     "sample_execution_inputs_missing"

@@ -1,0 +1,29 @@
+{
+  "schema_version": "foi-o.bounded-raw-state-mapping-review.v0.1.0",
+  "status": "approved",
+  "reviewer": "edithatogo",
+  "reviewed_at": "2026-07-17T03:23:18Z",
+  "request_id": "35076",
+  "audit_artifact_path": "examples/v2/bounded-raw-state-audit.35076.json",
+  "audit_artifact_sha256": "ef9a6d56a9dc6399f10084a928e30a865130b3ff81ef7b16b658249b3d4f489a",
+  "candidate_mapping": {
+    "raw_state": "waiting_response",
+    "normalised_state": "awaiting_response"
+  },
+  "evidence_summary": {
+    "correspondence_count": 1,
+    "attachment_count": 0
+  },
+  "scope": "bounded_request_only",
+  "archive_wide_claim_allowed": false,
+  "prohibited_actions": {
+    "legal_certification": false,
+    "publication": false,
+    "redistribution": false,
+    "training": false,
+    "fine_tuning": false,
+    "release": false,
+    "dataset_publication": false,
+    "reviewed_gold_label_promotion": false
+  }
+}

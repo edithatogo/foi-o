@@ -48,7 +48,7 @@
     "sample_freeze_allowed": {"const": false},
     "empirical_comparison_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 8, "maxItems": 8, "uniqueItems": true,
+      "type": "array", "minItems": 7, "maxItems": 7, "uniqueItems": true,
       "items": {
         "enum": [
           "event_time_interval_review_pending",
@@ -146,7 +146,14 @@
           "else": {
             "if": {
               "properties": {
-                "review_id": {"not": {"const": "attachment-snapshot-rights"}}
+                "review_id": {
+                  "not": {
+                    "enum": [
+                      "attachment-snapshot-rights",
+                      "bounded-raw-state-mapping"
+                    ]
+                  }
+                }
               }
             },
             "then": {
@@ -155,6 +162,20 @@
                 "approver": {"const": null},
                 "reviewed_at": {"const": null}
               }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_id": {"const": "bounded-raw-state-mapping"}
+            }
+          },
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T03:23:18Z"}
             }
           }
         }
