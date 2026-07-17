@@ -386,6 +386,15 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     (`3b65fa7`). Verification: 8 focused schema tests, Ruff, exact inventory
     checks, and full suite 436 passed, 2 skipped. No reliability statistic was
     calculated.
+  - [x] Empirical cross-artifact verifier subtask: recompute file and record
+    hashes; require authentic frozen units and clusters, two distinct human
+    annotators and a distinct human adjudicator, exact unit/cluster/split and
+    adjudication-reference consistency, codebook alignment, lock chronology,
+    agreement/statistic recomputation, explicit accounting, and permanently
+    disabled promotion (`1702e35`). Verification: Ruff, BasedPyright, 7 focused
+    tests at 94% coverage, and full suite 449 passed, 2 skipped. Synthetic test
+    bundles are temporary and explicitly non-evidentiary; no authentic bundle
+    or empirical result exists.
   - [x] Annotation-outcome hardening subtask: require controlled abstention
     reasons, require labels for non-abstaining annotations, and require labels
     for resolved adjudications so missing evidence and unresolved outcomes
