@@ -17,23 +17,25 @@ gates:
     human_gate: sample_annotation_adjudication_and_source_pack_approval
     consolidated_pending_review_packet: examples/v2/empirical-human-gate-review-packet.pending.json
   nz_source_pack:
-    status: candidate_sources_acquired_human_review_pending
+    status: promoted_metadata_only
     evidence:
       rights_registry: mappings/nz-source-rights-registry.yaml
       oia_version_index: mappings/nz-oia-version-index.yaml
       official_oia_versions_pinned: 50
       interval_candidates: mappings/nz-oia-applicability-interval-candidates.yaml
       interval_candidate_count: 50
-      interval_candidates_legal_applicability_approved: false
+      interval_candidates_legal_applicability_approved: true
+      interval_review: examples/v2/nz-oia-applicability-interval-review.approved.json
       nonlegislation_source_manifest: examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json
       nonlegislation_source_count: 7
       nonlegislation_source_content_storage: local_only
       nonlegislation_source_content_committed: false
-    missing:
-      - human_event_time_applicability_review
-      - human_psc_provider_scope_interpretation
-      - human_non_legislation_source_review
-      - human_source_pack_promotion
+      psc_scope_review: examples/v2/psc-provider-scope-review.approved.json
+      nonlegislation_source_review: examples/v2/nz-nonlegislation-source-review.approved.json
+      promotion_review: examples/v2/nz-source-pack-promotion.approved.json
+      governed_pack: examples/v2/nz-source-pack.governed-metadata.json
+      source_content_included: false
+    missing: []
   governed_reextraction:
     status: bounded_local_reproducibility_run_complete_empirical_gates_pending
     upstream_readiness_audit: examples/v2/upstream-extraction-readiness.2026-07-16.json
@@ -108,12 +110,9 @@ gates:
     missing:
       - independent_annotation_and_adjudication
   raw_state_mapping_audit:
-    status: attachment_candidate_verified_rights_and_human_gates_pending
+    status: bounded_mappings_human_approved
     verified_candidate_source_revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
     missing:
-      - named_human_attachment_snapshot_rights_approval
-      - named_human_supplemental_capture_review
-      - named_human_mapping_review
       - archive_wide_evidence
     bounded_evidence:
       request_id: '35076'
@@ -131,8 +130,10 @@ gates:
       attachment_count: 3
       attachment_bytes: 13259266
       storage: local_only
-      rights_status: pending
-      ready_for_raw_state_mapping_audit: false
+      approved_manifest_sha256: 0c7cee553ca3b01a6416784a1b691df5a6d90159a8f4d55e51a799934f655629
+      rights_status: approved
+      ready_for_raw_state_mapping_audit: true
+      mapping_review: examples/v2/bounded-raw-state-mapping-review.11872.json
   annotation_protocol:
     status: candidate_protocol_prepared_human_and_input_gates_pending
     protocol: docs/41-v2-sampling-and-annotation-protocol.md
