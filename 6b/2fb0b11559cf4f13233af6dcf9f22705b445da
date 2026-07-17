@@ -1,0 +1,7 @@
+Task: Approve PSC provider scope
+
+Summary: Recorded edithatogo's exact provider-owned publicservice.govt.nz approval pinned to terms evidence 2ad002bf09eb0f22fc9fd46bf944213f9538b8437d05f36b925a9c6e180d4ccb.
+
+Verification: 29 focused tests; examples validation; Ruff lint/format; full suite 413 passed, 2 skipped; negative terms-hash, exclusion, and publication tests passed.
+
+Remaining risks: seven-source selection/historical applicability and source-pack promotion remain pending; excluded and third-party content remains outside scope.
