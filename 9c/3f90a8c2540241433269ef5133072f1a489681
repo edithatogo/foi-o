@@ -1,0 +1,4 @@
+Task: Integrate execution authorization into empirical verifier
+Files: authorization/reliability schemas, empirical verifier, and contract/relational tests
+Verification: Ruff; BasedPyright (0 errors); 14 focused contract tests; verifier 94% coverage; uv sync --extra dev --extra rdf; uv run pytest -q (452 passed, 2 skipped).
+Remaining risks: no actual authorization exists; authentic sample, annotation, adjudication, reliability, comparison, release evidence, publication, and paper updates remain blocked.
