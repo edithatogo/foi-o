@@ -114,8 +114,17 @@ def test_verifier_rejects_untracked_required_promotion_artifact(tmp_path: Path) 
     root, packet, base_commit = _committed_candidate(tmp_path)
     promote_inputs(packet, packet, repository_root=root, base_repository_commit=base_commit)
     readiness = packet / "input-readiness.approved.json"
+    assert (
+        run(
+            ["git", "ls-files", "--error-unmatch", "--", readiness.relative_to(root)],
+            cwd=root,
+            check=False,
+            capture_output=True,
+        ).returncode
+        != 0
+    )
 
-    with pytest.raises(ValueError, match="not tracked at anchored commit"):
+    with pytest.raises(ValueError, match="not present at base commit"):
         verify_approved_fixture_inputs(
             repository_root=root,
             packet_dir=packet,
@@ -158,16 +167,24 @@ def test_verifier_rejects_wrong_historical_base_commit(tmp_path: Path) -> None:
 
 def test_verifier_rejects_wrong_final_promotion_commit(tmp_path: Path) -> None:
     root, packet, base_commit = _committed_candidate(tmp_path)
-    _commit_promotion(root, packet, base_commit)
+    promotion_commit = _commit_promotion(root, packet, base_commit)
     readiness = packet / "input-readiness.approved.json"
+    common = {
+        "repository_root": root,
+        "packet_dir": packet,
+        "expected_approval_sha256": _digest(packet / "input-approval.approved.json"),
+        "expected_approved_input_readiness_sha256": _digest(readiness),
+        "expected_base_repository_commit": base_commit,
+    }
+    verify_approved_fixture_inputs(
+        **common,
+        expected_promotion_repository_commit=promotion_commit,
+    )
+    assert base_commit != promotion_commit
 
-    with pytest.raises(ValueError, match="repository commit mismatch"):
+    with pytest.raises(ValueError, match="not present at base commit"):
         verify_approved_fixture_inputs(
-            repository_root=root,
-            packet_dir=packet,
-            expected_approval_sha256=_digest(packet / "input-approval.approved.json"),
-            expected_approved_input_readiness_sha256=_digest(readiness),
-            expected_base_repository_commit=base_commit,
+            **common,
             expected_promotion_repository_commit=base_commit,
         )
 

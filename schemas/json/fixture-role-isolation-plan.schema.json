@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:fixture-role-isolation-plan:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "analysts_have_distinct_locators", "analysts_receive_only_context_manifest_and_approved_codebook", "cross_analyst_output_hidden_until_both_sets_locked", "extractor_candidate_label_hidden", "extractor_confidence_hidden", "reconciler_receives_outputs_only_after_both_sets_locked", "orchestrator_may_label", "execution_allowed"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-role-isolation-plan.v0.1.0"}, "status": {"const": "pending_execution_authorization"},
+    "analysts_have_distinct_locators": {"const": true}, "analysts_receive_only_context_manifest_and_approved_codebook": {"const": true}, "cross_analyst_output_hidden_until_both_sets_locked": {"const": true}, "extractor_candidate_label_hidden": {"const": true}, "extractor_confidence_hidden": {"const": true}, "reconciler_receives_outputs_only_after_both_sets_locked": {"const": true}, "orchestrator_may_label": {"const": false}, "execution_allowed": {"const": false}
+  }
+}

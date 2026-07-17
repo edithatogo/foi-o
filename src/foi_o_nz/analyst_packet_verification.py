@@ -52,6 +52,17 @@ class ApprovedFixtureInputsVerificationResult:
 
 
 @dataclass(frozen=True, slots=True)
+class FixtureRoleAuthorizationRequestVerificationResult:
+    """Verified preparation evidence that cannot authorize execution."""
+
+    request_sha256: str
+    preparation_commit: str
+    role_count: int
+    context_count: int
+    execution_allowed: bool = False
+
+
+@dataclass(frozen=True, slots=True)
 class DerivedFixtureUnit:
     """A source-derived fixture unit; never an empirical or gold assertion."""
 
@@ -592,7 +603,7 @@ def verify_approved_fixture_inputs(
     ]
     verify_git_artifacts_at_commit(root, expected_base_repository_commit, historical_paths)
     final_paths = [paths["approved_readiness"], *expected_pins.values(), *unchanged.values()]
-    verify_git_anchor(root, expected_promotion_repository_commit, final_paths)
+    verify_git_artifacts_at_commit(root, expected_promotion_repository_commit, final_paths)
 
     return ApprovedFixtureInputsVerificationResult(
         base_readiness_sha256=readiness["base_readiness"]["sha256"],
@@ -609,6 +620,174 @@ def _instant(value: str, label: str) -> datetime:
     return parsed
 
 
+def _contains_forbidden_context_key(value: Any) -> bool:
+    if isinstance(value, dict):
+        return any(
+            key in FORBIDDEN_CONTEXT_KEYS or _contains_forbidden_context_key(child)
+            for key, child in value.items()
+        )
+    if isinstance(value, list):
+        return any(_contains_forbidden_context_key(child) for child in value)
+    return False
+
+
+def verify_fixture_role_authorization_request(
+    *,
+    repository_root: Path,
+    request_path: Path,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixtureRoleAuthorizationRequestVerificationResult:
+    """Verify pending role preparation without enabling execution."""
+    root = repository_root.resolve(strict=True)
+    request = request_path.resolve(strict=True)
+    if root not in request.parents:
+        raise ValueError("role authorization request escapes repository root")
+    request_digest = sha256(request.read_bytes()).hexdigest()
+    if request_digest != expected_request_sha256:
+        raise ValueError("role authorization request SHA-256 mismatch")
+    document = _load_object(request)
+    _validate_object(
+        document, "fixture-role-authorization-request.schema.json", "role_authorization_request"
+    )
+    if document["execution_allowed"] is not False:
+        raise ValueError("pending role authorization request cannot enable execution")
+
+    paths: dict[str, Path] = {"request": request}
+
+    def resolve_pin(label: str, pin: dict[str, Any]) -> Path:
+        path = resolve_repo_artifact(root, pin["path"])
+        if sha256(path.read_bytes()).hexdigest() != pin["sha256"]:
+            raise ValueError(f"{label}: SHA-256 mismatch")
+        paths[label] = path
+        return path
+
+    readiness_path = resolve_pin("approved_input_readiness", document["approved_input_readiness"])
+    readiness = _load_object(readiness_path)
+    verify_approved_fixture_inputs(
+        repository_root=root,
+        packet_dir=readiness_path.parent,
+        expected_approval_sha256=readiness["approved_artifacts"]["input_approval"]["sha256"],
+        expected_approved_input_readiness_sha256=document["approved_input_readiness"]["sha256"],
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+    )
+
+    handshake = resolve_pin("handshake_prompt", document["handshake_prompt"])
+    if sha256(handshake.read_bytes()).hexdigest() != (
+        "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77"
+    ):
+        raise ValueError("handshake_prompt: not the canonical governed prompt")
+    role_values: dict[str, dict[str, Any]] = {}
+    expected_roles = {
+        "orchestrator": (
+            "agent:orchestrator-fixture-stream",
+            "orchestrator_non_labeling",
+            "/root/fixture_stream_ready",
+            False,
+            "c817ee25c74ea08ebdecf28ad52d126bbc6e8debfd3a9d32f7c8f02c3571112a",
+        ),
+        "analyst_a": (
+            "agent:analyst-fixture-a",
+            "analyst",
+            "/root/fixture_analyst_a_ready",
+            True,
+            "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+        ),
+        "analyst_b": (
+            "agent:analyst-fixture-b",
+            "analyst",
+            "/root/fixture_analyst_b_ready",
+            True,
+            "3bcb3b37c8d3a19e51a152c0b72aee82dba088bf822aa8cdc299cbbf029dfb6a",
+        ),
+        "reconciler": (
+            "agent:reconciler-fixture",
+            "reconciler",
+            "/root/fixture_reconciler_ready",
+            False,
+            "80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081",
+        ),
+    }
+    for name, (actor_id, role, locator, may_label, prompt_sha256) in expected_roles.items():
+        prompt_path = resolve_pin(
+            f"future_execution_prompt.{name}", document["future_execution_prompts"][name]
+        )
+        if sha256(prompt_path.read_bytes()).hexdigest() != prompt_sha256:
+            raise ValueError(f"future_execution_prompt.{name}: not the canonical governed prompt")
+        provenance_path = resolve_pin(f"role_provenance.{name}", document["role_provenance"][name])
+        value = _load_object(provenance_path)
+        _validate_object(value, "fixture-role-provenance.schema.json", f"role_provenance.{name}")
+        if (
+            value["actor_id"] != actor_id
+            or value["role"] != role
+            or value["canonical_session_locator"] != locator
+            or value["may_label"] is not may_label
+            or value["handshake_prompt"] != document["handshake_prompt"]
+            or value["future_execution_prompt"] != document["future_execution_prompts"][name]
+            or value["handshake_completed"] is not False
+            or value["execution_allowed"] is not False
+        ):
+            raise ValueError(f"role_provenance.{name}: role or prompt alignment mismatch")
+        if value["runtime"] != {
+            "provider_family": None,
+            "model_runtime_family": None,
+            "exact_snapshot_available": False,
+            "exact_snapshot": None,
+        }:
+            raise ValueError(f"role_provenance.{name}: runtime must remain unavailable")
+        role_values[name] = value
+        paths[f"future_execution_prompt.{name}"] = prompt_path
+    if (
+        len({value["actor_id"] for value in role_values.values()}) != 4
+        or len({value["canonical_session_locator"] for value in role_values.values()}) != 4
+    ):
+        raise ValueError("role actors and locators must be unique")
+
+    isolation_path = resolve_pin("isolation_plan", document["isolation_plan"])
+    _validate_object(
+        _load_object(isolation_path), "fixture-role-isolation-plan.schema.json", "isolation_plan"
+    )
+    context_path = resolve_pin("context_presentation", document["context_presentation"])
+    context_document = _load_object(context_path)
+    _validate_object(
+        context_document, "fixture-context-presentation.schema.json", "context_presentation"
+    )
+    expected_contexts = []
+    for unit in derive_fixture_units(root):
+        source_text = resolve_repo_artifact(root, unit.source_path).read_text(encoding="utf-8")
+        value = json.loads(source_text[unit.source_span[0] : unit.source_span[1]])
+        encoded, removed = canonical_redacted_context(value)
+        presented = json.loads(encoded)
+        if _contains_forbidden_context_key(presented):
+            raise ValueError(f"{unit.unit_id}: forbidden context key remains")
+        expected_contexts.append(
+            {
+                "unit_id": unit.unit_id,
+                "unit_sha256": unit.unit_sha256,
+                "context_sha256": unit.context_sha256,
+                "source_path": unit.source_path,
+                "source_span": {"start": unit.source_span[0], "end": unit.source_span[1]},
+                "removed_keys": list(removed),
+                "presented_context": presented,
+            }
+        )
+    if context_document["contexts"] != expected_contexts:
+        raise ValueError("context presentation is not the exact ordered redacted census")
+    if handshake.read_bytes() == b"":
+        raise ValueError("handshake prompt is empty")
+
+    verify_git_anchor(root, expected_preparation_repository_commit, list(paths.values()))
+    return FixtureRoleAuthorizationRequestVerificationResult(
+        request_sha256=request_digest,
+        preparation_commit=expected_preparation_repository_commit,
+        role_count=4,
+        context_count=11,
+    )
+
+
 def verify_analyst_execution_packet(
     *,
     repository_root: Path,
@@ -619,6 +798,9 @@ def verify_analyst_execution_packet(
     """Verify a committed, approved, bounded local analyst packet before execution."""
     root = repository_root.resolve(strict=True)
     authorization = authorization_path.resolve(strict=True)
+    pending = _load_object(authorization)
+    if pending.get("schema_version") == "foi-o.fixture-role-authorization-request.v0.1.0":
+        raise ValueError("pending role authorization request cannot be used for execution")
     verify_git_anchor(root, expected_repository_commit, [authorization])
     authorization_digest = sha256(authorization.read_bytes()).hexdigest()
     if authorization_digest != expected_authorization_sha256:

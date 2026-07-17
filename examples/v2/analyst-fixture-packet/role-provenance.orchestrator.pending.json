@@ -1,0 +1,27 @@
+{
+  "actor_class": "automated_agent",
+  "actor_id": "agent:orchestrator-fixture-stream",
+  "canonical_session_locator": "/root/fixture_stream_ready",
+  "execution_allowed": false,
+  "future_execution_prompt": {
+    "path": "examples/v2/analyst-fixture-packet/prompts/orchestrator.future-execution.v1.txt",
+    "sha256": "c817ee25c74ea08ebdecf28ad52d126bbc6e8debfd3a9d32f7c8f02c3571112a"
+  },
+  "handshake_completed": false,
+  "handshake_prompt": {
+    "path": "examples/v2/analyst-fixture-packet/prompts/runtime-provenance-handshake.v1.txt",
+    "sha256": "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77"
+  },
+  "immutable_session_uuid": null,
+  "immutable_session_uuid_available": false,
+  "may_label": false,
+  "role": "orchestrator_non_labeling",
+  "runtime": {
+    "exact_snapshot": null,
+    "exact_snapshot_available": false,
+    "model_runtime_family": null,
+    "provider_family": null
+  },
+  "schema_version": "foi-o.fixture-role-provenance.v0.1.0",
+  "status": "pending_runtime_handshake_and_human_authorization"
+}
