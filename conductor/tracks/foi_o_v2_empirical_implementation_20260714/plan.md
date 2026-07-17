@@ -360,6 +360,12 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     candidate-fixture versus authentic frozen-evidence states (`3591647`).
     Verification: 2 focused tests, Ruff, and full suite 428 passed, 2 skipped.
     No authentic registry or sample membership was created.
+  - [x] Locked-annotation contract subtask: require unit/codebook pins,
+    candidate blinding, reviewer identity, half-open spans, uncertainty,
+    abstention, timestamps, and immutable lock provenance, while rejecting
+    agent identities for authentic human annotations (`3395dc1`). Verification:
+    2 focused tests, Ruff, and full suite 430 passed, 2 skipped. No annotation
+    record or empirical evidence was created.
   - [x] Consolidated human-gate packet subtask: pin the interval, PSC provider
     scope, seven-source selection, source-pack promotion, bounded raw-state
     mapping, and annotation-protocol decisions in
