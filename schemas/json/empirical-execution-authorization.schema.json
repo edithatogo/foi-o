@@ -10,7 +10,7 @@
     }
   },
   "type": "object", "additionalProperties": false,
-  "required": ["schema_version", "authorization_id", "status", "execution_allowed", "protocol", "source_population", "codebook", "sampling_configuration", "annotator_ids", "adjudicator_id", "approved_by", "approved_at", "agents_may_fill_human_roles", "limitations"],
+  "required": ["schema_version", "authorization_id", "status", "execution_allowed", "protocol", "source_population", "codebook", "codebook_revision", "sampling_configuration", "annotator_ids", "adjudicator_id", "approved_by", "approved_at", "agents_may_fill_human_roles", "limitations"],
   "properties": {
     "schema_version": {"const": "foi-o.empirical-execution-authorization.v0.1.0"},
     "authorization_id": {"type": "string", "minLength": 1},
@@ -19,6 +19,7 @@
     "protocol": {"$ref": "#/$defs/artifact"},
     "source_population": {"$ref": "#/$defs/artifact"},
     "codebook": {"$ref": "#/$defs/artifact"},
+    "codebook_revision": {"type": "string", "minLength": 1},
     "sampling_configuration": {"$ref": "#/$defs/artifact"},
     "annotator_ids": {"type": "array", "maxItems": 2, "uniqueItems": true, "items": {"type": "string", "pattern": "^human:[A-Za-z0-9._-]+$"}},
     "adjudicator_id": {"type": ["string", "null"], "pattern": "^human:[A-Za-z0-9._-]+$"},

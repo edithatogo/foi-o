@@ -19,9 +19,9 @@
     "promotion_allowed": {"const": false},
     "artifact_pins": {
       "type": "object", "additionalProperties": false,
-      "required": ["protocol_sha256", "sample_manifest_sha256", "duplicate_cluster_registry_sha256", "annotation_set_sha256", "adjudication_set_sha256", "codebook_revision"],
+      "required": ["authorization_sha256", "protocol_sha256", "sample_manifest_sha256", "duplicate_cluster_registry_sha256", "annotation_set_sha256", "adjudication_set_sha256", "codebook_revision"],
       "properties": {
-        "protocol_sha256": {"$ref": "#/$defs/sha256"}, "sample_manifest_sha256": {"$ref": "#/$defs/sha256"}, "duplicate_cluster_registry_sha256": {"$ref": "#/$defs/sha256"},
+        "authorization_sha256": {"$ref": "#/$defs/sha256"}, "protocol_sha256": {"$ref": "#/$defs/sha256"}, "sample_manifest_sha256": {"$ref": "#/$defs/sha256"}, "duplicate_cluster_registry_sha256": {"$ref": "#/$defs/sha256"},
         "annotation_set_sha256": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/sha256"}},
         "adjudication_set_sha256": {"$ref": "#/$defs/sha256"}, "codebook_revision": {"type": "string", "minLength": 1}
       }

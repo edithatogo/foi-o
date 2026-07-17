@@ -9,7 +9,11 @@ from foi_o_nz.empirical_verification import verify_authentic_empirical_bundle
 
 
 class BundleArgs(TypedDict):
+    authorization_path: Path
     protocol_path: Path
+    source_population_path: Path
+    codebook_path: Path
+    sampling_configuration_path: Path
     sample_manifest_path: Path
     unit_manifest_path: Path
     duplicate_cluster_registry_path: Path
@@ -66,7 +70,11 @@ def _bundle(
     paths = {
         name: tmp_path / name
         for name in (
+            "authorization.json",
             "protocol.md",
+            "source-population.json",
+            "codebook.json",
+            "sampling-configuration.json",
             "sample.json",
             "units.json",
             "clusters.json",
@@ -77,8 +85,11 @@ def _bundle(
         )
     }
     paths["protocol.md"].write_text("Synthetic protocol fixture; no approval.\n")
+    _write_json(paths["source-population.json"], {"fixture": "synthetic source population"})
+    _write_json(paths["codebook.json"], {"revision": "1" * 40, "fixture": True})
+    _write_json(paths["sampling-configuration.json"], {"seed": 1, "fixture": True})
     first_unit, second_unit = "a" * 64, "b" * 64
-    population_sha = "c" * 64
+    population_sha = _digest(paths["source-population.json"])
     units = {
         "schema_version": "foi-o.empirical-unit-manifest.v0.1.0",
         "manifest_id": "synthetic-test",
@@ -86,7 +97,7 @@ def _bundle(
         "empirical_evidence": True,
         "source_population_manifest_sha256": population_sha,
         "sampling_protocol_sha256": _digest(paths["protocol.md"]),
-        "sampling_configuration_sha256": "d" * 64,
+        "sampling_configuration_sha256": _digest(paths["sampling-configuration.json"]),
         "created_at": "2026-07-17T00:00:00Z",
         "frozen_at": "2026-07-17T01:00:00Z",
         "units": [
@@ -175,6 +186,40 @@ def _bundle(
     _write_jsonl(paths["annotations-a.jsonl"], annotations_a)
     _write_jsonl(paths["annotations-b.jsonl"], annotations_b)
     adjudicator = annotator_a if overlapping_adjudicator else "human:synthetic-adjudicator"
+    authorization = {
+        "schema_version": "foi-o.empirical-execution-authorization.v0.1.0",
+        "authorization_id": "synthetic-verifier-test",
+        "status": "approved_human_authorization",
+        "execution_allowed": True,
+        "protocol": {
+            "path": "protocol.md",
+            "sha256": _digest(paths["protocol.md"]),
+            "approved": True,
+        },
+        "source_population": {
+            "path": "source-population.json",
+            "sha256": _digest(paths["source-population.json"]),
+            "approved": True,
+        },
+        "codebook": {
+            "path": "codebook.json",
+            "sha256": _digest(paths["codebook.json"]),
+            "approved": True,
+        },
+        "codebook_revision": "1" * 40,
+        "sampling_configuration": {
+            "path": "sampling-configuration.json",
+            "sha256": _digest(paths["sampling-configuration.json"]),
+            "approved": True,
+        },
+        "annotator_ids": ["human:synthetic-a", "human:synthetic-b"],
+        "adjudicator_id": "human:synthetic-adjudicator",
+        "approved_by": "human:synthetic-approver",
+        "approved_at": "2026-07-16T23:00:00Z",
+        "agents_may_fill_human_roles": False,
+        "limitations": ["Synthetic verifier test authorization; no real approval."],
+    }
+    _write_json(paths["authorization.json"], authorization)
     refs = [
         {"annotator_id": record["annotator_id"], "sha256": _record_digest(record)}
         for record in (annotations_a[1], annotations_b[1])
@@ -210,6 +255,7 @@ def _bundle(
         "empirical_evidence": True,
         "promotion_allowed": False,
         "artifact_pins": {
+            "authorization_sha256": _digest(paths["authorization.json"]),
             "protocol_sha256": _digest(paths["protocol.md"]),
             "sample_manifest_sha256": _digest(paths["sample.json"]),
             "duplicate_cluster_registry_sha256": _digest(paths["clusters.json"]),
@@ -270,7 +316,11 @@ def _bundle(
     }
     _write_json(paths["reliability.json"], report)
     return {
+        "authorization_path": paths["authorization.json"],
         "protocol_path": paths["protocol.md"],
+        "source_population_path": paths["source-population.json"],
+        "codebook_path": paths["codebook.json"],
+        "sampling_configuration_path": paths["sampling-configuration.json"],
         "sample_manifest_path": paths["sample.json"],
         "unit_manifest_path": paths["units.json"],
         "duplicate_cluster_registry_path": paths["clusters.json"],

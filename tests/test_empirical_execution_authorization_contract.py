@@ -18,6 +18,7 @@ def _authorization() -> dict[str, object]:
         "protocol": dict(artifact),
         "source_population": dict(artifact),
         "codebook": dict(artifact),
+        "codebook_revision": "fixture-codebook",
         "sampling_configuration": dict(artifact),
         "annotator_ids": [],
         "adjudicator_id": None,

@@ -112,7 +112,11 @@ def _span_f1(first: dict[str, Any], second: dict[str, Any]) -> float:
 
 def verify_authentic_empirical_bundle(
     *,
+    authorization_path: Path,
     protocol_path: Path,
+    source_population_path: Path,
+    codebook_path: Path,
+    sampling_configuration_path: Path,
     sample_manifest_path: Path,
     unit_manifest_path: Path,
     duplicate_cluster_registry_path: Path,
@@ -122,6 +126,7 @@ def verify_authentic_empirical_bundle(
     expected_reliability_report_sha256: str,
 ) -> EmpiricalVerificationResult:
     """Verify authentic empirical artifacts and their relational invariants."""
+    authorization = _load_object(authorization_path)
     sample = _load_object(sample_manifest_path)
     units = _load_object(unit_manifest_path)
     clusters = _load_object(duplicate_cluster_registry_path)
@@ -129,6 +134,11 @@ def verify_authentic_empirical_bundle(
     annotation_sets = tuple(_load_jsonl(path) for path in annotation_set_paths)
     adjudications = _load_jsonl(adjudication_set_path)
 
+    _validate(
+        authorization,
+        "empirical-execution-authorization.schema.json",
+        "authorization",
+    )
     _validate(sample, "empirical-sample-manifest.schema.json", "sample")
     _validate(units, "empirical-unit-manifest.schema.json", "units")
     _validate(clusters, "duplicate-cluster-registry.schema.json", "clusters")
@@ -148,6 +158,10 @@ def verify_authentic_empirical_bundle(
         report_digest == expected_reliability_report_sha256, "reliability report SHA-256 mismatch"
     )
     pins = report["artifact_pins"]
+    _require(
+        pins["authorization_sha256"] == _digest(authorization_path),
+        "authorization SHA-256 mismatch",
+    )
     _require(pins["protocol_sha256"] == _digest(protocol_path), "protocol SHA-256 mismatch")
     _require(
         pins["sample_manifest_sha256"] == _digest(sample_manifest_path),
@@ -175,6 +189,28 @@ def verify_authentic_empirical_bundle(
     )
 
     _require(
+        authorization["status"] == "approved_human_authorization"
+        and authorization["execution_allowed"] is True,
+        "empirical execution is not human-authorized",
+    )
+    _require(
+        authorization["agents_may_fill_human_roles"] is False,
+        "agents cannot fill human roles",
+    )
+    authorization_artifacts = {
+        "protocol": protocol_path,
+        "source_population": source_population_path,
+        "codebook": codebook_path,
+        "sampling_configuration": sampling_configuration_path,
+    }
+    for name, path in authorization_artifacts.items():
+        artifact = authorization[name]
+        _require(
+            artifact["approved"] is True and artifact["sha256"] == _digest(path),
+            f"authorized {name} artifact mismatch",
+        )
+
+    _require(
         units["status"] == "frozen" and units["empirical_evidence"] is True,
         "unit manifest is not authentic and frozen",
     )
@@ -189,6 +225,14 @@ def verify_authentic_empirical_bundle(
     _require(report["promotion_allowed"] is False, "reliability report cannot authorize promotion")
     _require(
         units["sampling_protocol_sha256"] == _digest(protocol_path), "unit protocol pin mismatch"
+    )
+    _require(
+        units["source_population_manifest_sha256"] == _digest(source_population_path),
+        "unit source-population pin mismatch",
+    )
+    _require(
+        units["sampling_configuration_sha256"] == _digest(sampling_configuration_path),
+        "unit sampling-configuration pin mismatch",
     )
     _require(
         clusters["population_manifest_sha256"] == units["source_population_manifest_sha256"],
@@ -266,6 +310,14 @@ def verify_authentic_empirical_bundle(
         len(codebooks) == 1 and pins["codebook_revision"] in codebooks,
         "annotation codebook pin mismatch",
     )
+    _require(
+        authorization["codebook_revision"] == pins["codebook_revision"],
+        "authorization codebook revision mismatch",
+    )
+    _require(
+        authorization["annotator_ids"] == annotator_ids,
+        "authorized annotator identities mismatch",
+    )
     earliest_annotation_creation = min(
         _instant(record["created_at"], "annotation created_at")
         for records in annotation_sets
@@ -325,8 +377,17 @@ def verify_authentic_empirical_bundle(
         adjudicator_id.startswith("human:") and adjudicator_id not in annotator_ids,
         "adjudicator is not a distinct human",
     )
+    _require(
+        authorization["adjudicator_id"] == adjudicator_id,
+        "authorized adjudicator identity mismatch",
+    )
 
     report_time = _instant(report["computed_at"], "reliability computed_at")
+    _require(
+        _instant(authorization["approved_at"], "authorization approved_at")
+        <= _instant(units["created_at"], "units created_at"),
+        "unit manifest creation precedes execution authorization",
+    )
     _require(
         _instant(units["frozen_at"], "units frozen_at") <= report_time,
         "unit freeze follows reliability computation",

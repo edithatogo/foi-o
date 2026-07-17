@@ -15,6 +15,7 @@ def _report() -> dict[str, object]:
         "empirical_evidence": False,
         "promotion_allowed": False,
         "artifact_pins": {
+            "authorization_sha256": "9" * 64,
             "protocol_sha256": "0" * 64,
             "sample_manifest_sha256": "a" * 64,
             "duplicate_cluster_registry_sha256": "b" * 64,
