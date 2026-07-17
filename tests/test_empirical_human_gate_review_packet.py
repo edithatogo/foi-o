@@ -39,6 +39,7 @@ def test_every_review_artifact_is_exactly_hash_pinned() -> None:
             "psc-provider-scope",
             "nonlegislation-source-selection",
             "source-pack-promotion",
+            "annotation-protocol",
         }:
             assert review["decision"] == "approved"
             assert review["approver"] == "edithatogo"
@@ -46,6 +47,19 @@ def test_every_review_artifact_is_exactly_hash_pinned() -> None:
             assert review["decision"] == "pending"
             assert review["approver"] is None
             assert review["reviewed_at"] is None
+
+
+def test_annotation_protocol_is_approved_without_authorizing_execution() -> None:
+    payload = json.loads(PACKET.read_text())
+    review = next(item for item in payload["reviews"] if item["review_id"] == "annotation-protocol")
+    assert review["decision"] == "approved"
+    assert review["approver"] == "edithatogo"
+    assert review["protocol_sha256"] == (
+        "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63"
+    )
+    assert "annotation_protocol_review_pending" not in payload["blockers"]
+    assert payload["sample_freeze_allowed"] is False
+    assert payload["empirical_comparison_allowed"] is False
 
 
 def test_packet_does_not_convert_rights_terms_into_provider_scope_approval() -> None:

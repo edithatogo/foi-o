@@ -97,13 +97,13 @@
     },
     {
       "review_id": "annotation-protocol",
-      "artifact_path": "docs/41-v2-sampling-and-annotation-protocol.md",
-      "artifact_sha256": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63",
+      "artifact_path": "examples/v2/annotation-protocol-review.approved.json",
+      "artifact_sha256": "b1bac3795db826865f01012bff2e2595c01eea5c3ffdf37976c0b8b5d15cb5cd",
       "protocol_sha256": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63",
-      "decision": "pending",
-      "approver": null,
-      "reviewed_at": null,
-      "approval_effect": "Approve the protocol design only; sample freeze still requires distinct human role assignments and all governed execution inputs."
+      "decision": "approved",
+      "approver": "edithatogo",
+      "reviewed_at": "2026-07-17T09:48:28Z",
+      "approval_effect": "Approve the protocol design only; sample membership, labels, adjudication outcomes, empirical results, gold promotion, publication, release, and dataset publication remain unapproved, and sample freeze still requires distinct human role assignments and all governed execution inputs."
     }
   ],
   "annotation_roles": {
@@ -120,7 +120,6 @@
   "sample_freeze_allowed": false,
   "empirical_comparison_allowed": false,
   "blockers": [
-    "annotation_protocol_review_pending",
     "annotation_roles_missing",
     "sample_execution_inputs_missing"
   ]
