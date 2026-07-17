@@ -1,0 +1,9 @@
+Task: Fixture-only execution-packet subtask
+
+Summary: Added a deterministic 11-unit synthetic fixture packet, dedicated fixture codebook, pending rights/readiness artifacts, v0.2 role authorization schema, fail-closed Git/hash/rights/chronology verifier, and generated-byte/schema drift tests.
+
+Verification: uv sync --extra dev --extra rdf; uv run pytest -q (493 passed, 2 skipped); focused tests (35 passed); BasedPyright clean; Ruff scoped checks clean; verifier coverage 84%; two peer reviews and orchestrated review passed.
+
+Boundary: readiness is rights-and-inputs only. execution_allowed remains false; no rights approval, concrete roles, execution authorization, analysis, reconciliation, empirical result, gold promotion, release, publication, or dataset publication exists.
+
+Readiness SHA-256: de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd
