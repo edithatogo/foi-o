@@ -346,13 +346,27 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     contract tests, focused empirical/schema suite 72 passed, repository
     inventory checks 14 passed, Ruff and JSON checks passed, and full suite 462
     passed, 2 skipped. The exact v0.1 protocol SHA-256 remains `3620198f…`.
-  - `ACTIVE 2026-07-17`: the v0.2 analyst protocol permits the user-authorized
-    bounded local agent execution. No frozen analyst unit manifest, locked
-    analysis sets, reconciliation decisions, or agreement outputs exist yet.
-    Next execution requires a committed fixture-only source population,
-    candidate codebook, sampling configuration, exact role/runtime records, and
-    a hash-pinned local authorization. Agent results remain non-human-reviewed,
-    non-gold, non-release-qualifying, and non-publication-eligible.
+  - `ACTIVE 2026-07-17`: the v0.2 analyst protocol permits separately authorized
+    bounded local agent execution in principle, but no exact packet or role
+    authorization exists. No rights/input approval, concrete roles, execution
+    authorization, analysis sets, reconciliation decisions, or diagnostics
+    exist yet. Agent results remain non-human-reviewed, non-gold,
+    non-release-qualifying, and non-publication-eligible.
+  - [x] Fixture-only execution-packet subtask: construct the candidate v0.2
+    fixture inputs and readiness artifact only—an exact committed synthetic
+    population, dedicated candidate codebook, deterministic sampling
+    configuration, unit/redaction/cluster manifests, and pending rights review.
+    Bounded rights and input approval are the next gate. Concrete analyst and
+    reconciler roles plus execution authorization require a later, separately
+    committed and hash-approved v0.2 authorization before any analysis
+    (`948d392`). Output:
+    `examples/v2/analyst-fixture-packet/readiness.json`, SHA-256
+    `de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd`.
+    Verification: deterministic regeneration and all eight nested schema checks;
+    35 focused tests; verifier coverage 84%; BasedPyright and scoped Ruff clean;
+    two independent peer reviews plus orchestrated review passed; full suite 493
+    passed, 2 skipped. Rights/input approval, concrete roles, execution
+    authorization, analysis, reconciliation, and diagnostics remain absent.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
