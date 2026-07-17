@@ -1,0 +1,4 @@
+Task: Empirical unit freeze contract
+Files: empirical unit manifest schema/test and exact inventory documentation
+Verification: 7 focused tests; Ruff; JSON validation; exact inventory checks; uv sync --extra dev --extra rdf; uv run pytest -q (442 passed, 2 skipped).
+Remaining risks: no authentic population, sampling approval, unit membership, cluster registry, or sample freeze exists.
