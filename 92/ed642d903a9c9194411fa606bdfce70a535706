@@ -1,0 +1,4 @@
+Task: Empirical execution authorization contract
+Files: authorization schema/test and exact inventory documentation
+Verification: Ruff; BasedPyright; 7 focused tests; exact inventory checks; uv sync --extra dev --extra rdf; uv run pytest -q (452 passed, 2 skipped).
+Remaining risks: no approved authorization exists; agents cannot fill human roles; distinct adjudicator identity requires relational verifier enforcement.
