@@ -1,0 +1,5 @@
+Task: Reconcile empirical release aggregate state
+
+Summary: Added consistency tests and corrected stale release-gates/output-ledger statuses without changing immutable candidate artifacts.
+
+Verification: 12 focused tests; Ruff; uv sync --extra dev --extra rdf; full suite 426 passed, 2 skipped.
