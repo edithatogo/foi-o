@@ -1,0 +1,4 @@
+Task: Record reliability-report contract checkpoint
+Files: conductor/tracks/foi_o_v2_empirical_implementation_20260714/plan.md
+Verification: uv sync --extra dev --extra rdf; uv run pytest -q (436 passed, 2 skipped).
+Remaining risks: protocol approval, human roles, authentic sample freeze, annotations, adjudication, and reliability calculation remain absent.
