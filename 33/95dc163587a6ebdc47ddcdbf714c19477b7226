@@ -1,0 +1,5 @@
+Task: Add locked independent-annotation contract
+
+Verification: 2 focused tests; Ruff; full suite 430 passed, 2 skipped.
+
+Remaining risk: no human annotation record exists; candidate fixtures remain non-empirical.
