@@ -191,15 +191,16 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     coverage 98%; targeted Ruff checks passed; `uv sync --extra dev --extra rdf`
     (exit 0); `uv run pytest -q` (exit 0; 314 passed, 2 skipped).
 - [ ] Populate and review NZ historical source packs and the source-rights registry.
-  - `BLOCKED 2026-07-16`: authoritative rights evidence, the complete
+  - `BLOCKED 2026-07-17`: authoritative rights evidence, the complete
     50-version OIA PDF sequence, and 50 deterministic candidate event-time
-    intervals are hash-pinned. The provider-scope registry is already approved.
-    Every candidate interval remains legally unapproved. Seven official
-    non-legislation guidance artifacts are now locally stored and hash-pinned,
-    but PSC provider-scope interpretation, historical applicability, source
-    selection, and source-pack promotion still require named human review. The
-    source contents are not committed, and older schema-valid examples remain
-    contract fixtures, not evidence.
+    intervals are hash-pinned. Reviewer `edithatogo` has approved every
+    inclusive/exclusive boundary against the relevant commencement and
+    amendment evidence. The provider-scope registry is already approved. Seven
+    official non-legislation guidance artifacts are locally stored and
+    hash-pinned, but PSC provider-scope interpretation, their historical
+    applicability and selection, and source-pack promotion still require named
+    human review. Source contents are not committed, and older schema-valid
+    examples remain contract fixtures, not evidence.
   - [x] Evidence subtask: populate a candidate, hash-pinned source-rights
     registry and OIA historical version index from official provider evidence
     while retaining human approval (`127bbf5`).
@@ -216,6 +217,15 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     promotion. Verification: 12 focused tests; targeted type checking, Ruff,
     JSON/schema checks, and Conductor review passed; full suite 368 passed,
     2 skipped.
+  - [x] Interval-approval subtask: record reviewer `edithatogo`'s exact legal
+    review of all 50 hash-pinned candidate boundaries in a separate immutable
+    artifact without modifying the candidate file or authorizing source-pack
+    promotion, publication, release, dataset publication, or broader legal
+    certification (`afc3378`). Output:
+    `examples/v2/nz-oia-applicability-interval-review.approved.json` (SHA-256
+    `90c3ee2a…`). Verification: 25 focused tests including candidate-hash and
+    scope-expansion rejection; examples validation, scoped Ruff lint/format,
+    and Conductor review passed; full suite 409 passed, 2 skipped.
   - [x] Non-legislation evidence subtask: acquire and independently verify two
     Ombudsman guide revisions, four Public Service Commission agency-guidance
     documents, and one PSC reporting-guidance document in local-only storage
