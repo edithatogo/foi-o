@@ -199,10 +199,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     official non-legislation guidance artifacts are locally stored and
     hash-pinned. Reviewer `edithatogo` has approved PSC-owned
     `publicservice.govt.nz` content subject to attribution and every recorded
-    exclusion. Historical applicability and selection of the seven sources, and
-    source-pack promotion, still require named human review. Source contents are
-    not committed, and older schema-valid
-    examples remain contract fixtures, not evidence.
+    exclusion. Reviewer `edithatogo` has approved the seven-source selection and
+    recorded historical applicability without expanding source rights.
+    Source-pack promotion still requires named human review. Source contents
+    are not committed, and older schema-valid examples remain contract
+    fixtures, not evidence.
   - [x] Evidence subtask: populate a candidate, hash-pinned source-rights
     registry and OIA historical version index from official provider evidence
     while retaining human approval (`127bbf5`).
@@ -247,6 +248,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `dcb8179c…`). Verification: 29 focused tests including negative terms-hash,
     exclusion, and publication cases; examples validation, Ruff lint/format,
     and Conductor review passed; full suite 413 passed, 2 skipped.
+  - [x] Seven-source approval subtask: record reviewer `edithatogo`'s exact
+    selection and historical-applicability approval for manifest `4650961b…`
+    without expanding rights or authorizing promotion or publication
+    (`0801737`). Output:
+    `examples/v2/nz-nonlegislation-source-review.approved.json` (SHA-256
+    `68a27725…`). Verification: 34 focused tests including negative manifest,
+    rights, and promotion cases; examples validation, Ruff checks, and
+    Conductor review passed; full suite 418 passed, 2 skipped.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
   - `BLOCKED 2026-07-17`: approved request `35076` supplies one real outgoing
     correspondence item for the bounded candidate mapping `waiting_response` to
