@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:psc-provider-scope-review:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "reviewer", "reviewed_at", "provider_scope", "terms_evidence_sha256", "attribution_required", "exclusions", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.psc-provider-scope-review.v0.1.0"},
+    "status": {"const": "approved"},
+    "reviewer": {"const": "edithatogo"},
+    "reviewed_at": {"const": "2026-07-17T03:37:50Z"},
+    "provider_scope": {"const": "publicservice.govt.nz provider-owned content"},
+    "terms_evidence_sha256": {"const": "2ad002bf09eb0f22fc9fd46bf944213f9538b8437d05f36b925a9c6e180d4ccb"},
+    "attribution_required": {"const": true},
+    "exclusions": {
+      "type": "array", "minItems": 6, "maxItems": 6, "uniqueItems": true,
+      "prefixItems": [
+        {"const": "logos"}, {"const": "emblems"}, {"const": "trade marks"},
+        {"const": "excluded design elements or images"},
+        {"const": "linked third-party content"}, {"const": "item-specific exceptions"}
+      ]
+    },
+    "prohibited_actions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_pack_promotion", "redistribution", "publication", "release", "dataset_publication"],
+      "properties": {
+        "source_pack_promotion": {"const": false}, "redistribution": {"const": false},
+        "publication": {"const": false}, "release": {"const": false},
+        "dataset_publication": {"const": false}
+      }
+    }
+  }
+}

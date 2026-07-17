@@ -1,0 +1,17 @@
+{
+  "schema_version": "foi-o.psc-provider-scope-review.v0.1.0",
+  "status": "approved",
+  "reviewer": "edithatogo",
+  "reviewed_at": "2026-07-17T03:37:50Z",
+  "provider_scope": "publicservice.govt.nz provider-owned content",
+  "terms_evidence_sha256": "2ad002bf09eb0f22fc9fd46bf944213f9538b8437d05f36b925a9c6e180d4ccb",
+  "attribution_required": true,
+  "exclusions": [
+    "logos", "emblems", "trade marks", "excluded design elements or images",
+    "linked third-party content", "item-specific exceptions"
+  ],
+  "prohibited_actions": {
+    "source_pack_promotion": false, "redistribution": false,
+    "publication": false, "release": false, "dataset_publication": false
+  }
+}

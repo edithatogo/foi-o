@@ -36,11 +36,13 @@
     },
     "provider_scope_interpretation": {
       "type": "object", "additionalProperties": false,
-      "required": ["existing_registry_approved", "psc_scope_approved", "required_action"],
+      "required": ["existing_registry_approved", "psc_scope_approved", "review_artifact_path", "review_artifact_sha256", "approval_scope"],
       "properties": {
         "existing_registry_approved": {"const": true},
-        "psc_scope_approved": {"const": false},
-        "required_action": {"type": "string", "minLength": 1}
+        "psc_scope_approved": {"const": true},
+        "review_artifact_path": {"const": "examples/v2/psc-provider-scope-review.approved.json"},
+        "review_artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "approval_scope": {"type": "string", "minLength": 1}
       }
     },
     "event_time_intervals": {
@@ -74,7 +76,7 @@
     "source_pack_ready": {"const": false},
     "source_pack_promotion_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true,
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
       "items": {
         "enum": [
           "event_time_human_review_pending", "psc_provider_scope_review_pending",

@@ -18,16 +18,16 @@
     },
     {
       "review_id": "psc-provider-scope",
-      "artifact_path": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json",
-      "artifact_sha256": "4650961b6b3ce11dd69f226b651b611127e2ba37bf4c87d266c6799579432d18",
+      "artifact_path": "examples/v2/psc-provider-scope-review.approved.json",
+      "artifact_sha256": "dcb8179cefdd44226131a77f0485bafcafe19d485e216ce87791ed931f556f35",
       "rights_evidence_url": "https://www.publicservice.govt.nz/terms-and-conditions-copyright",
       "rights_evidence_sha256": "2ad002bf09eb0f22fc9fd46bf944213f9538b8437d05f36b925a9c6e180d4ccb",
       "rights_evidence_byte_size": 37456,
       "proposed_scope": "publicservice.govt.nz provider-owned content",
       "proposed_terms": "Creative Commons Attribution 4.0 International, excluding logos, emblems, trade marks, design elements, images requiring contact, linked third-party content, and any item-specific exception.",
-      "decision": "pending",
-      "approver": null,
-      "reviewed_at": null,
+      "decision": "approved",
+      "approver": "edithatogo",
+      "reviewed_at": "2026-07-17T03:37:50Z",
       "approval_effect": "Approve a new provider-specific scope for the five PSC artifacts without broadening the already approved govt.nz entry."
     },
     {
@@ -45,7 +45,7 @@
     {
       "review_id": "source-pack-promotion",
       "artifact_path": "examples/v2/nz-source-pack-review-readiness.2026-07-16.json",
-      "artifact_sha256": "eaf67a72fe7a46ad6294383e805b34af97dab37d6738c0e8867e9133d10f5e4b",
+      "artifact_sha256": "1c484a3ecf133f6edc461d4995e9fdfc0793b8b74d7633c6ee4d5f4cfb95eb71",
       "decision": "pending",
       "approver": null,
       "reviewed_at": null,
@@ -120,7 +120,6 @@
   "sample_freeze_allowed": false,
   "empirical_comparison_allowed": false,
   "blockers": [
-    "psc_provider_scope_review_pending",
     "nonlegislation_source_selection_review_pending",
     "source_pack_promotion_review_pending",
     "annotation_protocol_review_pending",

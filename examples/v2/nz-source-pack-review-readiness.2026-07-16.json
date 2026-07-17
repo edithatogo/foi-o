@@ -22,8 +22,10 @@
   ],
   "provider_scope_interpretation": {
     "existing_registry_approved": true,
-    "psc_scope_approved": false,
-    "required_action": "A named human reviewer must decide whether the Public Service Commission's own CC BY 4.0 terms support a new publicservice.govt.nz provider-scope entry; the approved govt.nz scope is not silently broadened."
+    "psc_scope_approved": true,
+    "review_artifact_path": "examples/v2/psc-provider-scope-review.approved.json",
+    "review_artifact_sha256": "dcb8179cefdd44226131a77f0485bafcafe19d485e216ce87791ed931f556f35",
+    "approval_scope": "PSC-owned content only, subject to every recorded exclusion and attribution requirement."
   },
   "event_time_intervals": {
     "status": "approved_bounded_legal_review",
@@ -48,7 +50,6 @@
   "source_pack_ready": false,
   "source_pack_promotion_allowed": false,
   "blockers": [
-    "psc_provider_scope_review_pending",
     "nonleg_source_selection_review_pending",
     "source_pack_promotion_pending"
   ]

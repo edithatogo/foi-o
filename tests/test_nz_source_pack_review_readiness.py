@@ -18,6 +18,8 @@ INTERVALS = ROOT / "mappings/nz-oia-applicability-interval-candidates.yaml"
 NONLEG = ROOT / "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json"
 INTERVAL_REVIEW = ROOT / "examples/v2/nz-oia-applicability-interval-review.approved.json"
 INTERVAL_REVIEW_SCHEMA = ROOT / "schemas/json/nz-oia-applicability-interval-review.schema.json"
+PSC_REVIEW = ROOT / "examples/v2/psc-provider-scope-review.approved.json"
+PSC_REVIEW_SCHEMA = ROOT / "schemas/json/psc-provider-scope-review.schema.json"
 
 
 def test_source_pack_readiness_is_schema_valid_and_fail_closed() -> None:
@@ -61,9 +63,12 @@ def test_acquired_candidates_are_exactly_pinned_without_inferred_approval() -> N
         == sha256(NONLEG.read_bytes()).hexdigest()
     )
     assert payload["provider_scope_interpretation"]["existing_registry_approved"] is True
-    assert payload["provider_scope_interpretation"]["psc_scope_approved"] is False
+    assert payload["provider_scope_interpretation"]["psc_scope_approved"] is True
+    assert (
+        payload["provider_scope_interpretation"]["review_artifact_sha256"]
+        == sha256(PSC_REVIEW.read_bytes()).hexdigest()
+    )
     assert payload["blockers"] == [
-        "psc_provider_scope_review_pending",
         "nonleg_source_selection_review_pending",
         "source_pack_promotion_pending",
     ]
@@ -97,4 +102,32 @@ def test_interval_review_rejects_scope_or_evidence_expansion(tmp_path: Path, mut
     invalid = tmp_path / "interval-review.json"
     invalid.write_text(json.dumps(review), encoding="utf-8")
     result = validate_json_schema(invalid, INTERVAL_REVIEW_SCHEMA)
+    assert result.errors
+
+
+def test_psc_provider_scope_review_is_exact_and_exclusion_bounded() -> None:
+    result = validate_json_schema(PSC_REVIEW, PSC_REVIEW_SCHEMA)
+    assert not result.errors, result.errors
+    review = json.loads(PSC_REVIEW.read_text())
+    assert review["terms_evidence_sha256"] == (
+        "2ad002bf09eb0f22fc9fd46bf944213f9538b8437d05f36b925a9c6e180d4ccb"
+    )
+    assert review["provider_scope"] == "publicservice.govt.nz provider-owned content"
+    assert len(review["exclusions"]) == 6
+    assert review["attribution_required"] is True
+    assert all(value is False for value in review["prohibited_actions"].values())
+
+
+@pytest.mark.parametrize("mutation", ["terms_hash", "exclusion", "publication"])
+def test_psc_provider_scope_review_rejects_expansion(tmp_path: Path, mutation: str) -> None:
+    review = json.loads(PSC_REVIEW.read_text())
+    if mutation == "terms_hash":
+        review["terms_evidence_sha256"] = "0" * 64
+    elif mutation == "exclusion":
+        review["exclusions"].pop()
+    else:
+        review["prohibited_actions"]["publication"] = True
+    invalid = tmp_path / "psc-review.json"
+    invalid.write_text(json.dumps(review), encoding="utf-8")
+    result = validate_json_schema(invalid, PSC_REVIEW_SCHEMA)
     assert result.errors

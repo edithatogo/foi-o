@@ -36,6 +36,7 @@ def test_every_review_artifact_is_exactly_hash_pinned() -> None:
             "bounded-raw-state-mapping",
             "bounded-raw-state-mapping-11872",
             "oia-event-time-intervals",
+            "psc-provider-scope",
         }:
             assert review["decision"] == "approved"
             assert review["approver"] == "edithatogo"
@@ -55,7 +56,9 @@ def test_packet_does_not_convert_rights_terms_into_provider_scope_approval() -> 
     )
     assert provider["rights_evidence_byte_size"] == 37456
     assert provider["proposed_scope"] == "publicservice.govt.nz provider-owned content"
-    assert provider["decision"] == "pending"
+    assert provider["decision"] == "approved"
+    assert provider["approver"] == "edithatogo"
+    assert "psc_provider_scope_review_pending" not in payload["blockers"]
 
 
 def test_interval_review_is_approved_without_promoting_source_pack() -> None:
