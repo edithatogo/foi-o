@@ -1,0 +1,5 @@
+Task: Add adjudication record contract
+
+Verification: 2 focused tests; Ruff; full suite 432 passed, 2 skipped.
+
+Remaining risk: no human adjudication exists; candidate fixtures remain non-empirical.
