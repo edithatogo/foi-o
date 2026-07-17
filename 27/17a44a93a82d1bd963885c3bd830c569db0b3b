@@ -1,0 +1,3 @@
+Task: Record PSC provider-scope approval in Conductor plan
+
+Verification: uv sync --extra dev --extra rdf; full suite 413 passed, 2 skipped.
