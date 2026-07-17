@@ -1,0 +1,5 @@
+Task: Record bounded mapping approval in Conductor plan
+
+Summary: Marked the request 11872 mapping review complete at 9eac898 and clarified the remaining request 35076 and archive-wide blockers.
+
+Verification: uv sync --extra dev --extra rdf; full suite 401 passed, 2 skipped; git diff check passed.
