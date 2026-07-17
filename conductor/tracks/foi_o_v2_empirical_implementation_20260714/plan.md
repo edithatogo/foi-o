@@ -371,6 +371,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     reasoned resolved/unresolved outcomes, and immutable lock provenance while
     rejecting agent adjudicators (`f7aec30`). Verification: 2 focused tests,
     Ruff, and full suite 432 passed, 2 skipped. No adjudication occurred.
+  - [x] Reliability-report contract subtask: pin the protocol, sample,
+    duplicate-cluster registry, two annotation sets, adjudication set, and
+    codebook; require explicit denominators, two-sided cluster-bootstrap
+    configuration, registered kappa undefined reasons, span agreement, and
+    adjudication/unresolved rates while prohibiting fixture promotion
+    (`3b65fa7`). Verification: 8 focused schema tests, Ruff, exact inventory
+    checks, and full suite 436 passed, 2 skipped. No reliability statistic was
+    calculated.
   - [x] Consolidated human-gate packet subtask: pin the interval, PSC provider
     scope, seven-source selection, source-pack promotion, bounded raw-state
     mapping, and annotation-protocol decisions in
