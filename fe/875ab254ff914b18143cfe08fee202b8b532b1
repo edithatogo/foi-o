@@ -1,0 +1,7 @@
+Task: Fixture rights/input approval-promotion subtask
+
+Summary: Recorded edithatogo's verbatim bounded approval of candidate readiness de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd at base commit 948d392; derived deterministic approved rights/codebook/sampling/unit/cluster wrappers and an execution-disabled approved-input readiness envelope.
+
+Verification: focused suite 45 passed; full suite 503 passed, 2 skipped; Ruff and BasedPyright clean; two independent peer reviews and orchestrated review passed; post-commit verify_approved_fixture_inputs succeeded against base commit 948d392 and promotion commit fe875ab.
+
+Boundary: approved-input readiness SHA-256 814409acac7401118428bcad2d73df1b1eb8b1bf79c2fa8ce3ea0bdb560b8b6e. roles_assigned=false, execution_authorization_present=false, execution_allowed=false. No analysis, reconciliation, empirical, gold, release, publication, or dataset claim is authorized.
