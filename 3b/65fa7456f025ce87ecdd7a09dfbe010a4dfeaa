@@ -1,0 +1,4 @@
+Task: Reliability report contract
+Files: schemas/json/reliability-report.schema.json; tests/test_reliability_report_contract.py; docs/24-schema-ontology-coverage-matrix.md; examples/maturation-summary.ontology-maturation.json
+Verification: uv sync --extra dev --extra rdf; uv run pytest -q (436 passed, 2 skipped); focused schema tests and Ruff passed.
+Remaining risks: no authentic sample, human annotations, adjudication, or reliability calculations exist; cross-artifact arithmetic, identity, and hash consistency require a verifier.
