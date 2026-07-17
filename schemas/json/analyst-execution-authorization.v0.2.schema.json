@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:analyst-execution-authorization:0.2.0",
+  "$defs": {
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "model", "prompt_sha256", "session_id"],
+      "properties": {
+        "provider": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "prompt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "session_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "analyst": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor_id", "actor_class", "role", "runtime"],
+      "properties": {
+        "actor_id": {"type": "string", "pattern": "^agent:analyst-[A-Za-z0-9._-]+$"},
+        "actor_class": {"const": "automated_agent"},
+        "role": {"const": "analyst"},
+        "runtime": {"$ref": "#/$defs/runtime"}
+      }
+    },
+    "reconciler": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor_id", "actor_class", "role", "runtime"],
+      "properties": {
+        "actor_id": {"type": "string", "pattern": "^agent:reconciler(?:-[A-Za-z0-9._-]+)?$"},
+        "actor_class": {"const": "automated_agent"},
+        "role": {"const": "reconciler"},
+        "runtime": {"$ref": "#/$defs/runtime"}
+      }
+    },
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "state"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "state": {"const": "locked"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "status", "execution_allowed", "local_only", "artifacts", "analysts", "reconciler", "approved_by", "approved_at", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-execution-authorization.v0.2.0"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "status": {"const": "approved_local_agent_analysis"},
+    "execution_allowed": {"const": true},
+    "local_only": {"const": true},
+    "artifacts": {"type": "object", "additionalProperties": false, "required": ["protocol", "source_population", "codebook", "sampling_configuration", "unit_manifest", "duplicate_cluster_registry", "redaction_manifest", "local_rights_review"], "properties": {"protocol": {"$ref": "#/$defs/artifact"}, "source_population": {"$ref": "#/$defs/artifact"}, "codebook": {"$ref": "#/$defs/artifact"}, "sampling_configuration": {"$ref": "#/$defs/artifact"}, "unit_manifest": {"$ref": "#/$defs/artifact"}, "duplicate_cluster_registry": {"$ref": "#/$defs/artifact"}, "redaction_manifest": {"$ref": "#/$defs/artifact"}, "local_rights_review": {"$ref": "#/$defs/artifact"}}},
+    "analysts": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/analyst"}},
+    "reconciler": {"$ref": "#/$defs/reconciler"},
+    "approved_by": {"type": "string", "pattern": "^human:[A-Za-z0-9._-]+$"},
+    "approved_at": {"type": "string", "format": "date-time"},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "release_qualifying": {"const": false},
+    "publication_eligible": {"const": false},
+    "prohibited_actions": {
+      "type": "array",
+      "uniqueItems": true,
+      "allOf": [
+        {"contains": {"const": "redistribution"}},
+        {"contains": {"const": "publication"}},
+        {"contains": {"const": "training"}},
+        {"contains": {"const": "fine_tuning"}},
+        {"contains": {"const": "release"}},
+        {"contains": {"const": "dataset_publication"}},
+        {"contains": {"const": "gold_promotion"}},
+        {"contains": {"const": "legal_certification"}},
+        {"contains": {"const": "paper_update"}}
+      ],
+      "items": {"enum": ["redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update"]}
+    }
+  }
+}

@@ -26,14 +26,24 @@ or an unresolved status and never overwrites either original analysis.
 
 ## Units, sampling, and rights
 
-The unit remains the assertion-level source span defined in the v0.1 protocol.
+For the initial local packet, the unit is a synthetic fixture event object used
+for engineering classification, not authentic assertion-level source evidence.
+The unit is addressed by an exact UTF-8 character half-open source span and its
+literal-byte SHA-256. Analyst-visible context is produced by parsing that object,
+removing `assertion_status` and `confidence`, and serialising JSON with UTF-8,
+`ensure_ascii=false`, sorted keys, and compact `(",", ":")` separators. Both the
+raw-unit and redacted-context hashes are locked. A source state is preserved
+when present and is never synthesised when missing or null.
+
 Duplicate clusters, split isolation, inclusion probabilities, weights,
 exclusions, and bootstrap settings remain pre-registered. Inputs must be
 committed, locally readable, rights-eligible for the declared use, and pinned
 by SHA-256. Missing dates, evidence, or labels are recorded as missing or as a
 controlled abstention; they are never invented.
 
-The initial automated execution uses only committed fixture/example material.
+The initial automated execution uses committed synthetic fixture/example
+material only after exact bounded local authorization. The repository's licence
+placeholder does not establish unrestricted or redistributable rights.
 Restricted FYI snapshots, correspondence, attachments, raw exports, and
 provider content are excluded unless a separate use authorization names their
 exact bytes and purpose.
@@ -45,6 +55,10 @@ uncertainty, notes, and either a non-abstaining outcome or one controlled
 abstention reason. Any label, span, or abstention disagreement requires
 reconciliation. Agreement without disagreement does not permit the reconciler
 to rewrite first-pass records.
+
+The fixture packet uses the dedicated `fixture_engineering_classification`
+codebook task. It does not reuse the authentic candidate-assertion task or
+convert fixture events into authentic candidate assertions.
 
 The reconciler must differ from both analysts. Reconciliation is an engineering
 consensus step, not human adjudication, gold promotion, legal certification, or
@@ -70,12 +84,20 @@ described as inter-human reliability.
 
 ## Execution order
 
-1. Pin the active protocol, source population, codebook, sampling
-   configuration, actor records, and bounded human authorization.
-2. Freeze the rights-eligible unit and duplicate-cluster manifests.
-3. Run both analysts independently and lock both complete analysis sets.
-4. Give only the locked sets and source context to the distinct reconciler.
-5. Verify hashes, membership, isolation attestations, chronology, role
-   separation, arithmetic, and claim-class flags.
-6. Emit local inter-agent diagnostics with all downstream promotion gates
+1. Construct and freeze the candidate population, codebook, sampling, unit,
+   redaction, and duplicate-cluster packet with rights false and execution
    disabled.
+2. Obtain exact bounded rights and execution-input approval for the committed
+   readiness hash.
+3. Record the approved rights, codebook, and sampling states, then regenerate
+   and freeze the rights-eligible unit and dependent cluster bytes.
+4. Assign two concrete isolated analyst runtimes and one distinct reconciler
+   runtime.
+5. Obtain exact approval of a committed v0.2 authorization that pins every
+   final artifact, role, runtime, prompt, and session.
+6. Run the pre-execution verifier against the exact repository commit and
+   authorization hash.
+7. Run both analysts independently, lock both complete sets, and then give only
+   those locked sets and source context to the distinct reconciler.
+8. Verify results and emit local inter-agent diagnostics with every downstream
+   promotion gate disabled.

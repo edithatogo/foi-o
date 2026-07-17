@@ -51,6 +51,8 @@ def test_agent_analyst_execution_is_role_based_and_bounded(tmp_path: Path) -> No
             "release",
             "dataset_publication",
             "gold_promotion",
+            "legal_certification",
+            "paper_update",
         ],
     }
     path = _write(tmp_path, "authorization.json", payload)
