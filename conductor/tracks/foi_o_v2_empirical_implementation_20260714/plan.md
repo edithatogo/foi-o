@@ -409,6 +409,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     roles (`92ed642`). Verification: Ruff, BasedPyright, 7 focused tests, exact
     inventory checks, and full suite 452 passed, 2 skipped. No approved
     authorization or role assignment exists.
+  - [x] Execution-input contract subtask: govern a rights-reviewed source
+    population with retained exclusions, an annotation codebook with label and
+    disagreement semantics, and a sampling configuration with sample-size,
+    strata, inclusion-probability, weighting, clustering, exclusion, split,
+    and bootstrap pins (`469a80b`). Verification: Ruff, BasedPyright, 8 focused
+    tests, exact schema/inventory checks, and full suite 458 passed, 2 skipped.
+    No concrete input was created or approved.
   - [x] Execution-authorization enforcement subtask: require the exact approved
     authorization bytes and hashes for the protocol, source population,
     codebook, and sampling configuration; require authorized annotator and
