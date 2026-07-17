@@ -1,0 +1,5 @@
+Task: Reframe empirical execution around analyst roles
+Summary: Added the active v0.2 analyst protocol, agent role provenance, bounded local authorization, locked analysis and reconciliation schemas, negative claim gates, contract tests, and regenerated maturation inventories.
+Files: docs/42-v2-analyst-execution-protocol.md; schemas/json/analyst-execution-authorization.schema.json; schemas/json/locked-analyst-record.schema.json; schemas/json/analyst-reconciliation-record.schema.json; tests/test_analyst_protocol_contracts.py; track spec and inventory artifacts.
+Verification: uv sync --extra dev --extra rdf; uv run pytest -q (462 passed, 2 skipped); focused contract and inventory tests; Ruff; JSON parsing; git diff --check.
+Remaining risk: No agent analysis has run; results will remain non-human-reviewed and non-promotable.
