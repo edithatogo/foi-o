@@ -1,0 +1,11 @@
+Task: Approve 50 OIA applicability intervals
+
+Summary: Recorded reviewer edithatogo's legal review of all 50 inclusive/exclusive boundaries in a separate immutable artifact pinned to candidate SHA 401cd17ae98b4aa7adc51e90f861838c29173ec6165c78ed4f448cd58cd82e83.
+
+Files: interval review schema/example; source-pack readiness schema/example; consolidated human-gate packet schema/example; positive and negative tests; generated inventory counts.
+
+Why: Preserve the reviewed legal applicability decision without modifying the candidate derivation artifact or implicitly promoting the source pack.
+
+Verification: 25 focused tests; examples validation; scoped Ruff lint/format; git diff check; uv sync --extra dev --extra rdf; full suite 409 passed, 2 skipped; Conductor review added candidate-hash, promotion, and broader-certification rejection tests.
+
+Remaining risks: PSC provider scope, seven-source selection/historical applicability, and source-pack promotion remain pending; publication, release, dataset publication, and broader legal certification remain false.
