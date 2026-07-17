@@ -1,0 +1,11 @@
+Task: Bounded request 11872 mapping approval
+
+Summary: Recorded reviewer edithatogo's approval of partially_successful to released_in_part as a separate immutable review artifact pinned to audit SHA efcbd60cadb1d43d00f244a8e32f0016f6013a648a539d152d1843dd4fc1223a.
+
+Files: bounded mapping review schema and example; consolidated human-gate packet schema/example; positive and negative contract tests; generated inventory counts.
+
+Why: Preserve the exact bounded human decision without mutating candidate evidence, approving request 35076, or enabling archive-wide claims.
+
+Verification: 27 focused tests; examples validation; scoped Ruff lint/format; git diff check; uv sync --extra dev --extra rdf; full suite 401 passed, 2 skipped; Conductor review added negative scope-expansion coverage.
+
+Remaining risks: request 35076 mapping review and archive-wide evidence remain pending; legal certification, publication, redistribution, training, fine-tuning, release, dataset publication, and reviewed/gold promotion remain false.
