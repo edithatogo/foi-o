@@ -38,19 +38,20 @@
     "approval_scope": "All 50 inclusive/exclusive boundaries only; source-pack promotion and broader legal certification remain prohibited."
   },
   "non_legislation_sources": {
-    "status": "candidate_artifacts_acquired_human_review_pending",
+    "status": "approved_candidate_sources",
     "artifact_count": 7,
     "manifest_path": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json",
     "manifest_sha256": "4650961b6b3ce11dd69f226b651b611127e2ba37bf4c87d266c6799579432d18",
     "content_storage": "local_only",
     "content_committed": false,
-    "human_approved": false,
-    "required_action": "A named human reviewer must approve source selection, historical applicability, provider scope, and source-pack promotion; the locally stored source files are not committed or approved for redistribution."
+    "human_approved": true,
+    "review_artifact_path": "examples/v2/nz-nonlegislation-source-review.approved.json",
+    "review_artifact_sha256": "68a27725814f7106ed6d8b3cafc1e33db34355baeb29998612cd6dc62303559f",
+    "approval_scope": "Selection and recorded historical applicability only; rights are unchanged and promotion remains pending."
   },
   "source_pack_ready": false,
   "source_pack_promotion_allowed": false,
   "blockers": [
-    "nonleg_source_selection_review_pending",
     "source_pack_promotion_pending"
   ]
 }

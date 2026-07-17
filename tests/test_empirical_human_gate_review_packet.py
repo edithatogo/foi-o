@@ -37,6 +37,7 @@ def test_every_review_artifact_is_exactly_hash_pinned() -> None:
             "bounded-raw-state-mapping-11872",
             "oia-event-time-intervals",
             "psc-provider-scope",
+            "nonlegislation-source-selection",
         }:
             assert review["decision"] == "approved"
             assert review["approver"] == "edithatogo"
@@ -84,6 +85,19 @@ def test_annotation_roles_and_execution_inputs_are_unassigned() -> None:
         "approved_codebook_revision": None,
         "approved_sampling_configuration": None,
     }
+
+
+def test_seven_source_selection_is_approved_without_pack_promotion() -> None:
+    payload = json.loads(PACKET.read_text())
+    review = next(
+        item
+        for item in payload["reviews"]
+        if item["review_id"] == "nonlegislation-source-selection"
+    )
+    assert review["decision"] == "approved"
+    assert review["approver"] == "edithatogo"
+    assert "nonlegislation_source_selection_review_pending" not in payload["blockers"]
+    assert payload["source_pack_promotion_allowed"] is False
 
 
 def test_request_35076_review_preserves_empty_attachment_evidence() -> None:

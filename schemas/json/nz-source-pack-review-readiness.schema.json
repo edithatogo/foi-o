@@ -61,22 +61,24 @@
     },
     "non_legislation_sources": {
       "type": "object", "additionalProperties": false,
-      "required": ["status", "artifact_count", "manifest_path", "manifest_sha256", "content_storage", "content_committed", "human_approved", "required_action"],
+      "required": ["status", "artifact_count", "manifest_path", "manifest_sha256", "content_storage", "content_committed", "human_approved", "review_artifact_path", "review_artifact_sha256", "approval_scope"],
       "properties": {
-        "status": {"const": "candidate_artifacts_acquired_human_review_pending"},
+        "status": {"const": "approved_candidate_sources"},
         "artifact_count": {"const": 7},
         "manifest_path": {"const": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json"},
         "manifest_sha256": {"$ref": "#/$defs/sha256"},
         "content_storage": {"const": "local_only"},
         "content_committed": {"const": false},
-        "human_approved": {"const": false},
-        "required_action": {"type": "string", "minLength": 1}
+        "human_approved": {"const": true},
+        "review_artifact_path": {"const": "examples/v2/nz-nonlegislation-source-review.approved.json"},
+        "review_artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "approval_scope": {"type": "string", "minLength": 1}
       }
     },
     "source_pack_ready": {"const": false},
     "source_pack_promotion_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "type": "array", "minItems": 1, "maxItems": 1, "uniqueItems": true,
       "items": {
         "enum": [
           "event_time_human_review_pending", "psc_provider_scope_review_pending",

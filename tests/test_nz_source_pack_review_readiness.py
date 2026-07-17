@@ -20,6 +20,8 @@ INTERVAL_REVIEW = ROOT / "examples/v2/nz-oia-applicability-interval-review.appro
 INTERVAL_REVIEW_SCHEMA = ROOT / "schemas/json/nz-oia-applicability-interval-review.schema.json"
 PSC_REVIEW = ROOT / "examples/v2/psc-provider-scope-review.approved.json"
 PSC_REVIEW_SCHEMA = ROOT / "schemas/json/psc-provider-scope-review.schema.json"
+SOURCE_REVIEW = ROOT / "examples/v2/nz-nonlegislation-source-review.approved.json"
+SOURCE_REVIEW_SCHEMA = ROOT / "schemas/json/nz-nonlegislation-source-review.schema.json"
 
 
 def test_source_pack_readiness_is_schema_valid_and_fail_closed() -> None:
@@ -35,7 +37,11 @@ def test_source_pack_readiness_is_schema_valid_and_fail_closed() -> None:
         == sha256(INTERVAL_REVIEW.read_bytes()).hexdigest()
     )
     assert payload["non_legislation_sources"]["artifact_count"] == 7
-    assert payload["non_legislation_sources"]["human_approved"] is False
+    assert payload["non_legislation_sources"]["human_approved"] is True
+    assert (
+        payload["non_legislation_sources"]["review_artifact_sha256"]
+        == sha256(SOURCE_REVIEW.read_bytes()).hexdigest()
+    )
 
 
 def test_prior_named_human_approvals_are_exactly_hash_pinned() -> None:
@@ -69,7 +75,6 @@ def test_acquired_candidates_are_exactly_pinned_without_inferred_approval() -> N
         == sha256(PSC_REVIEW.read_bytes()).hexdigest()
     )
     assert payload["blockers"] == [
-        "nonleg_source_selection_review_pending",
         "source_pack_promotion_pending",
     ]
     assert payload["status"] == "candidate_inputs_acquired_human_review_pending"
@@ -131,3 +136,28 @@ def test_psc_provider_scope_review_rejects_expansion(tmp_path: Path, mutation: s
     invalid.write_text(json.dumps(review), encoding="utf-8")
     result = validate_json_schema(invalid, PSC_REVIEW_SCHEMA)
     assert result.errors
+
+
+def test_seven_source_review_is_exact_and_rights_bounded() -> None:
+    result = validate_json_schema(SOURCE_REVIEW, SOURCE_REVIEW_SCHEMA)
+    assert not result.errors, result.errors
+    review = json.loads(SOURCE_REVIEW.read_text())
+    assert review["manifest_sha256"] == sha256(NONLEG.read_bytes()).hexdigest()
+    assert review["source_count"] == 7
+    assert review["selection_approved"] is True
+    assert review["historical_applicability_approved"] is True
+    assert all(value is False for value in review["prohibited_actions"].values())
+
+
+@pytest.mark.parametrize("mutation", ["manifest_hash", "rights", "promotion"])
+def test_seven_source_review_rejects_expansion(tmp_path: Path, mutation: str) -> None:
+    review = json.loads(SOURCE_REVIEW.read_text())
+    if mutation == "manifest_hash":
+        review["manifest_sha256"] = "0" * 64
+    elif mutation == "rights":
+        review["rights_expanded"] = True
+    else:
+        review["prohibited_actions"]["source_pack_promotion"] = True
+    invalid = tmp_path / "source-review.json"
+    invalid.write_text(json.dumps(review), encoding="utf-8")
+    assert validate_json_schema(invalid, SOURCE_REVIEW_SCHEMA).errors

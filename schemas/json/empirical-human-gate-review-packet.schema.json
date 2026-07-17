@@ -48,7 +48,7 @@
     "sample_freeze_allowed": {"const": false},
     "empirical_comparison_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true,
+      "type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true,
       "items": {
         "enum": [
           "event_time_interval_review_pending",
@@ -152,7 +152,8 @@
                       "attachment-snapshot-rights",
                       "bounded-raw-state-mapping",
                       "oia-event-time-intervals",
-                      "psc-provider-scope"
+                      "psc-provider-scope",
+                      "nonlegislation-source-selection"
                     ]
                   }
                 }
@@ -202,6 +203,16 @@
               "decision": {"const": "approved"},
               "approver": {"const": "edithatogo"},
               "reviewed_at": {"const": "2026-07-17T03:37:50Z"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"review_id": {"const": "nonlegislation-source-selection"}}},
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T05:45:11Z"}
             }
           }
         }
