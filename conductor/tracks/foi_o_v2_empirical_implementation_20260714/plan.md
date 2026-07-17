@@ -379,6 +379,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     (`3b65fa7`). Verification: 8 focused schema tests, Ruff, exact inventory
     checks, and full suite 436 passed, 2 skipped. No reliability statistic was
     calculated.
+  - [x] Annotation-outcome hardening subtask: require controlled abstention
+    reasons, require labels for non-abstaining annotations, and require labels
+    for resolved adjudications so missing evidence and unresolved outcomes
+    cannot be silently converted into empirical labels (`ace9e12`).
+    Verification: 11 focused schema tests, Ruff, and full suite 439 passed,
+    2 skipped. Task-conditioned span checks and cross-artifact consistency
+    remain verifier responsibilities; no annotation or adjudication occurred.
   - [x] Consolidated human-gate packet subtask: pin the interval, PSC provider
     scope, seven-source selection, source-pack promotion, bounded raw-state
     mapping, and annotation-protocol decisions in
