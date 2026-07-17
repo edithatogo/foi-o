@@ -34,7 +34,7 @@ class BoundedRawStateAudit(BaseModel):
     mapping_sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
     rights_reviewer: str = Field(min_length=1)
     rights_reviewed_at: str = Field(min_length=1)
-    rights_purpose: Literal["foi-o-candidate-extraction"]
+    rights_purpose: Literal["foi-o-candidate-extraction", "foi-o-raw-state-mapping-audit"]
     storage: Literal["local_only"] = "local_only"
     raw_state_field: Literal["described_state"] = "described_state"
     raw_state_value: str = Field(min_length=1)

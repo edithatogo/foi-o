@@ -9,7 +9,11 @@ from pathlib import Path
 
 import pytest
 
-from foi_o_nz.attachment_snapshot import verify_attachment_snapshot
+from foi_o_nz.attachment_snapshot import (
+    approve_attachment_snapshot,
+    audit_approved_attachment_snapshot,
+    verify_attachment_snapshot,
+)
 from foi_o_nz.validation import validate_json_schema
 
 ROOT = Path(__file__).parents[1]
@@ -40,7 +44,7 @@ def _write_snapshot(root: Path, *, rights_status: str = "pending") -> tuple[Path
     request = {"id": 11872, "described_state": "partially_successful"}
     page = (
         b'<div class="outgoing correspondence box"></div>'
-        b'<div class="incoming correspondence box"></div>'
+        b'<div class="box correspondence incoming"></div>'
     )
     attachment = b"%PDF-1.7\nfixture"
     inventory = [
@@ -170,6 +174,74 @@ def test_approved_snapshot_requires_and_records_named_review(tmp_path: Path) -> 
         verify_attachment_snapshot(snapshot, expected_manifest_sha256=digest)
 
 
+def test_approval_copies_reviewed_bytes_and_preserves_restricted_scope(
+    tmp_path: Path,
+) -> None:
+    reviewed_snapshot, reviewed_digest = _write_snapshot(tmp_path / "reviewed")
+    approved_snapshot = tmp_path / "approved"
+
+    approved_digest = approve_attachment_snapshot(
+        reviewed_snapshot,
+        approved_snapshot,
+        expected_reviewed_manifest_sha256=reviewed_digest,
+        reviewer="edithatogo",
+        reviewed_at="2026-07-17T00:00:00Z",
+    )
+
+    result = verify_attachment_snapshot(
+        approved_snapshot,
+        expected_manifest_sha256=approved_digest,
+        reviewed_snapshot_dir=reviewed_snapshot,
+    )
+    assert result.rights_status == "approved"
+    assert result.rights_reviewer == "edithatogo"
+    rights = json.loads((approved_snapshot / "rights-review.json").read_text())
+    assert rights["purpose"] == "foi-o-raw-state-mapping-audit"
+    assert all(
+        rights[field] is False
+        for field in (
+            "redistribution_allowed",
+            "publication_allowed",
+            "training_allowed",
+            "fine_tuning_allowed",
+            "release_allowed",
+            "dataset_publication_allowed",
+            "reviewed_gold_label_promotion_allowed",
+        )
+    )
+
+
+def test_approved_attachment_snapshot_produces_bounded_mapping_audit(
+    tmp_path: Path,
+) -> None:
+    reviewed_snapshot, reviewed_digest = _write_snapshot(tmp_path / "reviewed")
+    approved_snapshot = tmp_path / "approved"
+    approved_digest = approve_attachment_snapshot(
+        reviewed_snapshot,
+        approved_snapshot,
+        expected_reviewed_manifest_sha256=reviewed_digest,
+        reviewer="edithatogo",
+        reviewed_at="2026-07-17T00:00:00Z",
+    )
+
+    result = audit_approved_attachment_snapshot(
+        approved_snapshot,
+        reviewed_snapshot_dir=reviewed_snapshot,
+        mapping_path=ROOT / "mappings/alaveteli-state-map.yaml",
+        expected_manifest_sha256=approved_digest,
+    )
+
+    assert result.request_id == "11872"
+    assert result.raw_state_value == "partially_successful"
+    assert result.normalised_state == "released_in_part"
+    assert result.correspondence_count == 2
+    assert result.attachment_count == 1
+    assert result.nonempty_attachment_evidence is True
+    assert result.rights_purpose == "foi-o-raw-state-mapping-audit"
+    assert result.promotion_allowed is False
+    assert result.blockers == ("human_mapping_review_pending", "single_request_only")
+
+
 def test_approved_snapshot_rejects_content_different_from_reviewed_pending(
     tmp_path: Path,
 ) -> None:
@@ -193,9 +265,7 @@ def test_approved_snapshot_rejects_content_different_from_reviewed_pending(
     inventory_path = snapshot / "content/attachments.json"
     inventory = json.loads(inventory_path.read_text())
     artifact = next(
-        item
-        for item in manifest["artifacts"]
-        if item["path"] == "content/attachments/response.pdf"
+        item for item in manifest["artifacts"] if item["path"] == "content/attachments/response.pdf"
     )
     inventory[0]["sha256"] = artifact["sha256"]
     inventory[0]["size"] = artifact["size"]
@@ -244,27 +314,19 @@ def test_snapshot_rejects_fail_closed_manifest_mutations(
         manifest["schema_version"] = "unknown"
     elif mutation == "rights_schema":
         manifest["rights_review"]["schema_version"] = "unknown"
-        (snapshot / "rights-review.json").write_text(
-            json.dumps(manifest["rights_review"]) + "\n"
-        )
+        (snapshot / "rights-review.json").write_text(json.dumps(manifest["rights_review"]) + "\n")
         _refresh_artifact(snapshot, manifest, "rights-review.json")
     elif mutation == "rights_boundary":
         manifest["rights_review"]["publication_allowed"] = True
-        (snapshot / "rights-review.json").write_text(
-            json.dumps(manifest["rights_review"]) + "\n"
-        )
+        (snapshot / "rights-review.json").write_text(json.dumps(manifest["rights_review"]) + "\n")
         _refresh_artifact(snapshot, manifest, "rights-review.json")
     elif mutation == "rights_storage":
         manifest["rights_review"]["storage"] = "remote"
-        (snapshot / "rights-review.json").write_text(
-            json.dumps(manifest["rights_review"]) + "\n"
-        )
+        (snapshot / "rights-review.json").write_text(json.dumps(manifest["rights_review"]) + "\n")
         _refresh_artifact(snapshot, manifest, "rights-review.json")
     elif mutation == "pending_claim":
         manifest["rights_review"]["reviewer"] = "invented"
-        (snapshot / "rights-review.json").write_text(
-            json.dumps(manifest["rights_review"]) + "\n"
-        )
+        (snapshot / "rights-review.json").write_text(json.dumps(manifest["rights_review"]) + "\n")
         _refresh_artifact(snapshot, manifest, "rights-review.json")
     elif mutation == "audit_readiness":
         manifest["ready_for_raw_state_mapping_audit"] = True
@@ -277,14 +339,15 @@ def test_snapshot_rejects_fail_closed_manifest_mutations(
         verify_attachment_snapshot(snapshot, expected_manifest_sha256=digest)
 
 
-def test_committed_pending_readiness_is_schema_valid() -> None:
+def test_committed_approved_readiness_is_schema_valid() -> None:
     result = validate_json_schema(EXAMPLE, SCHEMA)
     assert not result.errors, result.errors
     payload = json.loads(EXAMPLE.read_text())
     assert payload["snapshot_manifest_sha256"] == (
-        "42f8ed87738a31b857d37c94772fa8471890ce8f6caa81af5690f3b6f6fa707b"
+        "0c7cee553ca3b01a6416784a1b691df5a6d90159a8f4d55e51a799934f655629"
     )
     assert payload["correspondence_count"] == 4
     assert payload["attachment_count"] == 3
-    assert payload["rights_status"] == "pending"
-    assert payload["ready_for_raw_state_mapping_audit"] is False
+    assert payload["rights_status"] == "approved"
+    assert payload["rights_reviewer"] == "edithatogo"
+    assert payload["ready_for_raw_state_mapping_audit"] is True

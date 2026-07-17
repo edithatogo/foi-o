@@ -16,7 +16,7 @@
   ],
   "properties": {
     "schema_version": {"const": "foi-o.fyi-attachment-snapshot-readiness.v0.1.0"},
-    "snapshot_path": {"const": "/private/tmp/fyi-attachment-snapshot-11872-pending"},
+    "snapshot_path": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"},
     "snapshot_manifest_sha256": {"$ref": "#/$defs/sha256"},
     "request_id": {"const": "11872"},
     "base_capture_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
@@ -25,21 +25,19 @@
     "attachment_count": {"const": 3},
     "attachment_bytes": {"const": 13259266},
     "attachment_inventory_sha256": {"$ref": "#/$defs/sha256"},
-    "rights_status": {"const": "pending"},
-    "rights_reviewer": {"const": null},
-    "rights_reviewed_at": {"const": null},
+    "rights_status": {"const": "approved"},
+    "rights_reviewer": {"const": "edithatogo"},
+    "rights_reviewed_at": {"const": "2026-07-17T01:51:03Z"},
     "storage": {"const": "local_only"},
     "content_committed": {"const": false},
     "source_records_modified": {"const": false},
     "canonical_base_attachment_inventory_empty": {"const": true},
     "supplemental_attachment_capture_declared": {"const": true},
-    "ready_for_raw_state_mapping_audit": {"const": false},
+    "ready_for_raw_state_mapping_audit": {"const": true},
     "blockers": {
-      "type": "array", "minItems": 4, "maxItems": 4, "uniqueItems": true,
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
       "items": {
         "enum": [
-          "named_human_rights_review_pending",
-          "supplemental_attachment_capture_requires_review",
           "human_mapping_review_pending",
           "single_request_only"
         ]

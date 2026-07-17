@@ -31,9 +31,13 @@ def test_every_review_artifact_is_exactly_hash_pinned() -> None:
         path = ROOT / review["artifact_path"]
         assert path.is_file()
         assert review["artifact_sha256"] == sha256(path.read_bytes()).hexdigest()
-        assert review["decision"] == "pending"
-        assert review["approver"] is None
-        assert review["reviewed_at"] is None
+        if review["review_id"] == "attachment-snapshot-rights":
+            assert review["decision"] == "approved"
+            assert review["approver"] == "edithatogo"
+        else:
+            assert review["decision"] == "pending"
+            assert review["approver"] is None
+            assert review["reviewed_at"] is None
 
 
 def test_packet_does_not_convert_rights_terms_into_provider_scope_approval() -> None:
@@ -65,7 +69,9 @@ def test_annotation_roles_and_execution_inputs_are_unassigned() -> None:
 def test_raw_state_review_cannot_cure_missing_attachment_evidence() -> None:
     payload = json.loads(PACKET.read_text())
     raw_state = next(
-        review for review in payload["reviews"] if review["review_id"] == "bounded-raw-state-mapping"
+        review
+        for review in payload["reviews"]
+        if review["review_id"] == "bounded-raw-state-mapping"
     )
     assert raw_state["candidate_mapping"] == {
         "raw_state": "waiting_response",
@@ -78,13 +84,20 @@ def test_raw_state_review_cannot_cure_missing_attachment_evidence() -> None:
 def test_attachment_snapshot_requires_exact_bounded_rights_review() -> None:
     payload = json.loads(PACKET.read_text())
     snapshot = next(
-        review for review in payload["reviews"] if review["review_id"] == "attachment-snapshot-rights"
+        review
+        for review in payload["reviews"]
+        if review["review_id"] == "attachment-snapshot-rights"
     )
-    assert snapshot["snapshot_manifest_sha256"] == (
+    assert snapshot["reviewed_snapshot_manifest_sha256"] == (
         "42f8ed87738a31b857d37c94772fa8471890ce8f6caa81af5690f3b6f6fa707b"
     )
     assert snapshot["request_id"] == "11872"
     assert snapshot["attachment_count"] == 3
     assert snapshot["attachment_bytes"] == 13_259_266
-    assert snapshot["rights_status"] == "pending"
-    assert snapshot["decision"] == "pending"
+    assert snapshot["snapshot_manifest_sha256"] == (
+        "0c7cee553ca3b01a6416784a1b691df5a6d90159a8f4d55e51a799934f655629"
+    )
+    assert snapshot["rights_status"] == "approved"
+    assert snapshot["decision"] == "approved"
+    assert "attachment_snapshot_rights_review_pending" not in payload["blockers"]
+    assert "supplemental_attachment_capture_review_pending" not in payload["blockers"]

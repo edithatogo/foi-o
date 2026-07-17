@@ -3,12 +3,16 @@
 from __future__ import annotations
 
 import json
+import shutil
 from hashlib import sha256
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any, Literal
 
+import yaml
 from pydantic import BaseModel, ConfigDict, Field
+
+from foi_o_nz.bounded_raw_state_audit import BoundedRawStateAudit
 
 AttachmentSnapshotBlocker = Literal[
     "named_human_rights_review_pending",
@@ -49,6 +53,8 @@ class _CorrespondenceCounter(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.total = 0
+        self.incoming = 0
+        self.outgoing = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag != "div":
@@ -56,6 +62,8 @@ class _CorrespondenceCounter(HTMLParser):
         classes = set(dict(attrs).get("class", "").split())
         if "correspondence" in classes and "box" in classes:
             self.total += 1
+            self.incoming += int("incoming" in classes)
+            self.outgoing += int("outgoing" in classes)
 
 
 def _digest(path: Path) -> str:
@@ -69,11 +77,75 @@ def _load_object(path: Path) -> dict[str, Any]:
     return payload
 
 
+def _write_json(path: Path, payload: dict[str, Any]) -> None:
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _write_manifest(snapshot_dir: Path, manifest: dict[str, Any]) -> str:
+    manifest_path = snapshot_dir / "manifest.json"
+    _write_json(manifest_path, manifest)
+    digest = _digest(manifest_path)
+    (snapshot_dir / "manifest.sha256").write_text(f"{digest}  manifest.json\n", encoding="utf-8")
+    return digest
+
+
+def approve_attachment_snapshot(
+    reviewed_snapshot_dir: Path,
+    approved_snapshot_dir: Path,
+    *,
+    expected_reviewed_manifest_sha256: str,
+    reviewer: str,
+    reviewed_at: str,
+) -> str:
+    """Copy an exact pending snapshot and bind a named, restricted approval."""
+    reviewed = verify_attachment_snapshot(
+        reviewed_snapshot_dir,
+        expected_manifest_sha256=expected_reviewed_manifest_sha256,
+    )
+    if reviewed.rights_status != "pending":
+        raise ValueError("reviewed snapshot must retain pending rights status")
+    if approved_snapshot_dir.exists():
+        raise ValueError("approved snapshot destination already exists")
+    if not reviewer.strip() or not reviewed_at.strip():
+        raise ValueError("approval requires reviewer and reviewed_at")
+
+    shutil.copytree(reviewed_snapshot_dir, approved_snapshot_dir)
+    manifest = _load_object(approved_snapshot_dir / "manifest.json")
+    rights = manifest.get("rights_review")
+    if not isinstance(rights, dict):
+        raise ValueError("snapshot rights review missing")
+    rights.update(
+        {
+            "status": "approved",
+            "reviewer": reviewer,
+            "reviewed_at": reviewed_at,
+            "reviewed_snapshot_manifest_sha256": expected_reviewed_manifest_sha256,
+        }
+    )
+    _write_json(approved_snapshot_dir / "rights-review.json", rights)
+    artifacts = manifest.get("artifacts")
+    if not isinstance(artifacts, list):
+        raise ValueError("snapshot artifacts must be a list")
+    rights_artifact = next(
+        (
+            artifact
+            for artifact in artifacts
+            if isinstance(artifact, dict) and artifact.get("path") == "rights-review.json"
+        ),
+        None,
+    )
+    if rights_artifact is None:
+        raise ValueError("rights review artifact missing")
+    rights_path = approved_snapshot_dir / "rights-review.json"
+    rights_artifact["sha256"] = _digest(rights_path)
+    rights_artifact["size"] = rights_path.stat().st_size
+    manifest["status"] = "approved_named_human_rights_review"
+    manifest["ready_for_raw_state_mapping_audit"] = True
+    return _write_manifest(approved_snapshot_dir, manifest)
+
+
 def _validate_rights(rights: dict[str, Any], manifest_digest: str) -> bool:
-    if (
-        rights.get("schema_version")
-        != "foi-o.fyi-attachment-snapshot-rights-review.v0.1.0"
-    ):
+    if rights.get("schema_version") != "foi-o.fyi-attachment-snapshot-rights-review.v0.1.0":
         raise ValueError("unsupported attachment snapshot rights-review schema version")
     if rights.get("purpose") != "foi-o-raw-state-mapping-audit":
         raise ValueError("snapshot rights purpose mismatch")
@@ -207,10 +279,9 @@ def verify_attachment_snapshot(
         artifact = declared.get(relative)
         if artifact is None:
             raise ValueError(f"inventory attachment artifact missing: {relative}")
-        if (
-            attachment.get("sha256") != artifact.get("sha256")
-            or attachment.get("size") != artifact.get("size")
-        ):
+        if attachment.get("sha256") != artifact.get("sha256") or attachment.get(
+            "size"
+        ) != artifact.get("size"):
             raise ValueError(f"attachment inventory mismatch: {relative}")
         attachment_bytes += int(artifact["size"])
     supplemental = manifest.get("supplemental_attachment_capture")
@@ -244,4 +315,57 @@ def verify_attachment_snapshot(
         rights_reviewed_at=str(rights["reviewed_at"]) if approved else None,
         ready_for_raw_state_mapping_audit=approved,
         blockers=blockers,
+    )
+
+
+def audit_approved_attachment_snapshot(
+    snapshot_dir: Path,
+    *,
+    reviewed_snapshot_dir: Path,
+    mapping_path: Path,
+    expected_manifest_sha256: str,
+) -> BoundedRawStateAudit:
+    """Audit one approved attachment snapshot within its restricted purpose."""
+    readiness = verify_attachment_snapshot(
+        snapshot_dir,
+        expected_manifest_sha256=expected_manifest_sha256,
+        reviewed_snapshot_dir=reviewed_snapshot_dir,
+    )
+    if not readiness.ready_for_raw_state_mapping_audit:
+        raise ValueError("attachment snapshot is not approved for mapping audit")
+
+    manifest = _load_object(snapshot_dir / "manifest.json")
+    rights = manifest["rights_review"]
+    mapping_bytes = mapping_path.read_bytes()
+    mapping = yaml.safe_load(mapping_bytes)
+    if not isinstance(mapping, dict) or not isinstance(mapping.get("source_states"), dict):
+        raise ValueError("state mapping requires source_states")
+    state_mapping = mapping["source_states"].get(readiness.raw_state_value)
+    if not isinstance(state_mapping, dict):
+        raise ValueError("request state is not mapped")
+    normalised_state = state_mapping.get("normalised_state")
+    if not isinstance(normalised_state, str) or not normalised_state:
+        raise ValueError("normalised state is missing")
+
+    root = snapshot_dir.resolve()
+    counter = _CorrespondenceCounter()
+    counter.feed((root / "content/page.html").read_text(encoding="utf-8"))
+    return BoundedRawStateAudit(
+        request_id=readiness.request_id,
+        snapshot_manifest_sha256=readiness.snapshot_manifest_sha256,
+        request_json_sha256=_digest(root / "content/request.json"),
+        page_html_sha256=_digest(root / "content/page.html"),
+        attachment_inventory_sha256=readiness.attachment_inventory_sha256,
+        mapping_sha256=sha256(mapping_bytes).hexdigest(),
+        rights_reviewer=str(rights["reviewer"]),
+        rights_reviewed_at=str(rights["reviewed_at"]),
+        rights_purpose="foi-o-raw-state-mapping-audit",
+        raw_state_value=readiness.raw_state_value,
+        normalised_state=normalised_state,
+        correspondence_count=readiness.correspondence_count,
+        outgoing_correspondence_count=counter.outgoing,
+        incoming_correspondence_count=counter.incoming,
+        attachment_count=readiness.attachment_count,
+        nonempty_attachment_evidence=True,
+        blockers=("human_mapping_review_pending", "single_request_only"),
     )

@@ -12,7 +12,10 @@ from foi_o_nz.bounded_raw_state_audit import audit_bounded_raw_state
 from foi_o_nz.validation import validate_json_schema
 
 ROOT = Path(__file__).parents[1]
-EXAMPLE = ROOT / "examples/v2/bounded-raw-state-audit.35076.json"
+EXAMPLES = (
+    ROOT / "examples/v2/bounded-raw-state-audit.35076.json",
+    ROOT / "examples/v2/bounded-raw-state-audit.11872.json",
+)
 SCHEMA = ROOT / "schemas/json/bounded-raw-state-audit.schema.json"
 
 
@@ -105,9 +108,10 @@ def test_bounded_audit_rejects_rights_or_artifact_drift(tmp_path: Path) -> None:
 
 
 def test_committed_bounded_audit_is_schema_valid() -> None:
-    result = validate_json_schema(EXAMPLE, SCHEMA)
-    assert not result.errors, result.errors
-    report = json.loads(EXAMPLE.read_text())
+    for example in EXAMPLES:
+        result = validate_json_schema(example, SCHEMA)
+        assert not result.errors, result.errors
+    report = json.loads(EXAMPLES[0].read_text())
     assert report["request_id"] == "35076"
     assert report["correspondence_count"] == 1
     assert report["attachment_count"] == 0
@@ -116,7 +120,7 @@ def test_committed_bounded_audit_is_schema_valid() -> None:
 
 
 def test_schema_rejects_attachment_and_blocker_contradiction(tmp_path: Path) -> None:
-    payload = json.loads(EXAMPLE.read_text())
+    payload = json.loads(EXAMPLES[0].read_text())
     payload["blockers"].remove("no_nonempty_attachment_evidence")
     path = tmp_path / "audit.json"
     path.write_text(json.dumps(payload), encoding="utf-8")

@@ -48,7 +48,7 @@
     "sample_freeze_allowed": {"const": false},
     "empirical_comparison_allowed": {"const": false},
     "blockers": {
-      "type": "array", "minItems": 10, "maxItems": 10, "uniqueItems": true,
+      "type": "array", "minItems": 8, "maxItems": 8, "uniqueItems": true,
       "items": {
         "enum": [
           "event_time_interval_review_pending",
@@ -85,9 +85,9 @@
         },
         "artifact_path": {"type": "string", "minLength": 1},
         "artifact_sha256": {"$ref": "#/$defs/sha256"},
-        "decision": {"const": "pending"},
-        "approver": {"const": null},
-        "reviewed_at": {"const": null},
+        "decision": {"enum": ["pending", "approved"]},
+        "approver": {"type": ["string", "null"]},
+        "reviewed_at": {"type": ["string", "null"], "format": "date-time"},
         "approval_effect": {"type": "string", "minLength": 1},
         "interval_count": {"const": 50},
         "rights_evidence_url": {"type": "string", "format": "uri"},
@@ -110,11 +110,33 @@
         "attachment_count": {"enum": [0, 3]},
         "archive_wide_claim_allowed": {"const": false},
         "snapshot_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "reviewed_snapshot_manifest_sha256": {"$ref": "#/$defs/sha256"},
         "request_id": {"const": "11872"},
         "attachment_bytes": {"const": 13259266},
-        "rights_status": {"const": "pending"},
+        "rights_status": {"enum": ["pending", "approved"]},
         "protocol_sha256": {"$ref": "#/$defs/sha256"}
-      }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"review_id": {"const": "attachment-snapshot-rights"}}},
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T01:51:03Z"},
+              "rights_status": {"const": "approved"}
+            },
+            "required": ["reviewed_snapshot_manifest_sha256"]
+          },
+          "else": {
+            "properties": {
+              "decision": {"const": "pending"},
+              "approver": {"const": null},
+              "reviewed_at": {"const": null}
+            }
+          }
+        }
+      ]
     }
   }
 }

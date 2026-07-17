@@ -1,7 +1,7 @@
 {
   "schema_version": "foi-o.fyi-attachment-snapshot-readiness.v0.1.0",
-  "snapshot_path": "/private/tmp/fyi-attachment-snapshot-11872-pending",
-  "snapshot_manifest_sha256": "42f8ed87738a31b857d37c94772fa8471890ce8f6caa81af5690f3b6f6fa707b",
+  "snapshot_path": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+  "snapshot_manifest_sha256": "0c7cee553ca3b01a6416784a1b691df5a6d90159a8f4d55e51a799934f655629",
   "request_id": "11872",
   "base_capture_revision": "c91e49dc7b2d9c3c42a5ad4a73ed7030ffd48eb1",
   "raw_state_value": "partially_successful",
@@ -9,18 +9,16 @@
   "attachment_count": 3,
   "attachment_bytes": 13259266,
   "attachment_inventory_sha256": "a0dfea7c979de9760bcf12fee0a321e8e323b4176decd086f2530408da4c171f",
-  "rights_status": "pending",
-  "rights_reviewer": null,
-  "rights_reviewed_at": null,
+  "rights_status": "approved",
+  "rights_reviewer": "edithatogo",
+  "rights_reviewed_at": "2026-07-17T01:51:03Z",
   "storage": "local_only",
   "content_committed": false,
   "source_records_modified": false,
   "canonical_base_attachment_inventory_empty": true,
   "supplemental_attachment_capture_declared": true,
-  "ready_for_raw_state_mapping_audit": false,
+  "ready_for_raw_state_mapping_audit": true,
   "blockers": [
-    "named_human_rights_review_pending",
-    "supplemental_attachment_capture_requires_review",
     "human_mapping_review_pending",
     "single_request_only"
   ]
