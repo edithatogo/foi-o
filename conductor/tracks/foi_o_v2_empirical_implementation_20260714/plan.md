@@ -395,6 +395,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     tests at 94% coverage, and full suite 449 passed, 2 skipped. Synthetic test
     bundles are temporary and explicitly non-evidentiary; no authentic bundle
     or empirical result exists.
+  - [x] Execution-authorization contract subtask: bind protocol, source
+    population, codebook, sampling configuration, exactly two human annotator
+    roles, a human adjudicator role, and a named human approver in distinct
+    pending and approved states while explicitly prohibiting agents from human
+    roles (`92ed642`). Verification: Ruff, BasedPyright, 7 focused tests, exact
+    inventory checks, and full suite 452 passed, 2 skipped. No approved
+    authorization or role assignment exists.
   - [x] Annotation-outcome hardening subtask: require controlled abstention
     reasons, require labels for non-abstaining annotations, and require labels
     for resolved adjudications so missing evidence and unresolved outcomes
