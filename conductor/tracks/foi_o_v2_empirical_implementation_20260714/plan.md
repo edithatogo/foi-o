@@ -197,9 +197,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     inclusive/exclusive boundary against the relevant commencement and
     amendment evidence. The provider-scope registry is already approved. Seven
     official non-legislation guidance artifacts are locally stored and
-    hash-pinned, but PSC provider-scope interpretation, their historical
-    applicability and selection, and source-pack promotion still require named
-    human review. Source contents are not committed, and older schema-valid
+    hash-pinned. Reviewer `edithatogo` has approved PSC-owned
+    `publicservice.govt.nz` content subject to attribution and every recorded
+    exclusion. Historical applicability and selection of the seven sources, and
+    source-pack promotion, still require named human review. Source contents are
+    not committed, and older schema-valid
     examples remain contract fixtures, not evidence.
   - [x] Evidence subtask: populate a candidate, hash-pinned source-rights
     registry and OIA historical version index from official provider evidence
@@ -237,6 +239,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     source-pack promotion remain pending. Verification: all seven byte sizes,
     PDF signatures, and SHA-256 hashes reproduced; 19 focused tests, examples
     validation, and targeted Ruff passed; full suite 372 passed, 2 skipped.
+  - [x] PSC provider-scope approval subtask: record reviewer `edithatogo`'s
+    exact approval of provider-owned `publicservice.govt.nz` content, pinned to
+    terms evidence `2ad002bf…`, while preserving every exclusion, attribution
+    requirement, and downstream publication/promotion prohibition (`6b2fb0b`).
+    Output: `examples/v2/psc-provider-scope-review.approved.json` (SHA-256
+    `dcb8179c…`). Verification: 29 focused tests including negative terms-hash,
+    exclusion, and publication cases; examples validation, Ruff lint/format,
+    and Conductor review passed; full suite 413 passed, 2 skipped.
 - [ ] Audit FYI raw-state mappings against correspondence and attachments.
   - `BLOCKED 2026-07-17`: approved request `35076` supplies one real outgoing
     correspondence item for the bounded candidate mapping `waiting_response` to
