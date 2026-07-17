@@ -1,0 +1,4 @@
+Task: Full type-check cleanup for governed empirical inputs
+Files: attachment/raw-state parsers, baseline/governed re-extraction verification, re-extraction packet builder, unit-manifest contract test
+Verification: Ruff; basedpyright (0 errors); 59 focused tests; uv sync --extra dev --extra rdf; uv run pytest -q (449 passed, 2 skipped, including uncommitted verifier tests).
+Remaining risks: no authentic empirical inputs or results; verifier work remains uncommitted.
