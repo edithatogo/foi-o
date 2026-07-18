@@ -36,20 +36,24 @@ def _write(path: Path, value: object) -> None:
 
 def _commit(root: Path, message: str) -> str:
     run(["git", "add", "."], cwd=root, check=True)
-    run(
-        [
-            "git",
-            "-c",
-            "user.name=Fixture",
-            "-c",
-            "user.email=fixture@example.invalid",
-            "commit",
-            "-qm",
-            message,
-        ],
-        cwd=root,
-        check=True,
-    )
+    staged = run(["git", "diff", "--cached", "--quiet"], cwd=root, check=False)
+    if staged.returncode == 1:
+        run(
+            [
+                "git",
+                "-c",
+                "user.name=Fixture",
+                "-c",
+                "user.email=fixture@example.invalid",
+                "commit",
+                "-qm",
+                message,
+            ],
+            cwd=root,
+            check=True,
+        )
+    elif staged.returncode != 0:
+        staged.check_returncode()
     return run(
         ["git", "rev-parse", "HEAD"],
         cwd=root,
