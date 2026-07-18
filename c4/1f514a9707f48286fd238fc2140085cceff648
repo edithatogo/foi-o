@@ -1,0 +1,4 @@
+Task: Runtime-handshake authorization
+Summary: Recorded edithatogo's exact approval statement and SHA; added deterministic handshake-only authorization/schema/builder; added public exact-SHA/commit/DAG/ancestry verifier; hardened historical request harness; updated coverage inventories.
+Verification: approval statement SHA 29cf6248c223719e6c403347d3dac4877a9cf701a3c0d4b99568ff0916bceca9; focused governance suite 78 passed; final Ruff lint/format passed; task-scoped ty passed; full pytest 549 passed, 2 skipped.
+Boundary: Only canonical runtime provenance handshakes are authorized. Context presentation, analyst execution, reconciliation, human-reviewed or empirical claims, release, publication, dataset publication, and final v0.2 execution authorization remain absent. Repository-wide ty retains 51 diagnostics identical to pre-task HEAD.
