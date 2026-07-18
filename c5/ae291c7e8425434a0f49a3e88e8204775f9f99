@@ -1,0 +1,5 @@
+Task: Post-commit handshake verifier harness repair
+Summary: Updated the temporary-clone commit helper to commit only staged changes and otherwise reuse clean HEAD; unexpected Git errors remain fatal.
+Files: tests/test_fixture_runtime_handshake_verification.py
+Verification: focused verifier 21 passed; scoped Ruff and ty passed; full pytest 549 passed, 2 skipped.
+Risk: Test-only change; production verifier and governed artifact bytes unchanged.
