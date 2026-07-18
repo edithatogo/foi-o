@@ -38,9 +38,10 @@ def test_candidate_fixture_is_schema_valid_and_independent() -> None:
     assert candidate["status"] == "candidate"
     assert candidate["humanReview"]["status"] == "pending"
     assert candidate["humanReview"]["promotionAllowed"] is False
-    assert candidate["independence"]["authoringFixtureSha256"] == hashlib.sha256(
-        AUTHORING_FIXTURE.read_bytes()
-    ).hexdigest()
+    assert (
+        candidate["independence"]["authoringFixtureSha256"]
+        == hashlib.sha256(AUTHORING_FIXTURE.read_bytes()).hexdigest()
+    )
 
     authoring_ids = {case["caseId"] for case in authoring["cases"]}
     candidate_ids = {case["caseId"] for case in candidate["cases"]}
@@ -57,8 +58,7 @@ def test_candidate_fixture_matches_current_runtime_without_promoting_it() -> Non
 
     for case in candidate["cases"]:
         inputs = {
-            variable_id: ValueObject(**value)
-            for variable_id, value in case["inputs"].items()
+            variable_id: ValueObject(**value) for variable_id, value in case["inputs"].items()
         }
         invocation = RuleInvocation(
             decision_id=case["decisionId"],

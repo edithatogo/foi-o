@@ -42,17 +42,13 @@ def test_rights_and_historical_applicability_remain_fail_closed() -> None:
     payload = json.loads(MANIFEST.read_text())
     registry = yaml.safe_load(RIGHTS.read_text())
     registry_ids = {source["source_id"] for source in registry["sources"]}
-    ombudsman = [
-        source for source in payload["sources"] if source["provider_id"] == "nz-ombudsman"
-    ]
+    ombudsman = [source for source in payload["sources"] if source["provider_id"] == "nz-ombudsman"]
     psc = [
         source
         for source in payload["sources"]
         if source["provider_id"] == "nz-public-service-commission"
     ]
-    assert {source["rights_registry_source_id"] for source in ombudsman} == {
-        "nz-ombudsman-content"
-    }
+    assert {source["rights_registry_source_id"] for source in ombudsman} == {"nz-ombudsman-content"}
     assert "nz-ombudsman-content" in registry_ids
     assert all(source["rights_status"] == "approved_personal_use_only" for source in ombudsman)
     assert all(source["rights_registry_source_id"] is None for source in psc)
@@ -69,8 +65,6 @@ def test_ombudsman_historical_and_current_revisions_are_not_conflated() -> None:
         if source["provider_id"] == "nz-ombudsman"
     }
     assert revisions == {
-        "ombudsman-oia-agencies-2024-03":
-            "ef2a5563a687961fdb8b6da12e409ba8e9d520b5932b29ba5a94c841103ec4f0",
-        "ombudsman-oia-agencies-2025-06":
-            "9226f385659c698aeb37957d6604196d1ab709ecc72e67ff8ee3729524f3df7e",
+        "ombudsman-oia-agencies-2024-03": "ef2a5563a687961fdb8b6da12e409ba8e9d520b5932b29ba5a94c841103ec4f0",
+        "ombudsman-oia-agencies-2025-06": "9226f385659c698aeb37957d6604196d1ab709ecc72e67ff8ee3729524f3df7e",
     }

@@ -55,9 +55,7 @@ def test_oia_historical_version_index_is_complete_and_candidate_only() -> None:
     assert len(versions) == 50
     assert versions[0]["as_at"] == "1982-12-17"
     assert versions[-1]["as_at"] == "2025-04-05"
-    assert [item["as_at"] for item in versions] == sorted(
-        item["as_at"] for item in versions
-    )
+    assert [item["as_at"] for item in versions] == sorted(item["as_at"] for item in versions)
     assert len({item["version_id"] for item in versions}) == 50
     assert all(
         isinstance(item["content_sha256"], str) and len(item["content_sha256"]) == 64
@@ -102,7 +100,9 @@ def test_pin_hashes_rejects_an_index_without_version_rows(tmp_path: Path) -> Non
         pin_hashes(index, tmp_path)
 
 
-def test_pin_hashes_cli_reports_count(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]) -> None:
+def test_pin_hashes_cli_reports_count(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
     index = tmp_path / "index.yaml"
     index.write_text(
         '  - {version_id: "1_0", as_at: "2025-01-01", '

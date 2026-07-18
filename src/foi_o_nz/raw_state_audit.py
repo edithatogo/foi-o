@@ -82,9 +82,7 @@ def audit_raw_state_inputs(
     missing_states = state_counts.get("", 0)
     unmapped_states = sorted(nonempty_states - mapped_states)
     mapped_records = sum(count for state, count in state_counts.items() if state in mapped_states)
-    correspondence_records = sum(
-        _has_evidence(record.get("correspondence")) for record in requests
-    )
+    correspondence_records = sum(_has_evidence(record.get("correspondence")) for record in requests)
     attachment_records = sum(_has_evidence(record.get("attachments")) for record in requests)
 
     blockers: list[AuditBlocker] = []

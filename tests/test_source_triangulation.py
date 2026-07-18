@@ -105,9 +105,7 @@ def test_committed_example_matches_output_schema() -> None:
         (ROOT / "examples/v2/source-triangulation.example.json").read_text(encoding="utf-8")
     )
     schema = json.loads(
-        (ROOT / "schemas/json/source-triangulation-result.schema.json").read_text(
-            encoding="utf-8"
-        )
+        (ROOT / "schemas/json/source-triangulation-result.schema.json").read_text(encoding="utf-8")
     )
     Draft202012Validator(schema).validate(example)
     result = evaluate_triangulation(
