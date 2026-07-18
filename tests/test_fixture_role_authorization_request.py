@@ -171,20 +171,24 @@ def _committed_preparation(tmp_path: Path) -> tuple[Path, Path, str, str]:
     packet = root / "examples/v2/analyst-fixture-packet"
     build_request(packet, repository_root=root)
     run(["git", "add", "examples/v2/analyst-fixture-packet"], cwd=root, check=True)
-    run(
-        [
-            "git",
-            "-c",
-            "user.name=Fixture",
-            "-c",
-            "user.email=fixture@example.invalid",
-            "commit",
-            "-qm",
-            "preparation",
-        ],
-        cwd=root,
-        check=True,
-    )
+    staged = run(["git", "diff", "--cached", "--quiet"], cwd=root, check=False)
+    if staged.returncode == 1:
+        run(
+            [
+                "git",
+                "-c",
+                "user.name=Fixture",
+                "-c",
+                "user.email=fixture@example.invalid",
+                "commit",
+                "-qm",
+                "preparation",
+            ],
+            cwd=root,
+            check=True,
+        )
+    elif staged.returncode != 0:
+        staged.check_returncode()
     commit = run(
         ["git", "rev-parse", "HEAD"], cwd=root, check=True, capture_output=True, text=True
     ).stdout.strip()

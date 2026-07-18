@@ -6,6 +6,7 @@ import json
 from dataclasses import dataclass
 from datetime import datetime
 from hashlib import sha256
+from itertools import pairwise
 from pathlib import Path, PurePosixPath
 from subprocess import CalledProcessError, run
 from typing import Any
@@ -60,6 +61,20 @@ class FixtureRoleAuthorizationRequestVerificationResult:
     role_count: int
     context_count: int
     execution_allowed: bool = False
+
+
+@dataclass(frozen=True, slots=True)
+class FixtureRuntimeHandshakeAuthorizationVerificationResult:
+    """Verified authorization for provenance handshakes only, never analysis."""
+
+    authorization_sha256: str
+    repository_commit: str
+    request_sha256: str
+    role_count: int
+    runtime_handshake_allowed: bool = True
+    context_presentation_allowed: bool = False
+    analysis_execution_allowed: bool = False
+    reconciliation_allowed: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -631,7 +646,7 @@ def _contains_forbidden_context_key(value: Any) -> bool:
     return False
 
 
-def verify_fixture_role_authorization_request(
+def _verify_fixture_role_authorization_request(
     *,
     repository_root: Path,
     request_path: Path,
@@ -639,8 +654,8 @@ def verify_fixture_role_authorization_request(
     expected_preparation_repository_commit: str,
     expected_base_repository_commit: str,
     expected_promotion_repository_commit: str,
+    require_head_anchor: bool,
 ) -> FixtureRoleAuthorizationRequestVerificationResult:
-    """Verify pending role preparation without enabling execution."""
     root = repository_root.resolve(strict=True)
     request = request_path.resolve(strict=True)
     if root not in request.parents:
@@ -779,12 +794,196 @@ def verify_fixture_role_authorization_request(
     if handshake.read_bytes() == b"":
         raise ValueError("handshake prompt is empty")
 
-    verify_git_anchor(root, expected_preparation_repository_commit, list(paths.values()))
+    if require_head_anchor:
+        verify_git_anchor(root, expected_preparation_repository_commit, list(paths.values()))
+    else:
+        verify_git_artifacts_at_commit(
+            root, expected_preparation_repository_commit, list(paths.values())
+        )
     return FixtureRoleAuthorizationRequestVerificationResult(
         request_sha256=request_digest,
         preparation_commit=expected_preparation_repository_commit,
         role_count=4,
         context_count=11,
+    )
+
+
+def verify_fixture_role_authorization_request(
+    *,
+    repository_root: Path,
+    request_path: Path,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixtureRoleAuthorizationRequestVerificationResult:
+    """Verify pending role preparation at the exact repository HEAD."""
+    return _verify_fixture_role_authorization_request(
+        repository_root=repository_root,
+        request_path=request_path,
+        expected_request_sha256=expected_request_sha256,
+        expected_preparation_repository_commit=expected_preparation_repository_commit,
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+        require_head_anchor=True,
+    )
+
+
+def _verify_commit_ancestry(repository_root: Path, commits: list[str]) -> None:
+    """Require each commit to be an ancestor of the next declared commit."""
+    root = repository_root.resolve(strict=True)
+    for ancestor, descendant in pairwise(commits):
+        try:
+            run(
+                ["git", "merge-base", "--is-ancestor", ancestor, descendant],
+                cwd=root,
+                check=True,
+                capture_output=True,
+            )
+        except CalledProcessError as error:
+            raise ValueError("fixture authorization commit ancestry mismatch") from error
+
+
+def verify_fixture_runtime_handshake_authorization(
+    *,
+    repository_root: Path,
+    authorization_path: Path,
+    expected_authorization_sha256: str,
+    expected_repository_commit: str,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixtureRuntimeHandshakeAuthorizationVerificationResult:
+    """Verify the committed gate that permits only runtime-provenance handshakes."""
+    root = repository_root.resolve(strict=True)
+    authorization = authorization_path.resolve(strict=True)
+    if root not in authorization.parents:
+        raise ValueError("runtime handshake authorization escapes repository root")
+    authorization_digest = sha256(authorization.read_bytes()).hexdigest()
+    if authorization_digest != expected_authorization_sha256:
+        raise ValueError("runtime handshake authorization SHA-256 mismatch")
+    document = _load_object(authorization)
+    _validate_object(
+        document,
+        "fixture-runtime-handshake-authorization.schema.json",
+        "runtime_handshake_authorization",
+    )
+
+    if document["preparation_commit"] != expected_preparation_repository_commit:
+        raise ValueError("runtime handshake preparation commit mismatch")
+    if document["request"]["sha256"] != expected_request_sha256:
+        raise ValueError("runtime handshake request SHA-256 mismatch")
+    expected_prohibitions = [
+        "redistribution",
+        "publication",
+        "training",
+        "fine_tuning",
+        "release",
+        "dataset_publication",
+        "gold_promotion",
+        "legal_certification",
+        "paper_update",
+        "human_reviewed_claims",
+        "empirical_evidence_claims",
+    ]
+    if document["prohibited_actions"] != expected_prohibitions:
+        raise ValueError("runtime handshake prohibitions are not exact")
+    if (
+        document["runtime_handshake_allowed"] is not True
+        or document["context_presentation_allowed"] is not False
+        or document["analysis_execution_allowed"] is not False
+        or document["reconciliation_allowed"] is not False
+        or document["final_execution_wrapper_required"] is not True
+        or document["local_only"] is not True
+        or any(
+            document[key] is not False
+            for key in (
+                "empirical_evidence",
+                "human_reviewed",
+                "gold_eligible",
+                "release_qualifying",
+                "publication_eligible",
+            )
+        )
+    ):
+        raise ValueError("runtime handshake authorization enables a prohibited state")
+
+    paths: dict[str, Path] = {"authorization": authorization}
+
+    def resolve_pin(label: str, pin: dict[str, Any]) -> Path:
+        path = resolve_repo_artifact(root, pin["path"])
+        if sha256(path.read_bytes()).hexdigest() != pin["sha256"]:
+            raise ValueError(f"{label}: SHA-256 mismatch")
+        paths[label] = path
+        return path
+
+    request_path = resolve_pin("request", document["request"])
+    request = _load_object(request_path)
+    approval_path = resolve_pin("approval_review", document["approval_review"])
+    approval = _load_object(approval_path)
+    _validate_object(approval, "fixture-role-authorization-approval.schema.json", "approval_review")
+    expected_statement = (
+        "I, edithatogo, approve pending fixture role-authorization request SHA-256 "
+        "232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c "
+        "as committed in 91013a0f69d3a376ec749bbad83902e7ac4dd2a7 for the bounded "
+        "local fixture analyst execution described by that exact request. This approval "
+        "authorizes creation of the final execution wrapper and subsequent execution only "
+        "after that wrapper is committed and the pre-execution verifier passes against its "
+        "exact SHA-256 and commit. Redistribution, publication, training, fine-tuning, "
+        "release, dataset publication, gold promotion, legal certification, paper updates, "
+        "human-reviewed claims, and empirical-evidence claims remain prohibited."
+    )
+    if (
+        approval["approval_statement"] != expected_statement
+        or approval["approval_statement_sha256"]
+        != sha256(expected_statement.encode("utf-8")).hexdigest()
+        or approval["approved_request"] != document["request"]
+        or approval["approved_repository_commit"] != expected_preparation_repository_commit
+        or approval["handshake_approved"] is not True
+        or approval["context_delivery_approved"] is not False
+        or approval["analyst_execution_approved"] is not False
+        or approval["execution_allowed"] is not False
+        or approval["final_execution_wrapper_required"] is not True
+        or approval["prohibited_actions"] != expected_prohibitions
+    ):
+        raise ValueError("approval review does not preserve the exact bounded approval")
+
+    for key in (
+        "approved_input_readiness",
+        "handshake_prompt",
+        "future_execution_prompts",
+        "role_provenance",
+        "context_presentation",
+        "isolation_plan",
+    ):
+        if document[key] != request[key]:
+            raise ValueError(f"{key}: differs from the approved pending request")
+
+    _verify_commit_ancestry(
+        root,
+        [
+            expected_base_repository_commit,
+            expected_promotion_repository_commit,
+            expected_preparation_repository_commit,
+            expected_repository_commit,
+        ],
+    )
+    _verify_fixture_role_authorization_request(
+        repository_root=root,
+        request_path=request_path,
+        expected_request_sha256=expected_request_sha256,
+        expected_preparation_repository_commit=expected_preparation_repository_commit,
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+        require_head_anchor=False,
+    )
+    verify_git_anchor(root, expected_repository_commit, [authorization, approval_path])
+    return FixtureRuntimeHandshakeAuthorizationVerificationResult(
+        authorization_sha256=authorization_digest,
+        repository_commit=expected_repository_commit,
+        request_sha256=expected_request_sha256,
+        role_count=4,
     )
 
 
@@ -799,8 +998,13 @@ def verify_analyst_execution_packet(
     root = repository_root.resolve(strict=True)
     authorization = authorization_path.resolve(strict=True)
     pending = _load_object(authorization)
-    if pending.get("schema_version") == "foi-o.fixture-role-authorization-request.v0.1.0":
-        raise ValueError("pending role authorization request cannot be used for execution")
+    preparation_only_versions = {
+        "foi-o.fixture-role-authorization-request.v0.1.0": "pending role authorization request",
+        "foi-o.fixture-runtime-handshake-authorization.v0.1.0": ("runtime handshake authorization"),
+    }
+    if pending.get("schema_version") in preparation_only_versions:
+        label = preparation_only_versions[pending["schema_version"]]
+        raise ValueError(f"{label} cannot be used for execution")
     verify_git_anchor(root, expected_repository_commit, [authorization])
     authorization_digest = sha256(authorization.read_bytes()).hexdigest()
     if authorization_digest != expected_authorization_sha256:

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-runtime-handshake-authorization:0.1.0",
+  "$defs": {"pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "status", "approved_by", "approved_on", "recorded_at", "preparation_commit", "request", "approval_review", "approved_input_readiness", "handshake_prompt", "future_execution_prompts", "role_provenance", "context_presentation", "isolation_plan", "runtime_handshake_allowed", "context_presentation_allowed", "analysis_execution_allowed", "reconciliation_allowed", "final_execution_wrapper_required", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-runtime-handshake-authorization.v0.1.0"}, "authorization_id": {"const": "local-fixture-runtime-handshake-2026-07-18"}, "status": {"const": "approved_runtime_handshake_only"},
+    "approved_by": {"const": "human:edithatogo"}, "approved_on": {"const": "2026-07-18"}, "recorded_at": {"const": "2026-07-18T23:22:46+10:00"}, "preparation_commit": {"const": "91013a0f69d3a376ec749bbad83902e7ac4dd2a7"},
+    "request": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/role-authorization-request.pending.json"}, "sha256": {"const": "232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c"}}}]},
+    "approval_review": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/role-authorization-approval.approved.json"}}}]},
+    "approved_input_readiness": {"$ref": "#/$defs/pin"}, "handshake_prompt": {"$ref": "#/$defs/pin"},
+    "future_execution_prompts": {"type": "object", "additionalProperties": false, "required": ["orchestrator", "analyst_a", "analyst_b", "reconciler"], "properties": {"orchestrator": {"$ref": "#/$defs/pin"}, "analyst_a": {"$ref": "#/$defs/pin"}, "analyst_b": {"$ref": "#/$defs/pin"}, "reconciler": {"$ref": "#/$defs/pin"}}},
+    "role_provenance": {"type": "object", "additionalProperties": false, "required": ["orchestrator", "analyst_a", "analyst_b", "reconciler"], "properties": {"orchestrator": {"$ref": "#/$defs/pin"}, "analyst_a": {"$ref": "#/$defs/pin"}, "analyst_b": {"$ref": "#/$defs/pin"}, "reconciler": {"$ref": "#/$defs/pin"}}},
+    "context_presentation": {"$ref": "#/$defs/pin"}, "isolation_plan": {"$ref": "#/$defs/pin"},
+    "runtime_handshake_allowed": {"const": true}, "context_presentation_allowed": {"const": false}, "analysis_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "final_execution_wrapper_required": {"const": true}, "local_only": {"const": true},
+    "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false},
+    "prohibited_actions": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"enum": ["redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update", "human_reviewed_claims", "empirical_evidence_claims"]}}
+  }
+}
