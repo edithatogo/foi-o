@@ -397,6 +397,29 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     skipped; post-commit request verifier passed against `91013a0`. Human
     approval, execution authorization, content presentation, and all handshakes
     remain absent; `execution_allowed` remains false.
+  - [x] Runtime-handshake authorization subtask: record `edithatogo`'s exact
+    approval of request SHA-256 `232396d0…` at commit `91013a0`, create a
+    separately pinned handshake-only authorization, and require successful
+    verification against its exact committed SHA before presenting only the
+    runtime-provenance handshake prompt. Context presentation, analysis, and
+    reconciliation remain disabled. Four committed runtime-handshake evidence
+    records, a final v0.2 execution-authorization candidate, its separate exact
+    human approval, and successful pre-execution verification remain absent
+    (`c41f514`). Output:
+    `examples/v2/analyst-fixture-packet/runtime-handshake-authorization.approved.json`,
+    SHA-256
+    `de140e1397df2f1e20aa9ceede443d589d6bacbca9a767fecc2992644f1c056f`.
+    Verification: exact approval-statement SHA-256 `29cf6248…`; full historical
+    DAG and commit-ancestry checks; 78 focused governance tests; Ruff lint and
+    format clean; task-scoped `ty` clean; full suite 549 passed, 2 skipped;
+    three independent reviews passed; post-commit verifier passed against exact
+    commit `c41f514a9707f48286fd238fc2140085cceff648`. Repository-wide `ty`
+    retains 51 diagnostics identical to pre-task `3531022`; no task-introduced
+    diagnostics remain. A test-only post-commit clone-harness repair (`c5ae291`)
+    preserves deterministic HEAD reuse and real descendant mutation commits;
+    the full suite remains 549 passed, 2 skipped. Only the canonical
+    runtime-provenance handshake may now be presented; fixture contexts and all
+    analysis remain prohibited.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
