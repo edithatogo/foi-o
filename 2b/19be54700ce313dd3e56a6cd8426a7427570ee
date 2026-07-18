@@ -1,0 +1,5 @@
+Task: Repository Python formatting prerequisite
+Summary: Applied Ruff formatting to five previously unformatted Python files without semantic changes.
+Files: src/foi_o_nz/raw_state_audit.py; tests/test_nz_nonlegislation_source_manifest.py; tests/test_oia_rules_independent_fixtures.py; tests/test_source_rights_registry.py; tests/test_source_triangulation.py
+Verification: uv sync --extra dev --extra rdf; Ruff lint/format passed; Python AST comparison unchanged; uv run pytest -q: 549 passed, 2 skipped.
+Remaining risk: Repository-wide ty retains 51 diagnostics identical to pre-task HEAD; task-scoped files have zero diagnostics.
