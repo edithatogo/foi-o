@@ -1,0 +1,4 @@
+Task: Runtime-handshake evidence
+Summary: Preserved four exact raw role-session replies, created normalized evidence records and locked readiness bundle, added strict schemas/deterministic builder, public SHA/commit/ancestry verifier, relational mutation tests, and inventory documentation.
+Verification: locked readiness SHA 709625146544dd0abad8af22acb718e7c68cabf0f41ac59cb310e30107e3cb6b; combined evidence tests 26 passed; Ruff lint/format passed; task-scoped ty passed; full pytest passed across 577 collected tests including 2 skips; three independent reviews passed.
+Boundary: Handshake evidence only. No fixture contexts, labels, peer outputs, analysis, reconciliation, executable v0.2 authorization, human-reviewed claims, empirical claims, release, or publication.
