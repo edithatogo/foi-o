@@ -175,6 +175,7 @@ gates:
     analyst_protocol: docs/43-v2-analyst-empirical-validation-protocol.md
     pending_pilot_sample: examples/v2/bounded-empirical-pilot-sample.pending.json
     approved_pilot_sample: examples/v2/bounded-empirical-pilot-sample.approved.json
+    pending_evidence_manifest: examples/v2/bounded-pilot-evidence-manifest.pending.json
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
