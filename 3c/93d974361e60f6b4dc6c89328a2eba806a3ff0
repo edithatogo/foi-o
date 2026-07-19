@@ -1,0 +1,4 @@
+Task slice: fail-closed attachment derivation wrapper
+Security: full authorization and human-approval chain revalidation; O_NOFOLLOW frozen copies; bound source/output/tool; clean-HEAD checks before every launch/install; process-group timeout; 0600/0700 outputs; atomic manifest install.
+Verification: Ruff and ty passed; 14 focused tests; full suite 722 passed, 2 skipped.
+Boundary: real PDF processing and derived-content creation remain unauthorized; only synthetic inputs and fake tool were used.
