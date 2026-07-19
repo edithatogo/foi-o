@@ -1,0 +1,1 @@
+Diagnostic hardening: nonempty stderr remains a failure; only 0600 stderr and metadata are quarantined under a 0700 outside-repo directory; partial text is deleted; downstream gates stay false. Synthetic validation included in full suite 730 passed, 2 skipped. No real tool/PDF rerun.
