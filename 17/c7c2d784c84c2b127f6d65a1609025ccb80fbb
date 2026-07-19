@@ -1,0 +1,3 @@
+Task: Record exact bounded pilot v0.2 input-readiness approval.
+Verification: 12 focused tests, examples validation, Ruff, full suite 789 passed, 2 skipped.
+Boundary: inputs ready only; access, context, analyst execution, reconciliation, empirical claims, and external actions remain false.
