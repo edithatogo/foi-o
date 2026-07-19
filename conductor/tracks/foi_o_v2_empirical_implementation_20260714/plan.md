@@ -718,6 +718,10 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     Pending execution-request SHA-256 is `ad2ac19a…`. Verification: Ruff and ty,
     14 focused wrapper tests, 2 focused request tests, example validation, and
     full suite 724 passed, 2 skipped. Actual PDF processing remains unauthorized.
+  - [~] Authorized attachment derivation subtask: record `edithatogo`'s exact
+    execution approval, commit the final path-bound authorization, pass its
+    clean-HEAD verifier, run the single approved two-pass local derivation, and
+    commit metadata-only output evidence without presenting derived context.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
