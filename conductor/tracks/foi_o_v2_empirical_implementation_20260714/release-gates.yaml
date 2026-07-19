@@ -183,6 +183,7 @@ gates:
     pending_attachment_derivation_execution_request: examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json
     approved_attachment_derivation_human_gate: examples/v2/bounded-pilot-attachment-derivation-human-approval.approved.json
     approved_attachment_derivation_execution: examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json
+    failed_attachment_derivation_attempt: examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]

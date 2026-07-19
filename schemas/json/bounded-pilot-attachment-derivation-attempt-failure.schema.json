@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-derivation-attempt-failure:0.1.0",
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "git_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha"}
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "attempt_id", "status", "repository_commit",
+    "authorization", "execution_request", "wrapper",
+    "pre_execution_verifier_passed", "tool_invoked", "failure", "postflight",
+    "derivation_complete", "outputs_installed", "result_manifest_created",
+    "local_only", "restricted_outputs_committed", "context_presentation_allowed",
+    "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence",
+    "human_reviewed", "gold_eligible"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-derivation-attempt-failure.v0.1.0"},
+    "attempt_id": {"const": "bounded-pilot-11872-attachment-derivation-attempt-1"},
+    "status": {"const": "failed_closed_no_output_installed"},
+    "repository_commit": {"$ref": "#/$defs/git_commit"},
+    "authorization": {"$ref": "#/$defs/pin"},
+    "execution_request": {"$ref": "#/$defs/pin"},
+    "wrapper": {"$ref": "#/$defs/pin"},
+    "pre_execution_verifier_passed": {"const": true},
+    "tool_invoked": {"const": true},
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "exception_type", "exception_message", "stderr_retained", "stderr_sha256", "stderr_byte_count"],
+      "properties": {
+        "stage": {"const": "tool_stderr_review_gate"},
+        "exception_type": {"const": "ValueError"},
+        "exception_message": {"const": "attachment derivation tool emitted stderr"},
+        "stderr_retained": {"const": false},
+        "stderr_sha256": {"const": null},
+        "stderr_byte_count": {"const": null}
+      }
+    },
+    "postflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_root_present", "output_directory_present", "temporary_workspaces_present", "repository_clean"],
+      "properties": {
+        "source_root_present": {"const": true},
+        "output_directory_present": {"const": false},
+        "temporary_workspaces_present": {"const": false},
+        "repository_clean": {"const": true}
+      }
+    },
+    "derivation_complete": {"const": false},
+    "outputs_installed": {"const": false},
+    "result_manifest_created": {"const": false},
+    "local_only": {"const": true},
+    "restricted_outputs_committed": {"const": false},
+    "context_presentation_allowed": {"const": false},
+    "analyst_execution_allowed": {"const": false},
+    "reconciliation_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false}
+  }
+}

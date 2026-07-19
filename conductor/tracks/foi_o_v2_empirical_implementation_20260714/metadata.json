@@ -65,7 +65,8 @@
       "attachment_derivation_execution_request_ref": "examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json",
       "attachment_derivation_human_approval_ref": "examples/v2/bounded-pilot-attachment-derivation-human-approval.approved.json",
       "attachment_derivation_execution_authorization_ref": "examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json",
-      "note": "The exact path-bound local attachment derivation is human-approved and represented by a final executable authorization. It may run only after the authorization is committed and its clean-HEAD verifier passes. Context presentation, analyst execution, reconciliation, and empirical claims remain prohibited."
+      "attachment_derivation_attempt_ref": "examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json",
+      "note": "The exact path-bound attempt passed clean-HEAD verification but stopped fail-closed on nonempty tool stderr. No output was installed and the one-shot authorization is consumed. A fresh diagnostic request is required; context presentation, analyst execution, reconciliation, and empirical claims remain prohibited."
     },
     {
       "id": "G-EMP-ANALYST-EXECUTION",

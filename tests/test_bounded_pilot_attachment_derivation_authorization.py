@@ -1,4 +1,5 @@
 import json
+import subprocess
 from hashlib import sha256
 from pathlib import Path
 
@@ -33,9 +34,21 @@ def test_execution_authorization_is_exact_and_all_pins_match() -> None:
     result = validate_json_schema(AUTH, AUTH_SCHEMA)
     assert not result.errors, result.errors
     authorization = json.loads(AUTH.read_text())
-    for key in ("execution_request", "wrapper", "method", "method_approval", "human_approval"):
+    for key in ("execution_request", "method", "method_approval", "human_approval"):
         pin = authorization[key]
         assert pin["sha256"] == sha256((ROOT / pin["path"]).read_bytes()).hexdigest()
+    request = json.loads((ROOT / authorization["execution_request"]["path"]).read_text())
+    committed_wrapper = subprocess.run(
+        [
+            "git",
+            "show",
+            f"{request['wrapper_repository_commit']}:{authorization['wrapper']['path']}",
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert authorization["wrapper"]["sha256"] == sha256(committed_wrapper).hexdigest()
     assert authorization["authorization_effective"] is True
     assert authorization["pdf_processing_allowed"] is True
     assert authorization["derived_content_creation_allowed"] is True

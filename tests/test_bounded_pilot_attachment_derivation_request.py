@@ -1,4 +1,5 @@
 import json
+import subprocess
 from hashlib import sha256
 from pathlib import Path
 
@@ -22,10 +23,17 @@ def test_execution_request_is_valid_deterministic_and_pinned() -> None:
         wrapper_sha256=request["wrapper"]["sha256"],
     )
     assert {key: request[key] for key in built} == built
-    for key in ("method", "method_approval", "wrapper"):
+    for key in ("method", "method_approval"):
         assert (
             request[key]["sha256"] == sha256((ROOT / request[key]["path"]).read_bytes()).hexdigest()
         )
+    committed_wrapper = subprocess.run(
+        ["git", "show", f"{request['wrapper_repository_commit']}:{request['wrapper']['path']}"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    assert request["wrapper"]["sha256"] == sha256(committed_wrapper).hexdigest()
 
 
 def test_execution_request_remains_inert() -> None:
