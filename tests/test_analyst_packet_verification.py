@@ -162,7 +162,7 @@ def _committed_approved_bundle(
             "session_id": session,
         },
     }
-    authorization = {
+    authorization: dict[str, object] = {
         "schema_version": "foi-o.analyst-execution-authorization.v0.2.0",
         "authorization_id": "fixture-test",
         "status": "approved_local_agent_analysis",
@@ -383,26 +383,19 @@ def test_public_verifier_requires_external_authorization_hash(tmp_path: Path) ->
         )
 
 
-def test_public_verifier_accepts_exact_committed_approved_bundle(tmp_path: Path) -> None:
+def test_public_verifier_rejects_retired_exact_committed_approved_bundle(tmp_path: Path) -> None:
     root, authorization, authorization_hash, commit = _committed_approved_bundle(tmp_path)
-    result = verify_analyst_execution_packet(
-        repository_root=root,
-        authorization_path=authorization,
-        expected_authorization_sha256=authorization_hash,
-        expected_repository_commit=commit,
-    )
-    assert result.repository_commit == commit
-    assert result.authorization_sha256 == authorization_hash
-    assert result.source_counts == {
-        "examples/process-mining-events.fixture.jsonl": 9,
-        "examples/event-timeline.small.json": 2,
-    }
-    assert (result.unit_count, result.cluster_count, result.redacted_context_count) == (11, 11, 11)
-    assert result.execution_allowed is True
+    with pytest.raises(ValueError, match="legacy three-role analyst authorization is retired"):
+        verify_analyst_execution_packet(
+            repository_root=root,
+            authorization_path=authorization,
+            expected_authorization_sha256=authorization_hash,
+            expected_repository_commit=commit,
+        )
 
 
 @pytest.mark.parametrize(
-    ("mutation", "message"),
+    ("mutation", "_message"),
     [
         ("population_source", "candidate readiness artifact pins mismatch"),
         ("rights_source", "approved rights transition changed candidate content"),
@@ -420,10 +413,10 @@ def test_public_verifier_accepts_exact_committed_approved_bundle(tmp_path: Path)
     ],
 )
 def test_public_verifier_rejects_committed_relational_mutations(
-    tmp_path: Path, mutation: str, message: str
+    tmp_path: Path, mutation: str, _message: str
 ) -> None:
     root, authorization, authorization_hash, commit = _committed_approved_bundle(tmp_path, mutation)
-    with pytest.raises(ValueError, match=message):
+    with pytest.raises(ValueError, match="legacy three-role analyst authorization is retired"):
         verify_analyst_execution_packet(
             repository_root=root,
             authorization_path=authorization,
