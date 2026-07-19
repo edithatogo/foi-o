@@ -1,0 +1,1 @@
+Task: Prepare bounded attachment stderr content-review request.\nFiles: inert request, schema, tests, and mechanical inventory updates.\nVerification: 12 focused tests, Ruff, and examples validation passed; full suite 748 passed, 2 skipped.\nBoundary: stderr content remains unread and derivation retry remains unauthorized pending exact approval.
