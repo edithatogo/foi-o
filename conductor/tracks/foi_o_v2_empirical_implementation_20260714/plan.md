@@ -707,6 +707,17 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     Candidate SHA-256 is `99918773…`. Verification: 3 focused tests, Ruff,
     example validation, and full suite 708 passed, 2 skipped; no PDF extraction
     command was executed and no restricted source or derived content was committed.
+  - [x] Attachment method approval and execution-request preparation subtask (`2d74d52`,
+    `3c93d97`, `4f3e834`):
+    record the corrected exact approval, add deterministic inert request-building
+    machinery, and commit a hash-pinned execution request without reading PDFs,
+    invoking Poppler, or creating derived content. The wrapper uses exact
+    authorization-chain revalidation, frozen no-follow source copies, two-pass
+    byte comparison, process-group timeout cleanup, restricted permissions, and
+    atomic installation, tested only with synthetic inputs and a fake tool.
+    Pending execution-request SHA-256 is `ad2ac19a…`. Verification: Ruff and ty,
+    14 focused wrapper tests, 2 focused request tests, example validation, and
+    full suite 724 passed, 2 skipped. Actual PDF processing remains unauthorized.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
