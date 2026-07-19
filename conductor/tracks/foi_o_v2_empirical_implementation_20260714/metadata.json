@@ -68,9 +68,11 @@
         "schemas/json/locked-annotation-record.schema.json",
         "schemas/json/adjudication-record.schema.json"
       ],
-      "authorization_refs": [],
+      "authorization_refs": [
+        "examples/v2/analyst-empirical-protocol-approval.approved.json"
+      ],
       "request_ref": "examples/v2/analyst-empirical-protocol-approval.pending.json",
-      "note": "The v0.2 analyst protocol approval request is pending exact human approval. Generic continuation does not authorize protocol approval, sample membership, or execution."
+      "note": "The v0.2 analyst protocol design is exactly approved. Sample membership, runtime assignment, context presentation, analysis, and reconciliation remain unauthorized."
     },
     {
       "id": "G-EMP-EVALUATION",
