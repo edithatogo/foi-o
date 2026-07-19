@@ -1,0 +1,4 @@
+Task: Propose inert bounded pilot execution-input readiness v0.2.
+Files: Candidate, closed schema, semantic/provenance/mutation tests, inventory counts.
+Verification: parallel contract/security/governance review, 14 focused tests, examples validation, Ruff, full suite 787 passed, 2 skipped.
+Boundary: exact readiness approval absent; derived-text access, context, execution, reconciliation, empirical claims, and external uses remain false.
