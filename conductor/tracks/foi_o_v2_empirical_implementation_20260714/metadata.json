@@ -60,7 +60,8 @@
       "codebook_request_ref": "examples/v2/bounded-pilot-blinded-codebook.pending.json",
       "input_component_approval_ref": "examples/v2/bounded-pilot-input-approval.approved.json",
       "execution_input_readiness_ref": "examples/v2/bounded-pilot-execution-input-readiness.pending.json",
-      "note": "The two-request local pilot membership, bounded local empirical-analysis purpose, evidence census, and blinded codebook are approved. Unit identities and singleton clusters are frozen in a pending readiness candidate; attachment-text derivation, exact overall input-readiness approval, context presentation, and execution remain blocked. Only case-level feasibility claims are in scope."
+      "attachment_text_method_ref": "examples/v2/bounded-pilot-attachment-text-method.pending.json",
+      "note": "The two-request local pilot membership, bounded local empirical-analysis purpose, evidence census, and blinded codebook are approved. Unit identities and singleton clusters are frozen in a pending readiness candidate; the deterministic attachment-text method is a non-executing candidate pending exact approval. Derivation, exact overall input-readiness approval, context presentation, and execution remain blocked. Only case-level feasibility claims are in scope."
     },
     {
       "id": "G-EMP-ANALYST-EXECUTION",
