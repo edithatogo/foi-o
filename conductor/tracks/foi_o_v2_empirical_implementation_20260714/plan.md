@@ -718,10 +718,26 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     Pending execution-request SHA-256 is `ad2ac19a…`. Verification: Ruff and ty,
     14 focused wrapper tests, 2 focused request tests, example validation, and
     full suite 724 passed, 2 skipped. Actual PDF processing remains unauthorized.
-  - [~] Authorized attachment derivation subtask: record `edithatogo`'s exact
+  - [x] Authorized attachment derivation attempt subtask (`0375970`, `b2f2b2a`): record `edithatogo`'s exact
     execution approval, commit the final path-bound authorization, pass its
     clean-HEAD verifier, run the single approved two-pass local derivation, and
-    commit metadata-only output evidence without presenting derived context.
+    commit metadata-only outcome evidence without presenting derived context.
+    The clean-HEAD verifier passed and the tool was invoked, but the wrapper
+    stopped fail-closed at its nonempty-stderr review gate. No output or temp
+    workspace remained; stderr was deleted before its hash/count could be
+    retained, so the approved one-shot attempt is consumed and no retry is
+    authorized under this chain.
+  - [x] Attachment stderr diagnostic-hardening subtask (`47587f5`, `8d6e60c`,
+    `de27ea6`): record the failed attempt
+    exactly, revise the wrapper to retain only owner-only stderr diagnostics
+    and metadata outside the repository while deleting partial derived text,
+    then prepare a fresh inert diagnostic-execution request for exact approval.
+    The failure record leaves stderr hash/count unknown rather than inventing
+    evidence. The hardened wrapper quarantines only 0600 stderr plus metadata
+    under a 0700 outside-repo directory and deletes partial derived text.
+    Diagnostic request SHA-256 is `c86e65e0…`; PDF processing remains false
+    pending a fresh exact one-shot diagnostic authorization. Verification:
+    focused Ruff/ty and 19 then 2 focused tests; full suite 732 passed, 2 skipped.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
