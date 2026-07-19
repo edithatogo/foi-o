@@ -1,0 +1,1 @@
+Validated with uv sync --extra dev --extra rdf and uv run pytest -q: 681 passed, 2 skipped. Focused empirical contract suite: 28 passed. Approved v0.1 protocol SHA-256 remains 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63.
