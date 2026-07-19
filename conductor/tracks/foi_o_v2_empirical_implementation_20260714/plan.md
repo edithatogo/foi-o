@@ -368,8 +368,10 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     Verification: deterministic regeneration and all eight nested schema checks;
     35 focused tests; verifier coverage 84%; BasedPyright and scoped Ruff clean;
     two independent peer reviews plus orchestrated review passed; full suite 493
-    passed, 2 skipped. Rights/input approval, concrete roles, execution
-    authorization, analysis, reconciliation, and diagnostics remain absent.
+    passed, 2 skipped. At this readiness checkpoint, rights/input approval,
+    concrete roles, execution authorization, analysis, reconciliation, and
+    diagnostics were absent; the later fixture-only lane completed each under
+    separate exact approvals without satisfying authentic empirical gates.
   - [x] Fixture rights/input approval-promotion subtask: record `edithatogo`'s
     exact bounded approval of readiness SHA-256 `de4bdf129…` at implementation
     commit `948d392`, preserve the approved candidate bytes, and derive a new
@@ -628,9 +630,20 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `19e66fb6…`, subsequently updated by the approved review artifacts). OIA
     intervals, PSC scope, seven-source selection/applicability, metadata-only
     source-pack promotion, attachment rights, and both bounded raw-state
-    mappings are approved. Annotation protocol approval, human roles, source
-    population, codebook, and sampling configuration remain missing;
-    sample-freeze and empirical-comparison gates remain false.
+    mappings are approved. The annotation protocol and fixture-only inputs,
+    codebook, sampling configuration, roles, execution, reconciliation, and
+    diagnostics were subsequently approved and completed. Authentic empirical
+    population, sample freeze, human review, comparison, promotion, release,
+    and publication gates remain false as recorded in metadata.
+  - [~] Repo-local external-gate-registry subtask: add a machine-readable
+    `gates` registry to the active track metadata with stable identifiers,
+    pending or blocked status, exact evidence and authorization references,
+    and fail-closed completion conditions for authentic population and raw-state
+    evidence, sample freeze, human empirical roles, empirical evaluation,
+    promotion, immutable release evidence, the paper prerequisite, and external
+    delivery authorization. This registry preserves the completed fixture-only
+    milestone and active track status; it performs and authorizes no external,
+    empirical, promotion, release, dataset, paper, preprint, or PR action.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.

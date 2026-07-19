@@ -3,9 +3,129 @@
   "type": "feature",
   "status": "active_fixture_diagnostics_complete_external_empirical_gates",
   "created_at": "2026-07-14T00:00:00+10:00",
-  "updated_at": "2026-07-19T04:59:47Z",
+  "updated_at": "2026-07-19T05:19:25Z",
   "github_issue": "https://github.com/edithatogo/foi-o/issues/23",
   "depends_on_external": "edithatogo/rulesandprocesses:conductor/tracks/foi_o_v2_triangulation_20260708",
   "description": "Repository-native implementation of the FOI-O V2 empirical-governance overlay.",
-  "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns"
+  "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns",
+  "gates": [
+    {
+      "id": "G-EMP-AUTHENTIC-INPUTS",
+      "kind": "source_rights_and_population",
+      "status": "blocked",
+      "condition": "Populate an authentic content-bearing archive corpus only after item-level rights, exclusions, attribution, storage, and permitted-use boundaries are recorded and approved; metadata-only source-pack promotion is insufficient.",
+      "evidence_refs": [
+        "mappings/nz-source-rights-registry.yaml",
+        "examples/v2/nz-source-pack.governed-metadata.json",
+        "examples/v2/nz-source-pack-promotion.approved.json"
+      ],
+      "authorization_refs": [
+        "examples/v2/nz-source-pack-promotion.approved.json"
+      ],
+      "note": "The approval is metadata-only; source-content redistribution and publication remain unauthorized."
+    },
+    {
+      "id": "G-RAW-ARCHIVE-WIDE-EVIDENCE",
+      "kind": "source_evidence",
+      "status": "blocked",
+      "condition": "Verify correspondence and attachment evidence across the archive before making an archive-wide raw-state mapping claim; the two approved request-level mappings remain bounded to requests 11872 and 35076.",
+      "evidence_refs": [
+        "examples/v2/bounded-raw-state-audit.11872.json",
+        "examples/v2/bounded-raw-state-mapping-review.11872.json",
+        "examples/v2/bounded-raw-state-audit.35076.json",
+        "examples/v2/bounded-raw-state-mapping-review.35076.json"
+      ],
+      "authorization_refs": [
+        "examples/v2/bounded-raw-state-mapping-review.11872.json",
+        "examples/v2/bounded-raw-state-mapping-review.35076.json"
+      ],
+      "note": "The approvals apply only to requests 11872 and 35076."
+    },
+    {
+      "id": "G-EMP-SAMPLE-FREEZE",
+      "kind": "empirical_input_freeze",
+      "status": "blocked",
+      "depends_on": ["G-EMP-AUTHENTIC-INPUTS", "G-RAW-ARCHIVE-WIDE-EVIDENCE"],
+      "condition": "Freeze an authentic sample with immutable unit, source, cluster, split, stratum, inclusion-probability, weight, accessibility, and rights provenance after the authentic population and archive-wide evidence gates pass.",
+      "evidence_refs": [
+        "schemas/json/empirical-sample-manifest.schema.json",
+        "docs/41-v2-sampling-and-annotation-protocol.md"
+      ],
+      "authorization_refs": [
+        "examples/v2/annotation-protocol-review.approved.json"
+      ],
+      "note": "Protocol SHA-256 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63 is approved for design only; sample membership remains unauthorized."
+    },
+    {
+      "id": "G-EMP-HUMAN-REVIEW",
+      "kind": "human_role_and_execution_contract",
+      "status": "blocked",
+      "depends_on": ["G-EMP-SAMPLE-FREEZE"],
+      "condition": "Obtain and execute a contract naming two independent human annotators and a distinct human adjudicator. The current no-human direction blocks this gate, and agent analysts cannot support human-reviewed, adjudicated, empirical, or gold claims.",
+      "evidence_refs": [
+        "schemas/json/empirical-execution-authorization.schema.json",
+        "schemas/json/locked-annotation-record.schema.json",
+        "schemas/json/adjudication-record.schema.json"
+      ],
+      "authorization_refs": []
+    },
+    {
+      "id": "G-EMP-EVALUATION",
+      "kind": "empirical_evaluation",
+      "status": "blocked",
+      "depends_on": ["G-EMP-SAMPLE-FREEZE", "G-EMP-HUMAN-REVIEW"],
+      "condition": "Run the registered comparison and reliability evaluation only over an authentic frozen sample with two locked human annotation sets and distinct human adjudication; fixture-only inter-agent diagnostics do not satisfy this gate.",
+      "evidence_refs": [
+        "schemas/json/reliability-report.schema.json",
+        "examples/v2/analyst-fixture-packet/results/inter-agent-diagnostics.locked.json"
+      ],
+      "authorization_refs": [],
+      "note": "Fixture diagnostics SHA-256 fe2f9e29136fca68894bc3960b7a5cfcc4f97edc3e0a970d94b7fbc2a783bbc is synthetic and non-empirical."
+    },
+    {
+      "id": "G-EMP-PROMOTION",
+      "kind": "human_promotion_authorization",
+      "status": "blocked",
+      "depends_on": ["G-EMP-EVALUATION"],
+      "condition": "After authentic empirical verification passes, obtain a separate exact human approval for any reviewed or gold-label promotion; fixture approvals and diagnostics authorization do not permit promotion.",
+      "evidence_refs": [
+        "examples/v2/human-promotion-review-packet.approved.json"
+      ],
+      "authorization_refs": [],
+      "note": "The historical approval covers independent rule fixtures only."
+    },
+    {
+      "id": "G-RELEASE-EVIDENCE-BUNDLE",
+      "kind": "release_evidence",
+      "status": "blocked",
+      "depends_on": ["G-EMP-EVALUATION", "G-EMP-PROMOTION", "G-REMOTE-DELIVERY-AUTHORIZATION"],
+      "condition": "Generate, freeze, and publish the versioned immutable release-evidence bundle only after authentic empirical comparison, human annotation and adjudication, reliability evaluation, promotion approval, and explicit external-delivery authorization are complete.",
+      "evidence_refs": [
+        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/release-gates.yaml"
+      ],
+      "authorization_refs": []
+    },
+    {
+      "id": "G-PAPER-UPDATE-PREREQUISITE",
+      "kind": "publication_prerequisite",
+      "status": "blocked",
+      "depends_on": ["G-RELEASE-EVIDENCE-BUNDLE"],
+      "condition": "Trigger no RaC Conformance paper-update workflow until the immutable release-evidence bundle exists and is published; the earlier arXiv record does not satisfy this prerequisite.",
+      "evidence_refs": [
+        "docs/30-arxiv-readiness.md"
+      ],
+      "authorization_refs": [],
+      "note": "arXiv:2607.02947 is the earlier methods manuscript and is not V2 release evidence."
+    },
+    {
+      "id": "G-REMOTE-DELIVERY-AUTHORIZATION",
+      "kind": "external_action_authorization",
+      "status": "pending",
+      "condition": "Obtain explicit human authorization before any pull request, dataset publication, software release, paper update, or preprint submission; GitHub-issue authorization does not extend to these actions.",
+      "evidence_refs": [
+        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/release-gates.yaml"
+      ],
+      "authorization_refs": []
+    }
+  ]
 }

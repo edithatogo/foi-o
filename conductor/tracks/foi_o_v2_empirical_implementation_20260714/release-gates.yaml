@@ -1,4 +1,18 @@
 version: 1
+external_gate_registry:
+  source: conductor/tracks/foi_o_v2_empirical_implementation_20260714/metadata.json
+  fixture_status: complete_local_agent_diagnostics_only
+  authentic_empirical_status: blocked
+  gates:
+    - G-EMP-AUTHENTIC-INPUTS
+    - G-RAW-ARCHIVE-WIDE-EVIDENCE
+    - G-EMP-SAMPLE-FREEZE
+    - G-EMP-HUMAN-REVIEW
+    - G-EMP-EVALUATION
+    - G-EMP-PROMOTION
+    - G-RELEASE-EVIDENCE-BUNDLE
+    - G-PAPER-UPDATE-PREREQUISITE
+    - G-REMOTE-DELIVERY-AUTHORIZATION
 gates:
   repo_local_contract_integration:
     status: passed_with_baseline_exceptions
@@ -13,8 +27,8 @@ gates:
     reviewed_at: 2026-07-16T09:34:52Z
     review_packet: examples/v2/human-promotion-review-packet.approved.json
   nz_empirical_release:
-    status: pending
-    human_gate: sample_annotation_adjudication_and_source_pack_approval
+    status: blocked_authentic_empirical_inputs_and_human_review
+    depends_on: [G-EMP-AUTHENTIC-INPUTS, G-RAW-ARCHIVE-WIDE-EVIDENCE, G-EMP-SAMPLE-FREEZE, G-EMP-HUMAN-REVIEW, G-EMP-EVALUATION, G-EMP-PROMOTION]
     consolidated_pending_review_packet: examples/v2/empirical-human-gate-review-packet.pending.json
   nz_source_pack:
     status: promoted_metadata_only
@@ -135,19 +149,31 @@ gates:
       ready_for_raw_state_mapping_audit: true
       mapping_review: examples/v2/bounded-raw-state-mapping-review.11872.json
   annotation_protocol:
-    status: candidate_protocol_prepared_human_and_input_gates_pending
+    status: approved_fixture_execution_complete_authentic_empirical_gates_blocked
     protocol: docs/41-v2-sampling-and-annotation-protocol.md
     protocol_sha256: 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63
+    protocol_approval: examples/v2/annotation-protocol-review.approved.json
     readiness_packet: examples/v2/annotation-protocol-review-readiness.2026-07-16.json
     consolidated_pending_review_packet: examples/v2/empirical-human-gate-review-packet.pending.json
+    fixture_lane:
+      status: complete_local_agent_diagnostics_only
+      analysis_lock: examples/v2/analyst-fixture-packet/results/analysis-lock.locked.json
+      reconciliation: examples/v2/analyst-fixture-packet/results/reconciliation-set.locked.json
+      diagnostics: examples/v2/analyst-fixture-packet/results/inter-agent-diagnostics.locked.json
+      diagnostics_sha256: fe2f9e29136fca68894bc3960b7a5cfcc4f97edc3e0a970d94b7fbc2a783bbc5
+      empirical_evidence: false
+      human_reviewed: false
+      gold_eligible: false
+      release_qualifying: false
+      publication_eligible: false
     missing:
-      - named_human_protocol_approval
       - two_independent_annotators
       - distinct_adjudicator
-      - rights_approved_source_population
-      - approved_codebook_revision
-      - approved_sampling_configuration
+      - authentic_rights_cleared_source_population
+      - authentic_frozen_sample
+      - authentic_empirical_evaluation
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
     still_gated: [push, pull_request, release, dataset, preprint]
+    gate_id: G-REMOTE-DELIVERY-AUTHORIZATION
