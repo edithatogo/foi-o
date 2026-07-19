@@ -148,6 +148,9 @@ def _synthetic_repository(
 def _add_diagnostic_route(
     repository: Path, source_root: Path, output: Path
 ) -> tuple[Path, str, str]:
+    existing_request = json.loads((repository / REQUEST_RELATIVE_PATH).read_text(encoding="utf-8"))
+    if len(existing_request["sources"]) == 1:
+        _expand_to_three_sources(repository, source_root)
     base_request = json.loads((repository / REQUEST_RELATIVE_PATH).read_text(encoding="utf-8"))
     wrapper_commit = _git(repository, "log", "-1", "--format=%H", "--", WRAPPER_RELATIVE_PATH)
     wrapper_pin = {
@@ -156,18 +159,51 @@ def _add_diagnostic_route(
         "repository_commit": wrapper_commit,
     }
     request = {
-        "schema_version": "foi-o.bounded-pilot-attachment-diagnostic-execution-request.v0.1.0",
+        "schema_version": "foi-o.bounded-pilot-attachment-stderr-diagnostic-request.v0.1.0",
         "request_id": "synthetic-diagnostic",
-        "status": "pending_exact_diagnostic_authorization",
-        "wrapper": wrapper_pin,
-        "method": base_request["method"],
-        "method_approval": base_request["method_approval"],
+        "status": "pending_exact_diagnostic_execution_authorization",
+        "prior_failure": {},
+        "wrapper": {
+            "path": WRAPPER_RELATIVE_PATH,
+            "sha256": _digest(repository / WRAPPER_RELATIVE_PATH),
+        },
+        "wrapper_repository_commit": wrapper_commit,
+        "source_root": str(source_root.resolve()),
+        "output_directory": str(output.resolve()),
         "sources": base_request["sources"],
-        "runtime_observation": base_request["runtime_observation"],
-        "environment": base_request["environment"],
-        "failure_contract": base_request["failure_contract"],
-        "diagnostic_execution_allowed": False,
-        "derived_content_retention_allowed": False,
+        "requested_scope": "one_local_diagnostic_reproduction_preserve_stderr_only_no_derived_text_install",
+        "diagnostic_quarantine_policy": {
+            "parent": str(output.parent.resolve()),
+            "directory_mode": "0700",
+            "stderr_mode": "0600",
+            "metadata_mode": "0600",
+            "retain_stderr_only": True,
+            "retain_derived_text": False,
+            "commit_content": False,
+        },
+        "authorization_present": False,
+        "pdf_processing_allowed": False,
+        "derived_text_install_allowed": False,
+        "context_presentation_allowed": False,
+        "analyst_execution_allowed": False,
+        "reconciliation_allowed": False,
+        "empirical_evidence": False,
+        "human_reviewed": False,
+        "gold_eligible": False,
+    }
+    prior_failure_path = repository / "examples/v2/synthetic-prior-failure.json"
+    _write_json(
+        prior_failure_path,
+        {
+            "execution_request": {
+                "path": REQUEST_RELATIVE_PATH,
+                "sha256": _digest(repository / REQUEST_RELATIVE_PATH),
+            }
+        },
+    )
+    request["prior_failure"] = {
+        "path": "examples/v2/synthetic-prior-failure.json",
+        "sha256": _digest(prior_failure_path),
     }
     request_path = repository / DIAGNOSTIC_REQUEST_RELATIVE_PATH
     _write_json(request_path, request)
@@ -203,8 +239,8 @@ def _add_diagnostic_route(
             "sha256": _digest(human_path),
         },
         "wrapper": wrapper_pin,
-        "method": request["method"],
-        "method_approval": request["method_approval"],
+        "method": base_request["method"],
+        "method_approval": base_request["method_approval"],
         "source_root": str(source_root.resolve()),
         "output_directory": str(output.resolve()),
         "quarantine_parent": str(output.parent.resolve()),
@@ -225,6 +261,31 @@ def _add_diagnostic_route(
     _git(repository, "add", ".")
     _git(repository, "commit", "-m", "synthetic diagnostic authorization")
     return authorization_path, _digest(authorization_path), _git(repository, "rev-parse", "HEAD")
+
+
+def _expand_to_three_sources(repository: Path, source_root: Path) -> None:
+    request_path = repository / REQUEST_RELATIVE_PATH
+    request = json.loads(request_path.read_text(encoding="utf-8"))
+    if len(request["sources"]) == 3:
+        return
+    prototype = request["sources"][0]
+    sources = [prototype]
+    for index in (1, 2):
+        relative_path = f"content/attachments/synthetic-{index}.pdf"
+        path = source_root / relative_path
+        path.write_bytes(f"synthetic PDF bytes {index}\n".encode())
+        sources.append(
+            {
+                "relative_path": relative_path,
+                "sha256": _digest(path),
+                "size": path.stat().st_size,
+                "output_name": f"attachment-{index:03d}.txt",
+            }
+        )
+    request["sources"] = sources
+    _write_json(request_path, request)
+    _git(repository, "add", REQUEST_RELATIVE_PATH)
+    _git(repository, "commit", "-m", "synthetic three-source request")
 
 
 def test_permission_cannot_be_constructed_directly() -> None:
@@ -432,7 +493,7 @@ def test_executor_kills_timed_out_process_group_and_cleans_up(tmp_path: Path) ->
     assert not list(output.parent.glob(".foio-attachment-work-*"))
 
 
-def test_nonempty_stderr_is_quarantined_without_derived_text(tmp_path: Path) -> None:
+def test_normal_route_destroys_nonempty_stderr_and_derived_text(tmp_path: Path) -> None:
     repository, source_root, authorization, digest, commit = _synthetic_repository(
         tmp_path,
         tool_body='/bin/cp "$6" "$7"\n/bin/echo "synthetic warning" >&2',
@@ -446,7 +507,7 @@ def test_nonempty_stderr_is_quarantined_without_derived_text(tmp_path: Path) -> 
         source_root=source_root,
         output_directory=output,
     )
-    with pytest.raises(ValueError, match="diagnostic quarantined"):
+    with pytest.raises(ValueError, match="tool emitted stderr"):
         derive_attachment_text(
             permission=permission,
             repository_root=repository,
@@ -455,24 +516,7 @@ def test_nonempty_stderr_is_quarantined_without_derived_text(tmp_path: Path) -> 
         )
     assert not output.exists()
     assert not list(output.parent.glob(".foio-attachment-work-*"))
-    quarantines = list(output.parent.glob(".foio-attachment-diagnostic-*"))
-    assert len(quarantines) == 1
-    quarantine = quarantines[0]
-    assert stat.S_IMODE(quarantine.stat().st_mode) == 0o700
-    stderr_files = list(quarantine.glob("stderr-*.bin"))
-    assert len(stderr_files) == 1
-    assert stat.S_IMODE(stderr_files[0].stat().st_mode) == 0o600
-    assert stderr_files[0].read_bytes() == b"synthetic warning\n"
-    assert not list(quarantine.glob("attachment-*.txt"))
-    metadata_path = quarantine / "diagnostic-metadata.json"
-    assert stat.S_IMODE(metadata_path.stat().st_mode) == 0o600
-    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
-    assert metadata["stderr_sha256"] == sha256(b"synthetic warning\n").hexdigest()
-    assert metadata["stderr_byte_count"] == len(b"synthetic warning\n")
-    assert metadata["source_sha256"] == _digest(source_root / "content/attachments/synthetic.pdf")
-    assert metadata["source_relative_path"] == "content/attachments/synthetic.pdf"
-    assert metadata["pass_number"] == 1
-    assert metadata["derived_text_retained"] is False
+    assert not list(output.parent.glob(".foio-attachment-diagnostic-*"))
 
 
 def test_separate_diagnostic_route_mints_nonretaining_permission(tmp_path: Path) -> None:
@@ -490,8 +534,8 @@ def test_separate_diagnostic_route_mints_nonretaining_permission(tmp_path: Path)
         output_directory=output,
     )
     assert permission.diagnostic_only is True
-    assert permission.request_relative_path == DIAGNOSTIC_REQUEST_RELATIVE_PATH
-    with pytest.raises(ValueError, match="diagnostic quarantined"):
+    assert permission.request_relative_path == REQUEST_RELATIVE_PATH
+    with pytest.raises(ValueError, match="diagnostic reproduction complete"):
         derive_attachment_text(
             permission=permission,
             repository_root=repository,
@@ -499,7 +543,22 @@ def test_separate_diagnostic_route_mints_nonretaining_permission(tmp_path: Path)
             output_directory=output,
         )
     assert not output.exists()
-    assert len(list(output.parent.glob(".foio-attachment-diagnostic-*"))) == 1
+    quarantines = list(output.parent.glob(".foio-attachment-diagnostic-*"))
+    assert len(quarantines) == 1
+    quarantine = quarantines[0]
+    assert stat.S_IMODE(quarantine.stat().st_mode) == 0o700
+    stderr_files = list(quarantine.glob("stderr-*.bin"))
+    assert len(stderr_files) == 6
+    assert all(stat.S_IMODE(path.stat().st_mode) == 0o600 for path in stderr_files)
+    assert all(path.read_bytes() == b"diagnostic only\n" for path in stderr_files)
+    metadata_path = quarantine / "diagnostic-metadata.json"
+    assert stat.S_IMODE(metadata_path.stat().st_mode) == 0o600
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    assert len(metadata["attempts"]) == 6
+    assert [attempt["pass_number"] for attempt in metadata["attempts"]] == [1, 1, 1, 2, 2, 2]
+    assert all(attempt["returncode"] == 0 for attempt in metadata["attempts"])
+    assert all(attempt["derived_text_retained"] is False for attempt in metadata["attempts"])
+    assert not list(quarantine.glob("attachment-*.txt"))
 
 
 def test_diagnostic_route_destroys_text_when_stderr_is_empty(tmp_path: Path) -> None:
@@ -514,7 +573,7 @@ def test_diagnostic_route_destroys_text_when_stderr_is_empty(tmp_path: Path) -> 
         source_root=source_root,
         output_directory=output,
     )
-    with pytest.raises(ValueError, match="no stderr; derived text destroyed"):
+    with pytest.raises(ValueError, match="diagnostic reproduction complete"):
         derive_attachment_text(
             permission=permission,
             repository_root=repository,
@@ -522,4 +581,47 @@ def test_diagnostic_route_destroys_text_when_stderr_is_empty(tmp_path: Path) -> 
             output_directory=output,
         )
     assert not output.exists()
-    assert not list(output.parent.glob(".foio-attachment-diagnostic-*"))
+    quarantines = list(output.parent.glob(".foio-attachment-diagnostic-*"))
+    assert len(quarantines) == 1
+    assert not list(quarantines[0].glob("stderr-*.bin"))
+    metadata = json.loads((quarantines[0] / "diagnostic-metadata.json").read_text(encoding="utf-8"))
+    assert len(metadata["attempts"]) == 6
+    assert all(attempt["stderr_byte_count"] == 0 for attempt in metadata["attempts"])
+
+
+def test_diagnostic_route_processes_all_three_sources_twice_and_records_nonzero(
+    tmp_path: Path,
+) -> None:
+    repository, source_root, _, _, _ = _synthetic_repository(
+        tmp_path,
+        tool_body='/bin/cp "$6" "$7"\n/bin/echo "diagnostic failure" >&2\nexit 7',
+    )
+    _expand_to_three_sources(repository, source_root)
+    output = tmp_path / "derived" / "complete"
+    authorization, digest, commit = _add_diagnostic_route(repository, source_root, output)
+    permission = verify_attachment_diagnostic_pre_execution(
+        repository_root=repository,
+        authorization_path=authorization,
+        expected_authorization_sha256=digest,
+        expected_repository_commit=commit,
+        source_root=source_root,
+        output_directory=output,
+    )
+    with pytest.raises(ValueError, match="diagnostic reproduction complete"):
+        derive_attachment_text(
+            permission=permission,
+            repository_root=repository,
+            source_root=source_root,
+            output_directory=output,
+        )
+    assert not output.exists()
+    assert not list(output.parent.glob(".foio-attachment-work-*"))
+    quarantine = next(output.parent.glob(".foio-attachment-diagnostic-*"))
+    metadata = json.loads((quarantine / "diagnostic-metadata.json").read_text(encoding="utf-8"))
+    assert len(metadata["attempts"]) == 6
+    assert {
+        (attempt["pass_number"], attempt["source_index"]) for attempt in metadata["attempts"]
+    } == {(pass_number, source_index) for pass_number in (1, 2) for source_index in (0, 1, 2)}
+    assert all(attempt["returncode"] == 7 for attempt in metadata["attempts"])
+    assert len(list(quarantine.glob("stderr-*.bin"))) == 6
+    assert not list(quarantine.glob("attachment-*.txt"))

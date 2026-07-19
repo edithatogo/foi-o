@@ -27,7 +27,7 @@ REQUEST_RELATIVE_PATH = (
 )
 WRAPPER_RELATIVE_PATH = "src/foi_o_nz/bounded_pilot_attachment_derivation.py"
 DIAGNOSTIC_REQUEST_RELATIVE_PATH = (
-    "examples/v2/bounded-pilot-attachment-diagnostic-execution-request.pending.json"
+    "examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json"
 )
 DIAGNOSTIC_HUMAN_APPROVAL_RELATIVE_PATH = (
     "examples/v2/bounded-pilot-attachment-diagnostic-human-approval.approved.json"
@@ -414,6 +414,11 @@ def verify_attachment_diagnostic_pre_execution(
     ):
         raise ValueError("attachment diagnostic authorization scope is not exact")
     request_path = _canonical_file(root, DIAGNOSTIC_REQUEST_RELATIVE_PATH)
+    if (
+        _git(root, "ls-files", "--error-unmatch", DIAGNOSTIC_REQUEST_RELATIVE_PATH)
+        != DIAGNOSTIC_REQUEST_RELATIVE_PATH
+    ):
+        raise ValueError("attachment diagnostic request is not committed")
     request_pin = {"path": DIAGNOSTIC_REQUEST_RELATIVE_PATH, "sha256": file_sha256(request_path)}
     if authorization["diagnostic_request"] != request_pin:
         raise ValueError("attachment diagnostic request pin mismatch")
@@ -422,25 +427,57 @@ def verify_attachment_diagnostic_pre_execution(
         "schema_version",
         "request_id",
         "status",
+        "prior_failure",
         "wrapper",
-        "method",
-        "method_approval",
+        "wrapper_repository_commit",
+        "source_root",
+        "output_directory",
         "sources",
-        "runtime_observation",
-        "environment",
-        "failure_contract",
-        "diagnostic_execution_allowed",
-        "derived_content_retention_allowed",
+        "requested_scope",
+        "diagnostic_quarantine_policy",
+        "authorization_present",
+        "pdf_processing_allowed",
+        "derived_text_install_allowed",
+        "context_presentation_allowed",
+        "analyst_execution_allowed",
+        "reconciliation_allowed",
+        "empirical_evidence",
+        "human_reviewed",
+        "gold_eligible",
     }
     if (
         set(request) != request_keys
         or request.get("schema_version")
-        != "foi-o.bounded-pilot-attachment-diagnostic-execution-request.v0.1.0"
-        or request.get("status") != "pending_exact_diagnostic_authorization"
-        or request.get("diagnostic_execution_allowed") is not False
-        or request.get("derived_content_retention_allowed") is not False
+        != "foi-o.bounded-pilot-attachment-stderr-diagnostic-request.v0.1.0"
+        or request.get("status") != "pending_exact_diagnostic_execution_authorization"
+        or request.get("authorization_present") is not False
+        or any(
+            request.get(key) is not False
+            for key in (
+                "pdf_processing_allowed",
+                "derived_text_install_allowed",
+                "context_presentation_allowed",
+                "analyst_execution_allowed",
+                "reconciliation_allowed",
+                "empirical_evidence",
+                "human_reviewed",
+                "gold_eligible",
+            )
+        )
     ):
         raise ValueError("attachment diagnostic request is not exact and inert")
+    if (
+        request["requested_scope"]
+        != "one_local_diagnostic_reproduction_preserve_stderr_only_no_derived_text_install"
+        or not isinstance(request["sources"], list)
+        or len(request["sources"]) != 3
+        or any(
+            not isinstance(source, dict)
+            or not {"relative_path", "sha256", "size", "output_name"}.issubset(source)
+            for source in request["sources"]
+        )
+    ):
+        raise ValueError("attachment diagnostic requested scope is not exact")
     wrapper = _canonical_file(root, WRAPPER_RELATIVE_PATH)
     wrapper_commit = _git(root, "log", "-1", "--format=%H", "--", WRAPPER_RELATIVE_PATH)
     wrapper_pin = {
@@ -448,15 +485,60 @@ def verify_attachment_diagnostic_pre_execution(
         "sha256": file_sha256(wrapper),
         "repository_commit": wrapper_commit,
     }
-    if authorization["wrapper"] != wrapper_pin or request["wrapper"] != wrapper_pin:
+    if authorization["wrapper"] != wrapper_pin:
         raise ValueError("attachment diagnostic wrapper pin mismatch")
+    if (
+        request["wrapper"]
+        != {
+            "path": WRAPPER_RELATIVE_PATH,
+            "sha256": wrapper_pin["sha256"],
+        }
+        or request["wrapper_repository_commit"] != wrapper_commit
+    ):
+        raise ValueError("attachment diagnostic request wrapper pin mismatch")
+    prior_failure_path = _canonical_file(root, request["prior_failure"]["path"])
+    if (
+        _git(root, "ls-files", "--error-unmatch", request["prior_failure"]["path"])
+        != request["prior_failure"]["path"]
+    ):
+        raise ValueError("attachment diagnostic prior failure is not committed")
+    if request["prior_failure"] != {
+        "path": request["prior_failure"]["path"],
+        "sha256": file_sha256(prior_failure_path),
+    }:
+        raise ValueError("attachment diagnostic prior-failure pin mismatch")
+    prior_failure = load_object(prior_failure_path)
+    operational_pin = prior_failure.get("execution_request")
+    if not isinstance(operational_pin, dict) or set(operational_pin) != {"path", "sha256"}:
+        raise ValueError("attachment diagnostic operational request pin is malformed")
+    operational_path = _canonical_file(root, operational_pin["path"])
+    if (
+        _git(root, "ls-files", "--error-unmatch", operational_pin["path"])
+        != operational_pin["path"]
+    ):
+        raise ValueError("attachment diagnostic operational request is not committed")
+    if file_sha256(operational_path) != operational_pin["sha256"]:
+        raise ValueError("attachment diagnostic operational request pin mismatch")
+    operational = load_object(operational_path)
+    if operational.get("sources") != request["sources"]:
+        raise ValueError("attachment diagnostic sources differ from operational request")
     for key in ("method", "method_approval"):
-        if authorization[key] != request[key]:
+        if authorization[key] != operational[key]:
             raise ValueError(f"attachment diagnostic {key} pin mismatch")
-        pinned = _canonical_file(root, request[key]["path"])
-        if file_sha256(pinned) != request[key]["sha256"]:
+        pinned = _canonical_file(root, operational[key]["path"])
+        if (
+            _git(root, "ls-files", "--error-unmatch", operational[key]["path"])
+            != operational[key]["path"]
+        ):
+            raise ValueError(f"attachment diagnostic {key} is not committed")
+        if file_sha256(pinned) != operational[key]["sha256"]:
             raise ValueError(f"attachment diagnostic {key} digest mismatch")
     human_path = _canonical_file(root, DIAGNOSTIC_HUMAN_APPROVAL_RELATIVE_PATH)
+    if (
+        _git(root, "ls-files", "--error-unmatch", DIAGNOSTIC_HUMAN_APPROVAL_RELATIVE_PATH)
+        != DIAGNOSTIC_HUMAN_APPROVAL_RELATIVE_PATH
+    ):
+        raise ValueError("attachment diagnostic human approval is not committed")
     human_pin = {"path": DIAGNOSTIC_HUMAN_APPROVAL_RELATIVE_PATH, "sha256": file_sha256(human_path)}
     if authorization["human_approval"] != human_pin:
         raise ValueError("attachment diagnostic human approval pin mismatch")
@@ -504,6 +586,8 @@ def verify_attachment_diagnostic_pre_execution(
         authorization["source_root"] != str(source_base)
         or authorization["output_directory"] != str(output)
         or authorization["quarantine_parent"] != str(output_parent)
+        or request["source_root"] != str(source_base)
+        or request["output_directory"] != str(output)
     ):
         raise ValueError("attachment diagnostic path bindings mismatch")
     if human["bound_scope"] != {
@@ -514,8 +598,19 @@ def verify_attachment_diagnostic_pre_execution(
         "derived_content_retention_allowed": False,
     }:
         raise ValueError("attachment diagnostic human approval path scope mismatch")
-    executable = Path(request["runtime_observation"]["resolved_path"]).resolve(strict=True)
-    executable_digest = request["runtime_observation"]["executable_sha256"]
+    policy = request["diagnostic_quarantine_policy"]
+    if policy != {
+        "parent": str(output_parent),
+        "directory_mode": "0700",
+        "stderr_mode": "0600",
+        "metadata_mode": "0600",
+        "retain_stderr_only": True,
+        "retain_derived_text": False,
+        "commit_content": False,
+    }:
+        raise ValueError("attachment diagnostic quarantine policy is not exact")
+    executable = Path(operational["runtime_observation"]["resolved_path"]).resolve(strict=True)
+    executable_digest = operational["runtime_observation"]["executable_sha256"]
     if not executable.is_file() or file_sha256(executable) != executable_digest:
         raise ValueError("attachment diagnostic executable identity mismatch")
     return VerifiedAttachmentDerivationPermission(
@@ -527,7 +622,7 @@ def verify_attachment_diagnostic_pre_execution(
         executable_path=executable,
         executable_sha256=executable_digest,
         authorization_relative_path=DIAGNOSTIC_AUTHORIZATION_RELATIVE_PATH,
-        request_relative_path=DIAGNOSTIC_REQUEST_RELATIVE_PATH,
+        request_relative_path=operational_pin["path"],
         quarantine_parent=output_parent,
         diagnostic_only=True,
         _token=_PERMISSION_TOKEN,
@@ -695,38 +790,48 @@ def _run_tool(
         raise
 
 
-def _quarantine_stderr(
+def _quarantine_diagnostic_attempts(
     *,
     output_parent: Path,
-    stderr_path: Path,
-    derived_target: Path,
-    source: dict[str, Any],
-    pass_number: int,
-    source_index: int,
+    attempts: list[dict[str, Any]],
+    authorization_sha256: str,
+    diagnostic_request_sha256: str,
+    executable_sha256: str,
 ) -> Path:
-    """Preserve restricted stderr diagnostics while destroying derived text."""
-    stderr_data = stderr_path.read_bytes()
-    if derived_target.exists() or derived_target.is_symlink():
-        derived_target.unlink()
+    """Install one owner-only metadata/stderr quarantine for a diagnostic run."""
     quarantine = Path(tempfile.mkdtemp(prefix=".foio-attachment-diagnostic-", dir=output_parent))
     try:
         quarantine.chmod(0o700)
-        diagnostic_name = f"stderr-pass-{pass_number}-source-{source_index:03d}.bin"
-        diagnostic = quarantine / diagnostic_name
-        stderr_path.replace(diagnostic)
-        diagnostic.chmod(0o600)
+        metadata_attempts: list[dict[str, Any]] = []
+        for attempt in attempts:
+            stderr_data = attempt.pop("stderr_data")
+            diagnostic_name = None
+            if stderr_data:
+                diagnostic_name = (
+                    f"stderr-pass-{attempt['pass_number']}-source-{attempt['source_index']:03d}.bin"
+                )
+                diagnostic = quarantine / diagnostic_name
+                diagnostic_fd = os.open(diagnostic, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+                with os.fdopen(diagnostic_fd, "wb", closefd=True) as diagnostic_file:
+                    diagnostic_file.write(stderr_data)
+                    diagnostic_file.flush()
+                    os.fsync(diagnostic_file.fileno())
+            metadata_attempts.append(
+                {
+                    **attempt,
+                    "stderr_file": diagnostic_name,
+                    "stderr_sha256": sha256(stderr_data).hexdigest(),
+                    "stderr_byte_count": len(stderr_data),
+                    "derived_text_retained": False,
+                }
+            )
         metadata = {
             "schema_version": "foi-o.bounded-pilot-attachment-stderr-diagnostic.v0.1.0",
             "status": "quarantined_local_diagnostic_review_required",
-            "pass_number": pass_number,
-            "source_index": source_index,
-            "source_inventory_pointer": source.get("inventory_pointer"),
-            "source_relative_path": source["relative_path"],
-            "source_sha256": source["sha256"],
-            "stderr_file": diagnostic_name,
-            "stderr_sha256": sha256(stderr_data).hexdigest(),
-            "stderr_byte_count": len(stderr_data),
-            "derived_text_retained": False,
+            "authorization_sha256": authorization_sha256,
+            "diagnostic_request_sha256": diagnostic_request_sha256,
+            "executable_sha256": executable_sha256,
+            "attempts": metadata_attempts,
             "local_only": True,
             "restricted_diagnostic_committed": False,
             "context_presentation_allowed": False,
@@ -775,6 +880,7 @@ def derive_attachment_text(
     workspace.chmod(0o700)
     outputs_by_pass: list[list[bytes]] = []
     stderr_by_pass: list[list[bytes]] = []
+    diagnostic_attempts: list[dict[str, Any]] = []
     frozen: list[_FrozenSource] = []
     try:
         frozen_directory = workspace / "frozen"
@@ -803,27 +909,28 @@ def derive_attachment_text(
                 )
                 target.chmod(0o600)
                 _recheck_frozen_source(item)
-                if returncode != 0:
-                    raise ValueError("attachment derivation tool returned nonzero")
                 stderr_data = stderr_path.read_bytes()
-                if stderr_data:
-                    quarantine = _quarantine_stderr(
-                        output_parent=output_parent,
-                        stderr_path=stderr_path,
-                        derived_target=target,
-                        source=source,
-                        pass_number=pass_index + 1,
-                        source_index=index,
-                    )
-                    raise ValueError(
-                        f"attachment derivation tool emitted stderr; diagnostic quarantined at {quarantine}"
-                    )
                 stderr_path.unlink()
                 if permission.diagnostic_only:
                     target.unlink(missing_ok=True)
-                    raise ValueError(
-                        "attachment diagnostic execution emitted no stderr; derived text destroyed"
+                    diagnostic_attempts.append(
+                        {
+                            "pass_number": pass_index + 1,
+                            "source_index": index,
+                            "source_inventory_pointer": source.get("inventory_pointer"),
+                            "source_relative_path": source["relative_path"],
+                            "source_sha256": source["sha256"],
+                            "returncode": returncode,
+                            "stderr_data": stderr_data,
+                        }
                     )
+                    continue
+                if returncode != 0:
+                    target.unlink(missing_ok=True)
+                    raise ValueError("attachment derivation tool returned nonzero")
+                if stderr_data:
+                    target.unlink(missing_ok=True)
+                    raise ValueError("attachment derivation tool emitted stderr")
                 target_info = target.lstat()
                 if not stat.S_ISREG(target_info.st_mode):
                     raise ValueError("attachment derivation output is not a regular file")
@@ -835,6 +942,17 @@ def derive_attachment_text(
                 pass_stderr.append(stderr_data)
             outputs_by_pass.append(pass_outputs)
             stderr_by_pass.append(pass_stderr)
+        if permission.diagnostic_only:
+            quarantine = _quarantine_diagnostic_attempts(
+                output_parent=output_parent,
+                attempts=diagnostic_attempts,
+                authorization_sha256=permission.authorization_sha256,
+                diagnostic_request_sha256=permission.request_sha256,
+                executable_sha256=permission.executable_sha256,
+            )
+            raise ValueError(
+                f"attachment diagnostic reproduction complete; diagnostic quarantined at {quarantine}"
+            )
         if outputs_by_pass[0] != outputs_by_pass[1] or stderr_by_pass[0] != stderr_by_pass[1]:
             raise ValueError("attachment derivation repeat outputs do not match")
         manifest_outputs = [
