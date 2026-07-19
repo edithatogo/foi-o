@@ -78,6 +78,18 @@ class FixtureRuntimeHandshakeAuthorizationVerificationResult:
 
 
 @dataclass(frozen=True, slots=True)
+class FixtureRuntimeHandshakeEvidenceVerificationResult:
+    """Verified four-role handshake evidence that cannot authorize analysis."""
+
+    bundle_sha256: str
+    repository_commit: str
+    authorization_sha256: str
+    role_count: int
+    runtime_handshakes_complete: bool = True
+    execution_allowed: bool = False
+
+
+@dataclass(frozen=True, slots=True)
 class DerivedFixtureUnit:
     """A source-derived fixture unit; never an empirical or gold assertion."""
 
@@ -844,7 +856,7 @@ def _verify_commit_ancestry(repository_root: Path, commits: list[str]) -> None:
             raise ValueError("fixture authorization commit ancestry mismatch") from error
 
 
-def verify_fixture_runtime_handshake_authorization(
+def _verify_fixture_runtime_handshake_authorization(
     *,
     repository_root: Path,
     authorization_path: Path,
@@ -854,8 +866,8 @@ def verify_fixture_runtime_handshake_authorization(
     expected_preparation_repository_commit: str,
     expected_base_repository_commit: str,
     expected_promotion_repository_commit: str,
+    require_head_anchor: bool,
 ) -> FixtureRuntimeHandshakeAuthorizationVerificationResult:
-    """Verify the committed gate that permits only runtime-provenance handshakes."""
     root = repository_root.resolve(strict=True)
     authorization = authorization_path.resolve(strict=True)
     if root not in authorization.parents:
@@ -978,11 +990,303 @@ def verify_fixture_runtime_handshake_authorization(
         expected_promotion_repository_commit=expected_promotion_repository_commit,
         require_head_anchor=False,
     )
-    verify_git_anchor(root, expected_repository_commit, [authorization, approval_path])
+    if require_head_anchor:
+        verify_git_anchor(root, expected_repository_commit, [authorization, approval_path])
+    else:
+        verify_git_artifacts_at_commit(
+            root, expected_repository_commit, [authorization, approval_path]
+        )
     return FixtureRuntimeHandshakeAuthorizationVerificationResult(
         authorization_sha256=authorization_digest,
         repository_commit=expected_repository_commit,
         request_sha256=expected_request_sha256,
+        role_count=4,
+    )
+
+
+def verify_fixture_runtime_handshake_authorization(
+    *,
+    repository_root: Path,
+    authorization_path: Path,
+    expected_authorization_sha256: str,
+    expected_repository_commit: str,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixtureRuntimeHandshakeAuthorizationVerificationResult:
+    """Verify the committed gate that permits only runtime-provenance handshakes."""
+    return _verify_fixture_runtime_handshake_authorization(
+        repository_root=repository_root,
+        authorization_path=authorization_path,
+        expected_authorization_sha256=expected_authorization_sha256,
+        expected_repository_commit=expected_repository_commit,
+        expected_request_sha256=expected_request_sha256,
+        expected_preparation_repository_commit=expected_preparation_repository_commit,
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+        require_head_anchor=True,
+    )
+
+
+def verify_fixture_runtime_handshake_evidence(
+    *,
+    repository_root: Path,
+    bundle_path: Path,
+    expected_bundle_sha256: str,
+    expected_repository_commit: str,
+    expected_authorization_sha256: str,
+    expected_authorization_repository_commit: str,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixtureRuntimeHandshakeEvidenceVerificationResult:
+    """Verify a committed four-role handshake bundle without enabling analysis."""
+    root = repository_root.resolve(strict=True)
+    bundle_file = bundle_path.resolve(strict=True)
+    if root not in bundle_file.parents:
+        raise ValueError("runtime handshake evidence bundle escapes repository root")
+    expected_bundle_path = resolve_repo_artifact(
+        root, "examples/v2/analyst-fixture-packet/runtime-handshake-readiness.locked.json"
+    )
+    if bundle_file != expected_bundle_path:
+        raise ValueError("runtime handshake evidence bundle path is not canonical")
+    bundle_digest = sha256(bundle_file.read_bytes()).hexdigest()
+    if bundle_digest != expected_bundle_sha256:
+        raise ValueError("runtime handshake evidence bundle SHA-256 mismatch")
+    bundle = _load_object(bundle_file)
+    _validate_object(
+        bundle,
+        "fixture-runtime-handshake-readiness.schema.json",
+        "runtime_handshake_readiness",
+    )
+    expected_prohibitions = [
+        "redistribution",
+        "publication",
+        "training",
+        "fine_tuning",
+        "release",
+        "dataset_publication",
+        "gold_promotion",
+        "legal_certification",
+        "paper_update",
+        "human_reviewed_claims",
+        "empirical_evidence_claims",
+    ]
+    if bundle["prohibited_actions"] != expected_prohibitions:
+        raise ValueError("runtime handshake evidence prohibitions are not exact")
+    if (
+        bundle["runtime_handshakes_complete"] is not True
+        or bundle["role_count"] != 4
+        or bundle["exact_model_snapshots_available"] is not False
+        or bundle["immutable_session_agent_uuids_available"] is not False
+        or bundle["context_presentation_allowed"] is not False
+        or bundle["analysis_execution_allowed"] is not False
+        or bundle["reconciliation_allowed"] is not False
+        or bundle["final_execution_wrapper_present"] is not False
+        or bundle["execution_allowed"] is not False
+        or bundle["local_only"] is not True
+        or any(
+            bundle[key] is not False
+            for key in (
+                "empirical_evidence",
+                "human_reviewed",
+                "gold_eligible",
+                "release_qualifying",
+                "publication_eligible",
+            )
+        )
+    ):
+        raise ValueError("runtime handshake evidence enables a prohibited state")
+
+    authorization_pin = bundle["handshake_authorization"]
+    if (
+        authorization_pin["sha256"] != expected_authorization_sha256
+        or authorization_pin["repository_commit"] != expected_authorization_repository_commit
+    ):
+        raise ValueError("runtime handshake authorization pin mismatch")
+    authorization_path = resolve_repo_artifact(root, authorization_pin["path"])
+    if sha256(authorization_path.read_bytes()).hexdigest() != expected_authorization_sha256:
+        raise ValueError("runtime handshake authorization artifact mismatch")
+    _verify_commit_ancestry(
+        root,
+        [expected_authorization_repository_commit, expected_repository_commit],
+    )
+    _verify_fixture_runtime_handshake_authorization(
+        repository_root=root,
+        authorization_path=authorization_path,
+        expected_authorization_sha256=expected_authorization_sha256,
+        expected_repository_commit=expected_authorization_repository_commit,
+        expected_request_sha256=expected_request_sha256,
+        expected_preparation_repository_commit=expected_preparation_repository_commit,
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+        require_head_anchor=False,
+    )
+
+    expected_roles = {
+        "orchestrator": (
+            "agent:orchestrator-fixture-stream",
+            "orchestrator_non_labeling",
+            "/root/fixture_stream_ready",
+            "GPT-5 / Codex",
+            """1. Canonical task/session locator: `/root/fixture_stream_ready`
+2. Provider family: OpenAI
+3. Model/runtime family: GPT-5 / Codex
+4. Exact model snapshot: unavailable
+5. Immutable session or agent UUID: unavailable
+""",
+        ),
+        "analyst_a": (
+            "agent:analyst-fixture-a",
+            "analyst",
+            "/root/fixture_analyst_a_ready",
+            "Codex / GPT-5",
+            """1. Canonical task locator: `/root/fixture_analyst_a_ready`
+2. Provider family: OpenAI
+3. Model/runtime family: Codex / GPT-5
+4. Exact model snapshot: unavailable
+5. Immutable session or agent UUID: unavailable
+""",
+        ),
+        "analyst_b": (
+            "agent:analyst-fixture-b",
+            "analyst",
+            "/root/fixture_analyst_b_ready",
+            "Codex, GPT-5",
+            """1. Canonical task/session locator: `/root/fixture_analyst_b_ready`
+2. Provider family: OpenAI
+3. Model/runtime family: Codex, GPT-5
+4. Exact model snapshot: unavailable
+5. Immutable session/agent UUID: unavailable
+""",
+        ),
+        "reconciler": (
+            "agent:reconciler-fixture",
+            "reconciler",
+            "/root/fixture_reconciler_ready",
+            "Codex, GPT-5",
+            """1. Canonical task or session locator: `/root/fixture_reconciler_ready`
+2. Provider family: OpenAI
+3. Model or runtime family: Codex, GPT-5
+4. Exact model snapshot: unavailable
+5. Immutable session or agent UUID: unavailable
+""",
+        ),
+    }
+    if set(bundle["evidence_records"]) != set(expected_roles):
+        raise ValueError("runtime handshake evidence role membership mismatch")
+    anchored_paths = [bundle_file]
+    actors: set[str] = set()
+    locators: set[str] = set()
+    recorded_at = _instant(bundle["recorded_at"], "runtime_handshake_readiness.recorded_at")
+    forbidden_payload_keys = {
+        "context",
+        "contexts",
+        "fixture_units",
+        "label",
+        "labels",
+        "outputs",
+        "peer_outputs",
+        "codebook",
+        "future_execution_prompt",
+        "future_execution_prompts",
+    }
+    for name, (actor_id, role, locator, reported_runtime, raw_text) in expected_roles.items():
+        record_pin = bundle["evidence_records"][name]
+        expected_record_relative = (
+            f"examples/v2/analyst-fixture-packet/runtime-handshake-evidence.{name}.json"
+        )
+        if record_pin["path"] != expected_record_relative:
+            raise ValueError(f"runtime handshake evidence {name}: record path is not canonical")
+        record_path = resolve_repo_artifact(root, record_pin["path"])
+        if sha256(record_path.read_bytes()).hexdigest() != record_pin["sha256"]:
+            raise ValueError(f"runtime handshake evidence {name}: record SHA-256 mismatch")
+        record = _load_object(record_path)
+        _validate_object(
+            record,
+            "fixture-runtime-handshake-evidence.schema.json",
+            f"runtime_handshake_evidence.{name}",
+        )
+        if forbidden_payload_keys.intersection(record):
+            raise ValueError(f"runtime handshake evidence {name}: prohibited payload field")
+        if (
+            record["evidence_id"] != f"local-fixture-runtime-handshake-{name}-2026-07-19"
+            or record["role_key"] != name
+            or record["actor_id"] != actor_id
+            or record["role"] != role
+            or record["canonical_session_locator"] != locator
+            or record["provider_family"] != "OpenAI"
+            or record["reported_runtime_family"] != reported_runtime
+            or record["normalized_runtime_family"] != "Codex / GPT-5"
+            or record["handshake_authorization"] != authorization_pin
+            or record["handshake_prompt"]["sha256"]
+            != "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77"
+        ):
+            raise ValueError(f"runtime handshake evidence {name}: provenance mismatch")
+        if (
+            record["exact_model_snapshot_available"] is not False
+            or record["exact_model_snapshot"] is not None
+            or record["immutable_session_agent_uuid_available"] is not False
+            or record["immutable_session_agent_uuid"] is not None
+            or record["delivery_time_available"] is not False
+            or record["delivered_at"] is not None
+            or record["reply_time_available"] is not False
+            or record["reply_at"] is not None
+        ):
+            raise ValueError(f"runtime handshake evidence {name}: unavailable value mismatch")
+        if (
+            record["handshake_prompt_delivered"] is not True
+            or record["fixture_context_delivered_with_handshake"] is not False
+            or record["label_material_delivered_with_handshake"] is not False
+            or record["peer_output_delivered_with_handshake"] is not False
+            or record["context_presentation_allowed"] is not False
+            or record["analysis_execution_allowed"] is not False
+            or record["reconciliation_allowed"] is not False
+            or record["local_only"] is not True
+            or any(
+                record[key] is not False
+                for key in (
+                    "empirical_evidence",
+                    "human_reviewed",
+                    "gold_eligible",
+                    "release_qualifying",
+                    "publication_eligible",
+                )
+            )
+        ):
+            raise ValueError(f"runtime handshake evidence {name}: prohibited state")
+        expected_raw_relative = (
+            f"examples/v2/analyst-fixture-packet/runtime-handshake-reply.{name}.txt"
+        )
+        if record["raw_reply"]["path"] != expected_raw_relative:
+            raise ValueError(f"runtime handshake evidence {name}: raw reply path is not canonical")
+        raw_path = resolve_repo_artifact(root, record["raw_reply"]["path"])
+        raw_bytes = raw_path.read_bytes()
+        if (
+            sha256(raw_bytes).hexdigest() != record["raw_reply"]["sha256"]
+            or raw_bytes.decode("utf-8") != raw_text
+            or record["raw_reply_text"] != raw_text
+        ):
+            raise ValueError(f"runtime handshake evidence {name}: raw reply mismatch")
+        if (
+            _instant(record["recorded_at"], f"runtime_handshake_evidence.{name}.recorded_at")
+            != recorded_at
+            or record["recording_note"]
+            != "recorded_at is repository provenance and is not a delivery or reply time"
+        ):
+            raise ValueError(f"runtime handshake evidence {name}: chronology mismatch")
+        actors.add(record["actor_id"])
+        locators.add(record["canonical_session_locator"])
+        anchored_paths.extend([record_path, raw_path])
+    if len(actors) != 4 or len(locators) != 4:
+        raise ValueError("runtime handshake actors and locators must be distinct")
+    verify_git_anchor(root, expected_repository_commit, anchored_paths)
+    return FixtureRuntimeHandshakeEvidenceVerificationResult(
+        bundle_sha256=bundle_digest,
+        repository_commit=expected_repository_commit,
+        authorization_sha256=expected_authorization_sha256,
         role_count=4,
     )
 
@@ -1001,6 +1305,8 @@ def verify_analyst_execution_packet(
     preparation_only_versions = {
         "foi-o.fixture-role-authorization-request.v0.1.0": "pending role authorization request",
         "foi-o.fixture-runtime-handshake-authorization.v0.1.0": ("runtime handshake authorization"),
+        "foi-o.fixture-runtime-handshake-readiness.v0.1.0": ("runtime handshake evidence bundle"),
+        "foi-o.fixture-runtime-handshake-evidence.v0.1.0": "runtime handshake evidence record",
     }
     if pending.get("schema_version") in preparation_only_versions:
         label = preparation_only_versions[pending["schema_version"]]

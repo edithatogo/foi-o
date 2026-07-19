@@ -1,0 +1,56 @@
+{
+  "analysis_execution_allowed": false,
+  "context_presentation_allowed": false,
+  "empirical_evidence": false,
+  "evidence_records": {
+    "analyst_a": {
+      "path": "examples/v2/analyst-fixture-packet/runtime-handshake-evidence.analyst_a.json",
+      "sha256": "f61a108759139dd4cefa1179936cc4f8cbacf13380b588bd8f81f1f89cbd72ed"
+    },
+    "analyst_b": {
+      "path": "examples/v2/analyst-fixture-packet/runtime-handshake-evidence.analyst_b.json",
+      "sha256": "b8012b39cf099015ad226c76814c4c2a96868e25345d113e20fa664f4062d024"
+    },
+    "orchestrator": {
+      "path": "examples/v2/analyst-fixture-packet/runtime-handshake-evidence.orchestrator.json",
+      "sha256": "5fd5a148c76344021679aa478d74d2d88334bff2cc5c78508649abbe46bbce8b"
+    },
+    "reconciler": {
+      "path": "examples/v2/analyst-fixture-packet/runtime-handshake-evidence.reconciler.json",
+      "sha256": "e293e4eb036890b32d246bb4b123dae4f72636cb305da1fcf6a4982051e1671a"
+    }
+  },
+  "exact_model_snapshots_available": false,
+  "execution_allowed": false,
+  "final_execution_wrapper_present": false,
+  "gold_eligible": false,
+  "handshake_authorization": {
+    "path": "examples/v2/analyst-fixture-packet/runtime-handshake-authorization.approved.json",
+    "repository_commit": "393991ea0cfdaf9f016108bf74edae94b80f042a",
+    "sha256": "de140e1397df2f1e20aa9ceede443d589d6bacbca9a767fecc2992644f1c056f"
+  },
+  "human_reviewed": false,
+  "immutable_session_agent_uuids_available": false,
+  "local_only": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "reconciliation_allowed": false,
+  "recorded_at": "2026-07-19T10:00:36+10:00",
+  "release_qualifying": false,
+  "role_count": 4,
+  "runtime_handshakes_complete": true,
+  "schema_version": "foi-o.fixture-runtime-handshake-readiness.v0.1.0",
+  "status": "locked_runtime_handshake_evidence_final_execution_wrapper_pending"
+}

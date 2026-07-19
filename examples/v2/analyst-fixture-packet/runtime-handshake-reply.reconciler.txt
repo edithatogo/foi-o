@@ -1,0 +1,5 @@
+1. Canonical task or session locator: `/root/fixture_reconciler_ready`
+2. Provider family: OpenAI
+3. Model or runtime family: Codex, GPT-5
+4. Exact model snapshot: unavailable
+5. Immutable session or agent UUID: unavailable
