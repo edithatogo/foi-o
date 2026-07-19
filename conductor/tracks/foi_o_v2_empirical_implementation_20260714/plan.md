@@ -500,12 +500,27 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     The exact locked reconciliation is committed at `6dcf482`; its two
     disagreements are resolved only as local agent candidates and its recursive
     lock verifier permits diagnostic preparation, not empirical claims.
-  - [~] Fixture-diagnostics method-approval subtask: pin the previously
+  - [x] Fixture-diagnostics method-approval and execution subtask: pin the previously
     unspecified bootstrap generator, sampling operation, replicate accounting,
     percentile interpolation, undefined-kappa handling, and null-span behavior
-    in an inert deterministic candidate. Bootstrap execution and diagnostics
-    finalization remain prohibited until a named human approves the exact
-    candidate SHA-256 and the commit containing it.
+    in an inert deterministic candidate. Reviewer `edithatogo` approved exact
+    candidate SHA-256 `6e44b634…` at commit `c104a4c`; the separate inert
+    executable authorization SHA-256 `3f0bd017…` was committed at `da00026`,
+    and its exact clean-commit verifier returned bootstrap execution and
+    diagnostics finalization allowed. The governed local-only result was then
+    committed at `a68f857`: `results/inter-agent-diagnostics.locked.json`,
+    SHA-256 `fe2f9e29…`. Exact results are 9/10 eligible nominal-label
+    agreement (0.9; bootstrap 95% CI 0.7–1.0), Cohen's kappa 5/6 (bootstrap
+    95% CI 0.4–1.0; 1,998 valid and 2 undefined replicates), abstention-status
+    agreement 10/11 (95% CI 8/11–1.0), and two reconciliation triggers among
+    11 units (95% CI 0–5/11). No spans were eligible, so span estimates and
+    intervals remain null. Verification: 33 combined focused tests and two
+    independent computation/security reviews; full suite 673 passed, 2
+    skipped; the exact post-commit diagnostics verifier passed at clean commit
+    `a68f857d658e4d2b227e05a6057d12342b1cb719`. These are synthetic-fixture
+    inter-agent diagnostics only, not empirical evidence, human-reviewed
+    reliability, gold labels, legal certification, release evidence, or
+    publication evidence.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
