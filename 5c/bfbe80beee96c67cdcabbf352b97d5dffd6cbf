@@ -1,0 +1,4 @@
+Task: Inert final-v0.2 candidate
+Summary: Added a distinct pending fixture execution-authorization candidate, strict schema, deterministic builder, recursive fail-closed verifier, mutation tests, and updated inventories.
+Verification: candidate SHA a1aab22f6f7870497f639e871cc4aa13d209ca35b72f8da89559bcf9940dab1d; focused candidate/inventory suite 28 passed; Ruff lint/format passed; task-scoped ty passed; full pytest passed across 595 collected tests including 2 skips; three independent reviews passed.
+Boundary: Candidate only. Human approval absent; authorization ineffective; pre-execution verification, context presentation, analysis, reconciliation, execution, human-reviewed/empirical claims, release, and publication remain prohibited.
