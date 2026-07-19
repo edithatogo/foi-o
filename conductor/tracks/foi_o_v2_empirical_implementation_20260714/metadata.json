@@ -54,7 +54,8 @@
       "authorization_refs": [
         "examples/v2/annotation-protocol-review.approved.json"
       ],
-      "note": "Protocol SHA-256 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63 is approved for design only; sample membership remains unauthorized."
+      "request_ref": "examples/v2/bounded-empirical-pilot-sample.pending.json",
+      "note": "The two-request local pilot is proposed but purpose-rights expansion and sample membership remain unauthorized. It can support only case-level feasibility claims."
     },
     {
       "id": "G-EMP-ANALYST-EXECUTION",

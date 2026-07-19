@@ -173,6 +173,7 @@ gates:
       - authentic_frozen_sample
       - authentic_empirical_evaluation
     analyst_protocol: docs/43-v2-analyst-empirical-validation-protocol.md
+    pending_pilot_sample: examples/v2/bounded-empirical-pilot-sample.pending.json
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
