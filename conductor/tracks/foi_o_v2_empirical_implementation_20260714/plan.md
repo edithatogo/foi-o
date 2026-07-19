@@ -440,6 +440,28 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     reviews passed; post-commit verifier passed against exact commit
     `21c6db101e3afee4de96d8e2d924331eb76d9dbe`. No fixture context, label,
     peer output, analysis, or reconciliation was delivered.
+  - [x] Inert final-v0.2 candidate subtask: construct and commit a distinct
+    pending candidate that pins the approved inputs, protocol, four completed
+    runtime-handshake records, exact role prompts and locators, context
+    presentation manifest, and isolation plan. Human approval must remain absent
+    and every context, analysis, reconciliation, execution, claim, and promotion
+    gate must remain false. The candidate's exact SHA-256 and commit require a
+    later separate human approval before any executable authorization may be
+    derived or any fixture context presented (`5cbfbe8`). Output:
+    `examples/v2/analyst-fixture-packet/execution-authorization-candidate.v0.2.pending.json`,
+    SHA-256
+    `a1aab22f6f7870497f639e871cc4aa13d209ca35b72f8da89559bcf9940dab1d`.
+    Verification: strict distinct pending schema; deterministic generation;
+    recursive full-DAG, four-role, canonical-path, ancestry, and inert-gate
+    verification; 28 focused candidate/inventory tests; Ruff lint/format and
+    task-scoped `ty` clean; full suite passed across 595 collected tests
+    including 2 skips; three independent reviews passed; post-commit verifier
+    passed against exact commit `5cbfbe80beee96c67cdcabbf352b97d5dffd6cbf`.
+  - [ ] Exact candidate-approval and executable-v0.2 gate: obtain separate exact
+    human approval naming candidate SHA-256 `a1aab22f…` and commit `5cbfbe8…`,
+    then deterministically derive and commit the executable v0.2 authorization.
+    Present no fixture context and run no analysis unless its pre-execution
+    verifier passes against that executable artifact's exact SHA-256 and commit.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
