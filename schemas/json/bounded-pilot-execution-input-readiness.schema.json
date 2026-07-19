@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-execution-input-readiness:0.1.0",
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha"}}},
+    "unit": {"type": "object", "additionalProperties": false, "required": ["request_id", "unit_id", "unit_sha256", "request_linkage_sha256", "cluster_id", "split", "sample_component", "inclusion_probability", "sampling_weight", "authentic_input", "rights_eligible"], "properties": {"request_id": {"enum": ["11872", "35076"]}, "unit_id": {"type": "string", "pattern": "^nz:fyi:request:(11872|35076):raw-state-pilot-v1$"}, "unit_sha256": {"$ref": "#/$defs/sha"}, "request_linkage_sha256": {"$ref": "#/$defs/sha"}, "cluster_id": {"type": "string", "pattern": "^request:[a-f0-9]{64}$"}, "split": {"const": "annotation_only"}, "sample_component": {"const": "purposive_case_pilot"}, "inclusion_probability": {"const": null}, "sampling_weight": {"const": null}, "authentic_input": {"const": true}, "rights_eligible": {"const": true}}},
+    "cluster": {"type": "object", "additionalProperties": false, "required": ["cluster_id", "member_unit_sha256", "split"], "properties": {"cluster_id": {"type": "string", "pattern": "^request:[a-f0-9]{64}$"}, "member_unit_sha256": {"type": "array", "minItems": 1, "maxItems": 1, "items": {"$ref": "#/$defs/sha"}}, "split": {"const": "annotation_only"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "readiness_id", "status", "artifacts", "request_linkage_algorithm", "unit_identity_algorithm", "cluster_algorithm", "sampling", "units", "clusters", "evidence_approved", "codebook_approved", "inputs_ready", "context_presentation_allowed", "execution_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-execution-input-readiness.v0.1.0"},
+    "readiness_id": {"const": "bounded-pilot-inputs-11872-35076"},
+    "status": {"const": "approved_components_pending_attachment_derivation_and_exact_readiness_approval"},
+    "artifacts": {"type": "object", "additionalProperties": false, "required": ["protocol_approval", "sample_approval", "evidence_manifest", "blinded_codebook", "input_approval"], "properties": {"protocol_approval": {"$ref": "#/$defs/pin"}, "sample_approval": {"$ref": "#/$defs/pin"}, "evidence_manifest": {"$ref": "#/$defs/pin"}, "blinded_codebook": {"$ref": "#/$defs/pin"}, "input_approval": {"$ref": "#/$defs/pin"}}},
+    "request_linkage_algorithm": {"const": "sha256_canonical_json_utf8_jurisdiction_source_system_request_id_v1"},
+    "unit_identity_algorithm": {"const": "sha256_canonical_json_utf8_sort_keys_compact_evidence_record_v1"},
+    "cluster_algorithm": {"const": "request_identity_singleton_v1"},
+    "sampling": {"type": "object", "additionalProperties": false, "required": ["design", "member_count", "random_seed", "inclusion_probabilities", "weights", "bootstrap", "population_inference_allowed", "archive_wide_claim_allowed", "claim_scope"], "properties": {"design": {"const": "purposive_case_pilot"}, "member_count": {"const": 2}, "random_seed": {"const": null}, "inclusion_probabilities": {"const": null}, "weights": {"const": null}, "bootstrap": {"const": null}, "population_inference_allowed": {"const": false}, "archive_wide_claim_allowed": {"const": false}, "claim_scope": {"const": "case_level_feasibility_for_requests_11872_and_35076_only"}}},
+    "units": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/unit"}},
+    "clusters": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/cluster"}},
+    "evidence_approved": {"const": true},
+    "codebook_approved": {"const": true},
+    "inputs_ready": {"const": false},
+    "context_presentation_allowed": {"const": false},
+    "execution_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false}
+  }
+}

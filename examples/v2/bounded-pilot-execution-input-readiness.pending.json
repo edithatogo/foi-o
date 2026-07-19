@@ -1,0 +1,32 @@
+{
+  "schema_version": "foi-o.bounded-pilot-execution-input-readiness.v0.1.0",
+  "readiness_id": "bounded-pilot-inputs-11872-35076",
+  "status": "approved_components_pending_attachment_derivation_and_exact_readiness_approval",
+  "artifacts": {
+    "protocol_approval": {"path": "examples/v2/analyst-empirical-protocol-approval.approved.json", "sha256": "f4e95cdf065397d5a1d6fcef731297b43c83bdeb835a793321a47e6f97de545d"},
+    "sample_approval": {"path": "examples/v2/bounded-empirical-pilot-sample.approved.json", "sha256": "f6fde49c1e39d86614497b91eeb579ffab8ccdd27e9119b802c54893734036d9"},
+    "evidence_manifest": {"path": "examples/v2/bounded-pilot-evidence-manifest.pending.json", "sha256": "ec0fd4bf4b68bf265ea2bb342982816a820ccefcd2c8c7f69c4324f76851f6cd"},
+    "blinded_codebook": {"path": "examples/v2/bounded-pilot-blinded-codebook.pending.json", "sha256": "2848b675b63231d97fb4d47f5b8bdff4cd1e9947676ed50af80dbaa0e128bde9"},
+    "input_approval": {"path": "examples/v2/bounded-pilot-input-approval.approved.json", "sha256": "a00e62626a666f928c26c1a68859b1ebac78fdf41aa0038ddec3de7dc6728748"}
+  },
+  "request_linkage_algorithm": "sha256_canonical_json_utf8_jurisdiction_source_system_request_id_v1",
+  "unit_identity_algorithm": "sha256_canonical_json_utf8_sort_keys_compact_evidence_record_v1",
+  "cluster_algorithm": "request_identity_singleton_v1",
+  "sampling": {"design": "purposive_case_pilot", "member_count": 2, "random_seed": null, "inclusion_probabilities": null, "weights": null, "bootstrap": null, "population_inference_allowed": false, "archive_wide_claim_allowed": false, "claim_scope": "case_level_feasibility_for_requests_11872_and_35076_only"},
+  "units": [
+    {"request_id": "11872", "unit_id": "nz:fyi:request:11872:raw-state-pilot-v1", "unit_sha256": "72008c065600b0dfc92aed8a5688ed1d0e3d564f0764a767dd8703e51f65bcf6", "request_linkage_sha256": "203d40c210fa44a874f4d2e1f226f410a42cb19ff6efaa093b70c693b1ce54bb", "cluster_id": "request:203d40c210fa44a874f4d2e1f226f410a42cb19ff6efaa093b70c693b1ce54bb", "split": "annotation_only", "sample_component": "purposive_case_pilot", "inclusion_probability": null, "sampling_weight": null, "authentic_input": true, "rights_eligible": true},
+    {"request_id": "35076", "unit_id": "nz:fyi:request:35076:raw-state-pilot-v1", "unit_sha256": "25ba0bf1d53d9580c3e331281c3841710982eb75c8fed2f59bb5a223296ffb9d", "request_linkage_sha256": "af50a64c73a5ab8855b142011c40a2cc0787d0015c3235f20184d6de98f594b8", "cluster_id": "request:af50a64c73a5ab8855b142011c40a2cc0787d0015c3235f20184d6de98f594b8", "split": "annotation_only", "sample_component": "purposive_case_pilot", "inclusion_probability": null, "sampling_weight": null, "authentic_input": true, "rights_eligible": true}
+  ],
+  "clusters": [
+    {"cluster_id": "request:203d40c210fa44a874f4d2e1f226f410a42cb19ff6efaa093b70c693b1ce54bb", "member_unit_sha256": ["72008c065600b0dfc92aed8a5688ed1d0e3d564f0764a767dd8703e51f65bcf6"], "split": "annotation_only"},
+    {"cluster_id": "request:af50a64c73a5ab8855b142011c40a2cc0787d0015c3235f20184d6de98f594b8", "member_unit_sha256": ["25ba0bf1d53d9580c3e331281c3841710982eb75c8fed2f59bb5a223296ffb9d"], "split": "annotation_only"}
+  ],
+  "evidence_approved": true,
+  "codebook_approved": true,
+  "inputs_ready": false,
+  "context_presentation_allowed": false,
+  "execution_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false
+}

@@ -176,6 +176,8 @@ gates:
     pending_pilot_sample: examples/v2/bounded-empirical-pilot-sample.pending.json
     approved_pilot_sample: examples/v2/bounded-empirical-pilot-sample.approved.json
     pending_evidence_manifest: examples/v2/bounded-pilot-evidence-manifest.pending.json
+    approved_input_components: examples/v2/bounded-pilot-input-approval.approved.json
+    pending_execution_input_readiness: examples/v2/bounded-pilot-execution-input-readiness.pending.json
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
