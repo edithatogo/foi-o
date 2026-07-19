@@ -743,6 +743,20 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     and refresh the inert request to pin its exact committed wrapper bytes.
     Executable diagnostic-request SHA-256 is `b2e426f5…`. Verification: 16
     focused tests and full suite 734 passed, 2 skipped; no real PDF/tool run.
+  - [x] Stderr-diagnostic provenance and traversal repair subtask (`d11a4b2`,
+    `bcbb586`): independent review of the approved `b2e426f5…` request found
+    that the production verifier targeted a different nonexistent request
+    contract, ordinary derivation could retain stderr without diagnostic
+    permission, and diagnostic execution stopped after one source. Align the
+    verifier with the governed request, require exact committed provenance,
+    separate ordinary non-retention from diagnostic quarantine, and cover all
+    three sources in both passes while retaining no derived text. The earlier
+    approval cannot authorize the corrected wrapper because it pinned the
+    superseded wrapper bytes. Refreshed inert request SHA-256 is `b8c16f51…`
+    at commit `bcbb586`; exact approval of that hash and commit is required
+    before final authorization or PDF processing. Verification: 17 focused
+    tests, example validation, Ruff, and full suite 735 passed, 2 skipped; no
+    real PDF/tool run.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
