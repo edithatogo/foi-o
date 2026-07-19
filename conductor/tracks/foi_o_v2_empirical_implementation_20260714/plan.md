@@ -698,6 +698,15 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     SHA-256 is `a00e6262…`; readiness-candidate SHA-256 is `2ff95259…`.
     Verification: 14 focused tests, Ruff, example validation, exact historical
     `commit:path` hash checks, and full suite 705 passed, 2 skipped.
+  - [x] Attachment text-derivation method candidate subtask (`70e9928`): pin the three
+    approved request `11872` PDF inputs, exact local Poppler executable and
+    arguments, deterministic output naming, all-or-nothing failure semantics,
+    and restricted-output handling without processing or committing source
+    content. Keep derivation, context presentation, execution, empirical
+    evidence, human review, and gold eligibility false pending exact approval.
+    Candidate SHA-256 is `99918773…`. Verification: 3 focused tests, Ruff,
+    example validation, and full suite 708 passed, 2 skipped; no PDF extraction
+    command was executed and no restricted source or derived content was committed.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
