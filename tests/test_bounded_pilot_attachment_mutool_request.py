@@ -94,4 +94,3 @@ def test_mutool_execution_request_remains_inert() -> None:
     assert not source.is_relative_to(ROOT)
     assert not output.is_relative_to(ROOT)
     assert source != output
-    assert not output.exists()

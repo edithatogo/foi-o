@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-mutool-derivation-result:0.1.0",
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha"}, "repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}}},
+    "output": {"type": "object", "additionalProperties": false, "required": ["output_name", "source_sha256", "output_sha256", "byte_count", "repeat_outputs_match"], "properties": {"output_name": {"type": "string", "pattern": "^attachment-00[0-2]\\.txt$"}, "source_sha256": {"$ref": "#/$defs/sha"}, "output_sha256": {"$ref": "#/$defs/sha"}, "byte_count": {"type": "integer", "minimum": 1}, "repeat_outputs_match": {"const": true}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "result_id", "status", "recorded_at", "authorization", "execution_request", "wrapper", "source_root", "output_directory", "pre_execution_verifier_passed", "tool_invoked", "pass_count", "source_count", "output_count", "repeat_outputs_match", "nonempty_stderr_observed", "stderr_retained", "stderr_review_authorized", "derivation_retry_authorized", "output_directory_permissions", "output_file_permissions", "manifest_sha256", "outputs", "temporary_workspace_remaining", "restricted_outputs_committed", "local_only", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible", "legal_certification", "redistribution_allowed", "publication_allowed", "release_allowed", "dataset_publication_allowed", "paper_updates_allowed"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-mutool-derivation-result.v0.1.0"},
+    "result_id": {"const": "bounded-pilot-11872-attachment-mutool-derivation-1"},
+    "status": {"const": "bounded_local_derivation_complete_context_still_prohibited"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "authorization": {"$ref": "#/$defs/pin"}, "execution_request": {"$ref": "#/$defs/pin"}, "wrapper": {"$ref": "#/$defs/pin"},
+    "source_root": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"}, "output_directory": {"const": "/private/tmp/foio-bounded-pilot-11872-derived"},
+    "pre_execution_verifier_passed": {"const": true}, "tool_invoked": {"const": true}, "pass_count": {"const": 2}, "source_count": {"const": 3}, "output_count": {"const": 3}, "repeat_outputs_match": {"const": true},
+    "nonempty_stderr_observed": {"const": false}, "stderr_retained": {"const": false}, "stderr_review_authorized": {"const": false}, "derivation_retry_authorized": {"const": false},
+    "output_directory_permissions": {"const": "0700"}, "output_file_permissions": {"const": "0600"}, "manifest_sha256": {"$ref": "#/$defs/sha"},
+    "outputs": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"$ref": "#/$defs/output"}},
+    "temporary_workspace_remaining": {"const": false}, "restricted_outputs_committed": {"const": false}, "local_only": {"const": true},
+    "context_presentation_allowed": {"const": false}, "analyst_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "legal_certification": {"const": false}, "redistribution_allowed": {"const": false}, "publication_allowed": {"const": false}, "release_allowed": {"const": false}, "dataset_publication_allowed": {"const": false}, "paper_updates_allowed": {"const": false}
+  }
+}
