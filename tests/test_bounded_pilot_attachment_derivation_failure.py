@@ -72,5 +72,6 @@ def test_failure_evidence_is_fail_closed_and_contains_no_derived_content() -> No
         text=True,
     ).stdout.splitlines()
     assert not any(
-        path.startswith("examples/v2/bounded-pilot") and path.endswith(".txt") for path in tracked
+        path.startswith("examples/v2/bounded-pilot-attachment") and path.endswith(".txt")
+        for path in tracked
     )
