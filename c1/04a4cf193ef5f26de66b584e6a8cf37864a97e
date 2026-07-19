@@ -1,0 +1,5 @@
+Retrospective workflow evidence for task commit c104a4c.
+Task: pin inert fixture diagnostics bootstrap method candidate.
+Verification: focused tests, Ruff, type checks, full suite, exact committed candidate verification, and independent review passed.
+Historical deviations: commit body omitted required 'Commit notes:' and functional artifact plus plan update were combined; documented without rewriting history.
+Risks: candidate remained inert until later exact human approval and separate executable authorization.
