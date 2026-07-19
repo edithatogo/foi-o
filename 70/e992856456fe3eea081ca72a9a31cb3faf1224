@@ -1,0 +1,5 @@
+Task: bounded pilot attachment text-derivation method candidate
+Summary: Pinned the exact three approved PDF metadata records, portable pdftotext method, observed local runtime hash, two-pass byte-identity rule, strict UTF-8/citation coordinates, safe local storage, and all-or-nothing failure semantics. No PDF was processed.
+Files: method schema/candidate/test plus coverage inventory and track gate metadata.
+Verification: 3 focused tests; Ruff; example validation; uv sync --extra dev --extra rdf; uv run pytest -q (708 passed, 2 skipped).
+Remaining risks: candidate needs exact hash-bound method approval; runtime/wrapper authorization, derivation, readiness, context presentation, and analyst execution remain separate.
