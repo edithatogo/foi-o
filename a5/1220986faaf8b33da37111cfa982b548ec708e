@@ -1,0 +1,5 @@
+Task: bounded pilot input approval and readiness
+Summary: Recorded edithatogo's exact approval of the evidence census and blinded codebook; froze deterministic request linkage, unit identity, singleton clusters, and purposive non-inferential sampling while retaining fail-closed execution boundaries.
+Files: approval/readiness schemas and artifacts, tests, coverage inventory, track metadata, release gates.
+Verification: uv sync --extra dev --extra rdf; uv run pytest -q (705 passed, 2 skipped); 14 focused tests; Ruff; example validation; historical commit:path hash verification.
+Remaining risks: attachment text derivation, exact overall readiness authorization, clean-HEAD pre-execution verification, context presentation, execution, reconciliation, and empirical claims remain prohibited or pending.
