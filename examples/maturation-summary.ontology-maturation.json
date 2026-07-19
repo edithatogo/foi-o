@@ -16,11 +16,11 @@
   ],
   "inventory": {
     "documentation_files": 55,
-    "example_files": 231,
-    "json_schema_files": 166,
+    "example_files": 232,
+    "json_schema_files": 167,
     "mapping_files": 6,
     "owl_ontology_files": 1,
-    "python_test_modules": 130,
+    "python_test_modules": 131,
     "shacl_files": 1,
     "skos_vocabulary_files": 4
   },

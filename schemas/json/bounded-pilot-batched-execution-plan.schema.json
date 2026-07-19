@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:bounded-pilot-batched-execution-plan:0.1.0", "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "status", "scope", "governed_inputs", "local_roots", "context_contract", "stages", "failure_policy", "requested_permissions_after_exact_approval", "authorization_present", "execution_allowed", "empirical_result_approved", "human_reviewed", "gold_eligible", "population_inference_allowed", "archive_wide_claim_allowed", "redistribution_allowed", "publication_allowed", "release_allowed", "dataset_publication_allowed", "arxiv_submission_allowed", "external_action_allowed", "final_exact_results_and_package_approval_required"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-batched-execution-plan.v0.1.0"}, "plan_id": {"const": "bounded-pilot-11872-35076-analysis-to-arxiv-readiness"}, "status": {"const": "pending_single_exact_batched_execution_approval"},
+    "scope": {"type": "object"}, "governed_inputs": {"type": "object"}, "local_roots": {"type": "object"}, "context_contract": {"type": "object"},
+    "stages": {"type": "array", "minItems": 8, "maxItems": 8}, "failure_policy": {"type": "object"}, "requested_permissions_after_exact_approval": {"type": "object"},
+    "authorization_present": {"const": false}, "execution_allowed": {"const": false}, "empirical_result_approved": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "population_inference_allowed": {"const": false}, "archive_wide_claim_allowed": {"const": false}, "redistribution_allowed": {"const": false}, "publication_allowed": {"const": false}, "release_allowed": {"const": false}, "dataset_publication_allowed": {"const": false}, "arxiv_submission_allowed": {"const": false}, "external_action_allowed": {"const": false}, "final_exact_results_and_package_approval_required": {"const": true}
+  }
+}
