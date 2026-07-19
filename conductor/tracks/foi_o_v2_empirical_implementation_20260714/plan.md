@@ -686,6 +686,18 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     vocabulary and analyst decision/abstention/span rules while explicitly
     excluding candidate mappings, confidence, and prior review outcomes.
     Approval and execution remain false pending exact authorization.
+  - [x] Bounded pilot input-approval and readiness subtask (`a512209`): bind `edithatogo`'s
+    exact approval of the committed evidence census and blinded codebook for
+    bounded local execution-input promotion only, preserving every stated
+    context, execution, inference, promotion, and external-action prohibition;
+    freeze the purposive two-case unit identities, request-linkage digests,
+    singleton clusters, and non-inferential sampling semantics. Keep overall
+    input readiness, context presentation, execution, empirical evidence,
+    human review, and gold eligibility false pending exact approval and the
+    separately governed attachment-text derivation method. Approval-record
+    SHA-256 is `a00e6262…`; readiness-candidate SHA-256 is `2ff95259…`.
+    Verification: 14 focused tests, Ruff, example validation, exact historical
+    `commit:path` hash checks, and full suite 705 passed, 2 skipped.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
