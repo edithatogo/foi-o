@@ -1,0 +1,184 @@
+{
+  "approval": null,
+  "bootstrap": {
+    "cluster_draws_per_replicate": 11,
+    "cluster_sampling_operation": "randrange",
+    "draw_call": "randrange(11)",
+    "draw_sequence": {
+      "encoding": "canonical_compact_json_nested_integer_arrays",
+      "first_replicate": [
+        5,
+        4,
+        2,
+        8,
+        3,
+        3,
+        1,
+        9,
+        6,
+        6,
+        9
+      ],
+      "last_replicate": [
+        4,
+        7,
+        7,
+        0,
+        6,
+        2,
+        3,
+        10,
+        8,
+        7,
+        4
+      ],
+      "sha256": "9bb377fa38ed7758545eedb7676d2996ca6ac23cd06b72b7ecddb9b768728238",
+      "shape": [
+        2000,
+        11
+      ],
+      "total_draws": 22000
+    },
+    "generator": "MT19937",
+    "implementation": "python_stdlib_random.Random",
+    "metric_resample_rule": "one_shared_resample_per_replicate_reused_for_all_metrics",
+    "python_compatible_state_and_seeding": true,
+    "replicate_accounting": "per_metric_valid_and_invalid",
+    "replicates": 2000,
+    "resampling_unit": "singleton_duplicate_cluster",
+    "runtime": "CPython 3.14.5",
+    "sample_size_rule": "sample_size_equals_observed_cluster_count",
+    "sampled_unit_order": "concatenate_sampled_clusters_in_draw_order_and_units_within_each_cluster_in_canonical_unit_order",
+    "seed": 20260717,
+    "seed_call": "Random().seed(20260717, version=2)",
+    "stream_lifecycle": "initialize_once_before_replicate_1_and_never_restart"
+  },
+  "bootstrap_execution_allowed": false,
+  "candidate_id": "local-fixture-diagnostics-method-v1",
+  "diagnostics_finalization_allowed": false,
+  "diagnostics_inputs": {
+    "analysis_lock": {
+      "path": "examples/v2/analyst-fixture-packet/results/analysis-lock.locked.json",
+      "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+      "sha256": "79faff0d554df7baff3e9f052dbc7f3a55d3e0e09baec95ab020fb3c4c002d1c"
+    },
+    "cluster_registry": {
+      "path": "examples/v2/analyst-fixture-packet/cluster-registry.json",
+      "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+      "sha256": "4aef78cbad8a243a450de5c7f2fad1b21912bc4a26f1576375d1b163ad8cd14e"
+    },
+    "codebook": {
+      "path": "examples/v2/analyst-fixture-packet/codebook.approved.json",
+      "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+      "sha256": "d918f1b705debcd6d8a14c078d7d0044e23c10615c9a7c27e4122d03088bbfdc"
+    },
+    "context_presentation": {
+      "path": "examples/v2/analyst-fixture-packet/context-presentation.pending.json",
+      "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+      "sha256": "72b75eb688541a712a62bea2569fb84353930c089ebaf8fc1082128aa3ef0e63"
+    },
+    "ordered_analysis_sets": [
+      {
+        "path": "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-a.locked.json",
+        "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+        "sha256": "d22f72d91ade4a4a5992ba50ba54afa1586203a23d394f256066ef23b4b6c400"
+      },
+      {
+        "path": "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-b.locked.json",
+        "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+        "sha256": "ff72a35f840c97f26b07108c963574d664359b260719ad0dfc7c2986c0d665dd"
+      }
+    ],
+    "sampling_configuration": {
+      "path": "examples/v2/analyst-fixture-packet/sampling-configuration.approved.json",
+      "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+      "sha256": "1a88278bff5d2d682ae56d119d7ed25b899a60214e71067e37f178052f4bfbc8"
+    },
+    "unit_manifest": {
+      "path": "examples/v2/analyst-fixture-packet/unit-manifest.json",
+      "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+      "sha256": "a847c4f131ddcaaf8151d13c767859e8269bd1cca14ada20cf220d7c755ccddf"
+    }
+  },
+  "diagnostics_results_present": false,
+  "empirical_evidence": false,
+  "exact_approval_required": "named human approval of this exact candidate SHA-256 and committed repository commit",
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "intervals": {
+    "confidence_level": 0.95,
+    "formula": "sort x ascending; for p in {0.025,0.975}, h=(n-1)*p, j=floor(h), g=h-j, q=(1-g)*x[j]+g*x[j+1], using zero-based indices; when j=n-1 return x[n-1]",
+    "interpolation": "linear",
+    "method": "percentile",
+    "quantile_definition": "Hyndman-Fan_type_7",
+    "sides": "two_sided",
+    "tail_probabilities": [
+      0.025,
+      0.975
+    ]
+  },
+  "local_only": true,
+  "metric_evaluation": {
+    "non_kappa_requirement": "defined_on_every_replicate_or_build_fails",
+    "order": [
+      "raw_label_agreement",
+      "cohen_kappa",
+      "abstention_agreement",
+      "reconciliation_trigger_rate"
+    ],
+    "span_metrics": "not_bootstrapped_zero_eligible_span_units"
+  },
+  "population": {
+    "cluster_count": 11,
+    "ordered_unit_commitment_sha256": "d6e5c6b425903f09c6e3e08e0d6c4ccdee11eea91835d6ba96f64ba3306cf8ca",
+    "ordered_unit_ids": [
+      "pm-01",
+      "pm-02",
+      "pm-03",
+      "pm-04",
+      "pm-05",
+      "pm-06",
+      "pm-07",
+      "pm-08",
+      "pm-09",
+      "tl-01",
+      "tl-02"
+    ],
+    "source": "ordered_11_cluster_fixture_census_from_cluster_registry_and_analysis_lock",
+    "unit_count": 11
+  },
+  "prohibited_actions": [
+    "bootstrap_execution",
+    "diagnostics_finalization",
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "reconciliation": {
+    "path": "examples/v2/analyst-fixture-packet/results/reconciliation-set.locked.json",
+    "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+    "sha256": "09e2f7ad14298dac824acc21fac9bad6cfa5a6dfa62b9c2b7cd7ff870e183102"
+  },
+  "release_qualifying": false,
+  "schema_version": "foi-o.fixture-diagnostics-method-candidate.v0.1.0",
+  "span_metrics": {
+    "bootstrapped": false,
+    "eligible_unit_count": 0,
+    "null_input_metrics_remain_null": true
+  },
+  "status": "pending_exact_human_approval",
+  "undefined_metrics": {
+    "kappa_handling": "exclude_undefined_replicates_from_kappa_interval_only_and_count_and_report_them",
+    "kappa_predicate": "undefined exactly when expected_agreement == 1, including an empty eligible-label denominator",
+    "other_metrics": "must_be_defined_on_every_replicate_or_build_fails"
+  }
+}

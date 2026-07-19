@@ -492,11 +492,20 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     allowed. The two first-pass sets remain agent analysis only: not human
     reviewed, empirical evidence, gold, release qualifying, or publication
     eligible.
-  - [~] Authorized fixture-reconciliation subtask: present only the approved
+  - [x] Authorized fixture-reconciliation subtask: present only the approved
     context and both exact verified locked first-pass sets to the governed
     reconciler, preserve every first-pass record, record reasoned candidate or
     unresolved outcomes for disagreements, and keep all human-review,
     empirical-evidence, gold, release, and publication gates false.
+    The exact locked reconciliation is committed at `6dcf482`; its two
+    disagreements are resolved only as local agent candidates and its recursive
+    lock verifier permits diagnostic preparation, not empirical claims.
+  - [~] Fixture-diagnostics method-approval subtask: pin the previously
+    unspecified bootstrap generator, sampling operation, replicate accounting,
+    percentile interpolation, undefined-kappa handling, and null-span behavior
+    in an inert deterministic candidate. Bootstrap execution and diagnostics
+    finalization remain prohibited until a named human approves the exact
+    candidate SHA-256 and the commit containing it.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
