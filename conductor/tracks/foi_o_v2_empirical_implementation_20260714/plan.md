@@ -682,7 +682,7 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     request `11872` attachments, and request `35076`'s verified empty inventory.
     Restricted contents remain local and uncommitted; authentic input is true
     while empirical evidence, context presentation, and execution remain false.
-  - [x] Blinded pilot-codebook candidate subtask: pin the 17-concept request-state
+  - [x] Blinded pilot-codebook candidate subtask (`3e9de34`): pin the 17-concept request-state
     vocabulary and analyst decision/abstention/span rules while explicitly
     excluding candidate mappings, confidence, and prior review outcomes.
     Approval and execution remain false pending exact authorization.
