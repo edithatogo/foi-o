@@ -1,0 +1,5 @@
+Review Fixes: diagnostics pre-execution gate
+Finding: direct diagnostics build did not itself invoke the exact authorization verifier.
+Fix: document/build/verify now acquire fresh current-clean-HEAD authorization; build reacquires immediately before write.
+Verification: 38 combined focused tests; Ruff; format; scoped ty; full suite 678 passed, 2 skipped; independent security review and arbitration completed.
+Remaining boundary: pure math helpers are not governed artifact execution; trusted-module monkeypatching is outside the ordinary API threat boundary.
