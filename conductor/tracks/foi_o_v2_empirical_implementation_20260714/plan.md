@@ -157,6 +157,9 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     four hash-pinned review items. The approval is recorded at
     `2026-07-16T09:34:52Z` in
     `examples/v2/human-promotion-review-packet.approved.json` (`99fe183`).
+    This approval is limited to those four named review items; it does not
+    classify the later agent fixture analyses, reconciliation, or diagnostics
+    as human-reviewed, gold, empirical, legally certified, or promotable.
   - [x] Review-packet subtask: SHA-256-pin the independent fixture set, legal
     source mapping, OIA version index, and rights registry in
     `examples/v2/human-promotion-review-packet.approved.json` (`533fae4`, then
@@ -521,11 +524,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     inter-agent diagnostics only, not empirical evidence, human-reviewed
     reliability, gold labels, legal certification, release evidence, or
     publication evidence.
-    - [~] Review Fixes: require every sanctioned diagnostics entry point and
+    - [x] Review Fixes (`6e116ad`): require every sanctioned diagnostics entry point and
       governed output write, including direct `document`, `build`, and deterministic post-commit
       verification paths, to acquire a fresh executable-authorization result
       for the exact current clean HEAD; cover dirty, pre-authorization, absent,
       and forged-permission failures plus a clean committed descendant success.
+      Verification: 38 combined focused tests; Ruff, format, and scoped `ty`
+      clean; full suite 678 passed, 2 skipped; the exact diagnostics verifier
+      re-passed at clean commit `6e116adab462cf01fa2cfee7f98b0439b04f2fdf`.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
