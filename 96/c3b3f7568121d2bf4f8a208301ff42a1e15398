@@ -1,0 +1,4 @@
+Plan checkpoint: diagnostics review fixes
+Summary: marked the sanctioned-entrypoint authorization fix complete and clarified that the historical four-item approval does not promote later agent outputs.
+Verification: exact verifier passed at 6e116ad; full suite 678 passed, 2 skipped.
+Historical evidence: retrospective git notes were added to edf3b56, aa9b559, 6dcf482, and c104a4c without rewriting history.
