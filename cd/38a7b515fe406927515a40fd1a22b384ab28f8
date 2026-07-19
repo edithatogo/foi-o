@@ -1,0 +1,1 @@
+Task: Prepare bounded independent MuPDF extraction-method candidate.\nFiles: inert candidate, schema, tests, and mechanical inventory updates.\nVerification: 13 focused tests, Ruff, examples validation, and full suite 755 passed, 2 skipped.\nBoundary: method/runtime/processing flags remain false pending exact approval.
