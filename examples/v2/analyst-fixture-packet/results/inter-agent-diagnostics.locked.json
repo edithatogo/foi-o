@@ -1,0 +1,130 @@
+{
+  "analysis_lock": {
+    "path": "examples/v2/analyst-fixture-packet/results/analysis-lock.locked.json",
+    "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+    "sha256": "79faff0d554df7baff3e9f052dbc7f3a55d3e0e09baec95ab020fb3c4c002d1c"
+  },
+  "authorization": {
+    "path": "examples/v2/analyst-fixture-packet/diagnostics-execution-authorization.pending-verification.json",
+    "repository_commit": "da00026e98bbbac319a36d94e57fff2e8d8f9fc0",
+    "sha256": "3f0bd017674e0e72e5e383f8a16d7e6ff1e14f988bc82c89a720d648b51df7d8"
+  },
+  "bootstrap": {
+    "draw_count": 22000,
+    "draw_sequence_sha256": "9bb377fa38ed7758545eedb7676d2996ca6ac23cd06b72b7ecddb9b768728238",
+    "interval_method": "two_sided_cluster_bootstrap_percentile",
+    "quantile_definition": "Hyndman-Fan_type_7",
+    "replicates": 2000,
+    "runtime": "CPython 3.14.5",
+    "seed": 20260717
+  },
+  "empirical_evidence": false,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "method_candidate": {
+    "path": "examples/v2/analyst-fixture-packet/diagnostics-method-candidate.pending.json",
+    "repository_commit": "c104a4cf193ef5f26de66b584e6a8cf37864a97e",
+    "sha256": "6e44b634e1bfde2cc21dd99f79fd0ad4bcd5a7fb96d361be7aae09567ed4c699"
+  },
+  "metrics": {
+    "abstention_agreement": {
+      "bootstrap_replicates_invalid": 0,
+      "bootstrap_replicates_valid": 2000,
+      "confidence_interval": {
+        "lower": 0.7272727272727273,
+        "upper": 1.0
+      },
+      "denominator": 11,
+      "estimate": 0.9090909090909091,
+      "numerator": 10
+    },
+    "cohen_kappa": {
+      "bootstrap_replicates_invalid": 2,
+      "bootstrap_replicates_valid": 1998,
+      "confidence_interval": {
+        "lower": 0.4,
+        "upper": 1.0
+      },
+      "denominator": 10,
+      "estimate": 0.8333333333333334,
+      "numerator": null
+    },
+    "raw_label_agreement": {
+      "bootstrap_replicates_invalid": 0,
+      "bootstrap_replicates_valid": 2000,
+      "confidence_interval": {
+        "lower": 0.7,
+        "upper": 1.0
+      },
+      "denominator": 10,
+      "estimate": 0.9,
+      "numerator": 9
+    },
+    "reconciliation_trigger_rate": {
+      "bootstrap_replicates_invalid": 0,
+      "bootstrap_replicates_valid": 2000,
+      "confidence_interval": {
+        "lower": 0.0,
+        "upper": 0.45454545454545453
+      },
+      "denominator": 11,
+      "estimate": 0.18181818181818182,
+      "numerator": 2
+    }
+  },
+  "ordered_analysis_sets": [
+    {
+      "path": "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-a.locked.json",
+      "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+      "sha256": "d22f72d91ade4a4a5992ba50ba54afa1586203a23d394f256066ef23b4b6c400"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-b.locked.json",
+      "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+      "sha256": "ff72a35f840c97f26b07108c963574d664359b260719ad0dfc7c2986c0d665dd"
+    }
+  ],
+  "population": {
+    "cluster_count": 11,
+    "eligible_label_pair_count": 10,
+    "reconciliation_trigger_count": 2,
+    "unit_count": 11
+  },
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "reconciliation": {
+    "path": "examples/v2/analyst-fixture-packet/results/reconciliation-set.locked.json",
+    "repository_commit": "6dcf482cdee5865bfc35813d648a13de5ac32866",
+    "sha256": "09e2f7ad14298dac824acc21fac9bad6cfa5a6dfa62b9c2b7cd7ff870e183102"
+  },
+  "reconciliation_census": {
+    "coverage_complete": true,
+    "disagreement_entries": 2,
+    "reconciled_entries": 2,
+    "resolved_entries": 2,
+    "unresolved_entries": 0
+  },
+  "release_qualifying": false,
+  "report_id": "local-fixture-inter-agent-diagnostics-v1",
+  "schema_version": "foi-o.fixture-inter-agent-diagnostics.v0.1.0",
+  "span_metrics": {
+    "bootstrapped": false,
+    "eligible_unit_count": 0,
+    "exact_agreement": null,
+    "overlap_f1": null
+  },
+  "status": "locked_local_agent_diagnostics"
+}
