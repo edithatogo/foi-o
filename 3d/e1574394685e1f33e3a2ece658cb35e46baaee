@@ -1,0 +1,1 @@
+Task: Approve bounded attachment stderr content review.\nFiles: exact approval, schema, tests, and mechanical inventory updates.\nVerification: 12 focused tests, Ruff, examples validation, and full suite 750 passed, 2 skipped.\nBoundary: review is local and metadata-only; derivation retry remains unauthorized.
