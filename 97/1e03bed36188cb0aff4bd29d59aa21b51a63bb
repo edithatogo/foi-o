@@ -1,0 +1,3 @@
+Task: Commit the inert bounded request-11872 MuPDF execution request.
+Verification: exact contract and wrapper-pin tests; examples validation; full suite 779 passed, 2 skipped.
+Boundary: request SHA f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148; no processing or downstream execution authorized pending exact approval.
