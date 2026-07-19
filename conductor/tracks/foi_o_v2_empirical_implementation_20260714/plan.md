@@ -665,6 +665,13 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     pending request at `f8cfa72d…`, and keep sample membership, execution,
     empirical claims, promotion, and external actions false. Verification:
     5 focused approval tests, Ruff, and full suite 686 passed, 2 skipped.
+  - [x] Bounded empirical-pilot proposal subtask (`9538cc6`): propose requests
+    `11872` and `35076` as a purposive, local-only two-case feasibility pilot,
+    pin six governed evidence artifacts, and record that both existing rights
+    approvals require purpose expansion. Candidate SHA-256 `a77ec8ee…` remains
+    pending exact sample-membership and purpose-rights approval; execution and
+    population inference remain prohibited. Verification: 3 focused tests and
+    full suite 689 passed, 2 skipped.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
