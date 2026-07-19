@@ -635,7 +635,7 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     diagnostics were subsequently approved and completed. Authentic empirical
     population, sample freeze, human review, comparison, promotion, release,
     and publication gates remain false as recorded in metadata.
-  - [~] Repo-local external-gate-registry subtask: add a machine-readable
+  - [x] Repo-local external-gate-registry subtask (`3eb5361`): add a machine-readable
     `gates` registry to the active track metadata with stable identifiers,
     pending or blocked status, exact evidence and authorization references,
     and fail-closed completion conditions for authentic population and raw-state
