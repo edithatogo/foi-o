@@ -179,6 +179,7 @@ gates:
     approved_input_components: examples/v2/bounded-pilot-input-approval.approved.json
     pending_execution_input_readiness: examples/v2/bounded-pilot-execution-input-readiness.pending.json
     pending_attachment_text_method: examples/v2/bounded-pilot-attachment-text-method.pending.json
+    approved_attachment_text_method: examples/v2/bounded-pilot-attachment-text-method-approval.approved.json
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
