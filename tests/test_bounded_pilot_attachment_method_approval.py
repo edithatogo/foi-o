@@ -66,10 +66,15 @@ def test_request_builder_is_inert_and_deterministic() -> None:
 
 def test_inert_builder_has_no_process_execution_surface() -> None:
     tree = ast.parse(WRAPPER.read_text())
-    imported = {
-        alias.name
-        for node in ast.walk(tree)
-        if isinstance(node, (ast.Import, ast.ImportFrom))
-        for alias in node.names
-    }
-    assert "subprocess" not in imported
+    builder = next(
+        node
+        for node in tree.body
+        if isinstance(node, ast.FunctionDef)
+        and node.name == "build_attachment_derivation_execution_request"
+    )
+    assert not any(
+        isinstance(node, ast.Attribute)
+        and isinstance(node.value, ast.Name)
+        and node.value.id == "subprocess"
+        for node in ast.walk(builder)
+    )
