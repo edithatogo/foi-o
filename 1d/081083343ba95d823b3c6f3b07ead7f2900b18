@@ -1,0 +1,1 @@
+Plan checkpoint for analyst protocol-design approval request 18db858. Validation before commit: uv sync --extra dev --extra rdf; uv run pytest -q: 684 passed, 2 skipped. Next gate: exact approval of pending request SHA-256 f8cfa72d60b80a26de60e714c551c543f6c9b5d733eb3d6ece76fdf035e3b6e4.
