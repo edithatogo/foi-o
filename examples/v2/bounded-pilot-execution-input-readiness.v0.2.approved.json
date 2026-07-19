@@ -1,0 +1,21 @@
+{
+  "schema_version": "foi-o.bounded-pilot-execution-input-readiness-approved.v0.2.0",
+  "readiness_id": "bounded-pilot-inputs-11872-35076-v0.2-approved",
+  "status": "approved_inputs_ready_context_and_execution_authorization_required",
+  "candidate": {"path": "examples/v2/bounded-pilot-execution-input-readiness.v0.2.pending.json", "sha256": "e91548e8814aba1659c0b1927fde70cad3a8809bb4c974d43d50606c500c016f", "repository_commit": "0e6e080bc63c0998a7ca46bc708734ae500f1302"},
+  "approval": {"path": "examples/v2/bounded-pilot-execution-input-readiness-v0.2-approval.approved.json", "sha256": "114c86c36a296f318ec315a387760790d71bb59af40340a31330dad9d50f02a3"},
+  "inputs_approved": true,
+  "inputs_ready": true,
+  "local_only": true,
+  "derived_text_read_allowed": false,
+  "context_materialization_allowed": false,
+  "context_presentation_allowed": false,
+  "analyst_execution_allowed": false,
+  "reconciliation_allowed": false,
+  "execution_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false,
+  "separate_exact_context_and_execution_authorization_required": true,
+  "clean_head_pre_execution_verification_required": true
+}
