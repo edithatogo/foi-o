@@ -1,0 +1,1 @@
+Task: Harden bounded stderr content-review approval.\nFiles: approval artifact, schema, and focused tests.\nVerification: 2 focused tests, Ruff, examples validation, and full suite 750 passed, 2 skipped.\nBoundary: no stderr content was read before this exact-binding correction committed.
