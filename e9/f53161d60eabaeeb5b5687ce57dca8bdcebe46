@@ -1,0 +1,3 @@
+Task: Commit the batched bounded-pilot execution plan.
+Verification: parallel governance/security review, 11 focused tests, examples validation, Ruff, full suite 792 passed, 2 skipped.
+Boundary: plan is inert; one execution approval and one final result/package approval remain; arXiv submission prohibited.
