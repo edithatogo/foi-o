@@ -1,0 +1,36 @@
+{
+  "schema_version": "foi-o.analyst-empirical-protocol-approval-request.v0.1.0",
+  "request_id": "foi-o-v2-analyst-empirical-protocol-v0.2",
+  "status": "pending_exact_human_approval",
+  "recorded_at": "2026-07-19T06:16:23Z",
+  "protocol": {
+    "path": "docs/43-v2-analyst-empirical-validation-protocol.md",
+    "sha256": "1ff93755f9beccb86fe4b3bd67388c68e2202ec62c6ca1848aa01a9157b6d65f",
+    "repository_commit": "31b2f99ec5d9bacd4ab64974b9c015ce0b44362e"
+  },
+  "requested_scope": "approve_v0.2_analyst_protocol_design_only",
+  "exact_approval_required": "I, edithatogo, approve analyst empirical-validation protocol SHA-256 1ff93755f9beccb86fe4b3bd67388c68e2202ec62c6ca1848aa01a9157b6d65f as committed in 31b2f99ec5d9bacd4ab64974b9c015ce0b44362e for protocol design only. This approval permits automated agents to fill two independent analyst roles and one distinct reconciler role under a separately committed exact execution authorization. It does not authorize sample membership. It does not authorize analyst execution, reconciliation, empirical claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates.",
+  "human_approval_present": false,
+  "protocol_approved": false,
+  "sample_membership_approved": false,
+  "execution_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false,
+  "prohibited_actions": {
+    "sample_membership": false,
+    "analyst_execution": false,
+    "reconciliation": false,
+    "empirical_claims": false,
+    "human_reviewed_claims": false,
+    "gold_promotion": false,
+    "legal_certification": false,
+    "redistribution": false,
+    "publication": false,
+    "training": false,
+    "fine_tuning": false,
+    "release": false,
+    "dataset_publication": false,
+    "paper_updates": false
+  }
+}
