@@ -1,0 +1,1 @@
+Attempt outcome: clean-HEAD verifier passed at b2f2b2a; tool invoked; wrapper stopped fail-closed on nonempty stderr; stderr bytes/hash/count not retained; output and temp workspaces absent; repository remained clean. Verification after evidence: 730 passed, 2 skipped.
