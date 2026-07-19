@@ -127,6 +127,17 @@ class FixtureAnalysisLockVerificationResult:
 
 
 @dataclass(frozen=True, slots=True)
+class FixtureReconciliationVerificationResult:
+    """Verified local agent reconciliation, never empirical or promotion evidence."""
+
+    reconciliation_sha256: str
+    repository_commit: str
+    disagreement_count: int
+    diagnostics_allowed: bool = True
+    empirical_evidence: bool = False
+
+
+@dataclass(frozen=True, slots=True)
 class DerivedFixtureUnit:
     """A source-derived fixture unit; never an empirical or gold assertion."""
 
@@ -371,7 +382,13 @@ def resolve_repo_artifact(repository_root: Path, relative_path: str) -> Path:
         raise ValueError("unsafe repository-relative path")
 
     root = repository_root.resolve(strict=True)
-    candidate = (root / Path(*pure_path.parts)).resolve(strict=True)
+    lexical = root / Path(*pure_path.parts)
+    cursor = root
+    for part in pure_path.parts:
+        cursor /= part
+        if cursor.is_symlink():
+            raise ValueError("artifact path contains a symlink or escapes repository root")
+    candidate = lexical.resolve(strict=True)
     if root not in candidate.parents:
         raise ValueError("artifact escapes repository root")
     if not candidate.is_file():
@@ -655,6 +672,155 @@ def verify_locked_fixture_analysis(
     if status:
         raise ValueError("repository worktree is not clean")
     return FixtureAnalysisLockVerificationResult(expected_lock_sha256, expected_repository_commit)
+
+
+def verify_locked_fixture_reconciliation(
+    *,
+    repository_root: Path,
+    reconciliation_path: Path,
+    expected_reconciliation_sha256: str,
+    expected_repository_commit: str,
+) -> FixtureReconciliationVerificationResult:
+    """Verify the exact committed reconciliation and its recursive analysis DAG."""
+    root = repository_root.resolve(strict=True)
+    reconciliation = reconciliation_path.resolve(strict=True)
+    canonical = resolve_repo_artifact(
+        root,
+        "examples/v2/analyst-fixture-packet/results/reconciliation-set.locked.json",
+    )
+    if (
+        reconciliation != canonical
+        or sha256(reconciliation.read_bytes()).hexdigest() != expected_reconciliation_sha256
+    ):
+        raise ValueError("reconciliation set path or SHA-256 mismatch")
+    document = _load_strict_json_object(reconciliation)
+    _validate_object(
+        document,
+        "analyst-fixture-reconciliation-set.schema.json",
+        "reconciliation_set",
+    )
+    lock_path = resolve_repo_artifact(root, document["analysis_lock"]["path"])
+    canonical_lock = resolve_repo_artifact(
+        root,
+        "examples/v2/analyst-fixture-packet/results/analysis-lock.locked.json",
+    )
+    if (
+        lock_path != canonical_lock
+        or document["analysis_lock"]["sha256"]
+        != "79faff0d554df7baff3e9f052dbc7f3a55d3e0e09baec95ab020fb3c4c002d1c"
+    ):
+        raise ValueError("reconciliation analysis lock is not canonical")
+    verify_locked_fixture_analysis(
+        repository_root=root,
+        lock_path=lock_path,
+        expected_lock_sha256=document["analysis_lock"]["sha256"],
+        expected_repository_commit=expected_repository_commit,
+    )
+    lock = _load_strict_json_object(lock_path)
+    if document["analysis_sets"] != lock["analysis_sets"]:
+        raise ValueError("reconciliation analysis set pins mismatch")
+    for name in ("context_presentation", "codebook", "authorization"):
+        if document[name] != lock[name]:
+            raise ValueError(f"reconciliation {name} pin mismatch")
+    set_paths = [resolve_repo_artifact(root, pin["path"]) for pin in lock["analysis_sets"]]
+    sets = [_load_strict_json_object(path) for path in set_paths]
+    expected_ids = [entry["unit_id"] for entry in sets[0]["entries"]]
+    if [entry["unit_id"] for entry in sets[1]["entries"]] != expected_ids:
+        raise ValueError("analysis set order or membership mismatch")
+    fields = ("label", "span", "abstention")
+    disagreement_ids = [
+        left["unit_id"]
+        for left, right in zip(sets[0]["entries"], sets[1]["entries"], strict=True)
+        if tuple(left["record"][field] for field in fields)
+        != tuple(right["record"][field] for field in fields)
+    ]
+    if (
+        document["ordered_disagreement_unit_ids"] != disagreement_ids
+        or document["disagreement_count"] != len(disagreement_ids)
+        or document["ordered_disagreement_commitment_sha256"]
+        != _canonical_json_sha256(disagreement_ids)
+        or [entry["unit_id"] for entry in document["entries"]] != disagreement_ids
+    ):
+        raise ValueError("reconciliation disagreement census mismatch")
+    if disagreement_ids != ["pm-06", "tl-02"]:
+        raise ValueError("governed reconciliation disagreement census changed")
+    contexts_path = resolve_repo_artifact(root, lock["context_presentation"]["path"])
+    contexts = _load_strict_json_object(contexts_path)["contexts"]
+    units = {context["unit_id"]: context for context in contexts}
+    codebook_path = resolve_repo_artifact(root, lock["codebook"]["path"])
+    allowed_labels = {item["label"] for item in _load_strict_json_object(codebook_path)["labels"]}
+    by_set = [{entry["unit_id"]: entry for entry in value["entries"]} for value in sets]
+    reconciler = {
+        "actor_id": "agent:reconciler-fixture",
+        "actor_class": "automated_agent",
+        "role": "reconciler",
+        "runtime": {
+            "provider": "OpenAI",
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": ("80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081"),
+            "session_id": "/root/fixture_reconciler_ready",
+        },
+    }
+    if document["reconciler"] != reconciler:
+        raise ValueError("reconciliation governed runtime mismatch")
+    for entry in document["entries"]:
+        unit_id = entry["unit_id"]
+        record = entry["record"]
+        if entry["record_sha256"] != _canonical_json_sha256(record):
+            raise ValueError("reconciliation record SHA-256 mismatch")
+        expected_refs = [
+            {
+                "analyst_id": source["record"]["analyst"]["actor_id"],
+                "sha256": source["record_sha256"],
+                "locked_at": source["record"]["locked_at"],
+            }
+            for source in (by_set[0][unit_id], by_set[1][unit_id])
+        ]
+        if (
+            record["record_id"] != f"reconciler-fixture:{unit_id}"
+            or record["unit_sha256"] != units[unit_id]["unit_sha256"]
+            or record["analysis_refs"] != expected_refs
+            or record["reconciler"] != reconciler
+        ):
+            raise ValueError("reconciliation provenance mismatch")
+        label = record["reconciled_candidate_label"]
+        if label is not None and label not in allowed_labels:
+            raise ValueError("reconciliation label outside approved codebook")
+        span = record["reconciled_candidate_span"]
+        if span is not None and span["end"] <= span["start"]:
+            raise ValueError("reconciliation span must be non-empty")
+        created = _instant(record["created_at"], "reconciliation created_at")
+        locked = _instant(record["locked_at"], "reconciliation locked_at")
+        if created > locked:
+            raise ValueError("reconciliation lock precedes creation")
+        if any(
+            created < _instant(reference["locked_at"], "analysis locked_at")
+            for reference in expected_refs
+        ):
+            raise ValueError("reconciliation predates analysis lock")
+    paths = [
+        reconciliation,
+        lock_path,
+        *set_paths,
+        contexts_path,
+        codebook_path,
+        resolve_repo_artifact(root, lock["authorization"]["path"]),
+    ]
+    verify_git_anchor(root, expected_repository_commit, paths)
+    status = run(
+        ["git", "status", "--porcelain"],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    if status:
+        raise ValueError("repository worktree is not clean")
+    return FixtureReconciliationVerificationResult(
+        expected_reconciliation_sha256,
+        expected_repository_commit,
+        len(disagreement_ids),
+    )
 
 
 def verify_approved_fixture_inputs(
