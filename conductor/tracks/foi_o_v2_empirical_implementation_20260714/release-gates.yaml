@@ -192,7 +192,12 @@ gates:
     pending_attachment_stderr_content_review_request: examples/v2/bounded-pilot-attachment-stderr-content-review-request.pending.json
     pending_attachment_stderr_content_review_request_sha256: 53154fc6bed37aaa26d9291bb74ddcb25a7a23c892d7b340fd28415e41defd9a
     pending_attachment_stderr_content_review_request_commit: 26f2e159b26455843ef3b9522e75daef1d0bc7a2
-    attachment_stderr_diagnostic_status: complete_pending_exact_content_review_approval
+    approved_attachment_stderr_content_review: examples/v2/bounded-pilot-attachment-stderr-content-review.approved.json
+    attachment_stderr_content_review_result: examples/v2/bounded-pilot-attachment-stderr-content-review-result.1.json
+    pending_attachment_alternative_text_method: examples/v2/bounded-pilot-attachment-alternative-text-method.pending.json
+    pending_attachment_alternative_text_method_sha256: 9afcaa8ae32967e7b6aa19215e5731c11e0405e476db820748c6b42c47e47844
+    pending_attachment_alternative_text_method_commit: cd38a7b515fe406927515a40fd1a22b384ab28f8
+    attachment_stderr_diagnostic_status: error_signal_classified_retry_blocked_alternative_method_pending_approval
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]

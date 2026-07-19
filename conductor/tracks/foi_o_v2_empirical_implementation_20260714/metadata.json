@@ -1,9 +1,9 @@
 {
   "track_id": "foi_o_v2_empirical_implementation_20260714",
   "type": "feature",
-  "status": "active_pending_exact_stderr_content_review_approval",
+  "status": "active_pending_exact_alternative_method_approval",
   "created_at": "2026-07-14T00:00:00+10:00",
-  "updated_at": "2026-07-19T10:51:39Z",
+  "updated_at": "2026-07-19T11:21:45Z",
   "github_issue": "https://github.com/edithatogo/foi-o/issues/23",
   "depends_on_external": "edithatogo/rulesandprocesses:conductor/tracks/foi_o_v2_triangulation_20260708",
   "description": "Repository-native implementation of the FOI-O V2 empirical-governance overlay.",
@@ -74,8 +74,13 @@
       "attachment_stderr_content_review_request_ref": "examples/v2/bounded-pilot-attachment-stderr-content-review-request.pending.json",
       "attachment_stderr_content_review_request_sha256": "53154fc6bed37aaa26d9291bb74ddcb25a7a23c892d7b340fd28415e41defd9a",
       "attachment_stderr_content_review_request_commit": "26f2e159b26455843ef3b9522e75daef1d0bc7a2",
-      "attachment_stderr_diagnostic_status": "complete_pending_exact_content_review_approval",
-      "note": "The authorized three-source, two-pass diagnostic completed after clean-HEAD verification. All six tool invocations returned zero; source index 2 emitted the same 198-byte stderr fingerprint in both passes. No derived output or temporary workspace remained. Stderr content review, warning classification, derivation retry, context presentation, analyst execution, reconciliation, and empirical claims remain prohibited pending separate exact approval."
+      "attachment_stderr_content_review_approval_ref": "examples/v2/bounded-pilot-attachment-stderr-content-review.approved.json",
+      "attachment_stderr_content_review_result_ref": "examples/v2/bounded-pilot-attachment-stderr-content-review-result.1.json",
+      "attachment_alternative_text_method_ref": "examples/v2/bounded-pilot-attachment-alternative-text-method.pending.json",
+      "attachment_alternative_text_method_sha256": "9afcaa8ae32967e7b6aa19215e5731c11e0405e476db820748c6b42c47e47844",
+      "attachment_alternative_text_method_commit": "cd38a7b515fe406927515a40fd1a22b384ab28f8",
+      "attachment_stderr_diagnostic_status": "error_signal_classified_retry_blocked_alternative_method_pending_approval",
+      "note": "The exact stderr review classified all three lines in each identical file as error signals without emitting verbatim content. The pdftotext retry remains blocked. An inert independent MuPDF method candidate is pinned by exact SHA-256 and commit; method design, wrapper creation, PDF processing, context presentation, analyst execution, reconciliation, and empirical claims remain prohibited pending separate exact approval."
     },
     {
       "id": "G-EMP-ANALYST-EXECUTION",

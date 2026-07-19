@@ -769,6 +769,20 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     commit `26f2e15`. Verification: production clean-HEAD verifier passed; 34,
     12, and 12 focused tests across the authorization, result, and review
     request slices; full suites 744, 746, and 748 passed with 2 skipped.
+  - [x] Stderr classification and independent-parser method subtask (`3de1574`,
+    `44c58fe`, `8073837`, `cd38a7b`): record and harden the exact content-review
+    approval before access, classify the two identical stderr files without
+    emitting or committing verbatim content, and fail closed because all three
+    UTF-8 lines in each file contain an error signal. Do not create a policy
+    that ignores the errors and do not revive the consumed derivation
+    authorization. Prepare instead an inert MuPDF `mutool` 1.24.9 independent
+    parser method pinned to executable SHA-256 `9c74c9c…`, with OCR, PDF repair,
+    parser chaining, processing, and downstream execution false. Candidate
+    SHA-256 is `9afcaa8a…` at commit `cd38a7b`; exact method-design approval is
+    required before a wrapper or execution request may be created.
+    Verification: parallel approval/classifier/retry reviews; 12 and 13 focused
+    tests; full suites 752 and 755 passed with 2 skipped; no PDF was processed
+    by the alternative method.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
