@@ -13,6 +13,21 @@ from typing import Any, cast
 
 from jsonschema import Draft202012Validator
 
+try:
+    from scripts.build_fixture_diagnostics_executable_authorization import (
+        DiagnosticsAuthorizationVerificationResult,
+    )
+    from scripts.build_fixture_diagnostics_executable_authorization import (
+        verify as verify_execution_authorization,
+    )
+except ModuleNotFoundError:  # Direct ``python scripts/...`` execution.
+    from build_fixture_diagnostics_executable_authorization import (
+        DiagnosticsAuthorizationVerificationResult,
+    )
+    from build_fixture_diagnostics_executable_authorization import (
+        verify as verify_execution_authorization,
+    )
+
 OUTPUT_PATH = "examples/v2/analyst-fixture-packet/results/inter-agent-diagnostics.locked.json"
 SCHEMA_PATH = "schemas/json/fixture-inter-agent-diagnostics.schema.json"
 AUTHORIZATION_PATH = "examples/v2/analyst-fixture-packet/diagnostics-execution-authorization.pending-verification.json"
@@ -83,6 +98,32 @@ PROHIBITED = [
     "empirical_evidence_claims",
 ]
 EXPECTED_OUTPUT_SHA256 = "fe2f9e29136fca68894bc3960b7a5cfcc4f97edc3e0a970d94b7fbc2a783bbc5"
+
+
+def _current_head(root: Path) -> str:
+    return run(
+        ["git", "rev-parse", "HEAD"], cwd=root, check=True, capture_output=True, text=True
+    ).stdout.strip()
+
+
+def _require_execution_authorization(root: Path) -> DiagnosticsAuthorizationVerificationResult:
+    """Acquire a fresh, exact permission result for the current clean HEAD."""
+    head = _current_head(root)
+    permission = verify_execution_authorization(
+        repository_root=root,
+        expected_authorization_sha256=AUTHORIZATION_SHA256,
+        expected_repository_commit=head,
+    )
+    if not isinstance(permission, DiagnosticsAuthorizationVerificationResult):
+        raise ValueError("diagnostics executable authorization permission is absent or forged")
+    if (
+        permission.authorization_sha256 != AUTHORIZATION_SHA256
+        or permission.repository_commit != head
+        or not permission.bootstrap_execution_allowed
+        or not permission.diagnostics_finalization_allowed
+    ):
+        raise ValueError("diagnostics executable authorization permission is absent or forged")
+    return permission
 
 
 def _strict_load(path: Path) -> dict[str, Any]:
@@ -213,6 +254,7 @@ def _inputs(root: Path) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
 
 def document(*, repository_root: Path) -> dict[str, Any]:
     root = repository_root.resolve(strict=True)
+    _require_execution_authorization(root)
     a, b = _inputs(root)
     rows = [(x["record"], y["record"]) for x, y in zip(a, b, strict=True)]
     eligible_rows = [(x, y) for x, y in rows if not x["abstention"] and not y["abstention"]]
@@ -349,7 +391,11 @@ def build(*, repository_root: Path) -> Path:
     output = root / OUTPUT_PATH
     if output.exists() and output.is_symlink():
         raise ValueError("diagnostics output is a symlink")
-    output.write_text(json.dumps(document(repository_root=root), indent=2, sort_keys=True) + "\n")
+    value = document(repository_root=root)
+    # Reacquire permission immediately before the governed output write. This
+    # closes the public ``build`` path if the repository changed during computation.
+    _require_execution_authorization(root)
+    output.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
     return output
 
 

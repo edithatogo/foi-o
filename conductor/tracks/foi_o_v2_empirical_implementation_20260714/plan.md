@@ -521,6 +521,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     inter-agent diagnostics only, not empirical evidence, human-reviewed
     reliability, gold labels, legal certification, release evidence, or
     publication evidence.
+    - [~] Review Fixes: require every sanctioned diagnostics entry point and
+      governed output write, including direct `document`, `build`, and deterministic post-commit
+      verification paths, to acquire a fresh executable-authorization result
+      for the exact current clean HEAD; cover dirty, pre-authorization, absent,
+      and forged-permission failures plus a clean committed descendant success.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
