@@ -4,9 +4,9 @@
   "type": "object", "additionalProperties": false,
   "required": ["schema_version", "record_id", "status", "empirical_evidence", "unit_sha256", "annotator_id", "codebook_revision", "label", "span", "uncertainty", "abstention", "abstention_reason", "notes", "blinded_to_candidate", "created_at", "locked_at"],
   "properties": {
-    "schema_version": {"const": "foi-o.locked-annotation-record.v0.1.0"},
+    "schema_version": {"enum": ["foi-o.locked-annotation-record.v0.1.0", "foi-o.locked-analysis-record.v0.2.0"]},
     "record_id": {"type": "string", "minLength": 1},
-    "status": {"enum": ["candidate_contract_fixture", "locked_human_annotation"]},
+    "status": {"enum": ["candidate_contract_fixture", "locked_human_annotation", "locked_analyst_analysis"]},
     "empirical_evidence": {"type": "boolean"},
     "unit_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
     "annotator_id": {"type": "string", "minLength": 1},
@@ -22,7 +22,8 @@
     "locked_at": {"type": ["string", "null"], "format": "date-time"}
   },
   "allOf": [
-    {"if": {"properties": {"status": {"const": "locked_human_annotation"}}}, "then": {"properties": {"empirical_evidence": {"const": true}, "annotator_id": {"pattern": "^human:[A-Za-z0-9._-]+$"}, "locked_at": {"type": "string", "format": "date-time"}}}, "else": {"properties": {"empirical_evidence": {"const": false}, "locked_at": {"const": null}}}},
+    {"if": {"properties": {"status": {"enum": ["locked_human_annotation", "locked_analyst_analysis"]}}}, "then": {"properties": {"empirical_evidence": {"const": true}, "annotator_id": {"pattern": "^(human|agent):[A-Za-z0-9._-]+$"}, "locked_at": {"type": "string", "format": "date-time"}}}, "else": {"properties": {"empirical_evidence": {"const": false}, "locked_at": {"const": null}}}},
+    {"if": {"properties": {"status": {"const": "locked_human_annotation"}}}, "then": {"properties": {"annotator_id": {"pattern": "^human:[A-Za-z0-9._-]+$"}}}},
     {"if": {"properties": {"abstention": {"const": true}}}, "then": {"properties": {"label": {"const": null}, "span": {"const": null}, "abstention_reason": {"type": "string"}}}, "else": {"properties": {"label": {"type": "string", "minLength": 1}, "abstention_reason": {"const": null}}}}
   ]
 }

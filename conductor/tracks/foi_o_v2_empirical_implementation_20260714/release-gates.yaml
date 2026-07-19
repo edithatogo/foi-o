@@ -7,7 +7,7 @@ external_gate_registry:
     - G-EMP-AUTHENTIC-INPUTS
     - G-RAW-ARCHIVE-WIDE-EVIDENCE
     - G-EMP-SAMPLE-FREEZE
-    - G-EMP-HUMAN-REVIEW
+    - G-EMP-ANALYST-EXECUTION
     - G-EMP-EVALUATION
     - G-EMP-PROMOTION
     - G-RELEASE-EVIDENCE-BUNDLE
@@ -27,8 +27,8 @@ gates:
     reviewed_at: 2026-07-16T09:34:52Z
     review_packet: examples/v2/human-promotion-review-packet.approved.json
   nz_empirical_release:
-    status: blocked_authentic_empirical_inputs_and_human_review
-    depends_on: [G-EMP-AUTHENTIC-INPUTS, G-RAW-ARCHIVE-WIDE-EVIDENCE, G-EMP-SAMPLE-FREEZE, G-EMP-HUMAN-REVIEW, G-EMP-EVALUATION, G-EMP-PROMOTION]
+    status: blocked_authentic_sample_and_analyst_execution
+    depends_on: [G-EMP-AUTHENTIC-INPUTS, G-RAW-ARCHIVE-WIDE-EVIDENCE, G-EMP-SAMPLE-FREEZE, G-EMP-ANALYST-EXECUTION, G-EMP-EVALUATION, G-EMP-PROMOTION]
     consolidated_pending_review_packet: examples/v2/empirical-human-gate-review-packet.pending.json
   nz_source_pack:
     status: promoted_metadata_only
@@ -167,11 +167,12 @@ gates:
       release_qualifying: false
       publication_eligible: false
     missing:
-      - two_independent_annotators
-      - distinct_adjudicator
+      - two_independent_analysts
+      - distinct_reconciler
       - authentic_rights_cleared_source_population
       - authentic_frozen_sample
       - authentic_empirical_evaluation
+    analyst_protocol: docs/43-v2-analyst-empirical-validation-protocol.md
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]

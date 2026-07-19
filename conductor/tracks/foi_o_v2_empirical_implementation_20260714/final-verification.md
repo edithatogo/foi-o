@@ -16,12 +16,13 @@ governed output write reacquires exact authorization at the current clean HEAD.
 The track remains active because authentic empirical and external gates are not
 satisfied. The metadata `gates` registry is authoritative for these dependencies:
 an authentic rights-cleared archive population, archive-wide mapping evidence,
-an authentic frozen sample, two human annotators and a distinct human
-adjudicator, empirical evaluation, promotion approval, immutable release
+an authentic frozen sample, two independent analysts and a distinct reconciler
+with exact actor provenance, empirical evaluation, promotion approval, immutable release
 evidence, the paper prerequisite, and explicit remote-delivery authorization.
-The current direction not to use human annotators intentionally leaves the human
-review gate blocked; agents cannot turn fixture outputs into human-reviewed,
-gold, empirical, legal, release, or publication evidence.
+Agents may fill the analyst and reconciler roles under the v0.2 contract.
+Synthetic fixture outputs remain non-empirical, while verified outputs from a
+frozen authentic sample may support claims bounded to that sample. Agent work
+does not become human-reviewed, gold, legal, release, or publication evidence.
 
 Repository-wide coverage and type-check baselines are recorded in `audit.md` and
 `release-gates.yaml`; neither was caused or hidden by this overlay.

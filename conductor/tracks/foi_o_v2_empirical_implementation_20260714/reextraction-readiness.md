@@ -3,8 +3,8 @@
 ## Status
 
 **The bounded local candidate re-extraction and deterministic reproducibility
-delta are complete; empirical comparison remains blocked at human annotation
-and adjudication gates.**
+delta are complete; empirical comparison remains blocked on an authentic frozen
+sample and an exact analyst-execution authorization.**
 
 ## Governed local execution
 
@@ -107,7 +107,8 @@ upstream inspections:
 
 ## Missing governed inputs
 
-1. Independent annotation and adjudication for empirical evaluation.
+1. Two independent analyst passes and distinct reconciliation over an authentic
+   frozen sample under the v0.2 contract.
 2. Separate rights treatment for any expansion beyond the one approved record.
 
 ## Related empirical follow-up gates
@@ -122,10 +123,12 @@ upstream inspections:
   `mappings/nz-oia-applicability-interval-candidates.yaml`. They are derived
   only from adjacent approved official as-at dates and all remain legally
   unapproved pending named-human commencement and amendment review.
-- The candidate sampling and annotation protocol is hash-pinned at
-  `docs/41-v2-sampling-and-annotation-protocol.md`. Sample freezing remains
-  prohibited until named-human protocol approval, two independent annotators,
-  a distinct adjudicator, a rights-approved source population, an approved
+- The approved v0.1 sampling protocol remains hash-pinned at
+  `docs/41-v2-sampling-and-annotation-protocol.md`; the agent-capable successor
+  is `docs/43-v2-analyst-empirical-validation-protocol.md`. A bounded authentic
+  sample supports only bounded claims. Sample freezing remains prohibited until
+  the successor protocol and inputs are exactly approved, two independent
+  analysts and a distinct reconciler are bound, a rights-approved source population, an approved
   codebook revision, and an approved sampling configuration are recorded.
 
 The verified `nlp-policy-nz` consumer resolves the earlier contract, entry-point,
@@ -137,8 +140,8 @@ extraction run or empirical comparison has been performed.
 ## Remaining human decisions
 
 No further human decision is required to return or use the approved request
-`35076` packet for local candidate extraction. Independent annotation and
-adjudication are still required before empirical comparison, and separate
+`35076` packet for local candidate extraction. Independent analyst execution
+and reconciliation are still required before empirical comparison, and separate
 rights approval is required before expanding the source population. No raw
 records may be overwritten, no candidate may be promoted, and no empirical
 comparison may be claimed.

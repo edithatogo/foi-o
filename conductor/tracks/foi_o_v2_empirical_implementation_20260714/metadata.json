@@ -57,12 +57,13 @@
       "note": "Protocol SHA-256 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63 is approved for design only; sample membership remains unauthorized."
     },
     {
-      "id": "G-EMP-HUMAN-REVIEW",
-      "kind": "human_role_and_execution_contract",
+      "id": "G-EMP-ANALYST-EXECUTION",
+      "kind": "analyst_role_and_execution_contract",
       "status": "blocked",
       "depends_on": ["G-EMP-SAMPLE-FREEZE"],
-      "condition": "Obtain and execute a contract naming two independent human annotators and a distinct human adjudicator. The current no-human direction blocks this gate, and agent analysts cannot support human-reviewed, adjudicated, empirical, or gold claims.",
+      "condition": "Obtain and execute an exact contract naming two independent analysts and a distinct reconciler, with actor-class and runtime provenance. Automated agents may fill these roles. Their authentic, verified outputs may support bounded empirical claims but remain non-human-reviewed and non-gold unless separately approved.",
       "evidence_refs": [
+        "docs/43-v2-analyst-empirical-validation-protocol.md",
         "schemas/json/empirical-execution-authorization.schema.json",
         "schemas/json/locked-annotation-record.schema.json",
         "schemas/json/adjudication-record.schema.json"
@@ -73,8 +74,8 @@
       "id": "G-EMP-EVALUATION",
       "kind": "empirical_evaluation",
       "status": "blocked",
-      "depends_on": ["G-EMP-SAMPLE-FREEZE", "G-EMP-HUMAN-REVIEW"],
-      "condition": "Run the registered comparison and reliability evaluation only over an authentic frozen sample with two locked human annotation sets and distinct human adjudication; fixture-only inter-agent diagnostics do not satisfy this gate.",
+      "depends_on": ["G-EMP-SAMPLE-FREEZE", "G-EMP-ANALYST-EXECUTION"],
+      "condition": "Run the registered comparison and reliability evaluation over an authentic frozen sample with two independent locked analysis sets and distinct reconciliation. Limit claims to the sampled design; fixture-only inter-agent diagnostics do not satisfy this gate.",
       "evidence_refs": [
         "schemas/json/reliability-report.schema.json",
         "examples/v2/analyst-fixture-packet/results/inter-agent-diagnostics.locked.json"
@@ -99,7 +100,7 @@
       "kind": "release_evidence",
       "status": "blocked",
       "depends_on": ["G-EMP-EVALUATION", "G-EMP-PROMOTION", "G-REMOTE-DELIVERY-AUTHORIZATION"],
-      "condition": "Generate, freeze, and publish the versioned immutable release-evidence bundle only after authentic empirical comparison, human annotation and adjudication, reliability evaluation, promotion approval, and explicit external-delivery authorization are complete.",
+      "condition": "Generate, freeze, and publish the versioned immutable release-evidence bundle only after authentic empirical comparison, independent analysis and reconciliation, reliability evaluation, promotion approval, and explicit external-delivery authorization are complete.",
       "evidence_refs": [
         "conductor/tracks/foi_o_v2_empirical_implementation_20260714/release-gates.yaml"
       ],

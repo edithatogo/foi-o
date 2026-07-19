@@ -644,6 +644,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     delivery authorization. This registry preserves the completed fixture-only
     milestone and active track status; it performs and authorizes no external,
     empirical, promotion, release, dataset, paper, preprint, or PR action.
+  - [x] Analyst empirical-contract migration subtask: preserve the exact
+    hash-approved v0.1 human protocol, add the v0.2 analyst successor, permit
+    two independent agent analysts and a distinct agent reconciler with exact
+    runtime provenance, and separate bounded empirical evidence from
+    human-reviewed and gold claims. A bounded authentic sample is sufficient
+    for a claim limited to that sample; the 11 synthetic fixture units remain
+    non-empirical and the two approved requests remain case-level inputs until
+    an exact authentic sample and execution authorization are frozen.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.

@@ -67,3 +67,46 @@ def test_schema_valid_approval_remains_contract_only(tmp_path: Path) -> None:
     path = tmp_path / "authorization.json"
     path.write_text(json.dumps(payload))
     assert not validate_json_schema(path, SCHEMA).errors
+
+
+def test_agent_analysts_require_exact_runtime_provenance(tmp_path: Path) -> None:
+    payload = _authorization()
+    payload.update(
+        schema_version="foi-o.empirical-execution-authorization.v0.2.0",
+        status="approved_analyst_authorization",
+        execution_allowed=True,
+        annotator_ids=["agent:analyst-a", "agent:analyst-b"],
+        adjudicator_id="agent:reconciler",
+        approved_by="human:edithatogo",
+        approved_at="2026-07-19T00:00:00Z",
+        agents_may_fill_human_roles=True,
+        actor_provenance=[
+            {
+                "actor_id": "agent:analyst-a",
+                "actor_class": "automated_agent",
+                "role": "analyst",
+                "runtime": "runtime-a",
+            },
+            {
+                "actor_id": "agent:analyst-b",
+                "actor_class": "automated_agent",
+                "role": "analyst",
+                "runtime": "runtime-b",
+            },
+            {
+                "actor_id": "agent:reconciler",
+                "actor_class": "automated_agent",
+                "role": "reconciler",
+                "runtime": "runtime-c",
+            },
+        ],
+    )
+    for key in ("protocol", "source_population", "codebook", "sampling_configuration"):
+        cast(dict[str, object], payload[key])["approved"] = True
+    path = tmp_path / "authorization.json"
+    path.write_text(json.dumps(payload))
+    assert not validate_json_schema(path, SCHEMA).errors
+
+    cast(list[dict[str, object]], payload["actor_provenance"]).pop()
+    path.write_text(json.dumps(payload))
+    assert validate_json_schema(path, SCHEMA).errors

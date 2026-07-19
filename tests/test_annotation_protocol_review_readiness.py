@@ -56,13 +56,15 @@ def test_protocol_approval_is_bounded_and_schema_valid() -> None:
     assert not any(payload["prohibited_actions"].values())
 
 
-def test_protocol_forbids_placeholder_or_ai_generated_empirical_evidence() -> None:
-    text = (ROOT / "docs/41-v2-sampling-and-annotation-protocol.md").read_text().lower()
-    assert "two distinct human annotators" in text
-    assert "one distinct adjudicator" in text
-    assert "ai-proposed labels" in text
-    assert "not substitutes" in text
-    assert "not an empirical sample" in text
+def test_protocol_allows_provenanced_agents_but_forbids_fixture_substitution() -> None:
+    text = (ROOT / "docs/43-v2-analyst-empirical-validation-protocol.md").read_text().lower()
+    assert "two distinct analysts" in text
+    assert "one reconciler actor" in text
+    assert "automated agent" in text
+    assert "human_reviewed" in text
+    assert "bounded authentic sample" in text
+    assert "cannot be relabelled" in text
+    assert "synthetic contract validation" in text
     assert "half-open `[start, end)`" in text
-    assert "cluster-bootstrap confidence intervals" in text
-    assert "sequential stages" in " ".join(text.split())
+    assert "probability design" in text
+    assert "content-hash locked" in text

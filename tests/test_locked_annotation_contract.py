@@ -47,6 +47,20 @@ def test_locked_annotation_rejects_agent_identity(tmp_path: Path) -> None:
     assert validate_json_schema(path, SCHEMA).errors
 
 
+def test_locked_analyst_analysis_accepts_agent_identity(tmp_path: Path) -> None:
+    payload = _record()
+    payload.update(
+        schema_version="foi-o.locked-analysis-record.v0.2.0",
+        status="locked_analyst_analysis",
+        empirical_evidence=True,
+        annotator_id="agent:analyst-1",
+        locked_at="2026-07-19T01:00:00Z",
+    )
+    path = tmp_path / "analysis.json"
+    path.write_text(json.dumps(payload))
+    assert not validate_json_schema(path, SCHEMA).errors
+
+
 def test_abstention_requires_controlled_reason_and_null_outputs(tmp_path: Path) -> None:
     payload = _record()
     payload.update(abstention=True, label=None, span=None, abstention_reason=None)

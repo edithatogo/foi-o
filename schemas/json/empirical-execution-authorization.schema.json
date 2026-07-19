@@ -12,25 +12,26 @@
   "type": "object", "additionalProperties": false,
   "required": ["schema_version", "authorization_id", "status", "execution_allowed", "protocol", "source_population", "codebook", "codebook_revision", "sampling_configuration", "annotator_ids", "adjudicator_id", "approved_by", "approved_at", "agents_may_fill_human_roles", "limitations"],
   "properties": {
-    "schema_version": {"const": "foi-o.empirical-execution-authorization.v0.1.0"},
+    "schema_version": {"enum": ["foi-o.empirical-execution-authorization.v0.1.0", "foi-o.empirical-execution-authorization.v0.2.0"]},
     "authorization_id": {"type": "string", "minLength": 1},
-    "status": {"enum": ["pending_human_authorization", "approved_human_authorization"]},
+    "status": {"enum": ["pending_human_authorization", "approved_human_authorization", "pending_analyst_authorization", "approved_analyst_authorization"]},
     "execution_allowed": {"type": "boolean"},
     "protocol": {"$ref": "#/$defs/artifact"},
     "source_population": {"$ref": "#/$defs/artifact"},
     "codebook": {"$ref": "#/$defs/artifact"},
     "codebook_revision": {"type": "string", "minLength": 1},
     "sampling_configuration": {"$ref": "#/$defs/artifact"},
-    "annotator_ids": {"type": "array", "maxItems": 2, "uniqueItems": true, "items": {"type": "string", "pattern": "^human:[A-Za-z0-9._-]+$"}},
-    "adjudicator_id": {"type": ["string", "null"], "pattern": "^human:[A-Za-z0-9._-]+$"},
+    "annotator_ids": {"type": "array", "maxItems": 2, "uniqueItems": true, "items": {"type": "string", "pattern": "^(human|agent):[A-Za-z0-9._-]+$"}},
+    "adjudicator_id": {"type": ["string", "null"], "pattern": "^(human|agent):[A-Za-z0-9._-]+$"},
     "approved_by": {"type": ["string", "null"], "pattern": "^human:[A-Za-z0-9._-]+$"},
     "approved_at": {"type": ["string", "null"], "format": "date-time"},
-    "agents_may_fill_human_roles": {"const": false},
+    "agents_may_fill_human_roles": {"type": "boolean"},
+    "actor_provenance": {"type": "array", "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["actor_id", "actor_class", "role", "runtime"], "properties": {"actor_id": {"type": "string", "pattern": "^(human|agent):[A-Za-z0-9._-]+$"}, "actor_class": {"enum": ["human", "automated_agent"]}, "role": {"enum": ["analyst", "reconciler"]}, "runtime": {"type": "string", "minLength": 1}}}},
     "limitations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
   },
   "allOf": [
     {
-      "if": {"properties": {"status": {"const": "approved_human_authorization"}}},
+      "if": {"properties": {"status": {"enum": ["approved_human_authorization", "approved_analyst_authorization"]}}},
       "then": {
         "properties": {
           "execution_allowed": {"const": true},
@@ -39,12 +40,14 @@
           "codebook": {"properties": {"approved": {"const": true}}},
           "sampling_configuration": {"properties": {"approved": {"const": true}}},
           "annotator_ids": {"minItems": 2, "maxItems": 2},
-          "adjudicator_id": {"type": "string", "pattern": "^human:[A-Za-z0-9._-]+$"},
+          "adjudicator_id": {"type": "string", "pattern": "^(human|agent):[A-Za-z0-9._-]+$"},
           "approved_by": {"type": "string", "pattern": "^human:[A-Za-z0-9._-]+$"},
           "approved_at": {"type": "string", "format": "date-time"}
         }
       },
       "else": {"properties": {"execution_allowed": {"const": false}, "approved_by": {"const": null}, "approved_at": {"const": null}}}
-    }
+    },
+    {"if": {"properties": {"status": {"const": "approved_human_authorization"}}}, "then": {"properties": {"agents_may_fill_human_roles": {"const": false}, "annotator_ids": {"items": {"pattern": "^human:[A-Za-z0-9._-]+$"}}, "adjudicator_id": {"pattern": "^human:[A-Za-z0-9._-]+$"}}}},
+    {"if": {"properties": {"status": {"const": "approved_analyst_authorization"}}}, "then": {"required": ["actor_provenance"], "properties": {"actor_provenance": {"minItems": 3, "maxItems": 3}}}}
   ]
 }

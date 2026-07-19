@@ -342,7 +342,7 @@ def test_authentic_bundle_relationships_validate_without_promotion(tmp_path: Pat
     ("option", "message"),
     [
         ("same_annotator", "annotator identities are not distinct"),
-        ("overlapping_adjudicator", "adjudicator is not a distinct human"),
+        ("overlapping_adjudicator", "reconciler is not a distinct supported actor"),
         ("bad_ref", "adjudication annotation reference mismatch"),
     ],
 )

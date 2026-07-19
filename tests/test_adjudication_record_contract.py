@@ -47,6 +47,24 @@ def test_locked_adjudication_rejects_agent_identity(tmp_path: Path) -> None:
     assert validate_json_schema(path, SCHEMA).errors
 
 
+def test_locked_reconciliation_accepts_agent_identity(tmp_path: Path) -> None:
+    payload = _record()
+    payload.update(
+        schema_version="foi-o.reconciliation-record.v0.2.0",
+        status="locked_analyst_reconciliation",
+        empirical_evidence=True,
+        annotation_refs=[
+            {"annotator_id": "agent:analyst-1", "sha256": "b" * 64},
+            {"annotator_id": "agent:analyst-2", "sha256": "c" * 64},
+        ],
+        adjudicator_id="agent:reconciler",
+        locked_at="2026-07-19T01:00:00Z",
+    )
+    path = tmp_path / "reconciliation.json"
+    path.write_text(json.dumps(payload))
+    assert not validate_json_schema(path, SCHEMA).errors
+
+
 def test_resolved_adjudication_requires_label(tmp_path: Path) -> None:
     payload = _record()
     payload["outcome"] = "resolved"

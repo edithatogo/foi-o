@@ -189,14 +189,35 @@ def verify_authentic_empirical_bundle(
     )
 
     _require(
-        authorization["status"] == "approved_human_authorization"
+        authorization["status"]
+        in {"approved_human_authorization", "approved_analyst_authorization"}
         and authorization["execution_allowed"] is True,
-        "empirical execution is not human-authorized",
+        "empirical execution is not authorized",
     )
+    analyst_execution = authorization["status"] == "approved_analyst_authorization"
     _require(
-        authorization["agents_may_fill_human_roles"] is False,
-        "agents cannot fill human roles",
+        not analyst_execution or len(authorization.get("actor_provenance", [])) == 3,
+        "analyst execution requires three actor-provenance records",
     )
+    if analyst_execution:
+        provenance = authorization["actor_provenance"]
+        expected_roles = {
+            (authorization["annotator_ids"][0], "analyst"),
+            (authorization["annotator_ids"][1], "analyst"),
+            (authorization["adjudicator_id"], "reconciler"),
+        }
+        _require(
+            {(actor["actor_id"], actor["role"]) for actor in provenance} == expected_roles,
+            "actor provenance does not match authorized roles",
+        )
+        for actor in provenance:
+            expected_class = (
+                "automated_agent" if actor["actor_id"].startswith("agent:") else "human"
+            )
+            _require(
+                actor["actor_class"] == expected_class,
+                "actor class does not match actor identity",
+            )
     authorization_artifacts = {
         "protocol": protocol_path,
         "source_population": source_population_path,
@@ -219,7 +240,8 @@ def verify_authentic_empirical_bundle(
         "duplicate registry is not authentic and frozen",
     )
     _require(
-        report["status"] == "computed_human_reliability" and report["empirical_evidence"] is True,
+        report["status"] in {"computed_human_reliability", "computed_analyst_reliability"}
+        and report["empirical_evidence"] is True,
         "reliability report is not authentic and computed",
     )
     _require(report["promotion_allowed"] is False, "reliability report cannot authorize promotion")
@@ -275,11 +297,14 @@ def verify_authentic_empirical_bundle(
         identities = {record["annotator_id"] for record in records}
         _require(len(identities) == 1, "annotation set contains mixed annotator identities")
         annotator_id = identities.pop()
-        _require(annotator_id.startswith("human:"), "annotation identity is not human")
+        _require(
+            annotator_id.startswith(("human:", "agent:")),
+            "analysis identity has unsupported actor class",
+        )
         annotator_ids.append(annotator_id)
         for record in records:
             _require(
-                record["status"] == "locked_human_annotation"
+                record["status"] in {"locked_human_annotation", "locked_analyst_analysis"}
                 and record["empirical_evidence"] is True,
                 "annotation record is not authentic and locked",
             )
@@ -347,7 +372,7 @@ def verify_authentic_empirical_bundle(
         _require(unit_id in disagreements, "adjudication does not correspond to a disagreement")
         _require(unit_id not in adjudication_map, "duplicate adjudication unit")
         _require(
-            record["status"] == "locked_human_adjudication"
+            record["status"] in {"locked_human_adjudication", "locked_analyst_reconciliation"}
             and record["empirical_evidence"] is True,
             "adjudication is not authentic and locked",
         )
@@ -374,8 +399,8 @@ def verify_authentic_empirical_bundle(
     _require(len(adjudicator_ids) == 1, "adjudication set contains mixed adjudicators")
     adjudicator_id = next(iter(adjudicator_ids))
     _require(
-        adjudicator_id.startswith("human:") and adjudicator_id not in annotator_ids,
-        "adjudicator is not a distinct human",
+        adjudicator_id.startswith(("human:", "agent:")) and adjudicator_id not in annotator_ids,
+        "reconciler is not a distinct supported actor",
     )
     _require(
         authorization["adjudicator_id"] == adjudicator_id,

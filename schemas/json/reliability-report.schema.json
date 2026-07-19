@@ -12,9 +12,9 @@
   "additionalProperties": false,
   "required": ["schema_version", "report_id", "status", "empirical_evidence", "promotion_allowed", "artifact_pins", "calculation", "counts", "nominal_agreement", "span_agreement", "rates", "disagreements", "computed_at", "limitations"],
   "properties": {
-    "schema_version": {"const": "foi-o.reliability-report.v0.1.0"},
+    "schema_version": {"enum": ["foi-o.reliability-report.v0.1.0", "foi-o.analyst-reliability-report.v0.2.0"]},
     "report_id": {"type": "string", "minLength": 1},
-    "status": {"enum": ["candidate_contract_fixture", "computed_human_reliability"]},
+    "status": {"enum": ["candidate_contract_fixture", "computed_human_reliability", "computed_analyst_reliability"]},
     "empirical_evidence": {"type": "boolean"},
     "promotion_allowed": {"const": false},
     "artifact_pins": {
@@ -66,6 +66,6 @@
     "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
   },
   "allOf": [
-    {"if": {"properties": {"status": {"const": "computed_human_reliability"}}}, "then": {"properties": {"empirical_evidence": {"const": true}, "computed_at": {"type": "string", "format": "date-time"}}}, "else": {"properties": {"empirical_evidence": {"const": false}, "computed_at": {"const": null}}}}
+    {"if": {"properties": {"status": {"enum": ["computed_human_reliability", "computed_analyst_reliability"]}}}, "then": {"properties": {"empirical_evidence": {"const": true}, "computed_at": {"type": "string", "format": "date-time"}}}, "else": {"properties": {"empirical_evidence": {"const": false}, "computed_at": {"const": null}}}}
   ]
 }
