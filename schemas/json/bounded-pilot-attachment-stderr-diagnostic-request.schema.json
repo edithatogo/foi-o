@@ -9,7 +9,7 @@
     "request_id": {"const": "bounded-pilot-11872-attachment-stderr-diagnostic-reproduction"},
     "status": {"const": "pending_exact_diagnostic_execution_authorization"},
     "prior_failure": {"$ref": "#/$defs/pin"}, "wrapper": {"$ref": "#/$defs/pin"},
-    "wrapper_repository_commit": {"const": "0ad0b87666a5f30543be82d20be7dac146b4af72"},
+    "wrapper_repository_commit": {"const": "d11a4b2ca3b3bfb518187e36ae18696dcd77c95f"},
     "source_root": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"}, "output_directory": {"const": "/private/tmp/foio-bounded-pilot-11872-derived"},
     "sources": {"type": "array", "minItems": 3, "maxItems": 3},
     "requested_scope": {"const": "one_local_diagnostic_reproduction_preserve_stderr_only_no_derived_text_install"},

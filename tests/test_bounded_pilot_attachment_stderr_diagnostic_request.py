@@ -10,7 +10,7 @@ REQUEST = ROOT / "examples/v2/bounded-pilot-attachment-stderr-diagnostic-request
 SCHEMA = ROOT / "schemas/json/bounded-pilot-attachment-stderr-diagnostic-request.schema.json"
 
 
-def test_diagnostic_request_is_valid_and_pins_historical_wrapper() -> None:
+def test_diagnostic_request_is_valid_and_pins_exact_wrapper() -> None:
     result = validate_json_schema(REQUEST, SCHEMA)
     assert not result.errors, result.errors
     request = json.loads(REQUEST.read_text())
