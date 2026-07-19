@@ -1,0 +1,4 @@
+Task: Record exact bounded MuPDF execution approval and final authorization.
+Files: Human approval, final authorization, two closed schemas, focused tests, inventory counts.
+Verification: 31 focused tests, examples validation, Ruff, full suite 781 passed, 2 skipped.
+Boundary: one local two-pass derivation only; any stderr deletes and stops with no review/retry; all downstream use prohibited.
