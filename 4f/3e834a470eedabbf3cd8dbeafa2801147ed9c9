@@ -1,0 +1,5 @@
+Task slice: bounded attachment derivation execution request
+Summary: Pinned method, exact method approval, committed hardened wrapper, three governed source metadata records, tool/runtime, two-pass output contract, and all downstream prohibitions.
+Request SHA-256: ad2ac19a3be836165948585304a9050b95f4612dd514cb3bb826d21d2ab38f2f
+Verification: 2 focused request tests; full suite 724 passed, 2 skipped.
+Boundary: authorization_present/pdf_processing/derived_content/context/analysis/reconciliation all false.
