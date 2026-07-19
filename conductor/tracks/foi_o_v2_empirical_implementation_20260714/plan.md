@@ -472,11 +472,31 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     independent reviews passed; exact post-commit pre-execution verifier returned
     context, analyst execution, and execution allowed at commit
     `2bc50f3b3bf9f9db838d8427f21c78ed9d97f1d4`, with reconciliation false.
-  - [~] Authorized dual fixture-analysis execution subtask: independently
+  - [x] Authorized dual fixture-analysis execution subtask: independently
     present the approved codebook and identical ordered 11-context census to
     analyst A and analyst B without peer outputs, extractor candidate labels, or
     extractor confidence. Commit and hash-lock both complete first-pass sets;
-    reconciliation remains prohibited until both locks verify.
+    reconciliation remains prohibited until both locks verify (`edf3b56`). The
+    initial in-chat returns were not persistable, so both roles performed
+    documented blinded replacement passes only after the exact pre-execution
+    verifier re-passed at clean commit `6792500`; no result was reconstructed or
+    claimed as a verbatim recovery. Outputs:
+    `results/analysis-set.analyst-a.locked.json` SHA-256 `d22f72d9…`,
+    `results/analysis-set.analyst-b.locked.json` SHA-256 `ff72a35f…`, and
+    `results/analysis-lock.locked.json` SHA-256 `79faff0d…`. Verification: 12
+    focused locking tests; Ruff and task-scoped `ty` clean; full suite 624
+    passed, 2 skipped; two independent reviews drove canonical-path, exact
+    runtime, authorization, codebook, symlink, strict-JSON, and prohibition
+    hardening. The exact post-commit lock verifier passed at clean commit
+    `edf3b56652d8c2637a318f92ecff64adf3207e6c` and returned reconciliation
+    allowed. The two first-pass sets remain agent analysis only: not human
+    reviewed, empirical evidence, gold, release qualifying, or publication
+    eligible.
+  - [~] Authorized fixture-reconciliation subtask: present only the approved
+    context and both exact verified locked first-pass sets to the governed
+    reconciler, preserve every first-pass record, record reasoned candidate or
+    unresolved outcomes for disagreements, and keep all human-review,
+    empirical-evidence, gold, release, and publication gates false.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
