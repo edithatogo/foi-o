@@ -1,0 +1,1 @@
+Task: Record bounded request 11872 attachment stderr diagnostic result.\nFiles: metadata-only result, schema, tests, and mechanical inventory updates.\nVerification: 12 focused tests, Ruff, and examples validation passed; full suite 746 passed, 2 skipped.\nBoundary: stderr content was not reviewed, derived text was not retained, and no retry or empirical execution is authorized.
