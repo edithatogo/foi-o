@@ -783,6 +783,21 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     Verification: parallel approval/classifier/retry reviews; 12 and 13 focused
     tests; full suites 752 and 755 passed with 2 skipped; no PDF was processed
     by the alternative method.
+  - [x] Approved MuPDF method, hardened wrapper, and inert execution-request
+    subtask (`81ad3e1`, `971e03b`): record `edithatogo`'s exact method-design
+    approval; add a fail-closed wrapper pinned at SHA-256 `d8433bda…`; and commit
+    the closed pending execution request SHA-256 `f9dfcedb…` for the exact three
+    request `11872` attachments, MuPDF 1.24.9 runtime, local paths, two-pass
+    output contract, and failure policy. Parallel security and contract reviews
+    added executable freezing, atomic no-replace installation, full approval
+    binding, and stderr metadata secrecy tests. Verification: 19 wrapper tests,
+    32 focused request/wrapper/inventory tests, example validation, Ruff, and
+    full suites 776 then 779 passed with 2 skipped. PDF processing, derived
+    content, context presentation, analyst execution, reconciliation, and
+    empirical claims remain prohibited. Exact human approval of request
+    `f9dfcedb…` at commit `971e03b` is required before a final executable
+    authorization may be created or any alternative-method PDF processing may
+    occur.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.

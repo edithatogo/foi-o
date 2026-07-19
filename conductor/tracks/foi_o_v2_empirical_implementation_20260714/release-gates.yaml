@@ -197,7 +197,14 @@ gates:
     pending_attachment_alternative_text_method: examples/v2/bounded-pilot-attachment-alternative-text-method.pending.json
     pending_attachment_alternative_text_method_sha256: 9afcaa8ae32967e7b6aa19215e5731c11e0405e476db820748c6b42c47e47844
     pending_attachment_alternative_text_method_commit: cd38a7b515fe406927515a40fd1a22b384ab28f8
-    attachment_stderr_diagnostic_status: error_signal_classified_retry_blocked_alternative_method_pending_approval
+    approved_attachment_alternative_text_method: examples/v2/bounded-pilot-attachment-alternative-text-method-approval.approved.json
+    attachment_mutool_wrapper: src/foi_o_nz/bounded_pilot_attachment_mutool_derivation.py
+    attachment_mutool_wrapper_sha256: d8433bdaa8fabf994b9877575d4dce3727e20f0c6ff4d03e4f01eaf371c9a1cd
+    attachment_mutool_wrapper_commit: 81ad3e1b73b659a4c5885df2e6ccbc9c1cf891ed
+    pending_attachment_mutool_execution_request: examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json
+    pending_attachment_mutool_execution_request_sha256: f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148
+    pending_attachment_mutool_execution_request_commit: 971e03bed36188cb0aff4bd29d59aa21b51a63bb
+    attachment_stderr_diagnostic_status: error_signal_classified_pdftotext_retry_blocked_mutool_request_pending_exact_execution_approval
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
