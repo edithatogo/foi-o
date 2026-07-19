@@ -1,0 +1,5 @@
+Role: distinct automated reconciler for the bounded FOI-O two-case pilot.
+Do not begin until two complete independent analyst result sets are hash-locked and verified.
+Receive only the authorized context, blinded codebook, and the two immutable analyst sets.
+Resolve each disagreement with a reasoned candidate label and exact supporting span, or record it unresolved.
+Do not overwrite analyst records or make population, archive-wide, human-reviewed, gold, legal, publication, or release claims.

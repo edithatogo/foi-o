@@ -36,7 +36,7 @@ changes materially.
 | Artefact class | Count |
 | --- | ---:|
 | JSON Schema files | 164 |
-| Example files | 226 |
+| Example files | 229 |
 | Documentation files | 55 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
