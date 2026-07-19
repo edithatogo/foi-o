@@ -3,8 +3,8 @@
   "request_id": "bounded-pilot-11872-attachment-stderr-diagnostic-reproduction",
   "status": "pending_exact_diagnostic_execution_authorization",
   "prior_failure": {"path": "examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json", "sha256": "004c07a0aadb5c415522f77b302609b9e091a92b2f6502929434631901eb5727"},
-  "wrapper": {"path": "src/foi_o_nz/bounded_pilot_attachment_derivation.py", "sha256": "38ec68d9e3ca65e548156d92e20b65f4e4d2a3ee2dbce8c7bcc448d5b0d20b5a"},
-  "wrapper_repository_commit": "8d6e60c82ad658cc669456ee74b342c377aa39e0",
+  "wrapper": {"path": "src/foi_o_nz/bounded_pilot_attachment_derivation.py", "sha256": "67627144547c3352a4e86f75fea96141dfd33f459292cce4c6d00620dc938120"},
+  "wrapper_repository_commit": "0ad0b87666a5f30543be82d20be7dac146b4af72",
   "source_root": "/private/tmp/fyi-attachment-snapshot-11872-approved",
   "output_directory": "/private/tmp/foio-bounded-pilot-11872-derived",
   "sources": [
