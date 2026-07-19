@@ -90,6 +90,19 @@ class FixtureRuntimeHandshakeEvidenceVerificationResult:
 
 
 @dataclass(frozen=True, slots=True)
+class FixtureExecutionAuthorizationCandidateVerificationResult:
+    """Verified inert v0.2 candidate that is not an execution authorization."""
+
+    candidate_sha256: str
+    repository_commit: str
+    handshake_evidence_sha256: str
+    role_count: int
+    human_approval_present: bool = False
+    authorization_effective: bool = False
+    execution_allowed: bool = False
+
+
+@dataclass(frozen=True, slots=True)
 class DerivedFixtureUnit:
     """A source-derived fixture unit; never an empirical or gold assertion."""
 
@@ -1029,7 +1042,7 @@ def verify_fixture_runtime_handshake_authorization(
     )
 
 
-def verify_fixture_runtime_handshake_evidence(
+def _verify_fixture_runtime_handshake_evidence(
     *,
     repository_root: Path,
     bundle_path: Path,
@@ -1041,8 +1054,8 @@ def verify_fixture_runtime_handshake_evidence(
     expected_preparation_repository_commit: str,
     expected_base_repository_commit: str,
     expected_promotion_repository_commit: str,
+    require_head_anchor: bool,
 ) -> FixtureRuntimeHandshakeEvidenceVerificationResult:
-    """Verify a committed four-role handshake bundle without enabling analysis."""
     root = repository_root.resolve(strict=True)
     bundle_file = bundle_path.resolve(strict=True)
     if root not in bundle_file.parents:
@@ -1282,11 +1295,245 @@ def verify_fixture_runtime_handshake_evidence(
         anchored_paths.extend([record_path, raw_path])
     if len(actors) != 4 or len(locators) != 4:
         raise ValueError("runtime handshake actors and locators must be distinct")
-    verify_git_anchor(root, expected_repository_commit, anchored_paths)
+    if require_head_anchor:
+        verify_git_anchor(root, expected_repository_commit, anchored_paths)
+    else:
+        verify_git_artifacts_at_commit(root, expected_repository_commit, anchored_paths)
     return FixtureRuntimeHandshakeEvidenceVerificationResult(
         bundle_sha256=bundle_digest,
         repository_commit=expected_repository_commit,
         authorization_sha256=expected_authorization_sha256,
+        role_count=4,
+    )
+
+
+def verify_fixture_runtime_handshake_evidence(
+    *,
+    repository_root: Path,
+    bundle_path: Path,
+    expected_bundle_sha256: str,
+    expected_repository_commit: str,
+    expected_authorization_sha256: str,
+    expected_authorization_repository_commit: str,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixtureRuntimeHandshakeEvidenceVerificationResult:
+    """Verify a committed four-role handshake bundle without enabling analysis."""
+    return _verify_fixture_runtime_handshake_evidence(
+        repository_root=repository_root,
+        bundle_path=bundle_path,
+        expected_bundle_sha256=expected_bundle_sha256,
+        expected_repository_commit=expected_repository_commit,
+        expected_authorization_sha256=expected_authorization_sha256,
+        expected_authorization_repository_commit=expected_authorization_repository_commit,
+        expected_request_sha256=expected_request_sha256,
+        expected_preparation_repository_commit=expected_preparation_repository_commit,
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+        require_head_anchor=True,
+    )
+
+
+def verify_fixture_execution_authorization_candidate(
+    *,
+    repository_root: Path,
+    candidate_path: Path,
+    expected_candidate_sha256: str,
+    expected_repository_commit: str,
+    expected_handshake_evidence_sha256: str,
+    expected_handshake_evidence_repository_commit: str,
+    expected_authorization_sha256: str,
+    expected_authorization_repository_commit: str,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixtureExecutionAuthorizationCandidateVerificationResult:
+    """Verify an inert candidate that still requires exact human approval."""
+    root = repository_root.resolve(strict=True)
+    candidate_file = candidate_path.resolve(strict=True)
+    canonical_candidate = resolve_repo_artifact(
+        root,
+        "examples/v2/analyst-fixture-packet/execution-authorization-candidate.v0.2.pending.json",
+    )
+    if candidate_file != canonical_candidate:
+        raise ValueError("fixture execution authorization candidate path is not canonical")
+    candidate_digest = sha256(candidate_file.read_bytes()).hexdigest()
+    if candidate_digest != expected_candidate_sha256:
+        raise ValueError("fixture execution authorization candidate SHA-256 mismatch")
+    document = _load_object(candidate_file)
+    _validate_object(
+        document,
+        "fixture-execution-authorization-candidate.v0.2.schema.json",
+        "fixture_execution_authorization_candidate",
+    )
+    expected_prohibitions = [
+        "redistribution",
+        "publication",
+        "training",
+        "fine_tuning",
+        "release",
+        "dataset_publication",
+        "gold_promotion",
+        "legal_certification",
+        "paper_update",
+        "human_reviewed_claims",
+        "empirical_evidence_claims",
+    ]
+    if document["prohibited_actions"] != expected_prohibitions:
+        raise ValueError("fixture execution authorization candidate prohibitions are not exact")
+    if (
+        document["human_approval_present"] is not False
+        or document["approved_by"] is not None
+        or document["approved_at"] is not None
+        or document["authorization_effective"] is not False
+        or document["pre_execution_verification_passed"] is not False
+        or document["context_presentation_allowed"] is not False
+        or document["analysis_execution_allowed"] is not False
+        or document["reconciliation_allowed"] is not False
+        or document["execution_allowed"] is not False
+        or document["local_only"] is not True
+        or any(
+            document[key] is not False
+            for key in (
+                "empirical_evidence",
+                "human_reviewed",
+                "gold_eligible",
+                "release_qualifying",
+                "publication_eligible",
+            )
+        )
+    ):
+        raise ValueError("fixture execution authorization candidate enables a prohibited state")
+    _instant(document["recorded_at"], "fixture_execution_authorization_candidate.recorded_at")
+    if document["handshake_evidence_commit"] != expected_handshake_evidence_repository_commit:
+        raise ValueError("fixture execution authorization candidate evidence commit mismatch")
+
+    expected_single_pins = {
+        "approved_input_readiness": (
+            "examples/v2/analyst-fixture-packet/input-readiness.approved.json",
+            "814409acac7401118428bcad2d73df1b1eb8b1bf79c2fa8ce3ea0bdb560b8b6e",
+        ),
+        "protocol": (
+            "docs/42-v2-analyst-execution-protocol.md",
+            "ac3785bd823d43a43c7830e34f4f3b380472f271e21f19446cbc575f4b49eca0",
+        ),
+        "role_authorization_request": (
+            "examples/v2/analyst-fixture-packet/role-authorization-request.pending.json",
+            expected_request_sha256,
+        ),
+        "role_authorization_approval": (
+            "examples/v2/analyst-fixture-packet/role-authorization-approval.approved.json",
+            "9290ac2d3934ff844cf98b1e5c39b42aa960b7f086279dc9bd652767252312b4",
+        ),
+        "runtime_handshake_authorization": (
+            "examples/v2/analyst-fixture-packet/runtime-handshake-authorization.approved.json",
+            expected_authorization_sha256,
+        ),
+        "runtime_handshake_readiness": (
+            "examples/v2/analyst-fixture-packet/runtime-handshake-readiness.locked.json",
+            expected_handshake_evidence_sha256,
+        ),
+        "handshake_prompt": (
+            "examples/v2/analyst-fixture-packet/prompts/runtime-provenance-handshake.v1.txt",
+            "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77",
+        ),
+        "context_presentation": (
+            "examples/v2/analyst-fixture-packet/context-presentation.pending.json",
+            "72b75eb688541a712a62bea2569fb84353930c089ebaf8fc1082128aa3ef0e63",
+        ),
+        "isolation_plan": (
+            "examples/v2/analyst-fixture-packet/role-isolation-plan.pending.json",
+            "fe2558b57c6a44b20fcde235c79ccc2a7517f6f774450a2f01e176a19cee18b9",
+        ),
+    }
+    anchored_paths = [candidate_file]
+    resolved_single: dict[str, Path] = {}
+    for name, (relative, digest) in expected_single_pins.items():
+        pin = document[name]
+        if pin != {"path": relative, "sha256": digest}:
+            raise ValueError(f"fixture execution authorization candidate {name} pin mismatch")
+        path = resolve_repo_artifact(root, relative)
+        if sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError(f"fixture execution authorization candidate {name} artifact mismatch")
+        resolved_single[name] = path
+        anchored_paths.append(path)
+
+    expected_role_hashes = {
+        "orchestrator": (
+            "c817ee25c74ea08ebdecf28ad52d126bbc6e8debfd3a9d32f7c8f02c3571112a",
+            "b08dedc5f0c2f48f106f92aab5185d7decddea9a8995c5744ac8371ad68dc9c8",
+            "5fd5a148c76344021679aa478d74d2d88334bff2cc5c78508649abbe46bbce8b",
+        ),
+        "analyst_a": (
+            "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "899bfc9a6a70fa916b5d65e21aa3b64cf31b02bc82ab319c94555a722c0b0b35",
+            "f61a108759139dd4cefa1179936cc4f8cbacf13380b588bd8f81f1f89cbd72ed",
+        ),
+        "analyst_b": (
+            "3bcb3b37c8d3a19e51a152c0b72aee82dba088bf822aa8cdc299cbbf029dfb6a",
+            "9be881edce63ef461e91d7bc785fdf9fe23a97cbe3bee12ec35de98374bec208",
+            "b8012b39cf099015ad226c76814c4c2a96868e25345d113e20fa664f4062d024",
+        ),
+        "reconciler": (
+            "80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081",
+            "5df3c98f2c3535ddbfc3df0abb42fd668fa3a40b35982494c9fbc6cd20c990f7",
+            "e293e4eb036890b32d246bb4b123dae4f72636cb305da1fcf6a4982051e1671a",
+        ),
+    }
+    groups = {
+        "future_execution_prompts": ("prompts/{role}.future-execution.v1.txt", 0),
+        "role_provenance": ("role-provenance.{role}.pending.json", 1),
+        "runtime_evidence": ("runtime-handshake-evidence.{role}.json", 2),
+    }
+    for group, (template, digest_index) in groups.items():
+        if set(document[group]) != set(expected_role_hashes):
+            raise ValueError(
+                f"fixture execution authorization candidate {group} membership mismatch"
+            )
+        for role, digests in expected_role_hashes.items():
+            relative = "examples/v2/analyst-fixture-packet/" + template.format(role=role)
+            expected_pin = {"path": relative, "sha256": digests[digest_index]}
+            if document[group][role] != expected_pin:
+                raise ValueError(
+                    f"fixture execution authorization candidate {group}.{role} pin mismatch"
+                )
+            path = resolve_repo_artifact(root, relative)
+            if sha256(path.read_bytes()).hexdigest() != digests[digest_index]:
+                raise ValueError(
+                    f"fixture execution authorization candidate {group}.{role} artifact mismatch"
+                )
+            anchored_paths.append(path)
+
+    _verify_commit_ancestry(
+        root,
+        [
+            expected_preparation_repository_commit,
+            expected_authorization_repository_commit,
+            expected_handshake_evidence_repository_commit,
+            expected_repository_commit,
+        ],
+    )
+    _verify_fixture_runtime_handshake_evidence(
+        repository_root=root,
+        bundle_path=resolved_single["runtime_handshake_readiness"],
+        expected_bundle_sha256=expected_handshake_evidence_sha256,
+        expected_repository_commit=expected_handshake_evidence_repository_commit,
+        expected_authorization_sha256=expected_authorization_sha256,
+        expected_authorization_repository_commit=expected_authorization_repository_commit,
+        expected_request_sha256=expected_request_sha256,
+        expected_preparation_repository_commit=expected_preparation_repository_commit,
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+        require_head_anchor=False,
+    )
+    verify_git_anchor(root, expected_repository_commit, anchored_paths)
+    return FixtureExecutionAuthorizationCandidateVerificationResult(
+        candidate_sha256=candidate_digest,
+        repository_commit=expected_repository_commit,
+        handshake_evidence_sha256=expected_handshake_evidence_sha256,
         role_count=4,
     )
 
@@ -1307,6 +1554,9 @@ def verify_analyst_execution_packet(
         "foi-o.fixture-runtime-handshake-authorization.v0.1.0": ("runtime handshake authorization"),
         "foi-o.fixture-runtime-handshake-readiness.v0.1.0": ("runtime handshake evidence bundle"),
         "foi-o.fixture-runtime-handshake-evidence.v0.1.0": "runtime handshake evidence record",
+        "foi-o.fixture-execution-authorization-candidate.v0.2.0": (
+            "fixture execution authorization candidate"
+        ),
     }
     if pending.get("schema_version") in preparation_only_versions:
         label = preparation_only_versions[pending["schema_version"]]
