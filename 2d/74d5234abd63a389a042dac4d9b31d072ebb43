@@ -1,0 +1,4 @@
+Task slice: corrected attachment method approval and inert request builder
+Summary: Recorded exact SHA/commit-bound approval and added deterministic request construction with no PDF reads or subprocess surface.
+Verification: 3 focused tests; Ruff; example validation; full suite 711 passed, 2 skipped.
+Remaining boundary: executable wrapper and committed execution request; actual processing remains prohibited.
