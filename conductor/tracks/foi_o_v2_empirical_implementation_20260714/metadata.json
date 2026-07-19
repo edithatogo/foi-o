@@ -66,6 +66,7 @@
       "attachment_derivation_human_approval_ref": "examples/v2/bounded-pilot-attachment-derivation-human-approval.approved.json",
       "attachment_derivation_execution_authorization_ref": "examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json",
       "attachment_derivation_attempt_ref": "examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json",
+      "attachment_stderr_diagnostic_request_ref": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json",
       "note": "The exact path-bound attempt passed clean-HEAD verification but stopped fail-closed on nonempty tool stderr. No output was installed and the one-shot authorization is consumed. A fresh diagnostic request is required; context presentation, analyst execution, reconciliation, and empirical claims remain prohibited."
     },
     {

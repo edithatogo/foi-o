@@ -1,0 +1,26 @@
+{
+  "schema_version": "foi-o.bounded-pilot-attachment-stderr-diagnostic-request.v0.1.0",
+  "request_id": "bounded-pilot-11872-attachment-stderr-diagnostic-reproduction",
+  "status": "pending_exact_diagnostic_execution_authorization",
+  "prior_failure": {"path": "examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json", "sha256": "004c07a0aadb5c415522f77b302609b9e091a92b2f6502929434631901eb5727"},
+  "wrapper": {"path": "src/foi_o_nz/bounded_pilot_attachment_derivation.py", "sha256": "38ec68d9e3ca65e548156d92e20b65f4e4d2a3ee2dbce8c7bcc448d5b0d20b5a"},
+  "wrapper_repository_commit": "8d6e60c82ad658cc669456ee74b342c377aa39e0",
+  "source_root": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+  "output_directory": "/private/tmp/foio-bounded-pilot-11872-derived",
+  "sources": [
+    {"inventory_pointer": "/0", "relative_path": "content/attachments/20OIA1186 Extension letter Lambert.pdf", "sha256": "787ac62017c339e6fba9dba53ec699f143c9aea9554adc10cbdf686a90f4f4de", "size": 702556, "response_message_id": 45225, "output_name": "attachment-000.txt"},
+    {"inventory_pointer": "/1", "relative_path": "content/attachments/OIA response K Lambert.pdf", "sha256": "30e63d1d5d65a416cee9aeb1d2734d1ee8a21da5594e308760e176d0b012c0e4", "size": 217655, "response_message_id": 45813, "output_name": "attachment-001.txt"},
+    {"inventory_pointer": "/2", "relative_path": "content/attachments/Attachment Items 1 13.pdf", "sha256": "1d1c9eda958de560abea6285182ed6f4ae747944cabfc6bc7485f5707adec79d", "size": 12339055, "response_message_id": 45813, "output_name": "attachment-002.txt"}
+  ],
+  "requested_scope": "one_local_diagnostic_reproduction_preserve_stderr_only_no_derived_text_install",
+  "diagnostic_quarantine_policy": {"parent": "/private/tmp", "directory_mode": "0700", "stderr_mode": "0600", "metadata_mode": "0600", "retain_stderr_only": true, "retain_derived_text": false, "commit_content": false},
+  "authorization_present": false,
+  "pdf_processing_allowed": false,
+  "derived_text_install_allowed": false,
+  "context_presentation_allowed": false,
+  "analyst_execution_allowed": false,
+  "reconciliation_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false
+}
