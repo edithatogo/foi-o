@@ -52,10 +52,11 @@
         "docs/41-v2-sampling-and-annotation-protocol.md"
       ],
       "authorization_refs": [
-        "examples/v2/annotation-protocol-review.approved.json"
+        "examples/v2/annotation-protocol-review.approved.json",
+        "examples/v2/bounded-empirical-pilot-sample.approved.json"
       ],
       "request_ref": "examples/v2/bounded-empirical-pilot-sample.pending.json",
-      "note": "The two-request local pilot is proposed but purpose-rights expansion and sample membership remain unauthorized. It can support only case-level feasibility claims."
+      "note": "The two-request local pilot membership and bounded local empirical-analysis purpose are approved. Immutable unit/source-span and cluster manifests still must be derived and frozen before execution; only case-level feasibility claims are in scope."
     },
     {
       "id": "G-EMP-ANALYST-EXECUTION",

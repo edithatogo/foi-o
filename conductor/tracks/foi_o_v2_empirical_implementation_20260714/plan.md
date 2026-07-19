@@ -672,6 +672,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     pending exact sample-membership and purpose-rights approval; execution and
     population inference remain prohibited. Verification: 3 focused tests and
     full suite 689 passed, 2 skipped.
+  - [x] Bounded empirical-pilot approval recording subtask: record the exact
+    approval of requests `11872` and `35076` as the complete local-only pilot
+    membership and expand purpose rights only to bounded agent empirical
+    analysis. Context presentation and execution remain false pending immutable
+    unit/source-span derivation, role authorization, and pre-execution proof.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
