@@ -1,0 +1,1 @@
+Task: Specify bounded attachment diagnostic authorization contracts.\nFiles: two diagnostic authorization schemas, focused synthetic tests, maturation summary, and coverage matrix.\nVerification: 19 focused tests passed; Ruff passed; full suite 744 passed, 2 skipped.\nBoundary: no real approval, authorization, PDF processing, context presentation, or empirical execution occurred.
