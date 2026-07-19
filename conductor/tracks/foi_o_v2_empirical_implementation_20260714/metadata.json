@@ -1,9 +1,9 @@
 {
   "track_id": "foi_o_v2_empirical_implementation_20260714",
   "type": "feature",
-  "status": "active_fixture_diagnostics_complete_external_empirical_gates",
+  "status": "active_pending_exact_attachment_diagnostic_approval",
   "created_at": "2026-07-14T00:00:00+10:00",
-  "updated_at": "2026-07-19T05:19:25Z",
+  "updated_at": "2026-07-19T10:25:34Z",
   "github_issue": "https://github.com/edithatogo/foi-o/issues/23",
   "depends_on_external": "edithatogo/rulesandprocesses:conductor/tracks/foi_o_v2_triangulation_20260708",
   "description": "Repository-native implementation of the FOI-O V2 empirical-governance overlay.",
@@ -67,7 +67,10 @@
       "attachment_derivation_execution_authorization_ref": "examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json",
       "attachment_derivation_attempt_ref": "examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json",
       "attachment_stderr_diagnostic_request_ref": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json",
-      "note": "The exact path-bound attempt passed clean-HEAD verification but stopped fail-closed on nonempty tool stderr. No output was installed and the one-shot authorization is consumed. A fresh diagnostic request is required; context presentation, analyst execution, reconciliation, and empirical claims remain prohibited."
+      "attachment_stderr_diagnostic_request_sha256": "b8c16f51f86b4d1a462edf495dc309f4f6e1dd09c47fb55010a5d08955c40d7f",
+      "attachment_stderr_diagnostic_request_commit": "bcbb5865e8cd48421c013243609c06514f41bf09",
+      "attachment_stderr_diagnostic_status": "pending_exact_human_approval",
+      "note": "The exact path-bound derivation attempt passed clean-HEAD verification but stopped fail-closed on nonempty tool stderr. No output was installed and the one-shot derivation authorization is consumed. The corrected inert stderr-diagnostic request is pinned by exact SHA-256 and commit and awaits separate exact human approval; context presentation, analyst execution, reconciliation, and empirical claims remain prohibited."
     },
     {
       "id": "G-EMP-ANALYST-EXECUTION",

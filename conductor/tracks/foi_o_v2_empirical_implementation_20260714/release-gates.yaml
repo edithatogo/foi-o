@@ -185,6 +185,9 @@ gates:
     approved_attachment_derivation_execution: examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json
     failed_attachment_derivation_attempt: examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json
     pending_attachment_stderr_diagnostic_request: examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json
+    pending_attachment_stderr_diagnostic_request_sha256: b8c16f51f86b4d1a462edf495dc309f4f6e1dd09c47fb55010a5d08955c40d7f
+    pending_attachment_stderr_diagnostic_request_commit: bcbb5865e8cd48421c013243609c06514f41bf09
+    attachment_stderr_diagnostic_status: pending_exact_human_approval
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
