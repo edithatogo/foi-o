@@ -187,7 +187,12 @@ gates:
     pending_attachment_stderr_diagnostic_request: examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json
     pending_attachment_stderr_diagnostic_request_sha256: b8c16f51f86b4d1a462edf495dc309f4f6e1dd09c47fb55010a5d08955c40d7f
     pending_attachment_stderr_diagnostic_request_commit: bcbb5865e8cd48421c013243609c06514f41bf09
-    attachment_stderr_diagnostic_status: pending_exact_human_approval
+    approved_attachment_stderr_diagnostic_authorization: examples/v2/bounded-pilot-attachment-diagnostic-execution-authorization.approved.json
+    attachment_stderr_diagnostic_result: examples/v2/bounded-pilot-attachment-stderr-diagnostic-result.1.json
+    pending_attachment_stderr_content_review_request: examples/v2/bounded-pilot-attachment-stderr-content-review-request.pending.json
+    pending_attachment_stderr_content_review_request_sha256: 53154fc6bed37aaa26d9291bb74ddcb25a7a23c892d7b340fd28415e41defd9a
+    pending_attachment_stderr_content_review_request_commit: 26f2e159b26455843ef3b9522e75daef1d0bc7a2
+    attachment_stderr_diagnostic_status: complete_pending_exact_content_review_approval
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]

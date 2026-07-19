@@ -757,6 +757,18 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     before final authorization or PDF processing. Verification: 17 focused
     tests, example validation, Ruff, and full suite 735 passed, 2 skipped; no
     real PDF/tool run.
+  - [x] Authorized stderr diagnostic and metadata-only outcome subtask
+    (`b6fa258`, `6a333f7`, `26f2e15`): record `edithatogo`'s exact approval of
+    corrected request `b8c16f51…`, commit and verify the final diagnostic
+    authorization, and run the single three-source, two-pass local diagnostic.
+    All six tool invocations returned zero. Only source index `2` emitted
+    stderr: 198 bytes with SHA-256 `4292a8a…`, reproduced identically in both
+    passes. No derived output or temporary workspace remained. The stderr
+    content was not reviewed, so no warning policy or derivation retry is
+    authorized. Pending exact content-review request SHA-256 is `53154fc6…` at
+    commit `26f2e15`. Verification: production clean-HEAD verifier passed; 34,
+    12, and 12 focused tests across the authorization, result, and review
+    request slices; full suites 744, 746, and 748 passed with 2 skipped.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
