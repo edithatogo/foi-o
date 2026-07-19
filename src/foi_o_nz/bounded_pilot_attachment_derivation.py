@@ -460,6 +460,62 @@ def _run_tool(
         raise
 
 
+def _quarantine_stderr(
+    *,
+    output_parent: Path,
+    stderr_path: Path,
+    derived_target: Path,
+    source: dict[str, Any],
+    pass_number: int,
+    source_index: int,
+) -> Path:
+    """Preserve restricted stderr diagnostics while destroying derived text."""
+    stderr_data = stderr_path.read_bytes()
+    if derived_target.exists() or derived_target.is_symlink():
+        derived_target.unlink()
+    quarantine = Path(tempfile.mkdtemp(prefix=".foio-attachment-diagnostic-", dir=output_parent))
+    try:
+        quarantine.chmod(0o700)
+        diagnostic_name = f"stderr-pass-{pass_number}-source-{source_index:03d}.bin"
+        diagnostic = quarantine / diagnostic_name
+        stderr_path.replace(diagnostic)
+        diagnostic.chmod(0o600)
+        metadata = {
+            "schema_version": "foi-o.bounded-pilot-attachment-stderr-diagnostic.v0.1.0",
+            "status": "quarantined_local_diagnostic_review_required",
+            "pass_number": pass_number,
+            "source_index": source_index,
+            "source_inventory_pointer": source.get("inventory_pointer"),
+            "source_relative_path": source["relative_path"],
+            "source_sha256": source["sha256"],
+            "stderr_file": diagnostic_name,
+            "stderr_sha256": sha256(stderr_data).hexdigest(),
+            "stderr_byte_count": len(stderr_data),
+            "derived_text_retained": False,
+            "local_only": True,
+            "restricted_diagnostic_committed": False,
+            "context_presentation_allowed": False,
+            "analyst_execution_allowed": False,
+            "empirical_evidence": False,
+        }
+        metadata_path = quarantine / "diagnostic-metadata.json"
+        metadata_fd = os.open(metadata_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(metadata_fd, "wb", closefd=True) as metadata_file:
+            metadata_file.write(
+                (
+                    json.dumps(metadata, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+                    + "\n"
+                ).encode("utf-8")
+            )
+            metadata_file.flush()
+            os.fsync(metadata_file.fileno())
+    except Exception:
+        shutil.rmtree(quarantine, ignore_errors=True)
+        raise
+    else:
+        return quarantine
+
+
 def derive_attachment_text(
     *,
     permission: VerifiedAttachmentDerivationPermission,
@@ -516,7 +572,17 @@ def derive_attachment_text(
                     raise ValueError("attachment derivation tool returned nonzero")
                 stderr_data = stderr_path.read_bytes()
                 if stderr_data:
-                    raise ValueError("attachment derivation tool emitted stderr")
+                    quarantine = _quarantine_stderr(
+                        output_parent=output_parent,
+                        stderr_path=stderr_path,
+                        derived_target=target,
+                        source=source,
+                        pass_number=pass_index + 1,
+                        source_index=index,
+                    )
+                    raise ValueError(
+                        f"attachment derivation tool emitted stderr; diagnostic quarantined at {quarantine}"
+                    )
                 stderr_path.unlink()
                 target_info = target.lstat()
                 if not stat.S_ISREG(target_info.st_mode):

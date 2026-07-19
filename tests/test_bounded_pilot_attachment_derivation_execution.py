@@ -340,3 +340,46 @@ def test_executor_kills_timed_out_process_group_and_cleans_up(tmp_path: Path) ->
         )
     assert not output.exists()
     assert not list(output.parent.glob(".foio-attachment-work-*"))
+
+
+def test_nonempty_stderr_is_quarantined_without_derived_text(tmp_path: Path) -> None:
+    repository, source_root, authorization, digest, commit = _synthetic_repository(
+        tmp_path,
+        tool_body='/bin/cp "$6" "$7"\n/bin/echo "synthetic warning" >&2',
+    )
+    output = tmp_path / "derived" / "complete"
+    permission = verify_attachment_derivation_pre_execution(
+        repository_root=repository,
+        authorization_path=authorization,
+        expected_authorization_sha256=digest,
+        expected_repository_commit=commit,
+        source_root=source_root,
+        output_directory=output,
+    )
+    with pytest.raises(ValueError, match="diagnostic quarantined"):
+        derive_attachment_text(
+            permission=permission,
+            repository_root=repository,
+            source_root=source_root,
+            output_directory=output,
+        )
+    assert not output.exists()
+    assert not list(output.parent.glob(".foio-attachment-work-*"))
+    quarantines = list(output.parent.glob(".foio-attachment-diagnostic-*"))
+    assert len(quarantines) == 1
+    quarantine = quarantines[0]
+    assert stat.S_IMODE(quarantine.stat().st_mode) == 0o700
+    stderr_files = list(quarantine.glob("stderr-*.bin"))
+    assert len(stderr_files) == 1
+    assert stat.S_IMODE(stderr_files[0].stat().st_mode) == 0o600
+    assert stderr_files[0].read_bytes() == b"synthetic warning\n"
+    assert not list(quarantine.glob("attachment-*.txt"))
+    metadata_path = quarantine / "diagnostic-metadata.json"
+    assert stat.S_IMODE(metadata_path.stat().st_mode) == 0o600
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    assert metadata["stderr_sha256"] == sha256(b"synthetic warning\n").hexdigest()
+    assert metadata["stderr_byte_count"] == len(b"synthetic warning\n")
+    assert metadata["source_sha256"] == _digest(source_root / "content/attachments/synthetic.pdf")
+    assert metadata["source_relative_path"] == "content/attachments/synthetic.pdf"
+    assert metadata["pass_number"] == 1
+    assert metadata["derived_text_retained"] is False
