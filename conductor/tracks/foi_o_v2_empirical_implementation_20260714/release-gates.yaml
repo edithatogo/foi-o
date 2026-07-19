@@ -149,7 +149,7 @@ gates:
       ready_for_raw_state_mapping_audit: true
       mapping_review: examples/v2/bounded-raw-state-mapping-review.11872.json
   annotation_protocol:
-    status: approved_fixture_execution_complete_authentic_empirical_gates_blocked
+    status: approved_fixture_execution_complete_bounded_pilot_readiness_approval_pending
     protocol: docs/41-v2-sampling-and-annotation-protocol.md
     protocol_sha256: 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63
     protocol_approval: examples/v2/annotation-protocol-review.approved.json
@@ -211,6 +211,10 @@ gates:
     attachment_mutool_derivation_result: examples/v2/bounded-pilot-attachment-mutool-derivation-result.1.json
     attachment_mutool_derivation_result_sha256: 271a15a0f93451be4db2d35be0721c16734d0e643d8d04a5dfb421fb1bd4eded
     attachment_mutool_derivation_result_commit: f5d59d22a77240db72884a2bedcffcbb731ea59d
+    pending_bounded_pilot_readiness_v02: examples/v2/bounded-pilot-execution-input-readiness.v0.2.pending.json
+    pending_bounded_pilot_readiness_v02_sha256: e91548e8814aba1659c0b1927fde70cad3a8809bb4c974d43d50606c500c016f
+    pending_bounded_pilot_readiness_v02_commit: 0e6e080bc63c0998a7ca46bc708734ae500f1302
+    bounded_pilot_readiness_status: pending_exact_bounded_readiness_approval
     attachment_stderr_diagnostic_status: pdftotext_retry_blocked_mutool_derivation_complete_context_still_prohibited
   remote_delivery:
     status: partially_authorized

@@ -814,6 +814,16 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     human review, gold promotion, legal certification, redistribution,
     publication, retry, release, dataset publication, and paper updates remain
     prohibited.
+  - [x] Bounded pilot execution-input readiness v0.2 candidate subtask
+    (`0e6e080`): bind immutable v0.1 two-case sampling semantics `2ff95259…`
+    and metadata-only MuPDF result `271a15a0…` without reopening, decoding,
+    embedding, or presenting derived text. Exact provenance pins, ordered output
+    metadata, commit ancestry, and fail-closed permissions are mechanically
+    tested. Candidate SHA-256 is `e91548e8…`; exact readiness approval is absent,
+    so `inputs_ready`, derived-text access, context presentation, analyst
+    execution, reconciliation, empirical claims, and external uses remain false.
+    Verification: 14 focused tests, Ruff, example validation, and full suite
+    787 passed, 2 skipped.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.

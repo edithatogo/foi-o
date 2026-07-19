@@ -1,9 +1,9 @@
 {
   "track_id": "foi_o_v2_empirical_implementation_20260714",
   "type": "feature",
-  "status": "active_bounded_attachment_derivation_complete_context_gate_pending",
+  "status": "active_bounded_pilot_readiness_approval_gate_pending",
   "created_at": "2026-07-14T00:00:00+10:00",
-  "updated_at": "2026-07-19T12:48:22Z",
+  "updated_at": "2026-07-19T13:09:57Z",
   "github_issue": "https://github.com/edithatogo/foi-o/issues/23",
   "depends_on_external": "edithatogo/rulesandprocesses:conductor/tracks/foi_o_v2_triangulation_20260708",
   "description": "Repository-native implementation of the FOI-O V2 empirical-governance overlay.",
@@ -45,8 +45,8 @@
       "id": "G-EMP-SAMPLE-FREEZE",
       "kind": "empirical_input_freeze",
       "status": "blocked",
-      "depends_on": ["G-EMP-AUTHENTIC-INPUTS", "G-RAW-ARCHIVE-WIDE-EVIDENCE"],
-      "condition": "Freeze an authentic sample with immutable unit, source, cluster, split, stratum, inclusion-probability, weight, accessibility, and rights provenance after the authentic population and archive-wide evidence gates pass.",
+      "depends_on": [],
+      "condition": "Obtain exact approval of the bounded two-case v0.2 execution-input readiness candidate for requests 11872 and 35076. Archive-wide and authentic-population evidence remain separate prerequisites only for broader claims.",
       "evidence_refs": [
         "schemas/json/empirical-sample-manifest.schema.json",
         "docs/41-v2-sampling-and-annotation-protocol.md"
@@ -93,6 +93,10 @@
       "attachment_mutool_derivation_result_ref": "examples/v2/bounded-pilot-attachment-mutool-derivation-result.1.json",
       "attachment_mutool_derivation_result_sha256": "271a15a0f93451be4db2d35be0721c16734d0e643d8d04a5dfb421fb1bd4eded",
       "attachment_mutool_derivation_result_commit": "f5d59d22a77240db72884a2bedcffcbb731ea59d",
+      "bounded_pilot_readiness_v02_ref": "examples/v2/bounded-pilot-execution-input-readiness.v0.2.pending.json",
+      "bounded_pilot_readiness_v02_sha256": "e91548e8814aba1659c0b1927fde70cad3a8809bb4c974d43d50606c500c016f",
+      "bounded_pilot_readiness_v02_commit": "0e6e080bc63c0998a7ca46bc708734ae500f1302",
+      "bounded_pilot_readiness_status": "pending_exact_bounded_readiness_approval",
       "attachment_stderr_diagnostic_status": "pdftotext_retry_blocked_mutool_derivation_complete_context_still_prohibited",
       "note": "The approved independent MuPDF derivation completed two byte-identical passes for all three exact request 11872 attachments without nonempty stderr. Restricted text remains owner-only under /private/tmp and uncommitted. The metadata-only result is committed. Context presentation, analyst execution, reconciliation, empirical claims, human review, gold promotion, legal certification, redistribution, publication, retry, release, dataset publication, and paper updates remain prohibited. The bounded result does not satisfy archive-wide or authentic-corpus gates."
     },
