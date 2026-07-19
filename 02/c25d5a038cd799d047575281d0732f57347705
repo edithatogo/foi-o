@@ -1,0 +1,3 @@
+Task: Commit inert bounded pilot analyst execution request.
+Verification: focused request/failure tests, examples validation, Ruff, full suite 790 passed, 2 skipped.
+Boundary: no context read or execution authorized; separate reconciliation permission required.
