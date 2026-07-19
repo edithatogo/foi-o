@@ -1,0 +1,1 @@
+Task: Record bounded stderr content-review result.\nFiles: metadata-only result, schema, tests, and mechanical inventory updates.\nVerification: 12 focused tests, Ruff, examples validation, and full suite 752 passed, 2 skipped.\nBoundary: classification is error_signal_present; retry and derived-text review remain unauthorized.
