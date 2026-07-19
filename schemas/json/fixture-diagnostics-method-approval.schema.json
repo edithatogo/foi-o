@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-diagnostics-method-approval:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approval_id", "status", "approved_by", "approved_on", "recorded_at", "recording_note", "approval_statement", "approval_statement_sha256", "approved_candidate", "scope", "derivation_approved", "committed_authorization_required", "pre_execution_verification_required", "bootstrap_execution_allowed", "diagnostics_finalization_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-diagnostics-method-approval.v0.1.0"},
+    "approval_id": {"const": "local-fixture-diagnostics-method-2026-07-19"},
+    "status": {"const": "approved_bounded_local_diagnostics_derivation"},
+    "approved_by": {"const": "human:edithatogo"},
+    "approved_on": {"const": "2026-07-19"},
+    "recorded_at": {"const": "2026-07-19T04:34:13Z"},
+    "recording_note": {"const": "recorded_at is repository provenance and is not claimed as approval time"},
+    "approval_statement": {"const": "I, edithatogo, approve pending fixture diagnostics-method candidate SHA-256 6e44b634e1bfde2cc21dd99f79fd0ad4bcd5a7fb96d361be7aae09567ed4c699 as committed in c104a4cf193ef5f26de66b584e6a8cf37864a97e for bounded local inter-agent diagnostics execution and finalization under the exact method recorded by that candidate. This approval does not authorize empirical-evidence claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates."},
+    "approval_statement_sha256": {"const": "4ae892642f0b03e291a8e0c80c5c2bae12fea17908b02cde16fa340ad94e188b"},
+    "approved_candidate": {"$ref": "#/$defs/candidatePin"},
+    "scope": {"const": "derive_bounded_local_fixture_diagnostics_authorization_only"},
+    "derivation_approved": {"const": true},
+    "committed_authorization_required": {"const": true},
+    "pre_execution_verification_required": {"const": true},
+    "bootstrap_execution_allowed": {"const": false},
+    "diagnostics_finalization_allowed": {"const": false},
+    "local_only": {"const": true},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "release_qualifying": {"const": false},
+    "publication_eligible": {"const": false},
+    "prohibited_actions": {"$ref": "#/$defs/prohibitions"}
+  },
+  "$defs": {
+    "candidatePin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/analyst-fixture-packet/diagnostics-method-candidate.pending.json"}, "sha256": {"const": "6e44b634e1bfde2cc21dd99f79fd0ad4bcd5a7fb96d361be7aae09567ed4c699"}, "repository_commit": {"const": "c104a4cf193ef5f26de66b584e6a8cf37864a97e"}}},
+    "prohibitions": {"type": "array", "prefixItems": [{"const": "redistribution"}, {"const": "publication"}, {"const": "training"}, {"const": "fine_tuning"}, {"const": "release"}, {"const": "dataset_publication"}, {"const": "gold_promotion"}, {"const": "legal_certification"}, {"const": "paper_update"}, {"const": "human_reviewed_claims"}, {"const": "empirical_evidence_claims"}], "items": false, "minItems": 11, "maxItems": 11}
+  }
+}
