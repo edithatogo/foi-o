@@ -1,0 +1,4 @@
+Task: repo-local external gate registry and status reconciliation
+Summary: added nine stable dependency-aware gates; separated fixture completion from authentic empirical blockers; refreshed release gates, output ledger, final verification, and stale plan prose.
+Verification: JSON/YAML/reference/dependency validation; independent gate review; full suite 678 passed, 2 skipped.
+Remaining risks: authentic inputs, human review, empirical evaluation, promotion, published immutable release evidence, and external delivery remain unfulfilled and unauthorized.
