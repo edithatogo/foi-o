@@ -1,0 +1,1 @@
+Task: Record stderr error classification and alternative extraction gate.\nFiles: Conductor plan, metadata, and release gates.\nVerification: JSON/YAML parsing, focused aggregate tests, examples validation, and serial full suite 755 passed, 2 skipped.\nBoundary: no alternative PDF processing or downstream execution is authorized.
