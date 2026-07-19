@@ -420,6 +420,26 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     the full suite remains 549 passed, 2 skipped. Only the canonical
     runtime-provenance handshake may now be presented; fixture contexts and all
     analysis remain prohibited.
+  - [x] Runtime-handshake evidence subtask: record the four isolated canonical
+    role-session replies without fixture contexts or labels, preserve their raw
+    bytes, normalize only explicitly reported runtime fields, and record reply
+    and delivery times, exact snapshots, and immutable UUIDs as unavailable.
+    Lock and verify a committed four-record bundle whose no-context claims are
+    scoped only to the handshake delivery before preparing any inert final v0.2
+    execution-authorization candidate. Context presentation, analysis, and
+    reconciliation remain disabled; the candidate, its separate exact human
+    approval, an executable authorization, and pre-execution verification remain
+    later gates (`21c6db1`). Output:
+    `examples/v2/analyst-fixture-packet/runtime-handshake-readiness.locked.json`,
+    SHA-256
+    `709625146544dd0abad8af22acb718e7c68cabf0f41ac59cb310e30107e3cb6b`.
+    Verification: four exact raw replies and normalized records; strict schemas,
+    deterministic generation, canonical-path and evidence-ID enforcement; 26
+    focused evidence tests; Ruff lint/format and task-scoped `ty` clean; full
+    suite passed across 577 collected tests including 2 skips; three independent
+    reviews passed; post-commit verifier passed against exact commit
+    `21c6db101e3afee4de96d8e2d924331eb76d9dbe`. No fixture context, label,
+    peer output, analysis, or reconciliation was delivered.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
