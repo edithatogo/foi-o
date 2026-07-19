@@ -57,6 +57,7 @@
       ],
       "request_ref": "examples/v2/bounded-empirical-pilot-sample.pending.json",
       "evidence_manifest_ref": "examples/v2/bounded-pilot-evidence-manifest.pending.json",
+      "codebook_request_ref": "examples/v2/bounded-pilot-blinded-codebook.pending.json",
       "note": "The two-request local pilot membership and bounded local empirical-analysis purpose are approved. Immutable unit/source-span and cluster manifests still must be derived and frozen before execution; only case-level feasibility claims are in scope."
     },
     {

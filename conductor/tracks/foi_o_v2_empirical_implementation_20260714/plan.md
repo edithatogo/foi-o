@@ -677,11 +677,15 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     membership and expand purpose rights only to bounded agent empirical
     analysis. Context presentation and execution remain false pending immutable
     unit/source-span derivation, role authorization, and pre-execution proof.
-  - [x] Bounded pilot evidence-census subtask: mechanically bind both raw-state
+  - [x] Bounded pilot evidence-census subtask (`c66de8f`): mechanically bind both raw-state
     loci, all five event-to-DOM correspondence blocks, all three supplemental
     request `11872` attachments, and request `35076`'s verified empty inventory.
     Restricted contents remain local and uncommitted; authentic input is true
     while empirical evidence, context presentation, and execution remain false.
+  - [x] Blinded pilot-codebook candidate subtask: pin the 17-concept request-state
+    vocabulary and analyst decision/abstention/span rules while explicitly
+    excluding candidate mappings, confidence, and prior review outcomes.
+    Approval and execution remain false pending exact authorization.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.

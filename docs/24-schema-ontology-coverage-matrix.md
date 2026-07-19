@@ -34,14 +34,14 @@ changes materially.
 
 | Artefact class | Count |
 | --- | ---:|
-| JSON Schema files | 139 |
-| Example files | 201 |
+| JSON Schema files | 140 |
+| Example files | 202 |
 | Documentation files | 55 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 6 |
-| Python test modules | 105 |
+| Python test modules | 106 |
 
 ## Semantic Snapshot
 
