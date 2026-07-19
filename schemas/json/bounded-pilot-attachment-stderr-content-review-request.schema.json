@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-stderr-content-review-request:0.1.0",
+  "$defs": {"sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"}},
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "status", "diagnostic_result", "diagnostic_result_commit", "quarantine_path", "stderr_files", "requested_scope", "review_output_contract", "authorization_present", "stderr_content_review_allowed", "derived_text_review_allowed", "derivation_retry_allowed", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-stderr-content-review-request.v0.1.0"},
+    "request_id": {"const": "bounded-pilot-11872-attachment-stderr-content-review"},
+    "status": {"const": "pending_exact_human_approval"},
+    "diagnostic_result": {"const": {"path": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-result.1.json", "sha256": "9755e4303eeb9435024c343df06fcb2be1cf8592e5bdeaf820ef26449e209579"}},
+    "diagnostic_result_commit": {"const": "6a333f7ccc006e37caae6f6bc94935a018f4c751"},
+    "quarantine_path": {"const": "/private/tmp/.foio-attachment-diagnostic-zdnisebu"},
+    "stderr_files": {"const": [{"name": "stderr-pass-1-source-002.bin", "sha256": "4292a8a1578cd877480338e34585df6aa922afab07bf87f68141173018973b2f", "size": 198}, {"name": "stderr-pass-2-source-002.bin", "sha256": "4292a8a1578cd877480338e34585df6aa922afab07bf87f68141173018973b2f", "size": 198}]},
+    "requested_scope": {"const": "one_local_exact_stderr_content_review_and_warning_classification_only"},
+    "review_output_contract": {"const": "metadata_only_classification_no_verbatim_stderr"},
+    "authorization_present": {"const": false}, "stderr_content_review_allowed": {"const": false}, "derived_text_review_allowed": {"const": false}, "derivation_retry_allowed": {"const": false}, "context_presentation_allowed": {"const": false}, "analyst_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+  }
+}
