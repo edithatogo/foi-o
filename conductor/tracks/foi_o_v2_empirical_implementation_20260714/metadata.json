@@ -1,9 +1,9 @@
 {
   "track_id": "foi_o_v2_empirical_implementation_20260714",
   "type": "feature",
-  "status": "active_pending_exact_mutool_execution_approval",
+  "status": "active_bounded_attachment_derivation_complete_context_gate_pending",
   "created_at": "2026-07-14T00:00:00+10:00",
-  "updated_at": "2026-07-19T12:17:09Z",
+  "updated_at": "2026-07-19T12:48:22Z",
   "github_issue": "https://github.com/edithatogo/foi-o/issues/23",
   "depends_on_external": "edithatogo/rulesandprocesses:conductor/tracks/foi_o_v2_triangulation_20260708",
   "description": "Repository-native implementation of the FOI-O V2 empirical-governance overlay.",
@@ -86,8 +86,15 @@
       "attachment_mutool_execution_request_ref": "examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json",
       "attachment_mutool_execution_request_sha256": "f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148",
       "attachment_mutool_execution_request_commit": "971e03bed36188cb0aff4bd29d59aa21b51a63bb",
-      "attachment_stderr_diagnostic_status": "error_signal_classified_pdftotext_retry_blocked_mutool_request_pending_exact_execution_approval",
-      "note": "The exact stderr review classified all three lines in each identical file as error signals without emitting verbatim content. The pdftotext retry remains blocked. The independent MuPDF method design is approved, and its hardened wrapper and inert exact execution request are committed. PDF processing, derived-content creation, context presentation, analyst execution, reconciliation, and empirical claims remain prohibited pending exact approval of the request, a separately committed final authorization, and successful clean-HEAD verification."
+      "attachment_mutool_human_approval_ref": "examples/v2/bounded-pilot-attachment-mutool-human-approval.approved.json",
+      "attachment_mutool_execution_authorization_ref": "examples/v2/bounded-pilot-attachment-mutool-execution-authorization.approved.json",
+      "attachment_mutool_execution_authorization_sha256": "ce027f226488547a806cb4bacbceb50ae273ba49b2eb1cff6d536f3fbc0dbea0",
+      "attachment_mutool_execution_authorization_commit": "25e69c2316ce4ad902c06d0063be68da5cf458ba",
+      "attachment_mutool_derivation_result_ref": "examples/v2/bounded-pilot-attachment-mutool-derivation-result.1.json",
+      "attachment_mutool_derivation_result_sha256": "271a15a0f93451be4db2d35be0721c16734d0e643d8d04a5dfb421fb1bd4eded",
+      "attachment_mutool_derivation_result_commit": "f5d59d22a77240db72884a2bedcffcbb731ea59d",
+      "attachment_stderr_diagnostic_status": "pdftotext_retry_blocked_mutool_derivation_complete_context_still_prohibited",
+      "note": "The approved independent MuPDF derivation completed two byte-identical passes for all three exact request 11872 attachments without nonempty stderr. Restricted text remains owner-only under /private/tmp and uncommitted. The metadata-only result is committed. Context presentation, analyst execution, reconciliation, empirical claims, human review, gold promotion, legal certification, redistribution, publication, retry, release, dataset publication, and paper updates remain prohibited. The bounded result does not satisfy archive-wide or authentic-corpus gates."
     },
     {
       "id": "G-EMP-ANALYST-EXECUTION",

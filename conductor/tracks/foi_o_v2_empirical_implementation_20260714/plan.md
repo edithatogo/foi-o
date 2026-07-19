@@ -798,6 +798,22 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `f9dfcedb…` at commit `971e03b` is required before a final executable
     authorization may be created or any alternative-method PDF processing may
     occur.
+  - [x] Authorized bounded MuPDF derivation and metadata-only outcome subtask
+    (`25e69c2`, `f5d59d2`): record `edithatogo`'s exact approval of request
+    `f9dfcedb…`, commit final authorization `ce027f22…`, pass the production
+    clean-HEAD verifier, and execute the single authorized all-or-nothing
+    two-pass derivation over all three exact request `11872` attachments. Both
+    passes matched byte-for-byte for every output, no nonempty stderr occurred,
+    and the owner-only result directory contains three restricted text files
+    plus a manifest. Commit only metadata result `271a15a0…`; derived text
+    remains local and uncommitted. Verification: exact postflight hashes,
+    `0700` directory and `0600` file permissions, no temporary workspace, 15
+    focused lifecycle/result tests, and full suite 783 passed, 2 skipped after
+    correcting the pre-execution output-absence test for the completed state.
+    Context presentation, analyst execution, reconciliation, empirical claims,
+    human review, gold promotion, legal certification, redistribution,
+    publication, retry, release, dataset publication, and paper updates remain
+    prohibited.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.

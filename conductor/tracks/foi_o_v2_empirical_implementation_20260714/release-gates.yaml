@@ -204,7 +204,14 @@ gates:
     pending_attachment_mutool_execution_request: examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json
     pending_attachment_mutool_execution_request_sha256: f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148
     pending_attachment_mutool_execution_request_commit: 971e03bed36188cb0aff4bd29d59aa21b51a63bb
-    attachment_stderr_diagnostic_status: error_signal_classified_pdftotext_retry_blocked_mutool_request_pending_exact_execution_approval
+    approved_attachment_mutool_human_gate: examples/v2/bounded-pilot-attachment-mutool-human-approval.approved.json
+    approved_attachment_mutool_execution: examples/v2/bounded-pilot-attachment-mutool-execution-authorization.approved.json
+    approved_attachment_mutool_execution_sha256: ce027f226488547a806cb4bacbceb50ae273ba49b2eb1cff6d536f3fbc0dbea0
+    approved_attachment_mutool_execution_commit: 25e69c2316ce4ad902c06d0063be68da5cf458ba
+    attachment_mutool_derivation_result: examples/v2/bounded-pilot-attachment-mutool-derivation-result.1.json
+    attachment_mutool_derivation_result_sha256: 271a15a0f93451be4db2d35be0721c16734d0e643d8d04a5dfb421fb1bd4eded
+    attachment_mutool_derivation_result_commit: f5d59d22a77240db72884a2bedcffcbb731ea59d
+    attachment_stderr_diagnostic_status: pdftotext_retry_blocked_mutool_derivation_complete_context_still_prohibited
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
