@@ -103,6 +103,20 @@ class FixtureExecutionAuthorizationCandidateVerificationResult:
 
 
 @dataclass(frozen=True, slots=True)
+class FixturePreExecutionVerificationResult:
+    """Effective bounded permission emitted only after exact pre-execution verification."""
+
+    authorization_sha256: str
+    repository_commit: str
+    candidate_sha256: str
+    role_count: int
+    context_presentation_allowed: bool = True
+    analysis_execution_allowed: bool = True
+    reconciliation_allowed: bool = False
+    execution_allowed: bool = True
+
+
+@dataclass(frozen=True, slots=True)
 class DerivedFixtureUnit:
     """A source-derived fixture unit; never an empirical or gold assertion."""
 
@@ -1336,7 +1350,7 @@ def verify_fixture_runtime_handshake_evidence(
     )
 
 
-def verify_fixture_execution_authorization_candidate(
+def _verify_fixture_execution_authorization_candidate(
     *,
     repository_root: Path,
     candidate_path: Path,
@@ -1350,8 +1364,8 @@ def verify_fixture_execution_authorization_candidate(
     expected_preparation_repository_commit: str,
     expected_base_repository_commit: str,
     expected_promotion_repository_commit: str,
+    require_head_anchor: bool,
 ) -> FixtureExecutionAuthorizationCandidateVerificationResult:
-    """Verify an inert candidate that still requires exact human approval."""
     root = repository_root.resolve(strict=True)
     candidate_file = candidate_path.resolve(strict=True)
     canonical_candidate = resolve_repo_artifact(
@@ -1529,11 +1543,268 @@ def verify_fixture_execution_authorization_candidate(
         expected_promotion_repository_commit=expected_promotion_repository_commit,
         require_head_anchor=False,
     )
-    verify_git_anchor(root, expected_repository_commit, anchored_paths)
+    if require_head_anchor:
+        verify_git_anchor(root, expected_repository_commit, anchored_paths)
+    else:
+        verify_git_artifacts_at_commit(root, expected_repository_commit, anchored_paths)
     return FixtureExecutionAuthorizationCandidateVerificationResult(
         candidate_sha256=candidate_digest,
         repository_commit=expected_repository_commit,
         handshake_evidence_sha256=expected_handshake_evidence_sha256,
+        role_count=4,
+    )
+
+
+def verify_fixture_execution_authorization_candidate(
+    *,
+    repository_root: Path,
+    candidate_path: Path,
+    expected_candidate_sha256: str,
+    expected_repository_commit: str,
+    expected_handshake_evidence_sha256: str,
+    expected_handshake_evidence_repository_commit: str,
+    expected_authorization_sha256: str,
+    expected_authorization_repository_commit: str,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixtureExecutionAuthorizationCandidateVerificationResult:
+    """Verify an inert candidate that still requires exact human approval."""
+    return _verify_fixture_execution_authorization_candidate(
+        repository_root=repository_root,
+        candidate_path=candidate_path,
+        expected_candidate_sha256=expected_candidate_sha256,
+        expected_repository_commit=expected_repository_commit,
+        expected_handshake_evidence_sha256=expected_handshake_evidence_sha256,
+        expected_handshake_evidence_repository_commit=expected_handshake_evidence_repository_commit,
+        expected_authorization_sha256=expected_authorization_sha256,
+        expected_authorization_repository_commit=expected_authorization_repository_commit,
+        expected_request_sha256=expected_request_sha256,
+        expected_preparation_repository_commit=expected_preparation_repository_commit,
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+        require_head_anchor=True,
+    )
+
+
+def verify_fixture_pre_execution_authorization(
+    *,
+    repository_root: Path,
+    authorization_path: Path,
+    expected_authorization_sha256: str,
+    expected_repository_commit: str,
+    expected_candidate_sha256: str,
+    expected_candidate_repository_commit: str,
+    expected_handshake_evidence_sha256: str,
+    expected_handshake_evidence_repository_commit: str,
+    expected_handshake_authorization_sha256: str,
+    expected_handshake_authorization_repository_commit: str,
+    expected_request_sha256: str,
+    expected_preparation_repository_commit: str,
+    expected_base_repository_commit: str,
+    expected_promotion_repository_commit: str,
+) -> FixturePreExecutionVerificationResult:
+    """Verify the exact committed wrapper and emit bounded execution permission."""
+    root = repository_root.resolve(strict=True)
+    authorization_file = authorization_path.resolve(strict=True)
+    canonical_authorization = resolve_repo_artifact(
+        root,
+        "examples/v2/analyst-fixture-packet/execution-authorization.v0.2.pending-verification.json",
+    )
+    if authorization_file != canonical_authorization:
+        raise ValueError("fixture pre-execution authorization path is not canonical")
+    authorization_digest = sha256(authorization_file.read_bytes()).hexdigest()
+    if authorization_digest != expected_authorization_sha256:
+        raise ValueError("fixture pre-execution authorization SHA-256 mismatch")
+    document = _load_object(authorization_file)
+    _validate_object(
+        document,
+        "fixture-execution-authorization.v0.2.schema.json",
+        "fixture_pre_execution_authorization",
+    )
+    expected_prohibitions = [
+        "redistribution",
+        "publication",
+        "training",
+        "fine_tuning",
+        "release",
+        "dataset_publication",
+        "gold_promotion",
+        "legal_certification",
+        "paper_update",
+        "human_reviewed_claims",
+        "empirical_evidence_claims",
+    ]
+    if document["prohibited_actions"] != expected_prohibitions:
+        raise ValueError("fixture pre-execution authorization prohibitions are not exact")
+    if (
+        document["status"] != "approved_pending_pre_execution_verification"
+        or document["execution_authorization_present"] is not True
+        or document["authorization_effective"] is not False
+        or document["pre_execution_verification_required"] is not True
+        or document["pre_execution_verification_passed"] is not False
+        or document["context_presentation_authorized_conditionally"] is not True
+        or document["analysis_execution_authorized_conditionally"] is not True
+        or document["reconciliation_authorized_conditionally"] is not True
+        or document["execution_authorized_conditionally"] is not True
+        or document["context_presentation_allowed"] is not False
+        or document["analysis_execution_allowed"] is not False
+        or document["reconciliation_allowed"] is not False
+        or document["execution_allowed"] is not False
+        or document["local_only"] is not True
+        or any(
+            document[key] is not False
+            for key in (
+                "empirical_evidence",
+                "human_reviewed",
+                "gold_eligible",
+                "release_qualifying",
+                "publication_eligible",
+            )
+        )
+    ):
+        raise ValueError("fixture pre-execution authorization has an invalid state transition")
+    _instant(document["recorded_at"], "fixture_pre_execution_authorization.recorded_at")
+
+    candidate_pin = document["derived_from_candidate"]
+    expected_candidate_pin = {
+        "path": (
+            "examples/v2/analyst-fixture-packet/execution-authorization-candidate.v0.2.pending.json"
+        ),
+        "sha256": expected_candidate_sha256,
+        "repository_commit": expected_candidate_repository_commit,
+    }
+    if candidate_pin != expected_candidate_pin:
+        raise ValueError("fixture pre-execution candidate pin mismatch")
+    candidate_path = resolve_repo_artifact(root, candidate_pin["path"])
+    if sha256(candidate_path.read_bytes()).hexdigest() != expected_candidate_sha256:
+        raise ValueError("fixture pre-execution candidate artifact mismatch")
+
+    approval_pin = document["candidate_approval"]
+    expected_approval_path = (
+        "examples/v2/analyst-fixture-packet/"
+        "execution-authorization-candidate-approval.approved.json"
+    )
+    if approval_pin["path"] != expected_approval_path:
+        raise ValueError("fixture pre-execution candidate approval path is not canonical")
+    approval_path = resolve_repo_artifact(root, approval_pin["path"])
+    if sha256(approval_path.read_bytes()).hexdigest() != approval_pin["sha256"]:
+        raise ValueError("fixture pre-execution candidate approval SHA-256 mismatch")
+    approval = _load_object(approval_path)
+    _validate_object(
+        approval,
+        "fixture-execution-authorization-candidate-approval.schema.json",
+        "fixture_execution_authorization_candidate_approval",
+    )
+    expected_statement = (
+        "I, edithatogo, approve pending fixture execution-authorization candidate SHA-256 "
+        "a1aab22f6f7870497f639e871cc4aa13d209ca35b72f8da89559bcf9940dab1d as "
+        "committed in 5cbfbe80beee96c67cdcabbf352b97d5dffd6cbf for derivation of the "
+        "bounded local executable v0.2 fixture authorization described by that exact candidate. "
+        "This approval does not itself authorize context presentation or analysis; those remain "
+        "prohibited until the separately derived executable authorization is committed and its "
+        "pre-execution verifier passes against its exact SHA-256 and commit. Redistribution, "
+        "publication, training, fine-tuning, release, dataset publication, gold promotion, legal "
+        "certification, paper updates, human-reviewed claims, and empirical-evidence claims remain "
+        "prohibited."
+    )
+    if (
+        approval["approval_statement"] != expected_statement
+        or approval["approval_statement_sha256"]
+        != sha256(expected_statement.encode("utf-8")).hexdigest()
+        or approval["approved_candidate"] != expected_candidate_pin
+        or approval["derivation_approved"] is not True
+        or approval["context_presentation_approved"] is not False
+        or approval["analysis_execution_approved"] is not False
+        or approval["committed_executable_required"] is not True
+        or approval["pre_execution_verification_required"] is not True
+        or approval["execution_allowed"] is not False
+        or approval["local_only"] is not True
+        or approval["prohibited_actions"] != expected_prohibitions
+    ):
+        raise ValueError("fixture pre-execution candidate approval is not exact")
+
+    candidate = _load_object(candidate_path)
+    inherited_keys = (
+        "handshake_evidence_commit",
+        "approved_input_readiness",
+        "protocol",
+        "role_authorization_request",
+        "role_authorization_approval",
+        "runtime_handshake_authorization",
+        "runtime_handshake_readiness",
+        "handshake_prompt",
+        "context_presentation",
+        "isolation_plan",
+        "future_execution_prompts",
+        "role_provenance",
+        "runtime_evidence",
+    )
+    for key in inherited_keys:
+        if document[key] != candidate[key]:
+            raise ValueError(f"fixture pre-execution authorization {key} differs from candidate")
+    expected_conditions = {
+        "orchestrator": {
+            "actor_id": "agent:orchestrator-fixture-stream",
+            "may_coordinate": True,
+            "may_label": False,
+            "condition": "after_exact_pre_execution_verification",
+        },
+        "analyst_a": {
+            "actor_id": "agent:analyst-fixture-a",
+            "may_coordinate": False,
+            "may_label": True,
+            "condition": "after_exact_pre_execution_verification",
+        },
+        "analyst_b": {
+            "actor_id": "agent:analyst-fixture-b",
+            "may_coordinate": False,
+            "may_label": True,
+            "condition": "after_exact_pre_execution_verification",
+        },
+        "reconciler": {
+            "actor_id": "agent:reconciler-fixture",
+            "may_coordinate": False,
+            "may_label": False,
+            "condition": (
+                "after_exact_pre_execution_verification_and_both_analyst_result_sets_locked"
+            ),
+        },
+    }
+    if document["role_execution_conditions"] != expected_conditions:
+        raise ValueError("fixture pre-execution role conditions are not exact")
+
+    _verify_commit_ancestry(
+        root,
+        [expected_candidate_repository_commit, expected_repository_commit],
+    )
+    _verify_fixture_execution_authorization_candidate(
+        repository_root=root,
+        candidate_path=candidate_path,
+        expected_candidate_sha256=expected_candidate_sha256,
+        expected_repository_commit=expected_candidate_repository_commit,
+        expected_handshake_evidence_sha256=expected_handshake_evidence_sha256,
+        expected_handshake_evidence_repository_commit=expected_handshake_evidence_repository_commit,
+        expected_authorization_sha256=expected_handshake_authorization_sha256,
+        expected_authorization_repository_commit=(
+            expected_handshake_authorization_repository_commit
+        ),
+        expected_request_sha256=expected_request_sha256,
+        expected_preparation_repository_commit=expected_preparation_repository_commit,
+        expected_base_repository_commit=expected_base_repository_commit,
+        expected_promotion_repository_commit=expected_promotion_repository_commit,
+        require_head_anchor=False,
+    )
+    verify_git_anchor(
+        root,
+        expected_repository_commit,
+        [authorization_file, approval_path],
+    )
+    return FixturePreExecutionVerificationResult(
+        authorization_sha256=authorization_digest,
+        repository_commit=expected_repository_commit,
+        candidate_sha256=expected_candidate_sha256,
         role_count=4,
     )
 
@@ -1549,6 +1820,8 @@ def verify_analyst_execution_packet(
     root = repository_root.resolve(strict=True)
     authorization = authorization_path.resolve(strict=True)
     pending = _load_object(authorization)
+    if pending.get("schema_version") == "foi-o.analyst-execution-authorization.v0.2.0":
+        raise ValueError("legacy three-role analyst authorization is retired")
     preparation_only_versions = {
         "foi-o.fixture-role-authorization-request.v0.1.0": "pending role authorization request",
         "foi-o.fixture-runtime-handshake-authorization.v0.1.0": ("runtime handshake authorization"),
