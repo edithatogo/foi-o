@@ -738,6 +738,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     Diagnostic request SHA-256 is `c86e65e0…`; PDF processing remains false
     pending a fresh exact one-shot diagnostic authorization. Verification:
     focused Ruff/ty and 19 then 2 focused tests; full suite 732 passed, 2 skipped.
+  - [x] Executable stderr-diagnostic route subtask (`0ad0b87`, `c990cea`): add a distinct fail-closed
+    diagnostic verifier that can retain stderr only, never install derived text,
+    and refresh the inert request to pin its exact committed wrapper bytes.
+    Executable diagnostic-request SHA-256 is `b2e426f5…`. Verification: 16
+    focused tests and full suite 734 passed, 2 skipped; no real PDF/tool run.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
