@@ -1,0 +1,1 @@
+Task: Synchronize corrected stderr diagnostic governance gate.\nFiles: track metadata.json and release-gates.yaml.\nVerification: JSON/YAML parse and exact pins passed; 2 focused aggregate tests passed; examples validation passed; full suite 744 passed, 2 skipped.\nBoundary: generic continuation did not authorize diagnostic execution.
