@@ -11,11 +11,15 @@ import pytest
 import foi_o_nz.bounded_pilot_attachment_derivation as derivation_module
 from foi_o_nz.bounded_pilot_attachment_derivation import (
     AUTHORIZATION_RELATIVE_PATH,
+    DIAGNOSTIC_AUTHORIZATION_RELATIVE_PATH,
+    DIAGNOSTIC_HUMAN_APPROVAL_RELATIVE_PATH,
+    DIAGNOSTIC_REQUEST_RELATIVE_PATH,
     REQUEST_RELATIVE_PATH,
     WRAPPER_RELATIVE_PATH,
     VerifiedAttachmentDerivationPermission,
     derive_attachment_text,
     verify_attachment_derivation_pre_execution,
+    verify_attachment_diagnostic_pre_execution,
 )
 
 ROOT = Path(__file__).parents[1]
@@ -141,6 +145,88 @@ def _synthetic_repository(
     return repository, source_root, authorization_path, _digest(authorization_path), commit
 
 
+def _add_diagnostic_route(
+    repository: Path, source_root: Path, output: Path
+) -> tuple[Path, str, str]:
+    base_request = json.loads((repository / REQUEST_RELATIVE_PATH).read_text(encoding="utf-8"))
+    wrapper_commit = _git(repository, "log", "-1", "--format=%H", "--", WRAPPER_RELATIVE_PATH)
+    wrapper_pin = {
+        "path": WRAPPER_RELATIVE_PATH,
+        "sha256": _digest(repository / WRAPPER_RELATIVE_PATH),
+        "repository_commit": wrapper_commit,
+    }
+    request = {
+        "schema_version": "foi-o.bounded-pilot-attachment-diagnostic-execution-request.v0.1.0",
+        "request_id": "synthetic-diagnostic",
+        "status": "pending_exact_diagnostic_authorization",
+        "wrapper": wrapper_pin,
+        "method": base_request["method"],
+        "method_approval": base_request["method_approval"],
+        "sources": base_request["sources"],
+        "runtime_observation": base_request["runtime_observation"],
+        "environment": base_request["environment"],
+        "failure_contract": base_request["failure_contract"],
+        "diagnostic_execution_allowed": False,
+        "derived_content_retention_allowed": False,
+    }
+    request_path = repository / DIAGNOSTIC_REQUEST_RELATIVE_PATH
+    _write_json(request_path, request)
+    request_pin = {"path": DIAGNOSTIC_REQUEST_RELATIVE_PATH, "sha256": _digest(request_path)}
+    statement = "I approve the exact synthetic diagnostic request for tests only."
+    human_path = repository / DIAGNOSTIC_HUMAN_APPROVAL_RELATIVE_PATH
+    _write_json(
+        human_path,
+        {
+            "schema_version": "foi-o.bounded-pilot-attachment-diagnostic-human-approval.v0.1.0",
+            "approved_by": "human:edithatogo",
+            "approved_on": "2026-07-19",
+            "approval_statement": statement,
+            "approval_statement_sha256": sha256(statement.encode()).hexdigest(),
+            "approved_request": request_pin,
+            "bound_scope": {
+                "source_root": str(source_root.resolve()),
+                "output_directory": str(output.resolve()),
+                "quarantine_parent": str(output.parent.resolve()),
+                "diagnostic_only": True,
+                "derived_content_retention_allowed": False,
+            },
+            "prohibited_actions": derivation_module.PROHIBITED_ACTIONS,
+        },
+    )
+    authorization = {
+        "schema_version": "foi-o.bounded-pilot-attachment-diagnostic-execution-authorization.v0.1.0",
+        "authorization_id": "synthetic-diagnostic",
+        "status": "approved_exact_local_diagnostic",
+        "diagnostic_request": request_pin,
+        "human_approval": {
+            "path": DIAGNOSTIC_HUMAN_APPROVAL_RELATIVE_PATH,
+            "sha256": _digest(human_path),
+        },
+        "wrapper": wrapper_pin,
+        "method": request["method"],
+        "method_approval": request["method_approval"],
+        "source_root": str(source_root.resolve()),
+        "output_directory": str(output.resolve()),
+        "quarantine_parent": str(output.parent.resolve()),
+        "diagnostic_execution_allowed": True,
+        "pdf_processing_allowed": True,
+        "transient_derived_content_allowed": True,
+        "derived_content_retention_allowed": False,
+        "local_only": True,
+        "context_presentation_allowed": False,
+        "analyst_execution_allowed": False,
+        "reconciliation_allowed": False,
+        "empirical_evidence": False,
+        "human_reviewed": False,
+        "gold_eligible": False,
+    }
+    authorization_path = repository / DIAGNOSTIC_AUTHORIZATION_RELATIVE_PATH
+    _write_json(authorization_path, authorization)
+    _git(repository, "add", ".")
+    _git(repository, "commit", "-m", "synthetic diagnostic authorization")
+    return authorization_path, _digest(authorization_path), _git(repository, "rev-parse", "HEAD")
+
+
 def test_permission_cannot_be_constructed_directly() -> None:
     with pytest.raises(ValueError, match="cannot be constructed directly"):
         VerifiedAttachmentDerivationPermission(
@@ -151,6 +237,10 @@ def test_permission_cannot_be_constructed_directly() -> None:
             output_directory=Path("/output"),
             executable_path=Path("/tool"),
             executable_sha256="0" * 64,
+            authorization_relative_path=AUTHORIZATION_RELATIVE_PATH,
+            request_relative_path=REQUEST_RELATIVE_PATH,
+            quarantine_parent=Path("/quarantine"),
+            diagnostic_only=False,
             _token=object(),
         )
 
@@ -383,3 +473,53 @@ def test_nonempty_stderr_is_quarantined_without_derived_text(tmp_path: Path) -> 
     assert metadata["source_relative_path"] == "content/attachments/synthetic.pdf"
     assert metadata["pass_number"] == 1
     assert metadata["derived_text_retained"] is False
+
+
+def test_separate_diagnostic_route_mints_nonretaining_permission(tmp_path: Path) -> None:
+    repository, source_root, _, _, _ = _synthetic_repository(
+        tmp_path, tool_body='/bin/cp "$6" "$7"\n/bin/echo "diagnostic only" >&2'
+    )
+    output = tmp_path / "derived" / "complete"
+    authorization, digest, commit = _add_diagnostic_route(repository, source_root, output)
+    permission = verify_attachment_diagnostic_pre_execution(
+        repository_root=repository,
+        authorization_path=authorization,
+        expected_authorization_sha256=digest,
+        expected_repository_commit=commit,
+        source_root=source_root,
+        output_directory=output,
+    )
+    assert permission.diagnostic_only is True
+    assert permission.request_relative_path == DIAGNOSTIC_REQUEST_RELATIVE_PATH
+    with pytest.raises(ValueError, match="diagnostic quarantined"):
+        derive_attachment_text(
+            permission=permission,
+            repository_root=repository,
+            source_root=source_root,
+            output_directory=output,
+        )
+    assert not output.exists()
+    assert len(list(output.parent.glob(".foio-attachment-diagnostic-*"))) == 1
+
+
+def test_diagnostic_route_destroys_text_when_stderr_is_empty(tmp_path: Path) -> None:
+    repository, source_root, _, _, _ = _synthetic_repository(tmp_path)
+    output = tmp_path / "derived" / "complete"
+    authorization, digest, commit = _add_diagnostic_route(repository, source_root, output)
+    permission = verify_attachment_diagnostic_pre_execution(
+        repository_root=repository,
+        authorization_path=authorization,
+        expected_authorization_sha256=digest,
+        expected_repository_commit=commit,
+        source_root=source_root,
+        output_directory=output,
+    )
+    with pytest.raises(ValueError, match="no stderr; derived text destroyed"):
+        derive_attachment_text(
+            permission=permission,
+            repository_root=repository,
+            source_root=source_root,
+            output_directory=output,
+        )
+    assert not output.exists()
+    assert not list(output.parent.glob(".foio-attachment-diagnostic-*"))
