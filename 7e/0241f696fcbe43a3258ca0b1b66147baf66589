@@ -1,0 +1,3 @@
+Task: Commit bounded pilot analyst role prompts.
+Verification: full suite 789 passed, 2 skipped.
+Boundary: prompts are inert; no context or execution authorized.
