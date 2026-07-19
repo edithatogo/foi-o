@@ -1,0 +1,5 @@
+Task: exact fixture diagnostics method approval and executable authorization
+Summary: recorded edithatogo's exact SHA/commit-bound approval and derived a separate inert diagnostics authorization.
+Files: approval and authorization artifacts; strict schemas; deterministic builder/verifier; focused tests; inventory snapshots.
+Verification: 23 focused tests; Ruff; format; scoped ty; full suite 663 passed, 2 skipped.
+Remaining risk: bootstrap execution is allowed only after the exact clean-commit verifier passes; empirical, human-reviewed, gold, release, publication, and dataset claims remain prohibited.
