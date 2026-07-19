@@ -1,0 +1,22 @@
+{
+  "schema_version": "foi-o.bounded-pilot-attachment-derivation-execution-authorization.v0.1.0",
+  "authorization_id": "bounded-pilot-11872-attachment-derivation-approved",
+  "status": "approved_exact_local_derivation",
+  "execution_request": {"path": "examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json", "sha256": "ad2ac19a3be836165948585304a9050b95f4612dd514cb3bb826d21d2ab38f2f"},
+  "wrapper": {"path": "src/foi_o_nz/bounded_pilot_attachment_derivation.py", "sha256": "95bc4d29862d29301e8fca43cd9dbee7c77e1632445afd16655af92f8cb2d27d"},
+  "method": {"path": "examples/v2/bounded-pilot-attachment-text-method.pending.json", "sha256": "99918773c74eed9a923972eb5a498e8a4166c8958ac53b04c4358f70ef1d770a"},
+  "method_approval": {"path": "examples/v2/bounded-pilot-attachment-text-method-approval.approved.json", "sha256": "b036b475541a2334019b771fce789b7a7d97a4c30282bbada68a88a68ad12d51"},
+  "human_approval": {"path": "examples/v2/bounded-pilot-attachment-derivation-human-approval.approved.json", "sha256": "1c5befbd0e8704cdd8fac5999e71450d5124a111e7dd8c61efb3f35c6e6eabef"},
+  "source_root": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+  "output_directory": "/private/tmp/foio-bounded-pilot-11872-derived",
+  "authorization_effective": true,
+  "pdf_processing_allowed": true,
+  "derived_content_creation_allowed": true,
+  "local_only": true,
+  "context_presentation_allowed": false,
+  "analyst_execution_allowed": false,
+  "reconciliation_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false
+}

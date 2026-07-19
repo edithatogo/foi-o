@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-derivation-human-approval:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "approved_by", "approved_on", "approval_statement", "approval_statement_sha256", "approved_request", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-derivation-human-approval.v0.1.0"},
+    "approved_by": {"const": "human:edithatogo"},
+    "approved_on": {"const": "2026-07-19"},
+    "approval_statement": {"type": "string", "minLength": 100},
+    "approval_statement_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "approved_request": {"const": {"path": "examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json", "sha256": "ad2ac19a3be836165948585304a9050b95f4612dd514cb3bb826d21d2ab38f2f"}},
+    "prohibited_actions": {"const": ["context_presentation", "analyst_execution", "reconciliation", "empirical_claims", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]}
+  }
+}

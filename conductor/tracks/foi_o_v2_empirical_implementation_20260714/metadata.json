@@ -63,7 +63,9 @@
       "attachment_text_method_ref": "examples/v2/bounded-pilot-attachment-text-method.pending.json",
       "attachment_text_method_approval_ref": "examples/v2/bounded-pilot-attachment-text-method-approval.approved.json",
       "attachment_derivation_execution_request_ref": "examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json",
-      "note": "The two-request local pilot membership, bounded local empirical-analysis purpose, evidence census, blinded codebook, and deterministic attachment-text method design are approved. The fail-closed wrapper is committed and synthetic-tested; its exact real-input execution request remains pending human approval. PDF processing, derived content, exact overall input-readiness approval, context presentation, and analyst execution remain blocked. Only case-level feasibility claims are in scope."
+      "attachment_derivation_human_approval_ref": "examples/v2/bounded-pilot-attachment-derivation-human-approval.approved.json",
+      "attachment_derivation_execution_authorization_ref": "examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json",
+      "note": "The exact path-bound local attachment derivation is human-approved and represented by a final executable authorization. It may run only after the authorization is committed and its clean-HEAD verifier passes. Context presentation, analyst execution, reconciliation, and empirical claims remain prohibited."
     },
     {
       "id": "G-EMP-ANALYST-EXECUTION",
