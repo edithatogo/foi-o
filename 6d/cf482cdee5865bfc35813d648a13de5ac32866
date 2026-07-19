@@ -1,0 +1,5 @@
+Retrospective workflow evidence for task commit 6dcf482.
+Task: lock fixture reconciliation results.
+Verification: focused reconciliation/analysis tests, Ruff, type checks, full suite, and exact post-commit reconciliation verifier passed.
+Historical deviation: commit body omitted required 'Commit notes:'; this note repairs the evidence record without rewriting history.
+Risks: agent reconciliation candidates are not adjudicated human truth, empirical evidence, gold, release, or publication evidence.
