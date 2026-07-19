@@ -1,0 +1,1 @@
+Plan checkpoint: recorded bounded pilot input approval/readiness task at a512209. Verification before plan commit: uv sync --extra dev --extra rdf; uv run pytest -q (705 passed, 2 skipped). Remaining boundary: attachment derivation method and exact subsequent authorizations.
