@@ -1,0 +1,4 @@
+Retrospective workflow evidence for plan checkpoint aa9b559.
+Task: checkpoint locked fixture analyses and open governed reconciliation.
+Verification: full suite passed before commit; analysis lock reverified at the checkpoint.
+Historical deviation: commit body omitted required 'Commit notes:'; this note repairs the evidence record without rewriting history.
