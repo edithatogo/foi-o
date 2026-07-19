@@ -1,0 +1,1 @@
+Bounded pilot evidence census. Artifact SHA-256: ec0fd4bf4b68bf265ea2bb342982816a820ccefcd2c8c7f69c4324f76851f6cd. Multi-agent reviews converged on the census; the local verifier caught and corrected universal-newline offset drift. Validation: focused 5 passed; full suite 696 passed, 2 skipped; Ruff and JSON validation passed. No restricted content committed; execution false.
