@@ -652,6 +652,14 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     for a claim limited to that sample; the 11 synthetic fixture units remain
     non-empirical and the two approved requests remain case-level inputs until
     an exact authentic sample and execution authorization are frozen.
+  - [x] Analyst protocol-approval request subtask (`18db858`): commit a
+    schema-validated request binding the v0.2 protocol SHA-256
+    `1ff93755…` to migration commit `31b2f99`, with execution, sample
+    membership, empirical claims, promotion, and external actions fail-closed.
+    Pending request SHA-256 is `f8cfa72d…`; exact human approval remains the
+    next gate and generic continuation does not satisfy it. Verification:
+    3 focused tests, Ruff, JSON validation, and full suite 684 passed,
+    2 skipped.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
