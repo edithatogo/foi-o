@@ -1,0 +1,11 @@
+{
+  "schema_version": "foi-o.bounded-pilot-analyst-execution-approval.v0.2.0",
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-20",
+  "approval_statement": "I, edithatogo, approve bounded pilot analyst execution request v0.2 SHA-256 ac83c06f129e11a19fb6a3bbd24a1023018ee508092a569b6a91b38188a7517b as committed in 02c25d5a038cd799d047575281d0732f57347705. I authorize creation of the final analyst-access authorization and production clean-HEAD verifier for the bounded local two-case pilot covering requests 11872 and 35076. After that authorization is separately committed and its exact verifier passes, it may authorize local derived-text reading, context materialization and presentation, and two isolated first-pass executions by agent:bounded-pilot-analyst-a and agent:bounded-pilot-analyst-b under the exact prompts, codebook, provenance pins, and isolation rules recorded by that request. Analyst peer outputs must remain hidden until both complete result sets are schema-valid and hash-locked. This approval does not authorize reconciliation; the distinct reconciler requires a separate permission after both analyst locks verify. It does not authorize empirical-result approval, population inference, archive-wide claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates.",
+  "approval_statement_sha256": "be4c2f0fe10709ce51647a741ce610b1ec4b4ae308e36cf73c239e2bb0f2abd7",
+  "approved_request": {"path": "examples/v2/bounded-pilot-analyst-execution-request.v0.2.pending.json", "sha256": "ac83c06f129e11a19fb6a3bbd24a1023018ee508092a569b6a91b38188a7517b", "repository_commit": "02c25d5a038cd799d047575281d0732f57347705"},
+  "analyst_access_authorized_after_committed_verifier": true,
+  "reconciliation_authorized": false,
+  "empirical_result_approval_authorized": false
+}

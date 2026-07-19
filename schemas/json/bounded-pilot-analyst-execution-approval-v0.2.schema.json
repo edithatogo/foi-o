@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:bounded-pilot-analyst-execution-approval:0.2.0", "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "approved_by", "approved_on", "approval_statement", "approval_statement_sha256", "approved_request", "analyst_access_authorized_after_committed_verifier", "reconciliation_authorized", "empirical_result_approval_authorized"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-analyst-execution-approval.v0.2.0"}, "approved_by": {"const": "human:edithatogo"}, "approved_on": {"const": "2026-07-20"}, "approval_statement": {"type": "string", "minLength": 1}, "approval_statement_sha256": {"const": "be4c2f0fe10709ce51647a741ce610b1ec4b4ae308e36cf73c239e2bb0f2abd7"},
+    "approved_request": {"const": {"path": "examples/v2/bounded-pilot-analyst-execution-request.v0.2.pending.json", "sha256": "ac83c06f129e11a19fb6a3bbd24a1023018ee508092a569b6a91b38188a7517b", "repository_commit": "02c25d5a038cd799d047575281d0732f57347705"}},
+    "analyst_access_authorized_after_committed_verifier": {"const": true}, "reconciliation_authorized": {"const": false}, "empirical_result_approval_authorized": {"const": false}
+  }
+}
