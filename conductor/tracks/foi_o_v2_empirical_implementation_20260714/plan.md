@@ -660,6 +660,11 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     next gate and generic continuation does not satisfy it. Verification:
     3 focused tests, Ruff, JSON validation, and full suite 684 passed,
     2 skipped.
+  - [x] Analyst protocol-design approval recording subtask (`42ba25f`): record
+    edithatogo's exact approval statement and its SHA-256 `15646f64…`, pin the
+    pending request at `f8cfa72d…`, and keep sample membership, execution,
+    empirical claims, promotion, and external actions false. Verification:
+    5 focused approval tests, Ruff, and full suite 686 passed, 2 skipped.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
