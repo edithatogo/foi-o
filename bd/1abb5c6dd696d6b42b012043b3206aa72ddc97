@@ -1,0 +1,5 @@
+Task: Type-gate prerequisite
+Summary: Annotated the heterogeneous legacy authorization test fixture as dict[str, object].
+Files: tests/test_analyst_packet_verification.py
+Verification: scoped Ruff/format/ty passed; focused 22 passed; full pytest passed.
+Risk: Test-only static typing change; no production or governed artifact bytes changed.
