@@ -117,6 +117,16 @@ class FixturePreExecutionVerificationResult:
 
 
 @dataclass(frozen=True, slots=True)
+class FixtureAnalysisLockVerificationResult:
+    """Verified immutable dual first-pass inputs for the reconciler."""
+
+    lock_sha256: str
+    repository_commit: str
+    unit_count: int = 11
+    reconciliation_allowed: bool = True
+
+
+@dataclass(frozen=True, slots=True)
 class DerivedFixtureUnit:
     """A source-derived fixture unit; never an empirical or gold assertion."""
 
@@ -467,6 +477,184 @@ def _validate_object(value: dict[str, Any], schema_name: str, label: str) -> Non
 
 def _without(value: dict[str, Any], names: set[str]) -> dict[str, Any]:
     return {key: child for key, child in value.items() if key not in names}
+
+
+def _canonical_json_sha256(value: object) -> str:
+    encoded = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode(
+        "utf-8"
+    )
+    return sha256(encoded).hexdigest()
+
+
+def _load_strict_json_object(path: Path) -> dict[str, Any]:
+    def pairs(items: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
+        for key, value in items:
+            if key in result:
+                raise ValueError(f"{path.name}: duplicate JSON key {key}")
+            result[key] = value
+        return result
+
+    value = json.loads(
+        path.read_text(encoding="utf-8"),
+        object_pairs_hook=pairs,
+        parse_constant=lambda token: (_ for _ in ()).throw(
+            ValueError(f"{path.name}: non-finite {token}")
+        ),
+    )
+    if not isinstance(value, dict):
+        raise ValueError(f"{path.name}: expected JSON object")
+    return value
+
+
+def verify_locked_fixture_analysis(
+    *,
+    repository_root: Path,
+    lock_path: Path,
+    expected_lock_sha256: str,
+    expected_repository_commit: str,
+) -> FixtureAnalysisLockVerificationResult:
+    """Verify both complete analyst sets at an exact clean committed lock."""
+    root = repository_root.resolve(strict=True)
+    lock = lock_path.resolve(strict=True)
+    canonical_lock = (
+        root / "examples/v2/analyst-fixture-packet/results/analysis-lock.locked.json"
+    ).resolve(strict=False)
+    if lock != canonical_lock or sha256(lock.read_bytes()).hexdigest() != expected_lock_sha256:
+        raise ValueError("analysis lock path or SHA-256 mismatch")
+    document = _load_strict_json_object(lock)
+    _validate_object(document, "analyst-fixture-analysis-lock.schema.json", "analysis_lock")
+    paths = [lock]
+
+    def resolve_pin(label: str, pin: dict[str, Any]) -> Path:
+        path = resolve_repo_artifact(root, pin["path"])
+        if sha256(path.read_bytes()).hexdigest() != pin["sha256"]:
+            raise ValueError(f"{label}: SHA-256 mismatch")
+        paths.append(path)
+        return path
+
+    context_path = resolve_pin("context_presentation", document["context_presentation"])
+    codebook_path = resolve_pin("codebook", document["codebook"])
+    authorization_path = resolve_pin("authorization", document["authorization"])
+    canonical_authorization = resolve_repo_artifact(
+        root,
+        "examples/v2/analyst-fixture-packet/execution-authorization.v0.2.pending-verification.json",
+    )
+    if (
+        authorization_path != canonical_authorization
+        or document["authorization"]["sha256"]
+        != "6b92051ae1ad1b7899f4ad102d4df4ec68267d196458f5bfbd461e89ba999d95"
+    ):
+        raise ValueError("analysis lock executable authorization is not canonical")
+    verify_fixture_pre_execution_authorization(
+        repository_root=root,
+        authorization_path=authorization_path,
+        expected_authorization_sha256=document["authorization"]["sha256"],
+        expected_repository_commit=expected_repository_commit,
+        expected_candidate_sha256="a1aab22f6f7870497f639e871cc4aa13d209ca35b72f8da89559bcf9940dab1d",
+        expected_candidate_repository_commit="5cbfbe80beee96c67cdcabbf352b97d5dffd6cbf",
+        expected_handshake_evidence_sha256="709625146544dd0abad8af22acb718e7c68cabf0f41ac59cb310e30107e3cb6b",
+        expected_handshake_evidence_repository_commit="21c6db101e3afee4de96d8e2d924331eb76d9dbe",
+        expected_handshake_authorization_sha256="de140e1397df2f1e20aa9ceede443d589d6bacbca9a767fecc2992644f1c056f",
+        expected_handshake_authorization_repository_commit="393991ea0cfdaf9f016108bf74edae94b80f042a",
+        expected_request_sha256="232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c",
+        expected_preparation_repository_commit="91013a0f69d3a376ec749bbad83902e7ac4dd2a7",
+        expected_base_repository_commit="948d392df7fbbf49ea9b33646a0bdbd845505811",
+        expected_promotion_repository_commit="fe875ab254ff914b18143cfe08fee202b8b532b1",
+    )
+    contexts = _load_strict_json_object(context_path)["contexts"]
+    codebook = _load_strict_json_object(codebook_path)
+    allowed_labels = {item["label"] for item in codebook["labels"]}
+    expected_ids = [item["unit_id"] for item in contexts]
+    expected = {item["unit_id"]: item for item in contexts}
+    expected_commitment = ordered_unit_commitment(
+        [expected[item]["unit_sha256"] for item in expected_ids]
+    )
+    if document["ordered_unit_commitment_sha256"] != expected_commitment:
+        raise ValueError("analysis lock ordered unit commitment mismatch")
+    actors: list[str] = []
+    governed_sets = (
+        (
+            "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-a.locked.json",
+            "local-fixture-analysis-a",
+            "agent:analyst-fixture-a",
+            "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "/root/fixture_analyst_a_ready",
+        ),
+        (
+            "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-b.locked.json",
+            "local-fixture-analysis-b",
+            "agent:analyst-fixture-b",
+            "3bcb3b37c8d3a19e51a152c0b72aee82dba088bf822aa8cdc299cbbf029dfb6a",
+            "/root/fixture_analyst_b_ready",
+        ),
+    )
+    for index, pin in enumerate(document["analysis_sets"]):
+        path = resolve_pin(f"analysis_set_{index}", pin)
+        expected_path, expected_set_id, expected_actor, expected_prompt, expected_session = (
+            governed_sets[index]
+        )
+        if path != resolve_repo_artifact(root, expected_path):
+            raise ValueError("analysis set path is not canonical")
+        value = _load_strict_json_object(path)
+        _validate_object(value, "analyst-fixture-analysis-set.schema.json", f"analysis_set_{index}")
+        runtime = value["analyst"]["runtime"]
+        if (
+            value["set_id"] != expected_set_id
+            or value["analyst"]["actor_id"] != expected_actor
+            or runtime["prompt_sha256"] != expected_prompt
+            or runtime["session_id"] != expected_session
+            or runtime["provider"] != "OpenAI"
+            or runtime["model"] != "Codex / GPT-5; exact snapshot unavailable"
+        ):
+            raise ValueError("analysis set governed identity or runtime mismatch")
+        if [entry["unit_id"] for entry in value["entries"]] != expected_ids:
+            raise ValueError("analysis set order or membership mismatch")
+        if value["ordered_unit_commitment_sha256"] != expected_commitment:
+            raise ValueError("analysis set ordered unit commitment mismatch")
+        if any(
+            value[name] != document[name]
+            for name in ("authorization", "codebook", "context_presentation")
+        ):
+            raise ValueError("analysis set governance pin mismatch")
+        actors.append(value["analyst"]["actor_id"])
+        for entry in value["entries"]:
+            record = entry["record"]
+            source = expected[entry["unit_id"]]
+            if entry["record_sha256"] != _canonical_json_sha256(record):
+                raise ValueError("analysis record SHA-256 mismatch")
+            if record["analyst"] != value["analyst"]:
+                raise ValueError("analysis record provenance mismatch")
+            if (
+                record["unit_sha256"] != source["unit_sha256"]
+                or record["independence"]["context_sha256"] != source["context_sha256"]
+            ):
+                raise ValueError("analysis unit/context mismatch")
+            if record["codebook_revision"] != codebook["revision"]:
+                raise ValueError("analysis codebook revision mismatch")
+            if not record["abstention"] and record["label"] not in allowed_labels:
+                raise ValueError("analysis label outside approved codebook")
+            expected_record_id = (
+                f"analyst-a:{entry['unit_id']}" if index == 0 else f"analyst-b-{entry['unit_id']}"
+            )
+            if record["record_id"] != expected_record_id:
+                raise ValueError("analysis record ID mismatch")
+            span = record["span"]
+            if span is not None and span["end"] <= span["start"]:
+                raise ValueError("analysis span must be non-empty")
+            if _instant(record["created_at"], "created_at") > _instant(
+                record["locked_at"], "locked_at"
+            ):
+                raise ValueError("analysis lock precedes creation")
+    if actors != ["agent:analyst-fixture-a", "agent:analyst-fixture-b"]:
+        raise ValueError("analysis actors are not the two governed distinct roles")
+    verify_git_anchor(root, expected_repository_commit, paths)
+    status = run(
+        ["git", "status", "--porcelain"], cwd=root, check=True, capture_output=True, text=True
+    ).stdout
+    if status:
+        raise ValueError("repository worktree is not clean")
+    return FixtureAnalysisLockVerificationResult(expected_lock_sha256, expected_repository_commit)
 
 
 def verify_approved_fixture_inputs(
