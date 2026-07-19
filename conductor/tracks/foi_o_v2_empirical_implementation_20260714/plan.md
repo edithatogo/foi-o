@@ -457,11 +457,26 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     task-scoped `ty` clean; full suite passed across 595 collected tests
     including 2 skips; three independent reviews passed; post-commit verifier
     passed against exact commit `5cbfbe80beee96c67cdcabbf352b97d5dffd6cbf`.
-  - [ ] Exact candidate-approval and executable-v0.2 gate: obtain separate exact
+  - [x] Exact candidate-approval and executable-v0.2 gate: obtain separate exact
     human approval naming candidate SHA-256 `a1aab22f…` and commit `5cbfbe8…`,
     then deterministically derive and commit the executable v0.2 authorization.
     Present no fixture context and run no analysis unless its pre-execution
-    verifier passes against that executable artifact's exact SHA-256 and commit.
+    verifier passes against that executable artifact's exact SHA-256 and commit
+    (`2bc50f3`). Output:
+    `examples/v2/analyst-fixture-packet/execution-authorization.v0.2.pending-verification.json`,
+    SHA-256
+    `6b92051ae1ad1b7899f4ad102d4df4ec68267d196458f5bfbd461e89ba999d95`.
+    Verification: exact approval statement SHA-256 `9fd8171b…`; recursive full
+    DAG and four-role verification; legacy three-role path retired; 41 focused
+    tests; Ruff lint/format and task-scoped `ty` clean; full suite passed; three
+    independent reviews passed; exact post-commit pre-execution verifier returned
+    context, analyst execution, and execution allowed at commit
+    `2bc50f3b3bf9f9db838d8427f21c78ed9d97f1d4`, with reconciliation false.
+  - [~] Authorized dual fixture-analysis execution subtask: independently
+    present the approved codebook and identical ordered 11-context census to
+    analyst A and analyst B without peer outputs, extractor candidate labels, or
+    extractor confidence. Commit and hash-lock both complete first-pass sets;
+    reconciliation remains prohibited until both locks verify.
   - [x] Protocol-preparation subtask: add the candidate protocol at
     `docs/41-v2-sampling-and-annotation-protocol.md` (current SHA-256
     `3620198f…`) and a
