@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schemas/bounded-pilot-batched-execution-approval.schema.json",
+  "title": "FOI-O bounded pilot batched execution approval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approved_by", "approved_on", "approval_statement", "approval_statement_sha256", "approved_plan", "local_stage_contract_creation_authorized", "conditional_local_execution_authorized_after_exact_verification", "final_exact_results_and_package_approval_required", "empirical_result_approved", "human_reviewed", "gold_eligible", "publication_allowed", "external_action_allowed"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-batched-execution-approval.v0.1.0"},
+    "approved_by": {"const": "human:edithatogo"},
+    "approved_on": {"type": "string", "format": "date"},
+    "approval_statement": {"type": "string", "minLength": 1},
+    "approval_statement_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "approved_plan": {"$ref": "#/$defs/pin"},
+    "local_stage_contract_creation_authorized": {"const": true},
+    "conditional_local_execution_authorized_after_exact_verification": {"const": true},
+    "final_exact_results_and_package_approval_required": {"const": true},
+    "empirical_result_approved": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "publication_allowed": {"const": false},
+    "external_action_allowed": {"const": false}
+  },
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "repository_commit"],
+      "properties": {
+        "path": {"const": "examples/v2/bounded-pilot-batched-execution-plan.pending.json"},
+        "sha256": {"const": "af7560655834373f97ca59c0a9876051325c855b8a73adc83110912ef0dc7782"},
+        "repository_commit": {"const": "e9f53161d60eabaeeb5b5687ce57dca8bdcebe46"}
+      }
+    }
+  }
+}
