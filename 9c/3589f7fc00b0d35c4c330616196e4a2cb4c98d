@@ -1,0 +1,4 @@
+Task: Restore governed commit ancestry after squash integration
+Files: no tree-content change; merge commit links safe integration history 6b10686 to main e9252ef
+Verification: tree is identical to origin/main; hosted CI will verify pinned commit ancestry
+Boundary: restricted local pilot manuscript commits ca4618a and 349399b are not ancestors and remain unpushed.
