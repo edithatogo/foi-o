@@ -12,7 +12,7 @@
   },
   "reconciler_role": {"actor_id": "agent:bounded-pilot-reconciler", "actor_class": "automated_agent", "role": "reconciler", "canonical_locator": "/root/bounded_pilot_reconciler", "runtime": "OpenAI Codex agent; exact snapshot and session UUID to be recorded only after analyst locks", "prompt": {"path": "examples/v2/bounded-pilot-analyst-prompts/reconciler.v0.2.txt", "sha256": "0eff8e62f3dd0c298c0de6ee81121d3e905a17964d89604af6756790bdc9b849"}},
   "implementation_contracts": {
-    "context_builder_and_verifier": {"path": "src/foi_o_nz/bounded_pilot_execution.py", "sha256": "01a8a88adb8f824b1303a996edfb848e820848d7e50a008e38a76a097dd5fb4b", "repository_commit": "761f1cac7e08eb90fbd9eb2873771dda46b35a82"},
+    "context_builder_and_verifier": {"path": "src/foi_o_nz/bounded_pilot_execution.py", "sha256": "815c4af9c11036641a5a221d2d5db6ba983bd076270bab824af5235ae6ccbda7", "repository_commit": "b52081ce2c91b48ba4a3bd7b89cbb89f91ebf904"},
     "empirical_results": {"path": "src/foi_o_nz/bounded_pilot_empirical_results.py", "sha256": "c9109ba3561cf4ead846ad43511a4f5a9de7288a43030a29053cc72b144cf015", "repository_commit": "761f1cac7e08eb90fbd9eb2873771dda46b35a82"},
     "stage_runtime": {"path": "src/foi_o_nz/bounded_pilot_stage_runtime.py", "sha256": "9d176ce8aaa6f7265dd9d514048c65f20bbd0ef359e1ee216a031847c16d6925", "repository_commit": "761f1cac7e08eb90fbd9eb2873771dda46b35a82"},
     "context_manifest_schema": {"path": "schemas/json/bounded-pilot-context-manifest-v0.2.schema.json", "sha256": "f6b7613699e71d31b5f6ed536bbb47a4094f8c0aa22edc89defb7bb2ee3c66e2", "repository_commit": "761f1cac7e08eb90fbd9eb2873771dda46b35a82"},
