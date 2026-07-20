@@ -4,6 +4,23 @@ Execution contract: follow [the deterministic Australian runbook](./less-capable
 in packet order. Record exact commands, results, artifacts, source digests, and
 commit SHA for every completed packet. Never mark a human gate complete.
 
+## Current status (2026-07-20)
+
+This track and its GitHub issue hierarchy remain active. Profile/source
+contract engineering landed in merged PRs #37, #57, #58, and #59, but the
+manual verification gate remains open. The Commonwealth/NSW pilot, empirical
+validation, go/no-go decision, later jurisdiction tranches, and release
+closeout are not complete. The issue links below are the authoritative queues.
+
+| Phase | GitHub issue | Status |
+| --- | --- | --- |
+| Profile and source contracts | [#28](https://github.com/edithatogo/foi-o/issues/28) | Engineering complete; verification open |
+| Commonwealth and NSW pilot | [#29](https://github.com/edithatogo/foi-o/issues/29) | Open |
+| Empirical validation | [#30](https://github.com/edithatogo/foi-o/issues/30) | Open |
+| Pilot decision gate | [#31](https://github.com/edithatogo/foi-o/issues/31) | Open |
+| Remaining jurisdiction tranches | [#32](https://github.com/edithatogo/foi-o/issues/32) | Open |
+| Release evidence and closeout | [#33](https://github.com/edithatogo/foi-o/issues/33) | Open |
+
 ## Phase 1: Profile and source contracts
 
 GitHub subissue: [#28](https://github.com/edithatogo/foi-o/issues/28).
