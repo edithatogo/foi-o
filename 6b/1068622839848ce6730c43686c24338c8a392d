@@ -1,0 +1,5 @@
+Task: Hosted governed-test portability repair
+Files: CI and release workflows, README
+Verification: actionlint; uv sync --extra dev --extra rdf; unrestricted serial pytest 818 passed, 2 skipped
+Design: Python 3.14.5 hosted suite omits only two exact local-binary pin files; Python 3.12 additionally omits three CPython-3.14.5 diagnostics files; unrestricted local serial gate remains authoritative for all governed runtime checks
+Remaining risk: hosted rerun required.
