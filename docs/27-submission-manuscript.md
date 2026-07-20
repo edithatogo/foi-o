@@ -209,6 +209,7 @@ Separate observation from certification & Mark candidate events as reviewable si
 Keep semantics inspectable & Commit JSON Schema, SKOS, OWL, RDF, SHACL, mappings, and examples as reproducible artefacts. \\
 Fail closed around legal outcomes & Reject autonomous certification of decision-like outcomes. \\
 Prefer local proof & Use tests, examples, and validation commands to define what the repository can prove. \\
+Track provenance & Retain source identifiers, content hashes, rights metadata, and transformation versions beside derived records. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -267,6 +268,7 @@ process flow through validation and the human-certification boundary.
 \node[output, right=of cli] (publication) {Release\\metadata};
 \node[output, right=of quality] (analyst) {Read-only analyst\\workspaces};
 \node[qa, below=1.05cm of quality] (tests) {Tests, examples, and release checks};
+\node[contract, below=1.05cm of events] (provenance) {Provenance, hashes,\\and rights metadata};
 
 \draw[flow] (docs) -- (schemas);
 \draw[flow] (examples) -- (events);
@@ -279,13 +281,15 @@ process flow through validation and the human-certification boundary.
 \draw[flow] (schemas) -- (events);
 \draw[flow] (ontology) -- (shacl);
 \draw[flow] (cli) -- (quality);
+\draw[flow] (events) -- (provenance);
+\draw[support] (provenance) -| (quality.south);
 \draw[support] (tests) -| (schemas.south);
 \draw[support] (tests) -- (quality);
 \draw[support] (tests) -| (publication.south);
 \end{tikzpicture}%
 }
 \hypertarget{fig-repository-architecture}{}
-\begin{center}\small\textbf{Figure 2: FOI-O repository architecture. The repository contains reviewable documents and fixtures, machine-readable contracts, semantic assets, runtime workflows, release metadata, analyst workspaces, and tests that bind the layers together. Abbreviations: FOI-O, Freedom of Information Ontology; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
+\begin{center}\small\textbf{Figure 2: FOI-O repository architecture. The repository contains reviewable documents and fixtures, machine-readable contracts, provenance and rights metadata, semantic assets, runtime workflows, release metadata, analyst workspaces, and tests that bind the layers together. Abbreviations: FOI-O, Freedom of Information Ontology; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
 \end{figure}
 
 \begin{figure}[H]
