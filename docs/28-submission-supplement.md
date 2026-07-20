@@ -20,7 +20,7 @@ validation commands, boundaries, and generated-asset plan for the global FOI-O
 submission package, which originated in New Zealand and has iterated through
 Australian jurisdictions.
 
-It also records the V2 extraction-contract boundary, the wider programme
+It also records the separate extraction-contract boundary, the wider programme
 handoffs, and the candidate-only status of Australian jurisdiction adapters.
 
 The supplement does not include live FYI/archive request payloads, legal advice,
@@ -106,6 +106,24 @@ pixi run mojo-build
 
 \clearpage
 
+## Version Conventions
+
+The package uses several independent version axes:
+
+| Version axis | What it identifies | Current status |
+| --- | --- | --- |
+| Software release | The installable FOI-O Python package and its release metadata | v0.8.1 is the latest published release; no v0.9.0 or v2.0.0 release exists |
+| Extraction/review contract | The rules, capabilities, evidence thresholds, and approval gates for preparing and reviewing records | A separate research-contract milestone, not a software release |
+| Ontology/profile compatibility | The jurisdiction-neutral core, country profiles, and subdivision profiles and their compatible ranges | NZ is the implemented package; Australian Commonwealth and NSW remain provisional pilots |
+| Source and legal materials | Archive snapshots, statutory versions, mappings, and provider-owned source packs | Each carries its own source date, hash, rights, and applicability record |
+
+Examples and readiness files may use names such as `v0.9.0` for a planned
+release package or checklist. Those names are planning identifiers only and do
+not assert that the corresponding software release or dataset has been
+published.
+
+\clearpage
+
 ## S4. Ontology and Standards Alignment
 
 FOI-O NZ uses the canonical namespace
@@ -119,6 +137,47 @@ FOI-O NZ uses the canonical namespace
   references.
 
 Semantic alignment is documented in `docs/22-semantic-alignment.md`.
+
+## S4A. Data Provenance and Transformation
+
+The repository treats provenance as part of the data, not as an afterthought.
+The normal flow is:
+
+1. **Source record.** A public FYI/Alaveteli-compatible manifest or an
+   archive-preserved record is identified by its request or record key. The
+   source URL or archive identifier, capture time, content hash, attachment
+   references, and recorded rights restrictions are retained where available.
+2. **Evidence-preserving normalisation.** `foi-o-nz normalise-manifest` reads
+   JSON or JSONL input and writes request profiles and event records. Observed
+   labels, timestamps, message text references, and attachment references are
+   kept separate from normalised state names. The mapping files under
+   `mappings/` define the state conversions; they do not overwrite the source
+   value.
+3. **Candidate derivation.** Deterministic extraction and reporting helpers
+   create candidate events, deadline annotations, RDF exports, and aggregate
+   indicators. Candidate records retain evidence references, assertion status,
+   generator metadata, and the profile, model, and transformation versions.
+4. **Validation and review.** JSON Schema, Pydantic, SHACL, quality gates, and
+   tests check structure, evidence, provenance, and safety boundaries. A
+   candidate remains a candidate until an authorised reviewer records a separate
+   certification or promotion decision.
+
+The principal implementation and evidence locations are:
+
+| Stage | Repository location | Provenance evidence |
+| --- | --- | --- |
+| Capture and archive inputs | `fyi-cli`, `fyi-archive`, `data/raw/` | manifests, content hashes, capture metadata, rights records |
+| Normalisation and mapping | `src/foi_o_nz/`, `mappings/` | source keys, mapping identifiers, transformation version, evidence references |
+| Derived examples and reports | `examples/`, `data/processed/` | generator metadata, input hashes, deterministic commands, warning fields |
+| Semantic and structural checks | `ontology/`, `shacl/`, `schemas/`, `tests/` | validation reports, schema versions, test results |
+| Publication assets | `examples/generated-asset-manifest.foi-o-publication.json`, `scripts/build_submission_latex.py` | source inputs, commands, output hashes, captions, and package inventory |
+
+For a reproducible local run, start with the commands in `README.md` under
+“Normalise FYI manifest records” and “Normalise a batch”, then run
+`uv run pytest -q`. The commands operate on pinned or example inputs and do not
+silently fetch or republish private source material. Source contents, legal
+rights, and external provider verification remain separate gates from the
+repo-local transformation checks.
 
 \clearpage
 
@@ -145,9 +204,9 @@ Agents must not certify:
 This boundary is tested through agent-policy tests, quality-gate tests,
 publication metadata tests, SHACL safety profiles, and example validation.
 
-V2 additionally requires immutable source/profile/model pins, rights-reviewed
-heldout data, independent annotation and adjudication, empirical acceptance
-metrics, and explicit human promotion. The archive, Australian Commonwealth,
+The extraction-contract work additionally requires immutable source/profile/model
+pins, rights-reviewed heldout data, independent annotation and adjudication,
+empirical acceptance metrics, and explicit human promotion. The archive, Australian Commonwealth,
 and NSW adapters remain candidate pilots until those conditions are evidenced.
 
 ## S5A. Cross-Repository Programme Handoffs

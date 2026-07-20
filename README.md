@@ -231,6 +231,17 @@ uv run foi-o-nz repro-manifest \
 
 The normaliser accepts JSONL or JSON arrays containing FYI archive-style records with fields such as `request_id`, `url_title`, `title`, `authority`, `state`, `first_sent`, `last_updated`, `content_sha256`, `html_captured`, `attachments`, and `warc_record_ids`. It also looks for message-like fields (`messages`, `correspondence`, `communications`, `updates`) and emits conservative `MessageObserved` plus candidate process events such as `ExtensionNotified`, `TransferNotified`, `ClarificationRequested`, `ComplaintObserved`, and decision/release/refusal candidates that require human review.
 
+### Provenance and transformation
+
+Every normalisation path keeps the source key and observed values alongside
+derived states and candidate events. Content hashes, archive or capture
+identifiers, rights restrictions, evidence references, generator metadata, and
+transformation/profile versions are retained where available. Mappings in
+`mappings/` explain conversions without replacing the original value; schema,
+SHACL, quality-gate, and test checks run on the derived outputs. The full
+source-to-derived account, including repository locations and reproducible
+commands, is in [the submission supplement](docs/28-submission-supplement.md).
+
 Reporting outputs are public FYI-derived research indicators, not official PSC reporting. `reporting-metrics` prints the derivability profile, and `psc-report` produces a deterministic aggregate report with warning and caveat fields. The committed sample at `examples/psc-report.small.json` is generated from `examples/events.psc-report-sample.jsonl`.
 
 ### Batch/vector/RDF utilities

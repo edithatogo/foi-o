@@ -76,8 +76,9 @@ are platform-mediated evidence. They are not agency systems of record. They can
 be incomplete, delayed, duplicated, redacted, or unclear. A platform label may
 not match the legal status of a request. A message timestamp may not be the
 statutory date that matters. A visible attachment may not be the full agency
-decision. Any reusable FOI data model therefore needs to preserve what was
-observed while clearly marking what was inferred [6-13].
+decision. Public archive and capture tools make parts of this record available
+for research [4,5]. Any reusable FOI data model therefore needs to preserve
+what was observed while clearly marking what was inferred [6-13].
 
 The problem is not only technical. FOI systems support democratic
 accountability, public-sector learning, journalism, research, and individual
@@ -141,21 +142,26 @@ release metadata, and tests. These can be inspected without live credentials or
 private request content. Together, they show the boundary between
 repository-local proof and future external validation.
 
-This article contributes eight groups of repository materials. First, it
-defines schema-first request and event contracts for observed and candidate FOI
-process evidence. Second, it provides an OWL, SKOS, RDF, and SHACL semantic
-layer for vocabulary and constraint review. Third, it encodes a
-certification boundary that prevents software from certifying
-legal or administrative outcomes. Fourth, it adds BPMN and PNML process-model
-materials for review and interchange. Fifth, it provides fixture-only XES and
-OCEL-style process-mining exports with fixture conformance checks. Sixth, it
-records a New Zealand annotation study plan that remains a plan until
-independent review and adjudication evidence exists. Seventh, it defines a
-versioned extraction and review protocol with explicit capability declarations,
-immutable dependency pins, evidence thresholds, and human promotion gates.
-Eighth, it defines independently versioned core, country, and subdivision
-profiles, with the Australian Commonwealth and New South Wales adaptations
-retained as provisional pilots rather than presented as validated legal profiles.
+This article makes eight practical contributions. First, it gives researchers
+and analysts a consistent way to record what happened in an FOI request and
+what is only a suggested interpretation (schema-first request and event
+contracts). Second, it supplies shared names and machine-checkable rules so
+that different projects can describe the same kinds of evidence (OWL, SKOS,
+RDF, and SHACL). Third, it makes clear that software may organise evidence but
+cannot certify a legal or administrative outcome (the certification boundary).
+Fourth, it provides process diagrams and exchange files that people can inspect
+or move between tools (BPMN and PNML). Fifth, it includes small, reproducible
+examples showing how FOI events can be exchanged and checked by process-mining
+software (XES and OCEL-style fixtures). Sixth, it records a New Zealand study
+plan for annotation, while clearly stating that the plan is not a result until
+independent review and adjudication evidence exists. Seventh, it sets out a
+versioned procedure for extracting and reviewing records, including fixed tool
+versions, evidence thresholds, and approval gates. Eighth, it separates the
+shared model from local legal and administrative settings (independently
+versioned core, country, and subdivision profiles). The Australian Commonwealth
+and New South Wales adaptations remain provisional pilots, not validated legal
+profiles. Technical file paths and validation details are listed in the
+supplement.
 
 The article is organised as follows. The Methods section states the design
 principles, repository architecture, ontology-development protocol, process
@@ -163,6 +169,17 @@ model, data model, and human-certification boundary. The Results section
 describes what the current repository implements and validates. The Discussion
 explains why this bounded architecture matters for future comparative FOI
 research and accountable analyst-led public administration.
+
+**Version conventions.**
+
+The version labels in this article refer to different things. **FOI-O v0.8.1**
+is the latest published software release. The **extraction and review protocol**
+is a separate research contract describing how records may be prepared and
+reviewed; it is not a software release. The **core, country, and subdivision
+profiles** have their own compatibility versions, while source packs and legal
+materials are versioned independently. A protocol milestone or planned release
+identifier therefore does not mean that a new FOI-O release, dataset, or
+validated legal profile exists.
 
 # Methods
 
@@ -203,6 +220,7 @@ Separate observation from certification & Mark candidate events as reviewable si
 Keep semantics inspectable & Commit JSON Schema, SKOS, OWL, RDF, SHACL, mappings, and examples as reproducible artefacts. \\
 Fail closed around legal outcomes & Reject autonomous certification of decision-like outcomes. \\
 Prefer local proof & Use tests, examples, and validation commands to define what the repository can prove. \\
+Track provenance & Retain source identifiers, content hashes, rights metadata, and transformation versions beside derived records. \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -214,9 +232,9 @@ layering pattern. Source request records and archive manifests are preserved
 upstream. FOI-O maps those records into request profiles, event streams,
 and controlled vocabularies. It also maps them into Resource Description
 Framework (RDF; see the \hyperlink{tab-abbreviations}{abbreviations table}) and Shapes Constraint Language (SHACL; see the
-\hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded analytical resources [15-20].
+\hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded analytical resources [15-20,21,22].
 
-The wider programme deliberately separates capture, archival fidelity,
+The wider programme [23] deliberately separates capture, archival fidelity,
 document processing, candidate extraction, ontology contracts, deterministic
 rules, and programme conformance. `fyi-cli` captures FYI/Alaveteli-compatible
 source and delta inputs [4]. `fyi-archive` preserves manifests and provenance,
@@ -229,7 +247,7 @@ document evidence and optical character recognition (OCR) [25].
 `rac-conformance` synchronises cross-repository conformance evidence [29].
 FOI-O consumes pinned, provenance-bearing inputs from these surfaces; it does
 not collapse them into one application or treat downstream model output as a
-certified legal record.
+certified legal record [23].
 
 \hyperlink{fig-repository-architecture}{Figure 2} shows the repository-level
 architecture, while \hyperlink{fig-process-architecture}{Figure 3} shows the
@@ -261,6 +279,7 @@ process flow through validation and the human-certification boundary.
 \node[output, right=of cli] (publication) {Release\\metadata};
 \node[output, right=of quality] (analyst) {Read-only analyst\\workspaces};
 \node[qa, below=1.05cm of quality] (tests) {Tests, examples, and release checks};
+\node[contract, below=1.05cm of events] (provenance) {Provenance, hashes,\\and rights metadata};
 
 \draw[flow] (docs) -- (schemas);
 \draw[flow] (examples) -- (events);
@@ -273,13 +292,15 @@ process flow through validation and the human-certification boundary.
 \draw[flow] (schemas) -- (events);
 \draw[flow] (ontology) -- (shacl);
 \draw[flow] (cli) -- (quality);
+\draw[flow] (events) -- (provenance);
+\draw[support] (provenance) -| (quality.south);
 \draw[support] (tests) -| (schemas.south);
 \draw[support] (tests) -- (quality);
 \draw[support] (tests) -| (publication.south);
 \end{tikzpicture}%
 }
 \hypertarget{fig-repository-architecture}{}
-\begin{center}\small\textbf{Figure 2: FOI-O repository architecture. The repository contains reviewable documents and fixtures, machine-readable contracts, semantic assets, runtime workflows, release metadata, analyst workspaces, and tests that bind the layers together. Abbreviations: FOI-O, Freedom of Information Ontology; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
+\begin{center}\small\textbf{Figure 2: FOI-O repository architecture. The repository contains reviewable documents and fixtures, machine-readable contracts, provenance and rights metadata, semantic assets, runtime workflows, release metadata, analyst workspaces, and tests that bind the layers together. Abbreviations: FOI-O, Freedom of Information Ontology; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
 \end{figure}
 
 \begin{figure}[H]
@@ -334,6 +355,15 @@ high-performance inference tools. They could later support bounded extraction
 or embedding workflows. They are not required for the current package. The
 present evidence depends on portable schemas, examples, semantic assets, and
 Python tests, not on specialised runtimes, hardware, or model-serving installs.
+
+Data provenance is carried through each step. The source manifest, archive or
+capture identifier, content hash, and rights restriction are retained before a
+record is normalised. Deterministic transformations then create request
+profiles, observed messages, and candidate events; each derived item points
+back to its source evidence and records the code, profile, and transformation
+versions used. Validation checks the derived data without turning a candidate
+event into a certified outcome. The repository locations and reproducible
+commands are detailed in the supplement.
 
 ## Empirical Extraction and Jurisdiction Profiles
 
@@ -407,7 +437,7 @@ complaint outcomes.
 
 The process-mining interchange layer is narrower still. It contains a
 committed fixture event log, XES and OCEL-style exports, and a fixture-only
-conformance report for one release path. These artefacts demonstrate import,
+conformance report for one release path [21,22]. These artefacts demonstrate import,
 interchange, and boundary-preserving conformance checks on a deterministic
 fixture. They do not show live-corpus process discovery, agency bottlenecks,
 cycle-time distributions, or real-world process conformance.
@@ -657,6 +687,8 @@ Release package & Repo-local publication and reuse evidence can be validated. & 
 
 # Discussion
 
+The evidence boundaries are summarised in \hyperlink{tab-evidence-boundaries}{Table 7}.
+
 FOI-O is designed to describe and check the process evidence around a FOI
 request. It asks what was observed, where the evidence came from, which
 candidate event it might support, and whether an authorised reviewer checked it.
@@ -900,6 +932,8 @@ XES & eXtensible Event Stream \\
 \clearpage
 
 # Glossary
+
+\hyperlink{tab-glossary}{The glossary table} collects the key terms used below.
 
 \begin{table}[H]
 \small
