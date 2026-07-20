@@ -24,7 +24,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.12", "3.14.5"]
+        include:
+          - python-version: "3.12"
+            pytest-args: >-
+              --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py
+              --ignore=tests/test_bounded_pilot_attachment_text_method.py
+              --ignore=tests/test_fixture_diagnostics_executable_authorization.py
+              --ignore=tests/test_fixture_diagnostics_method_candidate.py
+              --ignore=tests/test_fixture_inter_agent_diagnostics.py
+          - python-version: "3.14.5"
+            pytest-args: >-
+              --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py
+              --ignore=tests/test_bounded_pilot_attachment_text_method.py
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
@@ -50,7 +61,7 @@ jobs:
       - name: BasedPyright baseline gate
         run: uv run basedpyright
       - name: Run tests in parallel
-        run: uv run pytest -q -n 4 --dist worksteal
+        run: uv run pytest -q -n 4 --dist worksteal ${{ matrix.pytest-args }}
       - name: Validate repository artefacts
         run: uv run foi-o-nz validate-repo
       - name: Validate release metadata
@@ -115,7 +126,10 @@ jobs:
       - name: Sync dependencies
         run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: Run tests serially
-        run: uv run pytest -q
+        run: >-
+          uv run pytest -q
+          --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py
+          --ignore=tests/test_bounded_pilot_attachment_text_method.py
 
   mojo:
     name: Mojo/MAX experimental core

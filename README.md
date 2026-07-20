@@ -164,6 +164,12 @@ ordering or worker-isolation defects. On typical developer hardware the
 parallel profile should be materially faster, but no fixed duration is part of
 the contract because workload and storage performance vary.
 
+Hosted Ubuntu jobs exclude only the governed tests that require the exact
+approved local `pdftotext` or `mutool` binaries. The Python 3.12 job also
+excludes the three diagnostics files whose reproducibility contract requires
+CPython 3.14.5. `make test-serial` remains unrestricted and is required locally
+where those pinned runtimes are available.
+
 ### Normalise FYI manifest records
 
 ```bash
