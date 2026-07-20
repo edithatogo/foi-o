@@ -76,8 +76,9 @@ are platform-mediated evidence. They are not agency systems of record. They can
 be incomplete, delayed, duplicated, redacted, or unclear. A platform label may
 not match the legal status of a request. A message timestamp may not be the
 statutory date that matters. A visible attachment may not be the full agency
-decision. Any reusable FOI data model therefore needs to preserve what was
-observed while clearly marking what was inferred [6-13].
+decision. Public archive and capture tools make parts of this record available
+for research [4,5]. Any reusable FOI data model therefore needs to preserve
+what was observed while clearly marking what was inferred [6-13].
 
 The problem is not only technical. FOI systems support democratic
 accountability, public-sector learning, journalism, research, and individual
@@ -214,9 +215,9 @@ layering pattern. Source request records and archive manifests are preserved
 upstream. FOI-O maps those records into request profiles, event streams,
 and controlled vocabularies. It also maps them into Resource Description
 Framework (RDF; see the \hyperlink{tab-abbreviations}{abbreviations table}) and Shapes Constraint Language (SHACL; see the
-\hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded analytical resources [15-20].
+\hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded analytical resources [15-20,21,22].
 
-The wider programme deliberately separates capture, archival fidelity,
+The wider programme [23] deliberately separates capture, archival fidelity,
 document processing, candidate extraction, ontology contracts, deterministic
 rules, and programme conformance. `fyi-cli` captures FYI/Alaveteli-compatible
 source and delta inputs [4]. `fyi-archive` preserves manifests and provenance,
@@ -229,7 +230,7 @@ document evidence and optical character recognition (OCR) [25].
 `rac-conformance` synchronises cross-repository conformance evidence [29].
 FOI-O consumes pinned, provenance-bearing inputs from these surfaces; it does
 not collapse them into one application or treat downstream model output as a
-certified legal record.
+certified legal record [23].
 
 \hyperlink{fig-repository-architecture}{Figure 2} shows the repository-level
 architecture, while \hyperlink{fig-process-architecture}{Figure 3} shows the
@@ -407,7 +408,7 @@ complaint outcomes.
 
 The process-mining interchange layer is narrower still. It contains a
 committed fixture event log, XES and OCEL-style exports, and a fixture-only
-conformance report for one release path. These artefacts demonstrate import,
+conformance report for one release path [21,22]. These artefacts demonstrate import,
 interchange, and boundary-preserving conformance checks on a deterministic
 fixture. They do not show live-corpus process discovery, agency bottlenecks,
 cycle-time distributions, or real-world process conformance.
