@@ -4,8 +4,10 @@ from __future__ import annotations
 
 import json
 import shutil
+from collections.abc import Mapping
 from hashlib import sha256
 from pathlib import Path
+from typing import Any, cast
 
 import pytest
 
@@ -21,7 +23,7 @@ EXAMPLE = ROOT / "examples/v2/fyi-attachment-snapshot-readiness.11872.json"
 SCHEMA = ROOT / "schemas/json/fyi-attachment-snapshot-readiness.schema.json"
 
 
-def _write_manifest(snapshot: Path, manifest: dict[str, object]) -> str:
+def _write_manifest(snapshot: Path, manifest: Mapping[str, object]) -> str:
     manifest_bytes = (json.dumps(manifest, indent=2, sort_keys=True) + "\n").encode()
     (snapshot / "manifest.json").write_bytes(manifest_bytes)
     digest = sha256(manifest_bytes).hexdigest()
@@ -32,6 +34,7 @@ def _write_manifest(snapshot: Path, manifest: dict[str, object]) -> str:
 def _refresh_artifact(snapshot: Path, manifest: dict[str, object], relative: str) -> None:
     artifacts = manifest["artifacts"]
     assert isinstance(artifacts, list)
+    artifacts = cast(list[dict[str, Any]], artifacts)
     artifact = next(item for item in artifacts if item["path"] == relative)
     path = snapshot / relative
     artifact["sha256"] = sha256(path.read_bytes()).hexdigest()

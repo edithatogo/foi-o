@@ -12,10 +12,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   python:
     name: Python quality and tests (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -38,10 +43,12 @@ jobs:
         run: uv run ruff check src tests scripts
       - name: Ruff format check
         run: uv run ruff format --check src tests scripts
+      - name: ty fast type gate
+        run: uv run ty check src tests scripts
       - name: BasedPyright baseline gate
         run: uv run basedpyright
-      - name: Run tests
-        run: uv run pytest -q
+      - name: Run tests in parallel
+        run: uv run pytest -q -n 4 --dist worksteal
       - name: Validate repository artefacts
         run: uv run foi-o-nz validate-repo
       - name: Validate release metadata
@@ -85,9 +92,31 @@ jobs:
           uv run foi-o-nz attest-artifacts data/smoke/requests.jsonl data/smoke/events.jsonl --output data/smoke/attestation.json --invocation-id ci-smoke
           uv run foi-o-nz sample-goldset --input data/smoke/requests.jsonl --output data/smoke/goldset.jsonl --manifest-output data/smoke/goldset.manifest.json --kind request --limit 10
 
+  serial-python:
+    name: Serial Python regression gate
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
+      - name: Install uv
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
+        with:
+          version: "0.11.8"
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.14"
+      - name: Sync dependencies
+        run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
+      - name: Run tests serially
+        run: uv run pytest -q
+
   mojo:
     name: Mojo/MAX experimental core
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
@@ -107,6 +136,7 @@ jobs:
   security:
     name: Security and supply-chain checks
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:

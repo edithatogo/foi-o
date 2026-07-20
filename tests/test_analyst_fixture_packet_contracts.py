@@ -1,5 +1,7 @@
 import json
+from collections.abc import Mapping
 from pathlib import Path
+from typing import Any, cast
 
 from foi_o_nz.validation import validate_json_schema
 from scripts.build_analyst_fixture_packet import main as build_fixture_packet
@@ -8,7 +10,9 @@ ROOT = Path(__file__).parents[1]
 SCHEMAS = ROOT / "schemas/json"
 
 
-def _validate(tmp_path: Path, name: str, payload: dict[str, object], schema: str) -> list[str]:
+def _validate(
+    tmp_path: Path, name: str, payload: Mapping[str, object], schema: str
+) -> tuple[str, ...]:
     path = tmp_path / name
     path.write_text(json.dumps(payload))
     return validate_json_schema(path, SCHEMAS / schema).errors
@@ -95,7 +99,7 @@ def test_non_empirical_fixture_unit_manifest_is_lockable(tmp_path: Path) -> None
 
 
 def test_non_empirical_fixture_clusters_are_locked_and_singleton(tmp_path: Path) -> None:
-    payload = {
+    payload: dict[str, Any] = {
         "schema_version": "foi-o.analyst-fixture-cluster-registry.v0.1.0",
         "registry_id": "fixture-exact-content",
         "status": "locked_local_fixture_clusters",
@@ -124,7 +128,8 @@ def test_non_empirical_fixture_clusters_are_locked_and_singleton(tmp_path: Path)
     assert not _validate(
         tmp_path, "clusters.json", payload, "analyst-fixture-cluster-registry.schema.json"
     )
-    payload["clusters"][0]["member_unit_sha256"].append("f" * 64)  # type: ignore[index]
+    members = cast("list[str]", payload["clusters"][0]["member_unit_sha256"])
+    members.append("f" * 64)
     assert _validate(
         tmp_path, "clusters.json", payload, "analyst-fixture-cluster-registry.schema.json"
     )

@@ -1,4 +1,5 @@
 import json
+from collections.abc import Mapping
 from pathlib import Path
 
 from foi_o_nz.validation import validate_json_schema
@@ -7,7 +8,7 @@ ROOT = Path(__file__).parents[1]
 SCHEMAS = ROOT / "schemas/json"
 
 
-def _write(tmp_path: Path, name: str, payload: dict[str, object]) -> Path:
+def _write(tmp_path: Path, name: str, payload: Mapping[str, object]) -> Path:
     path = tmp_path / name
     path.write_text(json.dumps(payload))
     return path

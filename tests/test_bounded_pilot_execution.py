@@ -49,7 +49,7 @@ def _pin(root: Path, path: str, commit: str | None = None) -> dict[str, str]:
 
 
 def _blocks(text: str, values: list[str]) -> list[dict[str, object]]:
-    result = []
+    result: list[dict[str, object]] = []
     cursor = 0
     for index, value in enumerate(values):
         start = text.index(value, cursor)

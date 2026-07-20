@@ -1,4 +1,5 @@
 import json
+from collections.abc import Mapping, Sequence
 from hashlib import sha256
 from pathlib import Path
 from typing import TypedDict
@@ -27,7 +28,7 @@ def _write_json(path: Path, value: object) -> None:
     path.write_text(json.dumps(value, indent=2) + "\n")
 
 
-def _write_jsonl(path: Path, values: list[dict[str, object]]) -> None:
+def _write_jsonl(path: Path, values: Sequence[Mapping[str, object]]) -> None:
     path.write_text("".join(json.dumps(value, sort_keys=True) + "\n" for value in values))
 
 

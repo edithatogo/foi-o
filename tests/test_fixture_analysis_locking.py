@@ -2,6 +2,7 @@ import json
 import shutil
 from hashlib import sha256
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -31,7 +32,7 @@ def _sandbox(tmp_path: Path) -> Path:
     return root
 
 
-def _responses(root: Path, key: str) -> list[dict[str, object]]:
+def _responses(root: Path, key: str) -> list[dict[str, Any]]:
     packet = root / "examples/v2/analyst-fixture-packet"
     contexts = json.loads((packet / "context-presentation.pending.json").read_text())["contexts"]
     revision = json.loads((packet / "codebook.approved.json").read_text())["revision"]

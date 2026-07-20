@@ -1,4 +1,5 @@
 import json
+from collections.abc import Mapping
 from pathlib import Path
 
 from foi_o_nz.validation import validate_json_schema
@@ -7,7 +8,7 @@ ROOT = Path(__file__).parents[1]
 
 
 def _validate(
-    tmp_path: Path, name: str, payload: dict[str, object], schema: str
+    tmp_path: Path, name: str, payload: Mapping[str, object], schema: str
 ) -> tuple[str, ...]:
     path = tmp_path / name
     path.write_text(json.dumps(payload))

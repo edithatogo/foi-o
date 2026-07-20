@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, cast
 from uuid import NAMESPACE_URL, uuid5
 
 from pydantic import AnyUrl
@@ -115,7 +115,7 @@ def build_request_profile(
         source_provenance=SourceProvenance(
             input_path=str(input_path) if input_path is not None else None,
             source_record_id=str(request_id),
-            raw_state_field=raw_state_field,  # type: ignore[arg-type]
+            raw_state_field=cast("Literal['state', 'source_state', 'unknown']", raw_state_field),
             raw_state_value=source_state,
             mapping_method="rule",
             mapping_confidence=mapping.confidence,

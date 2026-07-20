@@ -3,6 +3,7 @@ import shutil
 from hashlib import sha256
 from pathlib import Path
 from subprocess import run
+from typing import Any
 
 import pytest
 
@@ -18,7 +19,7 @@ PACKET = ROOT / "examples/v2/analyst-fixture-packet"
 REQUEST = PACKET / "role-authorization-request.pending.json"
 
 
-def _load(path: Path) -> dict[str, object]:
+def _load(path: Path) -> dict[str, Any]:
     value = json.loads(path.read_text(encoding="utf-8"))
     assert isinstance(value, dict)
     return value

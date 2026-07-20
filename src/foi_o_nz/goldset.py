@@ -153,7 +153,10 @@ def _prefilled_risk_label(risk: dict[str, Any] | None) -> str | None:
     if risk is None:
         return None
     hits = cast("list[Any]", risk.get("hits")) if isinstance(risk.get("hits"), list) else []
-    categories = {str(hit.get("category")) for hit in hits if isinstance(hit, dict)}
+    categories: set[str] = set()
+    for hit in hits:
+        if isinstance(hit, dict):
+            categories.add(str(cast("dict[str, Any]", hit).get("category")))
     if "health_information" in categories:
         return "health"
     if "personal_information" in categories:
@@ -178,9 +181,10 @@ def tasks_from_chunks(
             continue
         risk = risk_by_source.get(source_id)
         raw_priority = str(risk.get("risk_level", "medium")) if risk is not None else "medium"
-        priority: Literal["low", "medium", "high"] = (
-            raw_priority if raw_priority in {"low", "medium", "high"} else "medium"
-        )  # type: ignore[assignment]
+        priority = cast(
+            "Literal['low', 'medium', 'high']",
+            raw_priority if raw_priority in {"low", "medium", "high"} else "medium",
+        )
         tasks.append(
             GoldsetTask(
                 task_id=_task_id("risk_triage", source_id, text),
@@ -243,6 +247,7 @@ def _request_id_from_event(event: dict[str, Any]) -> str | None:
     request_ref = event.get("request_ref")
     if not isinstance(request_ref, dict):
         return None
+    request_ref = cast("dict[str, Any]", request_ref)
     value = request_ref.get("source_request_id")
     return str(value) if value is not None else None
 
@@ -251,11 +256,12 @@ def _event_hint(event: dict[str, Any]) -> dict[str, Any]:
     evidence = (
         cast("list[Any]", event.get("evidence")) if isinstance(event.get("evidence"), list) else []
     )
-    evidence_ids = [
-        str(item.get("evidence_id"))
-        for item in evidence
-        if isinstance(item, dict) and item.get("evidence_id") is not None
-    ]
+    evidence_ids: list[str] = []
+    for item in evidence:
+        if isinstance(item, dict):
+            evidence_item = cast("dict[str, Any]", item)
+            if evidence_item.get("evidence_id") is not None:
+                evidence_ids.append(str(evidence_item["evidence_id"]))
     return {
         "event_id": event.get("event_id"),
         "event_type": event.get("event_type"),

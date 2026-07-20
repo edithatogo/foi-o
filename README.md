@@ -134,10 +134,34 @@ authoritative `legislation` source provider.
 
 ### Type-safety ratchet
 
-CI runs both `ty` and basedpyright. The tracked
+CI runs both `ty` and BasedPyright. Use `make typecheck` for the rapid
+development check and `make typecheck-basedpyright` for the final static gate.
+The checkers complement tests; neither replaces behavioral, integration, or
+release testing. The configured `ty` rules promote unresolved imports,
+unresolved attributes, and invalid assignments to errors. BasedPyright applies
+its strict rule set to a documented initial set of repaired runtime modules,
+while the rest of the repository remains under its standard no-regression
+baseline. Narrow exclusions preserve executable governance files whose exact
+bytes are authorization-pinned. The tracked
 `basedpyright-baseline.json` records legacy findings so they cannot silently
 grow; new findings fail CI. Reduce the baseline with `make typecheck-basedpyright`
 and regenerate it only after reviewing the diff.
+
+### Test profiles
+
+The default `make test` target runs the complete pytest suite with four
+work-stealing workers (`make test-fast`). Use `make test-full` before a normal
+commit to combine lint, formatting, both type checkers, the parallel suite, and
+repository/schema validation. Use `make test-serial` when reproducing ordering
+or isolation failures and for final release evidence.
+
+Normal CI uses the four-worker profile on Python 3.12 and 3.14. A scheduled or
+manually dispatched job retains an independent serial Python 3.14 run, and the
+release workflow also runs the suite serially before building distributions.
+Parallel success is therefore not treated as proof that the suite is free of
+ordering or worker-isolation defects. On typical developer hardware the
+parallel profile should be materially faster, but no fixed duration is part of
+the contract because workload and storage performance vary.
 
 ### Normalise FYI manifest records
 

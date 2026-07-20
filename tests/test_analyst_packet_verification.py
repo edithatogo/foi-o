@@ -3,6 +3,7 @@ import shutil
 from hashlib import sha256
 from pathlib import Path
 from subprocess import run
+from typing import Any, cast
 
 import pytest
 
@@ -343,7 +344,7 @@ def test_manifest_cross_checks_require_exact_unit_redaction_cluster_bijection() 
             for unit in derived
         ]
     }
-    clusters = {
+    clusters: dict[str, Any] = {
         "clusters": [
             {
                 "cluster_id": f"exact:{unit.context_sha256}",
@@ -355,7 +356,8 @@ def test_manifest_cross_checks_require_exact_unit_redaction_cluster_bijection() 
     }
     verify_fixture_manifests(derived, unit_manifest, redaction, clusters)
 
-    clusters["clusters"][0]["member_unit_sha256"].append(derived[1].unit_sha256)
+    members = cast("list[str]", clusters["clusters"][0]["member_unit_sha256"])
+    members.append(derived[1].unit_sha256)
     with pytest.raises(ValueError, match="clusters must be singleton"):
         verify_fixture_manifests(derived, unit_manifest, redaction, clusters)
 

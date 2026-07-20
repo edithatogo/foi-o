@@ -824,6 +824,17 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     execution, reconciliation, empirical claims, and external uses remain false.
     Verification: 14 focused tests, Ruff, example validation, and full suite
     787 passed, 2 skipped.
+- [x] Integration quality, security, and documentation closeout: add a fast
+  strict `ty` gate, a staged BasedPyright strictness ratchet, four-worker
+  work-stealing test execution for ordinary development/CI, retained serial
+  production checks, narrow Gitleaks historical false-positive fingerprints,
+  least-privilege workflow permissions, timeouts, concurrency controls, and
+  matching README/release-readiness/tech-stack guidance. The user explicitly
+  authorized the integration PR and branch merge on 2026-07-20; this does not
+  authorize the restricted local pilot manuscript commits, publication,
+  release, dataset publication, or arXiv submission. Verification: Ruff, `ty`,
+  BasedPyright, serial pytest (818 passed, 2 skipped), Gitleaks, actionlint,
+  Zizmor, and pip-audit.
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.

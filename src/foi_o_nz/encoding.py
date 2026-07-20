@@ -5,10 +5,13 @@ from __future__ import annotations
 import json
 from typing import Any
 
+orjson: Any
 try:  # pragma: no cover - depends on optional runtime wheel availability
-    import orjson
+    import orjson as _orjson
 except ModuleNotFoundError:  # pragma: no cover - exercised only without orjson
-    orjson = None  # type: ignore[assignment]
+    orjson = None
+else:  # pragma: no cover - the normal installed-runtime path
+    orjson = _orjson
 
 
 def loads_json(data: str | bytes | bytearray) -> Any:

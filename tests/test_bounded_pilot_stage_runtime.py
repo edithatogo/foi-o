@@ -2,6 +2,7 @@ import json
 import runpy
 from pathlib import Path
 from subprocess import run
+from typing import Any
 
 import pytest
 
@@ -21,7 +22,7 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     repo = tmp_path / "repo"
     repo.mkdir()
     run(["git", "init", "-q"], cwd=repo, check=True)
-    roles = {
+    roles: dict[str, dict[str, Any]] = {
         "analyst_a": {
             "actor_id": ANALYST_IDS[0],
             "canonical_locator": "/root/synthetic-a",
