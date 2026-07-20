@@ -658,6 +658,8 @@ Release package & Repo-local publication and reuse evidence can be validated. & 
 
 # Discussion
 
+The evidence boundaries are summarised in \hyperlink{tab-evidence-boundaries}{Table 7}.
+
 FOI-O is designed to describe and check the process evidence around a FOI
 request. It asks what was observed, where the evidence came from, which
 candidate event it might support, and whether an authorised reviewer checked it.
@@ -901,6 +903,8 @@ XES & eXtensible Event Stream \\
 \clearpage
 
 # Glossary
+
+\hyperlink{tab-glossary}{The glossary table} collects the key terms used below.
 
 \begin{table}[H]
 \small

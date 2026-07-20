@@ -346,6 +346,45 @@ def _scan_figures(tex_path: Path) -> list[CheckResult]:
     ]
 
 
+def _scan_pdf_hyperlink_contract(tex_path: Path) -> CheckResult:
+    """Require navigable links for the manuscript's named elements.
+
+    This is deliberately source-level: it catches a broken Pandoc/LaTeX
+    transformation before a PDF is handed to a reviewer or packaged.
+    """
+    text = tex_path.read_text(encoding="utf-8")
+    anchors = set(re.findall(r"\\hypertarget\{([^}]+)\}", text))
+    links = set(re.findall(r"\\hyperlink\{([^}]+)\}", text))
+    required_targets = {
+        "abbreviations": {"tab-abbreviations"},
+        "glossary": {"tab-glossary"},
+        "tables": {
+            target
+            for target in anchors
+            if target.startswith("tab-") and target not in {"tab-abbreviations", "tab-glossary"}
+        },
+        "figures": {target for target in anchors if target.startswith("fig-")},
+    }
+    missing: list[str] = []
+    for category, targets in required_targets.items():
+        for target in sorted(targets):
+            if target not in anchors:
+                missing.append(f"{category} target {target}")
+            if target not in links:
+                missing.append(f"{category} link {target}")
+    for target in sorted(target for target in links if target.startswith("ref-")):
+        if target not in anchors:
+            missing.append(f"citation target {target}")
+    return CheckResult(
+        "pdf-hyperlink-contract",
+        "failed" if missing else "passed",
+        "Missing required PDF hyperlinks or anchors: " + ", ".join(missing)
+        if missing
+        else "Citations, abbreviations, glossary terms, tables, and figures have matching PDF links and anchors.",
+        [_relative(tex_path)],
+    )
+
+
 def _copy_figure_assets(tex_path: Path, source_root: Path) -> list[CheckResult]:
     text = tex_path.read_text(encoding="utf-8")
     figures = re.findall(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}", text)
@@ -1048,6 +1087,7 @@ def _target_manifest(
         checks.extend(_copy_figure_assets(main_tex, source_root))
         checks.extend(_scan_tex(main_tex))
         checks.extend(_scan_figures(main_tex))
+        checks.append(_scan_pdf_hyperlink_contract(main_tex))
     compile_results = _compile_source(config, source_root, skip_compile=skip_compile)
     command_results.extend(compile_results)
     log_path = source_root / "main.log"
