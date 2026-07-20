@@ -142,21 +142,26 @@ release metadata, and tests. These can be inspected without live credentials or
 private request content. Together, they show the boundary between
 repository-local proof and future external validation.
 
-This article contributes eight groups of repository materials. First, it
-defines schema-first request and event contracts for observed and candidate FOI
-process evidence. Second, it provides an OWL, SKOS, RDF, and SHACL semantic
-layer for vocabulary and constraint review. Third, it encodes a
-certification boundary that prevents software from certifying
-legal or administrative outcomes. Fourth, it adds BPMN and PNML process-model
-materials for review and interchange. Fifth, it provides fixture-only XES and
-OCEL-style process-mining exports with fixture conformance checks. Sixth, it
-records a New Zealand annotation study plan that remains a plan until
-independent review and adjudication evidence exists. Seventh, it defines a
-versioned extraction and review protocol with explicit capability declarations,
-immutable dependency pins, evidence thresholds, and human promotion gates.
-Eighth, it defines independently versioned core, country, and subdivision
-profiles, with the Australian Commonwealth and New South Wales adaptations
-retained as provisional pilots rather than presented as validated legal profiles.
+This article makes eight practical contributions. First, it gives researchers
+and analysts a consistent way to record what happened in an FOI request and
+what is only a suggested interpretation (schema-first request and event
+contracts). Second, it supplies shared names and machine-checkable rules so
+that different projects can describe the same kinds of evidence (OWL, SKOS,
+RDF, and SHACL). Third, it makes clear that software may organise evidence but
+cannot certify a legal or administrative outcome (the certification boundary).
+Fourth, it provides process diagrams and exchange files that people can inspect
+or move between tools (BPMN and PNML). Fifth, it includes small, reproducible
+examples showing how FOI events can be exchanged and checked by process-mining
+software (XES and OCEL-style fixtures). Sixth, it records a New Zealand study
+plan for annotation, while clearly stating that the plan is not a result until
+independent review and adjudication evidence exists. Seventh, it sets out a
+versioned procedure for extracting and reviewing records, including fixed tool
+versions, evidence thresholds, and approval gates. Eighth, it separates the
+shared model from local legal and administrative settings (independently
+versioned core, country, and subdivision profiles). The Australian Commonwealth
+and New South Wales adaptations remain provisional pilots, not validated legal
+profiles. Technical file paths and validation details are listed in the
+supplement.
 
 The article is organised as follows. The Methods section states the design
 principles, repository architecture, ontology-development protocol, process
