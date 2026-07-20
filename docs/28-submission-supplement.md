@@ -20,7 +20,7 @@ validation commands, boundaries, and generated-asset plan for the global FOI-O
 submission package, which originated in New Zealand and has iterated through
 Australian jurisdictions.
 
-It also records the V2 extraction-contract boundary, the wider programme
+It also records the separate extraction-contract boundary, the wider programme
 handoffs, and the candidate-only status of Australian jurisdiction adapters.
 
 The supplement does not include live FYI/archive request payloads, legal advice,
@@ -106,6 +106,24 @@ pixi run mojo-build
 
 \clearpage
 
+## Version Conventions
+
+The package uses several independent version axes:
+
+| Version axis | What it identifies | Current status |
+| --- | --- | --- |
+| Software release | The installable FOI-O Python package and its release metadata | v0.8.1 is the latest published release; no v0.9.0 or v2.0.0 release exists |
+| Extraction/review contract | The rules, capabilities, evidence thresholds, and approval gates for preparing and reviewing records | A separate research-contract milestone, not a software release |
+| Ontology/profile compatibility | The jurisdiction-neutral core, country profiles, and subdivision profiles and their compatible ranges | NZ is the implemented package; Australian Commonwealth and NSW remain provisional pilots |
+| Source and legal materials | Archive snapshots, statutory versions, mappings, and provider-owned source packs | Each carries its own source date, hash, rights, and applicability record |
+
+Examples and readiness files may use names such as `v0.9.0` for a planned
+release package or checklist. Those names are planning identifiers only and do
+not assert that the corresponding software release or dataset has been
+published.
+
+\clearpage
+
 ## S4. Ontology and Standards Alignment
 
 FOI-O NZ uses the canonical namespace
@@ -186,9 +204,9 @@ Agents must not certify:
 This boundary is tested through agent-policy tests, quality-gate tests,
 publication metadata tests, SHACL safety profiles, and example validation.
 
-V2 additionally requires immutable source/profile/model pins, rights-reviewed
-heldout data, independent annotation and adjudication, empirical acceptance
-metrics, and explicit human promotion. The archive, Australian Commonwealth,
+The extraction-contract work additionally requires immutable source/profile/model
+pins, rights-reviewed heldout data, independent annotation and adjudication,
+empirical acceptance metrics, and explicit human promotion. The archive, Australian Commonwealth,
 and NSW adapters remain candidate pilots until those conditions are evidenced.
 
 ## S5A. Cross-Repository Programme Handoffs

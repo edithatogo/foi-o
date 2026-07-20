@@ -170,6 +170,17 @@ describes what the current repository implements and validates. The Discussion
 explains why this bounded architecture matters for future comparative FOI
 research and accountable analyst-led public administration.
 
+### Version conventions
+
+The version labels in this article refer to different things. **FOI-O v0.8.1**
+is the latest published software release. The **extraction and review protocol**
+is a separate research contract describing how records may be prepared and
+reviewed; it is not a software release. The **core, country, and subdivision
+profiles** have their own compatibility versions, while source packs and legal
+materials are versioned independently. A protocol milestone or planned release
+identifier therefore does not mean that a new FOI-O release, dataset, or
+validated legal profile exists.
+
 # Methods
 
 ## Design Principles
