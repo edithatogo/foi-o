@@ -1,0 +1,4 @@
+Task: Integration quality, security, and documentation closeout
+Files: CI/release workflows, Makefile, pyproject/lockfile, runtime/test typing repairs, Gitleaks exclusions, README and Conductor documentation
+Verification: uv sync --extra dev --extra rdf; serial pytest 818 passed, 2 skipped; make test-full 818 passed, 2 skipped; Ruff; ty; BasedPyright; repository validation; schema drift; Gitleaks full history; actionlint; Zizmor pedantic; pip-audit
+Remaining risks: scheduled serial CI and hosted matrix require GitHub verification; restricted local pilot manuscript commits remain unpushed; release/publication gates remain closed.
