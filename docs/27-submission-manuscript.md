@@ -341,6 +341,15 @@ or embedding workflows. They are not required for the current package. The
 present evidence depends on portable schemas, examples, semantic assets, and
 Python tests, not on specialised runtimes, hardware, or model-serving installs.
 
+Data provenance is carried through each step. The source manifest, archive or
+capture identifier, content hash, and rights restriction are retained before a
+record is normalised. Deterministic transformations then create request
+profiles, observed messages, and candidate events; each derived item points
+back to its source evidence and records the code, profile, and transformation
+versions used. Validation checks the derived data without turning a candidate
+event into a certified outcome. The repository locations and reproducible
+commands are detailed in the supplement.
+
 ## Empirical Extraction and Jurisdiction Profiles
 
 The versioned protocol extends rather than replaces the earlier method. The

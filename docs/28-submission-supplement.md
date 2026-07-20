@@ -120,6 +120,47 @@ FOI-O NZ uses the canonical namespace
 
 Semantic alignment is documented in `docs/22-semantic-alignment.md`.
 
+## S4A. Data Provenance and Transformation
+
+The repository treats provenance as part of the data, not as an afterthought.
+The normal flow is:
+
+1. **Source record.** A public FYI/Alaveteli-compatible manifest or an
+   archive-preserved record is identified by its request or record key. The
+   source URL or archive identifier, capture time, content hash, attachment
+   references, and recorded rights restrictions are retained where available.
+2. **Evidence-preserving normalisation.** `foi-o-nz normalise-manifest` reads
+   JSON or JSONL input and writes request profiles and event records. Observed
+   labels, timestamps, message text references, and attachment references are
+   kept separate from normalised state names. The mapping files under
+   `mappings/` define the state conversions; they do not overwrite the source
+   value.
+3. **Candidate derivation.** Deterministic extraction and reporting helpers
+   create candidate events, deadline annotations, RDF exports, and aggregate
+   indicators. Candidate records retain evidence references, assertion status,
+   generator metadata, and the profile, model, and transformation versions.
+4. **Validation and review.** JSON Schema, Pydantic, SHACL, quality gates, and
+   tests check structure, evidence, provenance, and safety boundaries. A
+   candidate remains a candidate until an authorised reviewer records a separate
+   certification or promotion decision.
+
+The principal implementation and evidence locations are:
+
+| Stage | Repository location | Provenance evidence |
+| --- | --- | --- |
+| Capture and archive inputs | `fyi-cli`, `fyi-archive`, `data/raw/` | manifests, content hashes, capture metadata, rights records |
+| Normalisation and mapping | `src/foi_o_nz/`, `mappings/` | source keys, mapping identifiers, transformation version, evidence references |
+| Derived examples and reports | `examples/`, `data/processed/` | generator metadata, input hashes, deterministic commands, warning fields |
+| Semantic and structural checks | `ontology/`, `shacl/`, `schemas/`, `tests/` | validation reports, schema versions, test results |
+| Publication assets | `examples/generated-asset-manifest.foi-o-publication.json`, `scripts/build_submission_latex.py` | source inputs, commands, output hashes, captions, and package inventory |
+
+For a reproducible local run, start with the commands in `README.md` under
+“Normalise FYI manifest records” and “Normalise a batch”, then run
+`uv run pytest -q`. The commands operate on pinned or example inputs and do not
+silently fetch or republish private source material. Source contents, legal
+rights, and external provider verification remain separate gates from the
+repo-local transformation checks.
+
 \clearpage
 
 ## S5. Human Certification Boundary
