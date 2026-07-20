@@ -43,7 +43,10 @@ def test_manuscript_contains_required_submission_sections() -> None:
     )
     compact_text = " ".join(text.split())
     assert "global model that began with the New Zealand Official Information Act" in compact_text
-    assert "Australian Commonwealth and New South Wales are the first two provisional adaptations" in compact_text
+    assert (
+        "Australian Commonwealth and New South Wales are the first two provisional adaptations"
+        in compact_text
+    )
     assert "What the current package proves and does not prove" in text
     assert "Ontology, Process Model, and Interchange Artefacts" in text
     assert "finished global FOI platform" not in text
