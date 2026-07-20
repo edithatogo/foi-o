@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-runtime-handshake-readiness:0.2.0",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "evidence": {"type": "object", "additionalProperties": false, "required": ["actor_id", "path", "sha256"], "properties": {"actor_id": {"enum": ["agent:bounded-pilot-analyst-a", "agent:bounded-pilot-analyst-b", "agent:bounded-pilot-reconciler"]}, "path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "handshake_prompt", "evidence", "roles_distinct", "sessions_distinct", "contexts_delivered", "candidate_labels_delivered", "peer_outputs_delivered", "ready_for_exact_authorization", "execution_authorized", "local_only", "empirical_result_approved"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-runtime-handshake-readiness.v0.2.0"},
+    "status": {"const": "locked_complete_context_free_runtime_handshakes"},
+    "handshake_prompt": {"type": "object"},
+    "evidence": {"type": "array", "prefixItems": [{"$ref": "#/$defs/evidence"}, {"$ref": "#/$defs/evidence"}, {"$ref": "#/$defs/evidence"}], "items": false, "minItems": 3, "maxItems": 3},
+    "roles_distinct": {"const": true},
+    "sessions_distinct": {"const": true},
+    "contexts_delivered": {"const": false},
+    "candidate_labels_delivered": {"const": false},
+    "peer_outputs_delivered": {"const": false},
+    "ready_for_exact_authorization": {"const": true},
+    "execution_authorized": {"const": false},
+    "local_only": {"const": true},
+    "empirical_result_approved": {"const": false}
+  }
+}
