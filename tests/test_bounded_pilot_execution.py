@@ -65,19 +65,20 @@ def _blocks(text: str, values: list[str]) -> list[dict[str, object]]:
     return result
 
 
-def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
+def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *, provenance_bridge: bool = False):
     root = tmp_path / "repo"
     root.mkdir()
     run(["git", "init", "-q"], cwd=root, check=True)
     local = tmp_path / "local"
     local.mkdir(mode=0o700)
     r1, r2, derived = local / "r1", local / "r2", local / "derived"
-    for directory in (r1 / "content", r2 / "content", derived):
+    context2 = local / "r2-context" if provenance_bridge else r2
+    for directory in (r1 / "content", r2, context2 / "content", derived):
         directory.mkdir(parents=True, mode=0o700)
     page1 = "HEAD first MID second MID third MID fourth TAIL"
     page2 = "HEAD fifth TAIL"
     (r1 / "content/page.html").write_text(page1)
-    (r2 / "content/page.html").write_text(page2)
+    (context2 / "content/page.html").write_text(page2)
     attachment_texts = ["attachment one", "attachment two", "attachment three"]
     outputs = []
     files = []
@@ -107,11 +108,22 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         },
         {
             "request_id": "35076",
-            "page_html_sha256": _sha(r2 / "content/page.html"),
+            "page_html_sha256": _sha(context2 / "content/page.html"),
             "correspondence": {"block_count": 1, "blocks": _blocks(page2, ["fifth"])},
             "attachments": {"verified_empty": True, "files": []},
         },
     ]
+    if provenance_bridge:
+        records[1]["snapshot_manifest_sha256"] = "9" * 64
+        _json(
+            r2 / "verification.json",
+            {
+                "source_manifest_sha256": "9" * 64,
+                "source_content_sha256": records[1]["page_html_sha256"],
+                "source_records_modified": False,
+                "storage": "local_only",
+            },
+        )
     evidence_path = "meta/evidence.json"
     derivation_path = "meta/derivation.json"
     _json(root / evidence_path, {"request_ids": ["11872", "35076"], "records": records})
@@ -237,6 +249,8 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         ("AUTHORIZATION_PATH", "meta/auth.json"),
     ):
         monkeypatch.setattr(execution, name, value)
+    if provenance_bridge:
+        monkeypatch.setattr(execution, "REQUEST_35076_CONTEXT_SOURCE", context2)
     permission = execution.verify_pre_materialization(
         repository_root=root,
         authorization_path=auth_path,
@@ -307,3 +321,11 @@ def test_rejects_symlinked_source_and_permission_forgery(
         execution.materialize_contexts(permission)
     with pytest.raises(ValueError, match="cannot be constructed"):
         execution.StagePermission(_token=object())
+
+
+def test_verified_reextraction_root_can_bind_exact_companion_snapshot(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    _, _, _, permission = _fixture(tmp_path, monkeypatch, provenance_bridge=True)
+    assert "request_35076_context_source" in permission.source_roots
+    assert execution.materialize_contexts(permission).stage == "S3_ANALYST_EXECUTION"

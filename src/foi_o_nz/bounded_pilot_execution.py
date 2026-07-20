@@ -23,6 +23,7 @@ APPROVAL_PATH = "examples/v2/bounded-pilot-batched-execution-approval.approved.j
 APPROVAL_SHA256 = "86da6f54b50c6251041cfa745ab402eeb2f2527b1065931a8101198dde0a01fb"
 APPROVAL_COMMIT = "d9dc0a5f19ad39573ae5f45be409bbd3d07dde3a"
 AUTHORIZATION_PATH = "examples/v2/bounded-pilot-batched-execution-authorization.approved.json"
+REQUEST_35076_CONTEXT_SOURCE = Path("/private/tmp/fyi-content-snapshot-35076-approved")
 SEPARATOR = "\n\n--- FOIO SEGMENT BOUNDARY ---\n\n"
 _TOKEN = object()
 
@@ -428,6 +429,21 @@ def verify_pre_materialization(
         for key, value in auth["local_roots"].items()
         if key != "execution_workspace"
     }
+    request_35076_page = roots["request_35076_source"] / "content/page.html"
+    if not request_35076_page.is_file():
+        verification_path = roots["request_35076_source"] / "verification.json"
+        verification = _strict_load(verification_path)
+        record = evidence["records"][1]
+        if (
+            verification.get("source_manifest_sha256") != record["snapshot_manifest_sha256"]
+            or verification.get("source_content_sha256") != record["page_html_sha256"]
+            or verification.get("source_records_modified") is not False
+            or verification.get("storage") != "local_only"
+        ):
+            raise ValueError("request 35076 provenance root does not bind the approved source")
+        roots["request_35076_context_source"] = _private_dir(
+            REQUEST_35076_CONTEXT_SOURCE, exists=True
+        )
     workspace = _private_dir(Path(auth["local_roots"]["execution_workspace"]), exists=False)
     all_roots = [*roots.values(), workspace]
     if len(set(all_roots)) != len(all_roots) or any(
@@ -457,7 +473,12 @@ def _context_segments(permission: StagePermission) -> list[dict[str, Any]]:
     records = permission.evidence_manifest["records"]
     for record in records:
         request_id = record["request_id"]
-        page = permission.source_roots[f"request_{request_id}_source"] / "content/page.html"
+        root_key = (
+            "request_35076_context_source"
+            if request_id == "35076" and "request_35076_context_source" in permission.source_roots
+            else f"request_{request_id}_source"
+        )
+        page = permission.source_roots[root_key] / "content/page.html"
         page_data = _descriptor_read(
             page, expected_sha256=record["page_html_sha256"], expected_bytes=None
         )

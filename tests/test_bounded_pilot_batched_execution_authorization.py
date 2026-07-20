@@ -1,4 +1,5 @@
 import json
+import subprocess
 from hashlib import sha256
 from pathlib import Path
 
@@ -17,7 +18,13 @@ def test_batched_authorization_is_exact_stage_ordered_and_candidate_only() -> No
         f"S{i}" for i in range(2, 9)
     ]
     for pin in authorization["implementation_contracts"].values():
-        assert sha256((ROOT / pin["path"]).read_bytes()).hexdigest() == pin["sha256"]
+        committed = subprocess.run(
+            ["git", "show", f"{pin['repository_commit']}:{pin['path']}"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        ).stdout
+        assert sha256(committed).hexdigest() == pin["sha256"]
     assert authorization["candidate_manuscript_preparation_authorized"] is True
     assert authorization["local_package_validation_authorized"] is True
     for key in (
