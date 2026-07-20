@@ -1,0 +1,4 @@
+Task: Manuscript language and paper-tool workflow
+Files: docs/27-submission-manuscript.md, scripts/build_submission_latex.py
+Verification: uv sync --extra dev --extra rdf; 5 submission pipeline tests passed; arXiv build passed; SourceRight 0.1.20 validate-csl passed; AuthenText 3.2.0 npm test passed; PDF rendered and visually inspected
+Boundaries: only Commonwealth and New South Wales Australian adaptations are described, both provisional; no arXiv upload or publication.
