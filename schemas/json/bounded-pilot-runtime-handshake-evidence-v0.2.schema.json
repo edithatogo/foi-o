@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-runtime-handshake-evidence:0.2.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "actor_id", "actor_class", "role", "provider", "model", "session_id", "role_prompt_sha256", "handshake_prompt", "reply_sha256", "context_received", "candidate_labels_received", "peer_outputs_received", "ready_for_future_exact_authorization", "local_only", "execution_authorized", "empirical_result_approved"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-runtime-handshake-evidence.v0.2.0"},
+    "status": {"const": "locked_context_free_runtime_handshake"},
+    "actor_id": {"enum": ["agent:bounded-pilot-analyst-a", "agent:bounded-pilot-analyst-b", "agent:bounded-pilot-reconciler"]},
+    "actor_class": {"const": "automated_agent"},
+    "role": {"enum": ["analyst", "reconciler"]},
+    "provider": {"const": "OpenAI"},
+    "model": {"type": "string", "minLength": 1},
+    "session_id": {"type": "string", "pattern": "^/root/[a-z0-9_]+$"},
+    "role_prompt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "handshake_prompt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "repository_commit"],
+      "properties": {
+        "path": {"const": "examples/v2/bounded-pilot-analyst-prompts/runtime-handshake.v0.2.txt"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+      }
+    },
+    "reply_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "context_received": {"const": false},
+    "candidate_labels_received": {"const": false},
+    "peer_outputs_received": {"const": false},
+    "ready_for_future_exact_authorization": {"const": true},
+    "local_only": {"const": true},
+    "execution_authorized": {"const": false},
+    "empirical_result_approved": {"const": false}
+  }
+}

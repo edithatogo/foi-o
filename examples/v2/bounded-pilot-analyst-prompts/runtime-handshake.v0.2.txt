@@ -1,0 +1,17 @@
+FOI-O bounded pilot runtime handshake v0.2
+
+This is a context-free provenance handshake. No request context, candidate label,
+prior review, peer output, or empirical result is supplied or authorized here.
+
+Return exactly one JSON object with these keys:
+actor_id, actor_class, role, provider, model, session_id, role_prompt_sha256,
+handshake_prompt_sha256, context_received, candidate_labels_received,
+peer_outputs_received, ready_for_future_exact_authorization.
+
+Use the actor_id, role, and role_prompt_sha256 supplied with this prompt. Set
+actor_class to "automated_agent" and provider to "OpenAI". Report the runtime
+model and this agent task's canonical session locator truthfully. Set each of
+context_received, candidate_labels_received, and peer_outputs_received to false.
+Set ready_for_future_exact_authorization to true only if you can later perform
+the assigned role under a separately verified exact authorization. Do not read
+or request any governed context during this handshake.
