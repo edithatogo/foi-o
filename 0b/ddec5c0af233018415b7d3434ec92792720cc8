@@ -1,0 +1,5 @@
+Task: Integration quality, security, and documentation closeout
+Files: CI/release workflows, Makefile, pyproject and uv/pixi lockfiles, runtime/test typing repairs, narrow Gitleaks exclusions, README and Conductor documentation
+Verification: uv sync --extra dev --extra rdf; serial pytest 818 passed, 2 skipped after dependency remediation; make test-full 818 passed, 2 skipped; Ruff; ty; BasedPyright; repository validation; schema drift; Gitleaks full history; actionlint; Zizmor pedantic; pip-audit
+Security remediation: removed unused experimental dspy/outlines dependency paths because their diskcache transitive dependency has an unpatched moderate unsafe-deserialization advisory
+Remaining risks: scheduled serial CI and hosted matrix require GitHub verification; restricted local pilot manuscript commits remain unpushed; release/publication gates remain closed.
