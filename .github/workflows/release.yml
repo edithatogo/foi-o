@@ -13,14 +13,20 @@ on:
 
 permissions:
   contents: read
-  id-token: write
-  attestations: write
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   validate-and-build:
     name: Validate and build release
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write # Required only by actions/attest-build-provenance for keyless signing.
+      attestations: write # Required only to persist the generated build provenance attestation.
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
@@ -39,6 +45,11 @@ jobs:
         env:
           EXPECTED_RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
         run: uv run python scripts/check_release_metadata.py
+      - name: Run serial release regression suite
+        run: >-
+          uv run pytest -q
+          --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py
+          --ignore=tests/test_bounded_pilot_attachment_text_method.py
       - name: Build distributions
         run: uv build
       - name: Verify distribution contents

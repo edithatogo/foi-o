@@ -134,10 +134,41 @@ authoritative `legislation` source provider.
 
 ### Type-safety ratchet
 
-CI runs both `ty` and basedpyright. The tracked
+CI runs both `ty` and BasedPyright. Use `make typecheck` for the rapid
+development check and `make typecheck-basedpyright` for the final static gate.
+The checkers complement tests; neither replaces behavioral, integration, or
+release testing. The configured `ty` rules promote unresolved imports,
+unresolved attributes, and invalid assignments to errors. BasedPyright applies
+its strict rule set to a documented initial set of repaired runtime modules,
+while the rest of the repository remains under its standard no-regression
+baseline. Narrow exclusions preserve executable governance files whose exact
+bytes are authorization-pinned. The tracked
 `basedpyright-baseline.json` records legacy findings so they cannot silently
 grow; new findings fail CI. Reduce the baseline with `make typecheck-basedpyright`
 and regenerate it only after reviewing the diff.
+
+### Test profiles
+
+The default `make test` target runs the complete pytest suite with four
+work-stealing workers (`make test-fast`). Use `make test-full` before a normal
+commit to combine lint, formatting, both type checkers, the parallel suite, and
+repository/schema validation. Use `make test-serial` when reproducing ordering
+or isolation failures and for final release evidence.
+
+Normal CI uses the four-worker profile on Python 3.12 and the governed
+diagnostics runtime Python 3.14.5. A scheduled or manually dispatched job
+retains an independent serial Python 3.14.5 run, and the
+release workflow also runs the suite serially before building distributions.
+Parallel success is therefore not treated as proof that the suite is free of
+ordering or worker-isolation defects. On typical developer hardware the
+parallel profile should be materially faster, but no fixed duration is part of
+the contract because workload and storage performance vary.
+
+Hosted Ubuntu jobs exclude only the governed tests that require the exact
+approved local `pdftotext` or `mutool` binaries. The Python 3.12 job also
+excludes the three diagnostics files whose reproducibility contract requires
+CPython 3.14.5. `make test-serial` remains unrestricted and is required locally
+where those pinned runtimes are available.
 
 ### Normalise FYI manifest records
 
@@ -294,6 +325,8 @@ foi-o-nz/
 | Dataset metadata | Implemented | FOI-O NZ metadata, Frictionless-style datapackages, Croissant-style JSON-LD, and Hugging Face dataset-card scaffolds. |
 | Release package | Implemented | Machine-readable release checklist, repository-release metadata, methods paper draft, and explicit external publication gates. |
 | Agent contracts | Implemented | OpenAPI skeleton and bounded tool manifest for future agent runtime integration. |
+| V2 extraction contract | Implemented | Versioned, hash-pinned `nlp-policy-nz` candidate-extraction contract covering ontology, schemas, codebook, provenance, capabilities, status vocabulary, and migration behavior, with offline consumer fixtures for FOI-O, `fyi-archive`, `nlp-policy-nz`, and read-only MCP. This is not a V2 software release or upstream consumer approval. |
+| Re-extraction input audit | Implemented | Read-only manifest integrity and rights-completeness audit. The verified `fc27…` snapshot fails closed because all 33,217 records lack a declared licence; no extraction or empirical comparison is claimed. |
 | Local retrieval | Implemented | BM25-ish lexical search plus deterministic feature-hash vector blending over agent chunks. |
 | Redaction candidates | Implemented | Regex-based sensitive-span candidates with hashed/masked previews; no redaction decision. |
 | Agent context packs | Implemented | Request-scoped packages combining request, events, chunks, risks, retrieval, redaction candidates, constraints, and provenance. |

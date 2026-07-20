@@ -1,0 +1,125 @@
+{
+  "analysis_execution_allowed": false,
+  "approved_at": null,
+  "approved_by": null,
+  "approved_input_readiness": {
+    "path": "examples/v2/analyst-fixture-packet/input-readiness.approved.json",
+    "sha256": "814409acac7401118428bcad2d73df1b1eb8b1bf79c2fa8ce3ea0bdb560b8b6e"
+  },
+  "authorization_effective": false,
+  "candidate_id": "local-fixture-execution-authorization-candidate-2026-07-19",
+  "context_presentation": {
+    "path": "examples/v2/analyst-fixture-packet/context-presentation.pending.json",
+    "sha256": "72b75eb688541a712a62bea2569fb84353930c089ebaf8fc1082128aa3ef0e63"
+  },
+  "context_presentation_allowed": false,
+  "empirical_evidence": false,
+  "execution_allowed": false,
+  "future_execution_prompts": {
+    "analyst_a": {
+      "path": "examples/v2/analyst-fixture-packet/prompts/analyst_a.future-execution.v1.txt",
+      "sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908"
+    },
+    "analyst_b": {
+      "path": "examples/v2/analyst-fixture-packet/prompts/analyst_b.future-execution.v1.txt",
+      "sha256": "3bcb3b37c8d3a19e51a152c0b72aee82dba088bf822aa8cdc299cbbf029dfb6a"
+    },
+    "orchestrator": {
+      "path": "examples/v2/analyst-fixture-packet/prompts/orchestrator.future-execution.v1.txt",
+      "sha256": "c817ee25c74ea08ebdecf28ad52d126bbc6e8debfd3a9d32f7c8f02c3571112a"
+    },
+    "reconciler": {
+      "path": "examples/v2/analyst-fixture-packet/prompts/reconciler.future-execution.v1.txt",
+      "sha256": "80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081"
+    }
+  },
+  "gold_eligible": false,
+  "handshake_evidence_commit": "21c6db101e3afee4de96d8e2d924331eb76d9dbe",
+  "handshake_prompt": {
+    "path": "examples/v2/analyst-fixture-packet/prompts/runtime-provenance-handshake.v1.txt",
+    "sha256": "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77"
+  },
+  "human_approval_present": false,
+  "human_reviewed": false,
+  "isolation_plan": {
+    "path": "examples/v2/analyst-fixture-packet/role-isolation-plan.pending.json",
+    "sha256": "fe2558b57c6a44b20fcde235c79ccc2a7517f6f774450a2f01e176a19cee18b9"
+  },
+  "local_only": true,
+  "pre_execution_verification_passed": false,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "protocol": {
+    "path": "docs/42-v2-analyst-execution-protocol.md",
+    "sha256": "ac3785bd823d43a43c7830e34f4f3b380472f271e21f19446cbc575f4b49eca0"
+  },
+  "publication_eligible": false,
+  "reconciliation_allowed": false,
+  "recorded_at": "2026-07-19T10:31:49+10:00",
+  "release_qualifying": false,
+  "role_authorization_approval": {
+    "path": "examples/v2/analyst-fixture-packet/role-authorization-approval.approved.json",
+    "sha256": "9290ac2d3934ff844cf98b1e5c39b42aa960b7f086279dc9bd652767252312b4"
+  },
+  "role_authorization_request": {
+    "path": "examples/v2/analyst-fixture-packet/role-authorization-request.pending.json",
+    "sha256": "232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c"
+  },
+  "role_provenance": {
+    "analyst_a": {
+      "path": "examples/v2/analyst-fixture-packet/role-provenance.analyst_a.pending.json",
+      "sha256": "899bfc9a6a70fa916b5d65e21aa3b64cf31b02bc82ab319c94555a722c0b0b35"
+    },
+    "analyst_b": {
+      "path": "examples/v2/analyst-fixture-packet/role-provenance.analyst_b.pending.json",
+      "sha256": "9be881edce63ef461e91d7bc785fdf9fe23a97cbe3bee12ec35de98374bec208"
+    },
+    "orchestrator": {
+      "path": "examples/v2/analyst-fixture-packet/role-provenance.orchestrator.pending.json",
+      "sha256": "b08dedc5f0c2f48f106f92aab5185d7decddea9a8995c5744ac8371ad68dc9c8"
+    },
+    "reconciler": {
+      "path": "examples/v2/analyst-fixture-packet/role-provenance.reconciler.pending.json",
+      "sha256": "5df3c98f2c3535ddbfc3df0abb42fd668fa3a40b35982494c9fbc6cd20c990f7"
+    }
+  },
+  "runtime_evidence": {
+    "analyst_a": {
+      "path": "examples/v2/analyst-fixture-packet/runtime-handshake-evidence.analyst_a.json",
+      "sha256": "f61a108759139dd4cefa1179936cc4f8cbacf13380b588bd8f81f1f89cbd72ed"
+    },
+    "analyst_b": {
+      "path": "examples/v2/analyst-fixture-packet/runtime-handshake-evidence.analyst_b.json",
+      "sha256": "b8012b39cf099015ad226c76814c4c2a96868e25345d113e20fa664f4062d024"
+    },
+    "orchestrator": {
+      "path": "examples/v2/analyst-fixture-packet/runtime-handshake-evidence.orchestrator.json",
+      "sha256": "5fd5a148c76344021679aa478d74d2d88334bff2cc5c78508649abbe46bbce8b"
+    },
+    "reconciler": {
+      "path": "examples/v2/analyst-fixture-packet/runtime-handshake-evidence.reconciler.json",
+      "sha256": "e293e4eb036890b32d246bb4b123dae4f72636cb305da1fcf6a4982051e1671a"
+    }
+  },
+  "runtime_handshake_authorization": {
+    "path": "examples/v2/analyst-fixture-packet/runtime-handshake-authorization.approved.json",
+    "sha256": "de140e1397df2f1e20aa9ceede443d589d6bacbca9a767fecc2992644f1c056f"
+  },
+  "runtime_handshake_readiness": {
+    "path": "examples/v2/analyst-fixture-packet/runtime-handshake-readiness.locked.json",
+    "sha256": "709625146544dd0abad8af22acb718e7c68cabf0f41ac59cb310e30107e3cb6b"
+  },
+  "schema_version": "foi-o.fixture-execution-authorization-candidate.v0.2.0",
+  "status": "pending_exact_human_approval"
+}

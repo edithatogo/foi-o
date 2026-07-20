@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-role-provenance:0.1.0",
+  "$defs": {"pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "actor_id", "actor_class", "role", "canonical_session_locator", "immutable_session_uuid_available", "immutable_session_uuid", "runtime", "may_label", "handshake_prompt", "future_execution_prompt", "handshake_completed", "execution_allowed"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-role-provenance.v0.1.0"},
+    "status": {"const": "pending_runtime_handshake_and_human_authorization"},
+    "actor_id": {"type": "string", "pattern": "^agent:[A-Za-z0-9._-]+$"},
+    "actor_class": {"const": "automated_agent"},
+    "role": {"enum": ["orchestrator_non_labeling", "analyst", "reconciler"]},
+    "canonical_session_locator": {"type": "string", "pattern": "^/root/[A-Za-z0-9._-]+$"},
+    "immutable_session_uuid_available": {"const": false}, "immutable_session_uuid": {"type": "null"},
+    "runtime": {"type": "object", "additionalProperties": false, "required": ["provider_family", "model_runtime_family", "exact_snapshot_available", "exact_snapshot"], "properties": {"provider_family": {"type": "null"}, "model_runtime_family": {"type": "null"}, "exact_snapshot_available": {"const": false}, "exact_snapshot": {"type": "null"}}},
+    "may_label": {"type": "boolean"}, "handshake_prompt": {"$ref": "#/$defs/pin"}, "future_execution_prompt": {"$ref": "#/$defs/pin"},
+    "handshake_completed": {"const": false}, "execution_allowed": {"const": false}
+  }
+}

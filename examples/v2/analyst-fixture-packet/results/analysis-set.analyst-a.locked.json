@@ -1,0 +1,470 @@
+{
+  "analyst": {
+    "actor_class": "automated_agent",
+    "actor_id": "agent:analyst-fixture-a",
+    "role": "analyst",
+    "runtime": {
+      "model": "Codex / GPT-5; exact snapshot unavailable",
+      "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+      "provider": "OpenAI",
+      "session_id": "/root/fixture_analyst_a_ready"
+    }
+  },
+  "authorization": {
+    "path": "examples/v2/analyst-fixture-packet/execution-authorization.v0.2.pending-verification.json",
+    "sha256": "6b92051ae1ad1b7899f4ad102d4df4ec68267d196458f5bfbd461e89ba999d95"
+  },
+  "codebook": {
+    "path": "examples/v2/analyst-fixture-packet/codebook.approved.json",
+    "sha256": "d918f1b705debcd6d8a14c078d7d0044e23c10615c9a7c27e4122d03088bbfdc"
+  },
+  "context_presentation": {
+    "path": "examples/v2/analyst-fixture-packet/context-presentation.pending.json",
+    "sha256": "72b75eb688541a712a62bea2569fb84353930c089ebaf8fc1082128aa3ef0e63"
+  },
+  "empirical_evidence": false,
+  "entries": [
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "b08edb67a9e64513dc81769a3d9144c05cd34ba474d53dbdabfb13c7ad28cbae"
+        },
+        "label": "observed",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "Direct visible RequestObserved evidence.",
+        "record_id": "analyst-a:pm-01",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.05,
+        "unit_sha256": "bed785acf4a464c002d13e9f1d27098cf66b26ff2e5ab4e337a00916231aadc2"
+      },
+      "record_sha256": "620d588cf4cbc84e39c574b6e07bdde6f7057be4a810cca6c7041b8db847082d",
+      "unit_id": "pm-01"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "ec9e9da6d8be29986db232c1b7092b20e982c2772d053ac6c1a6815fc544d743"
+        },
+        "label": "inferred",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "Machine-generated registration supports derivation.",
+        "record_id": "analyst-a:pm-02",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.1,
+        "unit_sha256": "b23cb1c9ead448c42ed7b160b2e0fc5c5e303d9046e8dd219e23a935b4dd1de9"
+      },
+      "record_sha256": "07e63a924db05730cb1ae60e957482d9687f8ac61da2387e339bfc40514bb2c3",
+      "unit_id": "pm-02"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "c6fa6d0906f6a45c14c255d75bf94f1d39e1b37c281ba5416aadddb83846c4a6"
+        },
+        "label": "inferred",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "Machine-generated deadline calculation supports derivation.",
+        "record_id": "analyst-a:pm-03",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.02,
+        "unit_sha256": "3cc7f8e406e13030df3f853855ad9435c019d9aa1855fc01c603f7731ea0dcce"
+      },
+      "record_sha256": "5c2ab29c31bd93cfbe82073dd2b0a9e521b777b004af50428f85faf77743c31d",
+      "unit_id": "pm-03"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "58864554f58f35125f9b192e32d79611b81f7f7024d0f38ff200b17da23f3cfa"
+        },
+        "label": "candidate",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "SearchPlanDrafted visibly supports a draft.",
+        "record_id": "analyst-a:pm-04",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.02,
+        "unit_sha256": "ae1797d8dc319bfdb1ddb29e781d3075a7aac61f90a737444b6510f37c57cac7"
+      },
+      "record_sha256": "40bc3e1ed87a6970d59a3807f84d195776ee06f04a0dbe05fcafc7bd0801e2b6",
+      "unit_id": "pm-04"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "58e3beeeb7bee15d1c27223875b4e24d8c1820599f7cf0e6666a9f20bcaf97ee"
+        },
+        "label": "candidate",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "DecisionPackDrafted visibly supports a draft.",
+        "record_id": "analyst-a:pm-05",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.02,
+        "unit_sha256": "124e4bf04e811ef473ed9cd06940923eee0c404c116821ad69e62a106bf9751e"
+      },
+      "record_sha256": "c205ca43a2149af16973c0258f25b2176b43b2af5cb9681c0794a5e82c13ca6d",
+      "unit_id": "pm-05"
+    },
+    {
+      "record": {
+        "abstention": true,
+        "abstention_reason": "insufficient_evidence",
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "1307b7be52a658b396ff22b08a084fe0f4f5b9f02f2cc31cf47a095fc391ba53"
+        },
+        "label": null,
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "Event name alone cannot establish certification; requirement is not completion.",
+        "record_id": "analyst-a:pm-06",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.65,
+        "unit_sha256": "f3adc9dcb5a72d2aab88ac445bf975b2673e7b174a16f00bc9893d1b761ca946"
+      },
+      "record_sha256": "005eb5842dea6be1e0d3bb3c4a492c48372eee2968eab3216fc8d6ec8ea27710",
+      "unit_id": "pm-06"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "64df206ad030aa969cf58c546d6867579ad6cfa7f5df7ad5b4d9afd5e2b77441"
+        },
+        "label": "observed",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "Non-machine-generated communication supports direct observation.",
+        "record_id": "analyst-a:pm-07",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.1,
+        "unit_sha256": "132dd8fb81a20519aeaa9cbe29dba5cd77c55103f91f38a8f5d555b14262d9bf"
+      },
+      "record_sha256": "f430d1e725e6f3d6b14db6fd0e8bb90dfc0ca4cf05babee51f7b9916066aaae0",
+      "unit_id": "pm-07"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "b6ca473399dd4ae610ca78e669a8547376e437d76ecc2f3ce9bec0dd7c203c6a"
+        },
+        "label": "observed",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "Non-machine-generated release supports direct observation.",
+        "record_id": "analyst-a:pm-08",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.1,
+        "unit_sha256": "8a302f49c79fcdc8f3f7e127453751fb06e4da75cda388e989c926f3073eb4ff"
+      },
+      "record_sha256": "975db225d2acb81b8c266f13b9da489954b73f654f1b8f086a0370a5f33c766b",
+      "unit_id": "pm-08"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "283b995062e6b6a89585288fc3623586adeac938e5c3a4aa0eb8c24d53acb6a3"
+        },
+        "label": "observed",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "Non-machine-generated closure supports direct observation.",
+        "record_id": "analyst-a:pm-09",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.05,
+        "unit_sha256": "86adf190350f3f554f5bae2e843d489210ce3878fc546b94b702c84b8580bdc1"
+      },
+      "record_sha256": "c390ff75cd5cc935aefb6c7aa68a81ad8b7fb0a7d560e43d4cf1b522c25e3a2e",
+      "unit_id": "pm-09"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "93109c4296b57b74f72cfa965189f005bef76439819004a545df9b218e534583"
+        },
+        "label": "observed",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "RequestObserved with manifest evidence supports direct observation.",
+        "record_id": "analyst-a:tl-01",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.05,
+        "unit_sha256": "48f608e1cda79fed7a9b30ffe9bf4adf6510609698089a1437aaccd48ab8d2b4"
+      },
+      "record_sha256": "d37b91e1147cd33515ba13992c739efb76c904f31bda56762070560d975eb6a6",
+      "unit_id": "tl-01"
+    },
+    {
+      "record": {
+        "abstention": false,
+        "abstention_reason": null,
+        "analyst": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:analyst-fixture-a",
+          "role": "analyst",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_analyst_a_ready"
+          }
+        },
+        "codebook_revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+        "created_at": "2026-07-19T03:24:47Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "independence": {
+          "blinded_to_candidate": true,
+          "blinded_to_peer_outputs": true,
+          "context_sha256": "3b1a905fa0dee289682c3895bd44c0074344487aea7d1b4a272222852bbe1860"
+        },
+        "label": "inferred",
+        "locked_at": "2026-07-19T03:24:47Z",
+        "notes": "Detected extension language supports derivation; human-review flag increases uncertainty.",
+        "record_id": "analyst-a:tl-02",
+        "schema_version": "foi-o.locked-analyst-record.v0.1.0",
+        "span": null,
+        "status": "locked_agent_analysis",
+        "uncertainty": 0.25,
+        "unit_sha256": "a7c6ace3fe8bbf3681e640d31b2641c3927f7ad6c140866ee57db05b3f9c75fd"
+      },
+      "record_sha256": "a138e6f34a60ed0d3f926f384045a4540d0ad5cffcb4fa207135e566364267ee",
+      "unit_id": "tl-02"
+    }
+  ],
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "ordered_unit_commitment_sha256": "d6e5c6b425903f09c6e3e08e0d6c4ccdee11eea91835d6ba96f64ba3306cf8ca",
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "record_hash_algorithm": "sha256_canonical_json_utf8_sort_keys_compact_v1",
+  "release_qualifying": false,
+  "schema_version": "foi-o.analyst-fixture-analysis-set.v0.1.0",
+  "set_id": "local-fixture-analysis-a",
+  "status": "locked_agent_analysis_set",
+  "unit_count": 11
+}

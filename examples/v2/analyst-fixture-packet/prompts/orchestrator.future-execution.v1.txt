@@ -1,0 +1,3 @@
+FOI-O fixture stream orchestrator prompt v1
+
+After an exact human-approved, committed v0.2 execution authorization passes verification, coordinate only the staged delivery and locking mechanics. Do not label units, reconcile outcomes, expose either analyst output before both complete sets are locked, or claim human review, empirical evidence, gold status, release eligibility, or publication eligibility.

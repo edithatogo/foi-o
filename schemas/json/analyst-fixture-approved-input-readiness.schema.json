@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:analyst-fixture-approved-input-readiness:0.1.0",
+  "$defs": {"sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}}},
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "approved_on", "recorded_at", "base_readiness", "unchanged_artifacts", "approved_artifacts", "transition_algorithm", "rights_approved", "inputs_approved", "roles_assigned", "execution_authorization_present", "execution_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-fixture-approved-input-readiness.v0.1.0"}, "status": {"const": "approved_inputs_roles_and_execution_authorization_pending"}, "approved_on": {"const": "2026-07-17"}, "recorded_at": {"const": "2026-07-17T23:04:58+10:00"},
+    "base_readiness": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/analyst-fixture-packet/readiness.json"}, "sha256": {"const": "de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd"}, "repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}}},
+    "unchanged_artifacts": {"type": "object", "additionalProperties": false, "required": ["protocol", "source_population", "redaction_manifest"], "properties": {
+      "protocol": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "docs/42-v2-analyst-execution-protocol.md"}}}]},
+      "source_population": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/source-population.json"}}}]},
+      "redaction_manifest": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/redaction-manifest.json"}}}]}
+    }},
+    "approved_artifacts": {"type": "object", "additionalProperties": false, "required": ["input_approval", "local_rights_review", "codebook", "sampling_configuration", "unit_manifest", "duplicate_cluster_registry"], "properties": {
+      "input_approval": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/input-approval.approved.json"}}}]},
+      "local_rights_review": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/local-rights-review.approved.json"}}}]},
+      "codebook": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/codebook.approved.json"}}}]},
+      "sampling_configuration": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/sampling-configuration.approved.json"}}}]},
+      "unit_manifest": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/unit-manifest.rights-approved.json"}}}]},
+      "duplicate_cluster_registry": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/cluster-registry.rights-approved.json"}}}]}
+    }},
+    "transition_algorithm": {"const": "foi-o.approved-fixture-input-transition.v0.1.0"}, "rights_approved": {"const": true}, "inputs_approved": {"const": true}, "roles_assigned": {"const": false}, "execution_authorization_present": {"const": false}, "execution_allowed": {"const": false},
+    "local_only": {"const": true}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false},
+    "prohibited_actions": {"type": "array", "minItems": 9, "maxItems": 9, "uniqueItems": true, "items": {"enum": ["redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update"]}}
+  }
+}

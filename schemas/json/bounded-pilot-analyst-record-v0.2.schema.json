@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-analyst-record:0.2.0",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "runtime": {"type": "object", "additionalProperties": false, "required": ["provider", "model", "prompt_sha256", "session_id"], "properties": {"provider": {"const": "OpenAI"}, "model": {"type": "string", "minLength": 1}, "prompt_sha256": {"$ref": "#/$defs/sha256"}, "session_id": {"type": "string", "minLength": 1}}},
+    "analyst": {"type": "object", "additionalProperties": false, "required": ["actor_id", "actor_class", "role", "runtime"], "properties": {"actor_id": {"enum": ["agent:bounded-pilot-analyst-a", "agent:bounded-pilot-analyst-b"]}, "actor_class": {"const": "automated_agent"}, "role": {"const": "analyst"}, "runtime": {"$ref": "#/$defs/runtime"}}},
+    "span": {"type": "object", "additionalProperties": false, "required": ["source_kind", "source_id", "source_sha256", "start", "end", "coordinate_system"], "properties": {"source_kind": {"enum": ["correspondence", "attachment_derived_text"]}, "source_id": {"type": "string", "minLength": 1}, "source_sha256": {"$ref": "#/$defs/sha256"}, "start": {"type": "integer", "minimum": 0}, "end": {"type": "integer", "minimum": 1}, "coordinate_system": {"const": "zero_based_utf8_codepoint_half_open_in_materialized_unit_context"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_id", "status", "request_id", "analyst", "unit_sha256", "context_sha256", "codebook_sha256", "label", "source_spans", "uncertainty", "abstention", "abstention_reason", "rationale", "independence", "repair_attempt_count", "created_at", "locked_at", "empirical_result_approved", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-analyst-record.v0.2.0"},
+    "record_id": {"pattern": "^bounded-pilot:analyst-[ab]:(11872|35076)$"},
+    "status": {"const": "locked_agent_first_pass"},
+    "request_id": {"enum": ["11872", "35076"]},
+    "analyst": {"$ref": "#/$defs/analyst"},
+    "unit_sha256": {"$ref": "#/$defs/sha256"},
+    "context_sha256": {"$ref": "#/$defs/sha256"},
+    "codebook_sha256": {"$ref": "#/$defs/sha256"},
+    "label": {"enum": [null, "observed", "submitted", "awaiting_response", "awaiting_clarification", "scope_amended", "transferred", "extension_notified", "decision_communicated", "released_in_full", "released_in_part", "refused", "information_not_held", "withdrawn", "overdue", "complaint_observed", "closed", "unknown"]},
+    "source_spans": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/span"}},
+    "uncertainty": {"type": "number", "minimum": 0, "maximum": 1},
+    "abstention": {"type": "boolean"},
+    "abstention_reason": {"enum": [null, "missing_evidence", "insufficient_evidence", "out_of_scope", "other"]},
+    "rationale": {"type": "string", "minLength": 1},
+    "independence": {"type": "object", "additionalProperties": false, "required": ["blinded_to_peer_outputs", "blinded_to_candidate_labels", "blinded_to_prior_reviews"], "properties": {"blinded_to_peer_outputs": {"const": true}, "blinded_to_candidate_labels": {"const": true}, "blinded_to_prior_reviews": {"const": true}}},
+    "repair_attempt_count": {"type": "integer", "minimum": 0, "maximum": 2},
+    "created_at": {"type": "string", "format": "date-time"},
+    "locked_at": {"type": "string", "format": "date-time"},
+    "empirical_result_approved": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+  },
+  "allOf": [
+    {"if": {"properties": {"abstention": {"const": true}}}, "then": {"properties": {"label": {"const": null}, "source_spans": {"maxItems": 0}, "abstention_reason": {"type": "string"}}}, "else": {"properties": {"label": {"type": "string"}, "source_spans": {"minItems": 1}, "abstention_reason": {"const": null}}}},
+    {"if": {"properties": {"analyst": {"properties": {"actor_id": {"const": "agent:bounded-pilot-analyst-a"}}}}}, "then": {"properties": {"record_id": {"pattern": "^bounded-pilot:analyst-a:(11872|35076)$"}}}, "else": {"properties": {"record_id": {"pattern": "^bounded-pilot:analyst-b:(11872|35076)$"}}}},
+    {"if": {"properties": {"request_id": {"const": "11872"}}}, "then": {"properties": {"record_id": {"pattern": ":11872$"}}}, "else": {"properties": {"record_id": {"pattern": ":35076$"}}}}
+  ]
+}

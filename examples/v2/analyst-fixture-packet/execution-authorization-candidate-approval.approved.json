@@ -1,0 +1,42 @@
+{
+  "analysis_execution_approved": false,
+  "approval_id": "local-fixture-executable-derivation-2026-07-19",
+  "approval_statement": "I, edithatogo, approve pending fixture execution-authorization candidate SHA-256 a1aab22f6f7870497f639e871cc4aa13d209ca35b72f8da89559bcf9940dab1d as committed in 5cbfbe80beee96c67cdcabbf352b97d5dffd6cbf for derivation of the bounded local executable v0.2 fixture authorization described by that exact candidate. This approval does not itself authorize context presentation or analysis; those remain prohibited until the separately derived executable authorization is committed and its pre-execution verifier passes against its exact SHA-256 and commit. Redistribution, publication, training, fine-tuning, release, dataset publication, gold promotion, legal certification, paper updates, human-reviewed claims, and empirical-evidence claims remain prohibited.",
+  "approval_statement_sha256": "9fd8171b3bffa16b18015287a6c585b8b309cfe1ea8127946ff09780551dfef4",
+  "approved_by": "human:edithatogo",
+  "approved_candidate": {
+    "path": "examples/v2/analyst-fixture-packet/execution-authorization-candidate.v0.2.pending.json",
+    "repository_commit": "5cbfbe80beee96c67cdcabbf352b97d5dffd6cbf",
+    "sha256": "a1aab22f6f7870497f639e871cc4aa13d209ca35b72f8da89559bcf9940dab1d"
+  },
+  "approved_on": "2026-07-19",
+  "committed_executable_required": true,
+  "context_presentation_approved": false,
+  "derivation_approved": true,
+  "empirical_evidence": false,
+  "execution_allowed": false,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "pre_execution_verification_required": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "recorded_at": "2026-07-19T12:17:16+10:00",
+  "recording_note": "recorded_at is repository provenance and is not claimed as approval time",
+  "release_qualifying": false,
+  "schema_version": "foi-o.fixture-execution-authorization-candidate-approval.v0.1.0",
+  "scope": "derive_bounded_local_fixture_executable_v0.2_only",
+  "status": "approved_bounded_local_executable_derivation"
+}

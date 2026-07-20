@@ -1,0 +1,45 @@
+{
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-19",
+  "authorization_effective": false,
+  "authorization_id": "local-fixture-diagnostics-executable-2026-07-19",
+  "bootstrap_execution_allowed": false,
+  "bootstrap_execution_authorized_conditionally": true,
+  "diagnostics_finalization_allowed": false,
+  "diagnostics_finalization_authorized_conditionally": true,
+  "diagnostics_results_present": false,
+  "empirical_evidence": false,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "method_approval": {
+    "path": "examples/v2/analyst-fixture-packet/diagnostics-method-approval.approved.json",
+    "sha256": "6a317746059ce37ab8f96a1b313edbf01b22e17e2d5c20d1cb46d5e406fe672f"
+  },
+  "method_candidate": {
+    "path": "examples/v2/analyst-fixture-packet/diagnostics-method-candidate.pending.json",
+    "repository_commit": "c104a4cf193ef5f26de66b584e6a8cf37864a97e",
+    "sha256": "6e44b634e1bfde2cc21dd99f79fd0ad4bcd5a7fb96d361be7aae09567ed4c699"
+  },
+  "pre_execution_verification_passed": false,
+  "pre_execution_verification_required": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "recorded_at": "2026-07-19T04:34:13Z",
+  "release_qualifying": false,
+  "schema_version": "foi-o.fixture-diagnostics-execution-authorization.v0.1.0",
+  "scope": "bounded_local_inter_agent_fixture_diagnostics_only",
+  "status": "approved_pending_pre_execution_verification"
+}

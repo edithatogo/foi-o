@@ -1,0 +1,63 @@
+{
+  "schema_version": "foi-o.extraction-contract.v0.1.0",
+  "contract_id": "foi-o.extraction-contract",
+  "contract_version": "0.1.0",
+  "producer_id": "foi-o-nz",
+  "consumer_id": "nlp-policy-nz",
+  "ontology_release": {
+    "manifest_schema_id": "urn:foi-o:schema:ontology-release-manifest:0.1.0",
+    "manifest_schema_artifact_id": "schema.ontology-release-manifest",
+    "ontology_id": "https://w3id.org/foio-nz/ontology",
+    "ontology_version": "0.1.0",
+    "artifact_id": "ontology.foi-o-nz"
+  },
+  "schema_ids": [
+    "urn:foi-o:schema:empirical:label-assertion:0.1.0",
+    "urn:foi-o:schema:empirical:evidence-assertion:0.1.0"
+  ],
+  "codebook": {
+    "id": "foi-o-nz-oia-seed",
+    "version": "0.1.0",
+    "artifact_id": "codebook.foi-o-nz-oia-seed"
+  },
+  "provenance_identifiers": [
+    "source_provenance.evidence_id",
+    "source_provenance.source_record_id",
+    "source_ref.content_sha256",
+    "evidence_assertion_ids"
+  ],
+  "candidate_status_vocabulary": {
+    "id": "https://w3id.org/foio-nz/assertion-status/scheme",
+    "version": "0.1.0",
+    "artifact_id": "vocabulary.assertion-status",
+    "allowed_statuses": ["observed", "inferred", "asserted", "unknown"],
+    "certified_status_allowed": false
+  },
+  "compatibility": {
+    "exact_versions": ["0.1.0"],
+    "version_ranges": [{"minimum_inclusive": "0.1.0", "maximum_exclusive": "0.2.0"}],
+    "unknown_major_behavior": "reject",
+    "unknown_revision_behavior": "reject"
+  },
+  "capability_ids": ["foi-o-nz.label-assertion", "foi-o-nz.evidence-assertion"],
+  "migration_catalogue": [
+    {
+      "migration_id": "foi-o-nz.v1-to-v2-empirical-overlay",
+      "from_version": "0.8.1",
+      "to_contract_version": "0.1.0",
+      "artifact_id": "migration.v1-to-v2-empirical-overlay",
+      "automatic_scope": "linkage_only",
+      "human_promotion_required": true
+    }
+  ],
+  "artifacts": [
+    {"artifact_id": "ontology.foi-o-nz", "kind": "ontology", "path": "ontology/foi-o-nz.ttl", "version": "0.1.0", "identifier": "https://w3id.org/foio-nz/ontology", "sha256": "27360decdeb6d2bbfdab68964aca3a610565b13e89b60289e6f9ab46e2a821f2"},
+    {"artifact_id": "schema.ontology-release-manifest", "kind": "schema", "path": "schemas/json/ontology-release-manifest.schema.json", "version": "0.1.0", "identifier": "urn:foi-o:schema:ontology-release-manifest:0.1.0", "sha256": "7b7380875c1ce17ad63cd71fff02e9a4d402aa6e753eff5bb467ac106bcde33e"},
+    {"artifact_id": "schema.label-assertion", "kind": "schema", "path": "schemas/json/label-assertion.schema.json", "version": "0.1.0", "identifier": "urn:foi-o:schema:empirical:label-assertion:0.1.0", "sha256": "b6bc359c6698c763beb51f1204240bc708ffb0d826592151785afda0827fe62d"},
+    {"artifact_id": "schema.evidence-assertion", "kind": "schema", "path": "schemas/json/evidence-assertion.schema.json", "version": "0.1.0", "identifier": "urn:foi-o:schema:empirical:evidence-assertion:0.1.0", "sha256": "9e3b1a3f6a33a0b8bbf46487eef03639553074cef5f04f3a8b36a41154a0b6b6"},
+    {"artifact_id": "codebook.foi-o-nz-oia-seed", "kind": "codebook", "path": "codebooks/nz/oia.seed-codebook.yaml", "version": "0.1.0", "identifier": "foi-o-nz-oia-seed", "sha256": "925b39fb9d203ade46fcbf9b35f247bb0d5ab6f98f307bcb419d7ebe8c62526b"},
+    {"artifact_id": "vocabulary.assertion-status", "kind": "vocabulary", "path": "vocab/assertion-status.skos.ttl", "version": "0.1.0", "identifier": "https://w3id.org/foio-nz/assertion-status/scheme", "sha256": "70105e11214d2c29557cf4967b781a2f45f2362ad50104fe9c749227f8ce0ddf"},
+    {"artifact_id": "migration.v1-to-v2-empirical-overlay", "kind": "migration", "path": "migrations/v1-to-v2-empirical-overlay.md", "version": "0.1.0", "identifier": "foi-o-nz.v1-to-v2-empirical-overlay", "sha256": "e7351ffde967d55ef56a9255c4d7bbc0d7ed02c832b21b8668f2d30a12904323"}
+  ],
+  "human_promotion_required": true
+}

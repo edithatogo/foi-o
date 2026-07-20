@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-diagnostics-execution-authorization:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "status", "approved_by", "approved_on", "recorded_at", "method_candidate", "method_approval", "scope", "authorization_effective", "pre_execution_verification_required", "pre_execution_verification_passed", "bootstrap_execution_authorized_conditionally", "diagnostics_finalization_authorized_conditionally", "bootstrap_execution_allowed", "diagnostics_results_present", "diagnostics_finalization_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-diagnostics-execution-authorization.v0.1.0"},
+    "authorization_id": {"const": "local-fixture-diagnostics-executable-2026-07-19"},
+    "status": {"const": "approved_pending_pre_execution_verification"},
+    "approved_by": {"const": "human:edithatogo"},
+    "approved_on": {"const": "2026-07-19"},
+    "recorded_at": {"const": "2026-07-19T04:34:13Z"},
+    "method_candidate": {"$ref": "#/$defs/candidatePin"},
+    "method_approval": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "examples/v2/analyst-fixture-packet/diagnostics-method-approval.approved.json"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}},
+    "scope": {"const": "bounded_local_inter_agent_fixture_diagnostics_only"},
+    "authorization_effective": {"const": false},
+    "pre_execution_verification_required": {"const": true},
+    "pre_execution_verification_passed": {"const": false},
+    "bootstrap_execution_authorized_conditionally": {"const": true},
+    "diagnostics_finalization_authorized_conditionally": {"const": true},
+    "bootstrap_execution_allowed": {"const": false},
+    "diagnostics_results_present": {"const": false},
+    "diagnostics_finalization_allowed": {"const": false},
+    "local_only": {"const": true},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "release_qualifying": {"const": false},
+    "publication_eligible": {"const": false},
+    "prohibited_actions": {"$ref": "#/$defs/prohibitions"}
+  },
+  "$defs": {
+    "candidatePin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/analyst-fixture-packet/diagnostics-method-candidate.pending.json"}, "sha256": {"const": "6e44b634e1bfde2cc21dd99f79fd0ad4bcd5a7fb96d361be7aae09567ed4c699"}, "repository_commit": {"const": "c104a4cf193ef5f26de66b584e6a8cf37864a97e"}}},
+    "prohibitions": {"type": "array", "prefixItems": [{"const": "redistribution"}, {"const": "publication"}, {"const": "training"}, {"const": "fine_tuning"}, {"const": "release"}, {"const": "dataset_publication"}, {"const": "gold_promotion"}, {"const": "legal_certification"}, {"const": "paper_update"}, {"const": "human_reviewed_claims"}, {"const": "empirical_evidence_claims"}], "items": false, "minItems": 11, "maxItems": 11}
+  }
+}

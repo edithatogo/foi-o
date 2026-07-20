@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:nz-oia-applicability-interval-review:0.1.0",
+  "title": "FOI-O NZ OIA applicability interval human review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "reviewer", "reviewed_at",
+    "candidate_artifact_path", "candidate_artifact_sha256", "interval_count",
+    "review_basis", "all_boundaries_approved",
+    "source_pack_promotion_allowed", "prohibited_actions"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.nz-oia-applicability-interval-review.v0.1.0"},
+    "status": {"const": "approved"},
+    "reviewer": {"const": "edithatogo"},
+    "reviewed_at": {"const": "2026-07-17T03:30:22Z"},
+    "candidate_artifact_path": {"const": "mappings/nz-oia-applicability-interval-candidates.yaml"},
+    "candidate_artifact_sha256": {"const": "401cd17ae98b4aa7adc51e90f861838c29173ec6165c78ed4f448cd58cd82e83"},
+    "interval_count": {"const": 50},
+    "review_basis": {
+      "const": "Reviewed all inclusive/exclusive boundaries against relevant commencement and amendment evidence."
+    },
+    "all_boundaries_approved": {"const": true},
+    "source_pack_promotion_allowed": {"const": false},
+    "prohibited_actions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication", "release", "dataset_publication",
+        "legal_certification_beyond_reviewed_boundaries"
+      ],
+      "properties": {
+        "publication": {"const": false},
+        "release": {"const": false},
+        "dataset_publication": {"const": false},
+        "legal_certification_beyond_reviewed_boundaries": {"const": false}
+      }
+    }
+  }
+}

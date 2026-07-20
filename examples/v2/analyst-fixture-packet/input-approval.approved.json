@@ -1,0 +1,40 @@
+{
+  "approval_id": "local-fixture-inputs-2026-07-17",
+  "approval_statement": "I, edithatogo, approve fixture readiness artifact SHA-256 de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd as committed in 948d392df7fbbf49ea9b33646a0bdbd845505811 for bounded local rights and execution-input promotion only. This approval does not authorize analyst execution, redistribution, publication, training, fine-tuning, release, dataset publication, gold promotion, legal certification, or paper updates. Concrete analyst and reconciler runtimes and a committed v0.2 execution authorization require separate exact approval.",
+  "approval_statement_sha256": "48a0f550f6628a96a003204b6375831d440270581c4281422df778c10bb85b1a",
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-17",
+  "approved_readiness": {
+    "path": "examples/v2/analyst-fixture-packet/readiness.json",
+    "sha256": "de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd"
+  },
+  "approved_repository_commit": "948d392df7fbbf49ea9b33646a0bdbd845505811",
+  "codebook_approved": true,
+  "empirical_evidence": false,
+  "execution_allowed": false,
+  "execution_authorization_approved": false,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update"
+  ],
+  "publication_eligible": false,
+  "purpose": "bounded_local_agent_analysis",
+  "recorded_at": "2026-07-17T23:04:58+10:00",
+  "recording_note": "recorded_at is provenance only and is not claimed as approval time",
+  "release_qualifying": false,
+  "rights_approved": true,
+  "roles_approved": false,
+  "sampling_approved": true,
+  "schema_version": "foi-o.analyst-fixture-input-approval.v0.1.0",
+  "status": "approved_bounded_local_fixture_inputs"
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "foi-o.bounded-pilot-attachment-derivation-human-approval.v0.1.0",
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-19",
+  "approval_statement": "I, edithatogo, approve bounded pilot attachment-derivation execution request SHA-256 ad2ac19a3be836165948585304a9050b95f4612dd514cb3bb826d21d2ab38f2f as committed in 4f3e834a470eedabbf3cd8dbeafa2801147ed9c9. I authorize creation of the final executable authorization and one local, all-or-nothing, two-pass text derivation of the three exact request 11872 PDF attachments pinned by that request, using source root /private/tmp/fyi-attachment-snapshot-11872-approved and output directory /private/tmp/foio-bounded-pilot-11872-derived. Execution is permitted only after the final authorization is committed and its exact clean-HEAD pre-execution verifier passes. This approval authorizes local PDF processing and derived-content creation only for that bounded derivation. It does not authorize context presentation, analyst execution, reconciliation, empirical claims, population inference, archive-wide claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates.",
+  "approval_statement_sha256": "efa354da9d5542519336946ce4b20bd2659c24ed85769e4667bd339705bc022a",
+  "approved_request": {"path": "examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json", "sha256": "ad2ac19a3be836165948585304a9050b95f4612dd514cb3bb826d21d2ab38f2f"},
+  "prohibited_actions": ["context_presentation", "analyst_execution", "reconciliation", "empirical_claims", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]
+}

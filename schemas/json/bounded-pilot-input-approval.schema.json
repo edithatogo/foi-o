@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-input-approval:0.1.0",
+  "$defs": {
+    "artifact": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approval_id", "status", "approved_by", "approved_on", "recorded_at", "approval_statement", "approval_statement_sha256", "approved_artifacts", "evidence_census_approved", "blinded_codebook_approved", "approved_scope", "approved_purpose", "context_presentation_allowed", "execution_allowed", "reconciliation_allowed", "empirical_result_approval", "population_inference_allowed", "archive_wide_claim_allowed", "empirical_evidence", "human_reviewed", "gold_eligible", "legal_certified", "separate_execution_authorization_required", "clean_head_pre_execution_verification_required", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-input-approval.v0.1.0"},
+    "approval_id": {"const": "bounded-pilot-inputs-11872-35076-approved"},
+    "status": {"const": "approved_for_bounded_local_execution_input_promotion_only"},
+    "approved_by": {"const": "edithatogo"},
+    "approved_on": {"const": "2026-07-19"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "approval_statement": {"type": "string", "minLength": 100},
+    "approval_statement_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "approved_artifacts": {"type": "object", "additionalProperties": false, "required": ["evidence_manifest", "blinded_codebook"], "properties": {
+      "evidence_manifest": {"$ref": "#/$defs/artifact"},
+      "blinded_codebook": {"$ref": "#/$defs/artifact"}
+    }},
+    "evidence_census_approved": {"const": true},
+    "blinded_codebook_approved": {"const": true},
+    "approved_scope": {"type": "object", "additionalProperties": false, "required": ["correspondence_block_count", "request_11872_attachment_count", "request_35076_empty_attachment_inventory", "vocabulary_state_count", "decision_rules_approved"], "properties": {"correspondence_block_count": {"const": 5}, "request_11872_attachment_count": {"const": 3}, "request_35076_empty_attachment_inventory": {"const": true}, "vocabulary_state_count": {"const": 17}, "decision_rules_approved": {"const": true}}},
+    "approved_purpose": {"const": "bounded_local_execution_input_promotion_only"},
+    "context_presentation_allowed": {"const": false},
+    "execution_allowed": {"const": false},
+    "reconciliation_allowed": {"const": false},
+    "empirical_result_approval": {"const": false},
+    "population_inference_allowed": {"const": false},
+    "archive_wide_claim_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "legal_certified": {"const": false},
+    "separate_execution_authorization_required": {"const": true},
+    "clean_head_pre_execution_verification_required": {"const": true},
+    "prohibited_actions": {"type": "array", "minItems": 16, "maxItems": 16, "uniqueItems": true, "items": {"enum": ["context_presentation", "analyst_execution", "reconciliation", "empirical_result_approval", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]}}
+  }
+}

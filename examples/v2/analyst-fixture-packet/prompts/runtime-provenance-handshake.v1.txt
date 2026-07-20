@@ -1,0 +1,10 @@
+FOI-O fixture runtime provenance handshake v1
+
+Report only values directly visible in your current task runtime:
+1. canonical task or session locator;
+2. provider family;
+3. model or runtime family;
+4. exact model snapshot, or unavailable;
+5. immutable session or agent UUID, or unavailable.
+
+Do not infer, guess, label fixture units, inspect another analyst output, or execute the fixture protocol.

@@ -1,0 +1,17 @@
+{
+  "schema_version": "foi-o.consumer-extraction-contract.v0.1.0",
+  "consumer_id": "nlp-policy-nz",
+  "consumer_surface": "candidate_extraction",
+  "contract_id": "foi-o.extraction-contract",
+  "accepted_versions": ["0.1.0"],
+  "rejected_versions": [
+    {"version": "1.0.0", "reason": "unknown_major_rejected"},
+    {"version": "latest", "reason": "invalid_version_rejected"}
+  ],
+  "required_capability_ids": ["foi-o-nz.label-assertion", "foi-o-nz.evidence-assertion"],
+  "read_only": false,
+  "candidate_only": true,
+  "machine_certification_allowed": false,
+  "verification_scope": "repo_local_offline",
+  "upstream_verified": false
+}

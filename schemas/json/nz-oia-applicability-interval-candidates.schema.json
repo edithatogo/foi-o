@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:nz-oia-applicability-interval-candidates:0.1.0",
+  "title": "FOI-O NZ OIA applicability interval candidates",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "source_index_path", "source_index_sha256",
+    "interval_count", "intervals", "legal_applicability_approved",
+    "source_pack_promotion_allowed", "required_review"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.nz-oia-applicability-interval-candidates.v0.1.0"},
+    "status": {"const": "candidate_human_legal_review_required"},
+    "source_index_path": {"const": "mappings/nz-oia-version-index.yaml"},
+    "source_index_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "interval_count": {"const": 50},
+    "intervals": {
+      "type": "array", "minItems": 50, "maxItems": 50,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": [
+          "version_id", "valid_from_inclusive", "valid_to_exclusive",
+          "derivation", "legal_applicability_approved"
+        ],
+        "properties": {
+          "version_id": {"type": "string", "minLength": 1},
+          "valid_from_inclusive": {"type": "string", "format": "date"},
+          "valid_to_exclusive": {
+            "oneOf": [{"type": "string", "format": "date"}, {"type": "null"}]
+          },
+          "derivation": {"const": "adjacent_official_as_at_dates"},
+          "legal_applicability_approved": {"const": false}
+        }
+      }
+    },
+    "legal_applicability_approved": {"const": false},
+    "source_pack_promotion_allowed": {"const": false},
+    "required_review": {
+      "const": "Verify each boundary against commencement and amendment evidence; as-at adjacency alone is not legal applicability."
+    }
+  }
+}

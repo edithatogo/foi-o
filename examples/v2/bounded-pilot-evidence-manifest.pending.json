@@ -1,0 +1,34 @@
+{
+  "schema_version": "foi-o.bounded-pilot-evidence-manifest.v0.1.0",
+  "manifest_id": "bounded-pilot-evidence-11872-35076",
+  "status": "pending_freeze_and_execution_authorization",
+  "sample_approval_sha256": "f6fde49c1e39d86614497b91eeb579ffab8ccdd27e9119b802c54893734036d9",
+  "request_ids": ["11872", "35076"],
+  "selection_method": {"version": "event_dom_bidirectional_census_v1", "offsets": "unicode_code_points_half_open_strict_utf8", "correspondence_rule": "all_message_bearing_events_bijectively_joined_to_top_level_div.correspondence.box_by_direction_and_message_id", "attachment_rule": "census_all_pinned_attachments_json_entries_verified_against_snapshot_manifest"},
+  "records": [
+    {
+      "request_id": "11872", "snapshot_manifest_sha256": "0c7cee553ca3b01a6416784a1b691df5a6d90159a8f4d55e51a799934f655629", "request_json_sha256": "543724e6ab30e0a78f17c813ff5239d28b1270f4f0b63f8097f3968dc24160fb", "page_html_sha256": "03b033acdcbe25f3eee3e7a6f8fe6004ecc052c6c508c045ec99e475e5362a18",
+      "raw_state": {"json_pointer": "/described_state", "coordinate_system": "unicode_code_points_half_open", "span": {"start": 102, "end": 122}, "text_sha256": "3ed2d9ddd288a9f82450ac464c555ac879e7a0b10ce526553beca358992c275c", "repeated_elsewhere": true},
+      "correspondence": {"block_count": 4, "status_only_events_excluded": true, "blocks": [
+        {"event_pointer": "/info_request_events/0", "direction": "outgoing", "element_id": "outgoing-20685", "wrapper_span": {"start": 9886, "end": 13707}, "wrapper_sha256": "81a88112a121c5371815d21deb1ab7a1052b7ff1bc41dff0e6760dbf25e081d5", "text_span": {"start": 10117, "end": 13559}, "text_sha256": "76b7ca25338610f72a519ac2b415923bece4cc9747b98185f1b1698f06a0633a"},
+        {"event_pointer": "/info_request_events/1", "direction": "incoming", "element_id": "incoming-44433", "wrapper_span": {"start": 13751, "end": 14994}, "wrapper_sha256": "7e0560fd6c0d8ea14c60365f17f6bba3bb8f6180579384100ea8fc4c085d5a8e", "text_span": {"start": 14025, "end": 14845}, "text_sha256": "0bbf6d652fca8e07ba8c8934e403e3308c15900a28ad5de15e44f2b011c1e56e"},
+        {"event_pointer": "/info_request_events/2", "direction": "incoming", "element_id": "incoming-45225", "wrapper_span": {"start": 15038, "end": 16974}, "wrapper_sha256": "703c809b17792a8964f26a5f2263261a69597342a49ff00751434cc8bcd29226", "text_span": {"start": 15311, "end": 16825}, "text_sha256": "589b3a31132578d1cf3e0e65004f629f4fb5ceb3bdabe0ae4396b4600ddc28a9"},
+        {"event_pointer": "/info_request_events/3", "direction": "incoming", "element_id": "incoming-45813", "wrapper_span": {"start": 17018, "end": 19617}, "wrapper_sha256": "225d89ca64224f1eefd66c846bd9cb906d5f9afaf870afa93b3d99f8efddce1e", "text_span": {"start": 17292, "end": 19468}, "text_sha256": "93daa37d0d90246e01effd039a58321e5f6fb699239c7e42af4295de761038d0"}
+      ]},
+      "attachments": {"inventory_sha256": "a0dfea7c979de9760bcf12fee0a321e8e323b4176decd086f2530408da4c171f", "verified_empty": false, "canonical_inventory_empty": true, "supplemental_file_count": 3, "files": [
+        {"inventory_pointer": "/0", "relative_path": "content/attachments/20OIA1186 Extension letter Lambert.pdf", "sha256": "787ac62017c339e6fba9dba53ec699f143c9aea9554adc10cbdf686a90f4f4de", "size": 702556, "response_message_id": 45225},
+        {"inventory_pointer": "/1", "relative_path": "content/attachments/OIA response K Lambert.pdf", "sha256": "30e63d1d5d65a416cee9aeb1d2734d1ee8a21da5594e308760e176d0b012c0e4", "size": 217655, "response_message_id": 45813},
+        {"inventory_pointer": "/2", "relative_path": "content/attachments/Attachment Items 1 13.pdf", "sha256": "1d1c9eda958de560abea6285182ed6f4ae747944cabfc6bc7485f5707adec79d", "size": 12339055, "response_message_id": 45813}
+      ]}
+    },
+    {
+      "request_id": "35076", "snapshot_manifest_sha256": "c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d", "request_json_sha256": "893db5bf83bbcf9661094723fa55a92239e022aacd9c212cf61e916de0ade523", "page_html_sha256": "1b4d083b20929c33f1c706e8e022c5c4b6b0a847a7ae38c6b62017f88b9d3f51",
+      "raw_state": {"json_pointer": "/described_state", "coordinate_system": "unicode_code_points_half_open", "span": {"start": 102, "end": 118}, "text_sha256": "7f4df038b9ef7a1c3268d04de9123c966c555c5d080185f95bc91683f860e2ae", "repeated_elsewhere": true},
+      "correspondence": {"block_count": 1, "status_only_events_excluded": true, "blocks": [
+        {"event_pointer": "/info_request_events/0", "direction": "outgoing", "element_id": "outgoing-56329", "wrapper_span": {"start": 7436, "end": 8064}, "wrapper_sha256": "3c0f31dbd22e0343977cbcfd4a70be5ce14ed9cfd2325821b970111ec3137164", "text_span": {"start": 7666, "end": 7889}, "text_sha256": "a072d19abb7d221e373276216bef088475b794b0f59f0668b26b1aad74ec3f2a"}
+      ]},
+      "attachments": {"inventory_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570", "verified_empty": true, "canonical_inventory_empty": true, "supplemental_file_count": 0, "files": []}
+    }
+  ],
+  "local_only": true, "restricted_content_committed": false, "authentic_input": true, "empirical_evidence": false, "context_presentation_allowed": false, "execution_allowed": false
+}

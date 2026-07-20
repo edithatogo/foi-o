@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-runtime-handshake-readiness:0.1.0",
+  "$defs": {
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}},
+    "authorization_pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/analyst-fixture-packet/runtime-handshake-authorization.approved.json"}, "sha256": {"const": "de140e1397df2f1e20aa9ceede443d589d6bacbca9a767fecc2992644f1c056f"}, "repository_commit": {"const": "393991ea0cfdaf9f016108bf74edae94b80f042a"}}}
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "recorded_at", "handshake_authorization", "evidence_records", "runtime_handshakes_complete", "role_count", "exact_model_snapshots_available", "immutable_session_agent_uuids_available", "context_presentation_allowed", "analysis_execution_allowed", "reconciliation_allowed", "final_execution_wrapper_present", "execution_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-runtime-handshake-readiness.v0.1.0"}, "status": {"const": "locked_runtime_handshake_evidence_final_execution_wrapper_pending"}, "recorded_at": {"const": "2026-07-19T10:00:36+10:00"},
+    "handshake_authorization": {"$ref": "#/$defs/authorization_pin"},
+    "evidence_records": {"type": "object", "additionalProperties": false, "required": ["orchestrator", "analyst_a", "analyst_b", "reconciler"], "properties": {"orchestrator": {"$ref": "#/$defs/pin"}, "analyst_a": {"$ref": "#/$defs/pin"}, "analyst_b": {"$ref": "#/$defs/pin"}, "reconciler": {"$ref": "#/$defs/pin"}}},
+    "runtime_handshakes_complete": {"const": true}, "role_count": {"const": 4}, "exact_model_snapshots_available": {"const": false}, "immutable_session_agent_uuids_available": {"const": false},
+    "context_presentation_allowed": {"const": false}, "analysis_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "final_execution_wrapper_present": {"const": false}, "execution_allowed": {"const": false}, "local_only": {"const": true},
+    "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false},
+    "prohibited_actions": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"enum": ["redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update", "human_reviewed_claims", "empirical_evidence_claims"]}}
+  }
+}

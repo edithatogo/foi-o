@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-derivation-execution-request:0.1.0",
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha"}}},
+    "source": {"type": "object", "additionalProperties": false, "required": ["inventory_pointer", "relative_path", "sha256", "size", "response_message_id", "output_name"], "properties": {"inventory_pointer": {"pattern": "^/[0-2]$"}, "relative_path": {"type": "string", "pattern": "^content/attachments/.+\\.pdf$"}, "sha256": {"$ref": "#/$defs/sha"}, "size": {"type": "integer", "minimum": 1}, "response_message_id": {"type": "integer", "minimum": 1}, "output_name": {"pattern": "^attachment-00[0-2]\\.txt$"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "status", "wrapper_repository_commit", "method", "method_approval", "wrapper", "sources", "method_tool", "runtime_observation", "environment", "argv_template", "output_contract", "failure_contract", "requested_scope", "authorization_present", "pdf_processing_allowed", "derived_content_creation_allowed", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-derivation-execution-request.v0.1.0"},
+    "request_id": {"const": "bounded-pilot-11872-attachment-derivation-execution"},
+    "status": {"const": "pending_exact_execution_authorization"},
+    "wrapper_repository_commit": {"const": "3c93d974361e60f6b4dc6c89328a2eba806a3ff0"},
+    "method": {"$ref": "#/$defs/pin"}, "method_approval": {"$ref": "#/$defs/pin"}, "wrapper": {"$ref": "#/$defs/pin"},
+    "sources": {"type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/source"}},
+    "method_tool": {"type": "object"}, "runtime_observation": {"type": "object"}, "environment": {"type": "object"}, "argv_template": {"type": "array"}, "output_contract": {"type": "object"}, "failure_contract": {"type": "object"},
+    "requested_scope": {"const": "two_pass_local_pdf_text_derivation_for_exact_three_request_11872_attachments_only"},
+    "authorization_present": {"const": false}, "pdf_processing_allowed": {"const": false}, "derived_content_creation_allowed": {"const": false}, "context_presentation_allowed": {"const": false}, "analyst_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+  }
+}

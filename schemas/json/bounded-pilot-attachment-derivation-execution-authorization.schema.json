@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-derivation-execution-authorization:0.1.0",
+  "$defs": {"pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "status", "execution_request", "wrapper", "method", "method_approval", "human_approval", "source_root", "output_directory", "authorization_effective", "pdf_processing_allowed", "derived_content_creation_allowed", "local_only", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-derivation-execution-authorization.v0.1.0"},
+    "authorization_id": {"const": "bounded-pilot-11872-attachment-derivation-approved"},
+    "status": {"const": "approved_exact_local_derivation"},
+    "execution_request": {"$ref": "#/$defs/pin"}, "wrapper": {"$ref": "#/$defs/pin"}, "method": {"$ref": "#/$defs/pin"}, "method_approval": {"$ref": "#/$defs/pin"}, "human_approval": {"$ref": "#/$defs/pin"},
+    "source_root": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"},
+    "output_directory": {"const": "/private/tmp/foio-bounded-pilot-11872-derived"},
+    "authorization_effective": {"const": true}, "pdf_processing_allowed": {"const": true}, "derived_content_creation_allowed": {"const": true}, "local_only": {"const": true},
+    "context_presentation_allowed": {"const": false}, "analyst_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+  }
+}

@@ -23,6 +23,10 @@ runtime dependency or standards claim.
 - Preserve bitemporal source information, source rights, raw platform states,
   uncertainty, conflicts, and unknowns.
 - Keep publication, gold promotion, legal certification, and remote actions human-gated.
+- Define execution roles as analysts and reconcilers. Automated agents may fill
+  those roles when their provenance and isolated contexts are recorded, but
+  agent-only results must remain explicitly non-human-reviewed, non-gold, and
+  ineligible for release or publication claims without separate gates.
 - Preserve the confirmed `fyi-cli` -> `fyi-archive` -> Hugging Face source path.
 - Use `nlp-policy-nz` for ontology-pinned candidate extraction and keep derived
   outputs separate from immutable archive manifests.

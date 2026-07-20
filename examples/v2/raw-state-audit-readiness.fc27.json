@@ -1,0 +1,24 @@
+{
+  "schema_version": "foi-o.raw-state-audit-readiness.v0.1.0",
+  "dataset_revision": "fc27bfa471c598a31d975cfa2b603b1a11408e55",
+  "manifest_sha256": "23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e",
+  "mapping_sha256": "7fe29951c5a203c50f7db34dd5fe16ee7c2fa39bcd28caec682bdafe0de1389f",
+  "record_count": 33217,
+  "observed_state_counts": {
+    "": 33208,
+    "dry-run": 9
+  },
+  "records_missing_state": 33208,
+  "records_with_mapped_state": 0,
+  "unmapped_nonempty_states": ["dry-run"],
+  "records_with_correspondence": 0,
+  "records_with_nonempty_attachments": 0,
+  "ready_for_mapping_audit": false,
+  "blockers": [
+    "missing_state_values",
+    "unmapped_source_states",
+    "no_correspondence_evidence",
+    "no_attachment_evidence"
+  ],
+  "source_records_modified": false
+}

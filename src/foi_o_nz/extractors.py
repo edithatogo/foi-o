@@ -289,14 +289,9 @@ def _candidate_events_from_message(
         # These are observed communications/candidates, not certified legal acts.
         # Dispositive-looking event types carry the human-certification requirement
         # and a negative certification record to prevent accidental approval.
-        human_certification = None
-        if requires_certification:
-            human_certification = {
-                "certified": False,
-                "certified_by_role": None,
-                "certified_at": None,
-                "certification_reference": None,
-            }
+        human_certification = (
+            HumanCertification(certified=False) if requires_certification else None
+        )
         out.append(
             CoreEvent(
                 **kwargs,
@@ -306,9 +301,7 @@ def _candidate_events_from_message(
                 assertion_status=AssertionStatus.INFERRED,
                 confidence=confidence,
                 requires_human_certification=requires_certification,
-                human_certification=(
-                    HumanCertification(**human_certification) if human_certification else None
-                ),
+                human_certification=human_certification,
                 legal_references=_legal_refs_for(event_type),
                 payload={
                     "message_id": message.message_id,

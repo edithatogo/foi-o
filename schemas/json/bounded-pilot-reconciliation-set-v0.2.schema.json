@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-reconciliation-set:0.2.0",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}},
+    "runtime": {"type": "object", "additionalProperties": false, "required": ["provider", "model", "prompt_sha256", "session_id"], "properties": {"provider": {"const": "OpenAI"}, "model": {"type": "string", "minLength": 1}, "prompt_sha256": {"$ref": "#/$defs/sha256"}, "session_id": {"type": "string", "minLength": 1}}},
+    "reconciler": {"type": "object", "additionalProperties": false, "required": ["actor_id", "actor_class", "role", "runtime"], "properties": {"actor_id": {"const": "agent:bounded-pilot-reconciler"}, "actor_class": {"const": "automated_agent"}, "role": {"const": "reconciler"}, "runtime": {"$ref": "#/$defs/runtime"}}},
+    "analysis_ref": {"type": "object", "additionalProperties": false, "required": ["analyst_id", "record_sha256"], "properties": {"analyst_id": {"enum": ["agent:bounded-pilot-analyst-a", "agent:bounded-pilot-analyst-b"]}, "record_sha256": {"$ref": "#/$defs/sha256"}}},
+    "set_pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "analyst_id"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}, "analyst_id": {"enum": ["agent:bounded-pilot-analyst-a", "agent:bounded-pilot-analyst-b"]}}},
+    "span": {"type": "object", "additionalProperties": false, "required": ["source_kind", "source_id", "source_sha256", "start", "end", "coordinate_system"], "properties": {"source_kind": {"enum": ["correspondence", "attachment_derived_text"]}, "source_id": {"type": "string", "minLength": 1}, "source_sha256": {"$ref": "#/$defs/sha256"}, "start": {"type": "integer", "minimum": 0}, "end": {"type": "integer", "minimum": 1}, "coordinate_system": {"const": "zero_based_utf8_codepoint_half_open_in_materialized_unit_context"}}},
+    "record": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_version", "record_id", "status", "request_id", "analysis_refs", "reconciler", "outcome", "label", "source_spans", "rationale", "repair_attempt_count", "created_at", "locked_at", "empirical_result_approved", "human_reviewed", "gold_eligible"],
+      "properties": {
+        "schema_version": {"const": "foi-o.bounded-pilot-reconciliation-record.v0.2.0"}, "record_id": {"pattern": "^bounded-pilot:reconciler:(11872|35076)$"}, "status": {"const": "locked_agent_reconciliation"}, "request_id": {"enum": ["11872", "35076"]},
+        "analysis_refs": {"type": "array", "prefixItems": [{"allOf": [{"$ref": "#/$defs/analysis_ref"}, {"properties": {"analyst_id": {"const": "agent:bounded-pilot-analyst-a"}}}]}, {"allOf": [{"$ref": "#/$defs/analysis_ref"}, {"properties": {"analyst_id": {"const": "agent:bounded-pilot-analyst-b"}}}]}], "items": false, "minItems": 2, "maxItems": 2},
+        "reconciler": {"$ref": "#/$defs/reconciler"}, "outcome": {"enum": ["resolved_disagreement", "unresolved"]}, "label": {"enum": [null, "observed", "submitted", "awaiting_response", "awaiting_clarification", "scope_amended", "transferred", "extension_notified", "decision_communicated", "released_in_full", "released_in_part", "refused", "information_not_held", "withdrawn", "overdue", "complaint_observed", "closed", "unknown"]},
+        "source_spans": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/span"}}, "rationale": {"type": "string", "minLength": 1}, "repair_attempt_count": {"type": "integer", "minimum": 0, "maximum": 2}, "created_at": {"type": "string", "format": "date-time"}, "locked_at": {"type": "string", "format": "date-time"}, "empirical_result_approved": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+      },
+      "allOf": [
+        {"if": {"properties": {"outcome": {"const": "unresolved"}}}, "then": {"properties": {"label": {"const": null}, "source_spans": {"maxItems": 0}}}, "else": {"properties": {"label": {"type": "string"}, "source_spans": {"minItems": 1}}}},
+        {"if": {"properties": {"request_id": {"const": "11872"}}}, "then": {"properties": {"record_id": {"pattern": ":11872$"}}}, "else": {"properties": {"record_id": {"pattern": ":35076$"}}}}
+      ]
+    },
+    "entry": {"type": "object", "additionalProperties": false, "required": ["request_id", "record_sha256", "record"], "properties": {"request_id": {"enum": ["11872", "35076"]}, "record_sha256": {"$ref": "#/$defs/sha256"}, "record": {"$ref": "#/$defs/record"}}}
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "set_id", "status", "analysis_lock", "analysis_sets", "authorization", "codebook", "context_manifest", "reconciler", "request_ids", "agreement_request_ids", "disagreement_request_ids", "record_count", "entries", "local_only", "empirical_result_approved", "human_reviewed", "gold_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-reconciliation-set.v0.2.0"}, "set_id": {"const": "bounded-pilot-11872-35076-reconciliation"}, "status": {"const": "locked_complete_agent_reconciliation"}, "analysis_lock": {"$ref": "#/$defs/pin"},
+    "analysis_sets": {"type": "array", "prefixItems": [{"allOf": [{"$ref": "#/$defs/set_pin"}, {"properties": {"analyst_id": {"const": "agent:bounded-pilot-analyst-a"}}}]}, {"allOf": [{"$ref": "#/$defs/set_pin"}, {"properties": {"analyst_id": {"const": "agent:bounded-pilot-analyst-b"}}}]}], "items": false, "minItems": 2, "maxItems": 2},
+    "authorization": {"$ref": "#/$defs/pin"}, "codebook": {"$ref": "#/$defs/pin"}, "context_manifest": {"$ref": "#/$defs/pin"}, "reconciler": {"$ref": "#/$defs/reconciler"}, "request_ids": {"const": ["11872", "35076"]},
+    "agreement_request_ids": {"type": "array", "maxItems": 2, "uniqueItems": true, "items": {"enum": ["11872", "35076"]}}, "disagreement_request_ids": {"type": "array", "maxItems": 2, "uniqueItems": true, "items": {"enum": ["11872", "35076"]}}, "record_count": {"type": "integer", "minimum": 0, "maximum": 2}, "entries": {"type": "array", "maxItems": 2, "items": {"$ref": "#/$defs/entry"}},
+    "local_only": {"const": true}, "empirical_result_approved": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "prohibited_actions": {"const": ["empirical_result_approval", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates", "arxiv_submission"]}
+  }
+}

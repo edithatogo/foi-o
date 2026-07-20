@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:nz-nonlegislation-source-review:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "reviewer", "reviewed_at", "manifest_path", "manifest_sha256", "source_count", "selection_approved", "historical_applicability_approved", "rights_expanded", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.nz-nonlegislation-source-review.v0.1.0"},
+    "status": {"const": "approved"}, "reviewer": {"const": "edithatogo"},
+    "reviewed_at": {"const": "2026-07-17T05:45:11Z"},
+    "manifest_path": {"const": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json"},
+    "manifest_sha256": {"const": "4650961b6b3ce11dd69f226b651b611127e2ba37bf4c87d266c6799579432d18"},
+    "source_count": {"const": 7}, "selection_approved": {"const": true},
+    "historical_applicability_approved": {"const": true}, "rights_expanded": {"const": false},
+    "prohibited_actions": {"type": "object", "additionalProperties": false,
+      "required": ["redistribution", "publication", "source_pack_promotion", "release", "dataset_publication"],
+      "properties": {"redistribution": {"const": false}, "publication": {"const": false}, "source_pack_promotion": {"const": false}, "release": {"const": false}, "dataset_publication": {"const": false}}
+  }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:analyst-empirical-protocol-approval:0.1.0",
+  "$defs": {
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/analyst-empirical-protocol-approval.pending.json"}, "sha256": {"const": "f8cfa72d60b80a26de60e714c551c543f6c9b5d733eb3d6ece76fdf035e3b6e4"}, "repository_commit": {"const": "18db8581e7db3ea235a11e940ef0b82323130511"}}},
+    "prohibitions": {"type": "object", "additionalProperties": false, "required": ["sample_membership", "analyst_execution", "reconciliation", "empirical_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"], "properties": {"sample_membership": {"const": false}, "analyst_execution": {"const": false}, "reconciliation": {"const": false}, "empirical_claims": {"const": false}, "human_reviewed_claims": {"const": false}, "gold_promotion": {"const": false}, "legal_certification": {"const": false}, "redistribution": {"const": false}, "publication": {"const": false}, "training": {"const": false}, "fine_tuning": {"const": false}, "release": {"const": false}, "dataset_publication": {"const": false}, "paper_updates": {"const": false}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approval_id", "status", "approved_by", "approved_on", "recorded_at", "approval_statement", "approval_statement_sha256", "approved_request", "protocol_approved", "sample_membership_approved", "execution_allowed", "empirical_evidence", "human_reviewed", "gold_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-empirical-protocol-approval.v0.1.0"},
+    "approval_id": {"const": "foi-o-v2-analyst-empirical-protocol-v0.2-approved"},
+    "status": {"const": "approved_protocol_design_only"},
+    "approved_by": {"const": "edithatogo"},
+    "approved_on": {"const": "2026-07-19"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "approval_statement": {"const": "I, edithatogo, approve analyst empirical-validation protocol SHA-256 1ff93755f9beccb86fe4b3bd67388c68e2202ec62c6ca1848aa01a9157b6d65f as committed in 31b2f99ec5d9bacd4ab64974b9c015ce0b44362e for protocol design only. This approval permits automated agents to fill two independent analyst roles and one distinct reconciler role under a separately committed exact execution authorization. It does not authorize sample membership. It does not authorize analyst execution, reconciliation, empirical claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates."},
+    "approval_statement_sha256": {"const": "15646f648d1c0fcfab8668dafdbdaab83a2ff44c00804493523b09b6b489c442"},
+    "approved_request": {"$ref": "#/$defs/pin"},
+    "protocol_approved": {"const": true},
+    "sample_membership_approved": {"const": false},
+    "execution_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "prohibited_actions": {"$ref": "#/$defs/prohibitions"}
+  }
+}

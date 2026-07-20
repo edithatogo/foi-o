@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-role-authorization-request:0.1.0",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "promotion_commit", "approved_input_readiness",
+    "handshake_prompt", "future_execution_prompts", "role_provenance",
+    "context_presentation", "isolation_plan", "human_approval_present", "approved_by",
+    "approved_at", "execution_authorization_present", "execution_allowed", "empirical_evidence",
+    "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible",
+    "prohibited_actions"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-role-authorization-request.v0.1.0"},
+    "status": {"const": "pending_exact_human_execution_authorization"},
+    "promotion_commit": {"const": "fe875ab254ff914b18143cfe08fee202b8b532b1"},
+    "approved_input_readiness": {
+      "allOf": [
+        {"$ref": "#/$defs/pin"},
+        {"properties": {
+          "path": {"const": "examples/v2/analyst-fixture-packet/input-readiness.approved.json"},
+          "sha256": {"const": "814409acac7401118428bcad2d73df1b1eb8b1bf79c2fa8ce3ea0bdb560b8b6e"}
+        }}
+      ]
+    },
+    "handshake_prompt": {
+      "allOf": [
+        {"$ref": "#/$defs/pin"},
+        {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/prompts/runtime-provenance-handshake.v1.txt"}}}
+      ]
+    },
+    "future_execution_prompts": {
+      "type": "object", "additionalProperties": false,
+      "required": ["orchestrator", "analyst_a", "analyst_b", "reconciler"],
+      "properties": {
+        "orchestrator": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/prompts/orchestrator.future-execution.v1.txt"}}}]},
+        "analyst_a": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/prompts/analyst_a.future-execution.v1.txt"}}}]},
+        "analyst_b": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/prompts/analyst_b.future-execution.v1.txt"}}}]},
+        "reconciler": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/prompts/reconciler.future-execution.v1.txt"}}}]}
+      }
+    },
+    "role_provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["orchestrator", "analyst_a", "analyst_b", "reconciler"],
+      "properties": {
+        "orchestrator": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/role-provenance.orchestrator.pending.json"}}}]},
+        "analyst_a": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/role-provenance.analyst_a.pending.json"}}}]},
+        "analyst_b": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/role-provenance.analyst_b.pending.json"}}}]},
+        "reconciler": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/role-provenance.reconciler.pending.json"}}}]}
+      }
+    },
+    "context_presentation": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/context-presentation.pending.json"}}}]},
+    "isolation_plan": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/role-isolation-plan.pending.json"}}}]},
+    "human_approval_present": {"const": false},
+    "approved_by": {"type": "null"},
+    "approved_at": {"type": "null"},
+    "execution_authorization_present": {"const": false},
+    "execution_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "release_qualifying": {"const": false},
+    "publication_eligible": {"const": false},
+    "prohibited_actions": {
+      "type": "array", "minItems": 10, "maxItems": 10, "uniqueItems": true,
+      "items": {"enum": ["execution", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update"]}
+    }
+  }
+}

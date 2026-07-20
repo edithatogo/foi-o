@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:annotation-protocol-review-readiness:0.1.0",
+  "title": "FOI-O annotation protocol review readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "packet_id", "protocol_path", "protocol_sha256",
+    "protocol_decision", "protocol_approver", "protocol_reviewed_at",
+    "protocol_review_path", "protocol_review_sha256", "annotator_ids", "adjudicator_id",
+    "source_population_manifest", "codebook_revision", "sampling_configuration",
+    "ready_to_freeze_sample", "promotion_allowed", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.annotation-protocol-review-readiness.v0.2.0"},
+    "packet_id": {"const": "foi-o-v2-annotation-protocol-review-2026-07-16"},
+    "protocol_path": {"const": "docs/41-v2-sampling-and-annotation-protocol.md"},
+    "protocol_sha256": {"const": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63"},
+    "protocol_decision": {"const": "approved"},
+    "protocol_approver": {"const": "edithatogo"},
+    "protocol_reviewed_at": {"const": "2026-07-17T09:48:28Z"},
+    "protocol_review_path": {"const": "examples/v2/annotation-protocol-review.approved.json"},
+    "protocol_review_sha256": {"const": "b1bac3795db826865f01012bff2e2595c01eea5c3ffdf37976c0b8b5d15cb5cd"},
+    "annotator_ids": {"type": "array", "maxItems": 0},
+    "adjudicator_id": {"const": null},
+    "source_population_manifest": {"const": null},
+    "codebook_revision": {"const": null},
+    "sampling_configuration": {"const": null},
+    "ready_to_freeze_sample": {"const": false},
+    "promotion_allowed": {"const": false},
+    "blockers": {
+      "type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true,
+      "items": {
+        "enum": [
+          "two_independent_annotators_missing",
+          "adjudicator_missing", "rights_approved_source_population_missing",
+          "codebook_revision_missing", "sampling_configuration_missing"
+        ]
+      }
+    }
+  }
+}

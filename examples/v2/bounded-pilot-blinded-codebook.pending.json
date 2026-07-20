@@ -1,0 +1,20 @@
+{
+  "schema_version": "foi-o.bounded-pilot-blinded-codebook.v0.1.0",
+  "codebook_id": "bounded-pilot-normalised-request-state-v0.1",
+  "status": "pending_exact_codebook_and_execution_input_approval",
+  "protocol_sha256": "1ff93755f9beccb86fe4b3bd67388c68e2202ec62c6ca1848aa01a9157b6d65f",
+  "vocabulary": {"path": "vocab/request-states.skos.ttl", "sha256": "a7e8f005250d96e45045c9e299fd33307e2c38b5b6a53579de8b2e3e6fd571fd", "concept_count": 17},
+  "task": "select_the_single_normalised_request_state_best_supported_by_the_authorized_correspondence_and_attachment_context",
+  "decision_rule": "use_only_explicit_evidence_in_authorized_context_choose_unknown_when_no_more_specific_vocabulary_concept_is_supported",
+  "abstention_reasons": ["missing_evidence", "insufficient_evidence", "out_of_scope", "other"],
+  "span_rule": "cite_at_least_one_authorized_correspondence_or_attachment_derived_span_for_non_abstaining_analysis",
+  "candidate_mapping_visible": false,
+  "candidate_confidence_visible": false,
+  "prior_review_outcomes_visible": false,
+  "excluded_inputs": ["mappings/alaveteli-state-map.yaml", "examples/v2/bounded-raw-state-mapping-review.11872.json", "examples/v2/bounded-raw-state-mapping-review.35076.json", "extractor_candidate_labels", "extractor_candidate_confidence"],
+  "approval_present": false,
+  "execution_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false
+}

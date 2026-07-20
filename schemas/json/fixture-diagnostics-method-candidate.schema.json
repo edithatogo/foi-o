@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-diagnostics-method-candidate:0.1.0",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "artifact_pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}, "repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}}},
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/analyst-fixture-packet/results/reconciliation-set.locked.json"}, "sha256": {"$ref": "#/$defs/sha256"}, "repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "candidate_id", "status", "reconciliation", "diagnostics_inputs", "population", "bootstrap", "metric_evaluation", "intervals", "undefined_metrics", "span_metrics", "approval", "exact_approval_required", "bootstrap_execution_allowed", "diagnostics_results_present", "diagnostics_finalization_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-diagnostics-method-candidate.v0.1.0"},
+    "candidate_id": {"const": "local-fixture-diagnostics-method-v1"},
+    "status": {"const": "pending_exact_human_approval"},
+    "reconciliation": {"$ref": "#/$defs/pin"},
+    "diagnostics_inputs": {"type": "object", "additionalProperties": false, "required": ["analysis_lock", "ordered_analysis_sets", "context_presentation", "codebook", "sampling_configuration", "cluster_registry", "unit_manifest"], "properties": {"analysis_lock": {"$ref": "#/$defs/artifact_pin"}, "ordered_analysis_sets": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"$ref": "#/$defs/artifact_pin"}}, "context_presentation": {"$ref": "#/$defs/artifact_pin"}, "codebook": {"$ref": "#/$defs/artifact_pin"}, "sampling_configuration": {"$ref": "#/$defs/artifact_pin"}, "cluster_registry": {"$ref": "#/$defs/artifact_pin"}, "unit_manifest": {"$ref": "#/$defs/artifact_pin"}}},
+    "population": {"const": {"source": "ordered_11_cluster_fixture_census_from_cluster_registry_and_analysis_lock", "cluster_count": 11, "unit_count": 11, "ordered_unit_ids": ["pm-01", "pm-02", "pm-03", "pm-04", "pm-05", "pm-06", "pm-07", "pm-08", "pm-09", "tl-01", "tl-02"], "ordered_unit_commitment_sha256": "d6e5c6b425903f09c6e3e08e0d6c4ccdee11eea91835d6ba96f64ba3306cf8ca"}},
+    "bootstrap": {"const": {"runtime": "CPython 3.14.5", "implementation": "python_stdlib_random.Random", "generator": "MT19937", "python_compatible_state_and_seeding": true, "seed": 20260717, "seed_call": "Random().seed(20260717, version=2)", "stream_lifecycle": "initialize_once_before_replicate_1_and_never_restart", "cluster_sampling_operation": "randrange", "draw_call": "randrange(11)", "resampling_unit": "singleton_duplicate_cluster", "cluster_draws_per_replicate": 11, "sample_size_rule": "sample_size_equals_observed_cluster_count", "sampled_unit_order": "concatenate_sampled_clusters_in_draw_order_and_units_within_each_cluster_in_canonical_unit_order", "metric_resample_rule": "one_shared_resample_per_replicate_reused_for_all_metrics", "replicates": 2000, "replicate_accounting": "per_metric_valid_and_invalid", "draw_sequence": {"shape": [2000, 11], "total_draws": 22000, "encoding": "canonical_compact_json_nested_integer_arrays", "sha256": "9bb377fa38ed7758545eedb7676d2996ca6ac23cd06b72b7ecddb9b768728238", "first_replicate": [5, 4, 2, 8, 3, 3, 1, 9, 6, 6, 9], "last_replicate": [4, 7, 7, 0, 6, 2, 3, 10, 8, 7, 4]}}},
+    "metric_evaluation": {"const": {"order": ["raw_label_agreement", "cohen_kappa", "abstention_agreement", "reconciliation_trigger_rate"], "non_kappa_requirement": "defined_on_every_replicate_or_build_fails", "span_metrics": "not_bootstrapped_zero_eligible_span_units"}},
+    "intervals": {"const": {"confidence_level": 0.95, "sides": "two_sided", "tail_probabilities": [0.025, 0.975], "method": "percentile", "quantile_definition": "Hyndman-Fan_type_7", "interpolation": "linear", "formula": "sort x ascending; for p in {0.025,0.975}, h=(n-1)*p, j=floor(h), g=h-j, q=(1-g)*x[j]+g*x[j+1], using zero-based indices; when j=n-1 return x[n-1]"}},
+    "undefined_metrics": {"const": {"kappa_predicate": "undefined exactly when expected_agreement == 1, including an empty eligible-label denominator", "kappa_handling": "exclude_undefined_replicates_from_kappa_interval_only_and_count_and_report_them", "other_metrics": "must_be_defined_on_every_replicate_or_build_fails"}},
+    "span_metrics": {"const": {"eligible_unit_count": 0, "null_input_metrics_remain_null": true, "bootstrapped": false}},
+    "approval": {"type": "null"},
+    "exact_approval_required": {"const": "named human approval of this exact candidate SHA-256 and committed repository commit"},
+    "bootstrap_execution_allowed": {"const": false},
+    "diagnostics_results_present": {"const": false},
+    "diagnostics_finalization_allowed": {"const": false},
+    "local_only": {"const": true},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "release_qualifying": {"const": false},
+    "publication_eligible": {"const": false},
+    "prohibited_actions": {"const": ["bootstrap_execution", "diagnostics_finalization", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update", "human_reviewed_claims", "empirical_evidence_claims"]}
+  }
+}

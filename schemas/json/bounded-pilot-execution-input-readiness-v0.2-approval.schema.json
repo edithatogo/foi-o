@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:bounded-pilot-execution-input-readiness-approval:0.2.0", "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "approved_by", "approved_on", "approval_statement", "approval_statement_sha256", "approved_candidate", "approved_scope", "inputs_approved", "derived_text_read_allowed", "context_materialization_allowed", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_result_approval_allowed", "population_inference_allowed", "archive_wide_claim_allowed", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-execution-input-readiness-approval.v0.2.0"}, "approved_by": {"const": "human:edithatogo"}, "approved_on": {"const": "2026-07-19"},
+    "approval_statement": {"type": "string", "minLength": 1}, "approval_statement_sha256": {"const": "bbbba1846e463341481169ac002e2e62bcbe281c807f1351bd83ae3a7bccc1aa"},
+    "approved_candidate": {"const": {"path": "examples/v2/bounded-pilot-execution-input-readiness.v0.2.pending.json", "sha256": "e91548e8814aba1659c0b1927fde70cad3a8809bb4c974d43d50606c500c016f", "repository_commit": "0e6e080bc63c0998a7ca46bc708734ae500f1302"}},
+    "approved_scope": {"const": "bounded_two_case_execution_input_components_for_context_and_execution_authorization_preparation_only"}, "inputs_approved": {"const": true},
+    "derived_text_read_allowed": {"const": false}, "context_materialization_allowed": {"const": false}, "context_presentation_allowed": {"const": false}, "analyst_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "empirical_result_approval_allowed": {"const": false}, "population_inference_allowed": {"const": false}, "archive_wide_claim_allowed": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+  }
+}

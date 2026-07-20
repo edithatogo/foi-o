@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:nz-nonlegislation-source-manifest:0.1.0",
+  "title": "FOI-O NZ non-legislation historical source evidence manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "retrieved_at", "local_artifact_directory",
+    "source_count", "content_committed", "sources", "excluded_candidates",
+    "source_pack_promotion_allowed", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.nz-nonlegislation-source-manifest.v0.1.0"},
+    "status": {"const": "candidate_human_review_required"},
+    "retrieved_at": {"type": "string", "format": "date-time"},
+    "local_artifact_directory": {"const": "/private/tmp/foio-nz-nonleg-source-evidence-20260716"},
+    "source_count": {"const": 7},
+    "content_committed": {"const": false},
+    "sources": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {"$ref": "#/$defs/source"}
+    },
+    "excluded_candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["provider", "url", "reason"],
+        "properties": {
+          "provider": {"type": "string", "minLength": 1},
+          "url": {"type": "string", "format": "uri"},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "source_pack_promotion_allowed": {"const": false},
+    "blockers": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "psc_provider_scope_review_pending",
+          "human_source_selection_review_pending",
+          "human_historical_applicability_review_pending",
+          "human_source_pack_promotion_pending"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id", "provider_id", "provider", "title", "category",
+        "official_url", "document_date_label", "retrieved_at", "media_type",
+        "byte_size", "content_sha256", "local_filename", "content_committed",
+        "rights_terms_url", "rights_registry_source_id", "rights_status",
+        "redistribution_allowed", "historical_applicability_approved",
+        "human_source_selection_approved"
+      ],
+      "properties": {
+        "source_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]+$"},
+        "provider_id": {"enum": ["nz-ombudsman", "nz-public-service-commission"]},
+        "provider": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "category": {"enum": ["ombudsman_guidance", "agency_guidance", "reporting_guidance"]},
+        "official_url": {"type": "string", "format": "uri"},
+        "document_date_label": {"type": ["string", "null"]},
+        "retrieved_at": {"type": "string", "format": "date-time"},
+        "media_type": {"const": "application/pdf"},
+        "byte_size": {"type": "integer", "minimum": 1},
+        "content_sha256": {"$ref": "#/$defs/sha256"},
+        "local_filename": {"type": "string", "pattern": "^[a-z0-9][a-z0-9.-]+\\.pdf$"},
+        "content_committed": {"const": false},
+        "rights_terms_url": {"type": "string", "format": "uri"},
+        "rights_registry_source_id": {"type": ["string", "null"]},
+        "rights_status": {"enum": ["approved_personal_use_only", "provider_scope_review_pending"]},
+        "redistribution_allowed": {"const": false},
+        "historical_applicability_approved": {"const": false},
+        "human_source_selection_approved": {"const": false}
+      }
+    }
+  }
+}

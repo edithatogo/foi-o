@@ -1,0 +1,17 @@
+{
+  "schema_version": "foi-o.consumer-extraction-contract.v0.1.0",
+  "consumer_id": "foi-o-read-only-mcp",
+  "consumer_surface": "read_only_mcp",
+  "contract_id": "foi-o.extraction-contract",
+  "accepted_versions": ["0.1.0"],
+  "rejected_versions": [
+    {"version": "1.0.0", "reason": "unknown_major_rejected"},
+    {"version": "latest", "reason": "invalid_version_rejected"}
+  ],
+  "required_capability_ids": ["foi-o-nz.label-assertion"],
+  "read_only": true,
+  "candidate_only": true,
+  "machine_certification_allowed": false,
+  "verification_scope": "repo_local_offline",
+  "upstream_verified": false
+}

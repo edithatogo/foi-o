@@ -10,6 +10,7 @@ from typing import Any
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
 from rdflib import Graph
+from referencing import Registry, Resource
 
 
 @dataclass(frozen=True, slots=True)
@@ -34,7 +35,19 @@ def validate_json_schema(instance_path: Path, schema_path: Path) -> ValidationRe
     """Validate a JSON instance against a Draft 2020-12 schema."""
     instance = load_json(instance_path)
     schema = load_json(schema_path)
-    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    registry = Registry()
+    identifiers: dict[str, Path] = {}
+    for candidate in schema_path.parent.glob("*.schema.json"):
+        document = load_json(candidate)
+        identifier = document.get("$id") if isinstance(document, dict) else None
+        if isinstance(identifier, str):
+            if previous := identifiers.get(identifier):
+                raise ValueError(
+                    f"duplicate JSON Schema $id {identifier}: {previous.name}, {candidate.name}"
+                )
+            identifiers[identifier] = candidate
+            registry = registry.with_resource(identifier, Resource.from_contents(document))
+    validator = Draft202012Validator(schema, format_checker=FormatChecker(), registry=registry)
     errors = tuple(
         f"{'.'.join(str(part) for part in error.absolute_path) or '<root>'}: {error.message}"
         for error in sorted(

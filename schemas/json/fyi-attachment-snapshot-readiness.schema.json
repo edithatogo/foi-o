@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fyi-attachment-snapshot-readiness:0.1.0",
+  "title": "FOI-O FYI attachment snapshot review readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "snapshot_path", "snapshot_manifest_sha256", "request_id",
+    "base_capture_revision", "raw_state_value", "correspondence_count",
+    "attachment_count", "attachment_bytes", "attachment_inventory_sha256",
+    "rights_status", "rights_reviewer", "rights_reviewed_at", "storage",
+    "content_committed", "source_records_modified",
+    "canonical_base_attachment_inventory_empty",
+    "supplemental_attachment_capture_declared",
+    "ready_for_raw_state_mapping_audit", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.fyi-attachment-snapshot-readiness.v0.1.0"},
+    "snapshot_path": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"},
+    "snapshot_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "request_id": {"const": "11872"},
+    "base_capture_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "raw_state_value": {"const": "partially_successful"},
+    "correspondence_count": {"const": 4},
+    "attachment_count": {"const": 3},
+    "attachment_bytes": {"const": 13259266},
+    "attachment_inventory_sha256": {"$ref": "#/$defs/sha256"},
+    "rights_status": {"const": "approved"},
+    "rights_reviewer": {"const": "edithatogo"},
+    "rights_reviewed_at": {"const": "2026-07-17T01:51:03Z"},
+    "storage": {"const": "local_only"},
+    "content_committed": {"const": false},
+    "source_records_modified": {"const": false},
+    "canonical_base_attachment_inventory_empty": {"const": true},
+    "supplemental_attachment_capture_declared": {"const": true},
+    "ready_for_raw_state_mapping_audit": {"const": true},
+    "blockers": {
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "items": {
+        "enum": [
+          "human_mapping_review_pending",
+          "single_request_only"
+        ]
+      }
+    }
+  },
+  "$defs": {"sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}
+}

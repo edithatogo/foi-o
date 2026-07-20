@@ -1,4 +1,18 @@
 version: 1
+external_gate_registry:
+  source: conductor/tracks/foi_o_v2_empirical_implementation_20260714/metadata.json
+  fixture_status: complete_local_agent_diagnostics_only
+  authentic_empirical_status: blocked
+  gates:
+    - G-EMP-AUTHENTIC-INPUTS
+    - G-RAW-ARCHIVE-WIDE-EVIDENCE
+    - G-EMP-SAMPLE-FREEZE
+    - G-EMP-ANALYST-EXECUTION
+    - G-EMP-EVALUATION
+    - G-EMP-PROMOTION
+    - G-RELEASE-EVIDENCE-BUNDLE
+    - G-PAPER-UPDATE-PREREQUISITE
+    - G-REMOTE-DELIVERY-AUTHORIZATION
 gates:
   repo_local_contract_integration:
     status: passed_with_baseline_exceptions
@@ -8,12 +22,202 @@ gates:
       - repository_wide_ty_111_pre_existing_diagnostics
       - conductor_review_unavailable
   independent_rule_evaluation:
-    status: pending
-    human_gate: fixture_independence_and_promotion
+    status: human_approved
+    reviewer: edithatogo
+    reviewed_at: 2026-07-16T09:34:52Z
+    review_packet: examples/v2/human-promotion-review-packet.approved.json
   nz_empirical_release:
-    status: pending
-    human_gate: sample_annotation_adjudication_and_source_pack_approval
+    status: blocked_authentic_sample_and_analyst_execution
+    depends_on: [G-EMP-AUTHENTIC-INPUTS, G-RAW-ARCHIVE-WIDE-EVIDENCE, G-EMP-SAMPLE-FREEZE, G-EMP-ANALYST-EXECUTION, G-EMP-EVALUATION, G-EMP-PROMOTION]
+    consolidated_pending_review_packet: examples/v2/empirical-human-gate-review-packet.pending.json
+  nz_source_pack:
+    status: promoted_metadata_only
+    evidence:
+      rights_registry: mappings/nz-source-rights-registry.yaml
+      oia_version_index: mappings/nz-oia-version-index.yaml
+      official_oia_versions_pinned: 50
+      interval_candidates: mappings/nz-oia-applicability-interval-candidates.yaml
+      interval_candidate_count: 50
+      interval_candidates_legal_applicability_approved: true
+      interval_review: examples/v2/nz-oia-applicability-interval-review.approved.json
+      nonlegislation_source_manifest: examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json
+      nonlegislation_source_count: 7
+      nonlegislation_source_content_storage: local_only
+      nonlegislation_source_content_committed: false
+      psc_scope_review: examples/v2/psc-provider-scope-review.approved.json
+      nonlegislation_source_review: examples/v2/nz-nonlegislation-source-review.approved.json
+      promotion_review: examples/v2/nz-source-pack-promotion.approved.json
+      governed_pack: examples/v2/nz-source-pack.governed-metadata.json
+      source_content_included: false
+    missing: []
+  governed_reextraction:
+    status: bounded_local_reproducibility_run_complete_empirical_gates_pending
+    upstream_readiness_audit: examples/v2/upstream-extraction-readiness.2026-07-16.json
+    governed_handoff:
+      packet: examples/v2/governed-reextraction-packet.35076.json
+      packet_sha256: 9cc0e849e170c12ba23b292736f40f728fb3bad5dbcf364e26ed279b7a760d82
+      implementation_commit: 575f57a
+      ready_for_candidate_reextraction: true
+      ready_for_empirical_comparison: false
+      storage: local_only
+      redistribution_allowed: false
+      training_allowed: false
+      fine_tuning_allowed: false
+      release_allowed: false
+      dataset_publication_allowed: false
+      publication_allowed: false
+      reviewed_gold_label_promotion_allowed: false
+    governed_execution:
+      scope: request_35076_only
+      implementation_commit: ec5480b
+      local_artifact_directory: /private/tmp/foio-governed-reextraction-35076-verified
+      committed: false
+      read_only: true
+      candidate_sha256: 90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007
+      verification_sha256: 23270c27202286e3476f39ccf5df2267cb41641f9cfdf3f1664b8f23e441a9a1
+      non_empirical_delta_sha256: 7af9bc5ea3f4737ac19ce4912f69832aff42cf90f012be93785eb44c53bef72c
+      byte_identical_to_baseline: true
+      candidate_count: 1
+      added_candidates: 0
+      removed_candidates: 0
+      changed_candidates: 0
+      provenance_changed_candidates: 0
+      model_applied: false
+      source_records_modified: false
+      empirical_comparison: false
+      empirical_claim_allowed: false
+      promotion_allowed: false
+      publication_allowed: false
+    verified_upstreams:
+      fyi_archive_revision: 7b2d245a3319b1915eb522929ee669da5e3533fd
+      nlp_policy_nz_revision: 7fc78f14c1da6c1b165c0984c2173ae96307a3f6
+    verified_candidate_source:
+      repository: edithatogo/fyi-archive-nz
+      revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
+      configuration: default
+      split: requests
+      manifest_sha256: 23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e
+      record_count: 33217
+    target_revision_approval:
+      status: approved_for_repo_local_upstream_review_preparation
+      approved_on: 2026-07-16
+      excludes: [rights, heldout_selection, labels, gold, upstream_pr, dataset, release, publication]
+    approved_local_content_snapshot:
+      request_id: '35076'
+      reviewed_pending_manifest_sha256: d850ca367c2069d7e6d9ac39e8534779d0f64f2b3d708d36f773c0e3a2e271e3
+      approved_manifest_sha256: c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d
+      reviewer: edithatogo
+      reviewed_at: 2026-07-16T10:40:17Z
+      purpose: foi-o-candidate-extraction
+      redistribution_allowed: false
+      published: false
+    initial_baseline:
+      artifact_sha256: 90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007
+      verification_report_sha256: 0702d54e59c966958a759eb03f28018c96d197f27b948febf3374c3da4a6fcbc
+      pipeline_revision: 7fc78f14c1da6c1b165c0984c2173ae96307a3f6
+      verifier_revision: baf1b229e248c19d0922c0e75ef395ba22858b33
+      record_count: 1
+      review_status: candidate
+      model_applied: false
+      storage: local_only
+      published: false
+    missing:
+      - independent_annotation_and_adjudication
+  raw_state_mapping_audit:
+    status: bounded_mappings_human_approved
+    verified_candidate_source_revision: fc27bfa471c598a31d975cfa2b603b1a11408e55
+    missing:
+      - archive_wide_evidence
+    bounded_evidence:
+      request_id: '35076'
+      raw_state: waiting_response
+      normalised_state: awaiting_response
+      correspondence_count: 1
+      attachment_count: 0
+      audit: examples/v2/bounded-raw-state-audit.35076.json
+      promotion_allowed: false
+    attachment_candidate:
+      request_id: '11872'
+      readiness: examples/v2/fyi-attachment-snapshot-readiness.11872.json
+      pending_manifest_sha256: 42f8ed87738a31b857d37c94772fa8471890ce8f6caa81af5690f3b6f6fa707b
+      correspondence_count: 4
+      attachment_count: 3
+      attachment_bytes: 13259266
+      storage: local_only
+      approved_manifest_sha256: 0c7cee553ca3b01a6416784a1b691df5a6d90159a8f4d55e51a799934f655629
+      rights_status: approved
+      ready_for_raw_state_mapping_audit: true
+      mapping_review: examples/v2/bounded-raw-state-mapping-review.11872.json
+  annotation_protocol:
+    status: approved_fixture_execution_complete_bounded_pilot_readiness_approval_pending
+    protocol: docs/41-v2-sampling-and-annotation-protocol.md
+    protocol_sha256: 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63
+    protocol_approval: examples/v2/annotation-protocol-review.approved.json
+    readiness_packet: examples/v2/annotation-protocol-review-readiness.2026-07-16.json
+    consolidated_pending_review_packet: examples/v2/empirical-human-gate-review-packet.pending.json
+    fixture_lane:
+      status: complete_local_agent_diagnostics_only
+      analysis_lock: examples/v2/analyst-fixture-packet/results/analysis-lock.locked.json
+      reconciliation: examples/v2/analyst-fixture-packet/results/reconciliation-set.locked.json
+      diagnostics: examples/v2/analyst-fixture-packet/results/inter-agent-diagnostics.locked.json
+      diagnostics_sha256: fe2f9e29136fca68894bc3960b7a5cfcc4f97edc3e0a970d94b7fbc2a783bbc5
+      empirical_evidence: false
+      human_reviewed: false
+      gold_eligible: false
+      release_qualifying: false
+      publication_eligible: false
+    missing:
+      - two_independent_analysts
+      - distinct_reconciler
+      - authentic_rights_cleared_source_population
+      - authentic_frozen_sample
+      - authentic_empirical_evaluation
+    analyst_protocol: docs/43-v2-analyst-empirical-validation-protocol.md
+    pending_pilot_sample: examples/v2/bounded-empirical-pilot-sample.pending.json
+    approved_pilot_sample: examples/v2/bounded-empirical-pilot-sample.approved.json
+    pending_evidence_manifest: examples/v2/bounded-pilot-evidence-manifest.pending.json
+    approved_input_components: examples/v2/bounded-pilot-input-approval.approved.json
+    pending_execution_input_readiness: examples/v2/bounded-pilot-execution-input-readiness.pending.json
+    pending_attachment_text_method: examples/v2/bounded-pilot-attachment-text-method.pending.json
+    approved_attachment_text_method: examples/v2/bounded-pilot-attachment-text-method-approval.approved.json
+    pending_attachment_derivation_execution_request: examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json
+    approved_attachment_derivation_human_gate: examples/v2/bounded-pilot-attachment-derivation-human-approval.approved.json
+    approved_attachment_derivation_execution: examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json
+    failed_attachment_derivation_attempt: examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json
+    pending_attachment_stderr_diagnostic_request: examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json
+    pending_attachment_stderr_diagnostic_request_sha256: b8c16f51f86b4d1a462edf495dc309f4f6e1dd09c47fb55010a5d08955c40d7f
+    pending_attachment_stderr_diagnostic_request_commit: bcbb5865e8cd48421c013243609c06514f41bf09
+    approved_attachment_stderr_diagnostic_authorization: examples/v2/bounded-pilot-attachment-diagnostic-execution-authorization.approved.json
+    attachment_stderr_diagnostic_result: examples/v2/bounded-pilot-attachment-stderr-diagnostic-result.1.json
+    pending_attachment_stderr_content_review_request: examples/v2/bounded-pilot-attachment-stderr-content-review-request.pending.json
+    pending_attachment_stderr_content_review_request_sha256: 53154fc6bed37aaa26d9291bb74ddcb25a7a23c892d7b340fd28415e41defd9a
+    pending_attachment_stderr_content_review_request_commit: 26f2e159b26455843ef3b9522e75daef1d0bc7a2
+    approved_attachment_stderr_content_review: examples/v2/bounded-pilot-attachment-stderr-content-review.approved.json
+    attachment_stderr_content_review_result: examples/v2/bounded-pilot-attachment-stderr-content-review-result.1.json
+    pending_attachment_alternative_text_method: examples/v2/bounded-pilot-attachment-alternative-text-method.pending.json
+    pending_attachment_alternative_text_method_sha256: 9afcaa8ae32967e7b6aa19215e5731c11e0405e476db820748c6b42c47e47844
+    pending_attachment_alternative_text_method_commit: cd38a7b515fe406927515a40fd1a22b384ab28f8
+    approved_attachment_alternative_text_method: examples/v2/bounded-pilot-attachment-alternative-text-method-approval.approved.json
+    attachment_mutool_wrapper: src/foi_o_nz/bounded_pilot_attachment_mutool_derivation.py
+    attachment_mutool_wrapper_sha256: d8433bdaa8fabf994b9877575d4dce3727e20f0c6ff4d03e4f01eaf371c9a1cd
+    attachment_mutool_wrapper_commit: 81ad3e1b73b659a4c5885df2e6ccbc9c1cf891ed
+    pending_attachment_mutool_execution_request: examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json
+    pending_attachment_mutool_execution_request_sha256: f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148
+    pending_attachment_mutool_execution_request_commit: 971e03bed36188cb0aff4bd29d59aa21b51a63bb
+    approved_attachment_mutool_human_gate: examples/v2/bounded-pilot-attachment-mutool-human-approval.approved.json
+    approved_attachment_mutool_execution: examples/v2/bounded-pilot-attachment-mutool-execution-authorization.approved.json
+    approved_attachment_mutool_execution_sha256: ce027f226488547a806cb4bacbceb50ae273ba49b2eb1cff6d536f3fbc0dbea0
+    approved_attachment_mutool_execution_commit: 25e69c2316ce4ad902c06d0063be68da5cf458ba
+    attachment_mutool_derivation_result: examples/v2/bounded-pilot-attachment-mutool-derivation-result.1.json
+    attachment_mutool_derivation_result_sha256: 271a15a0f93451be4db2d35be0721c16734d0e643d8d04a5dfb421fb1bd4eded
+    attachment_mutool_derivation_result_commit: f5d59d22a77240db72884a2bedcffcbb731ea59d
+    pending_bounded_pilot_readiness_v02: examples/v2/bounded-pilot-execution-input-readiness.v0.2.pending.json
+    pending_bounded_pilot_readiness_v02_sha256: e91548e8814aba1659c0b1927fde70cad3a8809bb4c974d43d50606c500c016f
+    pending_bounded_pilot_readiness_v02_commit: 0e6e080bc63c0998a7ca46bc708734ae500f1302
+    bounded_pilot_readiness_status: pending_exact_bounded_readiness_approval
+    attachment_stderr_diagnostic_status: pdftotext_retry_blocked_mutool_derivation_complete_context_still_prohibited
   remote_delivery:
     status: partially_authorized
     authorized: [github_issue]
     still_gated: [push, pull_request, release, dataset, preprint]
+    gate_id: G-REMOTE-DELIVERY-AUTHORIZATION

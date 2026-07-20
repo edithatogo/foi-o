@@ -66,14 +66,13 @@ rdf = [
 ]
 experiments = [
   "instructor>=1.8.0",
-  "outlines>=0.2.0",
-  "dspy>=2.6.0",
   "litellm>=1.70.0",
   "opentelemetry-api>=1.25.0",
 ]
 dev = [
   "pytest>=8.4.0",
   "pytest-cov>=6.0.0",
+  "pytest-xdist>=3.8.0",
   "hypothesis>=6.130.0",
   "ruff>=0.15.16",
   "basedpyright>=1.39.9",
@@ -203,14 +202,50 @@ exclude_lines = [
 root = ["src", "tests", "scripts"]
 python-version = "3.12"
 
+[tool.ty.src]
+include = ["src", "tests", "scripts"]
+# These executed governance implementations are byte-pinned by approved
+# authorizations. Type debt is tracked without mutating those exact bytes.
+exclude = [
+  "scripts/promote_analyst_fixture_inputs.py",
+  "src/foi_o_nz/bounded_pilot_attachment_mutool_derivation.py",
+  "src/foi_o_nz/bounded_pilot_stage_runtime.py",
+]
+
+[tool.ty.analysis]
+# The repository intentionally imports executable helpers through the
+# namespace-package-style `scripts` directory during tests.
+allowed-unresolved-imports = [
+  "duckdb",
+  "fastmcp",
+  "lancedb",
+  "openai",
+  "polars",
+  "scripts",
+  "scripts.**",
+]
+
 [tool.basedpyright]
 include = ["src", "tests", "scripts"]
-exclude = ["**/__pycache__", "data", "generated", "external"]
+exclude = [
+  "**/__pycache__",
+  "data",
+  "generated",
+  "external",
+  "src/foi_o_nz/bounded_pilot_stage_runtime.py",
+]
 typeCheckingMode = "standard"
+# Strict mode is ratcheted over the repaired runtime modules first. Expand this
+# list as legacy JSON-boundary typing is narrowed; all other files remain under
+# the zero-diagnostic standard gate.
+strict = [
+  "src/foi_o_nz/cli.py",
+  "src/foi_o_nz/encoding.py",
+  "src/foi_o_nz/goldset.py",
+]
 baselineFile = "basedpyright-baseline.json"
 
 [tool.ty.rules]
-# Keep this relaxed until ty's third-party type story stabilises for pydantic/typer.
-unresolved-import = "ignore"
-unresolved-attribute = "ignore"
-invalid-assignment = "ignore"
+unresolved-import = "error"
+unresolved-attribute = "error"
+invalid-assignment = "error"

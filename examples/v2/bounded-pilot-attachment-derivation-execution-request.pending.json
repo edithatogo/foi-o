@@ -1,0 +1,30 @@
+{
+  "schema_version": "foi-o.bounded-pilot-attachment-derivation-execution-request.v0.1.0",
+  "request_id": "bounded-pilot-11872-attachment-derivation-execution",
+  "status": "pending_exact_execution_authorization",
+  "wrapper_repository_commit": "3c93d974361e60f6b4dc6c89328a2eba806a3ff0",
+  "method": {"path": "examples/v2/bounded-pilot-attachment-text-method.pending.json", "sha256": "99918773c74eed9a923972eb5a498e8a4166c8958ac53b04c4358f70ef1d770a"},
+  "method_approval": {"path": "examples/v2/bounded-pilot-attachment-text-method-approval.approved.json", "sha256": "b036b475541a2334019b771fce789b7a7d97a4c30282bbada68a88a68ad12d51"},
+  "wrapper": {"path": "src/foi_o_nz/bounded_pilot_attachment_derivation.py", "sha256": "95bc4d29862d29301e8fca43cd9dbee7c77e1632445afd16655af92f8cb2d27d"},
+  "sources": [
+    {"inventory_pointer": "/0", "relative_path": "content/attachments/20OIA1186 Extension letter Lambert.pdf", "sha256": "787ac62017c339e6fba9dba53ec699f143c9aea9554adc10cbdf686a90f4f4de", "size": 702556, "response_message_id": 45225, "output_name": "attachment-000.txt"},
+    {"inventory_pointer": "/1", "relative_path": "content/attachments/OIA response K Lambert.pdf", "sha256": "30e63d1d5d65a416cee9aeb1d2734d1ee8a21da5594e308760e176d0b012c0e4", "size": 217655, "response_message_id": 45813, "output_name": "attachment-001.txt"},
+    {"inventory_pointer": "/2", "relative_path": "content/attachments/Attachment Items 1 13.pdf", "sha256": "1d1c9eda958de560abea6285182ed6f4ae747944cabfc6bc7485f5707adec79d", "size": 12339055, "response_message_id": 45813, "output_name": "attachment-002.txt"}
+  ],
+  "method_tool": {"name": "pdftotext", "version": "26.07.0", "identity_policy": "exact_version_and_resolved_executable_sha256"},
+  "runtime_observation": {"discovered_path": "/opt/homebrew/bin/pdftotext", "resolved_path": "/opt/homebrew/Cellar/poppler/26.07.0/bin/pdftotext", "executable_sha256": "e3350fcebb4edc20b6e2cf806f66013ec0c238a3ecbcba3eec8c4489de7884d8"},
+  "environment": {"LC_ALL": "C.UTF-8", "LANG": "C.UTF-8", "TZ": "UTC"},
+  "argv_template": ["pdftotext", "-layout", "-enc", "UTF-8", "-eol", "unix", "<input>", "<output>"],
+  "output_contract": {"directory": "isolated_local_temp_outside_repository", "directory_permissions": "owner_only", "filename_source": "zero_based_inventory_index_three_digits", "pages": "all", "bytes": "direct_tool_output_no_post_normalization", "encoding_validation": "strict_utf8", "citation_coordinates": "unicode_code_points_half_open_with_source_and_output_sha256", "repeat_runs_required": 2, "repeat_outputs_must_match": true, "completion": "atomic_complete_set_install", "manifest_only_committed": true, "content_committed": false},
+  "failure_contract": {"source_hash_recheck_required": true, "source_hash_postcheck_required": true, "safe_relative_paths_required": true, "symlinks_allowed": false, "network_allowed": false, "clean_output_directory_required": true, "timeout_seconds": 120, "exit_code_required": 0, "nonempty_output_required": true, "stderr_captured_and_hashed": true, "nonempty_stderr_requires_review": true, "all_or_nothing": true, "partial_readiness_allowed": false, "ocr_fallback_allowed": false, "clean_after_failure_required": true},
+  "requested_scope": "two_pass_local_pdf_text_derivation_for_exact_three_request_11872_attachments_only",
+  "authorization_present": false,
+  "pdf_processing_allowed": false,
+  "derived_content_creation_allowed": false,
+  "context_presentation_allowed": false,
+  "analyst_execution_allowed": false,
+  "reconciliation_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false
+}

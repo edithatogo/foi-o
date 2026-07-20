@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:bounded-pilot-candidate-diagnostics:0.2.0",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "fraction": {"type": "object", "additionalProperties": false, "required": ["count", "denominator"], "properties": {"count": {"type": "integer", "minimum": 0, "maximum": 2}, "denominator": {"const": 2}}},
+    "case": {"type": "object", "additionalProperties": false, "required": ["request_id", "label_agreement", "span_exact_agreement", "abstention_agreement", "reconciliation_outcome"], "properties": {"request_id": {"enum": ["11872", "35076"]}, "label_agreement": {"type": "boolean"}, "span_exact_agreement": {"type": "boolean"}, "abstention_agreement": {"type": "boolean"}, "reconciliation_outcome": {"enum": ["mechanical_agreement", "resolved_disagreement", "unresolved"]}}}
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "diagnostics_id", "status", "analysis_sets", "analysis_lock_sha256", "reconciliation_sha256", "request_ids", "denominator", "label_agreement", "span_exact_agreement", "abstention_agreement", "abstention_counts", "unresolved_count", "cohens_kappa", "cohens_kappa_omission_reason", "cases", "claim_scope", "population_inference", "archive_wide_claim", "empirical_result_approved", "human_reviewed", "gold_eligible", "local_only", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-candidate-diagnostics.v0.2.0"}, "diagnostics_id": {"const": "bounded-pilot-11872-35076-candidate-diagnostics"}, "status": {"const": "candidate_pending_exact_result_approval"},
+    "analysis_sets": {"type": "array", "prefixItems": [{"$ref": "#/$defs/sha256"}, {"$ref": "#/$defs/sha256"}], "items": false, "minItems": 2, "maxItems": 2}, "analysis_lock_sha256": {"$ref": "#/$defs/sha256"}, "reconciliation_sha256": {"$ref": "#/$defs/sha256"}, "request_ids": {"const": ["11872", "35076"]}, "denominator": {"const": 2},
+    "label_agreement": {"$ref": "#/$defs/fraction"}, "span_exact_agreement": {"$ref": "#/$defs/fraction"}, "abstention_agreement": {"$ref": "#/$defs/fraction"}, "abstention_counts": {"type": "object", "additionalProperties": false, "required": ["analyst_a", "analyst_b"], "properties": {"analyst_a": {"type": "integer", "minimum": 0, "maximum": 2}, "analyst_b": {"type": "integer", "minimum": 0, "maximum": 2}}}, "unresolved_count": {"type": "integer", "minimum": 0, "maximum": 2},
+    "cohens_kappa": {"const": null}, "cohens_kappa_omission_reason": {"const": "purposive_two_case_pilot_too_small_for_stable_inference"},
+    "cases": {"type": "array", "prefixItems": [{"allOf": [{"$ref": "#/$defs/case"}, {"properties": {"request_id": {"const": "11872"}}}]}, {"allOf": [{"$ref": "#/$defs/case"}, {"properties": {"request_id": {"const": "35076"}}}]}], "items": false, "minItems": 2, "maxItems": 2},
+    "claim_scope": {"const": "descriptive_case_level_feasibility_only"}, "population_inference": {"const": false}, "archive_wide_claim": {"const": false}, "empirical_result_approved": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "local_only": {"const": true}, "prohibited_actions": {"const": ["empirical_result_approval", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates", "arxiv_submission"]}
+  }
+}

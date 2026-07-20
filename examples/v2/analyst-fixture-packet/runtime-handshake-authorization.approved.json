@@ -1,0 +1,93 @@
+{
+  "analysis_execution_allowed": false,
+  "approval_review": {
+    "path": "examples/v2/analyst-fixture-packet/role-authorization-approval.approved.json",
+    "sha256": "9290ac2d3934ff844cf98b1e5c39b42aa960b7f086279dc9bd652767252312b4"
+  },
+  "approved_by": "human:edithatogo",
+  "approved_input_readiness": {
+    "path": "examples/v2/analyst-fixture-packet/input-readiness.approved.json",
+    "sha256": "814409acac7401118428bcad2d73df1b1eb8b1bf79c2fa8ce3ea0bdb560b8b6e"
+  },
+  "approved_on": "2026-07-18",
+  "authorization_id": "local-fixture-runtime-handshake-2026-07-18",
+  "context_presentation": {
+    "path": "examples/v2/analyst-fixture-packet/context-presentation.pending.json",
+    "sha256": "72b75eb688541a712a62bea2569fb84353930c089ebaf8fc1082128aa3ef0e63"
+  },
+  "context_presentation_allowed": false,
+  "empirical_evidence": false,
+  "final_execution_wrapper_required": true,
+  "future_execution_prompts": {
+    "analyst_a": {
+      "path": "examples/v2/analyst-fixture-packet/prompts/analyst_a.future-execution.v1.txt",
+      "sha256": "ab8cd28ea7b98eae235069555ef5d239ef47d6b8ca1fe1ee6715e67d0f045908"
+    },
+    "analyst_b": {
+      "path": "examples/v2/analyst-fixture-packet/prompts/analyst_b.future-execution.v1.txt",
+      "sha256": "3bcb3b37c8d3a19e51a152c0b72aee82dba088bf822aa8cdc299cbbf029dfb6a"
+    },
+    "orchestrator": {
+      "path": "examples/v2/analyst-fixture-packet/prompts/orchestrator.future-execution.v1.txt",
+      "sha256": "c817ee25c74ea08ebdecf28ad52d126bbc6e8debfd3a9d32f7c8f02c3571112a"
+    },
+    "reconciler": {
+      "path": "examples/v2/analyst-fixture-packet/prompts/reconciler.future-execution.v1.txt",
+      "sha256": "80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081"
+    }
+  },
+  "gold_eligible": false,
+  "handshake_prompt": {
+    "path": "examples/v2/analyst-fixture-packet/prompts/runtime-provenance-handshake.v1.txt",
+    "sha256": "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77"
+  },
+  "human_reviewed": false,
+  "isolation_plan": {
+    "path": "examples/v2/analyst-fixture-packet/role-isolation-plan.pending.json",
+    "sha256": "fe2558b57c6a44b20fcde235c79ccc2a7517f6f774450a2f01e176a19cee18b9"
+  },
+  "local_only": true,
+  "preparation_commit": "91013a0f69d3a376ec749bbad83902e7ac4dd2a7",
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "reconciliation_allowed": false,
+  "recorded_at": "2026-07-18T23:22:46+10:00",
+  "release_qualifying": false,
+  "request": {
+    "path": "examples/v2/analyst-fixture-packet/role-authorization-request.pending.json",
+    "sha256": "232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c"
+  },
+  "role_provenance": {
+    "analyst_a": {
+      "path": "examples/v2/analyst-fixture-packet/role-provenance.analyst_a.pending.json",
+      "sha256": "899bfc9a6a70fa916b5d65e21aa3b64cf31b02bc82ab319c94555a722c0b0b35"
+    },
+    "analyst_b": {
+      "path": "examples/v2/analyst-fixture-packet/role-provenance.analyst_b.pending.json",
+      "sha256": "9be881edce63ef461e91d7bc785fdf9fe23a97cbe3bee12ec35de98374bec208"
+    },
+    "orchestrator": {
+      "path": "examples/v2/analyst-fixture-packet/role-provenance.orchestrator.pending.json",
+      "sha256": "b08dedc5f0c2f48f106f92aab5185d7decddea9a8995c5744ac8371ad68dc9c8"
+    },
+    "reconciler": {
+      "path": "examples/v2/analyst-fixture-packet/role-provenance.reconciler.pending.json",
+      "sha256": "5df3c98f2c3535ddbfc3df0abb42fd668fa3a40b35982494c9fbc6cd20c990f7"
+    }
+  },
+  "runtime_handshake_allowed": true,
+  "schema_version": "foi-o.fixture-runtime-handshake-authorization.v0.1.0",
+  "status": "approved_runtime_handshake_only"
+}

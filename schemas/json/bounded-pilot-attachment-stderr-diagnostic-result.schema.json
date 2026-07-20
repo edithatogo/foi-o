@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-stderr-diagnostic-result:0.1.0",
+  "$defs": {"sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha"}}}},
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "result_id", "status", "repository_commit", "authorization", "diagnostic_request", "wrapper", "pre_execution_verifier_passed", "diagnostic_reproduction_complete", "observations", "quarantine", "postflight", "warning_policy_determined", "derivation_retry_authorized", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-stderr-diagnostic-result.v0.1.0"},
+    "result_id": {"const": "bounded-pilot-11872-attachment-stderr-diagnostic-1"},
+    "status": {"const": "completed_local_diagnostic_review_required"},
+    "repository_commit": {"const": "b6fa258e2f4ef10d2bee18c0f0de260657cb3a21"},
+    "authorization": {"$ref": "#/$defs/pin"}, "diagnostic_request": {"$ref": "#/$defs/pin"}, "wrapper": {"$ref": "#/$defs/pin"},
+    "pre_execution_verifier_passed": {"const": true}, "diagnostic_reproduction_complete": {"const": true},
+    "observations": {"type": "object", "additionalProperties": false, "required": ["attempt_count", "successful_return_count", "stderr_emitting_attempt_count", "stderr_source_index", "stderr_source_sha256", "stderr_byte_count_per_emitting_attempt", "stderr_sha256", "stderr_fingerprint_reproduced_across_passes", "stderr_content_reviewed"], "properties": {"attempt_count": {"const": 6}, "successful_return_count": {"const": 6}, "stderr_emitting_attempt_count": {"const": 2}, "stderr_source_index": {"const": 2}, "stderr_source_sha256": {"$ref": "#/$defs/sha"}, "stderr_byte_count_per_emitting_attempt": {"const": 198}, "stderr_sha256": {"$ref": "#/$defs/sha"}, "stderr_fingerprint_reproduced_across_passes": {"const": true}, "stderr_content_reviewed": {"const": false}}},
+    "quarantine": {"type": "object", "additionalProperties": false, "required": ["path", "directory_mode", "metadata_mode", "stderr_mode", "metadata_sha256", "stderr_file_count", "local_only", "content_committed"], "properties": {"path": {"const": "/private/tmp/.foio-attachment-diagnostic-zdnisebu"}, "directory_mode": {"const": "0700"}, "metadata_mode": {"const": "0600"}, "stderr_mode": {"const": "0600"}, "metadata_sha256": {"$ref": "#/$defs/sha"}, "stderr_file_count": {"const": 2}, "local_only": {"const": true}, "content_committed": {"const": false}}},
+    "postflight": {"const": {"output_directory_present": false, "temporary_workspaces_present": false, "derived_text_retained": false, "repository_clean": true}},
+    "warning_policy_determined": {"const": false}, "derivation_retry_authorized": {"const": false}, "context_presentation_allowed": {"const": false}, "analyst_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+  }
+}

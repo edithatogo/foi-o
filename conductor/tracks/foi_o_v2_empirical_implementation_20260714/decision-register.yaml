@@ -24,3 +24,15 @@ decisions:
   - id: D-008
     decision: separate_immutable_archive_from_versioned_nlp_derivatives
     rationale: preserve raw evidence while enabling reproducible ontology-pinned re-extraction
+  - id: D-009
+    decision: treat_adjacent_as_at_intervals_as_unapproved_candidates
+    rationale: deterministic ordering does not establish legal commencement or amendment applicability
+  - id: D-010
+    decision: keep_bounded_correspondence_audit_separate_from_archive_wide_claims
+    rationale: request 35076 has one correspondence item but no attachment evidence and cannot justify generalization
+  - id: D-011
+    decision: require_distinct_human_annotation_roles_before_sample_freeze
+    rationale: protocol approval cannot substitute for two blinded annotators and a distinct adjudicator
+  - id: D-012
+    decision: separate_rendered_html_attachment_supplement_from_canonical_fyi_json_capture
+    rationale: request 11872 exposes three attachment links in rendered HTML while its FYI JSON attachment inventory is empty

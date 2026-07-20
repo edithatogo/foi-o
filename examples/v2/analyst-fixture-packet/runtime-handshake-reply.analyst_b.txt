@@ -1,0 +1,5 @@
+1. Canonical task/session locator: `/root/fixture_analyst_b_ready`
+2. Provider family: OpenAI
+3. Model/runtime family: Codex, GPT-5
+4. Exact model snapshot: unavailable
+5. Immutable session/agent UUID: unavailable

@@ -1,0 +1,41 @@
+{
+  "approval_id": "local-fixture-diagnostics-method-2026-07-19",
+  "approval_statement": "I, edithatogo, approve pending fixture diagnostics-method candidate SHA-256 6e44b634e1bfde2cc21dd99f79fd0ad4bcd5a7fb96d361be7aae09567ed4c699 as committed in c104a4cf193ef5f26de66b584e6a8cf37864a97e for bounded local inter-agent diagnostics execution and finalization under the exact method recorded by that candidate. This approval does not authorize empirical-evidence claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates.",
+  "approval_statement_sha256": "4ae892642f0b03e291a8e0c80c5c2bae12fea17908b02cde16fa340ad94e188b",
+  "approved_by": "human:edithatogo",
+  "approved_candidate": {
+    "path": "examples/v2/analyst-fixture-packet/diagnostics-method-candidate.pending.json",
+    "repository_commit": "c104a4cf193ef5f26de66b584e6a8cf37864a97e",
+    "sha256": "6e44b634e1bfde2cc21dd99f79fd0ad4bcd5a7fb96d361be7aae09567ed4c699"
+  },
+  "approved_on": "2026-07-19",
+  "bootstrap_execution_allowed": false,
+  "committed_authorization_required": true,
+  "derivation_approved": true,
+  "diagnostics_finalization_allowed": false,
+  "empirical_evidence": false,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "pre_execution_verification_required": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "recorded_at": "2026-07-19T04:34:13Z",
+  "recording_note": "recorded_at is repository provenance and is not claimed as approval time",
+  "release_qualifying": false,
+  "schema_version": "foi-o.fixture-diagnostics-method-approval.v0.1.0",
+  "scope": "derive_bounded_local_fixture_diagnostics_authorization_only",
+  "status": "approved_bounded_local_diagnostics_derivation"
+}

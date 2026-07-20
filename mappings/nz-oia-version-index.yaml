@@ -1,0 +1,60 @@
+schema_version: foi-o.nz-oia-version-index.v0.1.0
+status: candidate
+retrieved_on: "2026-07-16"
+source_listing_url: https://www.legislation.govt.nz/act/public/1982/156/en/2025-04-05/versions/?per_page=100&sort=asc
+source_listing_sha256: 85db4c17da00f85e4e1980b6e00def277b242425525d77e825b1594bdd61eeaa
+human_review:
+  status: pending
+  promotion_allowed: false
+  required_action: Verify downloaded PDF hashes and event-time applicability intervals before source-pack approval.
+versions:
+  - {version_id: "0_1", as_at: "1982-12-17", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/1982-12-17.pdf", content_sha256: "70a94744cb685f511a65b483a935d79234d9db5643a4e2f9adb80ddf4fe99873"}
+  - {version_id: "1_0", as_at: "2007-09-03", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2007-09-03.pdf", content_sha256: "b170667f419d4f872574846e37669a55e9f53472042289572c2b9914584ea780"}
+  - {version_id: "4_0", as_at: "2007-11-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2007-11-01.pdf", content_sha256: "29b7f89cd03460b1f69c6b3967fa90bae2875f36eefe8e8c9c390dd47e4cc46c"}
+  - {version_id: "7_0", as_at: "2008-11-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2008-11-01.pdf", content_sha256: "ffe82197719264211ac3d85e0056d55e538176d63db5b4f35bd5209959e13fa1"}
+  - {version_id: "14_0", as_at: "2009-06-29", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2009-06-29.pdf", content_sha256: "20753967c07341042d6f964de8c72017337d4dcfda616fc47846cde67be9515a"}
+  - {version_id: "17_0", as_at: "2009-07-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2009-07-01.pdf", content_sha256: "8d405cd11b2b58c15a05263d484d92853428f78aac80d7dda51f2ffa66af8764"}
+  - {version_id: "20_0", as_at: "2010-03-23", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2010-03-23.pdf", content_sha256: "38045f27e3108b54c4ded69d21e827c1626c42fa3cea08c543232fa04ba9795d"}
+  - {version_id: "23_0", as_at: "2010-11-23", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2010-11-23.pdf", content_sha256: "c20c91bab3f7c0b20c13055a49bedcfec668c7f103e0d05e79331703d087644e"}
+  - {version_id: "26_0", as_at: "2010-11-29", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2010-11-29.pdf", content_sha256: "ffc28181fb9122746b022b180a5ed36ff575304aba4533dc775474f612abaa6f"}
+  - {version_id: "29_0", as_at: "2011-02-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2011-02-01.pdf", content_sha256: "2f7b345a99016145a6d7a5e209d760ac8dd6776ca9c23f2ac9a7c3c96e2850e0"}
+  - {version_id: "32_0", as_at: "2011-05-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2011-05-01.pdf", content_sha256: "39ac9f0db90144896384faa807dc2d8d3d11c5f9d15d05fa0aab726e91ad2743"}
+  - {version_id: "35_0", as_at: "2011-07-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2011-07-01.pdf", content_sha256: "f3b691749e8359bdc6b3512547019ade43f5aa848adf78c67f25ea85ac4d8104"}
+  - {version_id: "40_0", as_at: "2012-07-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2012-07-01.pdf", content_sha256: "b2a42070ee5e50a5f7748e6a544b11ee2297e19612490c2910455005d451d66b"}
+  - {version_id: "46_0", as_at: "2013-06-13", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2013-06-13.pdf", content_sha256: "def51c039f372ef644bb3a10356570aea98a8f7983a3a9c1416bfd1252c13e9a"}
+  - {version_id: "49_0", as_at: "2013-08-05", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2013-08-05.pdf", content_sha256: "490f28d24923e8439fcfbeaac7a61a0ec7223371fc21cc0c07d0665709360c31"}
+  - {version_id: "52_0", as_at: "2013-08-27", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2013-08-27.pdf", content_sha256: "7f5c49232ec8c3313592ee24d89fceac481186eab14a94dd98e46ddaaaab3cb0"}
+  - {version_id: "55_0", as_at: "2013-11-28", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2013-11-28.pdf", content_sha256: "53cff262d1b5acd3b7c279748dcf63a1a6e80580d16b73bbea2bcd252ac0bbda"}
+  - {version_id: "58_0", as_at: "2013-12-05", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2013-12-05.pdf", content_sha256: "7bc1ad66c4d8a32feac0485c9d9bd3dd128f88c1f98aa2ffa0c98e4b06364599"}
+  - {version_id: "61_0", as_at: "2014-01-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2014-01-01.pdf", content_sha256: "d4ca2382b1acc0c72e5f883d72cb76c2df794862ec4e45b3fbeec0b3d691d75e"}
+  - {version_id: "64_0", as_at: "2014-11-12", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2014-11-12.pdf", content_sha256: "114098f0df5d023c3c7af052ec27389bfb363039f5055ea29e9e53c30a5f6e0b"}
+  - {version_id: "68_0", as_at: "2014-12-06", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2014-12-06.pdf", content_sha256: "b49bf7424203a78d86e6bc5368e28865c2552c0307f80531c8fbda2b620d3d8e"}
+  - {version_id: "71_0", as_at: "2014-12-07", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2014-12-07.pdf", content_sha256: "a5f07c2c64437b5dc0b7971c9e1eaa13a5e1251cd063ac6c6c15c0b899c57852"}
+  - {version_id: "74_0", as_at: "2015-03-26", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2015-03-26.pdf", content_sha256: "f07489329dee7b1f68f5cf6a54d2f7b81e2422169e768125c33147bfdb7364b6"}
+  - {version_id: "77_0", as_at: "2015-10-21", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2015-10-21.pdf", content_sha256: "9631657f53b6ad58056a84dc63eae9d31b52e714fd525c18df03a5219673827c"}
+  - {version_id: "80_0", as_at: "2015-12-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2015-12-01.pdf", content_sha256: "d3a7c884c396b4a370fc14da36059e092a4b2b2d51fe9afbc190cd779761e18a"}
+  - {version_id: "83_0", as_at: "2016-03-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2016-03-01.pdf", content_sha256: "eae886b925143e85e9eea39f9079f1518162b6e5e66dbea7e229f116a3d5f5fc"}
+  - {version_id: "89_0", as_at: "2016-07-05", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2016-07-05.pdf", content_sha256: "0dd17f499a6b92ebd48bbf1fe119315f1af73c6ea1b325309e1c47844d5774a0"}
+  - {version_id: "95_0", as_at: "2016-10-29", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2016-10-29.pdf", content_sha256: "55e6dba16eecfbff7efbb9f80a383fce06973f607a8c972a39f408e1d83515cd"}
+  - {version_id: "98_0", as_at: "2017-03-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2017-03-01.pdf", content_sha256: "39722a3623d425d05ec53ab9c9a2e3842478c7ae780762076b8538b36a1701de"}
+  - {version_id: "101_0", as_at: "2017-03-07", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2017-03-07.pdf", content_sha256: "a20dbadf7b05758bdf7219715eeb8a120ce54e221a43009f9ca43b2304601f71"}
+  - {version_id: "104_0", as_at: "2017-06-03", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2017-06-03.pdf", content_sha256: "dc1fc941a5c734ad28a61f22321a853048f748849252c55f4a73c40b1df36051"}
+  - {version_id: "107_0", as_at: "2018-10-24", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2018-10-24.pdf", content_sha256: "820cdc8e6f7db6089cb7c8a8e605a22ffbcb82b51e79bc5b0e3e2a3bf91cb85a"}
+  - {version_id: "110_0", as_at: "2019-07-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2019-07-01.pdf", content_sha256: "23d8d1ac53d80c62437cd51489ed83476d83e6cd297dfda6449be7ed4db4b738"}
+  - {version_id: "113_0", as_at: "2019-10-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2019-10-01.pdf", content_sha256: "9c1633b47a75a6b2b5ced376c7bfd6e41def83c3852af8ebcef1c3d57c82d0c0"}
+  - {version_id: "116_0", as_at: "2019-10-24", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2019-10-24.pdf", content_sha256: "e01a59f120bcf200510d9489f6ee7494e8658beeb7cb8f50852735a1a3d46c8f"}
+  - {version_id: "119_0", as_at: "2019-12-20", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2019-12-20.pdf", content_sha256: "24eca55e24c8a6f859d6e732f06cfe0ecb83ccb9ac6c890e3bbba6be53f635cd"}
+  - {version_id: "122_0", as_at: "2020-03-24", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2020-03-24.pdf", content_sha256: "7f4f0254c3512703e11dba71b66a6b76666542a8b94cd7bd95d6ff181cd0864f"}
+  - {version_id: "125_0", as_at: "2020-04-03", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2020-04-03.pdf", content_sha256: "df9a0d2a060fb9dbf1c1dce20ff955270644075d206634ca556ec95064f2484d"}
+  - {version_id: "128_0", as_at: "2020-08-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2020-08-01.pdf", content_sha256: "8efc5283583d052fb38b761da044fa0a41f6e50f40541a824f75151db76f1392"}
+  - {version_id: "134_0", as_at: "2020-08-07", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2020-08-07.pdf", content_sha256: "f4ab94394f17dfe657f40a3fb86cb006958d3a78f131f4a418f1ae756d7be326"}
+  - {version_id: "137_0", as_at: "2020-12-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2020-12-01.pdf", content_sha256: "0166351e2a1fa515aa38674954d65742c48215c1dad98bb6f6dd29be96073719"}
+  - {version_id: "140_0", as_at: "2021-01-30", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2021-01-30.pdf", content_sha256: "eeb29eb413001c8a5580d802d4039de4cdca06038b24246cd24ee378808bdc25"}
+  - {version_id: "143_0", as_at: "2021-02-09", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2021-02-09.pdf", content_sha256: "b3c04ce19b0f626ecd95b1e9bbf0b65263d7838e4b05acc9cab16bd43d6b9193"}
+  - {version_id: "146_0", as_at: "2021-10-28", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2021-10-28.pdf", content_sha256: "2f093c338eea0d2954748205438bc1b4fdd96a2ae91066677e263bb8a36dba5b"}
+  - {version_id: "149_0", as_at: "2022-04-12", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2022-04-12.pdf", content_sha256: "cfc64fa49c1cb1663f5383de6c05d9b7bf9c90f0bc8503fa72dcbc044d29492b"}
+  - {version_id: "152_0", as_at: "2022-09-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2022-09-01.pdf", content_sha256: "d771b92a79c59bdfb1d06adbcec0fb5d7af06a2f5ecc8d9cece7b38d007e6804"}
+  - {version_id: "155_0", as_at: "2023-05-01", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2023-05-01.pdf", content_sha256: "048be6188595f25790604b1cb11746ef302bb0a8d0437010cec7ad25e204b193"}
+  - {version_id: "158_0", as_at: "2024-12-24", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2024-12-24.pdf", content_sha256: "7a1936dccce210f4c8f4f73686a48b5ec9fdbaf793f914e8a5645d28aa6cad50"}
+  - {version_id: "161_0", as_at: "2025-01-26", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2025-01-26.pdf", content_sha256: "a44e85f9b69fd8c2096f32f08d6d2eea92923ec4fe77448138c7072d78f6715d"}
+  - {version_id: "164_0", as_at: "2025-04-05", pdf_url: "https://www.legislation.govt.nz/act/public/1982/156/en/2025-04-05.pdf", content_sha256: "a70767c575bc22a262e70e98a32a7410bdd5e0fc504f6d94ecb6597934454523"}

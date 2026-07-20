@@ -1,0 +1,31 @@
+{
+  "schema_version": "foi-o.bounded-pilot-input-approval.v0.1.0",
+  "approval_id": "bounded-pilot-inputs-11872-35076-approved",
+  "status": "approved_for_bounded_local_execution_input_promotion_only",
+  "approved_by": "edithatogo",
+  "approved_on": "2026-07-19",
+  "recorded_at": "2026-07-19T07:34:32Z",
+  "approval_statement": "I, edithatogo, approve bounded pilot evidence census SHA-256 ec0fd4bf4b68bf265ea2bb342982816a820ccefcd2c8c7f69c4324f76851f6cd as committed in c66de8f6efa1ce7835b5751e1ff598a46a58c184 and blinded pilot codebook SHA-256 2848b675b63231d97fb4d47f5b8bdff4cd1e9947676ed50af80dbaa0e128bde9 as committed in 3e9de3404e6c41f894d7fa0e9dc325559d83fd28 for bounded local execution-input promotion only. I approve the complete mechanical census of five correspondence blocks, all three supplemental request 11872 attachments, request 35076’s verified empty attachment inventory, and the blinded 17-state vocabulary and decision rules. This does not authorize context presentation, analyst execution, reconciliation, empirical-result approval, population inference, archive-wide claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates. A separately committed exact execution authorization and successful clean-HEAD pre-execution verification remain required.",
+  "approval_statement_sha256": "8ba3e83eee8313edd530d7ab04c805231277866e4d638b5d8c5be8296776ab33",
+  "approved_artifacts": {
+    "evidence_manifest": {"path": "examples/v2/bounded-pilot-evidence-manifest.pending.json", "sha256": "ec0fd4bf4b68bf265ea2bb342982816a820ccefcd2c8c7f69c4324f76851f6cd", "repository_commit": "c66de8f6efa1ce7835b5751e1ff598a46a58c184"},
+    "blinded_codebook": {"path": "examples/v2/bounded-pilot-blinded-codebook.pending.json", "sha256": "2848b675b63231d97fb4d47f5b8bdff4cd1e9947676ed50af80dbaa0e128bde9", "repository_commit": "3e9de3404e6c41f894d7fa0e9dc325559d83fd28"}
+  },
+  "evidence_census_approved": true,
+  "blinded_codebook_approved": true,
+  "approved_scope": {"correspondence_block_count": 5, "request_11872_attachment_count": 3, "request_35076_empty_attachment_inventory": true, "vocabulary_state_count": 17, "decision_rules_approved": true},
+  "approved_purpose": "bounded_local_execution_input_promotion_only",
+  "context_presentation_allowed": false,
+  "execution_allowed": false,
+  "reconciliation_allowed": false,
+  "empirical_result_approval": false,
+  "population_inference_allowed": false,
+  "archive_wide_claim_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false,
+  "legal_certified": false,
+  "separate_execution_authorization_required": true,
+  "clean_head_pre_execution_verification_required": true,
+  "prohibited_actions": ["context_presentation", "analyst_execution", "reconciliation", "empirical_result_approval", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]
+}

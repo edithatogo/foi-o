@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-mutool-execution-request:0.1.0",
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha"}}},
+    "source": {"type": "object", "additionalProperties": false, "required": ["inventory_pointer", "relative_path", "sha256", "size", "response_message_id", "output_name"], "properties": {"inventory_pointer": {"type": "string", "pattern": "^/[0-2]$"}, "relative_path": {"type": "string", "pattern": "^content/attachments/.+\\.pdf$"}, "sha256": {"$ref": "#/$defs/sha"}, "size": {"type": "integer", "minimum": 1}, "response_message_id": {"type": "integer", "minimum": 1}, "output_name": {"type": "string", "pattern": "^attachment-00[0-2]\\.txt$"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "status", "method", "method_approval", "wrapper", "wrapper_repository_commit", "source_root", "output_directory", "sources", "method_tool", "runtime_observation", "environment", "argv_template", "output_contract", "failure_contract", "requested_scope", "authorization_present", "pdf_processing_allowed", "derived_content_creation_allowed", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-mutool-execution-request.v0.1.0"},
+    "request_id": {"const": "bounded-pilot-11872-attachment-mutool-execution"},
+    "status": {"const": "pending_exact_execution_authorization"},
+    "method": {"const": {"path": "examples/v2/bounded-pilot-attachment-alternative-text-method.pending.json", "sha256": "9afcaa8ae32967e7b6aa19215e5731c11e0405e476db820748c6b42c47e47844"}},
+    "method_approval": {"const": {"path": "examples/v2/bounded-pilot-attachment-alternative-text-method-approval.approved.json", "sha256": "5b6b26e9991309f46912af760e9c5f21d712b64e1806e90ce5a19c2034b79541"}},
+    "wrapper": {"const": {"path": "src/foi_o_nz/bounded_pilot_attachment_mutool_derivation.py", "sha256": "d8433bdaa8fabf994b9877575d4dce3727e20f0c6ff4d03e4f01eaf371c9a1cd"}},
+    "wrapper_repository_commit": {"const": "81ad3e1b73b659a4c5885df2e6ccbc9c1cf891ed"},
+    "source_root": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"},
+    "output_directory": {"const": "/private/tmp/foio-bounded-pilot-11872-derived"},
+    "sources": {"const": [{"inventory_pointer": "/0", "relative_path": "content/attachments/20OIA1186 Extension letter Lambert.pdf", "sha256": "787ac62017c339e6fba9dba53ec699f143c9aea9554adc10cbdf686a90f4f4de", "size": 702556, "response_message_id": 45225, "output_name": "attachment-000.txt"}, {"inventory_pointer": "/1", "relative_path": "content/attachments/OIA response K Lambert.pdf", "sha256": "30e63d1d5d65a416cee9aeb1d2734d1ee8a21da5594e308760e176d0b012c0e4", "size": 217655, "response_message_id": 45813, "output_name": "attachment-001.txt"}, {"inventory_pointer": "/2", "relative_path": "content/attachments/Attachment Items 1 13.pdf", "sha256": "1d1c9eda958de560abea6285182ed6f4ae747944cabfc6bc7485f5707adec79d", "size": 12339055, "response_message_id": 45813, "output_name": "attachment-002.txt"}]},
+    "method_tool": {"const": {"name": "mutool", "engine": "MuPDF", "version": "1.24.9", "identity_policy": "exact_version_and_resolved_executable_sha256", "ocr_enabled": false}},
+    "runtime_observation": {"const": {"discovered_path": "/usr/local/bin/mutool", "resolved_path": "/usr/local/bin/mutool", "executable_sha256": "9c74c9c868d318d129bf2f6d2178c66fe0dde4185f1c7152754bf847e3fe3c02"}},
+    "environment": {"const": {"LC_ALL": "C.UTF-8", "LANG": "C.UTF-8", "TZ": "UTC"}},
+    "argv_template": {"const": ["mutool", "draw", "-q", "-F", "txt", "-o", "<output>", "<input>"]},
+    "output_contract": {"const": {"directory": "isolated_local_temp_outside_repository", "directory_permissions": "owner_only", "filename_source": "zero_based_inventory_index_three_digits", "pages": "all", "bytes": "direct_tool_output_no_post_normalization", "encoding_validation": "strict_utf8", "repeat_runs_required": 2, "repeat_outputs_must_match": true, "completion": "atomic_complete_set_install", "manifest_only_committed": true, "content_committed": false}},
+    "failure_contract": {"const": {"source_hash_recheck_required": true, "source_hash_postcheck_required": true, "safe_relative_paths_required": true, "symlinks_allowed": false, "network_allowed": false, "clean_output_directory_required": true, "timeout_seconds": 120, "exit_code_required": 0, "ignore_errors_option_allowed": false, "nonempty_output_required": true, "stderr_captured_and_hashed": true, "nonempty_stderr_requires_review": true, "all_or_nothing": true, "partial_readiness_allowed": false, "ocr_fallback_allowed": false, "pdf_repair_allowed": false, "parser_chaining_allowed": false, "clean_after_failure_required": true}},
+    "requested_scope": {"const": "two_pass_local_mupdf_text_derivation_for_exact_three_request_11872_attachments_only"},
+    "authorization_present": {"const": false},
+    "pdf_processing_allowed": {"const": false},
+    "derived_content_creation_allowed": {"const": false},
+    "context_presentation_allowed": {"const": false},
+    "analyst_execution_allowed": {"const": false},
+    "reconciliation_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false}
+  }
+}

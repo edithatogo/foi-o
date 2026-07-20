@@ -1,0 +1,98 @@
+{
+  "schema_version": "foi-o.upstream-extraction-readiness.v0.3.0",
+  "audited_at": "2026-07-16T11:10:49Z",
+  "upstreams": {
+    "fyi_archive": {
+      "repository": "https://github.com/edithatogo/fyi-archive",
+      "repository_revision": "7b2d245a3319b1915eb522929ee669da5e3533fd",
+      "verification_evidence": {
+        "path": "versions/2026-07/backfill_verification.json",
+        "sha256": "cc85852985b77ea8b9c0717903890faaf282ee5ae547d25512e0c4b472de041f"
+      },
+      "verified_record_count": 33217,
+      "published_manifest_revision": "fc27bfa471c598a31d975cfa2b603b1a11408e55",
+      "published_manifest_sha256": "23cab9ee0ac6986326d67c91a91e415456a1d0589c90ec1c1628556e0d0d6e1e",
+      "rights_metadata_complete": false,
+      "approved_local_content_snapshot": {
+        "request_id": "35076",
+        "record_count": 1,
+        "content_bearing": true,
+        "published": false,
+        "reviewer": "edithatogo",
+        "reviewed_at": "2026-07-16T10:40:17Z",
+        "purpose": "foi-o-candidate-extraction",
+        "redistribution_allowed": false,
+        "reviewed_pending_manifest_sha256": "d850ca367c2069d7e6d9ac39e8534779d0f64f2b3d708d36f773c0e3a2e271e3",
+        "approved_manifest_sha256": "c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d",
+        "fyi_cli_revision": "c91e49dc7b2d9c3c42a5ad4a73ed7030ffd48eb1",
+        "page_html_sha256": "1b4d083b20929c33f1c706e8e022c5c4b6b0a847a7ae38c6b62017f88b9d3f51",
+        "request_json_sha256": "893db5bf83bbcf9661094723fa55a92239e022aacd9c212cf61e916de0ade523"
+      }
+    },
+    "nlp_policy_nz": {
+      "repository": "https://github.com/edithatogo/nlp-policy-nz",
+      "repository_revision": "7fc78f14c1da6c1b165c0984c2173ae96307a3f6",
+      "adapter": {
+        "path": "src/nlp_policy_nz/extraction/foio_adapter.py",
+        "sha256": "b287fbfc38bc6775db32b2c347d313bbedea80db430c4edddb3cf91804acc244"
+      },
+      "raw_manifest_entrypoint": {
+        "path": "src/nlp_policy_nz/extraction/foio_raw_manifest.py",
+        "sha256": "caa2070238c37fae7636f2f46e8019b4d9802775e97540601e2afdb9d8344149"
+      },
+      "consumer_pins": {
+        "path": "data/foio/consumer_pins.json",
+        "sha256": "29c47752add559cd18609d50f2f1575346f576375a155a6e0379a8d1b48d0aa0"
+      },
+      "bounded_fixture": {
+        "path": "data/foio/bounded_evaluation_fixture.json",
+        "sha256": "2202238a5a549507007770fd14fd2b5ae59dbe8787419f1df9162a7e4bba034d"
+      },
+      "evaluation_report": {
+        "path": "artifacts/foio/bounded_evaluation_report.json",
+        "sha256": "8e68703c7215e60936433ef4a0f207fef983e27a34dd682aa7a7de76fdf16c5c"
+      },
+      "initial_baseline": {
+        "schema_version": "nlp-policy-nz.foio-raw-extraction.v0.2.0",
+        "artifact_sha256": "90550ce084be684ee493e2ce7470cbe0b01dee13b6253c50f91c7de9974d6007",
+        "verification_report_sha256": "0702d54e59c966958a759eb03f28018c96d197f27b948febf3374c3da4a6fcbc",
+        "source_manifest_sha256": "c929b312f4b627049b7867e46fa74b08ed8e9a43c35ba866871bead6f8a19b7d",
+        "pipeline_revision": "7fc78f14c1da6c1b165c0984c2173ae96307a3f6",
+        "verifier_revision": "baf1b229e248c19d0922c0e75ef395ba22858b33",
+        "archive_revision": "7b2d245a3319b1915eb522929ee669da5e3533fd",
+        "contract_sha256": "a730b18e7adaa1d1179de47800b8a92d41c9c8000dc9b8e4923d994f380340fa",
+        "retrieved_at": "2026-07-16T10:52:39Z",
+        "record_count": 1,
+        "review_status": "candidate",
+        "model_applied": false,
+        "storage": "local_only",
+        "published": false
+      },
+      "fixture_record_count": 2,
+      "fixture_is_synthetic": true,
+      "fixture_uses_placeholder_archive_revision": true,
+      "fixture_uses_placeholder_source_digest": true,
+      "raw_manifest_entrypoint_available": true,
+      "real_model_pin_available": true,
+      "model_applied_during_candidate_extraction": false,
+      "model": {
+        "model_id": "nlpaueb/legal-bert-base-uncased",
+        "revision": "15b570cbf88259610b082a167dacc190124f60f6",
+        "weights_file": "pytorch_model.bin",
+        "weights_sha256": "6b4f1da798ff101a66ad5cb11c6daa7f99cd41e7909277e01398576e8bd789bd"
+      },
+      "independent_annotation_complete": false
+    }
+  },
+  "contract_alignment": {
+    "foi_o_candidate_contract": "foi-o-extraction-contract/0.1.0",
+    "nlp_policy_nz_declared_contract": "0.1.0",
+    "compatible": true
+  },
+  "ready_for_governed_reextraction": false,
+  "blockers": [
+    "independent_annotation_pending",
+    "synthetic_fixture_only"
+  ],
+  "source_records_modified": false
+}

@@ -1,11 +1,180 @@
 {
   "track_id": "foi_o_v2_empirical_implementation_20260714",
   "type": "feature",
-  "status": "repo_local_implementation_complete_human_gates_pending",
+  "status": "active_bounded_pilot_readiness_approval_gate_pending",
   "created_at": "2026-07-14T00:00:00+10:00",
-  "updated_at": "2026-07-14T20:30:00+10:00",
+  "updated_at": "2026-07-19T13:09:57Z",
   "github_issue": "https://github.com/edithatogo/foi-o/issues/23",
   "depends_on_external": "edithatogo/rulesandprocesses:conductor/tracks/foi_o_v2_triangulation_20260708",
   "description": "Repository-native implementation of the FOI-O V2 empirical-governance overlay.",
-  "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns"
+  "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns",
+  "gates": [
+    {
+      "id": "G-EMP-AUTHENTIC-INPUTS",
+      "kind": "source_rights_and_population",
+      "status": "blocked",
+      "condition": "Populate an authentic content-bearing archive corpus only after item-level rights, exclusions, attribution, storage, and permitted-use boundaries are recorded and approved; metadata-only source-pack promotion is insufficient.",
+      "evidence_refs": [
+        "mappings/nz-source-rights-registry.yaml",
+        "examples/v2/nz-source-pack.governed-metadata.json",
+        "examples/v2/nz-source-pack-promotion.approved.json"
+      ],
+      "authorization_refs": [
+        "examples/v2/nz-source-pack-promotion.approved.json"
+      ],
+      "note": "The approval is metadata-only; source-content redistribution and publication remain unauthorized."
+    },
+    {
+      "id": "G-RAW-ARCHIVE-WIDE-EVIDENCE",
+      "kind": "source_evidence",
+      "status": "blocked",
+      "condition": "Verify correspondence and attachment evidence across the archive before making an archive-wide raw-state mapping claim; the two approved request-level mappings remain bounded to requests 11872 and 35076.",
+      "evidence_refs": [
+        "examples/v2/bounded-raw-state-audit.11872.json",
+        "examples/v2/bounded-raw-state-mapping-review.11872.json",
+        "examples/v2/bounded-raw-state-audit.35076.json",
+        "examples/v2/bounded-raw-state-mapping-review.35076.json"
+      ],
+      "authorization_refs": [
+        "examples/v2/bounded-raw-state-mapping-review.11872.json",
+        "examples/v2/bounded-raw-state-mapping-review.35076.json"
+      ],
+      "note": "The approvals apply only to requests 11872 and 35076."
+    },
+    {
+      "id": "G-EMP-SAMPLE-FREEZE",
+      "kind": "empirical_input_freeze",
+      "status": "blocked",
+      "depends_on": [],
+      "condition": "Obtain exact approval of the bounded two-case v0.2 execution-input readiness candidate for requests 11872 and 35076. Archive-wide and authentic-population evidence remain separate prerequisites only for broader claims.",
+      "evidence_refs": [
+        "schemas/json/empirical-sample-manifest.schema.json",
+        "docs/41-v2-sampling-and-annotation-protocol.md"
+      ],
+      "authorization_refs": [
+        "examples/v2/annotation-protocol-review.approved.json",
+        "examples/v2/bounded-empirical-pilot-sample.approved.json"
+      ],
+      "request_ref": "examples/v2/bounded-empirical-pilot-sample.pending.json",
+      "evidence_manifest_ref": "examples/v2/bounded-pilot-evidence-manifest.pending.json",
+      "codebook_request_ref": "examples/v2/bounded-pilot-blinded-codebook.pending.json",
+      "input_component_approval_ref": "examples/v2/bounded-pilot-input-approval.approved.json",
+      "execution_input_readiness_ref": "examples/v2/bounded-pilot-execution-input-readiness.pending.json",
+      "attachment_text_method_ref": "examples/v2/bounded-pilot-attachment-text-method.pending.json",
+      "attachment_text_method_approval_ref": "examples/v2/bounded-pilot-attachment-text-method-approval.approved.json",
+      "attachment_derivation_execution_request_ref": "examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json",
+      "attachment_derivation_human_approval_ref": "examples/v2/bounded-pilot-attachment-derivation-human-approval.approved.json",
+      "attachment_derivation_execution_authorization_ref": "examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json",
+      "attachment_derivation_attempt_ref": "examples/v2/bounded-pilot-attachment-derivation-attempt-failure.1.json",
+      "attachment_stderr_diagnostic_request_ref": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json",
+      "attachment_stderr_diagnostic_request_sha256": "b8c16f51f86b4d1a462edf495dc309f4f6e1dd09c47fb55010a5d08955c40d7f",
+      "attachment_stderr_diagnostic_request_commit": "bcbb5865e8cd48421c013243609c06514f41bf09",
+      "attachment_stderr_diagnostic_authorization_ref": "examples/v2/bounded-pilot-attachment-diagnostic-execution-authorization.approved.json",
+      "attachment_stderr_diagnostic_result_ref": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-result.1.json",
+      "attachment_stderr_content_review_request_ref": "examples/v2/bounded-pilot-attachment-stderr-content-review-request.pending.json",
+      "attachment_stderr_content_review_request_sha256": "53154fc6bed37aaa26d9291bb74ddcb25a7a23c892d7b340fd28415e41defd9a",
+      "attachment_stderr_content_review_request_commit": "26f2e159b26455843ef3b9522e75daef1d0bc7a2",
+      "attachment_stderr_content_review_approval_ref": "examples/v2/bounded-pilot-attachment-stderr-content-review.approved.json",
+      "attachment_stderr_content_review_result_ref": "examples/v2/bounded-pilot-attachment-stderr-content-review-result.1.json",
+      "attachment_alternative_text_method_ref": "examples/v2/bounded-pilot-attachment-alternative-text-method.pending.json",
+      "attachment_alternative_text_method_sha256": "9afcaa8ae32967e7b6aa19215e5731c11e0405e476db820748c6b42c47e47844",
+      "attachment_alternative_text_method_commit": "cd38a7b515fe406927515a40fd1a22b384ab28f8",
+      "attachment_alternative_text_method_approval_ref": "examples/v2/bounded-pilot-attachment-alternative-text-method-approval.approved.json",
+      "attachment_mutool_wrapper_ref": "src/foi_o_nz/bounded_pilot_attachment_mutool_derivation.py",
+      "attachment_mutool_wrapper_sha256": "d8433bdaa8fabf994b9877575d4dce3727e20f0c6ff4d03e4f01eaf371c9a1cd",
+      "attachment_mutool_wrapper_commit": "81ad3e1b73b659a4c5885df2e6ccbc9c1cf891ed",
+      "attachment_mutool_execution_request_ref": "examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json",
+      "attachment_mutool_execution_request_sha256": "f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148",
+      "attachment_mutool_execution_request_commit": "971e03bed36188cb0aff4bd29d59aa21b51a63bb",
+      "attachment_mutool_human_approval_ref": "examples/v2/bounded-pilot-attachment-mutool-human-approval.approved.json",
+      "attachment_mutool_execution_authorization_ref": "examples/v2/bounded-pilot-attachment-mutool-execution-authorization.approved.json",
+      "attachment_mutool_execution_authorization_sha256": "ce027f226488547a806cb4bacbceb50ae273ba49b2eb1cff6d536f3fbc0dbea0",
+      "attachment_mutool_execution_authorization_commit": "25e69c2316ce4ad902c06d0063be68da5cf458ba",
+      "attachment_mutool_derivation_result_ref": "examples/v2/bounded-pilot-attachment-mutool-derivation-result.1.json",
+      "attachment_mutool_derivation_result_sha256": "271a15a0f93451be4db2d35be0721c16734d0e643d8d04a5dfb421fb1bd4eded",
+      "attachment_mutool_derivation_result_commit": "f5d59d22a77240db72884a2bedcffcbb731ea59d",
+      "bounded_pilot_readiness_v02_ref": "examples/v2/bounded-pilot-execution-input-readiness.v0.2.pending.json",
+      "bounded_pilot_readiness_v02_sha256": "e91548e8814aba1659c0b1927fde70cad3a8809bb4c974d43d50606c500c016f",
+      "bounded_pilot_readiness_v02_commit": "0e6e080bc63c0998a7ca46bc708734ae500f1302",
+      "bounded_pilot_readiness_status": "pending_exact_bounded_readiness_approval",
+      "attachment_stderr_diagnostic_status": "pdftotext_retry_blocked_mutool_derivation_complete_context_still_prohibited",
+      "note": "The approved independent MuPDF derivation completed two byte-identical passes for all three exact request 11872 attachments without nonempty stderr. Restricted text remains owner-only under /private/tmp and uncommitted. The metadata-only result is committed. Context presentation, analyst execution, reconciliation, empirical claims, human review, gold promotion, legal certification, redistribution, publication, retry, release, dataset publication, and paper updates remain prohibited. The bounded result does not satisfy archive-wide or authentic-corpus gates."
+    },
+    {
+      "id": "G-EMP-ANALYST-EXECUTION",
+      "kind": "analyst_role_and_execution_contract",
+      "status": "blocked",
+      "depends_on": ["G-EMP-SAMPLE-FREEZE"],
+      "condition": "Obtain and execute an exact contract naming two independent analysts and a distinct reconciler, with actor-class and runtime provenance. Automated agents may fill these roles. Their authentic, verified outputs may support bounded empirical claims but remain non-human-reviewed and non-gold unless separately approved.",
+      "evidence_refs": [
+        "docs/43-v2-analyst-empirical-validation-protocol.md",
+        "schemas/json/empirical-execution-authorization.schema.json",
+        "schemas/json/locked-annotation-record.schema.json",
+        "schemas/json/adjudication-record.schema.json"
+      ],
+      "authorization_refs": [
+        "examples/v2/analyst-empirical-protocol-approval.approved.json"
+      ],
+      "request_ref": "examples/v2/analyst-empirical-protocol-approval.pending.json",
+      "note": "The v0.2 analyst protocol design is exactly approved. Sample membership, runtime assignment, context presentation, analysis, and reconciliation remain unauthorized."
+    },
+    {
+      "id": "G-EMP-EVALUATION",
+      "kind": "empirical_evaluation",
+      "status": "blocked",
+      "depends_on": ["G-EMP-SAMPLE-FREEZE", "G-EMP-ANALYST-EXECUTION"],
+      "condition": "Run the registered comparison and reliability evaluation over an authentic frozen sample with two independent locked analysis sets and distinct reconciliation. Limit claims to the sampled design; fixture-only inter-agent diagnostics do not satisfy this gate.",
+      "evidence_refs": [
+        "schemas/json/reliability-report.schema.json",
+        "examples/v2/analyst-fixture-packet/results/inter-agent-diagnostics.locked.json"
+      ],
+      "authorization_refs": [],
+      "note": "Fixture diagnostics SHA-256 fe2f9e29136fca68894bc3960b7a5cfcc4f97edc3e0a970d94b7fbc2a783bbc is synthetic and non-empirical."
+    },
+    {
+      "id": "G-EMP-PROMOTION",
+      "kind": "human_promotion_authorization",
+      "status": "blocked",
+      "depends_on": ["G-EMP-EVALUATION"],
+      "condition": "After authentic empirical verification passes, obtain a separate exact human approval for any reviewed or gold-label promotion; fixture approvals and diagnostics authorization do not permit promotion.",
+      "evidence_refs": [
+        "examples/v2/human-promotion-review-packet.approved.json"
+      ],
+      "authorization_refs": [],
+      "note": "The historical approval covers independent rule fixtures only."
+    },
+    {
+      "id": "G-RELEASE-EVIDENCE-BUNDLE",
+      "kind": "release_evidence",
+      "status": "blocked",
+      "depends_on": ["G-EMP-EVALUATION", "G-EMP-PROMOTION", "G-REMOTE-DELIVERY-AUTHORIZATION"],
+      "condition": "Generate, freeze, and publish the versioned immutable release-evidence bundle only after authentic empirical comparison, independent analysis and reconciliation, reliability evaluation, promotion approval, and explicit external-delivery authorization are complete.",
+      "evidence_refs": [
+        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/release-gates.yaml"
+      ],
+      "authorization_refs": []
+    },
+    {
+      "id": "G-PAPER-UPDATE-PREREQUISITE",
+      "kind": "publication_prerequisite",
+      "status": "blocked",
+      "depends_on": ["G-RELEASE-EVIDENCE-BUNDLE"],
+      "condition": "Trigger no RaC Conformance paper-update workflow until the immutable release-evidence bundle exists and is published; the earlier arXiv record does not satisfy this prerequisite.",
+      "evidence_refs": [
+        "docs/30-arxiv-readiness.md"
+      ],
+      "authorization_refs": [],
+      "note": "arXiv:2607.02947 is the earlier methods manuscript and is not V2 release evidence."
+    },
+    {
+      "id": "G-REMOTE-DELIVERY-AUTHORIZATION",
+      "kind": "external_action_authorization",
+      "status": "pending",
+      "condition": "Obtain explicit human authorization before any pull request, dataset publication, software release, paper update, or preprint submission; GitHub-issue authorization does not extend to these actions.",
+      "evidence_refs": [
+        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/release-gates.yaml"
+      ],
+      "authorization_refs": []
+    }
+  ]
 }

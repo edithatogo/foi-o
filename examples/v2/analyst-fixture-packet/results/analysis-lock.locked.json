@@ -1,0 +1,51 @@
+{
+  "analysis_sets": [
+    {
+      "path": "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-a.locked.json",
+      "sha256": "d22f72d91ade4a4a5992ba50ba54afa1586203a23d394f256066ef23b4b6c400"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-b.locked.json",
+      "sha256": "ff72a35f840c97f26b07108c963574d664359b260719ad0dfc7c2986c0d665dd"
+    }
+  ],
+  "authorization": {
+    "path": "examples/v2/analyst-fixture-packet/execution-authorization.v0.2.pending-verification.json",
+    "sha256": "6b92051ae1ad1b7899f4ad102d4df4ec68267d196458f5bfbd461e89ba999d95"
+  },
+  "codebook": {
+    "path": "examples/v2/analyst-fixture-packet/codebook.approved.json",
+    "sha256": "d918f1b705debcd6d8a14c078d7d0044e23c10615c9a7c27e4122d03088bbfdc"
+  },
+  "context_presentation": {
+    "path": "examples/v2/analyst-fixture-packet/context-presentation.pending.json",
+    "sha256": "72b75eb688541a712a62bea2569fb84353930c089ebaf8fc1082128aa3ef0e63"
+  },
+  "empirical_evidence": false,
+  "first_pass_sets_complete": true,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "lock_id": "local-fixture-dual-analysis",
+  "ordered_unit_commitment_sha256": "d6e5c6b425903f09c6e3e08e0d6c4ccdee11eea91835d6ba96f64ba3306cf8ca",
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "reconciliation_executed": false,
+  "reconciliation_inputs_ready": true,
+  "release_qualifying": false,
+  "schema_version": "foi-o.analyst-fixture-analysis-lock.v0.1.0",
+  "status": "locked_complete_dual_analysis",
+  "unit_count": 11
+}

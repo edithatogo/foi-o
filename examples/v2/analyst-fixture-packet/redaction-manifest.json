@@ -1,0 +1,130 @@
+{
+  "canonicalization": {
+    "encoding": "utf-8",
+    "ensure_ascii": false,
+    "parse": "json_object",
+    "separators": [
+      ",",
+      ":"
+    ],
+    "sort_keys": true
+  },
+  "created_at": "2026-07-17T12:00:00Z",
+  "empirical_evidence": false,
+  "entries": [
+    {
+      "context_sha256": "b08edb67a9e64513dc81769a3d9144c05cd34ba474d53dbdabfb13c7ad28cbae",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-01",
+      "unit_sha256": "bed785acf4a464c002d13e9f1d27098cf66b26ff2e5ab4e337a00916231aadc2"
+    },
+    {
+      "context_sha256": "ec9e9da6d8be29986db232c1b7092b20e982c2772d053ac6c1a6815fc544d743",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-02",
+      "unit_sha256": "b23cb1c9ead448c42ed7b160b2e0fc5c5e303d9046e8dd219e23a935b4dd1de9"
+    },
+    {
+      "context_sha256": "c6fa6d0906f6a45c14c255d75bf94f1d39e1b37c281ba5416aadddb83846c4a6",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-03",
+      "unit_sha256": "3cc7f8e406e13030df3f853855ad9435c019d9aa1855fc01c603f7731ea0dcce"
+    },
+    {
+      "context_sha256": "58864554f58f35125f9b192e32d79611b81f7f7024d0f38ff200b17da23f3cfa",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-04",
+      "unit_sha256": "ae1797d8dc319bfdb1ddb29e781d3075a7aac61f90a737444b6510f37c57cac7"
+    },
+    {
+      "context_sha256": "58e3beeeb7bee15d1c27223875b4e24d8c1820599f7cf0e6666a9f20bcaf97ee",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-05",
+      "unit_sha256": "124e4bf04e811ef473ed9cd06940923eee0c404c116821ad69e62a106bf9751e"
+    },
+    {
+      "context_sha256": "1307b7be52a658b396ff22b08a084fe0f4f5b9f02f2cc31cf47a095fc391ba53",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-06",
+      "unit_sha256": "f3adc9dcb5a72d2aab88ac445bf975b2673e7b174a16f00bc9893d1b761ca946"
+    },
+    {
+      "context_sha256": "64df206ad030aa969cf58c546d6867579ad6cfa7f5df7ad5b4d9afd5e2b77441",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-07",
+      "unit_sha256": "132dd8fb81a20519aeaa9cbe29dba5cd77c55103f91f38a8f5d555b14262d9bf"
+    },
+    {
+      "context_sha256": "b6ca473399dd4ae610ca78e669a8547376e437d76ecc2f3ce9bec0dd7c203c6a",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-08",
+      "unit_sha256": "8a302f49c79fcdc8f3f7e127453751fb06e4da75cda388e989c926f3073eb4ff"
+    },
+    {
+      "context_sha256": "283b995062e6b6a89585288fc3623586adeac938e5c3a4aa0eb8c24d53acb6a3",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status"
+      ],
+      "unit_id": "pm-09",
+      "unit_sha256": "86adf190350f3f554f5bae2e843d489210ce3878fc546b94b702c84b8580bdc1"
+    },
+    {
+      "context_sha256": "93109c4296b57b74f72cfa965189f005bef76439819004a545df9b218e534583",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status",
+        "confidence"
+      ],
+      "unit_id": "tl-01",
+      "unit_sha256": "48f608e1cda79fed7a9b30ffe9bf4adf6510609698089a1437aaccd48ab8d2b4"
+    },
+    {
+      "context_sha256": "3b1a905fa0dee289682c3895bd44c0074344487aea7d1b4a272222852bbe1860",
+      "forbidden_keys_absent": true,
+      "removed_keys": [
+        "assertion_status",
+        "confidence"
+      ],
+      "unit_id": "tl-02",
+      "unit_sha256": "a7c6ace3fe8bbf3681e640d31b2641c3927f7ad6c140866ee57db05b3f9c75fd"
+    }
+  ],
+  "forbidden_keys": [
+    "assertion_status",
+    "confidence"
+  ],
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "locked_at": "2026-07-17T12:00:00Z",
+  "manifest_id": "local-fixture-redaction-v1",
+  "publication_eligible": false,
+  "release_qualifying": false,
+  "schema_version": "foi-o.analyst-redaction-manifest.v0.1.0",
+  "status": "locked"
+}

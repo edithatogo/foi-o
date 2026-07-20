@@ -1,0 +1,49 @@
+{
+  "actor_id": "agent:orchestrator-fixture-stream",
+  "analysis_execution_allowed": false,
+  "canonical_session_locator": "/root/fixture_stream_ready",
+  "context_presentation_allowed": false,
+  "delivered_at": null,
+  "delivery_time_available": false,
+  "empirical_evidence": false,
+  "evidence_id": "local-fixture-runtime-handshake-orchestrator-2026-07-19",
+  "exact_model_snapshot": null,
+  "exact_model_snapshot_available": false,
+  "fixture_context_delivered_with_handshake": false,
+  "gold_eligible": false,
+  "handshake_authorization": {
+    "path": "examples/v2/analyst-fixture-packet/runtime-handshake-authorization.approved.json",
+    "repository_commit": "393991ea0cfdaf9f016108bf74edae94b80f042a",
+    "sha256": "de140e1397df2f1e20aa9ceede443d589d6bacbca9a767fecc2992644f1c056f"
+  },
+  "handshake_prompt": {
+    "path": "examples/v2/analyst-fixture-packet/prompts/runtime-provenance-handshake.v1.txt",
+    "sha256": "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77"
+  },
+  "handshake_prompt_delivered": true,
+  "human_reviewed": false,
+  "immutable_session_agent_uuid": null,
+  "immutable_session_agent_uuid_available": false,
+  "label_material_delivered_with_handshake": false,
+  "local_only": true,
+  "normalized_runtime_family": "Codex / GPT-5",
+  "peer_output_delivered_with_handshake": false,
+  "provider_family": "OpenAI",
+  "publication_eligible": false,
+  "raw_reply": {
+    "path": "examples/v2/analyst-fixture-packet/runtime-handshake-reply.orchestrator.txt",
+    "sha256": "534a227af8320e53b545a3d0336bb4ef7836a499750b3b976a63fe3e52c4fb4f"
+  },
+  "raw_reply_text": "1. Canonical task/session locator: `/root/fixture_stream_ready`\n2. Provider family: OpenAI\n3. Model/runtime family: GPT-5 / Codex\n4. Exact model snapshot: unavailable\n5. Immutable session or agent UUID: unavailable\n",
+  "reconciliation_allowed": false,
+  "recorded_at": "2026-07-19T10:00:36+10:00",
+  "recording_note": "recorded_at is repository provenance and is not a delivery or reply time",
+  "release_qualifying": false,
+  "reply_at": null,
+  "reply_time_available": false,
+  "reported_runtime_family": "GPT-5 / Codex",
+  "role": "orchestrator_non_labeling",
+  "role_key": "orchestrator",
+  "schema_version": "foi-o.fixture-runtime-handshake-evidence.v0.1.0",
+  "status": "captured_runtime_handshake_only"
+}

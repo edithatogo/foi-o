@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-empirical-pilot-sample-approval:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approval_id", "status", "approved_by", "approved_on", "recorded_at", "approval_statement", "approval_statement_sha256", "approved_candidate", "approved_members", "approved_purpose", "sample_membership_approved", "purpose_rights_approved", "context_presentation_allowed", "execution_allowed", "population_inference_allowed", "archive_wide_claim_allowed", "empirical_evidence", "human_reviewed", "gold_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-empirical-pilot-sample-approval.v0.1.0"},
+    "approval_id": {"const": "foi-o-nz-bounded-pilot-11872-35076-approved"},
+    "status": {"const": "approved_sample_and_local_purpose_only"},
+    "approved_by": {"const": "edithatogo"},
+    "approved_on": {"const": "2026-07-19"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "approval_statement": {"type": "string", "minLength": 100},
+    "approval_statement_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "approved_candidate": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/bounded-empirical-pilot-sample.pending.json"}, "sha256": {"const": "a77ec8eef9266319dcdca874ea74f58a427961121731a24736d9165bb57cee8e"}, "repository_commit": {"const": "9538cc6d31d8b00ec31baa55592b9012b026ba68"}}},
+    "approved_members": {"const": ["11872", "35076"]},
+    "approved_purpose": {"const": "bounded_local_agent_empirical_pilot"},
+    "sample_membership_approved": {"const": true},
+    "purpose_rights_approved": {"const": true},
+    "context_presentation_allowed": {"const": false},
+    "execution_allowed": {"const": false},
+    "population_inference_allowed": {"const": false},
+    "archive_wide_claim_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "prohibited_actions": {"type": "array", "minItems": 16, "maxItems": 16, "uniqueItems": true, "items": {"enum": ["context_presentation", "analyst_execution", "reconciliation", "empirical_result_approval", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]}}
+  }
+}

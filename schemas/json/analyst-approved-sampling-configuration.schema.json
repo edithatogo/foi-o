@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:analyst-approved-sampling-configuration:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "configuration_id", "status", "protocol_sha256", "source_population_sha256", "codebook_revision", "random_seed", "probability_sample_size", "enrichment_sample_size", "sample_size_justification", "strata", "inclusion_probability_field", "weight_field", "duplicate_cluster_rule", "exclusion_rule", "split_policy", "bootstrap", "created_at", "approved_by", "approved_on", "recorded_at"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-approved-sampling-configuration.v0.1.0"}, "configuration_id": {"type": "string", "minLength": 1}, "status": {"const": "approved"}, "protocol_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "source_population_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "codebook_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"}, "random_seed": {"const": 20260717}, "probability_sample_size": {"const": 11}, "enrichment_sample_size": {"const": 0}, "sample_size_justification": {"type": "string", "minLength": 20}, "strata": {"const": ["synthetic_fixture"]}, "inclusion_probability_field": {"const": "inclusion_probability"}, "weight_field": {"const": "sampling_weight"}, "duplicate_cluster_rule": {"type": "string", "minLength": 10}, "exclusion_rule": {"type": "string", "minLength": 10},
+    "split_policy": {"const": {"grouped_by": "duplicate_cluster", "splits": ["annotation_only"]}}, "bootstrap": {"type": "object", "additionalProperties": false, "required": ["confidence_level", "sides", "resampling_unit", "replicates", "interval_method"], "properties": {"confidence_level": {"const": 0.95}, "sides": {"const": "two_sided"}, "resampling_unit": {"const": "duplicate_cluster"}, "replicates": {"type": "integer", "minimum": 1000}, "interval_method": {"const": "percentile"}}},
+    "created_at": {"type": "string", "format": "date-time"}, "approved_by": {"const": "human:edithatogo"}, "approved_on": {"const": "2026-07-17"}, "recorded_at": {"const": "2026-07-17T23:04:58+10:00"}
+  }
+}

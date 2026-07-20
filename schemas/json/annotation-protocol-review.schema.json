@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:annotation-protocol-review:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "status", "reviewer", "reviewed_at", "protocol_path", "protocol_sha256", "approval_statement", "protocol_design_approved", "execution_authorized", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.annotation-protocol-review.v0.1.0"},
+    "status": {"const": "approved"},
+    "reviewer": {"const": "edithatogo"},
+    "reviewed_at": {"type": "string", "format": "date-time"},
+    "protocol_path": {"const": "docs/41-v2-sampling-and-annotation-protocol.md"},
+    "protocol_sha256": {"const": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63"},
+    "approval_statement": {"const": "I, edithatogo, approve sampling and annotation protocol SHA-256 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63. This approves the protocol design only and does not approve sample membership, labels, adjudication outcomes, empirical results, gold promotion, publication, release, or dataset publication."},
+    "protocol_design_approved": {"const": true},
+    "execution_authorized": {"const": false},
+    "prohibited_actions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sample_membership_approval", "label_approval", "adjudication_outcome_approval", "empirical_result_approval", "gold_promotion", "publication", "release", "dataset_publication"],
+      "properties": {
+        "sample_membership_approval": {"const": false}, "label_approval": {"const": false}, "adjudication_outcome_approval": {"const": false}, "empirical_result_approval": {"const": false},
+        "gold_promotion": {"const": false}, "publication": {"const": false}, "release": {"const": false}, "dataset_publication": {"const": false}
+      }
+    }
+  }
+}

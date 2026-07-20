@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:analyst-local-rights-review:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "review_id", "status", "purpose", "sources", "license_placeholder", "local_analysis_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "redistribution_granted", "prohibited_actions", "created_at", "approved_by", "approved_at"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-local-rights-review.v0.1.0"}, "review_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["pending_exact_human_approval", "approved_bounded_local_use"]}, "purpose": {"const": "bounded_local_agent_analysis"},
+    "sources": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"enum": ["examples/process-mining-events.fixture.jsonl", "examples/event-timeline.small.json"]}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
+    "license_placeholder": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "grants_redistribution"], "properties": {"path": {"const": "LICENSE.md"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "grants_redistribution": {"const": false}}},
+    "local_analysis_allowed": {"type": "boolean"}, "local_only": {"const": true}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false}, "redistribution_granted": {"const": false},
+    "prohibited_actions": {"type": "array", "uniqueItems": true, "minItems": 9, "maxItems": 9, "items": {"enum": ["redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update"]}},
+    "created_at": {"type": "string", "format": "date-time"}, "approved_by": {"type": ["string", "null"], "pattern": "^human:[A-Za-z0-9._-]+$"}, "approved_at": {"type": ["string", "null"], "format": "date-time"}
+  },
+  "allOf": [{"if": {"properties": {"status": {"const": "approved_bounded_local_use"}}}, "then": {"properties": {"local_analysis_allowed": {"const": true}, "approved_by": {"type": "string"}, "approved_at": {"type": "string", "format": "date-time"}}}, "else": {"properties": {"local_analysis_allowed": {"const": false}, "approved_by": {"const": null}, "approved_at": {"const": null}}}}]
+}

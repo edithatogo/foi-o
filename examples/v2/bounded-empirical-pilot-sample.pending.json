@@ -1,0 +1,43 @@
+{
+  "schema_version": "foi-o.bounded-empirical-pilot-sample-candidate.v0.1.0",
+  "sample_id": "foi-o-nz-bounded-pilot-11872-35076",
+  "status": "pending_exact_sample_and_purpose_rights_approval",
+  "recorded_at": "2026-07-19T06:33:39Z",
+  "protocol_approval": {"path": "examples/v2/analyst-empirical-protocol-approval.approved.json", "sha256": "f4e95cdf065397d5a1d6fcef731297b43c83bdeb835a793321a47e6f97de545d"},
+  "sample_kind": "purposive_bounded_case_pilot",
+  "claim_scope": "case_level_feasibility_for_requests_11872_and_35076_only",
+  "members": [
+    {
+      "request_id": "11872",
+      "existing_approved_purpose": "local_raw_state_mapping_audit_only",
+      "requested_purpose": "bounded_local_agent_empirical_pilot",
+      "purpose_expansion_required": true,
+      "evidence": [
+        {"path": "examples/v2/bounded-raw-state-audit.11872.json", "sha256": "efcbd60cadb1d43d00f244a8e32f0016f6013a648a539d152d1843dd4fc1223a"},
+        {"path": "examples/v2/fyi-attachment-snapshot-readiness.11872.json", "sha256": "713514c00a4a363a8aa46459a9462fedd67cd0d9e3896e653a0f51efb81aaaa4"},
+        {"path": "examples/v2/bounded-raw-state-mapping-review.11872.json", "sha256": "bfa25427c2ce03b4d948111ba51d54a3c3c8669236a5e69e073c528cffbd45fc"}
+      ]
+    },
+    {
+      "request_id": "35076",
+      "existing_approved_purpose": "local_candidate_extraction_only",
+      "requested_purpose": "bounded_local_agent_empirical_pilot",
+      "purpose_expansion_required": true,
+      "evidence": [
+        {"path": "examples/v2/governed-reextraction-packet.35076.json", "sha256": "9cc0e849e170c12ba23b292736f40f728fb3bad5dbcf364e26ed279b7a760d82"},
+        {"path": "examples/v2/bounded-raw-state-audit.35076.json", "sha256": "ef9a6d56a9dc6399f10084a928e30a865130b3ff81ef7b16b658249b3d4f489a"},
+        {"path": "examples/v2/bounded-raw-state-mapping-review.35076.json", "sha256": "a2125c4b50763fc444f48185c72e23ec8e9c659e0c6b04d0f33ae68cf0a628a3"}
+      ]
+    }
+  ],
+  "local_only": true,
+  "population_inference_allowed": false,
+  "archive_wide_claim_allowed": false,
+  "sample_membership_approved": false,
+  "purpose_rights_approved": false,
+  "execution_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false,
+  "prohibited_actions": ["context_presentation", "analyst_execution", "reconciliation", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]
+}
