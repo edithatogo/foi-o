@@ -1,0 +1,4 @@
+Task: Align manuscript regression assertion
+Files: tests/test_submission_package.py
+Verification: uv sync --extra dev --extra rdf; full pytest 818 passed, 2 skipped
+Reason: hosted CI correctly detected that the old wording assertion no longer matched the revised manuscript.
