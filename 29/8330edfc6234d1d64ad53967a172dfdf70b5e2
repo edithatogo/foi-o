@@ -1,0 +1,5 @@
+Task: Hosted CI provenance repair
+Files: .github/workflows/ci.yml, README.md
+Verification: actionlint; uv sync --extra dev --extra rdf; serial pytest 818 passed, 2 skipped
+Cause addressed: shallow checkout omitted pinned historical commits on both Python jobs; floating Python 3.14 resolved to 3.14.6 while governed diagnostics require exact CPython 3.14.5
+Remaining risk: hosted rerun required.
