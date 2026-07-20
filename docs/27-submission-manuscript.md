@@ -20,18 +20,19 @@ abstract: |
   outcomes. FOI-O is a reusable process-modelling method and verification
   infrastructure for Freedom of Information administration. It is a global
   model that began with the New Zealand Official Information Act and has since
-  iterated through Australian Commonwealth and New South Wales jurisdiction
-  adapters. The NZ package remains the mature reference implementation;
-  Australian adapters remain candidate-only pending empirical evaluation and
+  iterated through the Australian Commonwealth and New South Wales settings.
+  The NZ package remains the mature reference implementation; the Australian
+  work remains provisional pending empirical evaluation and
   jurisdiction-specific legal validation. FOI-O models request records,
   observed correspondence, controlled vocabularies, provenance, review queues,
-  release metadata, and bounded analytical contracts. Legally meaningful
-  outcomes require certification by an authorised decision-maker. Its typed
+  release metadata, and bounded analysis rules. Legally meaningful outcomes
+  require certification by an authorised decision-maker. Its typed
   operational and semantic contracts are
   supported by deterministic examples, process models, fixture-only
   process-mining exports, quality gates, and tests. This article describes the motivation, architecture,
-  ontology-development method, the V2 empirical extraction contract, the
-  cross-repository data-publication pathway, the Australian profile strategy,
+  ontology-development method, its versioned extraction and review protocol,
+  how related repositories share data and evidence, and how the method may be
+  adapted for Australia,
   validation evidence, and implementation boundaries. The project is not legal advice, is not an official government
   publication, and does not certify release, refusal, redaction, charging,
   extension, transfer, complaint, or publication outcomes.
@@ -123,9 +124,9 @@ Zealand provides a concrete legal and administrative setting that the author
 understands, and FYI provides public request material that can test a practical
 model [1-5]. FOI-O is now the global reusable method and conceptual frame.
 FOI-O NZ remains its mature reference implementation. Australian Commonwealth
-and NSW adapters are the next iterations of the same core, but remain
-candidate-only until separate jurisdiction-specific sources, mappings,
-evaluation evidence, and human promotion gates pass.
+and New South Wales are the first two provisional adaptations of the same core.
+They remain unvalidated until each has its own sources, mappings, evaluation
+evidence, and approval record.
 
 FOI regimes differ in deadlines, exemptions, appeal paths, proactive
 publication practice, reporting categories, and institutional culture. They
@@ -140,21 +141,21 @@ release metadata, and tests. These can be inspected without live credentials or
 private request content. Together, they show the boundary between
 repository-local proof and future external validation.
 
-This article contributes eight repository-local artefact groups. First, it
+This article contributes eight groups of repository materials. First, it
 defines schema-first request and event contracts for observed and candidate FOI
 process evidence. Second, it provides an OWL, SKOS, RDF, and SHACL semantic
 layer for vocabulary and constraint review. Third, it encodes a
 certification boundary that prevents software from certifying
 legal or administrative outcomes. Fourth, it adds BPMN and PNML process-model
-artefacts for review and interchange. Fifth, it provides fixture-only XES and
+materials for review and interchange. Fifth, it provides fixture-only XES and
 OCEL-style process-mining exports with fixture conformance checks. Sixth, it
-records a New Zealand empirical annotation task-set manifest that remains a
-plan until independent review and adjudication evidence exists. Seventh, it defines a
-V2 empirical extraction contract with explicit capability declarations,
+records a New Zealand annotation study plan that remains a plan until
+independent review and adjudication evidence exists. Seventh, it defines a
+versioned extraction and review protocol with explicit capability declarations,
 immutable dependency pins, evidence thresholds, and human promotion gates.
 Eighth, it defines independently versioned core, country, and subdivision
-profiles, with Australian Commonwealth and New South Wales adapters retained as
-candidate pilots rather than represented as validated legal profiles.
+profiles, with the Australian Commonwealth and New South Wales adaptations
+retained as provisional pilots rather than presented as validated legal profiles.
 
 The article is organised as follows. The Methods section states the design
 principles, repository architecture, ontology-development protocol, process
@@ -336,9 +337,10 @@ Python tests, not on specialised runtimes, hardware, or model-serving installs.
 
 ## Empirical Extraction and Jurisdiction Profiles
 
-The V2 contract extends rather than replaces the V1 method. V1 established
+The versioned protocol extends rather than replaces the earlier method. The
+earlier method established
 source provenance, epistemic status, evidence references, validation, and the
-human-certification boundary. V2 adds machine-readable capability declarations
+human-certification boundary. The newer protocol adds capability declarations
 and promotion evidence. An adapter can be promoted only when its source,
 profile, model, and transformation versions are immutably identified; its
 evaluation data have a recorded rights basis; independent annotation and
@@ -353,7 +355,7 @@ such as `foi-o-nz` and the planned `foi-o-au`, declare compatible core-version
 ranges. Subdivision profiles, such as `foi-o-au-nsw`, also declare a
 compatible parent-country profile. The existing Python distribution remains
 the implemented NZ package while these contracts mature. Australian
-Commonwealth and NSW adapters are the first candidate pilots. They are not
+Commonwealth and New South Wales are the first provisional pilots. They are not
 promoted legal profiles, and the remaining Australian states and territories
 remain disabled until each has jurisdiction-specific legislation, examples,
 annotation, evaluation, compatibility evidence, and jurisdiction-specific legal
@@ -481,7 +483,7 @@ SHACL shapes & Semantic validation and safety constraints over RDF exports. \\
 Review action schema & Preparatory analytical outputs bounded away from legal certification. \\
 Process-model artefacts & State machine, BPMN, and PNML review/interchange models for workflow structure. \\
 Process-mining fixtures & Deterministic event-log, XES, OCEL-style, and fixture-conformance artefacts. \\
-Empirical task-set manifest & Planned New Zealand annotation tasks, not an independently reviewed gold standard. \\
+Empirical study plan & Planned New Zealand annotation tasks, not an independently reviewed gold standard. \\
 Release metadata & Evidence, rights notices, and external publication gates. \\
 \bottomrule
 \end{tabularx}
@@ -514,7 +516,7 @@ read-only tool descriptors. The process-model layer covers state-machine,
 BPMN, PNML, XES, OCEL-style, and fixture-conformance artefacts. The Mojo,
 Modular MAX, and LanceDB paths remain experimental and optional [23].
 The empirical-contract layer covers capability declarations, immutable
-dependency requirements, evidence-count thresholds, and candidate-only
+dependency requirements, evidence-count thresholds, and provisional
 promotion states. The jurisdiction layer covers versioned profile manifests,
 parent/core compatibility rules, and fail-closed Australian pilot declarations.
 
@@ -568,12 +570,12 @@ intentionally narrow: they show that the committed fixture path preserves the
 human-certification boundary and can be exported for review. They do not prove
 live-source process discovery, process performance, or agency conformance.
 
-The sixth result is an empirical extraction contract. Capability declarations
+The sixth result is a versioned extraction and review protocol. Capability declarations
 make each adapter's claimed task surface inspectable instead of inferring it
 from a model name or prompt. Contract validation can reject absent provenance,
 insufficient evidence, incompatible versions, or an attempted promotion that
 lacks human approval. This is a governance result, not an accuracy claim: the
-current archive, Commonwealth, and NSW adapters remain candidate pilots until
+current archive, Commonwealth, and New South Wales adaptations remain provisional until
 real heldout evaluation evidence satisfies those gates.
 
 The seventh result is a jurisdiction-versioning contract. The repository can
@@ -627,7 +629,7 @@ Semantic alignment & Ontology, vocabulary, and semantic constraints & SHACL safe
 Process models & State-machine, BPMN, and PNML workflow artefacts & Process-model parsing and conformance tests \\
 Process-mining fixtures & Fixture event log, XES, OCEL-style export, and fixture conformance & Fixture-only import and conformance tests \\
 Empirical task-set plan & Planned New Zealand annotation tasks & Schema validation and boundary tests \\
-V2 extraction contract & Capability and promotion-evidence declarations & Fail-closed contract and profile tests \\
+Versioned extraction protocol & Capability and promotion-evidence declarations & Fail-closed contract and profile tests \\
 Jurisdiction profiles & Core, country, and subdivision compatibility manifests & Version, parent, and promotion-boundary tests \\
 \bottomrule
 \end{tabularx}
@@ -642,10 +644,10 @@ Jurisdiction profiles & Core, country, and subdivision compatibility manifests &
 Surface & What this proves & What it does not prove \\
 \midrule
 FOI-O NZ profile & Local schemas, examples, semantic assets, and tests are internally consistent. & Non-NZ validation or official adoption. \\
-Australian adapters & Commonwealth and NSW candidate contracts can be represented and checked. & Legal approval, empirical promotion, or coverage of other states and territories. \\
+Australian adaptations & Commonwealth and New South Wales provisional contracts can be represented and checked. & Legal approval, empirical promotion, or coverage of other states and territories. \\
 Process models & Workflow structures can be represented as review/interchange artefacts. & Executable legal workflow or certified decision-making. \\
 Process-mining fixtures & Deterministic fixture events can be exported and checked for one release path. & Live-corpus conformance, bottlenecks, cycle times, or agency performance. \\
-Empirical task-set manifest & Planned annotation tasks and external gates are explicit. & Independently reviewed gold-standard evidence. \\
+Empirical study plan & Planned annotation tasks and external gates are explicit. & Independently reviewed gold-standard evidence. \\
 Release package & Repo-local publication and reuse evidence can be validated. & Journal, registry, arXiv, or government approval. \\
 \bottomrule
 \end{tabularx}
@@ -747,7 +749,7 @@ example.
 
 Future work should proceed in evidence-led stages. The next step is not to
 claim universal coverage. It is to re-extract pinned archive releases through
-the V2 contract and publish versioned dataset outputs with complete lineage.
+the versioned protocol and publish dataset outputs with complete lineage.
 Gold-set review should
 only follow completed annotation tasks, recorded reviewer process, adjudication,
 and provenance. Later jurisdiction-specific profiles should add local law,
@@ -771,7 +773,7 @@ separately reviewed.
 The main threats to validity are scope and evidence limits. FOI-O's global
 scope is architectural and methodological, not a claim of universal legal
 validation. FOI-O NZ is the mature reference implementation, while Australian
-Commonwealth and NSW adapters remain candidate iterations. The repository
+Commonwealth and New South Wales adaptations remain provisional iterations. The repository
 evidence is local and fixture-heavy. It does not yet prove live archive intake,
 representative agency coverage, independently reviewed gold-standard labels,
 real-world process conformance, bottleneck frequencies, agency cycle times, or
