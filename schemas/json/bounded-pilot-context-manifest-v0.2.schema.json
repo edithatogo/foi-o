@@ -27,6 +27,8 @@
         "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}}
       }
     },
+    "context_11872": {"allOf": [{"$ref": "#/$defs/context"}, {"properties": {"request_id": {"const": "11872"}, "global_start": {"const": 0}, "sources": {"type": "array", "minItems": 7, "maxItems": 7}}}]},
+    "context_35076": {"allOf": [{"$ref": "#/$defs/context"}, {"properties": {"request_id": {"const": "35076"}, "sources": {"type": "array", "minItems": 1, "maxItems": 1}}}]},
     "segment": {
       "type": "object", "additionalProperties": false,
       "required": ["request_id", "segment_id", "source_sha256", "source_kind", "start", "end"],
@@ -48,11 +50,11 @@
     "authorization_sha256": {"$ref": "#/$defs/sha256"},
     "repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
     "request_ids": {"const": ["11872", "35076"]},
-    "contexts": {"type": "array", "prefixItems": [{"$ref": "#/$defs/context"}, {"$ref": "#/$defs/context"}], "items": false, "minItems": 2, "maxItems": 2},
+    "contexts": {"type": "array", "prefixItems": [{"$ref": "#/$defs/context_11872"}, {"$ref": "#/$defs/context_35076"}], "items": false, "minItems": 2, "maxItems": 2},
     "analyst_context_sha256": {"$ref": "#/$defs/sha256"},
     "byte_count": {"type": "integer", "minimum": 1},
     "codepoint_count": {"type": "integer", "minimum": 1},
-    "segments": {"type": "array", "minItems": 8, "maxItems": 8, "items": {"$ref": "#/$defs/segment"}},
+    "segments": {"type": "array", "prefixItems": [{"allOf": [{"$ref": "#/$defs/segment"}, {"properties": {"request_id": {"const": "11872"}}}]}, {"allOf": [{"$ref": "#/$defs/segment"}, {"properties": {"request_id": {"const": "11872"}}}]}, {"allOf": [{"$ref": "#/$defs/segment"}, {"properties": {"request_id": {"const": "11872"}}}]}, {"allOf": [{"$ref": "#/$defs/segment"}, {"properties": {"request_id": {"const": "11872"}}}]}, {"allOf": [{"$ref": "#/$defs/segment"}, {"properties": {"request_id": {"const": "11872"}}}]}, {"allOf": [{"$ref": "#/$defs/segment"}, {"properties": {"request_id": {"const": "11872"}}}]}, {"allOf": [{"$ref": "#/$defs/segment"}, {"properties": {"request_id": {"const": "11872"}}}]}, {"allOf": [{"$ref": "#/$defs/segment"}, {"properties": {"request_id": {"const": "35076"}}}]}], "items": false, "minItems": 8, "maxItems": 8},
     "analyst_contexts_identical": {"const": true},
     "local_only": {"const": true},
     "reconciliation_allowed": {"const": false},

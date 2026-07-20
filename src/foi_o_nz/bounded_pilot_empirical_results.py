@@ -171,8 +171,9 @@ def validate_context_manifest(value: dict[str, Any]) -> dict[str, dict[str, Any]
         REQUEST_IDS
     ):
         raise ValueError("context manifest must contain the exact ordered census")
+    contexts = cast("list[dict[str, Any]]", contexts)
     result: dict[str, dict[str, Any]] = {}
-    for context in contexts:
+    for context_index, context in enumerate(contexts):
         if set(context) != {
             "request_id",
             "unit_sha256",
@@ -190,10 +191,17 @@ def validate_context_manifest(value: dict[str, Any]) -> dict[str, dict[str, Any]
         ):
             raise ValueError("context entry digest is malformed")
         sources = context["sources"]
-        if not isinstance(sources, list) or not sources:
-            raise ValueError("each context must declare at least one source")
+        expected_source_count = 7 if context["request_id"] == "11872" else 1
+        if not isinstance(sources, list) or len(sources) != expected_source_count:
+            raise ValueError("context source count does not match the governed census")
+        sources = cast("list[dict[str, Any]]", sources)
+        if context_index == 0 and context["global_start"] != 0:
+            raise ValueError("first context must begin at global codepoint zero")
+        if context["global_end"] <= context["global_start"]:
+            raise ValueError("context global extent is invalid")
         source_ids: set[str] = set()
-        for source in sources:
+        previous_end = -1
+        for source_index, source in enumerate(sources):
             if set(source) != {
                 "source_kind",
                 "source_id",
@@ -207,12 +215,39 @@ def validate_context_manifest(value: dict[str, Any]) -> dict[str, dict[str, Any]
                 source["source_id"] in source_ids
                 or source["character_count"] < 1
                 or source["end"] - source["start"] != source["character_count"]
+                or (source_index == 0 and source["start"] != 0)
+                or source["start"] <= previous_end
             ):
                 raise ValueError("context source identity or extent is invalid")
             if source["source_kind"] not in {"correspondence", "attachment_derived_text"}:
                 raise ValueError("context source kind is invalid")
             source_ids.add(source["source_id"])
+            previous_end = source["end"]
+        if sources[-1]["end"] != context["global_end"] - context["global_start"]:
+            raise ValueError("unit-local source extents do not cover the context")
         result[context["request_id"]] = context
+    if contexts[1]["global_start"] <= contexts[0]["global_end"]:
+        raise ValueError("context global extents overlap or are reordered")
+    if contexts[-1]["global_end"] != value["codepoint_count"]:
+        raise ValueError("context extents do not cover the materialized context")
+    segments = value["segments"]
+    if not isinstance(segments, list) or len(segments) != 8:
+        raise ValueError("global segment census must contain exactly eight sources")
+    expected_segments = []
+    for context in contexts:
+        for source in context["sources"]:
+            expected_segments.append(
+                {
+                    "request_id": context["request_id"],
+                    "segment_id": source["source_id"],
+                    "source_sha256": source["source_sha256"],
+                    "source_kind": source["source_kind"],
+                    "start": context["global_start"] + source["start"],
+                    "end": context["global_start"] + source["end"],
+                }
+            )
+    if segments != expected_segments:
+        raise ValueError("global segments do not match ordered unit-local sources")
     return result
 
 

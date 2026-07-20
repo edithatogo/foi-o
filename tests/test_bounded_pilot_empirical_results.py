@@ -27,6 +27,25 @@ PATHS = ("local/analysis-a.json", "local/analysis-b.json")
 LOCK_PATH = "local/analysis-lock.json"
 
 
+def _sources(request_id: str) -> list[dict[str, Any]]:
+    count = 7 if request_id == "11872" else 1
+    result = []
+    cursor = 0
+    for index in range(count):
+        result.append(
+            {
+                "source_kind": "correspondence" if index < 4 else "attachment_derived_text",
+                "source_id": f"source-{request_id}-{index}",
+                "source_sha256": f"{index + 1:x}" * 64,
+                "start": cursor,
+                "end": cursor + 10,
+                "character_count": 10,
+            }
+        )
+        cursor += 11
+    return result
+
+
 def _manifest() -> dict[str, Any]:
     return {
         "schema_version": "foi-o.bounded-pilot-context-manifest.v0.2.0",
@@ -39,28 +58,30 @@ def _manifest() -> dict[str, Any]:
                 "request_id": request_id,
                 "unit_sha256": digit * 64,
                 "context_sha256": context_digit * 64,
-                "global_start": 0 if request_id == "11872" else 101,
-                "global_end": 100 if request_id == "11872" else 201,
-                "sources": [
-                    {
-                        "source_kind": "correspondence",
-                        "source_id": f"correspondence-{request_id}",
-                        "source_sha256": source_digit * 64,
-                        "start": 0,
-                        "end": 100,
-                        "character_count": 100,
-                    }
-                ],
+                "global_start": 0 if request_id == "11872" else 77,
+                "global_end": 76 if request_id == "11872" else 87,
+                "sources": _sources(request_id),
             }
-            for request_id, digit, context_digit, source_digit in (
-                ("11872", "3", "4", "5"),
-                ("35076", "6", "7", "8"),
+            for request_id, digit, context_digit in (
+                ("11872", "3", "4"),
+                ("35076", "6", "7"),
             )
         ],
         "analyst_context_sha256": "c" * 64,
-        "byte_count": 200,
-        "codepoint_count": 200,
-        "segments": [],
+        "byte_count": 87,
+        "codepoint_count": 87,
+        "segments": [
+            {
+                "request_id": request_id,
+                "segment_id": source["source_id"],
+                "source_sha256": source["source_sha256"],
+                "source_kind": source["source_kind"],
+                "start": (0 if request_id == "11872" else 77) + source["start"],
+                "end": (0 if request_id == "11872" else 77) + source["end"],
+            }
+            for request_id in ("11872", "35076")
+            for source in _sources(request_id)
+        ],
         "analyst_contexts_identical": True,
         "local_only": True,
         "reconciliation_allowed": False,

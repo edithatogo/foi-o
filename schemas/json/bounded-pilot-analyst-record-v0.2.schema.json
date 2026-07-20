@@ -31,5 +31,9 @@
     "locked_at": {"type": "string", "format": "date-time"},
     "empirical_result_approved": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
   },
-  "allOf": [{"if": {"properties": {"abstention": {"const": true}}}, "then": {"properties": {"label": {"const": null}, "source_spans": {"maxItems": 0}, "abstention_reason": {"type": "string"}}}, "else": {"properties": {"label": {"type": "string"}, "source_spans": {"minItems": 1}, "abstention_reason": {"const": null}}}}]
+  "allOf": [
+    {"if": {"properties": {"abstention": {"const": true}}}, "then": {"properties": {"label": {"const": null}, "source_spans": {"maxItems": 0}, "abstention_reason": {"type": "string"}}}, "else": {"properties": {"label": {"type": "string"}, "source_spans": {"minItems": 1}, "abstention_reason": {"const": null}}}},
+    {"if": {"properties": {"analyst": {"properties": {"actor_id": {"const": "agent:bounded-pilot-analyst-a"}}}}}, "then": {"properties": {"record_id": {"pattern": "^bounded-pilot:analyst-a:(11872|35076)$"}}}, "else": {"properties": {"record_id": {"pattern": "^bounded-pilot:analyst-b:(11872|35076)$"}}}},
+    {"if": {"properties": {"request_id": {"const": "11872"}}}, "then": {"properties": {"record_id": {"pattern": ":11872$"}}}, "else": {"properties": {"record_id": {"pattern": ":35076$"}}}}
+  ]
 }

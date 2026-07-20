@@ -581,8 +581,14 @@ def materialize_contexts(permission: StagePermission) -> ContextLock:
     return verify_materialized_contexts(permission)
 
 
-def verify_materialized_contexts(permission: StagePermission) -> ContextLock:
+def verify_materialized_contexts(
+    permission: StagePermission,
+    *,
+    allowed_stage_directories: frozenset[str] = frozenset(),
+) -> ContextLock:
     """Verify clean HEAD plus the exact installed context lock and mint S3 metadata."""
+    if not allowed_stage_directories <= {"analysis", "reconciliation"}:
+        raise ValueError("unknown stage directory allowance")
     _authorization(
         permission.repository_root,
         permission.authorization_path,
@@ -598,6 +604,7 @@ def verify_materialized_contexts(permission: StagePermission) -> ContextLock:
         "analyst-a.context.txt",
         "analyst-b.context.txt",
         "context-manifest.locked.json",
+        *allowed_stage_directories,
     }:
         raise ValueError("context workspace inventory is not exact")
     manifest_path = workspace / "context-manifest.locked.json"
