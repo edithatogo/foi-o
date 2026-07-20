@@ -223,11 +223,18 @@ def _authorization(
         "local_roots",
         "context_contract",
         "analyst_roles",
+        "reconciler_role",
+        "implementation_contracts",
+        "runtime_handshake_readiness",
+        "ordered_stages",
         "authorization_effective_after_verification",
         "context_materialization_authorized",
         "context_presentation_authorized",
         "analyst_execution_authorized",
         "reconciliation_authorized_conditionally",
+        "candidate_manuscript_preparation_authorized",
+        "local_package_validation_authorized",
+        "final_exact_results_and_package_approval_required",
         "empirical_result_approved",
         "human_reviewed",
         "gold_eligible",
@@ -254,6 +261,9 @@ def _authorization(
         "context_presentation_authorized",
         "analyst_execution_authorized",
         "reconciliation_authorized_conditionally",
+        "candidate_manuscript_preparation_authorized",
+        "local_package_validation_authorized",
+        "final_exact_results_and_package_approval_required",
     )
     false_flags = (
         "empirical_result_approved",
@@ -337,11 +347,33 @@ def _authorization(
         raise ValueError("authorization differs from plan")
     for pin in plan["governed_inputs"].values():
         _verify_pin(root, pin)
+    if (
+        not isinstance(auth["implementation_contracts"], dict)
+        or not auth["implementation_contracts"]
+    ):
+        raise ValueError("implementation contract pins are absent")
+    for pin in auth["implementation_contracts"].values():
+        _verify_pin(root, pin)
+    _verify_pin(root, auth["runtime_handshake_readiness"])
+    expected_stages = [f"S{index}" for index in range(2, 9)]
+    if (
+        not isinstance(auth["ordered_stages"], list)
+        or [stage.get("id") for stage in auth["ordered_stages"]] != expected_stages
+        or any(
+            set(stage) != {"id", "authorized", "failure_action"}
+            or stage["authorized"] is not True
+            or stage["failure_action"] != "stop_fail_closed"
+            for stage in auth["ordered_stages"]
+        )
+    ):
+        raise ValueError("ordered stage authorization is not exact")
     request = _strict_load(
         _safe_repo_path(root, plan["governed_inputs"]["analyst_request"]["path"])
     )
     if auth["analyst_roles"] != {k: request["roles"][k] for k in ("analyst_a", "analyst_b")}:
         raise ValueError("analyst roles differ from request")
+    if auth["reconciler_role"] != request["roles"]["reconciler"]:
+        raise ValueError("reconciler role differs from request")
     return auth, plan
 
 

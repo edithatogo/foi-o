@@ -140,7 +140,11 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     ready_path = "meta/ready.json"
     _json(root / ready_path, {"candidate": _pin(root, candidate_path, candidate_commit)})
     request_path = "meta/request.json"
-    roles = {"analyst_a": {"actor_id": "agent:a"}, "analyst_b": {"actor_id": "agent:b"}}
+    roles = {
+        "analyst_a": {"actor_id": "agent:a"},
+        "analyst_b": {"actor_id": "agent:b"},
+        "reconciler": {"actor_id": "agent:r"},
+    }
     _json(root / request_path, {"roles": roles})
     input_commit = _commit(root, "inputs")
     roots = {
@@ -191,12 +195,22 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         "approval": approval_pin,
         "local_roots": roots,
         "context_contract": plan["context_contract"],
-        "analyst_roles": roles,
+        "analyst_roles": {key: roles[key] for key in ("analyst_a", "analyst_b")},
+        "reconciler_role": roles["reconciler"],
+        "implementation_contracts": {"synthetic": _pin(root, request_path, input_commit)},
+        "runtime_handshake_readiness": _pin(root, request_path, input_commit),
+        "ordered_stages": [
+            {"id": f"S{index}", "authorized": True, "failure_action": "stop_fail_closed"}
+            for index in range(2, 9)
+        ],
         "authorization_effective_after_verification": True,
         "context_materialization_authorized": True,
         "context_presentation_authorized": True,
         "analyst_execution_authorized": True,
         "reconciliation_authorized_conditionally": True,
+        "candidate_manuscript_preparation_authorized": True,
+        "local_package_validation_authorized": True,
+        "final_exact_results_and_package_approval_required": True,
         "empirical_result_approved": False,
         "human_reviewed": False,
         "gold_eligible": False,
