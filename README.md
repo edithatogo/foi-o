@@ -155,8 +155,9 @@ commit to combine lint, formatting, both type checkers, the parallel suite, and
 repository/schema validation. Use `make test-serial` when reproducing ordering
 or isolation failures and for final release evidence.
 
-Normal CI uses the four-worker profile on Python 3.12 and 3.14. A scheduled or
-manually dispatched job retains an independent serial Python 3.14 run, and the
+Normal CI uses the four-worker profile on Python 3.12 and the governed
+diagnostics runtime Python 3.14.5. A scheduled or manually dispatched job
+retains an independent serial Python 3.14.5 run, and the
 release workflow also runs the suite serially before building distributions.
 Parallel success is therefore not treated as proof that the suite is free of
 ordering or worker-isolation defects. On typical developer hardware the
