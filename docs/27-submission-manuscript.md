@@ -170,7 +170,7 @@ describes what the current repository implements and validates. The Discussion
 explains why this bounded architecture matters for future comparative FOI
 research and accountable analyst-led public administration.
 
-### Version conventions
+**Version conventions.**
 
 The version labels in this article refer to different things. **FOI-O v0.8.1**
 is the latest published software release. The **extraction and review protocol**
