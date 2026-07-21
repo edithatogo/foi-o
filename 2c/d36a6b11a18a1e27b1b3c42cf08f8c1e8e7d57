@@ -1,0 +1,4 @@
+Task: deterministic source triangulation with primary-source precedence
+Files: src/foi_o_nz/source_triangulation.py; tests/test_source_triangulation.py; schemas/json/source-triangulation-result.schema.json; examples/v2/source-triangulation.example.json
+Verification: uv run pytest -q tests/test_source_triangulation.py (10 passed); Ruff lint/format; ty check
+Remaining risks: this resolver routes candidate evidence only and cannot replace human legal review
