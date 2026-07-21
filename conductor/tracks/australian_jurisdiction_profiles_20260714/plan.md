@@ -81,6 +81,13 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 - [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
 - [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
 
+### Phase 3 review fixes
+
+- [x] Task: Refresh generated ontology inventory evidence, install the declared
+      RDF validation extra, and document the source-triangulation v0.2.0
+      migration boundary found by whole-suite review. (`f158099`; focused
+      ontology, SHACL, readiness, and triangulation review suite: 30 passed.)
+
 ## Phase 4: Pilot decision gate
 
 GitHub subissue: [#31](https://github.com/edithatogo/foi-o/issues/31).
