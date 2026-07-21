@@ -1,0 +1,6 @@
+version: 1.0.0
+decisions:
+  - id: D-paper_global_impact_and_reproducibility
+    decision: preserve current repository boundaries and uncommitted work
+    status: accepted
+    human_gate: false

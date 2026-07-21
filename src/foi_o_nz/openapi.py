@@ -21,15 +21,15 @@ def build_openapi_contract() -> dict[str, Any]:
         },
         "servers": [{"url": "http://localhost:8787", "description": "local development"}],
         "paths": {
-            "/state/map": {
+            "/profiles/nz-fyi/state/map": {
                 "post": {
-                    "summary": "Map a source-platform state to a cautious FOI-O core state using an explicit jurisdiction profile.",
+                    "summary": "Map an FYI/Alaveteli source state within the explicit NZ OIA profile boundary.",
                     "x-agent-boundary": "process-support-only",
                     "requestBody": {
                         "required": True,
                         "content": {
                             "application/json": {
-                                "schema": {"$ref": "#/components/schemas/StateMapRequest"}
+                                "schema": {"$ref": "#/components/schemas/NzFyiStateMapRequest"}
                             }
                         },
                     },
@@ -159,14 +159,30 @@ def build_openapi_contract() -> dict[str, Any]:
         },
         "components": {
             "schemas": {
-                "StateMapRequest": {
+                "NzFyiStateMapRequest": {
                     "type": "object",
                     "additionalProperties": False,
-                    "required": ["source_state", "jurisdiction", "jurisdiction_profile"],
+                    "required": [
+                        "source_state",
+                        "source_platform",
+                        "jurisdiction",
+                        "regime",
+                        "profile_id",
+                        "profile_version",
+                        "mapping_version",
+                        "source_snapshot_id",
+                        "effective_at",
+                    ],
                     "properties": {
                         "source_state": {"type": "string"},
-                        "jurisdiction": {"type": "string", "minLength": 1},
-                        "jurisdiction_profile": {"type": "string", "minLength": 1},
+                        "source_platform": {"type": "string"},
+                        "jurisdiction": {"const": "NZ"},
+                        "regime": {"const": "OIA"},
+                        "profile_id": {"type": "string"},
+                        "profile_version": {"type": "string"},
+                        "mapping_version": {"type": "string"},
+                        "source_snapshot_id": {"type": "string"},
+                        "effective_at": {"type": "string", "format": "date-time"},
                     },
                 }
             }

@@ -23,6 +23,15 @@ def build_tool_manifest() -> dict[str, Any]:
         )
     extra_tools: list[dict[str, Any]] = [
         {
+            "name": "map_fyi_nz_state",
+            "description": "Map an FYI/Alaveteli source state within the explicit NZ OIA profile boundary.",
+            "legal_effect": "none",
+            "safety_class": "profile_candidate_mapping",
+            "requires_human_certification": True,
+            "prohibited_follow_on_actions": ["treat_state_as_legal_outcome", "promote_profile"],
+            "machine_certification_allowed": False,
+        },
+        {
             "name": "search_chunks",
             "description": "Retrieve request-scoped context from deterministic text chunks.",
             "legal_effect": "none",

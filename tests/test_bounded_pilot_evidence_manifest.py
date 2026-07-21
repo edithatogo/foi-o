@@ -48,7 +48,7 @@ def test_manifest_recomputes_against_approved_local_snapshots() -> None:
         "11872": Path("/private/tmp/fyi-attachment-snapshot-11872-approved"),
         "35076": Path("/private/tmp/fyi-content-snapshot-35076-approved"),
     }
-    if not all(path.is_dir() for path in roots.values()):
+    if not all((path / "manifest.json").is_file() for path in roots.values()):
         pytest.skip("restricted approved local snapshots are not available")
     verify_bounded_pilot_evidence(MANIFEST, roots)
 
@@ -58,7 +58,7 @@ def test_local_verifier_rejects_span_drift(tmp_path: Path) -> None:
         "11872": Path("/private/tmp/fyi-attachment-snapshot-11872-approved"),
         "35076": Path("/private/tmp/fyi-content-snapshot-35076-approved"),
     }
-    if not all(path.is_dir() for path in roots.values()):
+    if not all((path / "manifest.json").is_file() for path in roots.values()):
         pytest.skip("restricted approved local snapshots are not available")
     manifest = json.loads(MANIFEST.read_text())
     manifest["records"][0]["correspondence"]["blocks"][0]["text_span"]["start"] += 1

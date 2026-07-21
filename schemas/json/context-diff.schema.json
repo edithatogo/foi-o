@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schema/context-diff/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "before_pack_id", "after_pack_id", "abstention_recommended"],
+  "properties": {
+    "schema_version": {"const": "foio.context-diff.v1.0.0"},
+    "before_pack_id": {"type": "string", "minLength": 1},
+    "after_pack_id": {"type": "string", "minLength": 1},
+    "changed_plan_fields": {"type": "array", "items": {"type": "string"}},
+    "added_evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "removed_evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "modified_evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "changed_constraints": {"type": "array", "items": {"type": "string"}},
+    "new_conflicts": {"type": "array", "items": {"type": "object"}},
+    "removed_decisive_evidence": {"type": "array", "items": {"type": "string"}},
+    "abstention_recommended": {"type": "boolean"},
+    "reasons": {"type": "array", "items": {"type": "string"}}
+  }
+}

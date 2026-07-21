@@ -1,0 +1,18 @@
+lock_version: 1.0.0
+locked_at: 2026-07-21T00:00:00Z
+repository:
+  remote: https://github.com/edithatogo/foi-o.git
+  commit: c4702380dfb50b0b856bbb1fc20953822dfaeee5
+axes:
+  methodology: FOI-O V2
+  python_distribution: foi-o-nz@0.8.1
+  global_core: foio-core@1.0.0
+  ontology: https://w3id.org/foio/1.0.0/
+  profile: foi-o-nz-oia@0.9.0
+  context_pack: foio.context-pack@1.0.0
+  process_ocel: foio-ocel@0.2.0
+  paper: arXiv:2607.02947v1
+provenance:
+  source_pack: pending_immutable_hash
+  archive_snapshot: pending_external_archive_gate
+  annotation_gold: pending_human_adjudication

@@ -19,6 +19,7 @@ from foi_o_nz.attestation import write_attestation
 from foi_o_nz.batch import normalise_manifest_batch
 from foi_o_nz.benchmarks import write_local_benchmarks
 from foi_o_nz.bounded_extraction import write_extraction_requests
+from foi_o_nz.capability_registry import build_registry_manifest, validate_registry
 from foi_o_nz.cas import materialise_jsonl_cas, write_cas_manifest
 from foi_o_nz.chunks import chunk_jsonl
 from foi_o_nz.contract_capabilities import write_capability_declaration
@@ -1197,6 +1198,29 @@ def export_tool_manifest_command(
     """Write a bounded tool/capability manifest for agent runtimes."""
     result = write_tool_manifest(output)
     console.print_json(json.dumps(result))
+
+
+@app.command("validate-capability-registry")
+def validate_capability_registry_command() -> None:
+    """Validate the canonical profile-aware capability registry."""
+    result = validate_registry()
+    console.print_json(json.dumps(result))
+    if not result["ok"]:
+        raise typer.Exit(code=1)
+
+
+@app.command("export-capability-manifest")
+def export_capability_manifest_command(
+    output: Annotated[Path, typer.Option("--output", "-o", help="Capability manifest JSON output")],
+) -> None:
+    """Export safe tool descriptors derived from the canonical capability registry."""
+    manifest = build_registry_manifest()
+    write_json(output, manifest)
+    console.print_json(
+        json.dumps(
+            {"ok": True, "output": str(output), "capability_count": len(manifest["capabilities"])}
+        )
+    )
 
 
 @app.command("benchmark-local")

@@ -1,0 +1,4 @@
+version: 1.0.0
+outputs:
+  - {path: workspace-audit.md, status: produced}
+  - {path: issue-dry-run.json, status: produced}

@@ -1,0 +1,19 @@
+version: 1.0.0
+workflow_id: paper-update
+owner: edithatogo/foi-o
+purpose: Build a globally framed, independently reviewed paper release candidate without submission.
+capability_requirements: [foio.capability.reporting.draft]
+effects: {external_side_effect: none, network_default: offline, publication: human_gated}
+human_gates: [citation_acceptance, legal_claim_review, publication_approval]
+steps:
+  - {id: S, kind: start}
+  - {id: L, kind: service, action: lock_inputs}
+  - {id: C, kind: service, action: build_claim_and_citation_ledger}
+  - {id: R, kind: service, action: independent_reviews}
+  - {id: Q, kind: gateway, action: critical_gates_and_score}
+  - {id: M, kind: service, action: record_remediation}
+  - {id: A, kind: service, action: authentext_editorial_pass}
+  - {id: H, kind: human, action: publication_approval}
+  - {id: P, kind: service, action: package_candidate}
+  - {id: X, kind: end, action: hold}
+  - {id: EndCandidate, kind: end, action: candidate_ready}

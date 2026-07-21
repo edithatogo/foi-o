@@ -1,0 +1,41 @@
+registry_id: foio.jurisdiction-profile-registry
+version: 1.0.0
+stages: [discovered, source-ready, capture-ready, corpus-ready, profile-alpha, empirically-evaluated, human-promoted, stable, deprecated]
+profiles:
+  - id: foio-nz-oia
+    jurisdiction: NZ
+    regime: OIA
+    version: 0.9.0
+    stage: profile-alpha
+    status: implemented_reference_candidate
+    source_pack: {id: nz-oia-pack-2026.07.20, sha256: pending_immutable_hash, status: pending_external_verification}
+    capabilities:
+      source_discovery: candidate
+      operator_authorisation: pending
+      platform_capture: pending
+      archive_snapshot: pending
+      historical_legislation: candidate
+      normative_extraction: candidate
+      platform_state_mapping: candidate
+      statutory_clocks: candidate
+      annotation_gold_set: pending
+      legal_review: pending
+    human_gates: [operator_access, rights_review, independent_annotation, legal_promotion]
+  - id: foio-au-cth
+    jurisdiction: AU-CTH
+    regime: FOI
+    version: 0.1.0
+    stage: discovered
+    status: candidate_contract_only
+    source_pack: {id: pending, sha256: pending, status: not_ready}
+    capabilities: {}
+    human_gates: [source_rights, operator_access, independent_annotation, legal_promotion]
+  - id: foio-au-nsw
+    jurisdiction: AU-NSW
+    regime: GIPA
+    version: 0.1.0
+    stage: discovered
+    status: candidate_contract_only
+    source_pack: {id: pending, sha256: pending, status: not_ready}
+    capabilities: {}
+    human_gates: [source_rights, operator_access, independent_annotation, legal_promotion]

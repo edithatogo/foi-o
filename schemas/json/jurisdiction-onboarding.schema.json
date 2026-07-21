@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schema/jurisdiction-onboarding/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["registry_id", "version", "profiles"],
+  "properties": {
+    "registry_id": {"const": "foio.jurisdiction-profile-registry"},
+    "version": {"type": "string"},
+    "stages": {"type": "array", "items": {"type": "string"}},
+    "profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "jurisdiction", "regime", "version", "stage", "status", "source_pack"],
+        "properties": {
+          "id": {"type": "string"},
+          "jurisdiction": {"type": "string"},
+          "regime": {"type": "string"},
+          "version": {"type": "string"},
+          "stage": {"type": "string"},
+          "status": {"type": "string"},
+          "source_pack": {"type": "object"},
+          "capabilities": {"type": "object"},
+          "human_gates": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

@@ -28,6 +28,7 @@ def test_tool_manifest_descriptors_are_unique_and_safe() -> None:
     assert report["ok"], report["errors"]
     assert report["tool_count"] == len(report["tool_names"])
     assert "search_chunks" in report["tool_names"]
+    assert "map_fyi_nz_state" in report["tool_names"]
     assert manifest["model_scope"] == "global_core_with_versioned_jurisdiction_profiles"
     assert manifest["jurisdiction_policy"]["explicit_profile_required"] is True
     assert manifest["jurisdiction_policy"]["cross_jurisdiction_fallback_allowed"] is False
@@ -62,10 +63,16 @@ def test_openapi_agent_contract_exposes_read_only_boundaries() -> None:
     assert contract["info"]["x-foio-model-scope"] == (
         "global_core_with_versioned_jurisdiction_profiles"
     )
-    assert set(contract["components"]["schemas"]["StateMapRequest"]["required"]) == {
+    assert set(contract["components"]["schemas"]["NzFyiStateMapRequest"]["required"]) == {
         "source_state",
         "jurisdiction",
-        "jurisdiction_profile",
+        "source_platform",
+        "regime",
+        "profile_id",
+        "profile_version",
+        "mapping_version",
+        "source_snapshot_id",
+        "effective_at",
     }
 
 

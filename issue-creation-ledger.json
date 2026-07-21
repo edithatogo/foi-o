@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-07-21T00:00:00+10:00",
+  "source_dry_run": "issue-dry-run.json",
+  "project": {"number": 29, "url": "https://github.com/users/edithatogo/projects/29", "items_verified": 24},
+  "issues": [
+    {"workstream": "WS-CONTEXT", "repo": "edithatogo/foi-o", "number": 72, "url": "https://github.com/edithatogo/foi-o/issues/72", "status": "linked_existing"},
+    {"workstream": "WS-PAPER", "repo": "edithatogo/foi-o", "number": 74, "url": "https://github.com/edithatogo/foi-o/issues/74", "status": "linked_existing"},
+    {"workstream": "WS-VERSION", "repo": "edithatogo/foi-o", "number": 73, "url": "https://github.com/edithatogo/foi-o/issues/73", "status": "linked_existing"},
+    {"workstream": "WS-JURISDICTIONS", "repo": "edithatogo/foi-o", "number": 24, "url": "https://github.com/edithatogo/foi-o/issues/24", "status": "linked_existing"},
+    {"workstream": "WS-ONTOLOGY", "repo": "edithatogo/foi-o", "number": 74, "url": "https://github.com/edithatogo/foi-o/issues/74", "status": "linked_existing"},
+    {"workstream": "WS-CI", "repo": "edithatogo/foi-o", "number": 75, "url": "https://github.com/edithatogo/foi-o/issues/75", "status": "created"},
+    {"workstream": "WS-WORKSPACE", "repo": "edithatogo/rac-conformance", "number": 146, "url": "https://github.com/edithatogo/rac-conformance/issues/146", "status": "created"},
+    {"workstream": "WS-CAPTURE", "repo": "edithatogo/fyi-cli", "number": 140, "url": "https://github.com/edithatogo/fyi-cli/issues/140", "status": "linked_existing"},
+    {"workstream": "WS-ARCHIVE", "repo": "edithatogo/fyi-archive", "number": 188, "url": "https://github.com/edithatogo/fyi-archive/issues/188", "status": "linked_existing"},
+    {"workstream": "WS-LEGAL-SOURCES", "repo": "edithatogo/legislation", "number": 62, "url": "https://github.com/edithatogo/legislation/issues/62", "status": "linked_existing"},
+    {"workstream": "WS-NLP", "repo": "edithatogo/nlp-policy-nz", "number": 143, "url": "https://github.com/edithatogo/nlp-policy-nz/issues/143", "status": "created"},
+    {"workstream": "WS-PROCESS", "repo": "edithatogo/foi-process", "number": 37, "url": "https://github.com/edithatogo/foi-process/issues/37", "status": "linked_existing"},
+    {"workstream": "WS-SOURCES", "repo": "edithatogo/sourceright", "number": 71, "url": "https://github.com/edithatogo/sourceright/issues/71", "status": "created"},
+    {"workstream": "WS-EDITORIAL", "repo": "edithatogo/authentext", "number": 61, "url": "https://github.com/edithatogo/authentext/issues/61", "status": "created"}
+  ]
+}

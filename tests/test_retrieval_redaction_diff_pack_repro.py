@@ -123,6 +123,50 @@ def test_agent_context_pack_preserves_boundary(tmp_path: Path) -> None:
     assert result["provenance"]["component_counts"]["events"] == 1
 
 
+def test_agent_context_pack_fails_closed_for_missing_request(tmp_path: Path) -> None:
+    requests = tmp_path / "requests.jsonl"
+    output = tmp_path / "pack.json"
+    write_jsonl(requests, [{"request_id": "other", "title": "Other", "authority": "Agency"}])
+    import pytest
+
+    with pytest.raises(ValueError, match="requested case is missing"):
+        write_agent_context_pack(output, request_id="missing", requests_jsonl=requests)
+
+
+def test_agent_context_pack_excludes_mismatched_retrieval(tmp_path: Path) -> None:
+    requests = tmp_path / "requests.jsonl"
+    retrieval = tmp_path / "retrieval.json"
+    output = tmp_path / "pack.json"
+    write_jsonl(
+        requests,
+        [
+            {
+                "request_id": "123",
+                "profile_id": "p",
+                "profile_version": "1",
+                "title": "Example",
+                "authority": "Agency",
+            }
+        ],
+    )
+    retrieval.write_text(
+        json.dumps(
+            {
+                "results": [
+                    {"chunk_id": "good", "request_id": "123"},
+                    {"chunk_id": "bad", "request_id": "other"},
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = write_agent_context_pack(
+        output, request_id="123", requests_jsonl=requests, retrieval_json=retrieval
+    )
+    assert [item["chunk_id"] for item in result["retrieval_results"]] == ["good"]
+    assert result["provenance"]["excluded_retrieval_results"][0]["record"]["chunk_id"] == "bad"
+
+
 def test_reproducibility_manifest_digests_files(tmp_path: Path) -> None:
     artefact = tmp_path / "artifact.json"
     artefact.write_text('{"ok": true}\n', encoding="utf-8")

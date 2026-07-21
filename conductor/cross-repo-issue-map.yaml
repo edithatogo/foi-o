@@ -1,0 +1,35 @@
+version: 1.0.0
+project:
+  number: 29
+  url: https://github.com/users/edithatogo/projects/29
+  title: FOI-O Global Next-Generation Programme
+  visibility: private
+workstreams:
+  - {id: WS-CONTEXT, repo: edithatogo/foi-o, issue: 72, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA54, url: https://github.com/edithatogo/foi-o/issues/72, track: global_context_runtime_hardening, status: in_progress}
+  - {id: WS-PAPER, repo: edithatogo/foi-o, issue: 74, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA6o, url: https://github.com/edithatogo/foi-o/issues/74, track: paper_global_impact_and_reproducibility, status: in_progress}
+  - {id: WS-VERSION, repo: edithatogo/foi-o, issue: 73, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA7g, url: https://github.com/edithatogo/foi-o/issues/73, track: dynamic_versioning_and_release_governance, status: in_progress}
+  - {id: WS-JURISDICTIONS, repo: edithatogo/foi-o, issue: 24, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA8Y, url: https://github.com/edithatogo/foi-o/issues/24, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress, companion_issue: https://github.com/edithatogo/rac-conformance/issues/146}
+  - {id: WS-ONTOLOGY, repo: edithatogo/foi-o, issue: 74, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA6o, url: https://github.com/edithatogo/foi-o/issues/74, track: ontology_registry_and_semantic_quality, status: in_progress}
+  - {id: WS-CI, repo: edithatogo/foi-o, issue: 75, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA-U, url: https://github.com/edithatogo/foi-o/issues/75, track: testing_scale_and_technology_radar, status: in_progress}
+  - {id: WS-WORKSPACE, repo: edithatogo/rac-conformance, issue: 146, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA_I, url: https://github.com/edithatogo/rac-conformance/issues/146, track: cross_repo_workspace_and_issue_orchestration, status: in_progress}
+  - {id: WS-CAPTURE, repo: edithatogo/fyi-cli, issue: 140, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBAg, url: https://github.com/edithatogo/fyi-cli/issues/140, track: cross_repo_workspace_and_issue_orchestration, status: in_progress, child_issues: [141, 142, 143, 144, 145]}
+  - {id: WS-ARCHIVE, repo: edithatogo/fyi-archive, issue: 188, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBBs, url: https://github.com/edithatogo/fyi-archive/issues/188, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress}
+  - {id: WS-LEGAL-SOURCES, repo: edithatogo/legislation, issue: 62, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBCY, url: https://github.com/edithatogo/legislation/issues/62, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress}
+  - {id: WS-NLP, repo: edithatogo/nlp-policy-nz, issue: 143, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBDM, url: https://github.com/edithatogo/nlp-policy-nz/issues/143, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress}
+  - {id: WS-PROCESS, repo: edithatogo/foi-process, issue: 37, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBEA, url: https://github.com/edithatogo/foi-process/issues/37, track: cross_repo_workspace_and_issue_orchestration, status: in_progress}
+  - {id: WS-SOURCES, repo: edithatogo/sourceright, issue: 71, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBE8, url: https://github.com/edithatogo/sourceright/issues/71, track: paper_global_impact_and_reproducibility, status: in_progress}
+  - {id: WS-EDITORIAL, repo: edithatogo/authentext, issue: 61, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBFs, url: https://github.com/edithatogo/authentext/issues/61, track: paper_global_impact_and_reproducibility, status: in_progress}
+dependencies:
+  - {from: WS-CAPTURE, to: WS-ARCHIVE, relation: produces_pinned_inputs}
+  - {from: WS-ARCHIVE, to: WS-PROCESS, relation: produces_immutable_process_inputs}
+  - {from: WS-LEGAL-SOURCES, to: WS-NLP, relation: supplies_normative_sources}
+  - {from: WS-NLP, to: WS-CONTEXT, relation: supplies_candidate_concepts}
+  - {from: WS-SOURCES, to: WS-PAPER, relation: supplies_claim_source_audit}
+  - {from: WS-EDITORIAL, to: WS-PAPER, relation: supplies_final_editorial_review}
+gates:
+  - live_capture_operator_approval
+  - rights_and_source_pack_review
+  - independent_annotation_and_adjudication
+  - legal_profile_promotion
+  - ontology_registry_submission
+  - paper_submission_and_publication

@@ -1,0 +1,9 @@
+version: 1.0.0
+namespace: https://w3id.org/foio/
+status_policy: not_verified_when_evidence_is_absent
+registries:
+  - {registry_id: LOV, scope_fit: likely, status: not_verified, submission_evidence: null, human_gate: required}
+  - {registry_id: BARTOC, scope_fit: likely, status: not_verified, submission_evidence: null, human_gate: required}
+  - {registry_id: FAIRsharing, scope_fit: assess, status: not_verified, submission_evidence: null, human_gate: required}
+  - {registry_id: RVA, scope_fit: likely, status: not_verified, submission_evidence: null, human_gate: required}
+  - {registry_id: BioPortal, scope_fit: low, status: not_applicable, submission_evidence: null, human_gate: required}

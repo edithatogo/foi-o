@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schemas/version-registry/1.0.0",
+  "type": "object",
+  "required": ["registry_id", "version", "axes"],
+  "properties": {
+    "registry_id": {"const": "foio.version-registry"},
+    "version": {"type": "string"},
+    "axes": {"type": "object", "minProperties": 1}
+  },
+  "additionalProperties": true
+}

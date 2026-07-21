@@ -1,0 +1,5 @@
+version: 1.0.0
+gates:
+  - id: HG-global_context_runtime_hardening
+    status: pending
+    action: human approval required before publication, promotion, submission or external destructive effect

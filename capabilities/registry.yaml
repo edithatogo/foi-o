@@ -1,0 +1,96 @@
+registry_id: foio.capability-registry
+version: 1.0.0
+defaults:
+  profile_required: true
+  candidate_behavior: candidate_only
+  absent_or_incompatible_behavior: reject
+  machine_certification_allowed: false
+capabilities:
+  - capability_id: foio.capability.context.compile
+    version: 1.0.0
+    input_schema: schemas/json/request-profile.schema.json
+    output_schema: schemas/json/agent-pack.schema.json
+    minimum_maturity: implemented_candidate
+    required_context: [source_platform, jurisdiction, regime, profile_id, profile_version, source_snapshot_id, effective_at]
+    effects: {data_access: case_local, artifact_effect: local_derived_artifact, decision_effect: preparatory, external_side_effect: none, network_effect: none, idempotency: deterministic}
+    human_review_required: true
+    evaluation_suites: [tests/test_context_pack.py, evals/cross-request-leakage, evals/cross-profile-leakage]
+  - capability_id: foio.capability.map_platform_state
+    version: 1.0.0
+    input_schema: schemas/json/request-profile.schema.json
+    output_schema: schemas/json/core-event.schema.json
+    profile_capability: state_mapping
+    minimum_maturity: implemented_candidate
+    candidate_behavior: candidate_only
+    required_context: [source_platform, jurisdiction, regime, profile_id, profile_version, mapping_version, source_snapshot_id, effective_at]
+    effects: {data_access: case_local, artifact_effect: local_derived_artifact, decision_effect: preparatory, external_side_effect: none, network_effect: none, idempotency: deterministic}
+    human_review_required: true
+    prohibited_follow_ons: [certify_release, certify_refusal, approve_redaction, promote_profile]
+    evaluation_suites: [tests/test_state_machine.py, evals/platform-state-vs-correspondence]
+  - capability_id: foio.capability.extract_events
+    version: 1.0.0
+    input_schema: schemas/json/core-event.schema.json
+    output_schema: schemas/json/core-event.schema.json
+    profile_capability: event_extraction
+    minimum_maturity: implemented_candidate
+    required_context: [source_platform, jurisdiction, regime, profile_id, profile_version, source_snapshot_id, effective_at]
+    source_access: pinned_snapshot_only
+    effects: {data_access: case_local, artifact_effect: local_derived_artifact, decision_effect: preparatory, external_side_effect: none, network_effect: none, idempotency: deterministic}
+    human_review_required: true
+    prohibited_follow_ons: [certify_legal_outcome, publish_evidence]
+    prompt_id: extract-events
+    prompt_version: 1.0.0
+    evaluation_suites: [tests/test_extractors.py, tests/test_empirical_contracts.py]
+  - capability_id: foio.capability.calculate_clock
+    version: 1.0.0
+    input_schema: schemas/json/request-profile.schema.json
+    output_schema: schemas/json/core-event.schema.json
+    profile_capability: statutory_clocks
+    minimum_maturity: implemented_candidate
+    required_context: [source_platform, jurisdiction, regime, profile_id, profile_version, source_snapshot_id, effective_at]
+    source_access: versioned_legal_source_pack
+    effects: {data_access: case_local, artifact_effect: local_derived_artifact, decision_effect: preparatory, external_side_effect: none, network_effect: none, idempotency: deterministic}
+    human_review_required: true
+    prohibited_follow_ons: [certify_deadline, send_notice, promote_profile]
+    prompt_id: calculate-clock
+    prompt_version: 1.0.0
+    evaluation_suites: [tests/test_dates.py, tests/test_oia_rules.py]
+  - capability_id: foio.capability.search_plan.draft
+    version: 1.0.0
+    input_schema: schemas/json/request-profile.schema.json
+    output_schema: schemas/json/review-task.schema.json
+    minimum_maturity: implemented_candidate
+    required_context: [source_platform, jurisdiction, regime, profile_id, profile_version, source_snapshot_id, effective_at]
+    source_access: case_local
+    effects: {data_access: case_local, artifact_effect: local_derived_artifact, decision_effect: preparatory, external_side_effect: none, network_effect: none, idempotency: deterministic}
+    human_review_required: true
+    prohibited_follow_ons: [send_search_request, certify_adequacy]
+    prompt_id: search-plan
+    prompt_version: 1.0.0
+    evaluation_suites: [tests/test_process_advice.py]
+  - capability_id: foio.capability.quality.validate
+    version: 1.0.0
+    input_schema: schemas/json/core-event.schema.json
+    output_schema: schemas/json/quality-report.schema.json
+    minimum_maturity: implemented_candidate
+    required_context: [source_platform, jurisdiction, regime, profile_id, profile_version, source_snapshot_id, effective_at]
+    source_access: pinned_snapshot_only
+    effects: {data_access: case_local, artifact_effect: validation_report, decision_effect: preparatory, external_side_effect: none, network_effect: none, idempotency: deterministic}
+    human_review_required: true
+    prohibited_follow_ons: [certify_release, certify_legal_outcome]
+    prompt_id: quality-validation
+    prompt_version: 1.0.0
+    evaluation_suites: [tests/test_quality.py, tests/test_validation.py]
+  - capability_id: foio.capability.reporting.draft
+    version: 1.0.0
+    input_schema: schemas/json/core-event.schema.json
+    output_schema: schemas/json/psc-report.schema.json
+    minimum_maturity: implemented_candidate
+    required_context: [source_platform, jurisdiction, regime, profile_id, profile_version, source_snapshot_id, effective_at]
+    source_access: pinned_snapshot_only
+    effects: {data_access: case_local, artifact_effect: local_derived_artifact, decision_effect: preparatory, external_side_effect: none, network_effect: none, idempotency: deterministic}
+    human_review_required: true
+    prohibited_follow_ons: [submit_statistics, publish_report]
+    prompt_id: reporting
+    prompt_version: 1.0.0
+    evaluation_suites: [tests/test_reporting.py]

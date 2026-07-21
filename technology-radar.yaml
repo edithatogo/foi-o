@@ -1,0 +1,11 @@
+version: 1.0.0
+promotion_policy: benchmark_named_consumer_independent_review_human_gate
+rings:
+  adopt: [pydantic-v2, rust-foi-process, sourceright, authentext]
+  trial: [hypothesis, pyshacl, z3, opentelemetry, pytest-split]
+  assess: [robot-widoco-foops, shex, slsa-provenance, dense-hybrid-retrieval]
+  hold: [full-mojo-rewrite, autonomous-legal-agent-swarm]
+decisions:
+  - id: ADR-0005
+    status: hold
+    reason: benchmark evidence and human promotion are required before changing the default path

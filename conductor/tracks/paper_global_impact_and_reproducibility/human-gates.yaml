@@ -1,0 +1,5 @@
+version: 1.0.0
+gates:
+  - id: HG-paper_global_impact_and_reproducibility
+    status: pending
+    action: human approval required before publication, promotion, submission or external destructive effect

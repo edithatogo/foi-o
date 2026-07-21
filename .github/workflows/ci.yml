@@ -60,6 +60,8 @@ jobs:
         run: uv run ty check src tests scripts
       - name: BasedPyright baseline gate
         run: uv run basedpyright
+      - name: zizmor workflow audit
+        run: uv run zizmor --min-severity medium .github/workflows
       - name: Run tests in parallel
         run: uv run pytest -q -n 4 --dist worksteal ${{ matrix.pytest-args }}
       - name: Validate repository artefacts

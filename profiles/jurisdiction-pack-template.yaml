@@ -1,0 +1,15 @@
+version: 1.0.0
+jurisdiction_pack_id: foio-jurisdiction-pack.<profile>.<version>
+profile_id: required
+profile_version: required
+profile_maturity: candidate_only
+packs:
+  platform: {producer: edithatogo/fyi-cli, artifact_id: required, revision: required, sha256: required, operator_access_status: pending_review}
+  archive: {producer: edithatogo/fyi-archive, snapshot_id: required, sha256: required}
+  normative: {producer: edithatogo/legislation, artifact_id: required, effective_at: required, sha256: required}
+  nlp: {producer: edithatogo/nlp-policy-nz, artifact_id: required, review_status: needs_review}
+  process: {producer: edithatogo/foi-process, version: required}
+  conformance: {producer: edithatogo/rac-conformance, evidence_bundle_id: required}
+promotion:
+  status: blocked
+  missing: [operator_access_review, immutable_archive_snapshot, historical_source_pack, independent_annotation, extraction_and_rule_evaluation, human_legal_review]
