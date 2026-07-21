@@ -1,0 +1,9 @@
+Task: Publish tranche 3 operator packet
+
+Summary: Added a schema-validated packet mapping all 12 current Australian empirical-readiness blockers exactly once to owner issues, evidence requirements, and declared human gates. Preserved explicit no-promotion and no-tranche-5 boundaries.
+
+Files: phase-3-operator-packet.json, australian-empirical-operator-packet.schema.json, readiness tests, and track governance records.
+
+Verification: 23 focused tests passed; Ruff lint/format passed; repository, examples, requirements, workflow, and readiness validators passed. Strict readiness remains intentionally false pending authentic inputs and named-human action.
+
+Remaining risks: Commonwealth/NSW source packs, archive samples, extraction bundles, sampling approvals, named roles, annotation/adjudication, metrics, and maturity decisions remain absent.
