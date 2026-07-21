@@ -12,6 +12,7 @@
   "github_issue": "https://github.com/edithatogo/foi-o/issues/24",
   "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns",
   "current_phase": "phase_3_empirical_validation_readiness",
+  "current_task": "freeze_australian_sampling_and_execution_inputs",
   "gates": [
     {
       "id": "au-pilot-inputs",

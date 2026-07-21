@@ -63,8 +63,10 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 - [ ] Task: Freeze stratified Commonwealth and NSW example samples.
 - [ ] Task: Dual-annotate, adjudicate, and report agreement by label family.
 - [ ] Task: Evaluate ontology-pinned extraction and route disagreements to review.
-- [ ] Task: Build a deterministic source-triangulation resolver with primary
-      source precedence and explicit exception reasons.
+- [x] Task: Build a deterministic source-triangulation resolver with primary
+      source precedence and explicit exception reasons. (`2cd36a6`; contract
+      v0.2.0 records controlling authority/source IDs, excludes derived
+      summaries from controlling evidence, and retains fail-closed exceptions.)
 - [ ] Task: Freeze the sampling frame, exclusions, unit of analysis, annotation
       codebook, and reliability thresholds before evaluation.
 - [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
