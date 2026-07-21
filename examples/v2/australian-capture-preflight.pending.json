@@ -16,7 +16,7 @@
     "max_runtime_minutes_per_jurisdiction": 30,
     "delay_seconds": 2,
     "continue_on_error": false,
-    "max_disk_gb": null
+    "max_disk_gb": 2
   },
   "implementation_pins": {
     "fyi_cli_commit": "3454a24",
@@ -50,7 +50,6 @@
     "approval timestamp is missing",
     "source rights review is pending for both jurisdictions",
     "NSW source content digest is unavailable after HTTP 403",
-    "maximum disk budget is not set"
   ],
   "prohibitions": [
     "no submissions",

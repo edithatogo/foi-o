@@ -29,7 +29,7 @@ The packet must also set these fixed caps:
 
 - maximum 50 requests per jurisdiction;
 - maximum 30 minutes runtime per jurisdiction;
-- maximum disk budget explicitly recorded before launch;
+- maximum 2 GiB disk budget per jurisdiction;
 - two-second minimum interval, shared through one named rate-limit database;
 - continue-on-error disabled unless the operator records a reason;
 - no authenticated access, submissions, bypass, or unbounded discovery.
