@@ -10,7 +10,7 @@ training, legal interpretation, or profile promotion.
 | Input | Revision | Required check |
 | --- | --- | --- |
 | `fyi-cli` capture worker | `3454a24` | robots enforcement, local/shared pacing, bounded caps |
-| `fyi-archive` AU rollout | `f1acf03` | explicit confirmation token, NSW-first ordering, manifest output |
+| `fyi-archive` AU rollout | `8477704` | explicit confirmation token, NSW-first ordering, manifest output |
 | archive pilot config | `8477704` | `configs/au/jurisdiction_rollout_empirical_pilot.json`, only `NSW` and `FEDERAL` |
 | archive instance | `au-rtk` | `https://www.righttoknow.org.au`, experimental only |
 | jurisdictions | `NSW`, then `AU-CTH` | no other jurisdiction permitted |
@@ -37,7 +37,7 @@ The packet must also set these fixed caps:
 ## Read-only command shape
 
 The command is illustrative until the preflight packet is committed. It must
-run in an isolated archive worktree at `f1acf03`, use the capture worker at
+run in an isolated archive worktree at `8477704`, use the capture worker at
 `3454a24`, and write only to a newly created local output directory:
 
 ```text
