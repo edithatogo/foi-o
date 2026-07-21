@@ -87,6 +87,10 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       RDF validation extra, and document the source-triangulation v0.2.0
       migration boundary found by whole-suite review. (`f158099`; focused
       ontology, SHACL, readiness, and triangulation review suite: 30 passed.)
+- [x] Task: Repair the legacy track's requirements, risk, traceability,
+      decisions, outputs, human-gate, workflow, issue, acceptance, closeout,
+      and append-only evidence records. (`8a828b4`; required governance files
+      parse and the workflow-pair test passes.)
 
 ## Phase 4: Pilot decision gate
 
