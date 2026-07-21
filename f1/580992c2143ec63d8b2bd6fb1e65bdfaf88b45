@@ -1,0 +1,4 @@
+Task: tranche 3 review fixes
+Files: coverage matrix; empirical triangulation documentation; generated maturation summary
+Verification: focused ontology, SHACL, readiness and triangulation suites (30 passed) with declared RDF extra installed
+Remaining risks: authentic AU inputs and human roles remain blocked
