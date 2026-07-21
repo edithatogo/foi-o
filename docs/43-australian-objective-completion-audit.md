@@ -27,3 +27,19 @@ No access-control bypass, authenticated access, or publication was attempted.
 The empirical stages must not be marked complete, and placeholder fixtures
 must not be promoted, until an official accessible route or an equivalent
 rights-cleared source artifact is attached with byte and SHA-256 evidence.
+
+## Source-artifact intake
+
+Place the received JSONL records and its sidecar artifact descriptor in a
+dedicated local intake directory, then run:
+
+```text
+uv run --locked python scripts/validate_australian_source_artifact.py \
+  <intake>/artifact.json --root <intake>
+```
+
+The validator requires an authentic frozen candidate, matching FOI/GIPA regime,
+approved rights review, non-empty JSONL records, exact byte count and SHA-256,
+matching jurisdiction on every record, and no extractor or candidate labels.
+Only a passing descriptor may be used as the source population for the
+manifest and blinded-packet stages.
