@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from foi_o_nz.constants import HUMAN_CERTIFICATION_EVENT_TYPES
 from foi_o_nz.extractors import build_message_events, iter_message_records
+from foi_o_nz.models import EventType
 from foi_o_nz.normalise import build_request_profile, normalise_records
 from foi_o_nz.timeline import build_event_timeline
 
@@ -63,14 +64,14 @@ def test_candidate_event_rules_and_certification_boundary() -> None:
     by_type = {event.event_type: event for event in events}
 
     for event_type in [
-        "ExtensionNotified",
-        "TransferNotified",
-        "ClarificationRequested",
-        "ChargeNoticeSent",
-        "RefusalCommunicated",
-        "ReleaseMade",
-        "ComplaintObserved",
-        "DecisionCommunicated",
+        EventType.EXTENSION_NOTIFIED,
+        EventType.TRANSFER_NOTIFIED,
+        EventType.CLARIFICATION_REQUESTED,
+        EventType.CHARGE_NOTICE_SENT,
+        EventType.REFUSAL_COMMUNICATED,
+        EventType.RELEASE_MADE,
+        EventType.COMPLAINT_OBSERVED,
+        EventType.DECISION_COMMUNICATED,
     ]:
         assert event_type in by_type
         assert by_type[event_type].assertion_status == "inferred"
@@ -84,8 +85,8 @@ def test_candidate_event_rules_and_certification_boundary() -> None:
             assert event.human_certification is not None
             assert event.human_certification.certified is False
 
-    assert by_type["ClarificationRequested"].requires_human_certification is False
-    assert by_type["ComplaintObserved"].requires_human_certification is False
+    assert by_type[EventType.CLARIFICATION_REQUESTED].requires_human_certification is False
+    assert by_type[EventType.COMPLAINT_OBSERVED].requires_human_certification is False
 
 
 def test_normalise_records_keeps_message_observation_and_candidates() -> None:

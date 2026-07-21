@@ -1,0 +1,12 @@
+{
+  "analysts_have_distinct_locators": true,
+  "analysts_receive_only_context_manifest_and_approved_codebook": true,
+  "cross_analyst_output_hidden_until_both_sets_locked": true,
+  "execution_allowed": false,
+  "extractor_candidate_label_hidden": true,
+  "extractor_confidence_hidden": true,
+  "orchestrator_may_label": false,
+  "reconciler_receives_outputs_only_after_both_sets_locked": true,
+  "schema_version": "foi-o.fixture-role-isolation-plan.v0.1.0",
+  "status": "pending_execution_authorization"
+}

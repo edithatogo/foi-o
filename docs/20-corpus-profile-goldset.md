@@ -50,7 +50,7 @@ These tasks are annotation and evaluation aids only. They include source state, 
 
 ## Empirical Task-Set Manifest
 
-The planned NZ-first empirical work is recorded in
+The planned NZ reference-profile empirical work is recorded in
 `examples/empirical-taskset-manifest.nz-first.json` and validated against
 `schemas/json/empirical-taskset-manifest.schema.json`.
 

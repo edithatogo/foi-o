@@ -13,9 +13,23 @@ from datetime import UTC, datetime
 from typing import Any
 from uuid import NAMESPACE_URL, uuid5
 
+from pydantic import AnyUrl
+
 from foi_o_nz.constants import DEFAULT_REGIME, HUMAN_CERTIFICATION_EVENT_TYPES
 from foi_o_nz.dates import parse_datetime
-from foi_o_nz.models import Actor, CoreEvent, EvidenceRef, RequestProfile, RequestRef
+from foi_o_nz.models import (
+    Actor,
+    ActorRole,
+    AssertionStatus,
+    CoreEvent,
+    EventType,
+    EvidenceRef,
+    EvidenceType,
+    HumanCertification,
+    LegalReference,
+    RequestProfile,
+    RequestRef,
+)
 
 _MESSAGE_FIELDS = (
     "correspondence",
@@ -63,8 +77,10 @@ _LEGAL_REFS: dict[str, list[dict[str, str]]] = {
 }
 
 
-def _legal_refs_for(event_type: str) -> list[dict[str, str]]:
-    return _LEGAL_REFS.get(event_type, [])
+def _legal_refs_for(event_type: str) -> list[LegalReference]:
+    return [
+        LegalReference.model_validate(reference) for reference in _LEGAL_REFS.get(event_type, [])
+    ]
 
 
 @dataclass(frozen=True, slots=True)
@@ -157,10 +173,11 @@ def _evidence(
     profile: RequestProfile, message: ExtractedMessage, event_time: datetime
 ) -> EvidenceRef:
     excerpt = message.body[:500]
+    source_url = message.source_url or profile.source_url
     return EvidenceRef(
         evidence_id=f"evidence:{profile.source}:{profile.request_id}:message:{message.message_id}",
-        evidence_type="message",
-        source_url=message.source_url or profile.source_url,
+        evidence_type=EvidenceType.MESSAGE,
+        source_url=AnyUrl(source_url) if source_url is not None else None,
         archive_ref=f"{profile.url_title or profile.request_id}#{message.message_id}",
         content_sha256=profile.content_sha256,
         excerpt=excerpt,
@@ -185,7 +202,7 @@ def _base_event_kwargs(profile: RequestProfile, message: ExtractedMessage) -> di
         "request_ref": _request_ref(profile),
         "regime": DEFAULT_REGIME,
         "source_system": profile.source,
-        "actor": Actor(role="system", name="fyi-archive-nz"),
+        "actor": Actor(role=ActorRole.SYSTEM, name="fyi-archive-nz"),
         "machine_generated": True,
         "generator": {
             "system": "foi-o-nz",
@@ -208,9 +225,9 @@ def build_message_events(
             CoreEvent(
                 **kwargs,
                 event_id=_message_event_id("message-observed", profile, message),
-                event_type="MessageObserved",
+                event_type=EventType.MESSAGE_OBSERVED,
                 lifecycle_state_after=profile.normalised_state,
-                assertion_status="observed",
+                assertion_status=AssertionStatus.OBSERVED,
                 confidence=1.0,
                 requires_human_certification=False,
                 payload={
@@ -272,21 +289,16 @@ def _candidate_events_from_message(
         # These are observed communications/candidates, not certified legal acts.
         # Dispositive-looking event types carry the human-certification requirement
         # and a negative certification record to prevent accidental approval.
-        human_certification = None
-        if requires_certification:
-            human_certification = {
-                "certified": False,
-                "certified_by_role": None,
-                "certified_at": None,
-                "certification_reference": None,
-            }
+        human_certification = (
+            HumanCertification(certified=False) if requires_certification else None
+        )
         out.append(
             CoreEvent(
                 **kwargs,
                 event_id=_message_event_id(event_type.lower(), profile, message),
-                event_type=event_type,
+                event_type=EventType(event_type),
                 lifecycle_state_after=lifecycle_state,
-                assertion_status="inferred",
+                assertion_status=AssertionStatus.INFERRED,
                 confidence=confidence,
                 requires_human_certification=requires_certification,
                 human_certification=human_certification,

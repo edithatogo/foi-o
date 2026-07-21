@@ -1,7 +1,10 @@
 # System architecture
 
-FOI-O is the semantic and jurisdiction-contract layer in a multi-repository
-programme. FOI-O NZ is its currently implemented jurisdiction profile. Capture,
+FOI-O is the global semantic and jurisdiction-contract layer in a
+multi-repository programme. It originated in the New Zealand OIA profile and
+has iterated through Australian Commonwealth and NSW adapters. The NZ package
+remains the mature reference implementation; Australian adapters remain
+candidate-only pending empirical and human promotion. Capture,
 archiving, OCR, extraction, rules, and programme conformance remain separate so
 that their provenance and approval boundaries are inspectable.
 

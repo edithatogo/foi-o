@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-runtime-handshake-evidence:0.1.0",
+  "$defs": {
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}},
+    "authorization_pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/analyst-fixture-packet/runtime-handshake-authorization.approved.json"}, "sha256": {"const": "de140e1397df2f1e20aa9ceede443d589d6bacbca9a767fecc2992644f1c056f"}, "repository_commit": {"const": "393991ea0cfdaf9f016108bf74edae94b80f042a"}}}
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "evidence_id", "status", "role_key", "actor_id", "role", "canonical_session_locator", "provider_family", "reported_runtime_family", "normalized_runtime_family", "exact_model_snapshot_available", "exact_model_snapshot", "immutable_session_agent_uuid_available", "immutable_session_agent_uuid", "delivery_time_available", "delivered_at", "reply_time_available", "reply_at", "recorded_at", "recording_note", "handshake_authorization", "handshake_prompt", "raw_reply", "raw_reply_text", "handshake_prompt_delivered", "fixture_context_delivered_with_handshake", "label_material_delivered_with_handshake", "peer_output_delivered_with_handshake", "context_presentation_allowed", "analysis_execution_allowed", "reconciliation_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-runtime-handshake-evidence.v0.1.0"}, "evidence_id": {"type": "string", "minLength": 1}, "status": {"const": "captured_runtime_handshake_only"},
+    "role_key": {"enum": ["orchestrator", "analyst_a", "analyst_b", "reconciler"]}, "actor_id": {"type": "string", "minLength": 1}, "role": {"enum": ["orchestrator_non_labeling", "analyst", "reconciler"]}, "canonical_session_locator": {"type": "string", "pattern": "^/root/fixture_[a-z_]+_ready$"},
+    "provider_family": {"const": "OpenAI"}, "reported_runtime_family": {"enum": ["GPT-5 / Codex", "Codex / GPT-5", "Codex, GPT-5"]}, "normalized_runtime_family": {"const": "Codex / GPT-5"},
+    "exact_model_snapshot_available": {"const": false}, "exact_model_snapshot": {"type": "null"}, "immutable_session_agent_uuid_available": {"const": false}, "immutable_session_agent_uuid": {"type": "null"},
+    "delivery_time_available": {"const": false}, "delivered_at": {"type": "null"}, "reply_time_available": {"const": false}, "reply_at": {"type": "null"},
+    "recorded_at": {"const": "2026-07-19T10:00:36+10:00"}, "recording_note": {"const": "recorded_at is repository provenance and is not a delivery or reply time"},
+    "handshake_authorization": {"$ref": "#/$defs/authorization_pin"},
+    "handshake_prompt": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/prompts/runtime-provenance-handshake.v1.txt"}, "sha256": {"const": "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77"}}}]},
+    "raw_reply": {"$ref": "#/$defs/pin"}, "raw_reply_text": {"type": "string", "minLength": 1},
+    "handshake_prompt_delivered": {"const": true}, "fixture_context_delivered_with_handshake": {"const": false}, "label_material_delivered_with_handshake": {"const": false}, "peer_output_delivered_with_handshake": {"const": false},
+    "context_presentation_allowed": {"const": false}, "analysis_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "local_only": {"const": true},
+    "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false}
+  }
+}

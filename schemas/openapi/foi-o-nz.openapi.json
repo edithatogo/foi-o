@@ -1,0 +1,455 @@
+{
+  "components": {
+    "schemas": {
+      "StateMapRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "jurisdiction": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "jurisdiction_profile": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "source_state": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_state",
+          "jurisdiction",
+          "jurisdiction_profile"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Bounded process-support API for a global FOI-O core developed from New Zealand and iterated through Australian jurisdictions. It exposes validation and drafting support, not autonomous legal decision-making.",
+    "title": "FOI-O Global Agent Process API",
+    "version": "0.8.1",
+    "x-foio-model-scope": "global_core_with_versioned_jurisdiction_profiles",
+    "x-foio-origin": "New Zealand OIA reference implementation"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/agent-actions/evaluate": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "schemas/json/agent-action.schema.json"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Policy decision"
+          }
+        },
+        "summary": "Evaluate whether a proposed agent action stays within policy.",
+        "x-agent-boundary": "guardrail-enforcement",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/agent-packs/build": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Agent context pack"
+          }
+        },
+        "summary": "Build a request-scoped agent context pack with constraints and provenance.",
+        "x-agent-boundary": "context-packaging-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/attestations/artifacts": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Unsigned attestation"
+          }
+        },
+        "summary": "Generate unsigned in-toto/SLSA-style provenance for artefacts.",
+        "x-agent-boundary": "integrity-metadata-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/chunks/search": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Retrieval report"
+          }
+        },
+        "summary": "Search deterministic chunk records for request context.",
+        "x-agent-boundary": "retrieval-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/events/quality-gate": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Quality report"
+          }
+        },
+        "summary": "Assess event-stream provenance and certification-boundary risks.",
+        "x-agent-boundary": "quality-assurance-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/goldsets/sample": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Gold-set sample manifest"
+          }
+        },
+        "summary": "Create deterministic human-review/evaluation samples.",
+        "x-agent-boundary": "evaluation-planning-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/graphs/export": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Graph export"
+          }
+        },
+        "summary": "Export a request/process graph for audit and agent navigation.",
+        "x-agent-boundary": "navigation-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/kernels/conformance": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Kernel conformance report"
+          }
+        },
+        "summary": "Run deterministic kernel conformance checks.",
+        "x-agent-boundary": "runtime-validation-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/kernels/manifest": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Kernel manifest"
+          }
+        },
+        "summary": "Export the deterministic kernel operation manifest.",
+        "x-agent-boundary": "runtime-introspection-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/kernels/mojo-audit": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Static Mojo audit report"
+          }
+        },
+        "summary": "Statically audit Mojo declarations against fallback kernel operations.",
+        "x-agent-boundary": "runtime-validation-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/kernels/readiness": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Kernel readiness report"
+          }
+        },
+        "summary": "Report Python fallback, static Mojo source, and native-release readiness.",
+        "x-agent-boundary": "runtime-introspection-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/kernels/status": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Native kernel status"
+          }
+        },
+        "summary": "Report Mojo/MAX kernel availability and fallback mode.",
+        "x-agent-boundary": "runtime-introspection-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/ledgers/verify": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Ledger verification result"
+          }
+        },
+        "summary": "Verify a tamper-evident JSONL ledger against a source stream.",
+        "x-agent-boundary": "evidence-integrity-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/process/advice": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Process advice report"
+          }
+        },
+        "summary": "Generate preparatory process advice for one request.",
+        "x-agent-boundary": "advice-only-human-review-required",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/redactions/candidates": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Redaction-candidate stream"
+          }
+        },
+        "summary": "Generate candidate sensitive-span review flags without redacting.",
+        "x-agent-boundary": "candidate-only-human-review-required",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/review-queue/build": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "Review task stream"
+          }
+        },
+        "summary": "Build human-review tasks from risk, candidate redaction, and certification-boundary signals.",
+        "x-agent-boundary": "routing-only-no-decision",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    },
+    "/state/map": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StateMapRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "State mapping"
+          }
+        },
+        "summary": "Map a source-platform state to a cautious FOI-O core state using an explicit jurisdiction profile.",
+        "x-agent-boundary": "process-support-only",
+        "x-legal-effect": "none",
+        "x-machine-certification-allowed": false,
+        "x-prohibited-follow-on-actions": [
+          "certify_release",
+          "certify_refusal",
+          "approve_redaction",
+          "approve_charge",
+          "certify_transfer",
+          "certify_extension",
+          "certify_complaint_or_review_outcome"
+        ],
+        "x-read-only": true
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "local development",
+      "url": "http://localhost:8787"
+    }
+  ]
+}

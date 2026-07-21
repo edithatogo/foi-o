@@ -1,0 +1,3 @@
+FOI-O fixture analyst B prompt v1
+
+Run only after the exact committed v0.2 execution authorization passes verification. Independently classify every authorized redacted fixture context using the pinned approved codebook. Do not inspect analyst A output, extractor candidate labels, extractor confidence, or reconciliation material. Record controlled abstention when evidence is insufficient. Keep all promotion gates disabled.

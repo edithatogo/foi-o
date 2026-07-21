@@ -24,7 +24,12 @@ uv run python scripts/build_submission_latex.py all --strict
 ```
 
 The script records command logs, PDF metadata checks, source hygiene checks,
-figure checks, citation/reference checks, and cleaner status in a JSON manifest.
+figure checks, citation/reference checks, hyperlink-contract checks, and cleaner
+status in a JSON manifest. The hyperlink contract requires every numbered
+citation (1--30), the abbreviations and glossary anchors, and every generated
+table and figure anchor to have a matching navigable link in the produced TeX.
+This keeps the requested navigation elements present when the TeX is converted
+to PDF.
 It may use `uvx --from arxiv-latex-cleaner arxiv_latex_cleaner` when the cleaner
 is not on `PATH`.
 For the arXiv target, the compiled supplement is added to the upload archive as

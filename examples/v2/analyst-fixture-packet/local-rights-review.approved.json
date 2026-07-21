@@ -1,0 +1,44 @@
+{
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-17",
+  "created_at": "2026-07-17T12:00:00Z",
+  "empirical_evidence": false,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "license_placeholder": {
+    "grants_redistribution": false,
+    "path": "LICENSE.md",
+    "sha256": "4b433d662d19413093921cb1fe70ae3d95dfc1c77646cf7fb818e4bab82aee30"
+  },
+  "local_analysis_allowed": true,
+  "local_only": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update"
+  ],
+  "publication_eligible": false,
+  "purpose": "bounded_local_agent_analysis",
+  "recorded_at": "2026-07-17T23:04:58+10:00",
+  "redistribution_granted": false,
+  "release_qualifying": false,
+  "review_id": "local-fixture-census-11",
+  "schema_version": "foi-o.analyst-approved-local-rights-review.v0.1.0",
+  "sources": [
+    {
+      "path": "examples/event-timeline.small.json",
+      "sha256": "47e2b76e28a8f6cdd6f81cac03114383505b76160c202bb5c219703bc2d2580b"
+    },
+    {
+      "path": "examples/process-mining-events.fixture.jsonl",
+      "sha256": "f5c84049dc51708f80028cb4940f7f15acd4ec8f0a8ba22f91b86e526f2320c7"
+    }
+  ],
+  "status": "approved_bounded_local_use"
+}

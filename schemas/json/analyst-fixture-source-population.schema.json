@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:analyst-fixture-source-population:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "population_id", "status", "task", "sources", "expected_unit_count", "coverage_start", "coverage_end", "source_state_policy", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "created_at", "locked_at"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-fixture-source-population.v0.1.0"}, "population_id": {"type": "string", "minLength": 1}, "status": {"const": "locked_synthetic_fixture_population"}, "task": {"const": "fixture_engineering_classification"},
+    "sources": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "expected_units"], "properties": {"path": {"enum": ["examples/process-mining-events.fixture.jsonl", "examples/event-timeline.small.json"]}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "expected_units": {"type": "integer", "minimum": 1}}}},
+    "expected_unit_count": {"const": 11}, "coverage_start": {"const": "2026-06-01"}, "coverage_end": {"const": "2026-07-09"}, "source_state_policy": {"const": "preserve_present_null_or_absent_never_synthesize"},
+    "local_only": {"const": true}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false},
+    "created_at": {"type": "string", "format": "date-time"}, "locked_at": {"type": "string", "format": "date-time"}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-mutool-execution-authorization:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "status", "execution_request", "wrapper", "method", "method_approval", "human_approval", "source_root", "output_directory", "authorization_effective", "pdf_processing_allowed", "derived_content_creation_allowed", "local_only", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-mutool-execution-authorization.v0.1.0"},
+    "authorization_id": {"const": "bounded-pilot-11872-attachment-mutool-derivation-approved"},
+    "status": {"const": "approved_exact_local_mutool_derivation"},
+    "execution_request": {"const": {"path": "examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json", "sha256": "f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148"}},
+    "wrapper": {"const": {"path": "src/foi_o_nz/bounded_pilot_attachment_mutool_derivation.py", "sha256": "d8433bdaa8fabf994b9877575d4dce3727e20f0c6ff4d03e4f01eaf371c9a1cd"}},
+    "method": {"const": {"path": "examples/v2/bounded-pilot-attachment-alternative-text-method.pending.json", "sha256": "9afcaa8ae32967e7b6aa19215e5731c11e0405e476db820748c6b42c47e47844"}},
+    "method_approval": {"const": {"path": "examples/v2/bounded-pilot-attachment-alternative-text-method-approval.approved.json", "sha256": "5b6b26e9991309f46912af760e9c5f21d712b64e1806e90ce5a19c2034b79541"}},
+    "human_approval": {"const": {"path": "examples/v2/bounded-pilot-attachment-mutool-human-approval.approved.json", "sha256": "5a13078c04e4c4c5daaccf815766fdeb76bb794702c540537c1cb2e96d569c3f"}},
+    "source_root": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"},
+    "output_directory": {"const": "/private/tmp/foio-bounded-pilot-11872-derived"},
+    "authorization_effective": {"const": true},
+    "pdf_processing_allowed": {"const": true},
+    "derived_content_creation_allowed": {"const": true},
+    "local_only": {"const": true},
+    "context_presentation_allowed": {"const": false},
+    "analyst_execution_allowed": {"const": false},
+    "reconciliation_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false}
+  }
+}

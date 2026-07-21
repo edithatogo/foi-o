@@ -1,0 +1,20 @@
+{
+  "schema_version": "foi-o.bounded-pilot-runtime-handshake-evidence.v0.2.0",
+  "status": "locked_context_free_runtime_handshake",
+  "actor_id": "agent:bounded-pilot-analyst-b",
+  "actor_class": "automated_agent",
+  "role": "analyst",
+  "provider": "OpenAI",
+  "model": "GPT-5",
+  "session_id": "/root/bounded_pilot_analyst_b",
+  "role_prompt_sha256": "e915da3e0ccbc53f19d3d268afd51a084d5c181839851b4002a5953752530d16",
+  "handshake_prompt": {"path": "examples/v2/bounded-pilot-analyst-prompts/runtime-handshake.v0.2.txt", "sha256": "7f7e07d7ffca0905fd1c551a9a3f2e83d9c06070f31c8bc04c84ec5bfd5aea69", "repository_commit": "cab1979f58882744f0ac34d7bc6bae7a4594cb10"},
+  "reply_sha256": "861e935e13730c369915a0351b522943bd32bb4d244308d8f20116a58f67d30b",
+  "context_received": false,
+  "candidate_labels_received": false,
+  "peer_outputs_received": false,
+  "ready_for_future_exact_authorization": true,
+  "local_only": true,
+  "execution_authorized": false,
+  "empirical_result_approved": false
+}

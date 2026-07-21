@@ -2,8 +2,9 @@
 
 ## Overview
 
-Extend FOI-O from its validated NZ profile to evidence-backed Australian
-profiles without weakening the jurisdiction-neutral core or treating Australian
+Iterate the global FOI-O model, which originated in its mature NZ reference
+profile, through evidence-backed Australian profiles without weakening the
+jurisdiction-neutral core or treating Australian
 information-access regimes as legally interchangeable.
 
 ## Provenance and integration

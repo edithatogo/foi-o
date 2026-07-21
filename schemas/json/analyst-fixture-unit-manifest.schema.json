@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:analyst-fixture-unit-manifest:0.1.0",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "source_path",
+        "source_artifact_sha256",
+        "unit_sha256",
+        "context_sha256",
+        "source_span",
+        "observed_date",
+        "request_linkage_group",
+        "duplicate_cluster_id",
+        "split",
+        "inclusion_probability",
+        "sampling_weight",
+        "rights_eligible_for_local_use"
+      ],
+      "properties": {
+        "unit_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_path": {
+          "enum": [
+            "examples/process-mining-events.fixture.jsonl",
+            "examples/event-timeline.small.json"
+          ]
+        },
+        "source_artifact_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "unit_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "context_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "source_span": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "start",
+            "end",
+            "coordinate_system"
+          ],
+          "properties": {
+            "start": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "end": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "coordinate_system": {
+              "const": "utf8_character_half_open"
+            }
+          }
+        },
+        "observed_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "request_linkage_group": {
+          "type": "string",
+          "minLength": 1
+        },
+        "duplicate_cluster_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "split": {
+          "const": "annotation_only"
+        },
+        "inclusion_probability": {
+          "const": 1.0
+        },
+        "sampling_weight": {
+          "const": 1.0
+        },
+        "rights_eligible_for_local_use": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "status",
+    "local_only",
+    "empirical_evidence",
+    "human_reviewed",
+    "gold_eligible",
+    "release_qualifying",
+    "publication_eligible",
+    "ordered_unit_commitment_sha256",
+    "ordered_unit_commitment_algorithm",
+    "created_at",
+    "locked_at",
+    "units"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o.analyst-fixture-unit-manifest.v0.1.0"
+    },
+    "manifest_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "const": "locked_local_fixture_census"
+    },
+    "local_only": {
+      "const": true
+    },
+    "empirical_evidence": {
+      "const": false
+    },
+    "human_reviewed": {
+      "const": false
+    },
+    "gold_eligible": {
+      "const": false
+    },
+    "release_qualifying": {
+      "const": false
+    },
+    "publication_eligible": {
+      "const": false
+    },
+    "ordered_unit_commitment_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "ordered_unit_commitment_algorithm": {
+      "const": "sha256_lowercase_hex_lines_final_newline_v1"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "locked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "units": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/unit"
+      }
+    }
+  }
+}

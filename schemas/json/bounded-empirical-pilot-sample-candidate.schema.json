@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-empirical-pilot-sample-candidate:0.1.0",
+  "$defs": {
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}},
+    "member": {"type": "object", "additionalProperties": false, "required": ["request_id", "existing_approved_purpose", "requested_purpose", "purpose_expansion_required", "evidence"], "properties": {"request_id": {"enum": ["11872", "35076"]}, "existing_approved_purpose": {"enum": ["local_raw_state_mapping_audit_only", "local_candidate_extraction_only"]}, "requested_purpose": {"const": "bounded_local_agent_empirical_pilot"}, "purpose_expansion_required": {"const": true}, "evidence": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/pin"}}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "sample_id", "status", "recorded_at", "protocol_approval", "sample_kind", "claim_scope", "members", "local_only", "population_inference_allowed", "archive_wide_claim_allowed", "sample_membership_approved", "purpose_rights_approved", "execution_allowed", "empirical_evidence", "human_reviewed", "gold_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-empirical-pilot-sample-candidate.v0.1.0"},
+    "sample_id": {"const": "foi-o-nz-bounded-pilot-11872-35076"},
+    "status": {"const": "pending_exact_sample_and_purpose_rights_approval"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "protocol_approval": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-empirical-protocol-approval.approved.json"}, "sha256": {"const": "f4e95cdf065397d5a1d6fcef731297b43c83bdeb835a793321a47e6f97de545d"}}}]},
+    "sample_kind": {"const": "purposive_bounded_case_pilot"},
+    "claim_scope": {"const": "case_level_feasibility_for_requests_11872_and_35076_only"},
+    "members": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/member"}},
+    "local_only": {"const": true},
+    "population_inference_allowed": {"const": false},
+    "archive_wide_claim_allowed": {"const": false},
+    "sample_membership_approved": {"const": false},
+    "purpose_rights_approved": {"const": false},
+    "execution_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "prohibited_actions": {"type": "array", "uniqueItems": true, "items": {"enum": ["context_presentation", "analyst_execution", "reconciliation", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]}, "minItems": 15, "maxItems": 15}
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "foi-o.annotation-protocol-review.v0.1.0",
+  "status": "approved",
+  "reviewer": "edithatogo",
+  "reviewed_at": "2026-07-17T09:48:28Z",
+  "protocol_path": "docs/41-v2-sampling-and-annotation-protocol.md",
+  "protocol_sha256": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63",
+  "approval_statement": "I, edithatogo, approve sampling and annotation protocol SHA-256 3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63. This approves the protocol design only and does not approve sample membership, labels, adjudication outcomes, empirical results, gold promotion, publication, release, or dataset publication.",
+  "protocol_design_approved": true,
+  "execution_authorized": false,
+  "prohibited_actions": {
+    "sample_membership_approval": false,
+    "label_approval": false,
+    "adjudication_outcome_approval": false,
+    "empirical_result_approval": false,
+    "gold_promotion": false,
+    "publication": false,
+    "release": false,
+    "dataset_publication": false
+  }
+}

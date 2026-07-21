@@ -1,0 +1,55 @@
+{
+  "artifacts": [
+    {
+      "path": "examples/v2/analyst-fixture-packet/source-population.json",
+      "sha256": "4cf6266bb7017c278a0fe869cef3f6f36ed01a6dc0c82bdcb79f3454c532d451"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/codebook.json",
+      "sha256": "914782bf086b3e07a595b6ccdc249c0bfd5efbcf844e939d7a8b893a936e737c"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/sampling-configuration.json",
+      "sha256": "56a2d37483f13769b02fc1156cbd704558cbb10eb09bbea353d9767814575be2"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/unit-manifest.json",
+      "sha256": "a847c4f131ddcaaf8151d13c767859e8269bd1cca14ada20cf220d7c755ccddf"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/cluster-registry.json",
+      "sha256": "4aef78cbad8a243a450de5c7f2fad1b21912bc4a26f1576375d1b163ad8cd14e"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/redaction-manifest.json",
+      "sha256": "7230de85b808521292d32be170b33185386adf000225b54305f971fdc9a095c8"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/local-rights-review.pending.json",
+      "sha256": "4498c2fc7af5ccba51d484b684dbdad0b46b60f17775c7b37cda1dd6e92376cf"
+    }
+  ],
+  "empirical_evidence": false,
+  "execution_allowed": false,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update"
+  ],
+  "protocol": {
+    "path": "docs/42-v2-analyst-execution-protocol.md",
+    "sha256": "ac3785bd823d43a43c7830e34f4f3b380472f271e21f19446cbc575f4b49eca0"
+  },
+  "publication_eligible": false,
+  "release_qualifying": false,
+  "status": "pending_exact_human_rights_and_execution_input_approval"
+}

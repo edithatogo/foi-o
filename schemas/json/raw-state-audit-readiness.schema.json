@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical:raw-state-audit-readiness:0.1.0",
+  "title": "FOI-O FYI raw-state audit readiness",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "dataset_revision", "manifest_sha256", "mapping_sha256",
+    "record_count", "observed_state_counts", "records_missing_state",
+    "records_with_mapped_state", "unmapped_nonempty_states",
+    "records_with_correspondence", "records_with_nonempty_attachments",
+    "ready_for_mapping_audit", "blockers", "source_records_modified"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.raw-state-audit-readiness.v0.1.0"},
+    "dataset_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "mapping_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "record_count": {"type": "integer", "minimum": 0},
+    "observed_state_counts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "records_missing_state": {"type": "integer", "minimum": 0},
+    "records_with_mapped_state": {"type": "integer", "minimum": 0},
+    "unmapped_nonempty_states": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "records_with_correspondence": {"type": "integer", "minimum": 0},
+    "records_with_nonempty_attachments": {"type": "integer", "minimum": 0},
+    "ready_for_mapping_audit": {"type": "boolean"},
+    "blockers": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["missing_state_values", "unmapped_source_states", "no_correspondence_evidence", "no_attachment_evidence"]}
+    },
+    "source_records_modified": {"const": false}
+  }
+}

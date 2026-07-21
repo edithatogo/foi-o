@@ -6,7 +6,7 @@ This note records the repo-local evidence surface for the current release-readin
 
 | Surface | Evidence | Validation command |
 | --- | --- | --- |
-| Python package and CLI | `src/foi_o_nz/`, `pyproject.toml`, tests | `uv run pytest -q` |
+| Python package and CLI | `src/foi_o_nz/`, `pyproject.toml`, tests | `make test-fast` during development and `make test-serial` for final release evidence |
 | JSON Schemas and examples | `schemas/json/`, `examples/` | `uv run pytest -q tests/test_validation.py tests/test_jsonl_validation.py` and `uv run python scripts/validate_examples.py` |
 | Kernel fallback contract | `src/foi_o_nz/kernel_fallback.py`, `tests/test_kernel_fallback_native.py` | `uv run pytest -q tests/test_kernel_fallback_native.py` |
 | Static Mojo audit and readiness | `src/foi_o_nz/mojo_audit.py`, `src/foi_o_nz/kernel_manifest.py`, `tests/test_mojo_audit_kernel_manifest.py` | `uv run pytest -q tests/test_mojo_audit_kernel_manifest.py` |
@@ -23,7 +23,9 @@ Run these commands before claiming repo-local release readiness:
 ```bash
 uv run ruff check src tests scripts
 uv run ruff format --check src tests scripts
-uv run pytest -q
+uv run ty check src tests scripts
+uv run basedpyright
+make test-serial
 uv run python scripts/validate_examples.py
 ```
 

@@ -1,0 +1,27 @@
+{
+  "actor_class": "automated_agent",
+  "actor_id": "agent:reconciler-fixture",
+  "canonical_session_locator": "/root/fixture_reconciler_ready",
+  "execution_allowed": false,
+  "future_execution_prompt": {
+    "path": "examples/v2/analyst-fixture-packet/prompts/reconciler.future-execution.v1.txt",
+    "sha256": "80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081"
+  },
+  "handshake_completed": false,
+  "handshake_prompt": {
+    "path": "examples/v2/analyst-fixture-packet/prompts/runtime-provenance-handshake.v1.txt",
+    "sha256": "6fb5386e21364f172289d563c17b7c93ea17b7a2eea454ff1affa8767d1bea77"
+  },
+  "immutable_session_uuid": null,
+  "immutable_session_uuid_available": false,
+  "may_label": false,
+  "role": "reconciler",
+  "runtime": {
+    "exact_snapshot": null,
+    "exact_snapshot_available": false,
+    "model_runtime_family": null,
+    "provider_family": null
+  },
+  "schema_version": "foi-o.fixture-role-provenance.v0.1.0",
+  "status": "pending_runtime_handshake_and_human_authorization"
+}

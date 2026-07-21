@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-stderr-content-review-result:0.1.0",
+  "$defs": {"sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha"}}}},
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "result_id", "status", "repository_commit", "review_request", "review_approval", "inputs", "classification_method", "classification", "category_counts_per_file", "utf8_decodable", "verbatim_stderr_emitted", "verbatim_stderr_committed", "warning_policy_candidate", "derivation_retry_authorized", "derived_text_reviewed", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-stderr-content-review-result.v0.1.0"}, "result_id": {"const": "bounded-pilot-11872-attachment-stderr-content-review-1"}, "status": {"const": "completed_error_signal_present_retry_blocked"}, "repository_commit": {"const": "44c58fe2550e5c01b4e2e346248051cf2fd923c5"},
+    "review_request": {"const": {"path": "examples/v2/bounded-pilot-attachment-stderr-content-review-request.pending.json", "sha256": "53154fc6bed37aaa26d9291bb74ddcb25a7a23c892d7b340fd28415e41defd9a"}},
+    "review_approval": {"const": {"path": "examples/v2/bounded-pilot-attachment-stderr-content-review.approved.json", "sha256": "24d75d31a0930d4795cb36ea8a1e223a899058968d3520b926d8b0995806b8e3"}},
+    "inputs": {"const": {"file_count": 2, "identical": true, "sha256": "4292a8a1578cd877480338e34585df6aa922afab07bf87f68141173018973b2f", "size_each": 198, "line_count_each": 3}},
+    "classification_method": {"const": "deterministic_signal_classifier_v0.1.1"}, "classification": {"const": "error_signal_present"}, "category_counts_per_file": {"const": {"error_signal": 3}}, "utf8_decodable": {"const": true}, "verbatim_stderr_emitted": {"const": false}, "verbatim_stderr_committed": {"const": false}, "warning_policy_candidate": {"const": false}, "derivation_retry_authorized": {"const": false}, "derived_text_reviewed": {"const": false}, "context_presentation_allowed": {"const": false}, "analyst_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+  }
+}

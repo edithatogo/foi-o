@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:governed-reextraction-verification:0.1.0",
+  "title": "FOI-O governed re-extraction verification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "valid", "packet_sha256", "candidate_sha256",
+    "baseline_sha256", "source_manifest_sha256", "source_content_sha256",
+    "contract_sha256", "archive_revision", "pipeline_revision",
+    "verifier_revision", "model_id", "model_revision", "model_weights_sha256",
+    "source_artifacts_verified", "candidate_count", "candidate_ids", "storage",
+    "review_status", "human_promotion_required", "model_applied",
+    "source_records_modified", "empirical_comparison", "publication_allowed",
+    "promotion_allowed"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.governed-reextraction-verification.v0.1.0"},
+    "valid": {"const": true},
+    "packet_sha256": {"$ref": "#/$defs/sha256"},
+    "candidate_sha256": {"$ref": "#/$defs/sha256"},
+    "baseline_sha256": {"$ref": "#/$defs/sha256"},
+    "source_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "source_content_sha256": {"$ref": "#/$defs/sha256"},
+    "contract_sha256": {"$ref": "#/$defs/sha256"},
+    "archive_revision": {"$ref": "#/$defs/revision"},
+    "pipeline_revision": {"$ref": "#/$defs/revision"},
+    "verifier_revision": {"$ref": "#/$defs/revision"},
+    "model_id": {"type": "string", "minLength": 1},
+    "model_revision": {"$ref": "#/$defs/revision"},
+    "model_weights_sha256": {"$ref": "#/$defs/sha256"},
+    "source_artifacts_verified": {"type": "integer", "minimum": 1},
+    "candidate_count": {"type": "integer", "minimum": 0},
+    "candidate_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "storage": {"const": "local_only"},
+    "review_status": {"const": "candidate"},
+    "human_promotion_required": {"const": true},
+    "model_applied": {"const": false},
+    "source_records_modified": {"const": false},
+    "empirical_comparison": {"const": false},
+    "publication_allowed": {"const": false},
+    "promotion_allowed": {"const": false}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "foi-o.bounded-pilot-batched-execution-plan.v0.1.0",
+  "plan_id": "bounded-pilot-11872-35076-analysis-to-arxiv-readiness",
+  "status": "pending_single_exact_batched_execution_approval",
+  "scope": {"request_ids": ["11872", "35076"], "sampling": "purposive_two_case_pilot", "claims": "case_level_feasibility_only"},
+  "governed_inputs": {
+    "approved_readiness": {"path": "examples/v2/bounded-pilot-execution-input-readiness.v0.2.approved.json", "sha256": "8c126a01b6fc2b35f3501d7b5c4d3ba29517a41d7a495efd1bf9986003930004", "repository_commit": "17c7c2d784c84c2b127f6d65a1609025ccb80fbb"},
+    "analyst_request": {"path": "examples/v2/bounded-pilot-analyst-execution-request.v0.2.pending.json", "sha256": "ac83c06f129e11a19fb6a3bbd24a1023018ee508092a569b6a91b38188a7517b", "repository_commit": "02c25d5a038cd799d047575281d0732f57347705"},
+    "analyst_request_approval": {"path": "examples/v2/bounded-pilot-analyst-execution-approval.approved.json", "sha256": "9e7219c5f245037d0cff33d5e981b60314bdc352040b9b3da6247e62404f0102", "repository_commit": "c0b08b7b0de8254e3df05a9df2e80876d81f6b7e"},
+    "derivation_result": {"path": "examples/v2/bounded-pilot-attachment-mutool-derivation-result.1.json", "sha256": "271a15a0f93451be4db2d35be0721c16734d0e643d8d04a5dfb421fb1bd4eded", "repository_commit": "f5d59d22a77240db72884a2bedcffcbb731ea59d"},
+    "codebook": {"path": "examples/v2/bounded-pilot-blinded-codebook.pending.json", "sha256": "2848b675b63231d97fb4d47f5b8bdff4cd1e9947676ed50af80dbaa0e128bde9"},
+    "protocol": {"path": "docs/43-v2-analyst-empirical-validation-protocol.md", "sha256": "1ff93755f9beccb86fe4b3bd67388c68e2202ec62c6ca1848aa01a9157b6d65f"}
+  },
+  "local_roots": {"request_11872_source": "/private/tmp/fyi-attachment-snapshot-11872-approved", "request_35076_source": "/private/tmp/foio-governed-reextraction-35076-verified", "derived_attachments": "/private/tmp/foio-bounded-pilot-11872-derived", "execution_workspace": "/private/tmp/foio-bounded-pilot-analysis-v0.2"},
+  "context_contract": {"unit_order": ["11872", "35076"], "segment_order": "evidence_manifest_correspondence_order_then_attachment_inventory_order", "separator": "\n\n--- FOIO SEGMENT BOUNDARY ---\n\n", "encoding": "UTF-8", "span_coordinates": "zero_based_utf8_codepoint_half_open_in_materialized_unit_context", "identical_analyst_contexts_required": true, "excluded_inputs": ["raw_state_mappings", "mapping_reviews", "extractor_candidate_labels", "extractor_confidence", "prior_outcomes", "peer_outputs"]},
+  "stages": [
+    {"id": "S1", "action": "commit_exact_builder_verifier_authorization_and_context_free_runtime_handshakes", "requires": ["single_exact_plan_approval"], "produces": "clean_head_verifiable_execution_chain"},
+    {"id": "S2", "action": "materialize_identical_owner_only_contexts", "requires": ["S1_clean_head_verifier_pass"], "produces": "two_hash_identical_context_manifests"},
+    {"id": "S3", "action": "run_two_isolated_agent_analysts", "requires": ["S2", "distinct_runtime_handshakes"], "produces": "two_complete_schema_valid_result_sets"},
+    {"id": "S4", "action": "atomically_hash_lock_both_analyst_sets", "requires": ["S3"], "produces": "dual_analysis_lock"},
+    {"id": "S5", "action": "run_distinct_agent_reconciler_on_verified_disagreements_only", "requires": ["S4_verifier_pass"], "produces": "immutable_reconciliation_candidates"},
+    {"id": "S6", "action": "compute_case_level_agreement_and_diagnostics", "requires": ["S5"], "produces": "candidate_bounded_findings_no_population_inference"},
+    {"id": "S7", "action": "prepare_candidate_manuscript_revision_and_local_arxiv_package", "requires": ["S6"], "produces": "unpublished_final_review_packet"},
+    {"id": "S8", "action": "stop_for_single_final_results_and_package_approval", "requires": ["S7"], "produces": "no_external_action"}
+  ],
+  "failure_policy": {"fail_closed": true, "no_stage_skipping": true, "no_overwrite": true, "restricted_content_committed": false, "partial_results_are_not_empirical_evidence": true},
+  "requested_permissions_after_exact_approval": {"local_context_read_and_materialization": true, "two_isolated_analyst_executions": true, "conditional_reconciliation_after_dual_lock": true, "bounded_diagnostics_computation": true, "candidate_manuscript_and_package_preparation": true},
+  "authorization_present": false,
+  "execution_allowed": false,
+  "empirical_result_approved": false,
+  "human_reviewed": false,
+  "gold_eligible": false,
+  "population_inference_allowed": false,
+  "archive_wide_claim_allowed": false,
+  "redistribution_allowed": false,
+  "publication_allowed": false,
+  "release_allowed": false,
+  "dataset_publication_allowed": false,
+  "arxiv_submission_allowed": false,
+  "external_action_allowed": false,
+  "final_exact_results_and_package_approval_required": true
+}

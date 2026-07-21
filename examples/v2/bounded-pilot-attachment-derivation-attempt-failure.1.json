@@ -1,0 +1,45 @@
+{
+  "schema_version": "foi-o.bounded-pilot-attachment-derivation-attempt-failure.v0.1.0",
+  "attempt_id": "bounded-pilot-11872-attachment-derivation-attempt-1",
+  "status": "failed_closed_no_output_installed",
+  "repository_commit": "b2f2b2a6bff0f7451789402c4245950a30d6b6c4",
+  "authorization": {
+    "path": "examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json",
+    "sha256": "4909e672498ac89c5dd79e78dac66b49c8ccaae96f5e9ee45f204b6e264e474b"
+  },
+  "execution_request": {
+    "path": "examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json",
+    "sha256": "ad2ac19a3be836165948585304a9050b95f4612dd514cb3bb826d21d2ab38f2f"
+  },
+  "wrapper": {
+    "path": "src/foi_o_nz/bounded_pilot_attachment_derivation.py",
+    "sha256": "95bc4d29862d29301e8fca43cd9dbee7c77e1632445afd16655af92f8cb2d27d"
+  },
+  "pre_execution_verifier_passed": true,
+  "tool_invoked": true,
+  "failure": {
+    "stage": "tool_stderr_review_gate",
+    "exception_type": "ValueError",
+    "exception_message": "attachment derivation tool emitted stderr",
+    "stderr_retained": false,
+    "stderr_sha256": null,
+    "stderr_byte_count": null
+  },
+  "postflight": {
+    "source_root_present": true,
+    "output_directory_present": false,
+    "temporary_workspaces_present": false,
+    "repository_clean": true
+  },
+  "derivation_complete": false,
+  "outputs_installed": false,
+  "result_manifest_created": false,
+  "local_only": true,
+  "restricted_outputs_committed": false,
+  "context_presentation_allowed": false,
+  "analyst_execution_allowed": false,
+  "reconciliation_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false
+}

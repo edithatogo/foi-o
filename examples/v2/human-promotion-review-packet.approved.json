@@ -1,0 +1,54 @@
+{
+  "schema_version": "foi-o.human-promotion-review-packet.v0.1.0",
+  "packet_id": "foi-o-v2-nz-promotion-review-2026-07-16",
+  "overall_status": "approved",
+  "promotion_allowed": true,
+  "reviewer": {
+    "reviewer_id": "edithatogo",
+    "reviewed_at": "2026-07-16T09:34:52Z"
+  },
+  "items": [
+    {
+      "item_id": "independent-oia-event-time-candidates",
+      "decision_kind": "fixture_promotion",
+      "artifact_path": "tests/fixtures/oia_rules/oia-event-time-independent-candidates.json",
+      "artifact_sha256": "c986207a2839fd893679c18e875cfd10b0bdc29fefce14082eefd15ab8b797c9",
+      "decision": "approved",
+      "promotion_allowed": true,
+      "required_review": "Independently calculate every expected output and record approve, reject, or revise for each case before any stable or gold promotion."
+    },
+    {
+      "item_id": "nz-legislation-source-mapping",
+      "decision_kind": "legal_mapping_approval",
+      "artifact_path": "mappings/nz-legislation-sources.yaml",
+      "artifact_sha256": "46d48e28858057a0f64c6cde73c50907b452d749d43a20aaba013fda9203af2d",
+      "decision": "approved",
+      "promotion_allowed": true,
+      "required_review": "Verify every legal source identifier, provider, temporal applicability statement, and mapping scope against authoritative sources."
+    },
+    {
+      "item_id": "nz-oia-version-index",
+      "decision_kind": "legal_mapping_approval",
+      "artifact_path": "mappings/nz-oia-version-index.yaml",
+      "artifact_sha256": "3b33127da1a2c2bb7c7f2c90f12de245fed05db565b05cecb620c1b6915a4497",
+      "decision": "approved",
+      "promotion_allowed": true,
+      "required_review": "Verify version coverage and event-time applicability boundaries; file hashes alone do not establish legal applicability."
+    },
+    {
+      "item_id": "nz-source-rights-registry",
+      "decision_kind": "rights_scope_approval",
+      "artifact_path": "mappings/nz-source-rights-registry.yaml",
+      "artifact_sha256": "6a2b0d958d19415e36fd59cbd5cf0632f9837c44819f8aafef02a0d635c9cc77",
+      "decision": "approved",
+      "promotion_allowed": true,
+      "required_review": "A named rights reviewer must verify provider scope, exceptions, attribution requirements, and any permitted redistribution rule."
+    }
+  ],
+  "excluded_evidence": [
+    {
+      "path_glob": "examples/v2/schema-valid/*.json",
+      "reason": "contract_fixtures_not_human_approval_evidence"
+    }
+  ]
+}

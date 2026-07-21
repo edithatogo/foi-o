@@ -5,11 +5,24 @@ and all functional, schema, lint, format, repository-validation, Pixi quality,
 and build checks pass. The package name, event/provenance systems, state mapper,
 and `oia_rules` runtime remain intact.
 
-The local implementation is complete but the track remains active because the
-programme deliberately retains empirical and human gates: independent rule
-fixtures, historical source packs, raw-state audits, sample freezing, dual
-annotation, adjudication, stable-label approval, gold promotion, legal mapping
-approval, remote delivery, publication, and release.
+The bounded fixture-only implementation is complete. It includes the approved
+protocol, governed metadata-only NZ source pack, two bounded request mappings,
+locked independent agent analyses, locked agent reconciliation, and deterministic
+local inter-agent diagnostics (SHA-256
+`fe2f9e29136fca68894bc3960b7a5cfcc4f97edc3e0a970d94b7fbc2a783bbc5`).
+The diagnostics execution gate was hardened so every sanctioned entry point and
+governed output write reacquires exact authorization at the current clean HEAD.
+
+The track remains active because authentic empirical and external gates are not
+satisfied. The metadata `gates` registry is authoritative for these dependencies:
+an authentic rights-cleared archive population, archive-wide mapping evidence,
+an authentic frozen sample, two independent analysts and a distinct reconciler
+with exact actor provenance, empirical evaluation, promotion approval, immutable release
+evidence, the paper prerequisite, and explicit remote-delivery authorization.
+Agents may fill the analyst and reconciler roles under the v0.2 contract.
+Synthetic fixture outputs remain non-empirical, while verified outputs from a
+frozen authentic sample may support claims bounded to that sample. Agent work
+does not become human-reviewed, gold, legal, release, or publication evidence.
 
 Repository-wide coverage and type-check baselines are recorded in `audit.md` and
 `release-gates.yaml`; neither was caused or hidden by this overlay.

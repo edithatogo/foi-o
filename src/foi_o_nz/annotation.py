@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 from foi_o_nz.io import iter_jsonl, write_json, write_jsonl
 
@@ -12,7 +12,9 @@ AnnotationFormat = Literal["foio", "label-studio"]
 
 def _task_text(task: dict[str, Any]) -> str:
     payload = (
-        task.get("candidate_payload") if isinstance(task.get("candidate_payload"), dict) else {}
+        cast("dict[str, Any]", task.get("candidate_payload"))
+        if isinstance(task.get("candidate_payload"), dict)
+        else {}
     )
     snippets: list[str] = [
         str(task.get("title") or "Review task"),

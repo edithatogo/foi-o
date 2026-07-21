@@ -5,10 +5,23 @@ package derived from the journal submission manuscript and supplement. It is a
 packaging-readiness workflow only. It does not perform arXiv upload, select a
 category, certify authorship, or approve public release.
 
+## Observed publication status
+
+An external arXiv record now exists as
+[`arXiv:2607.02947`](https://arxiv.org/abs/2607.02947), titled *FOI-O: An
+NZ-first ontology and verification methods package for Freedom of Information
+process modelling*, with Dylan A Mordaunt listed as author and a submission date
+of 3 July 2026. This repository task did not create or modify that submission.
+The record describes the planned annotation task set as non-gold and does not
+remove the V2 empirical, release-evidence, or human-approval gates.
+
 ## Requirements Snapshot
 
 The journal submission track must refresh this snapshot before producing an
 upload package.
+
+Snapshot refreshed from the official arXiv submission documentation on
+2026-07-16.
 
 - arXiv accepts TeX/LaTeX source packages as `.tar` or `.zip` archives.
 - arXiv compiles submissions from the root of the uploaded directory, even when

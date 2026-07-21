@@ -1,5 +1,5 @@
 ---
-title: "Supplement: FOI-O NZ Ontology and Validation Package"
+title: "Supplement: FOI-O Global Ontology and Jurisdiction Validation Package"
 header-includes:
   - "\\usepackage{booktabs}"
   - "\\usepackage{array}"
@@ -10,14 +10,18 @@ header-includes:
   - "\\sloppy"
 ---
 
-# Supplement: FOI-O NZ Ontology and Validation Package
+# Supplement: FOI-O Global Ontology and Jurisdiction Validation Package
 
 ## S1. Scope
 
 This supplement supports the manuscript
 \path{docs/27-submission-manuscript.md}. It records the repository artefacts,
-validation commands, boundaries, and generated-asset plan for the FOI-O NZ
-submission package.
+validation commands, boundaries, and generated-asset plan for the global FOI-O
+submission package, which originated in New Zealand and has iterated through
+Australian jurisdictions.
+
+It also records the separate extraction-contract boundary, the wider programme
+handoffs, and the candidate-only status of Australian jurisdiction adapters.
 
 The supplement does not include live FYI/archive request payloads, legal advice,
 agency-internal records, journal account uploads, or arXiv submission approval.
@@ -50,6 +54,8 @@ SKOS vocabularies & \path{vocab/*.skos.ttl} & Controlled vocabularies for reques
 Process models & \path{process_models/} & BPMN, PNML, and generated state-machine artefacts for workflow review and interchange. \\
 Mappings & \path{mappings/*.yaml} & FYI/Alaveteli state mapping, PSC reporting derivability, and legal-source reference metadata. \\
 Publication docs & \path{docs/23-release-package.md}, \path{docs/26-journal-target-requirements.md}, \path{docs/30-arxiv-readiness.md} & Release, journal, and preprint readiness evidence. \\
+Empirical contracts & \path{src/foi_o_nz/empirical_contracts.py}, \path{src/foi_o_nz/contract_capabilities.py} & Capability declarations, immutable dependency requirements, evidence thresholds, and human promotion gates. \\
+Jurisdiction profiles & \path{schemas/json/jurisdiction-source-pack.schema.json}, \path{examples/v2/schema-valid/}, \path{docs/39-ontology-versioning-and-jurisdiction-profiles.md} & Versioned core, country, and subdivision profile contracts; Australian examples remain candidate-only. \\
 \bottomrule
 \end{longtable}
 \endgroup
@@ -86,6 +92,7 @@ Process-model and empirical-plan checks include:
 
 ```bash
 uv run pytest -q tests/test_process_models.py tests/test_process_mining.py tests/test_empirical_taskset_manifest.py
+uv run pytest -q tests/test_empirical_contracts.py tests/test_contract_capabilities.py tests/test_jurisdiction_profiles.py
 ```
 
 Native Mojo/MAX checks are external gates unless the local Modular/Pixi
@@ -96,6 +103,24 @@ pixi run mojo-format-check
 pixi run mojo-test
 pixi run mojo-build
 ```
+
+\clearpage
+
+## Version Conventions
+
+The package uses several independent version axes:
+
+| Version axis | What it identifies | Current status |
+| --- | --- | --- |
+| Software release | The installable FOI-O Python package and its release metadata | v0.8.1 is the latest published release; no v0.9.0 or v2.0.0 release exists |
+| Extraction/review contract | The rules, capabilities, evidence thresholds, and approval gates for preparing and reviewing records | A separate research-contract milestone, not a software release |
+| Ontology/profile compatibility | The jurisdiction-neutral core, country profiles, and subdivision profiles and their compatible ranges | NZ is the implemented package; Australian Commonwealth and NSW remain provisional pilots |
+| Source and legal materials | Archive snapshots, statutory versions, mappings, and provider-owned source packs | Each carries its own source date, hash, rights, and applicability record |
+
+Examples and readiness files may use names such as `v0.9.0` for a planned
+release package or checklist. Those names are planning identifiers only and do
+not assert that the corresponding software release or dataset has been
+published.
 
 \clearpage
 
@@ -112,6 +137,47 @@ FOI-O NZ uses the canonical namespace
   references.
 
 Semantic alignment is documented in `docs/22-semantic-alignment.md`.
+
+## S4A. Data Provenance and Transformation
+
+The repository treats provenance as part of the data, not as an afterthought.
+The normal flow is:
+
+1. **Source record.** A public FYI/Alaveteli-compatible manifest or an
+   archive-preserved record is identified by its request or record key. The
+   source URL or archive identifier, capture time, content hash, attachment
+   references, and recorded rights restrictions are retained where available.
+2. **Evidence-preserving normalisation.** `foi-o-nz normalise-manifest` reads
+   JSON or JSONL input and writes request profiles and event records. Observed
+   labels, timestamps, message text references, and attachment references are
+   kept separate from normalised state names. The mapping files under
+   `mappings/` define the state conversions; they do not overwrite the source
+   value.
+3. **Candidate derivation.** Deterministic extraction and reporting helpers
+   create candidate events, deadline annotations, RDF exports, and aggregate
+   indicators. Candidate records retain evidence references, assertion status,
+   generator metadata, and the profile, model, and transformation versions.
+4. **Validation and review.** JSON Schema, Pydantic, SHACL, quality gates, and
+   tests check structure, evidence, provenance, and safety boundaries. A
+   candidate remains a candidate until an authorised reviewer records a separate
+   certification or promotion decision.
+
+The principal implementation and evidence locations are:
+
+| Stage | Repository location | Provenance evidence |
+| --- | --- | --- |
+| Capture and archive inputs | `fyi-cli`, `fyi-archive`, `data/raw/` | manifests, content hashes, capture metadata, rights records |
+| Normalisation and mapping | `src/foi_o_nz/`, `mappings/` | source keys, mapping identifiers, transformation version, evidence references |
+| Derived examples and reports | `examples/`, `data/processed/` | generator metadata, input hashes, deterministic commands, warning fields |
+| Semantic and structural checks | `ontology/`, `shacl/`, `schemas/`, `tests/` | validation reports, schema versions, test results |
+| Publication assets | `examples/generated-asset-manifest.foi-o-publication.json`, `scripts/build_submission_latex.py` | source inputs, commands, output hashes, captions, and package inventory |
+
+For a reproducible local run, start with the commands in `README.md` under
+“Normalise FYI manifest records” and “Normalise a batch”, then run
+`uv run pytest -q`. The commands operate on pinned or example inputs and do not
+silently fetch or republish private source material. Source contents, legal
+rights, and external provider verification remain separate gates from the
+repo-local transformation checks.
 
 \clearpage
 
@@ -137,6 +203,27 @@ Agents must not certify:
 
 This boundary is tested through agent-policy tests, quality-gate tests,
 publication metadata tests, SHACL safety profiles, and example validation.
+
+The extraction-contract work additionally requires immutable source/profile/model
+pins, rights-reviewed heldout data, independent annotation and adjudication,
+empirical acceptance metrics, and explicit human promotion. The archive, Australian Commonwealth,
+and NSW adapters remain candidate pilots until those conditions are evidenced.
+
+## S5A. Cross-Repository Programme Handoffs
+
+| Repository or dataset | Handoff to FOI-O |
+| --- | --- |
+| `fyi-cli` | Capture and delta inputs from FYI/Alaveteli-compatible sources. |
+| `fyi-archive` | Archive fidelity, manifests, provenance, and dataset packaging. |
+| `edithatogo/fyi-archive-nz` on Hugging Face | Versioned public dataset distribution boundary. |
+| `foi-process` | Document-evidence and OCR integration spine. |
+| `nlp-policy-nz` | Review-bounded adapter extraction and empirical evaluation. |
+| `legislation` | Versioned statutory source packs. |
+| `rulespec-nz` | Deterministic New Zealand rule specifications. |
+| `rac-conformance` | Cross-repository programme conformance evidence. |
+
+Alaveteli is used as a source of public metadata and workflow intelligence. It
+is not represented as an FOI-O implementation repository.
 
 \clearpage
 
@@ -211,7 +298,7 @@ The default package workflow is:
 The following items remain outside repo-local automation:
 
 - live FYI/archive pulls;
-- live publication registry deposits;
+- publication of future, not-yet-deposited release versions;
 - Hugging Face, Zenodo, OSF, arXiv, or journal upload;
 - final author list, affiliations, funding, conflicts, acknowledgements, and
   cover letter;
@@ -233,3 +320,9 @@ The release package records repeatable local evidence and external gates in:
 Passing repo-local checks means the committed repository artefacts validate
 locally. It does not mean that a live source, registry, journal, or arXiv system
 has accepted the package.
+
+FOI-O v0.8.1 is preserved at
+\url{https://doi.org/10.5281/zenodo.21360138}; its concept DOI is
+\url{https://doi.org/10.5281/zenodo.21360137}. These identifiers establish
+software preservation and citation, not manuscript acceptance or legal
+validation.

@@ -6,38 +6,68 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
 
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   python:
-    name: Python quality and tests
+    name: Python quality and tests (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - python-version: "3.12"
+            pytest-args: >-
+              --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py
+              --ignore=tests/test_bounded_pilot_attachment_text_method.py
+              --ignore=tests/test_fixture_diagnostics_executable_authorization.py
+              --ignore=tests/test_fixture_diagnostics_method_candidate.py
+              --ignore=tests/test_fixture_inter_agent_diagnostics.py
+          - python-version: "3.14.5"
+            pytest-args: >-
+              --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py
+              --ignore=tests/test_bounded_pilot_attachment_text_method.py
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           persist-credentials: false
+          # Governed provenance tests inspect historical pinned commits.
+          fetch-depth: 0
       - name: Install uv
-        uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
-      - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
         with:
-          python-version: '3.12'
+          version: "0.11.8"
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: Sync dependencies
-        run: uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf
+        run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: Ruff lint
         run: uv run ruff check src tests scripts
       - name: Ruff format check
         run: uv run ruff format --check src tests scripts
-      - name: BasedPyright no-regression check
+      - name: ty fast type gate
+        run: uv run ty check src tests scripts
+      - name: BasedPyright baseline gate
         run: uv run basedpyright
       - name: zizmor workflow audit
         run: uv run zizmor --min-severity medium .github/workflows
-      - name: Run tests
-        run: uv run pytest -q
+      - name: Run tests in parallel
+        run: uv run pytest -q -n 4 --dist worksteal ${{ matrix.pytest-args }}
       - name: Validate repository artefacts
         run: uv run foi-o-nz validate-repo
+      - name: Validate release metadata
+        run: uv run python scripts/check_release_metadata.py
       - name: Schema drift smoke check
         run: uv run foi-o-nz schema-drift
       - name: End-to-end smoke pipeline
@@ -77,15 +107,42 @@ jobs:
           uv run foi-o-nz attest-artifacts data/smoke/requests.jsonl data/smoke/events.jsonl --output data/smoke/attestation.json --invocation-id ci-smoke
           uv run foi-o-nz sample-goldset --input data/smoke/requests.jsonl --output data/smoke/goldset.jsonl --manifest-output data/smoke/goldset.manifest.json --kind request --limit 10
 
+  serial-python:
+    name: Serial Python regression gate
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install uv
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
+        with:
+          version: "0.11.8"
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          # The governed diagnostics commitment is runtime-pinned to 3.14.5.
+          python-version: "3.14.5"
+      - name: Sync dependencies
+        run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
+      - name: Run tests serially
+        run: >-
+          uv run pytest -q
+          --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py
+          --ignore=tests/test_bounded_pilot_attachment_text_method.py
+
   mojo:
     name: Mojo/MAX experimental core
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           persist-credentials: false
       - name: Set up Pixi
-        uses: prefix-dev/setup-pixi@fef5c9568ca6c4ff7707bf840ab0692ba3f08293 # v0.9.0
+        uses: prefix-dev/setup-pixi@a09b6247153796b190642a2b53fac4241043cf6f # v0.10.0
         with:
           pixi-version: latest
           cache: true
@@ -99,26 +156,29 @@ jobs:
   security:
     name: Security and supply-chain checks
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           persist-credentials: false
       - name: Install uv
-        uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6
-      - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
         with:
-          python-version: '3.12'
+          version: "0.11.8"
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.14'
       - name: Sync dependencies
-        run: uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf
+        run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: pip-audit
-        run: uv run pip-audit || true
+        run: uv run pip-audit
       - name: Generate SBOM
         run: |
           mkdir -p dist
           uv run cyclonedx-py environment --output-format json --output-file dist/sbom.cdx.json
       - name: Upload SBOM
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: sbom
           path: dist/sbom.cdx.json

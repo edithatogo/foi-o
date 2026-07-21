@@ -4,8 +4,10 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal, cast
 from uuid import NAMESPACE_URL, uuid5
+
+from pydantic import AnyUrl
 
 from foi_o_nz.constants import DEFAULT_REGIME, SOURCE_SYSTEM_FYI_ARCHIVE
 from foi_o_nz.dates import parse_datetime
@@ -14,8 +16,12 @@ from foi_o_nz.io import read_json_records, write_json, write_jsonl
 from foi_o_nz.manifest import build_run_manifest
 from foi_o_nz.models import (
     Actor,
+    ActorRole,
+    AssertionStatus,
     CoreEvent,
+    EventType,
     EvidenceRef,
+    EvidenceType,
     RequestProfile,
     RequestRef,
     SourceProvenance,
@@ -37,13 +43,13 @@ def _safe_url(value: Any) -> str | None:
     return None
 
 
-def _source_url(record: dict[str, Any]) -> str | None:
+def _source_url(record: dict[str, Any]) -> AnyUrl | None:
     explicit = _safe_url(record.get("source_url") or record.get("url"))
     if explicit:
-        return explicit
+        return AnyUrl(explicit)
     url_title = record.get("url_title")
     if isinstance(url_title, str) and url_title:
-        return f"https://fyi.org.nz/request/{url_title}"
+        return AnyUrl(f"https://fyi.org.nz/request/{url_title}")
     return None
 
 
@@ -109,7 +115,7 @@ def build_request_profile(
         source_provenance=SourceProvenance(
             input_path=str(input_path) if input_path is not None else None,
             source_record_id=str(request_id),
-            raw_state_field=raw_state_field,  # type: ignore[arg-type]
+            raw_state_field=cast("Literal['state', 'source_state', 'unknown']", raw_state_field),
             raw_state_value=source_state,
             mapping_method="rule",
             mapping_confidence=mapping.confidence,
@@ -126,7 +132,10 @@ def build_request_profile(
 
 
 def _evidence(
-    profile: RequestProfile, *, event_time: datetime, evidence_type: str = "archive_manifest"
+    profile: RequestProfile,
+    *,
+    event_time: datetime,
+    evidence_type: EvidenceType = EvidenceType.ARCHIVE_MANIFEST,
 ) -> EvidenceRef:
     return EvidenceRef(
         evidence_id=f"evidence:{profile.source}:{profile.request_id}:manifest",
@@ -154,7 +163,7 @@ def _common_event_kwargs(profile: RequestProfile, event_time: datetime) -> dict[
         "request_ref": _request_ref(profile),
         "regime": DEFAULT_REGIME,
         "source_system": profile.source,
-        "actor": Actor(role="system", name="fyi-archive-nz"),
+        "actor": Actor(role=ActorRole.SYSTEM, name="fyi-archive-nz"),
         "machine_generated": True,
         "generator": {
             "system": "foi-o-nz",
@@ -178,9 +187,9 @@ def build_observed_events(
     request_event = CoreEvent(
         **common,
         event_id=_event_id("request-observed", profile.request_id),
-        event_type="RequestObserved",
+        event_type=EventType.REQUEST_OBSERVED,
         lifecycle_state_after=profile.normalised_state,
-        assertion_status="observed",
+        assertion_status=AssertionStatus.OBSERVED,
         confidence=1.0,
         payload={
             "title": profile.title,
@@ -192,9 +201,9 @@ def build_observed_events(
     state_event = CoreEvent(
         **common,
         event_id=_event_id("state-observed", profile.request_id, profile.source_state),
-        event_type="StateObserved",
+        event_type=EventType.STATE_OBSERVED,
         lifecycle_state_after=profile.normalised_state,
-        assertion_status="inferred",
+        assertion_status=AssertionStatus.INFERRED,
         confidence=profile.state_mapping.confidence if profile.state_mapping else None,
         payload={
             "source_state": profile.source_state,
@@ -210,9 +219,9 @@ def build_observed_events(
         clock_event = CoreEvent(
             **common,
             event_id=_event_id("deadline-calculated", profile.request_id),
-            event_type="DeadlineCalculated",
+            event_type=EventType.DEADLINE_CALCULATED,
             lifecycle_state_after=profile.normalised_state,
-            assertion_status="inferred",
+            assertion_status=AssertionStatus.INFERRED,
             confidence=profile.legal_clock.confidence,
             payload=profile.legal_clock.model_dump(mode="json", exclude_none=True),
             quality_flags=deadline_event_quality_flags(profile.legal_clock),
@@ -232,11 +241,11 @@ def build_attachment_events(profile: RequestProfile, *, event_time: datetime) ->
         content_sha256 = attachment.get("content_sha256")
         if not isinstance(content_sha256, str) or len(content_sha256) != 64:
             content_sha256 = profile.content_sha256
+        attachment_url = _safe_url(attachment.get("url") or attachment.get("source_url"))
         evidence = EvidenceRef(
             evidence_id=f"evidence:{profile.source}:{profile.request_id}:attachment:{attachment_id}",
-            evidence_type="attachment",
-            source_url=_safe_url(attachment.get("url") or attachment.get("source_url"))
-            or profile.source_url,
+            evidence_type=EvidenceType.ATTACHMENT,
+            source_url=AnyUrl(attachment_url) if attachment_url is not None else profile.source_url,
             archive_ref=f"{profile.url_title or profile.request_id}#attachment-{attachment_id}",
             content_sha256=content_sha256,
             observed_at=event_time,
@@ -247,9 +256,9 @@ def build_attachment_events(profile: RequestProfile, *, event_time: datetime) ->
             CoreEvent(
                 **common,
                 event_id=_event_id("attachment-observed", profile.request_id, extra=attachment_id),
-                event_type="AttachmentObserved",
+                event_type=EventType.ATTACHMENT_OBSERVED,
                 lifecycle_state_after=profile.normalised_state,
-                assertion_status="observed",
+                assertion_status=AssertionStatus.OBSERVED,
                 confidence=1.0,
                 payload={"attachment": attachment, "attachment_index": index},
             )

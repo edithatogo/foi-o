@@ -1,27 +1,28 @@
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from typing import Any
 
 import pytest
 from pydantic import ValidationError
 
-from foi_o_nz.models import Actor, CoreEvent, EvidenceRef, RequestRef
+from foi_o_nz.models import Actor, ActorRole, CoreEvent, EvidenceRef, EvidenceType, RequestRef
 
 
-def _base_event(**overrides: object) -> dict[str, object]:
-    data: dict[str, object] = {
+def _base_event(**overrides: object) -> dict[str, Any]:
+    data: dict[str, Any] = {
         "event_id": "foio-nz:event:test",
         "event_type": "RequestObserved",
         "event_time": datetime(2026, 7, 1, tzinfo=UTC),
         "request_ref": RequestRef(source_system="fyi-archive-nz", source_request_id="1"),
         "source_system": "fyi-archive-nz",
-        "actor": Actor(role="system"),
+        "actor": Actor(role=ActorRole.SYSTEM),
         "assertion_status": "observed",
         "confidence": 1.0,
         "machine_generated": True,
         "generator": {"system": "foi-o-nz", "software_version": "0.1.0"},
         "requires_human_certification": False,
-        "evidence": [EvidenceRef(evidence_id="e1", evidence_type="archive_manifest")],
+        "evidence": [EvidenceRef(evidence_id="e1", evidence_type=EvidenceType.ARCHIVE_MANIFEST)],
     }
     data.update(overrides)
     return data

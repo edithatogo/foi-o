@@ -1,0 +1,22 @@
+{
+  "schema_version": "foi-o.bounded-pilot-attachment-mutool-execution-authorization.v0.1.0",
+  "authorization_id": "bounded-pilot-11872-attachment-mutool-derivation-approved",
+  "status": "approved_exact_local_mutool_derivation",
+  "execution_request": {"path": "examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json", "sha256": "f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148"},
+  "wrapper": {"path": "src/foi_o_nz/bounded_pilot_attachment_mutool_derivation.py", "sha256": "d8433bdaa8fabf994b9877575d4dce3727e20f0c6ff4d03e4f01eaf371c9a1cd"},
+  "method": {"path": "examples/v2/bounded-pilot-attachment-alternative-text-method.pending.json", "sha256": "9afcaa8ae32967e7b6aa19215e5731c11e0405e476db820748c6b42c47e47844"},
+  "method_approval": {"path": "examples/v2/bounded-pilot-attachment-alternative-text-method-approval.approved.json", "sha256": "5b6b26e9991309f46912af760e9c5f21d712b64e1806e90ce5a19c2034b79541"},
+  "human_approval": {"path": "examples/v2/bounded-pilot-attachment-mutool-human-approval.approved.json", "sha256": "5a13078c04e4c4c5daaccf815766fdeb76bb794702c540537c1cb2e96d569c3f"},
+  "source_root": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+  "output_directory": "/private/tmp/foio-bounded-pilot-11872-derived",
+  "authorization_effective": true,
+  "pdf_processing_allowed": true,
+  "derived_content_creation_allowed": true,
+  "local_only": true,
+  "context_presentation_allowed": false,
+  "analyst_execution_allowed": false,
+  "reconciliation_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false
+}

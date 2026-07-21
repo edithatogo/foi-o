@@ -1,0 +1,156 @@
+{
+  "analysis_lock": {
+    "path": "examples/v2/analyst-fixture-packet/results/analysis-lock.locked.json",
+    "sha256": "79faff0d554df7baff3e9f052dbc7f3a55d3e0e09baec95ab020fb3c4c002d1c"
+  },
+  "analysis_sets": [
+    {
+      "path": "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-a.locked.json",
+      "sha256": "d22f72d91ade4a4a5992ba50ba54afa1586203a23d394f256066ef23b4b6c400"
+    },
+    {
+      "path": "examples/v2/analyst-fixture-packet/results/analysis-set.analyst-b.locked.json",
+      "sha256": "ff72a35f840c97f26b07108c963574d664359b260719ad0dfc7c2986c0d665dd"
+    }
+  ],
+  "authorization": {
+    "path": "examples/v2/analyst-fixture-packet/execution-authorization.v0.2.pending-verification.json",
+    "sha256": "6b92051ae1ad1b7899f4ad102d4df4ec68267d196458f5bfbd461e89ba999d95"
+  },
+  "codebook": {
+    "path": "examples/v2/analyst-fixture-packet/codebook.approved.json",
+    "sha256": "d918f1b705debcd6d8a14c078d7d0044e23c10615c9a7c27e4122d03088bbfdc"
+  },
+  "context_presentation": {
+    "path": "examples/v2/analyst-fixture-packet/context-presentation.pending.json",
+    "sha256": "72b75eb688541a712a62bea2569fb84353930c089ebaf8fc1082128aa3ef0e63"
+  },
+  "disagreement_count": 2,
+  "disagreement_definition": "label_span_or_abstention_differs_v1",
+  "empirical_evidence": false,
+  "entries": [
+    {
+      "record": {
+        "analysis_refs": [
+          {
+            "analyst_id": "agent:analyst-fixture-a",
+            "locked_at": "2026-07-19T03:24:47Z",
+            "sha256": "005eb5842dea6be1e0d3bb3c4a492c48372eee2968eab3216fc8d6ec8ea27710"
+          },
+          {
+            "analyst_id": "agent:analyst-fixture-b",
+            "locked_at": "2026-07-19T03:24:49Z",
+            "sha256": "51732c335732a29658f7c1a78265540c06b11c3336e292a2d11cfc46168cf0e9"
+          }
+        ],
+        "created_at": "2026-07-19T03:48:19Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "locked_at": "2026-07-19T03:48:19Z",
+        "outcome": "resolved",
+        "rationale": "The visible HumanDecisionCertified event, non-machine-generated status, and required human-certification field consistently support the codebook's recorded human certification boundary.",
+        "reconciled_candidate_label": "certified",
+        "reconciled_candidate_span": null,
+        "reconciler": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:reconciler-fixture",
+          "role": "reconciler",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_reconciler_ready"
+          }
+        },
+        "record_id": "reconciler-fixture:pm-06",
+        "schema_version": "foi-o.analyst-reconciliation-record.v0.1.0",
+        "status": "locked_agent_reconciliation",
+        "unit_sha256": "f3adc9dcb5a72d2aab88ac445bf975b2673e7b174a16f00bc9893d1b761ca946"
+      },
+      "record_sha256": "31a39df09f248192dc003e6a4a3aa57d213cb3fc69eb55d57467e7c725fc76ea",
+      "unit_id": "pm-06"
+    },
+    {
+      "record": {
+        "analysis_refs": [
+          {
+            "analyst_id": "agent:analyst-fixture-a",
+            "locked_at": "2026-07-19T03:24:47Z",
+            "sha256": "a138e6f34a60ed0d3f926f384045a4540d0ad5cffcb4fa207135e566364267ee"
+          },
+          {
+            "analyst_id": "agent:analyst-fixture-b",
+            "locked_at": "2026-07-19T03:24:49Z",
+            "sha256": "6a7ca5687b3f275029e8c4bd6e1d4dcf4d464d89848392b2ae0978f8efffaaca"
+          }
+        ],
+        "created_at": "2026-07-19T03:48:19Z",
+        "empirical_evidence": false,
+        "gold_eligible": false,
+        "human_reviewed": false,
+        "locked_at": "2026-07-19T03:48:19Z",
+        "outcome": "resolved",
+        "rationale": "The visible extension_language_detected quality flag supports a machine or deterministic derivation; the requires_human_review flag limits certainty but does not convert that derivation into a direct observation.",
+        "reconciled_candidate_label": "inferred",
+        "reconciled_candidate_span": null,
+        "reconciler": {
+          "actor_class": "automated_agent",
+          "actor_id": "agent:reconciler-fixture",
+          "role": "reconciler",
+          "runtime": {
+            "model": "Codex / GPT-5; exact snapshot unavailable",
+            "prompt_sha256": "80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081",
+            "provider": "OpenAI",
+            "session_id": "/root/fixture_reconciler_ready"
+          }
+        },
+        "record_id": "reconciler-fixture:tl-02",
+        "schema_version": "foi-o.analyst-reconciliation-record.v0.1.0",
+        "status": "locked_agent_reconciliation",
+        "unit_sha256": "a7c6ace3fe8bbf3681e640d31b2641c3927f7ad6c140866ee57db05b3f9c75fd"
+      },
+      "record_sha256": "94faf940672d1b447fa5dbb77e22ac2c197d802dfad111a2b61fbcd70c47209e",
+      "unit_id": "tl-02"
+    }
+  ],
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "local_only": true,
+  "ordered_disagreement_commitment_sha256": "ad2edd0ee870ab76e40e8f7dbb2faa71e477f6e6716c9f9ac947f3826fae29f6",
+  "ordered_disagreement_unit_ids": [
+    "pm-06",
+    "tl-02"
+  ],
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "reconciler": {
+    "actor_class": "automated_agent",
+    "actor_id": "agent:reconciler-fixture",
+    "role": "reconciler",
+    "runtime": {
+      "model": "Codex / GPT-5; exact snapshot unavailable",
+      "prompt_sha256": "80770f3b4335b7fb5b092a96265e41cef29f0c26081ae46afc9949b220661081",
+      "provider": "OpenAI",
+      "session_id": "/root/fixture_reconciler_ready"
+    }
+  },
+  "record_hash_algorithm": "sha256_canonical_json_utf8_sort_keys_compact_v1",
+  "release_qualifying": false,
+  "schema_version": "foi-o.analyst-fixture-reconciliation-set.v0.1.0",
+  "set_id": "local-fixture-reconciliation",
+  "status": "locked_agent_reconciliation_set",
+  "unit_count": 11
+}

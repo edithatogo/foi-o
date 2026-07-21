@@ -1,8 +1,8 @@
 ---
-title: "FOI-O: A global, jurisdiction-profiled process/evidence and verification framework for Freedom of Information"
+title: "FOI-O: A global ontology and verification framework for Freedom of Information process modelling"
 author:
   - "Dylan A Mordaunt\\textsuperscript{1,2,3}"
-date: "2026-07-02"
+date: "2026-07-16"
 header-includes:
   - "\\sloppy"
   - "\\setlength{\\emergencystretch}{3em}"
@@ -15,31 +15,25 @@ header-includes:
   - "\\usetikzlibrary{arrows.meta,fit,positioning}"
 abstract: |
   Public official-information request records contain process signals. They can
-  support research, workflow review, and human-supervised agent help. Yet they
+  support research, workflow review, and analyst-led assessment. Yet they
   also mix observed correspondence, platform states, inferred events, and legal
-  outcomes. FOI-O is a global, jurisdiction-profiled process/evidence and
-  verification framework for Freedom of Information: it provides a reusable
-  method while keeping jurisdiction, regime, profile, source pack, and effective
-  date explicit. New Zealand, based on the Official Information Act, is the
-  origin and mature reference-profile context in the current repository; it is
-  not evidence that other jurisdictions have been validated or promoted.
-  Broader reuse is a governed validation path, not an empirical result of this
-  package. FOI-O models the request record first. Request profiles, observed
-  correspondence events, controlled vocabularies, and provenance make visible
-  what was seen and how it was changed. It then adds review queues, release
-  metadata, bounded agent contracts, semantic assets, process-model artefacts,
-  and fixture-only process-mining interchange examples. Human certification of
-  legally meaningful outcomes stays outside autonomous tooling. The repository
-  provides JavaScript Object Notation (JSON) Schema contracts, Python data
-  models, Simple Knowledge Organization System (SKOS) vocabularies, Web
-  Ontology Language (OWL), Resource Description Framework (RDF), and Shapes
-  Constraint Language (SHACL) assets. These are supported by deterministic
-  examples, release metadata, quality gates, tests, Business Process Model and
-  Notation (BPMN) and Petri Net Markup Language (PNML) process models, XES and
-  OCEL-style fixture exports, and planned jurisdiction-specific annotation task-set
-  manifest. This article describes the motivation, architecture,
-  ontology-development method, validation evidence, and implementation
-  boundaries. The project is not legal advice, is not an official government
+  outcomes. FOI-O is a reusable process-modelling method and verification
+  infrastructure for Freedom of Information administration. It is a global
+  model that began with the New Zealand Official Information Act and has since
+  iterated through the Australian Commonwealth and New South Wales settings.
+  The NZ package remains the mature reference implementation; the Australian
+  work remains provisional pending empirical evaluation and
+  jurisdiction-specific legal validation. FOI-O models request records,
+  observed correspondence, controlled vocabularies, provenance, review queues,
+  release metadata, and bounded analysis rules. Legally meaningful outcomes
+  require certification by an authorised decision-maker. Its typed
+  operational and semantic contracts are
+  supported by deterministic examples, process models, fixture-only
+  process-mining exports, quality gates, and tests. This article describes the motivation, architecture,
+  ontology-development method, its versioned extraction and review protocol,
+  how related repositories share data and evidence, and how the method may be
+  adapted for Australia,
+  validation evidence, and implementation boundaries. The project is not legal advice, is not an official government
   publication, and does not certify release, refusal, redaction, charging,
   extension, transfer, complaint, or publication outcomes.
 ---
@@ -49,8 +43,8 @@ abstract: |
 \textsuperscript{3} Centre for Health Policy, The University of Melbourne.
 
 **Keywords:** Freedom of Information; Official Information Act; ontology
-engineering; process mining; public administration; legal informatics; agent
-safety.
+engineering; process mining; public administration; legal informatics;
+evidence governance.
 
 # Introduction
 
@@ -82,8 +76,9 @@ are platform-mediated evidence. They are not agency systems of record. They can
 be incomplete, delayed, duplicated, redacted, or unclear. A platform label may
 not match the legal status of a request. A message timestamp may not be the
 statutory date that matters. A visible attachment may not be the full agency
-decision. Any reusable FOI data model therefore needs to preserve what was
-observed while clearly marking what was inferred [6-13].
+decision. Public archive and capture tools make parts of this record available
+for research [4,5]. Any reusable FOI data model therefore needs to preserve
+what was observed while clearly marking what was inferred [6-13].
 
 The problem is not only technical. FOI systems support democratic
 accountability, public-sector learning, journalism, research, and individual
@@ -109,29 +104,30 @@ sorts, links, checks, and explains records. It supports open government best
 when it widens scrutiny without replacing human judgement or public
 accountability.
 
-The same distinction matters for agent-facing systems. Modern extraction,
-retrieval, summary, and validation tools can help organise FOI material. They
-can also create risk. A candidate signal may be mistaken for an official
-outcome. For example, an automated system might identify a message that looks
-like an extension notice. It might also identify a document that appears to
-contain released information. That does not mean the system can certify whether
+The same distinction matters for analyst-facing systems. Extraction,
+retrieval, summary, and validation tools can help organise FOI material, but a
+candidate signal may be mistaken for an official outcome. For example, a text
+classifier might identify a message that resembles an extension notice or a
+document that appears to contain released information. That does not mean the
+software can certify whether
 the extension, release, refusal, redaction, charge, transfer, or complaint
 outcome was lawful or final. FOI-O addresses this risk by treating public FOI
 workflow data as evidence for review, not as autonomous legal decision-making.
 Its core distinction is between observed evidence, candidate interpretation,
-and human-certified outcome. Agents may help with routing, summary, event
+and an outcome certified by an authorised decision-maker. Analysts may use the
+software for routing, summary, event
 extraction, evidence checks, and review preparation. Authorised humans remain
-responsible for legally meaningful decisions [23-25].
+responsible for legally meaningful decisions.
 
-The New Zealand Official Information Act (OIA; see the \hyperlink{tab-abbreviations}{abbreviations table}) is used as the
-first worked jurisdictional example. This starting point is deliberate. New
+The New Zealand Official Information Act (OIA; see the \hyperlink{tab-abbreviations}{abbreviations table}) supplied the
+first worked jurisdictional example. This origin is deliberate. New
 Zealand provides a concrete legal and administrative setting that the author
 understands, and FYI provides public request material that can test a practical
-model [1-5]. FOI-O is the reusable method and conceptual frame. FOI-O NZ is the
-only implemented and validated jurisdictional profile in the current
-repository. Later comparative use remains design intent until separate
-jurisdiction-specific profiles, source mappings, and validation evidence are
-added.
+model [1-5]. FOI-O is now the global reusable method and conceptual frame.
+FOI-O NZ remains its mature reference implementation. Australian Commonwealth
+and New South Wales are the first two provisional adaptations of the same core.
+They remain unvalidated until each has its own sources, mappings, evaluation
+evidence, and approval record.
 
 FOI regimes differ in deadlines, exemptions, appeal paths, proactive
 publication practice, reporting categories, and institutional culture. They
@@ -146,23 +142,44 @@ release metadata, and tests. These can be inspected without live credentials or
 private request content. Together, they show the boundary between
 repository-local proof and future external validation.
 
-This article contributes six repository-local artefact groups. First, it
-defines schema-first request and event contracts for observed and candidate FOI
-process evidence. Second, it provides an OWL, SKOS, RDF, and SHACL semantic
-layer for vocabulary and constraint review. Third, it encodes a
-human-certification boundary that prevents autonomous tooling from certifying
-legal or administrative outcomes. Fourth, it adds BPMN and PNML process-model
-artefacts for review and interchange. Fifth, it provides fixture-only XES and
-OCEL-style process-mining exports with fixture conformance checks. Sixth, it
-records a New Zealand empirical annotation task-set manifest that remains a
-plan until human review and adjudication evidence exists.
+This article makes eight practical contributions. First, it gives researchers
+and analysts a consistent way to record what happened in an FOI request and
+what is only a suggested interpretation (schema-first request and event
+contracts). Second, it supplies shared names and machine-checkable rules so
+that different projects can describe the same kinds of evidence (OWL, SKOS,
+RDF, and SHACL). Third, it makes clear that software may organise evidence but
+cannot certify a legal or administrative outcome (the certification boundary).
+Fourth, it provides process diagrams and exchange files that people can inspect
+or move between tools (BPMN and PNML). Fifth, it includes small, reproducible
+examples showing how FOI events can be exchanged and checked by process-mining
+software (XES and OCEL-style fixtures). Sixth, it records a New Zealand study
+plan for annotation, while clearly stating that the plan is not a result until
+independent review and adjudication evidence exists. Seventh, it sets out a
+versioned procedure for extracting and reviewing records, including fixed tool
+versions, evidence thresholds, and approval gates. Eighth, it separates the
+shared model from local legal and administrative settings (independently
+versioned core, country, and subdivision profiles). The Australian Commonwealth
+and New South Wales adaptations remain provisional pilots, not validated legal
+profiles. Technical file paths and validation details are listed in the
+supplement.
 
 The article is organised as follows. The Methods section states the design
 principles, repository architecture, ontology-development protocol, process
 model, data model, and human-certification boundary. The Results section
 describes what the current repository implements and validates. The Discussion
 explains why this bounded architecture matters for future comparative FOI
-research and safer agent-assisted public administration [23-25].
+research and accountable analyst-led public administration.
+
+**Version conventions.**
+
+The version labels in this article refer to different things. **FOI-O v0.8.1**
+is the latest published software release. The **extraction and review protocol**
+is a separate research contract describing how records may be prepared and
+reviewed; it is not a software release. The **core, country, and subdivision
+profiles** have their own compatibility versions, while source packs and legal
+materials are versioned independently. A protocol milestone or planned release
+identifier therefore does not mean that a new FOI-O release, dataset, or
+validated legal profile exists.
 
 # Methods
 
@@ -203,18 +220,34 @@ Separate observation from certification & Mark candidate events as reviewable si
 Keep semantics inspectable & Commit JSON Schema, SKOS, OWL, RDF, SHACL, mappings, and examples as reproducible artefacts. \\
 Fail closed around legal outcomes & Reject autonomous certification of decision-like outcomes. \\
 Prefer local proof & Use tests, examples, and validation commands to define what the repository can prove. \\
+Track provenance & Retain source identifiers, content hashes, rights metadata, and transformation versions beside derived records. \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 ## Repository Architecture
 
-The architecture follows a source, archive, semantic, agent, and evaluation
+The architecture follows a source, archive, semantic, analysis, and evaluation
 layering pattern. Source request records and archive manifests are preserved
 upstream. FOI-O maps those records into request profiles, event streams,
 and controlled vocabularies. It also maps them into Resource Description
 Framework (RDF; see the \hyperlink{tab-abbreviations}{abbreviations table}) and Shapes Constraint Language (SHACL; see the
-\hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded agent resources [15-20].
+\hyperlink{tab-abbreviations}{abbreviations table}) artefacts, plus bounded analytical resources [15-20,21,22].
+
+The wider programme [23] deliberately separates capture, archival fidelity,
+document processing, candidate extraction, ontology contracts, deterministic
+rules, and programme conformance. `fyi-cli` captures FYI/Alaveteli-compatible
+source and delta inputs [4]. `fyi-archive` preserves manifests and provenance,
+packages datasets, and publishes versioned outputs to Hugging Face and
+preservation services [5,24]. `foi-process` provides the integration spine for
+document evidence and optical character recognition (OCR) [25].
+`nlp-policy-nz` evaluates review-bounded extraction adapters [26]. The
+`legislation` repository supplies versioned statutory source packs [27], while
+`rulespec-nz` supplies deterministic New Zealand rule specifications [28].
+`rac-conformance` synchronises cross-repository conformance evidence [29].
+FOI-O consumes pinned, provenance-bearing inputs from these surfaces; it does
+not collapse them into one application or treat downstream model output as a
+certified legal record [23].
 
 \hyperlink{fig-repository-architecture}{Figure 2} shows the repository-level
 architecture, while \hyperlink{fig-process-architecture}{Figure 3} shows the
@@ -244,8 +277,9 @@ process flow through validation and the human-certification boundary.
 \node[runtime, right=of ontology] (cli) {Command-line\\workflows};
 \node[runtime, right=of shacl] (quality) {Validation and\\quality gates};
 \node[output, right=of cli] (publication) {Release\\metadata};
-\node[output, right=of quality] (agent) {Read-only agent\\review surfaces};
+\node[output, right=of quality] (analyst) {Read-only analyst\\workspaces};
 \node[qa, below=1.05cm of quality] (tests) {Tests, examples, and release checks};
+\node[contract, below=1.05cm of events] (provenance) {Provenance, hashes,\\and rights metadata};
 
 \draw[flow] (docs) -- (schemas);
 \draw[flow] (examples) -- (events);
@@ -254,17 +288,19 @@ process flow through validation and the human-certification boundary.
 \draw[flow] (ontology) -- (cli);
 \draw[flow] (shacl) -- (quality);
 \draw[flow] (cli) -- (publication);
-\draw[flow] (quality) -- (agent);
+\draw[flow] (quality) -- (analyst);
 \draw[flow] (schemas) -- (events);
 \draw[flow] (ontology) -- (shacl);
 \draw[flow] (cli) -- (quality);
+\draw[flow] (events) -- (provenance);
+\draw[support] (provenance) -| (quality.south);
 \draw[support] (tests) -| (schemas.south);
 \draw[support] (tests) -- (quality);
 \draw[support] (tests) -| (publication.south);
 \end{tikzpicture}%
 }
 \hypertarget{fig-repository-architecture}{}
-\begin{center}\small\textbf{Figure 2: FOI-O repository architecture. The repository is organised as reviewable documents and fixtures, machine-readable contracts, semantic assets, runtime workflows, release metadata, read-only agent surfaces, and tests that bind the layers together. Abbreviations: FOI-O, Freedom of Information Ontology; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
+\begin{center}\small\textbf{Figure 2: FOI-O repository architecture. The repository contains reviewable documents and fixtures, machine-readable contracts, provenance and rights metadata, semantic assets, runtime workflows, release metadata, analyst workspaces, and tests that bind the layers together. Abbreviations: FOI-O, Freedom of Information Ontology; RDF, Resource Description Framework; SHACL, Shapes Constraint Language.}\end{center}
 \end{figure}
 
 \begin{figure}[H]
@@ -287,23 +323,23 @@ process flow through validation and the human-certification boundary.
 \node[proc, right=of archive] (events) {Candidate\\process events};
 \node[check, right=1.45cm of profile] (validation) {Schema and\\model checks};
 \node[proc, right=1.45cm of validation] (semantic) {Vocabularies\\and SHACL};
-\node[guard, right=1.45cm of semantic] (agent) {Read-only\\agent review pack};
-\node[guard, below=1.25cm of agent] (human) {Human-certified\\process decision};
+\node[guard, right=1.45cm of semantic] (analyst) {Read-only\\analyst review pack};
+\node[guard, below=1.25cm of analyst] (human) {Authorised\\process decision};
 
 \draw[flow] (source) -- (profile);
 \draw[flow] (archive) -- (events);
 \draw[flow] (profile) -- (validation);
 \draw[flow] (events.east) -- ++(0.72cm,0) |- (validation.south);
 \draw[flow] (validation) -- node[above, midway]{validated} (semantic);
-\draw[flow] (semantic) -- (agent);
-\draw[flow] (agent) -- node[right]{review only} (human);
+\draw[flow] (semantic) -- (analyst);
+\draw[flow] (analyst) -- node[right]{review only} (human);
 \draw[feedback] (human.south west) -- ++(0,-0.55cm) -| node[below,pos=0.25, text=gray!70]{certification evidence} (events.south);
 
-\node[boundary, fit=(agent) (human), label={[font=\small]above:human certification boundary}] {};
+\node[boundary, fit=(analyst) (human), label={[font=\small]above:human certification boundary}] {};
 \end{tikzpicture}%
 }
 \hypertarget{fig-process-architecture}{}
-\begin{center}\small\textbf{Figure 3: FOI-O process architecture. Public request platforms and archive manifests are transformed into request profiles and candidate process events, checked through schema and model validation, aligned with semantic vocabularies and constraints, and packaged for read-only agent review before any human-certified process decision. Abbreviations: FOI-O, Freedom of Information Ontology; SHACL, Shapes Constraint Language.}\end{center}
+\begin{center}\small\textbf{Figure 3: FOI-O process architecture. Public request platforms and archive manifests are transformed into request profiles and candidate process events, checked through schema and model validation, aligned with semantic vocabularies and constraints, and packaged for analyst review before an authorised process decision. Abbreviations: FOI-O, Freedom of Information Ontology; SHACL, Shapes Constraint Language.}\end{center}
 \end{figure}
 
 The Python control plane owns schema validation, FYI manifest normalisation,
@@ -311,7 +347,7 @@ event extraction, quality gates, reporting profiles, RDF export, SHACL
 validation, release metadata, and command-line workflows. Optional surfaces add
 runtime capability when installed. They do not define the core proof.
 Deterministic Python paths and fixtures remain the reproducibility base.
-FastMCP could expose read-only tool contracts to agents. pySHACL can validate
+FastMCP can expose read-only tools in an analyst workspace. pySHACL can validate
 RDF graphs against SHACL constraints. LanceDB is an embedded vector database.
 It could support local semantic retrieval over request text, evidence chunks,
 and ontology terms. Mojo and Modular MAX are being explored as local
@@ -319,6 +355,41 @@ high-performance inference tools. They could later support bounded extraction
 or embedding workflows. They are not required for the current package. The
 present evidence depends on portable schemas, examples, semantic assets, and
 Python tests, not on specialised runtimes, hardware, or model-serving installs.
+
+Data provenance is carried through each step. The source manifest, archive or
+capture identifier, content hash, and rights restriction are retained before a
+record is normalised. Deterministic transformations then create request
+profiles, observed messages, and candidate events; each derived item points
+back to its source evidence and records the code, profile, and transformation
+versions used. Validation checks the derived data without turning a candidate
+event into a certified outcome. The repository locations and reproducible
+commands are detailed in the supplement.
+
+## Empirical Extraction and Jurisdiction Profiles
+
+The versioned protocol extends rather than replaces the earlier method. The
+earlier method established
+source provenance, epistemic status, evidence references, validation, and the
+human-certification boundary. The newer protocol adds capability declarations
+and promotion evidence. An adapter can be promoted only when its source,
+profile, model, and transformation versions are immutably identified; its
+evaluation data have a recorded rights basis; independent annotation and
+adjudication are documented; per-capability metrics meet declared thresholds;
+and an authorised reviewer explicitly approves the promotion. Missing evidence fails
+closed. A syntactically valid adapter is therefore not necessarily an
+empirically supported or legally approved profile.
+
+FOI-O uses a versioned ontology family rather than long-lived jurisdiction Git
+branches. `foi-o` identifies the jurisdiction-neutral core. Country profiles,
+such as `foi-o-nz` and the planned `foi-o-au`, declare compatible core-version
+ranges. Subdivision profiles, such as `foi-o-au-nsw`, also declare a
+compatible parent-country profile. The existing Python distribution remains
+the implemented NZ package while these contracts mature. Australian
+Commonwealth and New South Wales are the first provisional pilots. They are not
+promoted legal profiles, and the remaining Australian states and territories
+remain disabled until each has jurisdiction-specific legislation, examples,
+annotation, evaluation, compatibility evidence, and jurisdiction-specific legal
+validation [26,27].
 
 ## Ontology Development Protocol
 
@@ -334,7 +405,7 @@ contracts as JavaScript Object Notation (JSON; see the
 \hyperlink{tab-abbreviations}{abbreviations table}) Schemas and Pydantic models
 before adding semantic alignments. This makes examples and command outputs
 testable early. Controlled vocabularies are then defined for request states,
-event types, assertion status, and agent boundaries using the Simple Knowledge
+event types, assertion status, and review boundaries using the Simple Knowledge
 Organization System (SKOS; see the \hyperlink{tab-abbreviations}{abbreviations table}).
 
 The third step is semantic alignment. Event and evidence concepts are aligned
@@ -348,7 +419,7 @@ release-readiness checks, and machine-readable release metadata.
 
 The core event contract defines observed and candidate process events. Semantic
 constraints define how machine-readable process statements are checked before
-they are used in reports, review packs, or agent-facing workflows.
+they are used in reports, review packs, or analytical workflows.
 
 ## Ontology, Process Model, and Interchange Artefacts
 
@@ -366,7 +437,7 @@ complaint outcomes.
 
 The process-mining interchange layer is narrower still. It contains a
 committed fixture event log, XES and OCEL-style exports, and a fixture-only
-conformance report for one release path. These artefacts demonstrate import,
+conformance report for one release path [21,22]. These artefacts demonstrate import,
 interchange, and boundary-preserving conformance checks on a deterministic
 fixture. They do not show live-corpus process discovery, agency bottlenecks,
 cycle-time distributions, or real-world process conformance.
@@ -379,7 +450,7 @@ provenance, generator metadata, and human-certification metadata. This is the
 part of the model that records what happened, where the evidence came from, and
 how strongly a process statement can be asserted.
 
-The review and governance layer describes agent actions, review tasks, ledgers,
+The review and governance layer describes recorded analysis actions, review tasks, ledgers,
 chunks, and risk assessments. These records show how candidate outputs were
 generated and reviewed, without turning them into legal determinations. The
 reporting and release layer describes reporting metrics and release metadata.
@@ -410,14 +481,14 @@ model surfaces.
 \node[evidence, below=of event] (evidence) {Evidence reference};
 \node[semanticnode, right=1.65cm of event] (assertion) {Assertion status\\and provenance};
 \node[gate, right=1.75cm of assertion] (human) {Human certification\\metadata};
-\node[entity, above=of assertion] (agent) {Agent action\\record};
+\node[entity, above=of assertion] (analyst) {Analysis action\\record};
 \node[metric, below=of assertion] (review) {Review task\\or ledger entry};
 \node[metric, right=of review] (reporting) {Reporting metric\\or release metadata};
 
 \draw[relation] (request) -- (event);
 \draw[relation] (event) -- node[right]{cites} (evidence);
 \draw[relation] (event) -- (assertion);
-\draw[optional] (agent) -- node[right]{may generate} (assertion);
+\draw[optional] (analyst) -- node[right]{may generate} (assertion);
 \draw[optional] (assertion) -- (human);
 \draw[relation] (assertion) -- (review);
 \draw[relation] (review) -- (reporting);
@@ -425,7 +496,7 @@ model surfaces.
 \end{tikzpicture}%
 }
 \hypertarget{fig-data-model}{}
-\begin{center}\small\textbf{Figure 4: FOI-O data model. Request profiles organise observed and candidate process events; events cite evidence, carry assertion status and provenance, and may be generated or reviewed through agent action records. Certified status requires human-certification metadata, while review tasks, ledgers, reporting metrics, and release metadata remain downstream artefacts. Abbreviations: FOI-O, Freedom of Information Ontology.}\end{center}
+\begin{center}\small\textbf{Figure 4: FOI-O data model. Request profiles organise observed and candidate process events. Events cite evidence, carry assertion status and provenance, and may be generated or reviewed through recorded analysis actions. Certified status requires an authorised certification record; review tasks, ledgers, reporting metrics, and release metadata remain downstream artefacts. Abbreviations: FOI-O, Freedom of Information Ontology.}\end{center}
 \end{figure}
 
 \begin{table}[H]
@@ -439,10 +510,10 @@ Surface & Current role \\
 Request profile schema & Request metadata, source state, identifiers, and JSON-LD context. \\
 Core event schema & Observed or candidate process events with evidence and assertion status. \\
 SHACL shapes & Semantic validation and safety constraints over RDF exports. \\
-Agent action schema & Preparatory agent outputs bounded away from legal certification. \\
+Review action schema & Preparatory analytical outputs bounded away from legal certification. \\
 Process-model artefacts & State machine, BPMN, and PNML review/interchange models for workflow structure. \\
 Process-mining fixtures & Deterministic event-log, XES, OCEL-style, and fixture-conformance artefacts. \\
-Empirical task-set manifest & Planned New Zealand annotation tasks, not a human-reviewed gold standard. \\
+Empirical study plan & Planned New Zealand annotation tasks, not an independently reviewed gold standard. \\
 Release metadata & Evidence, rights notices, and external publication gates. \\
 \bottomrule
 \end{tabularx}
@@ -450,37 +521,41 @@ Release metadata & Evidence, rights notices, and external publication gates. \\
 
 ## Human Certification Boundary
 
-The human boundary is redundant by design. It appears in schemas, model logic,
-quality gates, agent policies, Model Context Protocol (MCP; see the \hyperlink{tab-abbreviations}{abbreviations table}) and tool
-descriptors, SHACL shapes, examples, tests, and release metadata. Agents may
+The certification boundary is deliberately repeated. It appears in schemas, model logic,
+quality gates, review policies, Model Context Protocol (MCP; see the \hyperlink{tab-abbreviations}{abbreviations table}) and tool
+descriptors, SHACL shapes, examples, tests, and release metadata. Analysts may
 map observed states, propose candidate events, assemble review packs, compute
 indicative clocks, and check evidence completeness. They must not certify legal
 outcomes.
 
 This boundary is a scientific and governance constraint, not a cosmetic warning.
-It prevents evaluation metrics, local extraction, retrieval, or agent contracts
+It prevents evaluation metrics, local extraction, retrieval, or analytical contracts
 from being represented as legal determinations.
 
 # Results
 
 ## Implemented Repository Surfaces
 
-The current repository includes implemented surfaces in five groups. The
+The current repository includes implemented surfaces in seven groups. The
 contract layer covers JSON Schema examples, Pydantic models, state mapping, and
 manifest normalisation. The analysis layer covers event analytics, quality
 gates, RDF export, and reporting profiles. The release layer covers release
-metadata and reproducibility manifests. The agent-facing layer covers local
-retrieval, redaction candidates, agent context packs, stream diffs, and
-read-only agent descriptors. The process-model layer covers state-machine,
+metadata and reproducibility manifests. The analyst-support layer covers local
+retrieval, redaction candidates, review context packs, stream diffs, and
+read-only tool descriptors. The process-model layer covers state-machine,
 BPMN, PNML, XES, OCEL-style, and fixture-conformance artefacts. The Mojo,
-Modular MAX, and LanceDB paths remain experimental and optional [26].
+Modular MAX, and LanceDB paths remain experimental and optional [23].
+The empirical-contract layer covers capability declarations, immutable
+dependency requirements, evidence-count thresholds, and provisional
+promotion states. The jurisdiction layer covers versioned profile manifests,
+parent/core compatibility rules, and fail-closed Australian pilot declarations.
 
 The first result is a set of machine-readable contracts. They make the intended
 FOI-O data surfaces explicit. Request profiles define request-level metadata,
 source state, identifiers, and linked-data context. Core event contracts define
 observed or candidate process events. These events include evidence references,
 assertion status, provenance, generator metadata, and human-certification
-metadata. Agent action contracts define preparatory outputs that can help with
+metadata. Review action contracts define preparatory outputs that can help with
 review without representing a final legal outcome. Deterministic examples show
 how the model should behave on concrete records. This matters because the
 package does not ask users to trust an invisible extraction prompt or a private
@@ -488,7 +563,7 @@ database. It exposes the shape of the data and the validation expectations.
 
 The second result is a semantic layer. It connects operational data contracts
 to inspectable vocabularies and ontology artefacts. Controlled vocabularies
-make state, event, assertion, and agent-boundary terms easier to review. RDF
+make state, event, assertion, and review-boundary terms easier to inspect. RDF
 export and SHACL constraints provide a path from local examples to semantic
 validation. Not every future user needs to run a full semantic-web stack. The
 point is that the project can state, in a machine-readable way, which
@@ -525,6 +600,22 @@ intentionally narrow: they show that the committed fixture path preserves the
 human-certification boundary and can be exported for review. They do not prove
 live-source process discovery, process performance, or agency conformance.
 
+The sixth result is a versioned extraction and review protocol. Capability declarations
+make each adapter's claimed task surface inspectable instead of inferring it
+from a model name or prompt. Contract validation can reject absent provenance,
+insufficient evidence, incompatible versions, or an attempted promotion that
+lacks human approval. This is a governance result, not an accuracy claim: the
+current archive, Commonwealth, and New South Wales adaptations remain provisional until
+real heldout evaluation evidence satisfies those gates.
+
+The seventh result is a jurisdiction-versioning contract. The repository can
+represent a shared core, independently released country profiles, and
+independently released subdivision profiles without allowing one jurisdiction
+to silently redefine a core concept. Compatibility ranges and explicit
+migrations make legal and semantic change visible. The contract does not claim
+that Australian law has already been validated; it records exactly what must
+be supplied before such a claim is possible.
+
 The optional runtime surfaces are deliberately bounded. LanceDB is relevant
 because FOI-O may need to retrieve similar requests, evidence snippets,
 ontology terms, and review examples. It should be able to do this without
@@ -533,21 +624,21 @@ relevant because larger extraction and embedding workflows may benefit from
 fast local inference once the data contracts and safety boundaries are stable.
 The potential benefits are faster local processing, less dependence on hosted
 providers, more reproducible retrieval tests, and a clearer path to
-privacy-preserving agent assistance. These tools are not currently used as the
+privacy-preserving analysis. These tools are not currently used as the
 core proof. They add optional dependencies, platform constraints, and
 model-selection questions. Those issues are not needed to validate the
 ontology, schemas, examples, and human-certification boundary. The core
 reproducibility claim therefore rests on deterministic Python paths, examples,
 schemas, semantic assets, and tests. This makes the current package useful as a
 baseline for later corpus intake, planned annotation task-set evaluation,
-jurisdictional extension, or agent-assisted review. It also avoids unsupported claims about
-live deployment readiness [26].
+jurisdictional extension, or analyst-led review. It also avoids unsupported claims about
+live deployment readiness [23].
 
 Taken together, these results show a working methods package rather than a
 finished operational FOI platform. The implemented surfaces demonstrate that the
 main concepts can be represented, validated, documented, and packaged in a
 repeatable form. The remaining work is to test those surfaces against larger
-corpora, future jurisdictional profiles, and human-reviewed evaluation sets.
+corpora, future jurisdictional profiles, and independently reviewed evaluation sets.
 
 \hyperlink{tab-evidence-surfaces}{Table 6} summarises the implemented evidence
 surfaces and the validation evidence currently available in the repository.
@@ -568,6 +659,8 @@ Semantic alignment & Ontology, vocabulary, and semantic constraints & SHACL safe
 Process models & State-machine, BPMN, and PNML workflow artefacts & Process-model parsing and conformance tests \\
 Process-mining fixtures & Fixture event log, XES, OCEL-style export, and fixture conformance & Fixture-only import and conformance tests \\
 Empirical task-set plan & Planned New Zealand annotation tasks & Schema validation and boundary tests \\
+Versioned extraction protocol & Capability and promotion-evidence declarations & Fail-closed contract and profile tests \\
+Jurisdiction profiles & Core, country, and subdivision compatibility manifests & Version, parent, and promotion-boundary tests \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -581,9 +674,10 @@ Empirical task-set plan & Planned New Zealand annotation tasks & Schema validati
 Surface & What this proves & What it does not prove \\
 \midrule
 FOI-O NZ profile & Local schemas, examples, semantic assets, and tests are internally consistent. & Non-NZ validation or official adoption. \\
+Australian adaptations & Commonwealth and New South Wales provisional contracts can be represented and checked. & Legal approval, empirical promotion, or coverage of other states and territories. \\
 Process models & Workflow structures can be represented as review/interchange artefacts. & Executable legal workflow or certified decision-making. \\
 Process-mining fixtures & Deterministic fixture events can be exported and checked for one release path. & Live-corpus conformance, bottlenecks, cycle times, or agency performance. \\
-Empirical task-set manifest & Planned annotation tasks and external gates are explicit. & Human-reviewed gold-standard evidence. \\
+Empirical study plan & Planned annotation tasks and external gates are explicit. & Independently reviewed gold-standard evidence. \\
 Release package & Repo-local publication and reuse evidence can be validated. & Journal, registry, arXiv, or government approval. \\
 \bottomrule
 \end{tabularx}
@@ -593,23 +687,25 @@ Release package & Repo-local publication and reuse evidence can be validated. & 
 
 # Discussion
 
+The evidence boundaries are summarised in \hyperlink{tab-evidence-boundaries}{Table 7}.
+
 FOI-O is designed to describe and check the process evidence around a FOI
-request. It asks questions such as: what was observed, where did that evidence
-come from, what candidate event might it support, and has a human reviewed it?
+request. It asks what was observed, where the evidence came from, which
+candidate event it might support, and whether an authorised reviewer checked it.
 It does not decide whether an agency acted lawfully, whether a refusal ground
 was valid, or whether a release, redaction, charge, transfer, extension, or
-complaint outcome was legally final. This distinction matters for agent-facing
+complaint outcome was legally final. This distinction matters for analyst-facing
 systems in any jurisdiction. The same event stream that helps a reviewer find
 missing evidence could be misused. This can happen if a model treats candidate
 events as certified statutory outcomes. The repository therefore keeps
-assertion status, provenance, human review, and certification metadata close to
+assertion status, provenance, review status, and certification metadata close to
 the data model.
 
 The value of this separation is broader than New Zealand. FOI systems differ,
 but most regimes have some version of observable activity, process
 interpretation, and authorised decision-making. A public platform may show that
 a response was sent. A model may infer that the response looks like a release
-or refusal. A human reviewer may certify the administrative or legal meaning of
+or refusal. An authorised reviewer may certify the administrative or legal meaning of
 that response. Treating those three layers as the same thing may seem easier at
 first. It makes later comparison weaker and less trustworthy. FOI-O instead
 makes the layers explicit. That creates more modelling work, but it protects
@@ -633,10 +729,10 @@ systems and where evidence is usually created. As a process-analytics resource,
 it could help identify missing evidence, unclear status changes, or public
 records that do not support strong claims. As a comparative resource, it could
 help map reporting categories across jurisdictions without forcing them into
-one legal vocabulary. As an agent-safety resource, it could support tools that
+one legal vocabulary. As an analyst resource, it could support tools that
 prepare review packs, flag incomplete evidence, or summarise event streams. It
 would still make clear that final legal or administrative judgement remains
-with authorised people [23-25].
+with authorised people.
 
 The schema-first approach has practical strengths. JSON Schema and Pydantic
 models make the operational contract easy to test before richer semantic
@@ -663,16 +759,20 @@ let readers inspect the figures and tables, validate examples, and check the
 human-boundary claims without live credentials. Local reproducibility is not
 the same as live validation. The current repository can prove local contracts,
 examples, and deterministic transformations. It does not yet prove live archive
-intake, human-reviewed gold-standard performance, external registry publication,
-agency-internal reporting completeness, or transferability to every FOI regime.
+intake or independently reviewed gold-standard performance. The FOI-O v0.8.1 software
+release is preserved in Zenodo with version DOI
+\href{https://doi.org/10.5281/zenodo.21360138}{10.5281/zenodo.21360138} and
+concept DOI \href{https://doi.org/10.5281/zenodo.21360137}{10.5281/zenodo.21360137}
+[30]. That preservation evidence does not prove agency-internal reporting
+completeness or transferability to every FOI regime.
 Those claims should remain external gates until they are supported by
-live-source evidence, human review, jurisdiction-specific mapping, and separate
+live-source evidence, independent review, jurisdiction-specific mapping, and separate
 validation.
 
 The strongest contribution of FOI-O is methodological. It shows how a
 public-information process ontology can be built around evidence preservation,
 bounded inference, human certification, semantic inspection, and reproducible
-validation [21,22,26]. The contribution is modest in operational scope, but it
+validation [21-23]. The contribution is modest in operational scope, but it
 matters for future work. FOI systems are increasingly analysed with automated
 tools. The infrastructure around those tools must make clear which statements
 are observed, inferred, validated, or certified by humans. FOI-O provides one
@@ -680,8 +780,9 @@ concrete way to encode that boundary and extend it beyond the first New Zealand
 example.
 
 Future work should proceed in evidence-led stages. The next step is not to
-claim universal coverage. It is to add well documented source intake so that
-public request records can be transformed reproducibly. Gold-set review should
+claim universal coverage. It is to re-extract pinned archive releases through
+the versioned protocol and publish dataset outputs with complete lineage.
+Gold-set review should
 only follow completed annotation tasks, recorded reviewer process, adjudication,
 and provenance. Later jurisdiction-specific profiles should add local law,
 language, calendars, reporting rules, and institutional practice without
@@ -691,45 +792,54 @@ Each extension should preserve the same boundary between observed record,
 candidate inference, validation result, and human-certified outcome. That
 discipline is what makes later comparison possible.
 
-# Limitations: Threat–Mitigation–Triangulation Framework
+# Limitations
 
-FOI-O is not legal advice, is not an official government publication, and is
-not an official reporting system for any jurisdiction. It does not retrieve live
-source systems by default, republish source FYI/archive payloads, replace
-agency records, decide statutory interpretation, or certify FOI outcomes. The
-following architecture records the principal threats, mitigations, independent
-checks, residual risks, and human-review triggers rather than treating them as
-one aggregate limitation score.
+FOI-O is not legal advice, is not an official government publication, and is not
+an official reporting system for New Zealand or any other jurisdiction. It does
+not retrieve live source systems by default, republish source FYI/archive
+payloads, replace agency records, decide statutory interpretation, or certify
+FOI outcomes. It should be treated as a research and validation artefact until
+live-source ingestion, jurisdiction-specific mappings, and operational use are
+separately reviewed.
 
-| Threat or trade-off | Primary mitigation | Independent alternative and triangulation rule | Residual risk and human trigger |
-|---|---|---|---|
-| Platform records may differ from an agency system of record. | Preserve raw platform evidence, immutable source IDs/hashes, and provenance. | Compare official source packs, correspondence, and platform records; do not infer legal outcome from platform state alone. | Missing or conflicting records require abstention and human review. |
-| Correspondence, attachments, or off-platform events may be incomplete. | Record unavailable attachments, known gaps, and exclusions in the context pack. | Replay against independent archive manifests and operator-held records where rights permit. | Coverage remains unknown; source-rights and operator review are required. |
-| Source state is not legal outcome. | Candidate-only mappings, profile-aware capability resolution, and prohibited follow-on actions. | Differential checks against official worked examples and human-reviewed fixtures. | Unmapped or ambiguous state is retained as unknown and routed to review. |
-| Timestamps, historical law, and authority identity can drift. | Effective-date-aware source packs, bitemporal records, version locks, and authority history. | Compare historical legislation, commencement material, and independent rule implementations. | Temporal mismatch blocks clock or profile claims until legal review. |
-| NLP/LLM extraction and annotation can be uncertain or contaminated. | Independent fixtures, disagreement records, prompt/tool/model locks, and dual annotation/adjudication gates. | Use lexical, deterministic, statistical, and independent human methods; retain conflicts. | Out-of-distribution or disagreement cases remain candidate/abstained. |
-| Jurisdictions are not legally interchangeable. | Exact jurisdiction, regime, profile ID/version, source pack, and capability maturity are mandatory. | Run jurisdiction-specific sensitivity analyses; never use cross-profile fallback. | Non-promoted profiles remain disabled for legal conclusions. |
-| Process-mining observations may be selective. | Label fixture outputs as observational and retain sampling/provenance metadata. | Reconcile full and incremental replay where process-owner evidence exists. | No population or causal claim is made without prospective empirical evidence. |
-| Automation and prompt-injection risk may alter review behaviour. | Treat retrieved text and tool metadata as untrusted evidence; fail closed on unsafe actions. | Red-team replay and independent security review. | Human certification, release, and publication remain outside autonomous tooling. |
+The main threats to validity are scope and evidence limits. FOI-O's global
+scope is architectural and methodological, not a claim of universal legal
+validation. FOI-O NZ is the mature reference implementation, while Australian
+Commonwealth and New South Wales adaptations remain provisional iterations. The repository
+evidence is local and fixture-heavy. It does not yet prove live archive intake,
+representative agency coverage, independently reviewed gold-standard labels,
+real-world process conformance, bottleneck frequencies, agency cycle times, or
+corpus-level process-mining results. Process-mining artefacts are included to
+show deterministic interchange and fixture-path conformance only. The planned
+empirical task sets remain annotation tasks until source snapshots, review
+instructions, human labels, adjudication, and any agreement metrics are
+recorded.
 
 # Conclusion
 
-FOI-O provides a global, jurisdiction-profiled process/evidence and verification
-framework for modelling FOI administration in agent-facing workflows. Its strongest
+FOI-O provides a global ontology and validation framework for FOI analysis. It
+began with New Zealand and has
+iterated through Australian jurisdictions without treating jurisdictional law
+as globally interchangeable. Its strongest
 contribution is evidence discipline: schemas, vocabularies, semantic
 constraints, process models, fixture interchange artefacts, release metadata,
 and tests distinguish observed evidence, candidate inference, validation
 results, and certified human outcomes. This gives future FOI process research a
 practical base for corpus evaluation, process analytics, release packaging, and
-safer agent-assisted public-information workflows without claiming more than
+accountable analyst-led public-information review without claiming more than
 the current repository can prove.
 
 # Data and Code Availability
 
 The code, schemas, ontology seed, examples, documentation, and validation
-contracts are maintained in the public GitHub repository for FOI-O. Source
-request and archive content is not republished here. It remains subject to its
-original rights and platform terms.
+contracts are maintained in the public FOI-O repository [23]. Version 0.8.1 is
+archived in Zenodo [30]. The public NZ archive dataset is distributed through
+the `edithatogo/fyi-archive-nz` Hugging Face dataset repository [24], with
+packaging and provenance owned by `fyi-archive` rather than FOI-O. The related
+programme repositories used by this work are `fyi-cli` [4], `fyi-archive` [5],
+`foi-process` [25], `nlp-policy-nz` [26], `legislation` [27], `rulespec-nz`
+[28], and `rac-conformance` [29]. Source request and archive content remains
+subject to its original rights and platform terms.
 
 # Ethics and Legal Boundary
 
@@ -744,11 +854,13 @@ this article, and approved the current draft.
 
 # Funding
 
-Funding information requires human confirmation before submission.
+No specific external funding is reported in this review draft. Author
+confirmation is required before submission.
 
 # Conflicts of Interest
 
-Conflict-of-interest declarations require human confirmation before submission.
+No conflict of interest is reported in this review draft. Author confirmation
+is required before submission.
 
 # References
 
@@ -774,10 +886,14 @@ Conflict-of-interest declarations require human confirmation before submission.
 20. Moreau L, Groth P, Cheney J, Lebo T, Miles S. The rationale of PROV. Journal of Web Semantics. 2015. doi:10.1016/j.websem.2015.04.001.
 21. van der Aalst WMP, Adriansyah A, de Medeiros AKA, Arcieri F, Baier T, Blickle T, et al. Process Mining Manifesto. In: Business Process Management Workshops. 2012. doi:10.1007/978-3-642-28108-2_19.
 22. van der Aalst WMP. Process Mining: Data Science in Action. Springer; 2016. doi:10.1007/978-3-662-49851-4.
-23. National Institute of Standards and Technology. Artificial Intelligence Risk Management Framework (AI RMF 1.0). 2023 [cited 2026 Jul 3]. Available from: <https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf>.
-24. OECD. AI principles. 2024 [cited 2026 Jul 3]. Available from: <https://www.oecd.org/en/topics/sub-issues/ai-principles.html>.
-25. Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence. 2024 [cited 2026 Jul 3]. Available from: <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>.
-26. Mordaunt DA. FOI-O: ontology and validation stack for Freedom of Information process modelling [software]. 2026 [cited 2026 Jul 3]. Available from: <https://github.com/edithatogo/foi-o>.
+23. Mordaunt DA. FOI-O: ontology and validation stack for Freedom of Information process modelling [software]. 2026 [cited 2026 Jul 3]. Available from: <https://github.com/edithatogo/foi-o>.
+24. Mordaunt DA. FYI Archive NZ [dataset]. Hugging Face; 2026 [cited 2026 Jul 16]. Available from: <https://huggingface.co/datasets/edithatogo/fyi-archive-nz>.
+25. Mordaunt DA. FOI Process [software]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/foi-process>.
+26. Mordaunt DA. NLP Policy NZ [software]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/nlp-policy-nz>.
+27. Mordaunt DA. Legislation [software and data]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/legislation>.
+28. Mordaunt DA. RuleSpec NZ [software]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/rulespec-nz>.
+29. Mordaunt DA. RAC Conformance [software]. 2026 [cited 2026 Jul 16]. Available from: <https://github.com/edithatogo/rac-conformance>.
+30. Mordaunt DA. FOI-O NZ: Freedom of Information ontology and process model. Version 0.8.1 [software]. Zenodo; 2026. doi:10.5281/zenodo.21360138.
 
 \clearpage
 
@@ -817,6 +933,8 @@ XES & eXtensible Event Stream \\
 
 # Glossary
 
+\hyperlink{tab-glossary}{The glossary table} collects the key terms used below.
+
 \begin{table}[H]
 \small
 \hypertarget{tab-glossary}{}
@@ -825,12 +943,12 @@ XES & eXtensible Event Stream \\
 \toprule
 Term & Meaning in this article \\
 \midrule
-Agent-facing & Designed so software agents can read, validate, and prepare information without being allowed to make legal decisions. \\
+Analyst-facing & Designed so analysts can use software to read, validate, and prepare information without treating software output as a legal decision. \\
 Candidate process event & A possible workflow event inferred from observed evidence and requiring review before it can be treated as certified. \\
 Certified outcome & A legally meaningful outcome confirmed by an authorised human or authoritative record. \\
 Controlled vocabulary & A defined list of terms used to keep states, event types, and assertions consistent. \\
 External gate & A requirement that cannot be proven by the repository alone, such as live-provider verification or submission approval. \\
-Human certification boundary & The rule that autonomous tooling may support review but must not certify legal outcomes. \\
+Certification boundary & The rule that software may support review but must not certify legal outcomes. \\
 Process ontology & A machine-readable model of the steps, states, events, evidence, and review boundaries in an administrative process. \\
 Provenance & Information about where a record, event, claim, or transformation came from and how it was produced. \\
 Request profile & A structured description of a public-information request, including identifiers, source state, and contextual metadata. \\

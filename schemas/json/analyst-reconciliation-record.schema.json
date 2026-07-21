@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:analyst-reconciliation-record:0.1.0",
+  "$defs": {
+    "runtime": {"type": "object", "additionalProperties": false, "required": ["provider", "model", "prompt_sha256", "session_id"], "properties": {"provider": {"type": "string", "minLength": 1}, "model": {"type": "string", "minLength": 1}, "prompt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "session_id": {"type": "string", "minLength": 1}}},
+    "reconciler": {"type": "object", "additionalProperties": false, "required": ["actor_id", "actor_class", "role", "runtime"], "properties": {"actor_id": {"type": "string", "pattern": "^agent:reconciler(?:-[A-Za-z0-9._-]+)?$"}, "actor_class": {"const": "automated_agent"}, "role": {"const": "reconciler"}, "runtime": {"$ref": "#/$defs/runtime"}}},
+    "span": {"type": "object", "additionalProperties": false, "required": ["start", "end", "coordinate_system"], "properties": {"start": {"type": "integer", "minimum": 0}, "end": {"type": "integer", "minimum": 0}, "coordinate_system": {"const": "utf8_character_half_open"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_id", "status", "unit_sha256", "analysis_refs", "reconciler", "outcome", "reconciled_candidate_label", "reconciled_candidate_span", "rationale", "created_at", "locked_at", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-reconciliation-record.v0.1.0"},
+    "record_id": {"type": "string", "minLength": 1},
+    "status": {"const": "locked_agent_reconciliation"},
+    "unit_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "analysis_refs": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["analyst_id", "sha256", "locked_at"], "properties": {"analyst_id": {"type": "string", "pattern": "^agent:analyst-[A-Za-z0-9._-]+$"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "locked_at": {"type": "string", "format": "date-time"}}}},
+    "reconciler": {"$ref": "#/$defs/reconciler"},
+    "outcome": {"enum": ["resolved", "unresolved"]},
+    "reconciled_candidate_label": {"type": ["string", "null"]},
+    "reconciled_candidate_span": {"oneOf": [{"$ref": "#/$defs/span"}, {"type": "null"}]},
+    "rationale": {"type": "string", "minLength": 10},
+    "created_at": {"type": "string", "format": "date-time"},
+    "locked_at": {"type": "string", "format": "date-time"},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false}
+  },
+  "allOf": [
+    {"if": {"properties": {"outcome": {"const": "unresolved"}}}, "then": {"properties": {"reconciled_candidate_label": {"const": null}, "reconciled_candidate_span": {"const": null}}}, "else": {"properties": {"reconciled_candidate_label": {"type": "string", "minLength": 1}}}}
+  ]
+}

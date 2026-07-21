@@ -15,5 +15,5 @@ A summary display grade is optional and cannot certify a claim.
 Derivability assessments list the facts required for a claim, facts observed,
 facts missing, allowed outputs, prohibited outputs, and the most conservative
 status: directly derivable, partially derivable, attachment review required,
-agency internal record required, human legal review required, or not derivable
-from the public platform.
+agency internal record required, jurisdiction-specific legal validation
+required, or not derivable from the public platform.

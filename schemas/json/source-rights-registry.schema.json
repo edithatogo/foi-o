@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical:source-rights-registry:0.1.0",
+  "title": "FOI-O candidate source-rights registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "retrieved_on", "human_review", "sources"],
+  "properties": {
+    "schema_version": {"const": "foi-o.source-rights-registry.v0.1.0"},
+    "status": {"const": "candidate"},
+    "retrieved_on": {"type": "string", "format": "date"},
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "promotion_allowed", "required_action"],
+      "properties": {
+        "status": {"const": "pending"},
+        "promotion_allowed": {"const": false},
+        "required_action": {"type": "string", "minLength": 1}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id", "provider", "content_scope", "evidence_url",
+          "evidence_sha256", "redistribution_status", "allowed_scope", "basis",
+          "conditions", "requires_contact", "review_status"
+        ],
+        "properties": {
+          "source_id": {"type": "string", "minLength": 1},
+          "provider": {"type": "string", "minLength": 1},
+          "content_scope": {"type": "string", "minLength": 1},
+          "evidence_url": {"type": "string", "format": "uri"},
+          "evidence_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "redistribution_status": {"enum": ["permitted", "restricted", "unknown"]},
+          "allowed_scope": {"enum": ["source_content", "metadata_only", "personal_use"]},
+          "license_or_terms": {"type": "string", "minLength": 1},
+          "basis": {"type": "string", "minLength": 1},
+          "conditions": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "requires_contact": {"type": "boolean"},
+          "review_status": {"const": "needs_human_review"}
+        }
+      }
+    }
+  }
+}

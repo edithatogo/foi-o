@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:adjudication-record:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "record_id", "status", "empirical_evidence", "unit_sha256", "annotation_refs", "adjudicator_id", "outcome", "adjudicated_label", "adjudicated_span", "rationale", "created_at", "locked_at"],
+  "properties": {
+    "schema_version": {"enum": ["foi-o.adjudication-record.v0.1.0", "foi-o.reconciliation-record.v0.2.0"]},
+    "record_id": {"type": "string", "minLength": 1},
+    "status": {"enum": ["candidate_contract_fixture", "locked_human_adjudication", "locked_analyst_reconciliation"]},
+    "empirical_evidence": {"type": "boolean"},
+    "unit_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "annotation_refs": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["annotator_id", "sha256"], "properties": {"annotator_id": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
+    "adjudicator_id": {"type": "string", "minLength": 1},
+    "outcome": {"enum": ["resolved", "unresolved"]},
+    "adjudicated_label": {"type": ["string", "null"]},
+    "adjudicated_span": {"type": ["object", "null"], "additionalProperties": false, "required": ["start", "end", "coordinate_system"], "properties": {"start": {"type": "integer", "minimum": 0}, "end": {"type": "integer", "minimum": 0}, "coordinate_system": {"const": "utf8_character_half_open"}}},
+    "rationale": {"type": "string", "minLength": 10},
+    "created_at": {"type": "string", "format": "date-time"},
+    "locked_at": {"type": ["string", "null"], "format": "date-time"}
+  },
+  "allOf": [
+    {"if": {"properties": {"status": {"enum": ["locked_human_adjudication", "locked_analyst_reconciliation"]}}}, "then": {"properties": {"empirical_evidence": {"const": true}, "adjudicator_id": {"pattern": "^(human|agent):[A-Za-z0-9._-]+$"}, "locked_at": {"type": "string", "format": "date-time"}, "annotation_refs": {"items": {"properties": {"annotator_id": {"pattern": "^(human|agent):[A-Za-z0-9._-]+$"}}}}}}, "else": {"properties": {"empirical_evidence": {"const": false}, "locked_at": {"const": null}}}},
+    {"if": {"properties": {"status": {"const": "locked_human_adjudication"}}}, "then": {"properties": {"adjudicator_id": {"pattern": "^human:[A-Za-z0-9._-]+$"}, "annotation_refs": {"items": {"properties": {"annotator_id": {"pattern": "^human:[A-Za-z0-9._-]+$"}}}}}}},
+    {"if": {"properties": {"outcome": {"const": "unresolved"}}}, "then": {"properties": {"adjudicated_label": {"const": null}, "adjudicated_span": {"const": null}}}, "else": {"properties": {"adjudicated_label": {"type": "string", "minLength": 1}}}}
+  ]
+}

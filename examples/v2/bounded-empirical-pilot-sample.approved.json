@@ -1,0 +1,23 @@
+{
+  "schema_version": "foi-o.bounded-empirical-pilot-sample-approval.v0.1.0",
+  "approval_id": "foi-o-nz-bounded-pilot-11872-35076-approved",
+  "status": "approved_sample_and_local_purpose_only",
+  "approved_by": "edithatogo",
+  "approved_on": "2026-07-19",
+  "recorded_at": "2026-07-19T06:52:04Z",
+  "approval_statement": "I, edithatogo, approve bounded empirical pilot sample candidate SHA-256 a77ec8eef9266319dcdca874ea74f58a427961121731a24736d9165bb57cee8e as committed in 9538cc6d31d8b00ec31baa55592b9012b026ba68. I approve requests 11872 and 35076 as the complete membership of a local-only, purposive two-case agent empirical pilot and approve expansion of their existing purpose restrictions solely to bounded local agent empirical analysis under the approved v0.2 protocol. This approval supports only case-level feasibility findings for those two requests and does not authorize population inference, archive-wide claims, context presentation, analyst execution, reconciliation, empirical-result approval, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates. Execution requires a separately committed exact authorization and successful pre-execution verification.",
+  "approval_statement_sha256": "62ca2e27084bdd7b0e6b43a9acddec7a2e87c52bf0d08cb18a18f4bfebbd4608",
+  "approved_candidate": {"path": "examples/v2/bounded-empirical-pilot-sample.pending.json", "sha256": "a77ec8eef9266319dcdca874ea74f58a427961121731a24736d9165bb57cee8e", "repository_commit": "9538cc6d31d8b00ec31baa55592b9012b026ba68"},
+  "approved_members": ["11872", "35076"],
+  "approved_purpose": "bounded_local_agent_empirical_pilot",
+  "sample_membership_approved": true,
+  "purpose_rights_approved": true,
+  "context_presentation_allowed": false,
+  "execution_allowed": false,
+  "population_inference_allowed": false,
+  "archive_wide_claim_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false,
+  "prohibited_actions": ["context_presentation", "analyst_execution", "reconciliation", "empirical_result_approval", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]
+}

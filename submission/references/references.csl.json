@@ -499,65 +499,6 @@
     "URL": "https://doi.org/10.1007/978-3-662-49851-4"
   },
   {
-    "id": "nist-ai-rmf-2023",
-    "type": "report",
-    "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
-    "author": [
-      {
-        "literal": "National Institute of Standards and Technology"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2023,
-          1,
-          26
-        ]
-      ]
-    },
-    "language": "en",
-    "URL": "https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf"
-  },
-  {
-    "id": "oecd-ai-principles-2024",
-    "type": "webpage",
-    "title": "AI principles",
-    "author": [
-      {
-        "literal": "OECD"
-      }
-    ],
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          5
-        ]
-      ]
-    },
-    "language": "en",
-    "URL": "https://www.oecd.org/en/topics/sub-issues/ai-principles.html"
-  },
-  {
-    "id": "eu-ai-act-2024",
-    "type": "legislation",
-    "title": "Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence",
-    "jurisdiction": "eu",
-    "authority": "European Parliament and Council of the European Union",
-    "issued": {
-      "date-parts": [
-        [
-          2024,
-          6,
-          13
-        ]
-      ]
-    },
-    "language": "en",
-    "URL": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng"
-  },
-  {
     "id": "foi-o-repository",
     "type": "software",
     "title": "FOI-O: ontology and validation stack for Freedom of Information process modelling",
@@ -576,5 +517,65 @@
     },
     "language": "en",
     "URL": "https://github.com/edithatogo/foi-o"
+  },
+  {
+    "id": "fyi-archive-nz-huggingface",
+    "type": "dataset",
+    "title": "FYI Archive NZ",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "publisher": "Hugging Face",
+    "URL": "https://huggingface.co/datasets/edithatogo/fyi-archive-nz"
+  },
+  {
+    "id": "foi-process-repository",
+    "type": "software",
+    "title": "FOI Process",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/foi-process"
+  },
+  {
+    "id": "nlp-policy-nz-repository",
+    "type": "software",
+    "title": "NLP Policy NZ",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/nlp-policy-nz"
+  },
+  {
+    "id": "legislation-repository",
+    "type": "software",
+    "title": "Legislation",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/legislation"
+  },
+  {
+    "id": "rulespec-nz-repository",
+    "type": "software",
+    "title": "RuleSpec NZ",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/rulespec-nz"
+  },
+  {
+    "id": "rac-conformance-repository",
+    "type": "software",
+    "title": "RAC Conformance",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "issued": {"date-parts": [[2026]]},
+    "URL": "https://github.com/edithatogo/rac-conformance"
+  },
+  {
+    "id": "foi-o-zenodo-081",
+    "type": "software",
+    "title": "FOI-O NZ: Freedom of Information ontology and process model",
+    "author": [{"family": "Mordaunt", "given": "Dylan A"}],
+    "version": "0.8.1",
+    "issued": {"date-parts": [[2026, 7, 15]]},
+    "publisher": "Zenodo",
+    "DOI": "10.5281/zenodo.21360138",
+    "URL": "https://doi.org/10.5281/zenodo.21360138"
   }
 ]

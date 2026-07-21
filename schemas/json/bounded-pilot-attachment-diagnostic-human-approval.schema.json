@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-diagnostic-human-approval:0.1.0",
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approved_by", "approved_on", "approval_statement", "approval_statement_sha256", "approved_request", "bound_scope", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-diagnostic-human-approval.v0.1.0"},
+    "approved_by": {"const": "human:edithatogo"},
+    "approved_on": {"type": "string", "minLength": 1},
+    "approval_statement": {"type": "string", "minLength": 1},
+    "approval_statement_sha256": {"$ref": "#/$defs/sha"},
+    "approved_request": {
+      "const": {
+        "path": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json",
+        "sha256": "b8c16f51f86b4d1a462edf495dc309f4f6e1dd09c47fb55010a5d08955c40d7f"
+      }
+    },
+    "bound_scope": {
+      "const": {
+        "source_root": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+        "output_directory": "/private/tmp/foio-bounded-pilot-11872-derived",
+        "quarantine_parent": "/private/tmp",
+        "diagnostic_only": true,
+        "derived_content_retention_allowed": false
+      }
+    },
+    "prohibited_actions": {
+      "const": ["context_presentation", "analyst_execution", "reconciliation", "empirical_claims", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]
+    }
+  }
+}

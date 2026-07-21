@@ -1,0 +1,20 @@
+{
+  "schema_version": "foi-o.bounded-pilot-execution-input-readiness-approval.v0.2.0",
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-19",
+  "approval_statement": "I, edithatogo, approve bounded pilot execution-input readiness v0.2 candidate SHA-256 e91548e8814aba1659c0b1927fde70cad3a8809bb4c974d43d50606c500c016f as committed in 0e6e080bc63c0998a7ca46bc708734ae500f1302. I approve the exact requests 11872 and 35076 execution-input components, including the metadata-pinned three-file MuPDF derivation result, as ready for bounded local context-and-execution authorization preparation under the approved v0.2 analyst protocol. This approval does not authorize reading derived text, context materialization or presentation, analyst execution, reconciliation, empirical-result approval, population inference, archive-wide claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates. Derived-text access, context presentation, and analyst execution require a separately committed exact authorization and successful clean-HEAD pre-execution verification.",
+  "approval_statement_sha256": "bbbba1846e463341481169ac002e2e62bcbe281c807f1351bd83ae3a7bccc1aa",
+  "approved_candidate": {"path": "examples/v2/bounded-pilot-execution-input-readiness.v0.2.pending.json", "sha256": "e91548e8814aba1659c0b1927fde70cad3a8809bb4c974d43d50606c500c016f", "repository_commit": "0e6e080bc63c0998a7ca46bc708734ae500f1302"},
+  "approved_scope": "bounded_two_case_execution_input_components_for_context_and_execution_authorization_preparation_only",
+  "inputs_approved": true,
+  "derived_text_read_allowed": false,
+  "context_materialization_allowed": false,
+  "context_presentation_allowed": false,
+  "analyst_execution_allowed": false,
+  "reconciliation_allowed": false,
+  "empirical_result_approval_allowed": false,
+  "population_inference_allowed": false,
+  "archive_wide_claim_allowed": false,
+  "human_reviewed": false,
+  "gold_eligible": false
+}

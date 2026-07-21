@@ -1,0 +1,74 @@
+{
+  "approved_artifacts": {
+    "codebook": {
+      "path": "examples/v2/analyst-fixture-packet/codebook.approved.json",
+      "sha256": "d918f1b705debcd6d8a14c078d7d0044e23c10615c9a7c27e4122d03088bbfdc"
+    },
+    "duplicate_cluster_registry": {
+      "path": "examples/v2/analyst-fixture-packet/cluster-registry.rights-approved.json",
+      "sha256": "b5bb5be2f2e55091b92b19567c4f2f879b83c509ac0d374ef7138b0f78ddbfdf"
+    },
+    "input_approval": {
+      "path": "examples/v2/analyst-fixture-packet/input-approval.approved.json",
+      "sha256": "a2ff3657aa6e58c6d059c618e2d0de4f6b3c1d7d0ee002bfa9a63174f9a5ffa6"
+    },
+    "local_rights_review": {
+      "path": "examples/v2/analyst-fixture-packet/local-rights-review.approved.json",
+      "sha256": "daa1d4bc80bbebc7199c5e050254872a79f93792e39be76526222eb96ec96266"
+    },
+    "sampling_configuration": {
+      "path": "examples/v2/analyst-fixture-packet/sampling-configuration.approved.json",
+      "sha256": "1a88278bff5d2d682ae56d119d7ed25b899a60214e71067e37f178052f4bfbc8"
+    },
+    "unit_manifest": {
+      "path": "examples/v2/analyst-fixture-packet/unit-manifest.rights-approved.json",
+      "sha256": "c476c1638def1829d27f6366ff85445f7830591ce8928ac112f95fa02845dbf6"
+    }
+  },
+  "approved_on": "2026-07-17",
+  "base_readiness": {
+    "path": "examples/v2/analyst-fixture-packet/readiness.json",
+    "repository_commit": "948d392df7fbbf49ea9b33646a0bdbd845505811",
+    "sha256": "de4bdf129f433373b1287c78867db51b1874bd33476dd2229e0710dfc25e03bd"
+  },
+  "empirical_evidence": false,
+  "execution_allowed": false,
+  "execution_authorization_present": false,
+  "gold_eligible": false,
+  "human_reviewed": false,
+  "inputs_approved": true,
+  "local_only": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update"
+  ],
+  "publication_eligible": false,
+  "recorded_at": "2026-07-17T23:04:58+10:00",
+  "release_qualifying": false,
+  "rights_approved": true,
+  "roles_assigned": false,
+  "schema_version": "foi-o.analyst-fixture-approved-input-readiness.v0.1.0",
+  "status": "approved_inputs_roles_and_execution_authorization_pending",
+  "transition_algorithm": "foi-o.approved-fixture-input-transition.v0.1.0",
+  "unchanged_artifacts": {
+    "protocol": {
+      "path": "docs/42-v2-analyst-execution-protocol.md",
+      "sha256": "ac3785bd823d43a43c7830e34f4f3b380472f271e21f19446cbc575f4b49eca0"
+    },
+    "redaction_manifest": {
+      "path": "examples/v2/analyst-fixture-packet/redaction-manifest.json",
+      "sha256": "7230de85b808521292d32be170b33185386adf000225b54305f971fdc9a095c8"
+    },
+    "source_population": {
+      "path": "examples/v2/analyst-fixture-packet/source-population.json",
+      "sha256": "4cf6266bb7017c278a0fe869cef3f6f36ed01a6dc0c82bdcb79f3454c532d451"
+    }
+  }
+}

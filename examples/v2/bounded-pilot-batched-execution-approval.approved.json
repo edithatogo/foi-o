@@ -1,0 +1,20 @@
+{
+  "schema_version": "foi-o.bounded-pilot-batched-execution-approval.v0.1.0",
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-20",
+  "approval_statement": "I, edithatogo, approve bounded pilot batched execution plan SHA-256 af7560655834373f97ca59c0a9876051325c855b8a73adc83110912ef0dc7782 as committed in e9f53161d60eabaeeb5b5687ce57dca8bdcebe46. I authorize creation and committed validation of the exact stage-aware execution authorization, deterministic context builder, production clean-HEAD verifier, role runtime handshakes, output schemas, locking mechanisms, diagnostics method, and local manuscript/package preparation pipeline required by that plan. After the final authorization is committed and its clean-HEAD verifier passes, I authorize the plan’s conditional local stages in order: deterministic context construction; two isolated automated analyst executions; immutable locking and verification of both complete analyst sets; reconciliation by the distinct automated reconciler only after both analyst locks verify; bounded two-case agreement and diagnostic computation; candidate findings generation; candidate manuscript revision; and local LaTeX/arXiv-package building and validation. Format-only repairs may occur within the same isolated role session, but no stage may be skipped and any verification failure must stop later stages. This approval does not approve unknown analyst labels, reconciled findings, diagnostics, empirical claims, or manuscript claims in advance. All resulting findings and publication materials remain candidates pending one final exact results-and-package approval. It does not authorize population inference, archive-wide claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, software release, dataset publication, GitHub publication of restricted content, arXiv upload or submission, or any other external action.",
+  "approval_statement_sha256": "6f31a82b6cd53b5b5f7a80ebd5c642ec925ad11a916926dfae8e91cf465615c8",
+  "approved_plan": {
+    "path": "examples/v2/bounded-pilot-batched-execution-plan.pending.json",
+    "sha256": "af7560655834373f97ca59c0a9876051325c855b8a73adc83110912ef0dc7782",
+    "repository_commit": "e9f53161d60eabaeeb5b5687ce57dca8bdcebe46"
+  },
+  "local_stage_contract_creation_authorized": true,
+  "conditional_local_execution_authorized_after_exact_verification": true,
+  "final_exact_results_and_package_approval_required": true,
+  "empirical_result_approved": false,
+  "human_reviewed": false,
+  "gold_eligible": false,
+  "publication_allowed": false,
+  "external_action_allowed": false
+}

@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:empirical-human-gate-review-packet:0.1.0",
+  "title": "FOI-O V2 consolidated empirical human-gate review packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "packet_id", "status", "created_at", "reviewer",
+    "reviewed_at", "reviews", "annotation_roles", "execution_inputs",
+    "source_pack_promotion_allowed", "sample_freeze_allowed",
+    "empirical_comparison_allowed", "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.empirical-human-gate-review-packet.v0.1.0"},
+    "packet_id": {"const": "foi-o-v2-empirical-human-gates-2026-07-16"},
+    "status": {"const": "pending_named_human_review"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "reviewer": {"const": null},
+    "reviewed_at": {"const": null},
+    "reviews": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {"$ref": "#/$defs/review"}
+    },
+    "annotation_roles": {
+      "type": "object", "additionalProperties": false,
+      "required": ["annotator_ids", "adjudicator_id", "role_assignment_approved"],
+      "properties": {
+        "annotator_ids": {"type": "array", "maxItems": 0},
+        "adjudicator_id": {"const": null},
+        "role_assignment_approved": {"const": false}
+      }
+    },
+    "execution_inputs": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "rights_approved_source_population_manifest",
+        "approved_codebook_revision", "approved_sampling_configuration"
+      ],
+      "properties": {
+        "rights_approved_source_population_manifest": {"const": null},
+        "approved_codebook_revision": {"const": null},
+        "approved_sampling_configuration": {"const": null}
+      }
+    },
+    "source_pack_promotion_allowed": {"const": true},
+    "sample_freeze_allowed": {"const": false},
+    "empirical_comparison_allowed": {"const": false},
+    "blockers": {
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "items": {
+        "enum": [
+          "event_time_interval_review_pending",
+          "psc_provider_scope_review_pending",
+          "nonlegislation_source_selection_review_pending",
+          "source_pack_promotion_review_pending",
+          "bounded_raw_state_mapping_review_pending",
+          "attachment_snapshot_rights_review_pending",
+          "supplemental_attachment_capture_review_pending",
+          "annotation_roles_missing",
+          "sample_execution_inputs_missing"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_id", "artifact_path", "artifact_sha256", "decision",
+        "approver", "reviewed_at", "approval_effect"
+      ],
+      "properties": {
+        "review_id": {
+          "enum": [
+            "oia-event-time-intervals", "psc-provider-scope",
+            "nonlegislation-source-selection", "source-pack-promotion",
+            "bounded-raw-state-mapping", "bounded-raw-state-mapping-11872",
+            "attachment-snapshot-rights",
+            "annotation-protocol"
+          ]
+        },
+        "artifact_path": {"type": "string", "minLength": 1},
+        "artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "decision": {"enum": ["pending", "approved"]},
+        "approver": {"type": ["string", "null"]},
+        "reviewed_at": {"type": ["string", "null"], "format": "date-time"},
+        "approval_effect": {"type": "string", "minLength": 1},
+        "interval_count": {"const": 50},
+        "rights_evidence_url": {"type": "string", "format": "uri"},
+        "rights_evidence_sha256": {"$ref": "#/$defs/sha256"},
+        "rights_evidence_byte_size": {"type": "integer", "minimum": 1},
+        "proposed_scope": {"type": "string", "minLength": 1},
+        "proposed_terms": {"type": "string", "minLength": 1},
+        "source_count": {"const": 7},
+        "content_storage": {"const": "local_only"},
+        "content_committed": {"const": false},
+        "candidate_mapping": {
+          "type": "object", "additionalProperties": false,
+          "required": ["raw_state", "normalised_state"],
+          "properties": {
+            "raw_state": {"const": "waiting_response"},
+            "normalised_state": {"const": "awaiting_response"}
+          }
+        },
+        "correspondence_count": {"enum": [1, 4]},
+        "attachment_count": {"enum": [0, 3]},
+        "archive_wide_claim_allowed": {"const": false},
+        "snapshot_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "reviewed_snapshot_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "request_id": {"const": "11872"},
+        "attachment_bytes": {"const": 13259266},
+        "rights_status": {"enum": ["pending", "approved"]},
+        "protocol_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"review_id": {"const": "attachment-snapshot-rights"}}},
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T01:51:03Z"},
+              "rights_status": {"const": "approved"}
+            },
+            "required": ["reviewed_snapshot_manifest_sha256"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_id": {"const": "bounded-raw-state-mapping-11872"}
+            }
+          },
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T02:56:22Z"}
+            }
+          },
+          "else": {
+            "if": {
+              "properties": {
+                "review_id": {
+                  "not": {
+                    "enum": [
+                      "attachment-snapshot-rights",
+                      "bounded-raw-state-mapping",
+                      "oia-event-time-intervals",
+                      "psc-provider-scope",
+                      "nonlegislation-source-selection",
+                      "source-pack-promotion",
+                      "annotation-protocol"
+                    ]
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "decision": {"const": "pending"},
+                "approver": {"const": null},
+                "reviewed_at": {"const": null}
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_id": {"const": "bounded-raw-state-mapping"}
+            }
+          },
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T03:23:18Z"}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_id": {"const": "oia-event-time-intervals"}
+            }
+          },
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T03:30:22Z"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"review_id": {"const": "psc-provider-scope"}}},
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T03:37:50Z"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"review_id": {"const": "nonlegislation-source-selection"}}},
+          "then": {
+            "properties": {
+              "decision": {"const": "approved"},
+              "approver": {"const": "edithatogo"},
+              "reviewed_at": {"const": "2026-07-17T05:45:11Z"}
+            }
+          }
+        },
+        {
+          "if": {"properties": {"review_id": {"const": "source-pack-promotion"}}},
+          "then": {"properties": {"decision": {"const": "approved"}, "approver": {"const": "edithatogo"}, "reviewed_at": {"const": "2026-07-17T07:47:54Z"}}}
+        },
+        {
+          "if": {"properties": {"review_id": {"const": "annotation-protocol"}}},
+          "then": {"properties": {"decision": {"const": "approved"}, "approver": {"const": "edithatogo"}, "reviewed_at": {"const": "2026-07-17T09:48:28Z"}}}
+        }
+      ]
+    }
+  }
+}

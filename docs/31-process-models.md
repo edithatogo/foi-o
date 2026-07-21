@@ -25,7 +25,7 @@ states while preserving the human-certification boundary.
 
 ## Model Scope
 
-The BPMN and Petri net artefacts model the conservative NZ-first request
+The BPMN and Petri net artefacts model the conservative NZ reference-profile request
 workflow represented by the current state machine and transition checks:
 
 1. observe or receive a request;

@@ -2,7 +2,7 @@
   "schema_version": "foi-o-nz.generated-asset-manifest.v0.1.0",
   "manifest_id": "foi-o-publication-assets-20260703",
   "generated_at": "2026-07-03T00:00:00+10:00",
-  "scope": "NZ-first FOI-O ontology maturation publication assets",
+  "scope": "Global FOI-O maturation publication assets, originating in NZ and iterated through Australian jurisdictions",
   "assets": [
     {
       "asset_id": "architecture-flow-mermaid",
@@ -10,7 +10,7 @@
       "path": "docs/assets/foi-o-process-architecture.mmd",
       "status": "committed_source",
       "title": "FOI-O process architecture",
-      "caption": "Source-to-agent architecture for the NZ-first FOI-O process model.",
+      "caption": "Source-to-agent architecture for the global FOI-O process model and its versioned jurisdiction profiles.",
       "text_alternative": "Public request and archive sources flow into request profiles, process events, semantic assets, validation checks, and read-only agent review surfaces bounded by human certification.",
       "source_inputs": [
         "docs/02-system-architecture.md",
@@ -132,7 +132,7 @@
       "path": "docs/25-validation-coverage-summary.md",
       "status": "committed_source",
       "title": "FOI-O NZ validation coverage summary",
-      "caption": "Validation coverage summary for the NZ-first ontology maturation package.",
+      "caption": "Validation coverage summary for the global FOI-O ontology maturation package.",
       "text_alternative": "The summary lists example validation, repository validation, schema drift, maturation tests, semantic tests, publication tests, full Python tests, Ruff checks, and Mojo/Pixi checks, with the claims each can and cannot prove.",
       "source_inputs": [
         "docs/19-release-readiness-evidence.md",
@@ -165,7 +165,7 @@
       "path": "process_models/foi-o-nz-core.bpmn",
       "status": "committed_source",
       "title": "FOI-O NZ BPMN process model",
-      "caption": "BPMN 2.0 interchange model for the NZ-first FOI-O request workflow.",
+      "caption": "BPMN 2.0 interchange model for the NZ reference workflow within global FOI-O.",
       "text_alternative": "The BPMN model starts with a request observation, registers and assesses the request, handles clarification, search, consultation, extension or charge assessment, routes records-found outcomes to decision drafting, requires human certification, communicates release/refusal outcomes, and closes through disclosure-log or complaint observation paths.",
       "source_inputs": [
         "examples/state-machine.mmd",
@@ -182,7 +182,7 @@
       "path": "process_models/foi-o-nz-core.pnml",
       "status": "committed_source",
       "title": "FOI-O NZ Petri net process model",
-      "caption": "PNML Petri net model for review of the NZ-first FOI-O request workflow.",
+      "caption": "PNML Petri net model for review of the NZ reference workflow within global FOI-O.",
       "text_alternative": "The Petri net represents places for observed, registered, validity checked, clarification, search, consultation, extension or charge, records, decision pack, human-certified, release/refusal, disclosure, complaint, and closed states, with transitions between them and human certification before final decision-like outcomes.",
       "source_inputs": [
         "examples/state-machine.mmd",
@@ -332,7 +332,7 @@
       "path": "examples/empirical-taskset-manifest.nz-first.json",
       "status": "committed_source",
       "title": "FOI-O NZ empirical task-set manifest",
-      "caption": "NZ-first annotation task-set plan for state mapping, timeline extraction, outcome classification, legal issue flagging, and attachment characterisation.",
+      "caption": "NZ reference-profile annotation task-set plan within the global FOI-O evaluation programme.",
       "text_alternative": "The manifest specifies one 100-request state-mapping task set and smaller planned timeline, outcome, legal-issue, and attachment task sets, all marked as annotation tasks rather than gold standards.",
       "source_inputs": [
         "docs/20-corpus-profile-goldset.md",
@@ -340,7 +340,7 @@
         "schemas/json/empirical-taskset-manifest.schema.json"
       ],
       "generation_command": "manual manifest maintained in examples/empirical-taskset-manifest.nz-first.json",
-      "provenance": "Repo-local NZ-first empirical planning artefact; not human-reviewed gold-standard evidence.",
+      "provenance": "Repo-local NZ reference-profile empirical planning artefact within global FOI-O; not human-reviewed gold-standard evidence.",
       "intended_location": "Supplement empirical-plan artefact"
     }
   ]

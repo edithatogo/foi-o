@@ -1,7 +1,7 @@
 {
   "schema_version": "foi-o-nz.empirical-taskset-manifest.v0.1.0",
   "manifest_id": "foi-o-nz-empirical-tasksets-20260703",
-  "scope": "NZ-first empirical annotation planning",
+  "scope": "NZ reference-profile empirical annotation planning within the global FOI-O model",
   "claim_boundary": "annotation_tasks_not_gold_standard",
   "jurisdiction": "NZ",
   "task_sets": [

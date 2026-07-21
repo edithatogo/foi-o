@@ -1,0 +1,64 @@
+schema_version: foi-o.source-rights-registry.v0.1.0
+status: candidate
+retrieved_on: "2026-07-16"
+human_review:
+  status: pending
+  promotion_allowed: false
+  required_action: A named human rights reviewer must verify each provider scope and approve any redistribution rule before source content is packaged or published.
+sources:
+  - source_id: nz-legislation-content
+    provider: New Zealand Parliamentary Counsel Office
+    content_scope: New Zealand legislation published on legislation.govt.nz, excluding works incorporated by reference and any stated agency-legislation restrictions.
+    evidence_url: https://www.legislation.govt.nz/copyright/
+    evidence_sha256: a2e46f64e277a1e770a53007d89b8039649db04ee8c7753098fead95d58584d3
+    redistribution_status: permitted
+    allowed_scope: source_content
+    license_or_terms: New Zealand Legislation copyright statement; Copyright Act 1994 section 27 basis.
+    basis: The official copyright page states that New Zealand legislation may be reproduced free of charge without specific permission, subject to stated exceptions.
+    conditions:
+      - Check incorporated-by-reference works separately.
+      - Check agency-published secondary legislation for stated overseas copyright restrictions.
+    requires_contact: false
+    review_status: needs_human_review
+  - source_id: nz-ombudsman-content
+    provider: Chief Ombudsman of New Zealand
+    content_scope: Copyright content published on ombudsman.parliament.nz.
+    evidence_url: https://www.ombudsman.parliament.nz/copyright
+    evidence_sha256: 6a628343335206391a0f13a16167bcdca8430f8987b8b640d10c249342e094b6
+    redistribution_status: restricted
+    allowed_scope: personal_use
+    license_or_terms: Ombudsman New Zealand copyright statement.
+    basis: The official copyright page permits accurate attributed personal copying and directs users to contact the Ombudsman for other reuse.
+    conditions:
+      - Reproduce accurately.
+      - Acknowledge the Chief Ombudsman and link to the source.
+      - Obtain permission before non-personal reuse.
+    requires_contact: true
+    review_status: needs_human_review
+  - source_id: govt-nz-site-content
+    provider: New Zealand Government through the Public Service Commission
+    content_scope: Govt.nz app and website content covered by the provider copyright statement, excluding listed third-party and brand assets.
+    evidence_url: https://www.govt.nz/about/the-govt-nz-app/copyright/
+    evidence_sha256: ab153ac772b2c8bbcb2c77530c96fb7d4914cebabf989357a019958c3c63cb5e
+    redistribution_status: permitted
+    allowed_scope: source_content
+    license_or_terms: Creative Commons Attribution 4.0 International, subject to provider exclusions.
+    basis: The official copyright page applies CC-BY 4.0 to covered content and lists categories that are excluded from that licence.
+    conditions:
+      - Attribute the Crown source.
+      - Exclude logos, marks, third-party material, media, and other listed non-licensed content unless separately cleared.
+    requires_contact: false
+    review_status: needs_human_review
+  - source_id: fyi-public-request-content
+    provider: Open New Zealand / FYI.org.nz
+    content_scope: Public OIA request correspondence and response attachments displayed by FYI.
+    evidence_url: https://meta.fyi.org.nz/help/about/
+    evidence_sha256: 0772241f675be886bcb5e64db3961124802d923b62171dc1f94d8602678c132d
+    redistribution_status: unknown
+    allowed_scope: metadata_only
+    basis: FYI describes why it publishes OIA responses and offers a copyright takedown route, but the page does not state a downstream reuse licence for request correspondence or attachments.
+    conditions:
+      - Do not infer record-level redistribution permission from public availability.
+      - Retain metadata-only handling until the platform or relevant rights holders approve broader reuse.
+    requires_contact: true
+    review_status: needs_human_review

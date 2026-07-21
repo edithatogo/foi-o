@@ -1,0 +1,20 @@
+{
+  "schema_version": "foi-o.bounded-pilot-attachment-stderr-content-review-approval.v0.1.0",
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-19",
+  "approval_statement": "I, edithatogo, approve bounded pilot attachment stderr content-review request SHA-256 53154fc6bed37aaa26d9291bb74ddcb25a7a23c892d7b340fd28415e41defd9a as committed in 26f2e159b26455843ef3b9522e75daef1d0bc7a2. I authorize one local review and classification of the two exact 198-byte stderr files pinned by that request in /private/tmp/.foio-attachment-diagnostic-zdnisebu. The review output must be metadata-only and must not reproduce verbatim stderr. This does not authorize derived-text review, derivation retry, context presentation, analyst execution, reconciliation, empirical claims, population inference, archive-wide claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates.",
+  "approval_statement_sha256": "860a59283a6df9968eac9ff7840792eea87de4ec6bfb0d011838cc3f6afd8a9a",
+  "approved_request": {"path": "examples/v2/bounded-pilot-attachment-stderr-content-review-request.pending.json", "sha256": "53154fc6bed37aaa26d9291bb74ddcb25a7a23c892d7b340fd28415e41defd9a", "repository_commit": "26f2e159b26455843ef3b9522e75daef1d0bc7a2"},
+  "approved_scope": "one_local_exact_stderr_content_review_and_warning_classification_only",
+  "review_output_contract": "metadata_only_classification_no_verbatim_stderr",
+  "stderr_content_review_allowed": true,
+  "derived_text_review_allowed": false,
+  "derivation_retry_allowed": false,
+  "context_presentation_allowed": false,
+  "analyst_execution_allowed": false,
+  "reconciliation_allowed": false,
+  "empirical_evidence": false,
+  "human_reviewed": false,
+  "gold_eligible": false,
+  "prohibited_actions": ["context_presentation", "analyst_execution", "reconciliation", "empirical_claims", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]
+}

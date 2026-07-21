@@ -31,9 +31,10 @@ This status page separates implemented repo-local surfaces, experimental optiona
 - V2 is an additive empirical extraction and promotion contract. It must remain
   at least as strict as V1 on provenance, evidence, epistemic status, validation,
   and human certification.
-- The NZ package is the only implemented jurisdiction profile in this
-  repository. Its repo-local surfaces are implemented; external corpus,
-  publication, and legal-promotion evidence remains separately gated.
+- FOI-O is now framed as a global core that originated in New Zealand and has
+  iterated through Australian jurisdiction adapters. The NZ package remains the
+  mature reference implementation; its external corpus, publication, and
+  legal-promotion evidence remains separately gated.
 - The FOI-O archive adapter and Australian Commonwealth and NSW adapters have
   been reviewed as candidate contract pilots in `nlp-policy-nz`. That review is
   not legal approval and does not promote them to certified profiles.

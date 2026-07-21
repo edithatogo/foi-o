@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:analyst-fixture-readiness:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "status",
+    "protocol",
+    "artifacts",
+    "execution_allowed",
+    "local_only",
+    "empirical_evidence",
+    "human_reviewed",
+    "gold_eligible",
+    "release_qualifying",
+    "publication_eligible",
+    "prohibited_actions"
+  ],
+  "properties": {
+    "status": {
+      "const": "pending_exact_human_rights_and_execution_input_approval"
+    },
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "const": "docs/42-v2-analyst-execution-protocol.md"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "uniqueItems": true,
+      "allOf": [
+        {"contains": {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/source-population.json"}}, "required": ["path"]}},
+        {"contains": {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/codebook.json"}}, "required": ["path"]}},
+        {"contains": {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/sampling-configuration.json"}}, "required": ["path"]}},
+        {"contains": {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/unit-manifest.json"}}, "required": ["path"]}},
+        {"contains": {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/cluster-registry.json"}}, "required": ["path"]}},
+        {"contains": {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/redaction-manifest.json"}}, "required": ["path"]}},
+        {"contains": {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/local-rights-review.pending.json"}}, "required": ["path"]}}
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "pattern": "^examples/v2/analyst-fixture-packet/[A-Za-z0-9._-]+\\.json$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "execution_allowed": {
+      "const": false
+    },
+    "local_only": {
+      "const": true
+    },
+    "empirical_evidence": {
+      "const": false
+    },
+    "human_reviewed": {
+      "const": false
+    },
+    "gold_eligible": {
+      "const": false
+    },
+    "release_qualifying": {
+      "const": false
+    },
+    "publication_eligible": {
+      "const": false
+    },
+    "prohibited_actions": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "redistribution",
+          "publication",
+          "training",
+          "fine_tuning",
+          "release",
+          "dataset_publication",
+          "gold_promotion",
+          "legal_certification",
+          "paper_update"
+        ]
+      }
+    }
+  }
+}

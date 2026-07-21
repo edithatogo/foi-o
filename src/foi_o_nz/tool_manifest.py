@@ -115,13 +115,24 @@ def build_tool_manifest() -> dict[str, Any]:
     tools = [tools_by_name[name] for name in sorted(tools_by_name)]
     return {
         "schema_version": "foi-o-nz.tool-manifest.v0.1.0",
-        "name": "foi-o-nz-agent-tools",
-        "description": "Bounded tools for process support, validation, and evidence preparation. No tool certifies an OIA decision.",
+        "name": "foi-o-global-agent-tools",
+        "description": "Bounded tools for the global FOI-O model, which originated in New Zealand and now includes Australian jurisdiction iterations. No tool certifies a legal decision.",
+        "model_scope": "global_core_with_versioned_jurisdiction_profiles",
+        "origin": "New Zealand OIA reference implementation",
+        "jurisdiction_policy": {
+            "explicit_profile_required": True,
+            "cross_jurisdiction_fallback_allowed": False,
+            "unpromoted_profile_outputs": "candidate_only",
+            "current_iterations": ["NZ", "AU-CTH", "AU-NSW"],
+        },
         "tools": tools,
         "global_boundaries": [
             "No autonomous release/refusal/redaction/charge/extension/transfer certification.",
             "Observed/inferred/asserted/certified status must be preserved.",
             "Machine-generated outputs must remain reviewable and auditable.",
+            "Every legal or process interpretation must pin a compatible jurisdiction profile.",
+            "No rule, clock, vocabulary, or legal conclusion may leak between jurisdictions.",
+            "Unpromoted jurisdiction adapters produce candidate outputs only.",
         ],
     }
 
@@ -150,7 +161,7 @@ def _tool_descriptor(
 def _description_for_action(action_type: str) -> str:
     descriptions = {
         "extract_events": "Extract candidate process events from source records.",
-        "map_state": "Map source platform states to cautious FOI-O NZ states.",
+        "map_state": "Map source platform states to cautious FOI-O core states using an explicit jurisdiction profile.",
         "calculate_deadline": "Calculate indicative process deadlines for operator review.",
         "draft_search_plan": "Draft a search plan for human review.",
         "draft_correspondence": "Draft correspondence text that must be reviewed before sending.",
@@ -174,7 +185,7 @@ def _description_for_action(action_type: str) -> str:
         "export_kernel_manifest": "Export deterministic kernel operation metadata for native/fallback parity planning.",
         "mojo_audit": "Statically audit Mojo source declarations against fallback kernel operations.",
     }
-    return descriptions.get(action_type, "Bounded FOI-O NZ tool action.")
+    return descriptions.get(action_type, "Bounded global FOI-O tool action.")
 
 
 def write_tool_manifest(output: Path) -> dict[str, Any]:

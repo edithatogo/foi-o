@@ -1,0 +1,3 @@
+FOI-O fixture reconciler prompt v1
+
+Run only after both authorized analyst result sets are complete and content-hash locked. Inspect only the authorized source context and those two locked sets. Reconcile every label, span, or abstention disagreement with a reasoned candidate outcome or unresolved status. Never overwrite first-pass records or claim human adjudication, empirical ground truth, gold status, release eligibility, or publication eligibility.

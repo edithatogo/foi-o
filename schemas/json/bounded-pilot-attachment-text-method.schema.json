@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-text-method:0.1.0",
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source": {"type": "object", "additionalProperties": false, "required": ["inventory_pointer", "relative_path", "sha256", "size", "response_message_id", "output_name"], "properties": {"inventory_pointer": {"type": "string", "pattern": "^/[0-2]$"}, "relative_path": {"type": "string", "pattern": "^content/attachments/.+\\.pdf$"}, "sha256": {"$ref": "#/$defs/sha"}, "size": {"type": "integer", "minimum": 1}, "response_message_id": {"type": "integer", "minimum": 1}, "output_name": {"type": "string", "pattern": "^attachment-00[0-2]\\.txt$"}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "method_id", "status", "request_id", "input_approval", "evidence_manifest", "sources", "method_tool", "runtime_observation", "environment", "argv_template", "output_contract", "failure_contract", "local_only", "restricted_outputs_committed", "method_approved", "runtime_approved", "derivation_allowed", "context_presentation_allowed", "analyst_execution_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-text-method.v0.1.0"},
+    "method_id": {"const": "bounded-pilot-11872-pdftotext-layout-v1"},
+    "status": {"const": "pending_exact_derivation_method_approval"},
+    "request_id": {"const": "11872"},
+    "input_approval": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "examples/v2/bounded-pilot-input-approval.approved.json"}, "sha256": {"const": "a00e62626a666f928c26c1a68859b1ebac78fdf41aa0038ddec3de7dc6728748"}}},
+    "evidence_manifest": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"const": "examples/v2/bounded-pilot-evidence-manifest.pending.json"}, "sha256": {"const": "ec0fd4bf4b68bf265ea2bb342982816a820ccefcd2c8c7f69c4324f76851f6cd"}}},
+    "sources": {"type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/source"}},
+    "method_tool": {"const": {"name": "pdftotext", "version": "26.07.0", "identity_policy": "exact_version_and_resolved_executable_sha256"}},
+    "runtime_observation": {"type": "object", "additionalProperties": false, "required": ["discovered_path", "resolved_path", "executable_sha256"], "properties": {"discovered_path": {"type": "string", "minLength": 1}, "resolved_path": {"type": "string", "minLength": 1}, "executable_sha256": {"$ref": "#/$defs/sha"}}},
+    "environment": {"const": {"LC_ALL": "C.UTF-8", "LANG": "C.UTF-8", "TZ": "UTC"}},
+    "argv_template": {"const": ["pdftotext", "-layout", "-enc", "UTF-8", "-eol", "unix", "<input>", "<output>"]},
+    "output_contract": {"const": {"directory": "isolated_local_temp_outside_repository", "directory_permissions": "owner_only", "filename_source": "zero_based_inventory_index_three_digits", "pages": "all", "bytes": "direct_tool_output_no_post_normalization", "encoding_validation": "strict_utf8", "citation_coordinates": "unicode_code_points_half_open_with_source_and_output_sha256", "repeat_runs_required": 2, "repeat_outputs_must_match": true, "completion": "atomic_complete_set_install", "manifest_only_committed": true, "content_committed": false}},
+    "failure_contract": {"const": {"source_hash_recheck_required": true, "source_hash_postcheck_required": true, "safe_relative_paths_required": true, "symlinks_allowed": false, "network_allowed": false, "clean_output_directory_required": true, "timeout_seconds": 120, "exit_code_required": 0, "nonempty_output_required": true, "stderr_captured_and_hashed": true, "nonempty_stderr_requires_review": true, "all_or_nothing": true, "partial_readiness_allowed": false, "ocr_fallback_allowed": false, "clean_after_failure_required": true}},
+    "local_only": {"const": true},
+    "restricted_outputs_committed": {"const": false},
+    "method_approved": {"const": false},
+    "runtime_approved": {"const": false},
+    "derivation_allowed": {"const": false},
+    "context_presentation_allowed": {"const": false},
+    "analyst_execution_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false}
+  }
+}

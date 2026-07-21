@@ -1,0 +1,33 @@
+{
+  "attachment_count": 3,
+  "attachment_inventory_sha256": "a0dfea7c979de9760bcf12fee0a321e8e323b4176decd086f2530408da4c171f",
+  "attachment_inventory_verified": true,
+  "blockers": [
+    "human_mapping_review_pending",
+    "single_request_only"
+  ],
+  "candidate_mapping_supported": true,
+  "correspondence_count": 4,
+  "correspondence_evidence_verified": true,
+  "human_mapping_review_required": true,
+  "incoming_correspondence_count": 3,
+  "mapping_sha256": "7fe29951c5a203c50f7db34dd5fe16ee7c2fa39bcd28caec682bdafe0de1389f",
+  "nonempty_attachment_evidence": true,
+  "normalised_state": "released_in_part",
+  "outgoing_correspondence_count": 1,
+  "page_html_sha256": "03b033acdcbe25f3eee3e7a6f8fe6004ecc052c6c508c045ec99e475e5362a18",
+  "promotion_allowed": false,
+  "raw_state_field": "described_state",
+  "raw_state_value": "partially_successful",
+  "ready_for_archive_wide_mapping_claim": false,
+  "ready_for_bounded_human_mapping_review": true,
+  "request_id": "11872",
+  "request_json_sha256": "543724e6ab30e0a78f17c813ff5239d28b1270f4f0b63f8097f3968dc24160fb",
+  "rights_purpose": "foi-o-raw-state-mapping-audit",
+  "rights_reviewed_at": "2026-07-17T01:51:03Z",
+  "rights_reviewer": "edithatogo",
+  "schema_version": "foi-o.bounded-raw-state-audit.v0.1.0",
+  "snapshot_manifest_sha256": "0c7cee553ca3b01a6416784a1b691df5a6d90159a8f4d55e51a799934f655629",
+  "source_records_modified": false,
+  "storage": "local_only"
+}

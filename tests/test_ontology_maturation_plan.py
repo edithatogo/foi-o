@@ -89,11 +89,10 @@ def test_core_profile_boundary_keeps_global_claims_as_design_intent() -> None:
     combined = "\n".join(_read(path) for path in [Path("README.md"), PROTOCOL, CLAIMS_REGISTER])
 
     required_phrases = [
-        "FOI-O is the reusable process-modelling method",
-        "FOI-O NZ is the only implemented and validated jurisdictional profile",
-        "design intent",
-        "not an empirical",
-        "future validation path",
+        "FOI-O is a global process-modelling method",
+        "FOI-O is a global model that originated in NZ",
+        "Australian adapters are candidate-only",
+        "globally interchangeable",
     ]
     for phrase in required_phrases:
         assert phrase in combined

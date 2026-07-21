@@ -30,10 +30,15 @@
 
 ## Quality Tooling
 
-- Test runner: pytest.
+- Test runner: pytest with pytest-xdist for the normal four-worker local/CI
+  profile and a retained serial scheduled/release profile.
 - Coverage: coverage.py via pytest-cov, with an 80% configured threshold.
 - Lint and format: Ruff.
-- Type checking: ty, currently configured with relaxed third-party import and attribute rules.
+- Type checking: ty for rapid feedback and BasedPyright with the tracked
+  no-regression baseline plus a staged strict-mode ratchet over repaired runtime
+  modules for the final static gate. Narrow exclusions preserve
+  authorization-pinned executable governance files. Static analysis complements
+  rather than replaces behavioral tests.
 - Security and supply-chain tooling: zizmor, pip-audit, CycloneDX.
 - TOML formatting/checking: taplo.
 - Spelling/typos: typos.
@@ -42,7 +47,9 @@
 
 ```bash
 uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf --extra experiments
-uv run pytest -q
+make test-fast
+make test-full
+make test-serial
 uv run ruff check src tests scripts
 uv run ruff format --check src tests scripts
 uv run ty check

@@ -5,16 +5,16 @@ from __future__ import annotations
 import contextlib
 import json
 from pathlib import Path
-from typing import Annotated
+from typing import Annotated, Literal, cast
 
 import typer
 from rich.console import Console
 from rich.table import Table
 
 from foi_o_nz.agent_pack import write_agent_context_pack
-from foi_o_nz.agent_policy import build_agent_action, evaluate_agent_action
+from foi_o_nz.agent_policy import ActionType, build_agent_action, evaluate_agent_action
 from foi_o_nz.analytics import write_event_summary, write_summary
-from foi_o_nz.annotation import write_annotation_tasks
+from foi_o_nz.annotation import AnnotationFormat, write_annotation_tasks
 from foi_o_nz.attestation import write_attestation
 from foi_o_nz.batch import normalise_manifest_batch
 from foi_o_nz.benchmarks import write_local_benchmarks
@@ -22,6 +22,7 @@ from foi_o_nz.bounded_extraction import write_extraction_requests
 from foi_o_nz.capability_registry import build_registry_manifest, validate_registry
 from foi_o_nz.cas import materialise_jsonl_cas, write_cas_manifest
 from foi_o_nz.chunks import chunk_jsonl
+from foi_o_nz.contract_capabilities import write_capability_declaration
 from foi_o_nz.dataset_metadata import (
     write_croissant_metadata,
     write_dataset_metadata,
@@ -33,10 +34,15 @@ from foi_o_nz.dates import add_working_days, load_holiday_calendar
 from foi_o_nz.diff import diff_jsonl
 from foi_o_nz.duckdb_export import build_duckdb_database, write_duckdb_bootstrap_sql
 from foi_o_nz.embeddings import embed_jsonl
-from foi_o_nz.evaluation import evaluate_event_jsonl
-from foi_o_nz.goldset import write_goldset_sample, write_goldset_tasks, write_request_goldset_tasks
-from foi_o_nz.graph_export import write_graph_export
-from foi_o_nz.inference_providers import InferenceProviderConfig
+from foi_o_nz.evaluation import MatchMode, evaluate_event_jsonl
+from foi_o_nz.goldset import (
+    RecordKind,
+    write_goldset_sample,
+    write_goldset_tasks,
+    write_request_goldset_tasks,
+)
+from foi_o_nz.graph_export import GraphFormat, write_graph_export
+from foi_o_nz.inference_providers import InferenceProviderConfig, ProviderName
 from foi_o_nz.io import read_json_records, write_json, write_jsonl
 from foi_o_nz.jsonld_context import write_context
 from foi_o_nz.kernel_manifest import (
@@ -241,11 +247,23 @@ def export_kernel_fixtures_command(
 def maturation_summary_command(
     output: Annotated[Path, typer.Option("--output", "-o", help="Maturation summary JSON output")],
 ) -> None:
-    """Export the NZ-first ontology maturation evidence summary."""
+    """Export the global FOI-O ontology maturation evidence summary."""
     result = write_maturation_summary(output)
     console.print_json(json.dumps({"ok": result["ok"], "output": str(output)}))
     if not result["ok"]:
         raise typer.Exit(code=1)
+
+
+@app.command("export-capabilities")
+def export_capabilities_command(
+    output: Annotated[
+        Path, typer.Option("--output", "-o", help="Capability declaration JSON output")
+    ],
+    consumer_id: Annotated[str, typer.Option(help="Declaration owner identifier")] = "foi-o-nz",
+) -> None:
+    """Export the versioned FOI-O consumer capability declaration."""
+    result = write_capability_declaration(output, consumer_id=consumer_id)
+    console.print_json(json.dumps(result))
 
 
 @app.command("export-process-model")
@@ -579,7 +597,7 @@ def evaluate_events(
     ] = "event_type_state",
 ) -> None:
     """Evaluate candidate event extraction against a gold event set."""
-    result = evaluate_event_jsonl(predicted, gold, mode=mode, output=output)  # type: ignore[arg-type]
+    result = evaluate_event_jsonl(predicted, gold, mode=cast("MatchMode", mode), output=output)
     console.print_json(json.dumps(result))
 
 
@@ -595,7 +613,7 @@ def agent_action_template(
 ) -> None:
     """Create a policy-conformant agent-action record template."""
     try:
-        action = build_agent_action(action_type, agent_name=agent_name)  # type: ignore[arg-type]
+        action = build_agent_action(cast("ActionType", action_type), agent_name=agent_name)
     except ValueError as exc:
         console.print(str(exc), style="red", markup=False)
         raise typer.Exit(code=1) from exc
@@ -738,7 +756,9 @@ def prepare_local_extraction(
 ) -> None:
     """Prepare candidate-only prompt packs for local/MAX extraction experiments."""
     try:
-        config = InferenceProviderConfig(provider=provider, model=model, endpoint=endpoint)  # type: ignore[arg-type]
+        config = InferenceProviderConfig(
+            provider=cast("ProviderName", provider), model=model, endpoint=endpoint
+        )
         result = write_extraction_requests(
             input,
             output,
@@ -817,7 +837,7 @@ def chunk_jsonl_command(
     if kind not in {"request", "event"}:
         console.print("kind must be 'request' or 'event'", style="red")
         raise typer.Exit(code=2)
-    result = chunk_jsonl(input, output, kind=kind)  # type: ignore[arg-type]
+    result = chunk_jsonl(input, output, kind=cast("Literal['request', 'event']", kind))
     console.print_json(json.dumps(result))
 
 
@@ -1036,7 +1056,7 @@ def export_graph_command(
         events_jsonl=events_jsonl,
         chunks_jsonl=chunks_jsonl,
         risks_jsonl=risks_jsonl,
-        fmt=fmt,  # type: ignore[arg-type]
+        fmt=cast("GraphFormat", fmt),
     )
     console.print_json(json.dumps(result))
 
@@ -1079,7 +1099,7 @@ def sample_goldset_command(
         input,
         output,
         manifest_output,
-        kind=kind,  # type: ignore[arg-type]
+        kind=cast("RecordKind", kind),
         limit=limit,
         seed=seed,
         per_stratum=per_stratum,
@@ -1099,7 +1119,7 @@ def export_annotation_tasks_command(
     if fmt not in {"foio", "label-studio"}:
         console.print("format must be 'foio' or 'label-studio'", style="red")
         raise typer.Exit(code=2)
-    result = write_annotation_tasks(review_queue_jsonl, output, fmt=fmt)  # type: ignore[arg-type]
+    result = write_annotation_tasks(review_queue_jsonl, output, fmt=cast("AnnotationFormat", fmt))
     console.print_json(json.dumps(result))
 
 

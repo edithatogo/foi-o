@@ -12,7 +12,7 @@
 <https://w3id.org/foio-nz/ontology>
   a owl:Ontology ;
   dcterms:title "FOI-O NZ seed ontology" ;
-  dcterms:description "A New Zealand-first process ontology for Official Information Act administration and agent-facing workflow support." ;
+  dcterms:description "The New Zealand reference profile through which the global FOI-O process ontology was first developed, for Official Information Act administration and agent-facing workflow support." ;
   owl:versionInfo "0.1.0" .
 
 foio:AccessRequest a owl:Class ;

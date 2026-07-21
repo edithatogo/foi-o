@@ -9,9 +9,9 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from enum import StrEnum
-from typing import Annotated, Literal
+from typing import Annotated, ClassVar, Literal
 
-from pydantic import AnyUrl, BaseModel, ConfigDict, Field, model_validator
+from pydantic import AnyUrl, BaseModel, ConfigDict, Field, field_validator, model_validator
 
 NonEmpty = Annotated[str, Field(min_length=1)]
 Sha256 = Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")]
@@ -20,7 +20,7 @@ Sha256 = Annotated[str, Field(pattern=r"^[a-f0-9]{64}$")]
 class StrictModel(BaseModel):
     """Reject undeclared fields across all empirical contracts."""
 
-    model_config = ConfigDict(extra="forbid")
+    model_config: ClassVar[ConfigDict] = ConfigDict(extra="forbid")
 
 
 class CodebookMaturity(StrEnum):
@@ -64,6 +64,223 @@ class ExtractionMethod(StrEnum):
     LANGUAGE_MODEL = "language_model"
     HUMAN_ANNOTATION = "human_annotation"
     OFFICIAL_SOURCE_IMPORT = "official_source_import"
+
+
+class ExtractionContractArtifact(StrictModel):
+    """Pin one repository artifact used by an extraction contract."""
+
+    artifact_id: NonEmpty
+    kind: Literal["ontology", "schema", "codebook", "vocabulary", "migration"]
+    path: Annotated[str, Field(pattern=r"^[a-zA-Z0-9][a-zA-Z0-9._/-]+$")]
+    version: NonEmpty
+    identifier: NonEmpty
+    sha256: Sha256
+
+    @field_validator("path")
+    @classmethod
+    def reject_mutable_paths(cls, value: str) -> str:
+        """Reject branch-like or traversal references instead of guessing a revision."""
+        parts = value.split("/")
+        if ".." in parts or any(part in {"main", "latest"} for part in parts):
+            raise ValueError("artifact path must be immutable and repository-relative")
+        return value
+
+
+class ExtractionContractReference(StrictModel):
+    """Reference a versioned artifact pinned in the same contract."""
+
+    id: NonEmpty
+    version: NonEmpty
+    artifact_id: NonEmpty
+
+
+class OntologyContractReference(StrictModel):
+    """Pin the ontology plus the schema used by future release manifests."""
+
+    manifest_schema_id: Literal["urn:foi-o:schema:ontology-release-manifest:0.1.0"]
+    manifest_schema_artifact_id: NonEmpty
+    ontology_id: Literal["https://w3id.org/foio-nz/ontology"]
+    ontology_version: Literal["0.1.0"]
+    artifact_id: NonEmpty
+
+
+class CandidateStatusVocabulary(ExtractionContractReference):
+    """Declare the only statuses permitted for unpromoted extraction output."""
+
+    allowed_statuses: list[Literal["observed", "inferred", "asserted", "unknown"]] = Field(
+        min_length=4, max_length=4
+    )
+    certified_status_allowed: Literal[False]
+
+    @field_validator("allowed_statuses")
+    @classmethod
+    def require_candidate_statuses(cls, value: list[str]) -> list[str]:
+        """Keep the candidate vocabulary complete, ordered, and certification-free."""
+        expected = ["observed", "inferred", "asserted", "unknown"]
+        if value != expected:
+            raise ValueError("candidate statuses must be observed, inferred, asserted, unknown")
+        return value
+
+
+class ExtractionMigration(StrictModel):
+    """Describe an explicit migration into the extraction contract."""
+
+    migration_id: NonEmpty
+    from_version: NonEmpty
+    to_contract_version: Literal["0.1.0"]
+    artifact_id: NonEmpty
+    automatic_scope: Literal["linkage_only"]
+    human_promotion_required: Literal[True]
+
+
+class ExtractionVersionRange(StrictModel):
+    """Declare one bounded compatible semver interval."""
+
+    minimum_inclusive: Annotated[str, Field(pattern=r"^[0-9]+\.[0-9]+\.[0-9]+$")]
+    maximum_exclusive: Annotated[str, Field(pattern=r"^[0-9]+\.[0-9]+\.[0-9]+$")]
+
+    @model_validator(mode="after")
+    def validate_bounds(self) -> ExtractionVersionRange:
+        """Reject empty or reversed compatibility intervals."""
+        minimum = tuple(int(part) for part in self.minimum_inclusive.split("."))
+        maximum = tuple(int(part) for part in self.maximum_exclusive.split("."))
+        if minimum >= maximum:
+            raise ValueError("compatibility range must have an increasing upper bound")
+        return self
+
+
+class ExtractionCompatibility(StrictModel):
+    """Define fail-closed version compatibility for extraction consumers."""
+
+    exact_versions: list[Annotated[str, Field(pattern=r"^[0-9]+\.[0-9]+\.[0-9]+$")]] = Field(
+        min_length=1
+    )
+    version_ranges: list[ExtractionVersionRange] = Field(min_length=1)
+    unknown_major_behavior: Literal["reject"]
+    unknown_revision_behavior: Literal["reject"]
+
+
+class RejectedContractVersion(StrictModel):
+    """Record one version a consumer must reject and the expected reason."""
+
+    version: NonEmpty
+    reason: Literal[
+        "invalid_version_rejected",
+        "unknown_major_rejected",
+        "unsupported_revision_rejected",
+    ]
+
+
+class ConsumerExtractionContract(StrictModel):
+    """Offline candidate conformance declaration for one named consumer."""
+
+    schema_version: Literal["foi-o.consumer-extraction-contract.v0.1.0"]
+    consumer_id: Literal["foi-o-nz", "fyi-archive", "nlp-policy-nz", "foi-o-read-only-mcp"]
+    consumer_surface: Literal[
+        "producer_validation", "archive_derived_layer", "candidate_extraction", "read_only_mcp"
+    ]
+    contract_id: Literal["foi-o.extraction-contract"]
+    accepted_versions: list[Annotated[str, Field(pattern=r"^[0-9]+\.[0-9]+\.[0-9]+$")]] = Field(
+        min_length=1
+    )
+    rejected_versions: list[RejectedContractVersion] = Field(min_length=1)
+    required_capability_ids: list[NonEmpty] = Field(min_length=1)
+    read_only: bool
+    candidate_only: Literal[True]
+    machine_certification_allowed: Literal[False]
+    verification_scope: Literal["repo_local_offline"]
+    upstream_verified: Literal[False]
+
+    @model_validator(mode="after")
+    def validate_consumer_boundary(self) -> ConsumerExtractionContract:
+        """Keep MCP read-only and prevent contradictory version declarations."""
+        if self.consumer_surface == "read_only_mcp" and not self.read_only:
+            raise ValueError("read-only MCP consumer must declare read_only true")
+        accepted = set(self.accepted_versions)
+        rejected = {item.version for item in self.rejected_versions}
+        if accepted & rejected:
+            raise ValueError("accepted and rejected versions must not overlap")
+        if len(accepted) != len(self.accepted_versions) or len(rejected) != len(
+            self.rejected_versions
+        ):
+            raise ValueError("consumer version declarations must be unique")
+        return self
+
+
+class ExtractionContract(StrictModel):
+    """Versioned, candidate-only extraction contract for downstream consumers."""
+
+    schema_version: Literal["foi-o.extraction-contract.v0.1.0"]
+    contract_id: Literal["foi-o.extraction-contract"]
+    contract_version: Literal["0.1.0"]
+    producer_id: Literal["foi-o-nz"]
+    consumer_id: Literal["nlp-policy-nz"]
+    ontology_release: OntologyContractReference
+    schema_ids: list[NonEmpty] = Field(min_length=1)
+    codebook: ExtractionContractReference
+    provenance_identifiers: list[NonEmpty] = Field(min_length=1)
+    candidate_status_vocabulary: CandidateStatusVocabulary
+    compatibility: ExtractionCompatibility
+    capability_ids: list[NonEmpty] = Field(min_length=1)
+    migration_catalogue: list[ExtractionMigration] = Field(min_length=1)
+    artifacts: list[ExtractionContractArtifact] = Field(min_length=1)
+    human_promotion_required: Literal[True]
+
+    @model_validator(mode="after")
+    def validate_references(self) -> ExtractionContract:
+        """Require unique pins and resolve every internal artifact reference."""
+        artifact_ids = [artifact.artifact_id for artifact in self.artifacts]
+        if len(artifact_ids) != len(set(artifact_ids)):
+            raise ValueError("artifact IDs must be unique")
+        artifacts = {artifact.artifact_id: artifact for artifact in self.artifacts}
+        known = set(artifacts)
+        references = {
+            self.ontology_release.artifact_id,
+            self.ontology_release.manifest_schema_artifact_id,
+            self.codebook.artifact_id,
+            self.candidate_status_vocabulary.artifact_id,
+            *(migration.artifact_id for migration in self.migration_catalogue),
+        }
+        if not references.issubset(known):
+            raise ValueError("every contract reference must resolve to a pinned artifact")
+        ontology = artifacts[self.ontology_release.artifact_id]
+        if (
+            ontology.kind != "ontology"
+            or ontology.identifier != self.ontology_release.ontology_id
+            or ontology.version != self.ontology_release.ontology_version
+        ):
+            raise ValueError("ontology reference must match its pinned artifact")
+        manifest_schema = artifacts[self.ontology_release.manifest_schema_artifact_id]
+        if (
+            manifest_schema.kind != "schema"
+            or manifest_schema.identifier != self.ontology_release.manifest_schema_id
+        ):
+            raise ValueError("ontology manifest schema must match its pinned artifact")
+        schema_identifiers = {
+            artifact.identifier for artifact in self.artifacts if artifact.kind == "schema"
+        }
+        if not set(self.schema_ids).issubset(schema_identifiers):
+            raise ValueError("every schema ID must resolve to a pinned schema artifact")
+        codebook = artifacts[self.codebook.artifact_id]
+        if (
+            codebook.kind != "codebook"
+            or codebook.identifier != self.codebook.id
+            or codebook.version != self.codebook.version
+        ):
+            raise ValueError("codebook reference must match its pinned artifact")
+        vocabulary = artifacts[self.candidate_status_vocabulary.artifact_id]
+        if (
+            vocabulary.kind != "vocabulary"
+            or vocabulary.identifier != self.candidate_status_vocabulary.id
+            or vocabulary.version != self.candidate_status_vocabulary.version
+        ):
+            raise ValueError("candidate vocabulary must match its pinned artifact")
+        if any(
+            artifacts[migration.artifact_id].kind != "migration"
+            for migration in self.migration_catalogue
+        ):
+            raise ValueError("migration references must resolve to migration artifacts")
+        return self
 
 
 class ChangeControl(StrictModel):

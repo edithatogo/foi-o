@@ -2,13 +2,16 @@
 
 ## Core/profile boundary
 
-FOI-O is the reusable process-modelling method and conceptual frame for freedom
-of information workflows. FOI-O NZ is the only implemented and validated
-jurisdictional profile in this repository. Global reuse is a design intent and
-future validation path, not an empirical result of the current package.
+FOI-O is a global process-modelling method and conceptual frame for freedom of
+information workflows. It originated with the NZ profile and has iterated
+through Australian Commonwealth and NSW adapters. NZ remains the mature
+reference implementation; Australian adapters are candidate-only until their
+empirical and human-promotion evidence passes.
 
-This stage stays NZ-first. It does not add country-specific terms, calendars,
-law, reporting categories, or source mappings for any other jurisdiction.
+The original maturation stage was grounded in NZ evidence. The current method
+keeps that provenance while applying the global core/profile contract to
+Australian jurisdictions. It never treats country-specific terms, calendars,
+law, reporting categories, or mappings as globally interchangeable.
 
 ## Objectives
 
@@ -170,8 +173,8 @@ The ontology and process model are distinct but aligned.
 
 The current process-model sources are `examples/state-machine.mmd`,
 `process_models/foi-o-nz-core.bpmn`, and `process_models/foi-o-nz-core.pnml`.
-They support BPMN and Petri net review without changing the NZ-first ontology
-namespace or claiming executable legal workflow status.
+They support BPMN and Petri net review without erasing the NZ origin, silently
+changing the global core, or claiming executable legal workflow status.
 
 ## Limitations
 

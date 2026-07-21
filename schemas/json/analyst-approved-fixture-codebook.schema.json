@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "urn:foi-o:schema:analyst-approved-fixture-codebook:0.1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "codebook_id", "revision", "revision_algorithm", "status", "protocol_sha256", "task_type", "labels", "span_required", "span_coordinate_system", "overlap_threshold", "abstention_reasons", "reconciliation_trigger", "created_at", "approved_by", "approved_on", "recorded_at"],
+  "properties": {
+    "schema_version": {"const": "foi-o.analyst-approved-fixture-codebook.v0.1.0"}, "codebook_id": {"type": "string", "minLength": 1}, "revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"}, "revision_algorithm": {"const": "sha1_utf8_codebook_id_v1"}, "status": {"const": "approved"}, "protocol_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "task_type": {"const": "fixture_engineering_classification"},
+    "labels": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "object", "additionalProperties": false, "required": ["label", "definition", "positive_criteria", "negative_criteria"], "properties": {"label": {"type": "string", "minLength": 1}, "definition": {"type": "string", "minLength": 10}, "positive_criteria": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}, "negative_criteria": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}}}},
+    "span_required": {"const": false}, "span_coordinate_system": {"const": "utf8_character_half_open"}, "overlap_threshold": {"const": 1.0}, "abstention_reasons": {"const": ["missing_evidence", "insufficient_evidence", "out_of_scope", "other"]}, "reconciliation_trigger": {"const": "any_label_span_or_abstention_disagreement"},
+    "created_at": {"type": "string", "format": "date-time"}, "approved_by": {"const": "human:edithatogo"}, "approved_on": {"const": "2026-07-17"}, "recorded_at": {"const": "2026-07-17T23:04:58+10:00"}
+  }
+}

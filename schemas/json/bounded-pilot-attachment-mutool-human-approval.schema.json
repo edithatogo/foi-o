@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-mutool-human-approval:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approved_by", "approved_on", "approval_statement", "approval_statement_sha256", "approved_request", "source_root", "output_directory", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-mutool-human-approval.v0.1.0"},
+    "approved_by": {"const": "human:edithatogo"},
+    "approved_on": {"const": "2026-07-19"},
+    "approval_statement": {"const": "I, edithatogo, approve bounded pilot attachment MuPDF derivation execution request SHA-256 f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148 as committed in 971e03bed36188cb0aff4bd29d59aa21b51a63bb. I authorize creation of the final executable authorization and one local, all-or-nothing, two-pass MuPDF text derivation of the three exact request 11872 PDF attachments pinned by that request, using source root /private/tmp/fyi-attachment-snapshot-11872-approved and output directory /private/tmp/foio-bounded-pilot-11872-derived. Execution is permitted only after the final authorization is committed and its exact clean-HEAD pre-execution verifier passes. This approval authorizes local PDF processing and derived-content creation only for that bounded derivation. Any nonempty stderr must fail closed and be deleted; it does not authorize stderr-content review or a retry. It does not authorize context presentation, analyst execution, reconciliation, empirical claims, population inference, archive-wide claims, human-reviewed claims, gold promotion, legal certification, redistribution, publication, training, fine-tuning, release, dataset publication, or paper updates."},
+    "approval_statement_sha256": {"const": "684111ba559e045fbec3223a4ce419a0c7aafb88d9bb189c7be0159faa4c6b2a"},
+    "approved_request": {"const": {"path": "examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json", "sha256": "f9dfcedb805e89703a96467b82b6b9486b32ce048fcd21d3e6fa6968c29b3148"}},
+    "source_root": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"},
+    "output_directory": {"const": "/private/tmp/foio-bounded-pilot-11872-derived"},
+    "prohibited_actions": {"const": ["context_presentation", "analyst_execution", "reconciliation", "empirical_claims", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "paper_updates"]}
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-diagnostic-execution-authorization:0.1.0",
+  "$defs": {
+    "sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha"}}
+    },
+    "wrapper_pin": {"const": {"path": "src/foi_o_nz/bounded_pilot_attachment_derivation.py", "sha256": "6d18c3c7a9c16c327fc934a516666d4dfc7d86a2e057824bfbd3eea79a6f7659", "repository_commit": "d11a4b2ca3b3bfb518187e36ae18696dcd77c95f"}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "authorization_id", "status", "diagnostic_request", "human_approval", "wrapper", "method", "method_approval", "source_root", "output_directory", "quarantine_parent", "diagnostic_execution_allowed", "pdf_processing_allowed", "transient_derived_content_allowed", "derived_content_retention_allowed", "local_only", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-diagnostic-execution-authorization.v0.1.0"},
+    "authorization_id": {"type": "string", "minLength": 1},
+    "status": {"const": "approved_exact_local_diagnostic"},
+    "diagnostic_request": {"const": {"path": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json", "sha256": "b8c16f51f86b4d1a462edf495dc309f4f6e1dd09c47fb55010a5d08955c40d7f"}},
+    "human_approval": {
+      "type": "object", "additionalProperties": false, "required": ["path", "sha256"],
+      "properties": {"path": {"const": "examples/v2/bounded-pilot-attachment-diagnostic-human-approval.approved.json"}, "sha256": {"$ref": "#/$defs/sha"}}
+    },
+    "wrapper": {"$ref": "#/$defs/wrapper_pin"},
+    "method": {"const": {"path": "examples/v2/bounded-pilot-attachment-text-method.pending.json", "sha256": "99918773c74eed9a923972eb5a498e8a4166c8958ac53b04c4358f70ef1d770a"}},
+    "method_approval": {"const": {"path": "examples/v2/bounded-pilot-attachment-text-method-approval.approved.json", "sha256": "b036b475541a2334019b771fce789b7a7d97a4c30282bbada68a88a68ad12d51"}},
+    "source_root": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"},
+    "output_directory": {"const": "/private/tmp/foio-bounded-pilot-11872-derived"},
+    "quarantine_parent": {"const": "/private/tmp"},
+    "diagnostic_execution_allowed": {"const": true},
+    "pdf_processing_allowed": {"const": true},
+    "transient_derived_content_allowed": {"const": true},
+    "derived_content_retention_allowed": {"const": false},
+    "local_only": {"const": true},
+    "context_presentation_allowed": {"const": false},
+    "analyst_execution_allowed": {"const": false},
+    "reconciliation_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false}
+  }
+}

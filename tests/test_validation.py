@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
+
+import pytest
 
 from foi_o_nz.validation import (
     validate_json_schema,
@@ -30,6 +33,22 @@ def test_examples_validate_against_schemas() -> None:
     for instance, schema in pairs:
         result = validate_json_schema(instance, schema)
         assert result.ok, result.errors
+
+
+def test_duplicate_schema_identifiers_fail_closed(tmp_path: Path) -> None:
+    schema = {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "urn:foi-o:test:duplicate",
+        "type": "object",
+    }
+    first = tmp_path / "first.schema.json"
+    second = tmp_path / "second.schema.json"
+    instance = tmp_path / "instance.json"
+    first.write_text(json.dumps(schema), encoding="utf-8")
+    second.write_text(json.dumps(schema), encoding="utf-8")
+    instance.write_text("{}", encoding="utf-8")
+    with pytest.raises(ValueError, match=r"duplicate JSON Schema \$id"):
+        validate_json_schema(instance, first)
 
 
 def test_rdf_files_parse() -> None:

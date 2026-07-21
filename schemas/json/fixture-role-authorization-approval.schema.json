@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-role-authorization-approval:0.1.0",
+  "$defs": {"pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}}}},
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approval_id", "status", "approved_by", "approved_on", "recorded_at", "recording_note", "approval_statement", "approval_statement_sha256", "approved_request", "approved_repository_commit", "scope", "handshake_approved", "context_delivery_approved", "analyst_execution_approved", "final_execution_wrapper_required", "execution_allowed", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-role-authorization-approval.v0.1.0"},
+    "approval_id": {"const": "local-fixture-role-execution-2026-07-18"},
+    "status": {"const": "approved_bounded_local_runtime_handshake"},
+    "approved_by": {"const": "human:edithatogo"},
+    "approved_on": {"const": "2026-07-18"},
+    "recorded_at": {"const": "2026-07-18T23:22:46+10:00"},
+    "recording_note": {"const": "recorded_at is repository provenance only and is not claimed as approval time"},
+    "approval_statement": {"const": "I, edithatogo, approve pending fixture role-authorization request SHA-256 232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c as committed in 91013a0f69d3a376ec749bbad83902e7ac4dd2a7 for the bounded local fixture analyst execution described by that exact request. This approval authorizes creation of the final execution wrapper and subsequent execution only after that wrapper is committed and the pre-execution verifier passes against its exact SHA-256 and commit. Redistribution, publication, training, fine-tuning, release, dataset publication, gold promotion, legal certification, paper updates, human-reviewed claims, and empirical-evidence claims remain prohibited."},
+    "approval_statement_sha256": {"const": "29cf6248c223719e6c403347d3dac4877a9cf701a3c0d4b99568ff0916bceca9"},
+    "approved_request": {"allOf": [{"$ref": "#/$defs/pin"}, {"properties": {"path": {"const": "examples/v2/analyst-fixture-packet/role-authorization-request.pending.json"}, "sha256": {"const": "232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c"}}}]},
+    "approved_repository_commit": {"const": "91013a0f69d3a376ec749bbad83902e7ac4dd2a7"},
+    "scope": {"const": "bounded_local_fixture_runtime_handshake_only"},
+    "handshake_approved": {"const": true}, "context_delivery_approved": {"const": false}, "analyst_execution_approved": {"const": false},
+    "final_execution_wrapper_required": {"const": true}, "execution_allowed": {"const": false}, "local_only": {"const": true},
+    "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false},
+    "prohibited_actions": {"type": "array", "minItems": 11, "maxItems": 11, "uniqueItems": true, "items": {"enum": ["redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update", "human_reviewed_claims", "empirical_evidence_claims"]}}
+  }
+}

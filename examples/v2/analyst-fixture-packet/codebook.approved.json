@@ -1,0 +1,75 @@
+{
+  "abstention_reasons": [
+    "missing_evidence",
+    "insufficient_evidence",
+    "out_of_scope",
+    "other"
+  ],
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-17",
+  "codebook_id": "foi-o-agent-fixture-engineering-v0.1.0",
+  "created_at": "2026-07-17T12:00:00Z",
+  "labels": [
+    {
+      "definition": "Visible fixture fields support a direct process observation.",
+      "label": "observed",
+      "negative_criteria": [
+        "Do not use for derived, candidate, certified, or insufficient evidence."
+      ],
+      "positive_criteria": [
+        "Use only for direct visible observation evidence."
+      ]
+    },
+    {
+      "definition": "Visible fixture fields support a machine or deterministic derivation.",
+      "label": "inferred",
+      "negative_criteria": [
+        "Do not use for direct observations, drafts, certification, or insufficient evidence."
+      ],
+      "positive_criteria": [
+        "Use only when visible derivation evidence is present."
+      ]
+    },
+    {
+      "definition": "Visible fixture fields support an engineering proposal or draft.",
+      "label": "candidate",
+      "negative_criteria": [
+        "Do not use for observed, derived, certified, or insufficient evidence."
+      ],
+      "positive_criteria": [
+        "Use only for visibly proposed or drafted events."
+      ]
+    },
+    {
+      "definition": "Visible fixture fields support a recorded human certification boundary.",
+      "label": "certified",
+      "negative_criteria": [
+        "Do not infer certification from an event name alone."
+      ],
+      "positive_criteria": [
+        "Use only when visible certification fields consistently support it."
+      ]
+    },
+    {
+      "definition": "Visible fixture fields explicitly encode an unknown epistemic category.",
+      "label": "unknown",
+      "negative_criteria": [
+        "Use abstention for missing or insufficient evidence."
+      ],
+      "positive_criteria": [
+        "Use only for an explicit readable unknown category."
+      ]
+    }
+  ],
+  "overlap_threshold": 1.0,
+  "protocol_sha256": "ac3785bd823d43a43c7830e34f4f3b380472f271e21f19446cbc575f4b49eca0",
+  "reconciliation_trigger": "any_label_span_or_abstention_disagreement",
+  "recorded_at": "2026-07-17T23:04:58+10:00",
+  "revision": "49d097c1ad50b8ede7680e245ff4f0e9d091e418",
+  "revision_algorithm": "sha1_utf8_codebook_id_v1",
+  "schema_version": "foi-o.analyst-approved-fixture-codebook.v0.1.0",
+  "span_coordinate_system": "utf8_character_half_open",
+  "span_required": false,
+  "status": "approved",
+  "task_type": "fixture_engineering_classification"
+}

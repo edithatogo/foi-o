@@ -11,7 +11,9 @@
     "sampling_design",
     "random_seed",
     "unit_manifest_ref",
+    "unit_manifest_sha256",
     "duplicate_cluster_registry_ref",
+    "duplicate_cluster_registry_sha256",
     "split_policy",
     "created_at"
   ],
@@ -44,6 +46,7 @@
         },
         "unit": {
           "enum": [
+            "request_linked_candidate_assertion",
             "request",
             "message",
             "attachment",
@@ -134,9 +137,17 @@
       "type": "string",
       "minLength": 1
     },
+    "unit_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
     "duplicate_cluster_registry_ref": {
       "type": "string",
       "minLength": 1
+    },
+    "duplicate_cluster_registry_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
     },
     "split_policy": {
       "type": "object",

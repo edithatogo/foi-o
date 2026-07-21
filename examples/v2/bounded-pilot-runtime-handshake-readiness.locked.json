@@ -1,0 +1,19 @@
+{
+  "schema_version": "foi-o.bounded-pilot-runtime-handshake-readiness.v0.2.0",
+  "status": "locked_complete_context_free_runtime_handshakes",
+  "handshake_prompt": {"path": "examples/v2/bounded-pilot-analyst-prompts/runtime-handshake.v0.2.txt", "sha256": "7f7e07d7ffca0905fd1c551a9a3f2e83d9c06070f31c8bc04c84ec5bfd5aea69", "repository_commit": "cab1979f58882744f0ac34d7bc6bae7a4594cb10"},
+  "evidence": [
+    {"actor_id": "agent:bounded-pilot-analyst-a", "path": "examples/v2/bounded-pilot-runtime-handshake-evidence.analyst-a.json", "sha256": "db777428eeb5a2db86f4ac08f01614ad12088a849681c71a7df43a238dd75e21"},
+    {"actor_id": "agent:bounded-pilot-analyst-b", "path": "examples/v2/bounded-pilot-runtime-handshake-evidence.analyst-b.json", "sha256": "06938fd399958354a2a542d6e1db40c68517830ba9f682f348c79dd460f7930e"},
+    {"actor_id": "agent:bounded-pilot-reconciler", "path": "examples/v2/bounded-pilot-runtime-handshake-evidence.reconciler.json", "sha256": "8b8ce9526c84901a106d71156f5020f73dc118300b82d23f7bf2813b68b1a441"}
+  ],
+  "roles_distinct": true,
+  "sessions_distinct": true,
+  "contexts_delivered": false,
+  "candidate_labels_delivered": false,
+  "peer_outputs_delivered": false,
+  "ready_for_exact_authorization": true,
+  "execution_authorized": false,
+  "local_only": true,
+  "empirical_result_approved": false
+}

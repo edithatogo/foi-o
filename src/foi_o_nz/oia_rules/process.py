@@ -11,6 +11,8 @@ from collections.abc import Iterable
 from datetime import date, datetime
 from typing import Any
 
+from pydantic import AnyUrl
+
 from foi_o_nz.dates import (
     PUBLIC_HOLIDAY_WARNING,
     REGIONAL_ANNIVERSARY_WARNING,
@@ -98,7 +100,9 @@ def legal_clock_from_oia_rules(
         transfer_due_date=transfer_due,
         calculation_method=OIA_RULES_CALCULATION_METHOD,
         calendar_source_name=calendar.source_name if calendar is not None else None,
-        calendar_source_url=calendar.source_url if calendar is not None else None,
+        calendar_source_url=(
+            AnyUrl(calendar.source_url) if calendar is not None and calendar.source_url else None
+        ),
         calendar_source_status=calendar.source_status if calendar is not None else None,
         calendar_retrieved_at=calendar.retrieved_at if calendar is not None else None,
         regional_anniversary_days_included=(

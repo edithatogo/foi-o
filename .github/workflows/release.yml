@@ -1,0 +1,67 @@
+name: Release validation
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to validate"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate-and-build:
+    name: Validate and build release
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write # Required only by actions/attest-build-provenance for keyless signing.
+      attestations: write # Required only to persist the generated build provenance attestation.
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: "3.14"
+      - uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
+        with:
+          version: "0.11.8"
+          enable-cache: false
+      - name: Sync locked release environment
+        run: uv sync --locked --extra dev
+      - name: Validate release metadata
+        env:
+          EXPECTED_RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: uv run python scripts/check_release_metadata.py
+      - name: Run serial release regression suite
+        run: >-
+          uv run pytest -q
+          --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py
+          --ignore=tests/test_bounded_pilot_attachment_text_method.py
+      - name: Build distributions
+        run: uv build
+      - name: Verify distribution contents
+        run: uv run python -m zipfile -l dist/*.whl >/dev/null
+      - name: Generate checksums
+        run: sha256sum dist/* > dist/SHA256SUMS
+      - name: Attest release artifacts
+        uses: actions/attest-build-provenance@0f67c3f4856b2e3261c31976d6725780e5e4c373 # v4.1.1
+        with:
+          subject-path: "dist/*"
+      - name: Upload distributions and checksums
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: foi-o-release-${{ github.event.inputs.tag || github.ref_name }}
+          path: dist/

@@ -1,7 +1,8 @@
 # FOI-O NZ validation coverage summary
 
-This summary records the repo-local validation surfaces that support the
-NZ-first ontology maturation package. It is a publication-source table and a
+This summary records the repo-local validation surfaces that support the global
+FOI-O maturation package, which originated in NZ and now includes Australian
+jurisdiction iterations. It is a publication-source table and a
 lightweight fallback for a later rendered plot.
 
 | Validation surface | Command or evidence | What it proves | What it does not prove |

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-text-method-approval:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "approval_id", "status", "approved_by", "approved_on", "recorded_at", "recording_note", "approval_statement", "approval_statement_sha256", "approved_candidate", "approved_scope", "method_approved", "wrapper_creation_allowed", "authorization_request_creation_allowed", "pdf_processing_allowed", "derived_content_creation_allowed", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-text-method-approval.v0.1.0"},
+    "approval_id": {"const": "bounded-pilot-11872-attachment-text-method-approved"},
+    "status": {"const": "approved_method_and_inert_wrapper_request_creation_only"},
+    "approved_by": {"const": "edithatogo"},
+    "approved_on": {"const": "2026-07-19"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "recording_note": {"const": "recorded_at is repository provenance and is not claimed as approval time"},
+    "approval_statement": {"type": "string", "minLength": 100},
+    "approval_statement_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "approved_candidate": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"const": "examples/v2/bounded-pilot-attachment-text-method.pending.json"}, "sha256": {"const": "99918773c74eed9a923972eb5a498e8a4166c8958ac53b04c4358f70ef1d770a"}, "repository_commit": {"const": "70e992856456fe3eea081ca72a9a31cb3faf1224"}}},
+    "approved_scope": {"const": "method_design_and_local_wrapper_and_execution_authorization_request_creation_only"},
+    "method_approved": {"const": true},
+    "wrapper_creation_allowed": {"const": true},
+    "authorization_request_creation_allowed": {"const": true},
+    "pdf_processing_allowed": {"const": false},
+    "derived_content_creation_allowed": {"const": false},
+    "context_presentation_allowed": {"const": false},
+    "analyst_execution_allowed": {"const": false},
+    "reconciliation_allowed": {"const": false},
+    "empirical_evidence": {"const": false},
+    "human_reviewed": {"const": false},
+    "gold_eligible": {"const": false},
+    "prohibited_actions": {"type": "array", "minItems": 16, "maxItems": 16, "uniqueItems": true, "items": {"enum": ["pdf_processing", "derived_content_creation", "context_presentation", "analyst_execution", "reconciliation", "empirical_claims", "population_inference", "archive_wide_claims", "human_reviewed_claims", "gold_promotion", "legal_certification", "redistribution", "publication", "training_or_fine_tuning", "release_or_dataset_publication", "paper_updates"]}}
+  }
+}

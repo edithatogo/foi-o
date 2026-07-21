@@ -1,0 +1,41 @@
+{
+  "analyst_execution_approved": false,
+  "approval_id": "local-fixture-role-execution-2026-07-18",
+  "approval_statement": "I, edithatogo, approve pending fixture role-authorization request SHA-256 232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c as committed in 91013a0f69d3a376ec749bbad83902e7ac4dd2a7 for the bounded local fixture analyst execution described by that exact request. This approval authorizes creation of the final execution wrapper and subsequent execution only after that wrapper is committed and the pre-execution verifier passes against its exact SHA-256 and commit. Redistribution, publication, training, fine-tuning, release, dataset publication, gold promotion, legal certification, paper updates, human-reviewed claims, and empirical-evidence claims remain prohibited.",
+  "approval_statement_sha256": "29cf6248c223719e6c403347d3dac4877a9cf701a3c0d4b99568ff0916bceca9",
+  "approved_by": "human:edithatogo",
+  "approved_on": "2026-07-18",
+  "approved_repository_commit": "91013a0f69d3a376ec749bbad83902e7ac4dd2a7",
+  "approved_request": {
+    "path": "examples/v2/analyst-fixture-packet/role-authorization-request.pending.json",
+    "sha256": "232396d06812e6158a86aec38454d7e3ea8484ed906bf510c39976993c29a98c"
+  },
+  "context_delivery_approved": false,
+  "empirical_evidence": false,
+  "execution_allowed": false,
+  "final_execution_wrapper_required": true,
+  "gold_eligible": false,
+  "handshake_approved": true,
+  "human_reviewed": false,
+  "local_only": true,
+  "prohibited_actions": [
+    "redistribution",
+    "publication",
+    "training",
+    "fine_tuning",
+    "release",
+    "dataset_publication",
+    "gold_promotion",
+    "legal_certification",
+    "paper_update",
+    "human_reviewed_claims",
+    "empirical_evidence_claims"
+  ],
+  "publication_eligible": false,
+  "recorded_at": "2026-07-18T23:22:46+10:00",
+  "recording_note": "recorded_at is repository provenance only and is not claimed as approval time",
+  "release_qualifying": false,
+  "schema_version": "foi-o.fixture-role-authorization-approval.v0.1.0",
+  "scope": "bounded_local_fixture_runtime_handshake_only",
+  "status": "approved_bounded_local_runtime_handshake"
+}

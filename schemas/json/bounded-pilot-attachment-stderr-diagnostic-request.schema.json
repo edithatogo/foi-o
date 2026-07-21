@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:bounded-pilot-attachment-stderr-diagnostic-request:0.1.0",
+  "$defs": {"sha": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string"}, "sha256": {"$ref": "#/$defs/sha"}}}},
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "request_id", "status", "prior_failure", "wrapper", "wrapper_repository_commit", "source_root", "output_directory", "sources", "requested_scope", "diagnostic_quarantine_policy", "authorization_present", "pdf_processing_allowed", "derived_text_install_allowed", "context_presentation_allowed", "analyst_execution_allowed", "reconciliation_allowed", "empirical_evidence", "human_reviewed", "gold_eligible"],
+  "properties": {
+    "schema_version": {"const": "foi-o.bounded-pilot-attachment-stderr-diagnostic-request.v0.1.0"},
+    "request_id": {"const": "bounded-pilot-11872-attachment-stderr-diagnostic-reproduction"},
+    "status": {"const": "pending_exact_diagnostic_execution_authorization"},
+    "prior_failure": {"$ref": "#/$defs/pin"}, "wrapper": {"$ref": "#/$defs/pin"},
+    "wrapper_repository_commit": {"const": "d11a4b2ca3b3bfb518187e36ae18696dcd77c95f"},
+    "source_root": {"const": "/private/tmp/fyi-attachment-snapshot-11872-approved"}, "output_directory": {"const": "/private/tmp/foio-bounded-pilot-11872-derived"},
+    "sources": {"type": "array", "minItems": 3, "maxItems": 3},
+    "requested_scope": {"const": "one_local_diagnostic_reproduction_preserve_stderr_only_no_derived_text_install"},
+    "diagnostic_quarantine_policy": {"const": {"parent": "/private/tmp", "directory_mode": "0700", "stderr_mode": "0600", "metadata_mode": "0600", "retain_stderr_only": true, "retain_derived_text": false, "commit_content": false}},
+    "authorization_present": {"const": false}, "pdf_processing_allowed": {"const": false}, "derived_text_install_allowed": {"const": false}, "context_presentation_allowed": {"const": false}, "analyst_execution_allowed": {"const": false}, "reconciliation_allowed": {"const": false}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}
+  }
+}

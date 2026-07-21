@@ -1,0 +1,53 @@
+{
+  "schema_version": "foi-o.source-triangulation.v0.1.0",
+  "status": "candidate",
+  "request": {
+    "run_id": "triangulation.example.deadline",
+    "minimum_supporting_sources": 2,
+    "assertions": [
+      {
+        "assertion_id": "assertion.legislation",
+        "source_id": "source.oia-current",
+        "claim_id": "claim.response-deadline",
+        "stance": "supports",
+        "availability": "available",
+        "freshness": "event_time_match",
+        "rights_status": "metadata_only",
+        "integrity": "hash_verified"
+      },
+      {
+        "assertion_id": "assertion.guidance",
+        "source_id": "source.ombudsman-calculator",
+        "claim_id": "claim.response-deadline",
+        "stance": "supports",
+        "availability": "available",
+        "freshness": "event_time_match",
+        "rights_status": "unknown",
+        "integrity": "hash_verified"
+      }
+    ]
+  },
+  "result": {
+    "run_id": "triangulation.example.deadline",
+    "claim_id": "claim.response-deadline",
+    "status": "human_exception_required",
+    "supporting_source_ids": ["source.oia-current"],
+    "contradicting_source_ids": [],
+    "exception_queue": [
+      {
+        "reason": "rights_uncertain",
+        "assertion_ids": ["assertion.guidance"],
+        "source_ids": ["source.ombudsman-calculator"],
+        "message": "one or more sources have restricted or unknown reuse rights"
+      },
+      {
+        "reason": "insufficient_evidence",
+        "assertion_ids": ["assertion.legislation"],
+        "source_ids": ["source.oia-current"],
+        "message": "too few independent eligible sources support the claim"
+      }
+    ],
+    "human_review_required": true,
+    "promotion_allowed": false
+  }
+}

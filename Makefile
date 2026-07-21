@@ -1,4 +1,4 @@
-.PHONY: help install sync lock lint format format-fix typecheck typecheck-basedpyright test test-cov \
+.PHONY: help install sync lock lint format format-fix typecheck typecheck-basedpyright test test-fast test-full test-serial test-cov \
         quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk retrieval redactions agent-pack diff repro metadata openapi tool-manifest benchmark kernel-status kernel-conformance mojo-audit kernel-manifest kernel-fixtures kernel-readiness mojo-format mojo-test mojo-build \
         spell toml-check workflow-audit workflow-syntax security-audit sbom clean
 
@@ -28,12 +28,19 @@ format-fix: ## Apply formatting + lint fixes
 	uv run ruff format src tests scripts
 
 typecheck: ## ty type check
-	uv run ty check src tests
+	uv run ty check src tests scripts
 
-typecheck-basedpyright: ## BasedPyright no-regression check against the tracked baseline
+typecheck-basedpyright: ## basedpyright type check with tracked baseline
 	uv run basedpyright
 
-test: ## Run Python tests
+test: test-fast ## Run the complete Python suite using the fast parallel profile
+
+test-fast: ## Run the complete Python suite with four work-stealing workers
+	uv run pytest -q -n 4 --dist worksteal
+
+test-full: lint format typecheck typecheck-basedpyright test-fast validate schema-drift ## Run the normal local quality and parallel test gate
+
+test-serial: ## Run the complete Python suite serially for release evidence
 	uv run pytest -q
 
 test-cov: ## Run Python tests with coverage
@@ -139,7 +146,7 @@ mojo-test: ## Run native Mojo tests
 mojo-build: ## Build native Mojo smoke binary
 	pixi run mojo-build
 
-quality: lint format typecheck test validate schema-drift mojo-audit kernel-manifest kernel-readiness ## Full Python/static quality gate
+quality: lint format typecheck typecheck-basedpyright test-fast validate schema-drift mojo-audit kernel-manifest kernel-readiness ## Full Python/static quality gate
 
 spell: ## typos spelling check
 	uv run typos src tests scripts docs README.md || true

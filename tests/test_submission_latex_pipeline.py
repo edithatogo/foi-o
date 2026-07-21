@@ -104,6 +104,7 @@ def test_builder_generates_two_targets_and_flags_current_manuscript_gates(tmp_pa
     assert arxiv_checks["vancouver-reference-shape"]["status"] == "passed"
     assert arxiv_checks["sourceright-csl-validation"]["status"] in {"passed", "warning"}
     assert arxiv_checks["vancouver-bibliography-generated"]["status"] == "passed"
+    assert arxiv_checks["pdf-hyperlink-contract"]["status"] == "passed"
     assert arxiv_checks["sourceright-provider-verification"]["status"] == "external_gate"
     assert targets["arxiv"]["status"] == "passed"
 

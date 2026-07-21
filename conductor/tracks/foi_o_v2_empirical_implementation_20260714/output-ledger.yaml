@@ -12,3 +12,30 @@ outputs:
   - id: O-FOIO-V2-GOVERNANCE
     paths: [codebooks, contracts, integration, migrations]
     status: integrated_local
+  - id: O-FOIO-V2-REEXTRACTION-READINESS
+    paths: [conductor/tracks/foi_o_v2_empirical_implementation_20260714/reextraction-readiness.md]
+    status: bounded_run_complete_empirical_comparison_pending
+  - id: O-FOIO-V2-BOUNDED-RAW-STATE-AUDIT
+    paths: [examples/v2/bounded-raw-state-audit.35076.json, schemas/json/bounded-raw-state-audit.schema.json]
+    status: two_bounded_mappings_human_approved
+  - id: O-FOIO-V2-FYI-ATTACHMENT-SNAPSHOT
+    paths: [examples/v2/fyi-attachment-snapshot-readiness.11872.json, schemas/json/fyi-attachment-snapshot-readiness.schema.json]
+    status: local_snapshot_rights_approved
+  - id: O-FOIO-V2-NZ-SOURCE-PACK-REVIEW
+    paths: [examples/v2/nz-source-pack-review-readiness.2026-07-16.json, examples/v2/nz-source-pack.governed-metadata.json, examples/v2/nz-source-pack-promotion.approved.json]
+    status: metadata_only_source_pack_promoted
+  - id: O-FOIO-V2-ANNOTATION-PROTOCOL
+    paths: [docs/41-v2-sampling-and-annotation-protocol.md, examples/v2/annotation-protocol-review-readiness.2026-07-16.json]
+    status: protocol_approved_fixture_execution_complete_authentic_empirical_pending
+  - id: O-FOIO-V2-FIXTURE-ANALYSIS
+    paths: [examples/v2/analyst-fixture-packet/results/analysis-lock.locked.json, examples/v2/analyst-fixture-packet/results/analysis-set.analyst-a.locked.json, examples/v2/analyst-fixture-packet/results/analysis-set.analyst-b.locked.json]
+    status: locked_local_agent_analysis_not_empirical_or_human_reviewed
+  - id: O-FOIO-V2-FIXTURE-RECONCILIATION
+    paths: [examples/v2/analyst-fixture-packet/results/reconciliation-set.locked.json]
+    status: locked_local_agent_reconciliation_not_gold_or_adjudicated_truth
+  - id: O-FOIO-V2-FIXTURE-DIAGNOSTICS
+    paths: [examples/v2/analyst-fixture-packet/results/inter-agent-diagnostics.locked.json]
+    status: complete_local_inter_agent_diagnostics_not_release_or_publication_evidence
+  - id: O-FOIO-V2-EMPIRICAL-HUMAN-GATE-REVIEW
+    paths: [examples/v2/empirical-human-gate-review-packet.pending.json, schemas/json/empirical-human-gate-review-packet.schema.json]
+    status: exact_pending_review_packet_no_approval_inferred

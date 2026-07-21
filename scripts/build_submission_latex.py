@@ -6,6 +6,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -22,7 +23,11 @@ SUPPLEMENT_MD = ROOT / "docs" / "28-submission-supplement.md"
 LATEX_CONFIG_DIR = ROOT / "submission" / "latex"
 LATEXMKRC = LATEX_CONFIG_DIR / "latexmkrc"
 REFERENCES_CSL = ROOT / "submission" / "references" / "references.csl.json"
-LOCAL_SOURCERIGHT = ROOT / ".repo-tools" / "sourceright" / "target" / "debug" / "sourceright"
+LOCAL_SOURCERIGHT_CANDIDATES = (
+    ROOT / ".repo-tools" / "sourceright" / "target" / "release" / "sourceright",
+    ROOT / ".repo-tools" / "sourceright" / "target" / "debug" / "sourceright",
+)
+LOCAL_AUTHENTEXT = ROOT / ".repo-tools" / "authentext"
 DEFAULT_OUTPUT_ROOT = ROOT / "build" / "submission" / "latex"
 
 Target = Literal["arxiv", "enhanced"]
@@ -341,6 +346,45 @@ def _scan_figures(tex_path: Path) -> list[CheckResult]:
     ]
 
 
+def _scan_pdf_hyperlink_contract(tex_path: Path) -> CheckResult:
+    """Require navigable links for the manuscript's named elements.
+
+    This is deliberately source-level: it catches a broken Pandoc/LaTeX
+    transformation before a PDF is handed to a reviewer or packaged.
+    """
+    text = tex_path.read_text(encoding="utf-8")
+    anchors = set(re.findall(r"\\hypertarget\{([^}]+)\}", text))
+    links = set(re.findall(r"\\hyperlink\{([^}]+)\}", text))
+    required_targets = {
+        "abbreviations": {"tab-abbreviations"},
+        "glossary": {"tab-glossary"},
+        "tables": {
+            target
+            for target in anchors
+            if target.startswith("tab-") and target not in {"tab-abbreviations", "tab-glossary"}
+        },
+        "figures": {target for target in anchors if target.startswith("fig-")},
+    }
+    missing: list[str] = []
+    for category, targets in required_targets.items():
+        for target in sorted(targets):
+            if target not in anchors:
+                missing.append(f"{category} target {target}")
+            if target not in links:
+                missing.append(f"{category} link {target}")
+    for target in sorted(target for target in links if target.startswith("ref-")):
+        if target not in anchors:
+            missing.append(f"citation target {target}")
+    return CheckResult(
+        "pdf-hyperlink-contract",
+        "failed" if missing else "passed",
+        "Missing required PDF hyperlinks or anchors: " + ", ".join(missing)
+        if missing
+        else "Citations, abbreviations, glossary terms, tables, and figures have matching PDF links and anchors.",
+        [_relative(tex_path)],
+    )
+
+
 def _copy_figure_assets(tex_path: Path, source_root: Path) -> list[CheckResult]:
     text = tex_path.read_text(encoding="utf-8")
     figures = re.findall(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}", text)
@@ -422,9 +466,33 @@ def _scan_enhanced_accessibility(tex_path: Path) -> list[CheckResult]:
 
 
 def _sourceright_binary() -> str | None:
-    if LOCAL_SOURCERIGHT.exists():
-        return str(LOCAL_SOURCERIGHT)
+    for candidate in LOCAL_SOURCERIGHT_CANDIDATES:
+        if candidate.exists():
+            return str(candidate)
     return shutil.which("sourceright")
+
+
+def _authentext_repo() -> Path | None:
+    if (LOCAL_AUTHENTEXT / "package.json").exists():
+        return LOCAL_AUTHENTEXT
+    return None
+
+
+def _authentext_tool_version() -> dict[str, Any]:
+    repo = _authentext_repo()
+    if repo is None:
+        return {"tool": "authentext", "available": False}
+    package = json.loads((repo / "package.json").read_text(encoding="utf-8"))
+    commit = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True, text=True, check=False
+    )
+    return {
+        "tool": "authentext",
+        "available": True,
+        "path": str(repo),
+        "version": package.get("version", ""),
+        "commit": commit.stdout.strip(),
+    }
 
 
 def _csl_items(path: Path) -> list[dict[str, Any]]:
@@ -645,6 +713,33 @@ def _prepare_references(source_root: Path) -> tuple[list[CommandResult], list[Ch
         )
 
     _write_reference_outputs(items, source_root=source_root, sourceright_ok=sourceright_ok)
+    authentext = _authentext_repo()
+    if authentext is not None:
+        command = _run_command(
+            ["npm", "test"],
+            cwd=authentext,
+            log_path=source_root.parent / "logs" / "authentext-test.log",
+            env={**os.environ, "CI": "1"},
+        )
+        commands.append(command)
+        checks.append(
+            CheckResult(
+                "authentext-manuscript-review",
+                "passed" if command.status == "passed" else "failed",
+                "AuthenText academic-pattern and documentation checks passed."
+                if command.status == "passed"
+                else "AuthenText validation reported diagnostics.",
+                [command.log_path or ""],
+            )
+        )
+    else:
+        checks.append(
+            CheckResult(
+                "authentext-manuscript-review",
+                "warning",
+                "AuthenText checkout is unavailable; manuscript prose review remains local-only.",
+            )
+        )
     checks.extend(
         [
             CheckResult(
@@ -992,6 +1087,7 @@ def _target_manifest(
         checks.extend(_copy_figure_assets(main_tex, source_root))
         checks.extend(_scan_tex(main_tex))
         checks.extend(_scan_figures(main_tex))
+        checks.append(_scan_pdf_hyperlink_contract(main_tex))
     compile_results = _compile_source(config, source_root, skip_compile=skip_compile)
     command_results.extend(compile_results)
     log_path = source_root / "main.log"
@@ -1084,6 +1180,7 @@ def build_manifest(
             _tool_version("qpdf", ["--version"]),
             _tool_version("arxiv_latex_cleaner"),
             _sourceright_tool_version(),
+            _authentext_tool_version(),
         ],
         "targets": target_reports,
         "overall_status": "failed"

@@ -1,4 +1,4 @@
-# FOI-O NZ
+# FOI-O
 
 [![CI](https://github.com/edithatogo/foi-o/actions/workflows/ci.yml/badge.svg)](https://github.com/edithatogo/foi-o/actions/workflows/ci.yml)
 [![Mojo/MAX](https://img.shields.io/badge/Mojo%20%2B%20MAX-experimental-orange)](https://docs.modular.com/)
@@ -6,10 +6,14 @@
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000)](https://github.com/astral-sh/ruff)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE.md)
 
-**Agent-facing process model, ontology, validation stack, and analytical workbench for New Zealand Official Information Act administration.**
+**Global agent-facing process model, ontology, validation stack, and analytical workbench for freedom-of-information administration. Developed first through New Zealand's OIA and iterated through Australian jurisdictions.**
 
-FOI-O NZ is the currently implemented New Zealand profile in a versioned FOI-O
-ontology family. It is one part of a wider, deliberately separated FOI data and
+FOI-O is a global model with a jurisdiction-neutral core and independently
+versioned legal profiles. It started with New Zealand's OIA, whose package
+remains the mature reference implementation in this repository, and has since
+iterated through Australian Commonwealth and NSW adapters. Those Australian
+adapters remain candidate-only until their empirical and human legal-review
+gates pass. FOI-O is one part of a wider, deliberately separated FOI data and
 governance programme:
 
 | Repository | Role |
@@ -52,13 +56,14 @@ This repository is intentionally **bleeding edge, but bounded**:
 
 ## Core/profile boundary
 
-FOI-O is the reusable process-modelling method and conceptual frame for freedom
-of information workflows. FOI-O NZ is the only implemented and validated
-jurisdictional profile in this repository. Australian Commonwealth and New
-South Wales adapter work is a **candidate contract pilot**, not a promoted legal
-profile. References to global reuse describe a design and validation path, not
-an empirical claim that other jurisdictions are already modelled, legally
-approved, or production-ready.
+FOI-O's core is the global process-modelling method and conceptual frame for
+freedom-of-information workflows. New Zealand is its origin and mature
+reference implementation, not the limit of the model. Australian Commonwealth
+and New South Wales work represents the next jurisdiction iterations, but each
+remains a **candidate contract pilot**, not a promoted legal profile. Global
+scope therefore describes the architecture and governance method; it does not
+claim that every jurisdiction is already modelled, legally approved, or
+production-ready.
 
 ## Current programme status
 
@@ -111,6 +116,59 @@ pixi run mojo-build
 ```
 
 The Mojo layer is deliberately small but expanding in v0.8: deterministic state mapping, text-planning helpers, machine-working-day checks, and certification-boundary guards. Heavy ingestion/query work remains in Polars/DuckDB until Mojo-native dataframe/Arrow tooling is mature enough for production use.
+
+## Version and jurisdiction policy
+
+The package version is the version of the reusable FOI-O core/profile contract.
+Every release must keep `pyproject.toml`, `pixi.toml`, `CITATION.cff`, the
+runtime version, and the generated OpenAPI contract aligned. A release tag is
+published only after the release-metadata check passes and the exact tag commit
+is recorded in the programme citation ledger.
+
+Jurisdiction profiles are additive and independently governed. The current
+validated package is `foi-o-nz`; planned profiles use identifiers such as
+`foi-o-au-com` and `foi-o-au-nsw`. A profile may be `candidate`, `validated`,
+or `stable`, but only human-reviewed source manifests can promote a profile
+to a certified surface. Profiles do not replace FOI-O core semantics or the
+authoritative `legislation` source provider.
+
+### Type-safety ratchet
+
+CI runs both `ty` and BasedPyright. Use `make typecheck` for the rapid
+development check and `make typecheck-basedpyright` for the final static gate.
+The checkers complement tests; neither replaces behavioral, integration, or
+release testing. The configured `ty` rules promote unresolved imports,
+unresolved attributes, and invalid assignments to errors. BasedPyright applies
+its strict rule set to a documented initial set of repaired runtime modules,
+while the rest of the repository remains under its standard no-regression
+baseline. Narrow exclusions preserve executable governance files whose exact
+bytes are authorization-pinned. The tracked
+`basedpyright-baseline.json` records legacy findings so they cannot silently
+grow; new findings fail CI. Reduce the baseline with `make typecheck-basedpyright`
+and regenerate it only after reviewing the diff.
+
+### Test profiles
+
+The default `make test` target runs the complete pytest suite with four
+work-stealing workers (`make test-fast`). Use `make test-full` before a normal
+commit to combine lint, formatting, both type checkers, the parallel suite, and
+repository/schema validation. Use `make test-serial` when reproducing ordering
+or isolation failures and for final release evidence.
+
+Normal CI uses the four-worker profile on Python 3.12 and the governed
+diagnostics runtime Python 3.14.5. A scheduled or manually dispatched job
+retains an independent serial Python 3.14.5 run, and the
+release workflow also runs the suite serially before building distributions.
+Parallel success is therefore not treated as proof that the suite is free of
+ordering or worker-isolation defects. On typical developer hardware the
+parallel profile should be materially faster, but no fixed duration is part of
+the contract because workload and storage performance vary.
+
+Hosted Ubuntu jobs exclude only the governed tests that require the exact
+approved local `pdftotext` or `mutool` binaries. The Python 3.12 job also
+excludes the three diagnostics files whose reproducibility contract requires
+CPython 3.14.5. `make test-serial` remains unrestricted and is required locally
+where those pinned runtimes are available.
 
 ### Normalise FYI manifest records
 
@@ -172,6 +230,17 @@ uv run foi-o-nz repro-manifest \
 ```
 
 The normaliser accepts JSONL or JSON arrays containing FYI archive-style records with fields such as `request_id`, `url_title`, `title`, `authority`, `state`, `first_sent`, `last_updated`, `content_sha256`, `html_captured`, `attachments`, and `warc_record_ids`. It also looks for message-like fields (`messages`, `correspondence`, `communications`, `updates`) and emits conservative `MessageObserved` plus candidate process events such as `ExtensionNotified`, `TransferNotified`, `ClarificationRequested`, `ComplaintObserved`, and decision/release/refusal candidates that require human review.
+
+### Provenance and transformation
+
+Every normalisation path keeps the source key and observed values alongside
+derived states and candidate events. Content hashes, archive or capture
+identifiers, rights restrictions, evidence references, generator metadata, and
+transformation/profile versions are retained where available. Mappings in
+`mappings/` explain conversions without replacing the original value; schema,
+SHACL, quality-gate, and test checks run on the derived outputs. The full
+source-to-derived account, including repository locations and reproducible
+commands, is in [the submission supplement](docs/28-submission-supplement.md).
 
 Reporting outputs are public FYI-derived research indicators, not official PSC reporting. `reporting-metrics` prints the derivability profile, and `psc-report` produces a deterministic aggregate report with warning and caveat fields. The committed sample at `examples/psc-report.small.json` is generated from `examples/events.psc-report-sample.jsonl`.
 
@@ -267,6 +336,8 @@ foi-o-nz/
 | Dataset metadata | Implemented | FOI-O NZ metadata, Frictionless-style datapackages, Croissant-style JSON-LD, and Hugging Face dataset-card scaffolds. |
 | Release package | Implemented | Machine-readable release checklist, repository-release metadata, methods paper draft, and explicit external publication gates. |
 | Agent contracts | Implemented | OpenAPI skeleton and bounded tool manifest for future agent runtime integration. |
+| V2 extraction contract | Implemented | Versioned, hash-pinned `nlp-policy-nz` candidate-extraction contract covering ontology, schemas, codebook, provenance, capabilities, status vocabulary, and migration behavior, with offline consumer fixtures for FOI-O, `fyi-archive`, `nlp-policy-nz`, and read-only MCP. This is not a V2 software release or upstream consumer approval. |
+| Re-extraction input audit | Implemented | Read-only manifest integrity and rights-completeness audit. The verified `fc27…` snapshot fails closed because all 33,217 records lack a declared licence; no extraction or empirical comparison is claimed. |
 | Local retrieval | Implemented | BM25-ish lexical search plus deterministic feature-hash vector blending over agent chunks. |
 | Redaction candidates | Implemented | Regex-based sensitive-span candidates with hashed/masked previews; no redaction decision. |
 | Agent context packs | Implemented | Request-scoped packages combining request, events, chunks, risks, retrieval, redaction candidates, constraints, and provenance. |

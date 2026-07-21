@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:fixture-inter-agent-diagnostics:0.1.0",
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pin": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "repository_commit"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}, "repository_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}}},
+    "ci": {"type": "object", "additionalProperties": false, "required": ["lower", "upper"], "properties": {"lower": {"type": "number", "minimum": -1, "maximum": 1}, "upper": {"type": "number", "minimum": -1, "maximum": 1}}},
+    "metric": {"type": "object", "additionalProperties": false, "required": ["estimate", "numerator", "denominator", "confidence_interval", "bootstrap_replicates_valid", "bootstrap_replicates_invalid"], "properties": {"estimate": {"type": "number", "minimum": -1, "maximum": 1}, "numerator": {"type": ["integer", "null"], "minimum": 0}, "denominator": {"type": "integer", "minimum": 1}, "confidence_interval": {"$ref": "#/$defs/ci"}, "bootstrap_replicates_valid": {"type": "integer", "minimum": 0}, "bootstrap_replicates_invalid": {"type": "integer", "minimum": 0}}}
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "report_id", "status", "authorization", "method_candidate", "analysis_lock", "ordered_analysis_sets", "reconciliation", "population", "reconciliation_census", "bootstrap", "metrics", "span_metrics", "local_only", "empirical_evidence", "human_reviewed", "gold_eligible", "release_qualifying", "publication_eligible", "prohibited_actions"],
+  "properties": {
+    "schema_version": {"const": "foi-o.fixture-inter-agent-diagnostics.v0.1.0"},
+    "report_id": {"const": "local-fixture-inter-agent-diagnostics-v1"},
+    "status": {"const": "locked_local_agent_diagnostics"},
+    "authorization": {"$ref": "#/$defs/pin"}, "method_candidate": {"$ref": "#/$defs/pin"}, "analysis_lock": {"$ref": "#/$defs/pin"},
+    "ordered_analysis_sets": {"type": "array", "prefixItems": [{"$ref": "#/$defs/pin"}, {"$ref": "#/$defs/pin"}], "items": false, "minItems": 2, "maxItems": 2},
+    "reconciliation": {"$ref": "#/$defs/pin"},
+    "population": {"const": {"cluster_count": 11, "unit_count": 11, "eligible_label_pair_count": 10, "reconciliation_trigger_count": 2}},
+    "reconciliation_census": {"const": {"disagreement_entries": 2, "reconciled_entries": 2, "resolved_entries": 2, "unresolved_entries": 0, "coverage_complete": true}},
+    "bootstrap": {"type": "object", "additionalProperties": false, "required": ["runtime", "seed", "replicates", "draw_count", "draw_sequence_sha256", "interval_method", "quantile_definition"], "properties": {"runtime": {"const": "CPython 3.14.5"}, "seed": {"const": 20260717}, "replicates": {"const": 2000}, "draw_count": {"const": 22000}, "draw_sequence_sha256": {"const": "9bb377fa38ed7758545eedb7676d2996ca6ac23cd06b72b7ecddb9b768728238"}, "interval_method": {"const": "two_sided_cluster_bootstrap_percentile"}, "quantile_definition": {"const": "Hyndman-Fan_type_7"}}},
+    "metrics": {"type": "object", "additionalProperties": false, "required": ["raw_label_agreement", "cohen_kappa", "abstention_agreement", "reconciliation_trigger_rate"], "properties": {"raw_label_agreement": {"$ref": "#/$defs/metric"}, "cohen_kappa": {"$ref": "#/$defs/metric"}, "abstention_agreement": {"$ref": "#/$defs/metric"}, "reconciliation_trigger_rate": {"$ref": "#/$defs/metric"}}},
+    "span_metrics": {"const": {"eligible_unit_count": 0, "exact_agreement": null, "overlap_f1": null, "bootstrapped": false}},
+    "local_only": {"const": true}, "empirical_evidence": {"const": false}, "human_reviewed": {"const": false}, "gold_eligible": {"const": false}, "release_qualifying": {"const": false}, "publication_eligible": {"const": false},
+    "prohibited_actions": {"const": ["redistribution", "publication", "training", "fine_tuning", "release", "dataset_publication", "gold_promotion", "legal_certification", "paper_update", "human_reviewed_claims", "empirical_evidence_claims"]}
+  }
+}
