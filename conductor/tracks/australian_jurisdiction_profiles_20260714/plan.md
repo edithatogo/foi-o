@@ -83,6 +83,9 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 
 ### Phase 3 review fixes
 
+- [x] Task: Refresh generated maturation inventory counts after adding the
+      operator-packet schema. (`ea5565e`; generated summary and coverage matrix
+      now record 182 JSON Schema files.)
 - [x] Task: Publish a schema-validated operator packet that maps every current
       readiness blocker to its owner issue, required evidence, and human gate.
       (`dad961b`; all 12 blockers are covered exactly once and promotion and
