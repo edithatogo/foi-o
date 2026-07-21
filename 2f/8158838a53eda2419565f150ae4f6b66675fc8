@@ -1,0 +1,4 @@
+Task: pair Australian empirical-validation workflow
+Files: phase-3-workflow.md; phase-3-workflow.bpmn; readiness tests
+Verification: 15 focused tests passed; BPMN XML parsed with required user task and ten sequence flows; Ruff and ty passed
+Remaining risks: workflow cannot advance beyond readiness until exact upstream and human approvals exist
