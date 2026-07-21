@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import argparse
 import json
 from pathlib import Path
 from typing import Any
@@ -30,20 +29,18 @@ REQUIRED = {
 ALLOWED_PRIORITIES = {"must", "should", "could", "wont"}
 
 
-def _repository_path(path: Path) -> Path:
-    """Resolve a CLI path while keeping reads inside this repository."""
+def _repository_path() -> Path:
+    """Resolve the fixed requirements contract inside this repository."""
 
     repository_root = Path.cwd().resolve()
-    resolved = path.resolve()
-    if not resolved.is_relative_to(repository_root):
-        raise ValueError(f"path must remain inside repository: {path}")
+    resolved = repository_root / "requirements.yaml"
     if not resolved.is_file():
-        raise ValueError(f"requirements file does not exist: {path}")
+        raise ValueError(f"requirements file does not exist: {resolved}")
     return resolved
 
 
-def validate(path: Path = Path("requirements.yaml")) -> dict[str, Any]:
-    document = yaml.safe_load(_repository_path(path).read_text(encoding="utf-8"))
+def validate() -> dict[str, Any]:
+    document = yaml.safe_load(_repository_path().read_text(encoding="utf-8"))
     requirements = document.get("requirements") if isinstance(document, dict) else None
     errors: list[str] = []
     ids: list[str] = []
@@ -67,10 +64,7 @@ def validate(path: Path = Path("requirements.yaml")) -> dict[str, Any]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("path", type=Path, nargs="?", default=Path("requirements.yaml"))
-    args = parser.parse_args()
-    result = validate(args.path)
+    result = validate()
     print(json.dumps(result, indent=2))
     if not result["ok"]:
         raise SystemExit(1)
