@@ -22,6 +22,23 @@
     "phase": "request_discovery",
     "bypass_attempted": false
   },
+  "documented_route_audit": [
+    {
+      "route": "https://www.righttoknow.org.au/list/all/feed",
+      "purpose": "documented Atom feed route",
+      "http_status": 403
+    },
+    {
+      "route": "https://www.righttoknow.org.au/list/all.json",
+      "purpose": "documented JSON list route",
+      "http_status": 403
+    },
+    {
+      "route": "https://www.righttoknow.org.au/list/all",
+      "purpose": "documented HTML list route",
+      "http_status": 403
+    }
+  ],
   "outputs": {
     "records_captured": 0,
     "immutable_manifests_created": 0,
