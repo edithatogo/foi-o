@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_AustralianEmpiricalValidation"
+  targetNamespace="https://github.com/edithatogo/foi-o/conductor/australian-empirical-validation">
+  <bpmn:process id="Process_AustralianEmpiricalValidation" name="Australian empirical validation" isExecutable="false">
+    <bpmn:startEvent id="Start_Audit" name="Audit exact inputs">
+      <bpmn:outgoing>Flow_Start_Readiness</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="Gateway_Readiness" name="Both profiles ready?">
+      <bpmn:incoming>Flow_Start_Readiness</bpmn:incoming>
+      <bpmn:outgoing>Flow_NotReady_Stop</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Ready_Approve</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_RecordBlockers" name="Record blockers">
+      <bpmn:incoming>Flow_NotReady_Stop</bpmn:incoming>
+      <bpmn:outgoing>Flow_Blockers_End</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ApproveInputs" name="Approve design and human roles">
+      <bpmn:incoming>Flow_Ready_Approve</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approve_Freeze</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_FreezeSample" name="Freeze population and sample">
+      <bpmn:incoming>Flow_Approve_Freeze</bpmn:incoming>
+      <bpmn:outgoing>Flow_Freeze_Annotate</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Annotate" name="Run blinded dual annotation">
+      <bpmn:incoming>Flow_Freeze_Annotate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Annotate_Adjudicate</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Adjudicate" name="Adjudicate disagreements">
+      <bpmn:incoming>Flow_Annotate_Adjudicate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Adjudicate_Evaluate</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_Evaluate" name="Evaluate extraction and triangulation">
+      <bpmn:incoming>Flow_Adjudicate_Evaluate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Evaluate_Decide</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:userTask id="Task_MaturityDecision" name="Record named-human maturity decision">
+      <bpmn:incoming>Flow_Evaluate_Decide</bpmn:incoming>
+      <bpmn:outgoing>Flow_Decide_End</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="End_Blocked" name="Blocked without sample freeze">
+      <bpmn:incoming>Flow_Blockers_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="End_DecisionRecorded" name="Decision recorded; promotion remains separate">
+      <bpmn:incoming>Flow_Decide_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Readiness" sourceRef="Start_Audit" targetRef="Gateway_Readiness" />
+    <bpmn:sequenceFlow id="Flow_NotReady_Stop" name="No" sourceRef="Gateway_Readiness" targetRef="Task_RecordBlockers" />
+    <bpmn:sequenceFlow id="Flow_Ready_Approve" name="Yes" sourceRef="Gateway_Readiness" targetRef="Task_ApproveInputs" />
+    <bpmn:sequenceFlow id="Flow_Blockers_End" sourceRef="Task_RecordBlockers" targetRef="End_Blocked" />
+    <bpmn:sequenceFlow id="Flow_Approve_Freeze" sourceRef="Task_ApproveInputs" targetRef="Task_FreezeSample" />
+    <bpmn:sequenceFlow id="Flow_Freeze_Annotate" sourceRef="Task_FreezeSample" targetRef="Task_Annotate" />
+    <bpmn:sequenceFlow id="Flow_Annotate_Adjudicate" sourceRef="Task_Annotate" targetRef="Task_Adjudicate" />
+    <bpmn:sequenceFlow id="Flow_Adjudicate_Evaluate" sourceRef="Task_Adjudicate" targetRef="Task_Evaluate" />
+    <bpmn:sequenceFlow id="Flow_Evaluate_Decide" sourceRef="Task_Evaluate" targetRef="Task_MaturityDecision" />
+    <bpmn:sequenceFlow id="Flow_Decide_End" sourceRef="Task_MaturityDecision" targetRef="End_DecisionRecorded" />
+  </bpmn:process>
+</bpmn:definitions>

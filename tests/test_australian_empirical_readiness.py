@@ -1,5 +1,6 @@
 import copy
 import json
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any, cast
 
@@ -20,6 +21,7 @@ MANIFEST = (
     / "australian_jurisdiction_profiles_20260714"
     / "phase-3-readiness.json"
 )
+TRACK = MANIFEST.parent
 
 
 def _current() -> dict[str, Any]:
@@ -118,3 +120,16 @@ def test_manifest_rejects_an_unplanned_profile() -> None:
 
     with pytest.raises(ValidationError, match="exactly AU-CTH and AU-NSW"):
         AustralianEmpiricalReadiness.model_validate(payload)
+
+
+def test_phase_workflow_has_paired_mermaid_and_bpmn_contracts() -> None:
+    workflow = (TRACK / "phase-3-workflow.md").read_text(encoding="utf-8")
+    assert "```mermaid" in workflow
+    assert "phase-3-workflow.bpmn" in workflow
+
+    root = ET.parse(TRACK / "phase-3-workflow.bpmn").getroot()
+    namespace = "{http://www.omg.org/spec/BPMN/20100524/MODEL}"
+    process = root.find(f"{namespace}process")
+    assert process is not None
+    assert process.find(f"{namespace}userTask") is not None
+    assert len(process.findall(f"{namespace}sequenceFlow")) == 10
