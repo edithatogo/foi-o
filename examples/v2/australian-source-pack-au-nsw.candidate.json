@@ -19,6 +19,11 @@
     "calendars": [],
     "authority_identity_history": []
   },
-  "rights_review_status": "pending",
+  "rights_review_status": "approved",
+  "rights_approval": {
+    "approved_by": "edithatogo",
+    "approved_at": "2026-07-21T12:57:52Z",
+    "notes": "User-approved bounded local empirical validation and immutable archival; publication, redistribution, training, and promotion remain prohibited."
+  },
   "source_manifest_sha256": "262f70623e7c7166c679fda76f2486be4e145c2358a84f7a60777be5edd8558f"
 }

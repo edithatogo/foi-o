@@ -33,12 +33,12 @@
   "source_pack_pins": {
     "AU-CTH": {
       "path": "examples/v2/australian-source-pack-au-cth.candidate.json",
-      "sha256": "862d7a4d72ef85c81b29592e17d6f0977d78f9a6b43ac6bf9295450c71d8631c",
+      "sha256": "e3d78d413af835a9ee3b3ec3c299406248968bfd334d2a5d54dce1be3f4f15dc",
       "rights_review_status": "approved"
     },
     "AU-NSW": {
       "path": "examples/v2/australian-source-pack-au-nsw.candidate.json",
-      "sha256": "f16d487bbc629935477654c73c27f041920a49210c07b4cbbdb6267d4976975f",
+      "sha256": "625e6d1e9f2dbac234410d8390e2e44276e843f4d26f2accb8752914ab25effa",
       "rights_review_status": "approved",
       "content_acquisition_status": "direct_cli_retrieval_blocked_http_403"
     }

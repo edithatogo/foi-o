@@ -19,7 +19,7 @@ def test_candidate_packs_are_schema_valid_and_pin_the_evidence_manifest() -> Non
         result = validate_json_schema(path, SCHEMA)
         assert not result.errors, result.errors
         payload = json.loads(path.read_text(encoding="utf-8"))
-        assert payload["rights_review_status"] == "pending"
+        assert payload["rights_review_status"] == "approved"
         assert payload["source_manifest_sha256"] == EVIDENCE_SHA256
 
 
