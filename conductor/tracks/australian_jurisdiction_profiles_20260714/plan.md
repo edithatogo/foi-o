@@ -83,6 +83,10 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 
 ### Phase 3 review fixes
 
+- [x] Task: Publish a schema-validated operator packet that maps every current
+      readiness blocker to its owner issue, required evidence, and human gate.
+      (`dad961b`; all 12 blockers are covered exactly once and promotion and
+      tranche 5 remain prohibited.)
 - [x] Task: Refresh generated ontology inventory evidence, install the declared
       RDF validation extra, and document the source-triangulation v0.2.0
       migration boundary found by whole-suite review. (`f158099`; focused
