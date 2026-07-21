@@ -49,7 +49,7 @@
     "execution authorization record is explicitly non-authorizing and uncommitted",
     "approval timestamp is missing",
     "source rights review is pending for both jurisdictions",
-    "NSW source content digest is unavailable after HTTP 403",
+    "NSW source content digest is unavailable after HTTP 403"
   ],
   "prohibitions": [
     "no submissions",
