@@ -91,7 +91,10 @@ def main() -> None:
         if not isinstance(track.get("issue"), int) or not str(track.get("track", "")).strip():
             errors.append(f"repository track lacks an issue or track id: {track}")
 
-    if completion_map.get("policy", {}).get("completion_rule") != "every_target_must_complete_every_phase":
+    if (
+        completion_map.get("policy", {}).get("completion_rule")
+        != "every_target_must_complete_every_phase"
+    ):
         errors.append("completion rule must require every phase for every target")
 
     if errors:
