@@ -8,6 +8,10 @@
   "fyi_archive_commit": "8477704",
   "config": "configs/au/jurisdiction_rollout_empirical_pilot.json",
   "scope": ["AU-NSW", "AU-CTH"],
+  "runtime_jurisdiction_mapping": {
+    "NSW": "AU-NSW",
+    "FEDERAL": "AU-CTH"
+  },
   "read_only": true,
   "caps": {
     "max_requests_per_jurisdiction": 50,

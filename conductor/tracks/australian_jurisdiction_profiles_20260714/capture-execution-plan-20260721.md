@@ -11,9 +11,9 @@ training, legal interpretation, or profile promotion.
 | --- | --- | --- |
 | `fyi-cli` capture worker | `3454a24` | robots enforcement, local/shared pacing, bounded caps |
 | `fyi-archive` AU rollout | `8477704` | explicit confirmation token, NSW-first ordering, manifest output |
-| archive pilot config | `8477704` | `configs/au/jurisdiction_rollout_empirical_pilot.json`, only `NSW` and `FEDERAL` |
+| archive pilot config | `8477704` | `configs/au/jurisdiction_rollout_empirical_pilot.json`, runtime labels `NSW` and `FEDERAL` |
 | archive instance | `au-rtk` | `https://www.righttoknow.org.au`, experimental only |
-| jurisdictions | `NSW`, then `AU-CTH` | no other jurisdiction permitted |
+| jurisdictions | `NSW`, then `AU-CTH` | archive runtime `NSW` maps to `AU-NSW`; runtime `FEDERAL` maps to `AU-CTH`; no other jurisdiction permitted |
 | protocol | `docs/41-v2-sampling-and-annotation-protocol.md` | digest must match the approved packet or be re-approved |
 | sampling candidate | `docs/42-australian-pilot-preregistration.md` | seed `20260721`, no post-freeze replacement |
 

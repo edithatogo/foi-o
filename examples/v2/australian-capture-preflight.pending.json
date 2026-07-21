@@ -11,6 +11,10 @@
     "read_only": true,
     "authenticated_access": false
   },
+  "jurisdiction_mapping": {
+    "NSW": "AU-NSW",
+    "FEDERAL": "AU-CTH"
+  },
   "caps": {
     "max_requests_per_jurisdiction": 50,
     "max_runtime_minutes_per_jurisdiction": 30,
