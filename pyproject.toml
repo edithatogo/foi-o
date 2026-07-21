@@ -208,3 +208,11 @@ python-version = "3.12"
 unresolved-import = "ignore"
 unresolved-attribute = "ignore"
 invalid-assignment = "ignore"
+
+[tool.basedpyright]
+# The repository-wide diagnostic debt is explicit and ratcheted: baseline
+# findings are tolerated, while newly introduced errors fail the check.
+include = ["src", "tests", "scripts"]
+exclude = ["foi-o-v2-codex-one-shot"]
+typeCheckingMode = "standard"
+baselineFile = "basedpyright-baseline.json"

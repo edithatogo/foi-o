@@ -1,0 +1,6 @@
+version: 1.0.0
+decisions:
+  - id: D-jurisdiction_onboarding_and_capability_maturity
+    decision: preserve current repository boundaries and uncommitted work
+    status: accepted
+    human_gate: false

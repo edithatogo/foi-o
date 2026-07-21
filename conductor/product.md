@@ -2,11 +2,16 @@
 
 ## Initial Concept
 
-FOI-O NZ is an agent-facing process model, ontology, validation stack, and analytical workbench for New Zealand Official Information Act administration.
+FOI-O is a global, jurisdiction-profiled process/evidence and verification
+framework. `foi-o-nz` is the mature New Zealand reference distribution and
+profile, not the limit or identity of the programme.
 
 ## Mission
 
-FOI-O NZ defines a machine-readable, auditable model of New Zealand OIA process data for use by humans, software systems, and bounded AI agents. It sits beside the FYI ecosystem as the semantic and process layer for request profiles, core process events, validation contracts, analytics, evaluation, and future MCP resources/tools.
+FOI-O defines a machine-readable, auditable global core with independently
+versioned jurisdiction/regime profiles. It sits beside the FYI ecosystem as the
+semantic, evidence and context layer for request profiles, process events,
+validation contracts, analytics, evaluation, and bounded agent tools.
 
 ## Users
 
@@ -19,7 +24,11 @@ FOI-O NZ defines a machine-readable, auditable model of New Zealand OIA process 
 
 FOI-O NZ owns the process/event ontology, JSON Schemas, SKOS vocabularies, SHACL shapes, mappings, extraction and evaluation prompts, deterministic validation utilities, analytics, review queues, agent contracts, and small committed examples. It depends on adjacent projects for capture, archive orchestration, publication, and corpus hosting.
 
-The project is not an autonomous FOI decision system. Its purpose is to help agents and software systems draft, validate, route, summarise, and flag process evidence while preserving hard human certification boundaries.
+The project is not an autonomous FOI decision system. Its purpose is to help
+agents and software systems draft, validate, route, summarise, and flag process
+evidence while preserving hard human certification boundaries. Capture and
+immutable archival belong to `fyi-cli` and `fyi-archive`; replay/OCEL belongs to
+`foi-process`; source packs and programme conformance remain sibling concerns.
 
 ## Current Capabilities
 

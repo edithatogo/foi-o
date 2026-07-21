@@ -1,0 +1,15 @@
+registry_id: foio.version-registry
+version: 1.0.0
+axes:
+  methodology: {scheme: named-generation, current: FOI-O V2}
+  python_distribution: {scheme: semver, id: foi-o-nz, current: 0.8.1}
+  global_core: {scheme: semver, id: foio-core, current: 1.0.0}
+  ontology: {scheme: semver, namespace: https://w3id.org/foio/, current: 1.0.0}
+  nz_profile: {scheme: semver, id: foi-o-nz-oia, current: 0.9.0}
+  context_pack: {scheme: semver, id: foio.context-pack, current: 1.0.0}
+  source_pack: {scheme: calver-plus-sha256, current: nz-oia-pack-2026.07.20}
+  archive_snapshot: {scheme: immutable-revision, current: null}
+  annotation_gold: {scheme: semver, current: null}
+  process_ocel: {scheme: semver, id: foio-ocel, current: 0.2.0}
+  paper: {scheme: arxiv-version-plus-ledger, current: arXiv:2607.02947v1}
+  conductor: {scheme: schema-plus-track-revision, current: 1.0.0}

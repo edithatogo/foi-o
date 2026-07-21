@@ -1,0 +1,5 @@
+version: 1.0.0
+standard: BPMN 2.0
+interpretation: The earlier request for BPML 2.0 is implemented as interoperable BPMN 2.0 XML.
+validation: scripts/validate_workflows.py
+requirement: FOIO-REQ-WORKFLOW-001

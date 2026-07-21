@@ -2,8 +2,8 @@
   "track_id": "australian_jurisdiction_profiles_20260714",
   "type": "feature",
   "status": "new",
-  "created_at": "2026-07-14T00:00:00+10:00",
-  "updated_at": "2026-07-14T20:30:00+10:00",
+  "created_at": "2026-07-13T14:00:00Z",
+  "updated_at": "2026-07-14T10:30:00Z",
   "description": "Build evidence-backed Australian FOI jurisdiction profiles, beginning with Commonwealth and NSW, while preserving the NZ profile and jurisdiction-neutral core.",
   "depends_on": [
     "edithatogo/legislation:legislation-jurisdiction-mainstreaming",

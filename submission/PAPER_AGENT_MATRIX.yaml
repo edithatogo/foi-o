@@ -1,0 +1,29 @@
+version: 1.0.0
+context_policy:
+  isolated_by_role: true
+  minimum_necessary_context: true
+  untrusted_manuscript_content: true
+  preserve_disagreement: true
+roles:
+  - {id: sourceright_auditor, focus: citation_source_provider_and_claim_provenance, required_tool: sourceright}
+  - {id: red_team, focus: prompt_injection_privacy_security_and_legal_overreach}
+  - {id: devils_advocate, focus: falsification_alternative_explanations_and_overclaim}
+  - {id: foi_legal_domain, focus: jurisdictional_accuracy_and_legal_boundaries}
+  - {id: methods_statistics, focus: estimands_sampling_annotation_and_sensitivity}
+  - {id: ontology_semantic_web, focus: namespace_shacl_registry_and_interoperability}
+  - {id: process_reproducibility, focus: event_process_replay_and_reproducibility}
+  - {id: architecture_context, focus: repo_boundaries_context_runtime_and_harness}
+  - {id: global_impact_editor, focus: global_framing_novelty_and_accessibility, may_edit: proposed_patch_only}
+  - {id: authentext_editor, focus: style_clarity_and_semantic_preservation, required_tool: authentext, may_edit: proposed_patch_only}
+  - {id: orchestrator_adjudicator, focus: disagreement_synthesis_and_remediation, may_edit: remediation_contract_only}
+minimum_reports_before_candidate:
+  - sourceright_auditor
+  - red_team
+  - devils_advocate
+  - foi_legal_domain
+  - methods_statistics
+  - ontology_semantic_web
+  - process_reproducibility
+  - architecture_context
+  - global_impact_editor
+  - authentext_editor

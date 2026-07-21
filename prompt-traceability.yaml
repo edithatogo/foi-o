@@ -1,0 +1,36 @@
+version: 1.0.0
+source:
+  archive: foi-o-codex-autostart.zip
+  archive_sha256: 4877122cf59b879d6121cd27054f99a3c9e1efee64771c22160fb487badfb528
+  controlling_prompt: .codex/foio-nextgen-input/CODEX_PROMPT.md
+  prompt_read_in_full: true
+  reference_directory_read_in_full: true
+project:
+  github_project: https://github.com/users/edithatogo/projects/29
+sections:
+  - {section: "0", title: operating principles, status: incorporated, evidence: [AGENTS.md, conductor/workflow.md]}
+  - {section: "1", title: validate and inventory bundle, status: verified, evidence: [.codex/foio-nextgen-input/tools/validate_bundle.py, workspace-audit.md]}
+  - {section: "2", title: workspace discovery and live GitHub audit, status: incorporated, evidence: [workspace.lock.yaml, workspace-audit.md, conductor/cross-repo-issue-map.yaml]}
+  - {section: "3", title: Conductor hierarchy and required tracks, status: incorporated_candidate, evidence: [conductor/tracks.md, conductor/tracks/, conductor/product.md]}
+  - {section: "4", title: P0 runtime and context hardening, status: implemented_candidate, evidence: [src/foi_o_nz/context_pack.py, src/foi_o_nz/agent_pack.py, src/foi_o_nz/profile_runtime.py, src/foi_o_nz/capability_registry.py, tests/test_context_pack.py, tests/test_global_runtime_contracts.py], issue: https://github.com/edithatogo/foi-o/issues/72}
+  - {section: "5", title: jurisdiction onboarding operating system, status: tracked_and_cross_repo_wired, evidence: [profiles/registry.yaml, profiles/roadmap.yaml, profiles/jurisdiction-pack-template.yaml, profiles/capability-maturity.yaml, operations/access-policy.yaml, conductor/tracks/jurisdiction_onboarding_and_capability_maturity/, conductor/cross-repo-issue-map.yaml], issue: https://github.com/edithatogo/foi-o/issues/24}
+  - {section: "6", title: dynamic versioning, status: implemented_candidate, evidence: [VERSIONING.md, versions/registry.yaml, versions/compatibility.yaml, versions/current-lock.yaml, scripts/version_tool.py], issue: https://github.com/edithatogo/foi-o/issues/73}
+  - {section: "7", title: global paper framing, status: tracked_and_gated, evidence: [submission/workflows/, submission/claims/README.md, versions/paper-ledger.yaml], issue: https://github.com/edithatogo/foi-o/issues/74}
+  - {section: "8", title: paper update governance and archival, status: tracked_and_gated, evidence: [submission/PAPER_GOVERNANCE.md, submission/PAPER_REVIEW_SCORE_CONTRACT.yaml, submission/PAPER_AGENT_MATRIX.yaml, submission/PAPER_ARCHIVE_POLICY.md, reports/paper/README.md, submission/workflows/SOURCERIGHT.md, submission/workflows/AUTHENTEXT.md, conductor/cross-repo-issue-map.yaml]}
+  - {section: "9", title: GitHub Actions and reproducibility, status: tracked, evidence: [.github/workflows/foio-programme-controls.yml, conductor/tracks/testing_scale_and_technology_radar/, technology-radar.yaml], issue: https://github.com/edithatogo/foi-o/issues/75}
+  - {section: "10", title: testing speed and non-duplication, status: tracked, evidence: [.github/workflows/foio-programme-controls.yml, conductor/tracks/testing_scale_and_technology_radar/, scripts/validate_requirements.py, requirements.yaml], issue: https://github.com/edithatogo/foi-o/issues/75}
+  - {section: "11", title: Mojo and technology radar, status: incorporated_as_hold_or_trial_policy, evidence: [technology-radar.yaml, conductor-feature-radar.yaml, adr/0005-mojo-max-python-bridge.md]}
+  - {section: "12", title: ontology globalisation and registry submissions, status: prepared_human_gated, evidence: [registries/ontology-registry-ledger.yaml, registries/ontology-registry-ledger.md, registries/ontology-registry-plan.yaml, adr/0011-global-namespace-and-profile-versioning.md], issue: https://github.com/edithatogo/foi-o/issues/74}
+  - {section: "13", title: MoSCoW architecture and workflows, status: implemented_candidate, evidence: [requirements.yaml, scripts/validate_requirements.py, workflows/workflow-standard.yaml, workflows/paper-update/workflow.yaml, scripts/validate_workflows.py]}
+  - {section: "14", title: governed self-improvement, status: incorporated_as_policy, evidence: [technology-radar.yaml, conductor-feature-radar.yaml, conductor/tracks/testing_scale_and_technology_radar/]}
+  - {section: "15", title: cross-repository issue orchestration, status: wired, evidence: [conductor/cross-repo-issue-map.yaml, issue-creation-ledger.json], project: https://github.com/users/edithatogo/projects/29}
+  - {section: "16", title: implementation order, status: tracked_by_tracks_and_requirements, evidence: [requirements.yaml, conductor/tracks.md]}
+  - {section: "17", title: validation and acceptance, status: partially_verified, evidence: [conductor/tracks/global_context_runtime_hardening/IMPLEMENTATION_REPORT.md, workspace-audit.md, tests/test_global_runtime_contracts.py, scripts/validate_workflows.py]}
+  - {section: "18", title: required final outputs, status: incorporated_candidate, evidence: [conductor/tracks/global_context_runtime_hardening/IMPLEMENTATION_REPORT.md, issue-creation-ledger.json, workspace.lock.yaml]}
+human_gates:
+  - legal_or_profile_certification
+  - operator_access_and_live_capture
+  - independent_annotation_and_adjudication
+  - ontology_registry_submission
+  - arxiv_osf_zenodo_or_dataset_publication
+  - release_or_external_project_settings

@@ -1,0 +1,13 @@
+version: 1.0.0
+selection_principles: [operator_access_and_platform_sustainability, official_current_and_historical_source_availability, archive_and_attachment_quality, guidance_and_review_decision_availability, legal_and_process_contrast_value, language_and_human_review_capacity, rights_and_redistribution_clarity, empirical_sample_and_annotation_feasibility, non_alaveteli_adapter_maturity]
+promotion_model: {aggregate_score_prohibited: true, required: capability_maturity_plus_hard_gates}
+tranches:
+  - {id: foundation, profiles: [NZ-OIA, NZ-LGOIMA], rationale: mature reference plus controlled second-regime test}
+  - {id: australia_pilot, profiles: [AU-CTH, AU-NSW], rationale: existing programme pilots and comparative value}
+  - {id: australia_contrast, profiles: [AU-VIC, AU-QLD], rationale: contrasting terminology review structures and clocks}
+  - {id: australia_remaining, profiles: [AU-ACT, AU-SA, AU-TAS, AU-WA, AU-NT], order_policy: determine_after_source_and_capture_audit}
+  - {id: uk_and_european_english, profiles: [UK-FOIA, UK-EIR, SCOT-FOISA, SCOT-EIR, EU-ACCESS-DOCUMENTS, IE-FOI-DISCOVERY], rationale: separate regimes with comparative value}
+  - {id: official_alaveteli_discovery, deployments: [Czech Republic, France, Sweden, Netherlands, Belgium, Croatia, Hungary, Ukraine, Greece, Moldova, Hong Kong, Uruguay, Liberia, Colombia, New Jersey USA, Argentina, Georgia, Romania, Kosovo], note: rescan official deployment list before implementation}
+  - {id: additional_supported_platform_discovery, profiles_or_platforms: [Germany/FragDenStaat, Spain/Tu Derecho a Saber, Ireland/MyRightToKnow], note: verify platform policy and regime}
+  - {id: non_alaveteli, profiles: [CA-FED, US-FOIA-FED, ZA-PAIA], prerequisite: proven_non_alaveteli_source_adapter}
+capabilities: [source_discovery, operator_authorisation, platform_capture, archive_snapshot, historical_legislation, gazette_commencement, parliamentary_explanatory_sources, ombudsman_information_commissioner_material, authority_identity_history, normative_extraction, state_mapping, statutory_clock, review_pathways, event_outcome_extraction, process_ocel_export, annotation_gold_set, agent_runtime]

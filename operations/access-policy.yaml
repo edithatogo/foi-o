@@ -1,0 +1,15 @@
+version: 1.0.0
+default_mode: offline_fixture_replay
+network_capture:
+  owner: edithatogo/fyi-cli
+  allowed_only_when: [robots_reviewed, terms_reviewed, rate_limits_recorded, operator_approval_recorded]
+  prohibited: [access_control_bypass, unbounded_scraping, autonomous_live_capture]
+  controls: [bounded_concurrency, adaptive_backoff, cache, etag_last_modified, delta_capture, circuit_breaker]
+archive:
+  owner: edithatogo/fyi-archive
+  immutable_digest_required: true
+foio:
+  role: consume_pinned_outputs
+  network_default: none
+  legal_interpretation: prohibited
+operator_approval_ledger: pending_external_operator_record

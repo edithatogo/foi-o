@@ -1,0 +1,179 @@
+registry_id: foio.requirements
+version: 1.0.0
+requirements:
+  - id: FOIO-REQ-CTX-001
+    version: 1.0.0
+    title: Request and profile isolation in compiled context
+    priority: must
+    status: implemented_candidate
+    source: CODEX_PROMPT.md#4.1
+    rationale: Prevent cross-request and cross-profile evidence leakage.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [tests/test_context_pack.py, tests/test_global_runtime_contracts.py, missing_case_fails_closed, canonical_hash_reorder_stable]
+    dependencies: []
+    blockers: [independent_prompt_injection_evaluation]
+    risk: context leakage or unsupported abstention
+    release_target: foio-core-1.0.0
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: added explicit diff and claim-conflict records]
+  - id: FOIO-REQ-CAP-001
+    version: 1.0.0
+    title: Canonical profile-aware capability registry
+    priority: must
+    status: implemented_candidate
+    source: CODEX_PROMPT.md#4.2
+    rationale: Align capability policy and generated descriptors.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [capabilities/registry.yaml, validate-capability-registry, tests/test_global_runtime_contracts.py]
+    dependencies: [FOIO-REQ-CTX-001]
+    blockers: [MCP/OpenAPI descriptor generation parity review]
+    risk: descriptor drift or unsafe effect declaration
+    release_target: foio-core-1.0.0
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: registry expanded and runtime resolver added]
+  - id: FOIO-REQ-VERS-001
+    version: 1.0.0
+    title: Multiaxial version registry and compatibility lock
+    priority: must
+    status: implemented_candidate
+    source: CODEX_PROMPT.md#6
+    rationale: Keep software, ontology, profile, source, paper, and prompt versions distinct.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [versions/registry.yaml, versions/current-lock.yaml, scripts/version_tool.py]
+    dependencies: []
+    blockers: [external archive and annotation identifiers]
+    risk: incompatible artefacts being combined
+    release_target: foio-core-1.0.0
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: initial lock recorded]
+  - id: FOIO-REQ-WORKFLOW-001
+    version: 1.0.0
+    title: Mermaid plus BPMN 2.0 representation for every workflow
+    priority: must
+    status: implemented_candidate
+    source: CODEX_PROMPT.md#0.14
+    rationale: Keep human and machine workflow representations aligned.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [scripts/validate_workflows.py, workflows/paper-update/workflow.md, workflows/paper-update/workflow.bpmn, workflows/paper-update/workflow.yaml]
+    dependencies: []
+    blockers: [Mermaid renderer availability]
+    risk: diagram and process-model drift
+    release_target: foio-core-1.0.0
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: stable step IDs cross-checked]
+  - id: FOIO-REQ-JUR-001
+    version: 1.0.0
+    title: Capability maturity jurisdiction onboarding
+    priority: must
+    status: in_progress
+    source: CODEX_PROMPT.md#5
+    rationale: Onboard profiles independently without inheriting legal conclusions.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [profiles/registry.yaml, profiles/capability-maturity.yaml, operations/access-policy.yaml, issue-24]
+    dependencies: [FOIO-REQ-CTX-001, FOIO-REQ-CAP-001]
+    blockers: [operator access, rights review, independent annotation, legal promotion]
+    risk: false readiness or cross-jurisdiction fallback
+    release_target: profile-alpha
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: onboarding registry and independent dimensions added]
+  - id: FOIO-REQ-PAPER-001
+    version: 1.0.0
+    title: Global paper update and independent review harness
+    priority: must
+    status: in_progress
+    source: CODEX_PROMPT.md#8
+    rationale: Make global claims reproducible, reviewable, and publication-gated.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [submission/PAPER_GOVERNANCE.md, submission/PAPER_REVIEW_SCORE_CONTRACT.yaml, submission/PAPER_AGENT_MATRIX.yaml, scripts/paper_governance.py]
+    dependencies: [FOIO-REQ-VERS-001]
+    blockers: [Sourceright clone/tool, Authentext clone/tool, independent reviewers, human publication approval]
+    risk: authoring agent self-grading or unsupported claims
+    release_target: paper-release-candidate
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: governance contracts and fail-closed audit added]
+  - id: FOIO-REQ-ONT-001
+    version: 1.0.0
+    title: Global ontology namespace quality and registry ledger
+    priority: should
+    status: in_progress
+    source: CODEX_PROMPT.md#12
+    rationale: Separate global semantic identity from NZ compatibility aliases.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [registries/ontology-registry-ledger.yaml, adr/0011-global-namespace-and-profile-versioning.md]
+    dependencies: [FOIO-REQ-VERS-001]
+    blockers: [quality toolchain and human registry submission approval]
+    risk: domain-inappropriate submission or semantic collapse
+    release_target: ontology-1.0.0
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: registry ledger retained as not_verified]
+  - id: FOIO-REQ-TEST-001
+    version: 1.0.0
+    title: Faster non-duplicative test and release assurance
+    priority: should
+    status: in_progress
+    source: CODEX_PROMPT.md#10
+    rationale: Reduce repeated CI cost without weakening independent assurance.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [conductor/tracks/testing_scale_and_technology_radar/, issue-75]
+    dependencies: [FOIO-REQ-WORKFLOW-001]
+    blockers: [BasedPyright/ty policy decision and hosted CI review]
+    risk: accidental loss of release assurance
+    release_target: quality-workflow-1.0.0
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: track and GitHub issue wired]
+  - id: FOIO-REQ-MOJO-001
+    version: 1.0.0
+    title: Benchmark-gated Mojo kernel promotion
+    priority: could
+    status: planned
+    source: CODEX_PROMPT.md#11
+    rationale: Promote only measured, equivalent hot paths.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [technology-radar.yaml, adr/0005-mojo-max-python-bridge.md]
+    dependencies: [FOIO-REQ-TEST-001]
+    blockers: [representative benchmark and human promotion decision]
+    risk: semantic drift or packaging burden
+    release_target: future-trial
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: held pending measured benefit]
+  - id: FOIO-REQ-PUBLISH-001
+    version: 1.0.0
+    title: Versioned paper archive
+    priority: should
+    status: in_progress
+    source: CODEX_PROMPT.md#8
+    rationale: Preserve reproducibility without automatic publication.
+    owner_repo: edithatogo/foi-o
+    acceptance_evidence: [submission/PAPER_ARCHIVE_POLICY.md, versions/paper-ledger.yaml]
+    dependencies: [FOIO-REQ-PAPER-001, FOIO-REQ-VERS-001]
+    blockers: [human publication approval and external archive identifiers]
+    risk: unsupported publication or incomplete provenance
+    release_target: paper-release-candidate
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: archive policy made explicit]
+  - id: FOIO-REQ-SELF-001
+    version: 1.0.0
+    title: Governed continuous improvement and technology radar
+    priority: should
+    status: in_progress
+    source: CODEX_PROMPT.md#14
+    rationale: Permit evaluation without autonomous safety-policy mutation.
+    owner_repo: edithatogo/rac-conformance
+    acceptance_evidence: [technology-radar.yaml, conductor-feature-radar.yaml, issue-146]
+    dependencies: [FOIO-REQ-TEST-001]
+    blockers: [programme-level integration and human promotion gates]
+    risk: benchmark gaming or self-modification
+    release_target: programme-governance-1.0.0
+    supersedes: []
+    superseded_by: []
+    change_log: [2026-07-21: feature radar and gate policy added]

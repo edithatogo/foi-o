@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schema/claim-evidence-conflict/1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "claim_id", "claim_text", "status", "machine_certification_allowed"],
+  "properties": {
+    "schema_version": {"const": "foio.claim-evidence-conflict.v1.0.0"},
+    "claim_id": {"type": "string", "minLength": 1},
+    "claim_text": {"type": "string", "minLength": 1},
+    "status": {"enum": ["candidate", "supported", "conflicted", "abstained"]},
+    "evidence_ids": {"type": "array", "items": {"type": "string"}},
+    "conflict_ids": {"type": "array", "items": {"type": "string"}},
+    "derivation": {"type": "object"},
+    "human_review_required": {"type": "boolean"},
+    "machine_certification_allowed": {"const": false}
+  }
+}

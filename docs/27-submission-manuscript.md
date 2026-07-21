@@ -1,5 +1,5 @@
 ---
-title: "FOI-O: An NZ-first ontology and verification methods package for Freedom of Information process modelling"
+title: "FOI-O: A global, jurisdiction-profiled process/evidence and verification framework for Freedom of Information"
 author:
   - "Dylan A Mordaunt\\textsuperscript{1,2,3}"
 date: "2026-07-02"
@@ -17,11 +17,13 @@ abstract: |
   Public official-information request records contain process signals. They can
   support research, workflow review, and human-supervised agent help. Yet they
   also mix observed correspondence, platform states, inferred events, and legal
-  outcomes. FOI-O is a reusable process-modelling method and verification
-  infrastructure for Freedom of Information administration. FOI-O NZ, based on
-  the New Zealand Official Information Act, is the only implemented and
-  validated jurisdictional profile in the current repository. Broader reuse is
-  a design intent and future validation path, not an empirical result of this
+  outcomes. FOI-O is a global, jurisdiction-profiled process/evidence and
+  verification framework for Freedom of Information: it provides a reusable
+  method while keeping jurisdiction, regime, profile, source pack, and effective
+  date explicit. New Zealand, based on the Official Information Act, is the
+  origin and mature reference-profile context in the current repository; it is
+  not evidence that other jurisdictions have been validated or promoted.
+  Broader reuse is a governed validation path, not an empirical result of this
   package. FOI-O models the request record first. Request profiles, observed
   correspondence events, controlled vocabularies, and provenance make visible
   what was seen and how it was changed. It then adds review queues, release
@@ -34,7 +36,7 @@ abstract: |
   Constraint Language (SHACL) assets. These are supported by deterministic
   examples, release metadata, quality gates, tests, Business Process Model and
   Notation (BPMN) and Petri Net Markup Language (PNML) process models, XES and
-  OCEL-style fixture exports, and a planned New Zealand annotation task-set
+  OCEL-style fixture exports, and planned jurisdiction-specific annotation task-set
   manifest. This article describes the motivation, architecture,
   ontology-development method, validation evidence, and implementation
   boundaries. The project is not legal advice, is not an official government
@@ -689,31 +691,31 @@ Each extension should preserve the same boundary between observed record,
 candidate inference, validation result, and human-certified outcome. That
 discipline is what makes later comparison possible.
 
-# Limitations
+# Limitations: Threat–Mitigation–Triangulation Framework
 
-FOI-O is not legal advice, is not an official government publication, and is not
-an official reporting system for New Zealand or any other jurisdiction. It does
-not retrieve live source systems by default, republish source FYI/archive
-payloads, replace agency records, decide statutory interpretation, or certify
-FOI outcomes. It should be treated as a research and validation artefact until
-live-source ingestion, jurisdiction-specific mappings, and operational use are
-separately reviewed.
+FOI-O is not legal advice, is not an official government publication, and is
+not an official reporting system for any jurisdiction. It does not retrieve live
+source systems by default, republish source FYI/archive payloads, replace
+agency records, decide statutory interpretation, or certify FOI outcomes. The
+following architecture records the principal threats, mitigations, independent
+checks, residual risks, and human-review triggers rather than treating them as
+one aggregate limitation score.
 
-The main threats to validity are scope and evidence limits. FOI-O NZ is the
-only implemented and validated jurisdictional profile. The repository evidence
-is local and fixture-heavy. It does not yet prove live archive intake,
-representative agency coverage, human-reviewed gold-standard labels,
-real-world process conformance, bottleneck frequencies, agency cycle times, or
-corpus-level process-mining results. Process-mining artefacts are included to
-show deterministic interchange and fixture-path conformance only. The planned
-empirical task sets remain annotation tasks until source snapshots, review
-instructions, human labels, adjudication, and any agreement metrics are
-recorded.
+| Threat or trade-off | Primary mitigation | Independent alternative and triangulation rule | Residual risk and human trigger |
+|---|---|---|---|
+| Platform records may differ from an agency system of record. | Preserve raw platform evidence, immutable source IDs/hashes, and provenance. | Compare official source packs, correspondence, and platform records; do not infer legal outcome from platform state alone. | Missing or conflicting records require abstention and human review. |
+| Correspondence, attachments, or off-platform events may be incomplete. | Record unavailable attachments, known gaps, and exclusions in the context pack. | Replay against independent archive manifests and operator-held records where rights permit. | Coverage remains unknown; source-rights and operator review are required. |
+| Source state is not legal outcome. | Candidate-only mappings, profile-aware capability resolution, and prohibited follow-on actions. | Differential checks against official worked examples and human-reviewed fixtures. | Unmapped or ambiguous state is retained as unknown and routed to review. |
+| Timestamps, historical law, and authority identity can drift. | Effective-date-aware source packs, bitemporal records, version locks, and authority history. | Compare historical legislation, commencement material, and independent rule implementations. | Temporal mismatch blocks clock or profile claims until legal review. |
+| NLP/LLM extraction and annotation can be uncertain or contaminated. | Independent fixtures, disagreement records, prompt/tool/model locks, and dual annotation/adjudication gates. | Use lexical, deterministic, statistical, and independent human methods; retain conflicts. | Out-of-distribution or disagreement cases remain candidate/abstained. |
+| Jurisdictions are not legally interchangeable. | Exact jurisdiction, regime, profile ID/version, source pack, and capability maturity are mandatory. | Run jurisdiction-specific sensitivity analyses; never use cross-profile fallback. | Non-promoted profiles remain disabled for legal conclusions. |
+| Process-mining observations may be selective. | Label fixture outputs as observational and retain sampling/provenance metadata. | Reconcile full and incremental replay where process-owner evidence exists. | No population or causal claim is made without prospective empirical evidence. |
+| Automation and prompt-injection risk may alter review behaviour. | Treat retrieved text and tool metadata as untrusted evidence; fail closed on unsafe actions. | Red-team replay and independent security review. | Human certification, release, and publication remain outside autonomous tooling. |
 
 # Conclusion
 
-FOI-O provides an NZ-first ontology and validation methods package for
-modelling FOI administration in agent-facing workflows. Its strongest
+FOI-O provides a global, jurisdiction-profiled process/evidence and verification
+framework for modelling FOI administration in agent-facing workflows. Its strongest
 contribution is evidence discipline: schemas, vocabularies, semantic
 constraints, process models, fixture interchange artefacts, release metadata,
 and tests distinguish observed evidence, candidate inference, validation

@@ -1,0 +1,33 @@
+version: 1.0.0
+dimensions:
+  - source_discovery
+  - operator_authorisation
+  - platform_capture
+  - archive_snapshot
+  - historical_legislation
+  - gazette_commencement
+  - parliamentary_explanatory_material
+  - ombudsman_ic_guidance
+  - authority_identity_history
+  - normative_extraction
+  - platform_state_mapping
+  - statutory_clocks
+  - review_pathways
+  - outcome_event_extraction
+  - process_ocel_export
+  - agent_runtime
+  - annotation_gold_set
+  - legal_review_promotion
+levels: [unassessed, discovered, candidate, implemented_candidate, independently_evaluated, human_promoted, stable, blocked]
+scoring: independent_dimensions_only
+aggregate_readiness_score: prohibited
+profiles:
+  foio-nz-oia:
+    source_discovery: candidate
+    agent_runtime: implemented_candidate
+    platform_state_mapping: implemented_candidate
+    statutory_clocks: implemented_candidate
+    legal_review_promotion: blocked
+    annotation_gold_set: blocked
+  foio-au-cth: {source_discovery: discovered, legal_review_promotion: blocked}
+  foio-au-nsw: {source_discovery: discovered, legal_review_promotion: blocked}

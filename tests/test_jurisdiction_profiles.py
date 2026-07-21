@@ -76,9 +76,7 @@ def test_profile_requires_explicit_supported_unsupported_and_uncertain_surfaces(
 
 def test_profile_rejects_sources_from_another_jurisdiction() -> None:
     with pytest.raises(ValidationError, match="jurisdiction"):
-        JurisdictionProfile.model_validate(
-            _profile(sources=[_source("NZ")])
-        )
+        JurisdictionProfile.model_validate(_profile(sources=[_source("NZ")]))
 
 
 def test_profile_cannot_claim_certification_without_human_certification() -> None:

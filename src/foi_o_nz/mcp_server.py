@@ -73,6 +73,15 @@ def map_state_tool(source_state: str) -> dict[str, Any]:
     }
 
 
+def map_fyi_nz_state_tool(source_state: str) -> dict[str, Any]:
+    """Explicitly NZ-scoped compatibility surface for FYI state mapping."""
+    result = map_state_tool(source_state)
+    result["profile_id"] = "foio-nz-oia"
+    result["profile_status"] = "candidate_only"
+    result["deprecated_generic_alias"] = "map_state"
+    return result
+
+
 def validate_json_tool(
     instance_path: str, schema_path: str, *, fixture_root: Path | str = Path()
 ) -> dict[str, Any]:
@@ -160,6 +169,19 @@ def create_server(
     def map_state(source_state: str) -> dict[str, Any]:
         """Map an FYI/Alaveteli state to FOI-O NZ lifecycle vocabulary."""
         return map_state_tool(source_state)
+
+    @mcp.tool(
+        **_decorator_kwargs(
+            mcp.tool,
+            _runtime_metadata(
+                "Map an FYI/Alaveteli state within the explicit NZ OIA profile boundary."
+            ),
+            name="map_fyi_nz_state",
+        )
+    )
+    def map_fyi_nz_state(source_state: str) -> dict[str, Any]:
+        """Map an FYI/Alaveteli state within the explicit NZ profile boundary."""
+        return map_fyi_nz_state_tool(source_state)
 
     @mcp.tool(
         **_decorator_kwargs(

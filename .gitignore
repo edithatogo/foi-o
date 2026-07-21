@@ -32,3 +32,9 @@ build/
 Thumbs.db
 .vscode/
 .idea/
+
+# Local Codex inputs, browser traces, and generated publication previews.
+.codex/
+.playwright-mcp/
+output/
+foi-o-codex-autostart.zip

@@ -26,8 +26,8 @@
 ## Phase 3: Agent Guardrail Replay [checkpoint: 4819102]
 
 - [x] Task: Write guardrail replay tests for tool contracts (`c4fb82e`)
-    - [ ] Verify unsafe agent actions are blocked or routed to human review.
-    - [ ] Verify safe preparatory actions retain provenance and warnings.
+    - [x] Verify unsafe agent actions are blocked or routed to human review. (phase-3-verification.md)
+    - [x] Verify safe preparatory actions retain provenance and warnings. (phase-3-verification.md)
 - [x] Task: Implement guardrail replay integration (`a94977b`)
     - [x] Connect policy, replay, and descriptor checks where gaps are found.
     - [x] Update docs with operator-facing safety checks.
