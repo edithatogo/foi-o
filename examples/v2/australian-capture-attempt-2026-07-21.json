@@ -1,0 +1,32 @@
+{
+  "schema_version": "foi-o.australian-capture-attempt.v0.1.0",
+  "attempt_id": "foio-au-capture-attempt-20260721T125752Z",
+  "status": "failed_closed_source_http_403",
+  "authorization_record_path": "conductor/tracks/australian_jurisdiction_profiles_20260714/capture-authorization-20260721.md",
+  "authorization_record_sha256": "46333d805b0655931061a936fe1a069bb2d6a283020058f129b6d6757ac20b71",
+  "fyi_cli_commit": "3454a24",
+  "fyi_archive_commit": "8477704",
+  "config": "configs/au/jurisdiction_rollout_empirical_pilot.json",
+  "scope": ["AU-NSW", "AU-CTH"],
+  "read_only": true,
+  "caps": {
+    "max_requests_per_jurisdiction": 50,
+    "max_runtime_minutes_per_jurisdiction": 30,
+    "max_disk_gb": 2,
+    "delay_seconds": 2,
+    "continue_on_error": false
+  },
+  "failure": {
+    "url": "https://www.righttoknow.org.au/search/all?output=json&page=1&public_body=albury_city_council",
+    "http_status": 403,
+    "phase": "request_discovery",
+    "bypass_attempted": false
+  },
+  "outputs": {
+    "records_captured": 0,
+    "immutable_manifests_created": 0,
+    "local_discovery_catalog_sha256": "66db6d590d9bd3ed6f983ff03569024df0ed5519c88985dcb70b1a0de928fd23",
+    "note": "The catalog was discovered, but the run stopped before any request records or manifests were produced."
+  },
+  "next_gate": "obtain an authorized, rights-cleared official acquisition route that permits the same bounded read-only operation"
+}

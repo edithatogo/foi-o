@@ -36,7 +36,9 @@ def test_capture_preflight_is_pinned_and_execution_closed() -> None:
     packet = json.loads(packet_path.read_text(encoding="utf-8"))
     assert packet["execution_allowed"] is False
     assert packet["scope"]["jurisdictions"] == ["NSW", "FEDERAL"]
-    assert packet["authorization"]["execution_authorized_by_record"] is False
+    assert packet["authorization"]["execution_authorized_by_record"] is True
+    assert packet["status"] == "capture_attempted_source_access_blocked"
+    assert packet["execution_allowed"] is False
     for jurisdiction, pin in packet["source_pack_pins"].items():
         assert hashlib.sha256((ROOT / pin["path"]).read_bytes()).hexdigest() == pin["sha256"]
-        assert packet["source_pack_pins"][jurisdiction]["rights_review_status"] == "pending"
+        assert packet["source_pack_pins"][jurisdiction]["rights_review_status"] == "approved"
