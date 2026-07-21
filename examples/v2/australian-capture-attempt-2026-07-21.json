@@ -46,6 +46,12 @@
       "route": "https://www.righttoknow.org.au/request/defencegovau_robotstxt.json",
       "purpose": "documented per-request JSON route",
       "http_status": 403
+    },
+    {
+      "route": "https://api.morph.io/openaustralia/right_to_know_requests/data.json",
+      "purpose": "historical OpenAustralia Foundation-backed dataset API",
+      "http_status": 401,
+      "rejection_reason": "API key required; dataset is Federal-only and last completed in 2018, so it cannot represent the approved current AU-CTH/AU-NSW population"
     }
   ],
   "outputs": {
