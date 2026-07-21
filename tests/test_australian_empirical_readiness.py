@@ -123,11 +123,11 @@ def test_manifest_rejects_an_unplanned_profile() -> None:
 
 
 def test_phase_workflow_has_paired_mermaid_and_bpmn_contracts() -> None:
-    workflow = (TRACK / "phase-3-workflow.md").read_text(encoding="utf-8")
+    workflow = (TRACK / "workflow.md").read_text(encoding="utf-8")
     assert "```mermaid" in workflow
-    assert "phase-3-workflow.bpmn" in workflow
+    assert "workflow.bpmn" in workflow
 
-    root = ET.parse(TRACK / "phase-3-workflow.bpmn").getroot()
+    root = ET.parse(TRACK / "workflow.bpmn").getroot()
     namespace = "{http://www.omg.org/spec/BPMN/20100524/MODEL}"
     process = root.find(f"{namespace}process")
     assert process is not None

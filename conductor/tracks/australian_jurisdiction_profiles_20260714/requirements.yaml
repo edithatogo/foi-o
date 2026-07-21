@@ -1,0 +1,52 @@
+version: 1.0.0
+requirements:
+  - id: AU-EV-001
+    version: 1.0.0
+    title: Freeze exact Commonwealth and NSW empirical inputs
+    priority: must
+    status: blocked
+    source: spec.md#minimum-evidence-per-jurisdiction
+    acceptance_evidence: [phase-3-readiness.json, scripts/validate_australian_empirical_readiness.py]
+    dependencies: [approved_legal_source_packs, immutable_archive_samples, approved_sampling_inputs]
+    supersedes: []
+    superseded_by: []
+  - id: AU-EV-002
+    version: 1.0.0
+    title: Independently annotate and adjudicate the frozen sample
+    priority: must
+    status: blocked
+    source: plan.md#phase-3-empirical-validation
+    acceptance_evidence: [locked_annotation_sets, locked_adjudication_set, reliability_report]
+    dependencies: [AU-EV-001, two_named_human_annotators, distinct_named_human_adjudicator]
+    supersedes: []
+    superseded_by: []
+  - id: AU-EV-003
+    version: 1.0.0
+    title: Evaluate ontology-pinned extraction against adjudicated evidence
+    priority: must
+    status: blocked
+    source: plan.md#phase-3-empirical-validation
+    acceptance_evidence: [extractor_evaluation_report, disagreement_queue]
+    dependencies: [AU-EV-002, immutable_nlp_candidate_bundle]
+    supersedes: []
+    superseded_by: []
+  - id: AU-EV-004
+    version: 1.0.0
+    title: Resolve source assertions with explicit authority precedence
+    priority: must
+    status: implemented
+    source: plan.md#phase-3-empirical-validation
+    acceptance_evidence: [src/foi_o_nz/source_triangulation.py, schemas/json/source-triangulation-result.schema.json, tests/test_source_triangulation.py]
+    dependencies: []
+    supersedes: [foi-o.source-triangulation.v0.1.0]
+    superseded_by: []
+  - id: AU-EV-005
+    version: 1.0.0
+    title: Record separate named-human pilot maturity decisions
+    priority: must
+    status: blocked
+    source: spec.md#acceptance-criteria
+    acceptance_evidence: [human_maturity_decision_packet]
+    dependencies: [AU-EV-001, AU-EV-002, AU-EV-003, AU-EV-004]
+    supersedes: []
+    superseded_by: []

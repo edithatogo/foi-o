@@ -37,4 +37,4 @@ flowchart TD
    records controlling authority without converting it into a legal conclusion.
 6. Stop before profile promotion, publication, release or tranche 5 expansion.
 
-The paired BPMN 2.0 representation is [`phase-3-workflow.bpmn`](phase-3-workflow.bpmn).
+The paired BPMN 2.0 representation is [`workflow.bpmn`](workflow.bpmn).

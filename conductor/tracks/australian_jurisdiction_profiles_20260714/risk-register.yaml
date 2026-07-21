@@ -1,0 +1,7 @@
+version: 1.0.0
+risks:
+  - {id: AU-RISK-01, severity: critical, status: open, risk: placeholder or NZ evidence is mistaken for Australian empirical evidence, mitigation: exact two-profile readiness validator rejects missing placeholder and cross-profile inputs}
+  - {id: AU-RISK-02, severity: critical, status: open, risk: automated analysis is presented as human annotation or legal validation, mitigation: two named human annotators and a distinct named human adjudicator remain mandatory}
+  - {id: AU-RISK-03, severity: high, status: open, risk: source hierarchy is flattened or derived summaries control a claim, mitigation: triangulation v0.2.0 records authority tiers and excludes derived summaries from controlling evidence}
+  - {id: AU-RISK-04, severity: high, status: open, risk: sample or thresholds are tuned after extraction results are seen, mitigation: freeze protocol population codebook sampling configuration clusters and thresholds before execution}
+  - {id: AU-RISK-05, severity: high, status: open, risk: empirical results automatically promote a profile, mitigation: all validators return promotion_allowed false and require a separate named-human decision}
