@@ -108,6 +108,7 @@ def test_live_fastmcp_descriptors_are_read_only_when_available() -> None:
 
         assert {tool.name for tool in tools} == {
             "map_state",
+            "map_fyi_nz_state",
             "validate_json",
             "validate_jsonl",
             "quality_gate",
