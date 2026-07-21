@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "registry_count": 5,
+  "quality": {
+    "triples": 172,
+    "classes": 21,
+    "object_properties": 9,
+    "datatype_properties": 17,
+    "labelled_terms": 47,
+    "unlabelled_terms": 0
+  },
+  "errors": []
+}
