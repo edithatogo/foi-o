@@ -1,0 +1,9 @@
+version: 1.0.0
+entries:
+  - paper_release_id: arXiv:2607.02947v1
+    status: observed_current_reference
+    repository_commit: c4702380dfb50b0b856bbb1fc20953822dfaeee5
+    source_bundle_hash: pending
+    reviewer_bundle_hash: pending
+    human_approver: null
+    publication_gate: pending

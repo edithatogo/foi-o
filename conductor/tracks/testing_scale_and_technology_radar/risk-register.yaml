@@ -1,0 +1,6 @@
+version: 1.0.0
+risks:
+  - id: R-testing_scale_and_technology_radar
+    risk: stale or unauthorised cross-repository state
+    mitigation: workspace lock, duplicate search and human-gated external mutation
+    residual_status: open

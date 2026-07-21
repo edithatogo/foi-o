@@ -1,0 +1,15 @@
+version: 1.0.0
+rules:
+  - id: context-pack-core
+    producer: foio.context-pack
+    requires:
+      core: ">=1.0.0,<2.0.0"
+      profile: ">=0.9.0,<1.0.0"
+    incompatible_behavior: reject
+  - id: source-pack-event-time
+    requires: [effective_at, observation_at, sha256]
+    incompatible_behavior: reject
+  - id: ontology-namespace
+    current: https://w3id.org/foio/
+    legacy_aliases: [https://w3id.org/foio-nz/]
+    incompatible_behavior: retain_alias_and_warn

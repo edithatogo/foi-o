@@ -1,0 +1,3 @@
+version: 1.0.0
+rows:
+  - {requirement: FOIO-REQ-VERS-001, source: CODEX_PROMPT.md, implementation: local-contracts, evidence: pending-full-gate}

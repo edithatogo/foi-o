@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-07-21T00:00:00+10:00",
+  "authenticated": true,
+  "project": {"title": "FOI-O Global Next-Generation Programme", "number": 29, "url": "https://github.com/users/edithatogo/projects/29"},
+  "duplicate_search": {"completed": true, "repos": ["edithatogo/foi-o", "edithatogo/rac-conformance", "edithatogo/fyi-cli", "edithatogo/fyi-archive", "edithatogo/foi-process", "edithatogo/legislation", "edithatogo/nlp-policy-nz", "edithatogo/sourceright", "edithatogo/authentext"]},
+  "workstreams": [
+    {"id": "WS-CONTEXT", "repo": "edithatogo/foi-o", "issue": 72, "action": "link_existing"},
+    {"id": "WS-PAPER", "repo": "edithatogo/foi-o", "issue": 74, "action": "link_existing"},
+    {"id": "WS-VERSION", "repo": "edithatogo/foi-o", "issue": 73, "action": "link_existing"},
+    {"id": "WS-JURISDICTIONS", "repo": "edithatogo/foi-o", "issue": 24, "action": "link_existing"},
+    {"id": "WS-ONTOLOGY", "repo": "edithatogo/foi-o", "issue": 74, "action": "link_existing"},
+    {"id": "WS-CI", "repo": "edithatogo/foi-o", "issue": 75, "action": "create"},
+    {"id": "WS-WORKSPACE", "repo": "edithatogo/rac-conformance", "issue": 146, "action": "create"},
+    {"id": "WS-CAPTURE", "repo": "edithatogo/fyi-cli", "issue": 140, "action": "link_existing"},
+    {"id": "WS-ARCHIVE", "repo": "edithatogo/fyi-archive", "issue": 188, "action": "link_existing"},
+    {"id": "WS-LEGAL-SOURCES", "repo": "edithatogo/legislation", "issue": 62, "action": "link_existing"},
+    {"id": "WS-NLP", "repo": "edithatogo/nlp-policy-nz", "issue": 143, "action": "create"},
+    {"id": "WS-PROCESS", "repo": "edithatogo/foi-process", "issue": 37, "action": "link_existing"},
+    {"id": "WS-SOURCES", "repo": "edithatogo/sourceright", "issue": 71, "action": "create"},
+    {"id": "WS-EDITORIAL", "repo": "edithatogo/authentext", "issue": 61, "action": "create"}
+  ],
+  "human_gates": ["live_capture", "legal_profile_promotion", "ontology_registry_submission", "paper_dataset_publication", "release"]
+}

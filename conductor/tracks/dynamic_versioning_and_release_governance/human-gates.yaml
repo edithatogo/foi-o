@@ -1,0 +1,5 @@
+version: 1.0.0
+gates:
+  - id: HG-dynamic_versioning_and_release_governance
+    status: pending
+    action: human approval required before publication, promotion, submission or external destructive effect

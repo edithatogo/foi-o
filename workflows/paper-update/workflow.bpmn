@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" id="Definitions_PaperUpdate" targetNamespace="https://w3id.org/foio/workflows">
+  <bpmn:process id="Process_PaperUpdate" name="FOI-O paper update" isExecutable="false">
+    <bpmn:startEvent id="S"/>
+    <bpmn:task id="L" name="Lock inputs"/>
+    <bpmn:task id="C" name="Build claim and citation ledger"/>
+    <bpmn:task id="R" name="Audit claims and run independent reviews"/>
+    <bpmn:exclusiveGateway id="Q" name="Gates and score pass"/>
+    <bpmn:task id="M" name="Record remediation"/>
+    <bpmn:task id="A" name="Run Authentext"/>
+    <bpmn:userTask id="H" name="Human publication approval"/>
+    <bpmn:task id="P" name="Package candidate"/>
+    <bpmn:endEvent id="X"/>
+    <bpmn:endEvent id="EndCandidate"/>
+    <bpmn:sequenceFlow id="f1" sourceRef="S" targetRef="L"/>
+    <bpmn:sequenceFlow id="f2" sourceRef="L" targetRef="C"/>
+    <bpmn:sequenceFlow id="f3" sourceRef="C" targetRef="R"/>
+    <bpmn:sequenceFlow id="f4" sourceRef="R" targetRef="Q"/>
+    <bpmn:sequenceFlow id="fNo" sourceRef="Q" targetRef="M"/>
+    <bpmn:sequenceFlow id="f5" sourceRef="M" targetRef="R"/>
+    <bpmn:sequenceFlow id="fYes" sourceRef="Q" targetRef="A"/>
+    <bpmn:sequenceFlow id="f6" sourceRef="A" targetRef="H"/>
+    <bpmn:sequenceFlow id="fHold" sourceRef="H" targetRef="X"/>
+    <bpmn:sequenceFlow id="fPackage" sourceRef="H" targetRef="P"/>
+    <bpmn:sequenceFlow id="f7" sourceRef="P" targetRef="EndCandidate"/>
+  </bpmn:process>
+</bpmn:definitions>

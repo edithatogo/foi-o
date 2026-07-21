@@ -1,0 +1,6 @@
+version: 1.0.0
+risks:
+  - id: R-global_context_runtime_hardening
+    risk: stale or unauthorised cross-repository state
+    mitigation: workspace lock, duplicate search and human-gated external mutation
+    residual_status: open

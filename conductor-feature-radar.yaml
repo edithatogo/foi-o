@@ -1,0 +1,15 @@
+version: 1.0.0
+source: gemini-cli-extensions/conductor live-audit and bundled reference material
+policy:
+  unreleased_ideas_are_not_implemented: true
+  promotion_requires_benchmark_review_and_human_gate: true
+features:
+  - {id: multi-agent-subagent-support, status: assess, consumer: paper-review-harness, gate: human}
+  - {id: track-modification, status: assess, consumer: conductor-track-lifecycle, gate: review}
+  - {id: worktree-per-track, status: assess, consumer: conductor-isolation, gate: lease-and-human}
+  - {id: artifact-audit-setup, status: trial, consumer: conductor-validation, gate: review}
+  - {id: deterministic-planning, status: trial, consumer: requirements-and-traceability, gate: review}
+  - {id: long-input-context-management, status: trial, consumer: context-pack-runtime, gate: security-review}
+decisions:
+  hold_full_mojo_rewrite: true
+  hold_autonomous_legal_agent_swarm: true

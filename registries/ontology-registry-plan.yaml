@@ -1,0 +1,12 @@
+version: 1.0.0
+status_policy: {no_evidence_value: not_verified, prohibited_assumptions: [submitted, accepted, declined]}
+prerequisites: [canonical_global_namespace, persistent_uri_redirect_plan, version_iri_and_prior_version_metadata, machine_readable_license_publisher_maintainers, content_negotiation_html_turtle_jsonld, stable_documentation, shacl_validation, ontology_quality_report, citation_and_release_metadata, multilingual_labels_where_reviewed, migration_from_nz_namespace]
+registries:
+  - {id: LOV, priority: must_assess, scope_fit: likely, status: not_verified}
+  - {id: BARTOC, priority: must_assess, scope_fit: likely, status: not_verified}
+  - {id: FAIRsharing, priority: must_assess, scope_fit: conditional, status: not_verified}
+  - {id: RVA, priority: must_assess, scope_fit: likely, status: not_verified}
+  - {id: BioPortal, priority: wont_unless_scope_changes, scope_fit: low_non_biomedical, status: not_verified}
+  - {id: OBO, priority: wont, scope_fit: inappropriate_domain, status: not_applicable}
+quality_tools_to_assess: [ROBOT, Widoco, OOPS, FOOPS, pySHACL, ShEx, RDFLib]
+ledger_fields: [registry_id, eligibility_assessment, submission_date, submission_version, record_id, status, evidence_url, feedback_received_at, feedback_text_or_hash, remediation_issue, resubmission_date, human_approver]

@@ -1,0 +1,31 @@
+contract_id: foio.paper-review-score
+version: 1.0.0
+threshold: 995
+maximum_score: 1000
+maximum_react_iterations: 8
+independence:
+  authoring_agent_may_be_sole_grader: false
+  minimum_distinct_reviewer_roles: 7
+  adjudicator_must_preserve_disagreement: true
+hard_gates:
+  - {id: G-CITATIONS, critical: true, requirement: material citations resolved or human-queued}
+  - {id: G-BUILD, critical: true, requirement: reproducible manuscript and source bundle}
+  - {id: G-CLAIMS, critical: true, requirement: material claims have ledger evidence and derivability}
+  - {id: G-LEGAL, critical: true, requirement: no unsupported legal or universal-validation claim}
+  - {id: G-VERSIONS, critical: true, requirement: exact versions are locked}
+  - {id: G-REPRO, critical: true, requirement: rerun commands and artefact hashes are recorded}
+  - {id: G-REVIEW, critical: true, requirement: independent review reports are complete}
+  - {id: G-HUMAN, critical: true, requirement: submission remains human-approved}
+dimensions:
+  correctness_and_claim_discipline: 220
+  evidence_citation_and_provenance: 180
+  methods_statistics_and_triangulation: 140
+  ontology_semantics_and_profile_architecture: 110
+  reproducibility_software_and_data: 120
+  legal_safety_ethics_and_governance: 100
+  global_novelty_impact_and_positioning: 80
+  clarity_accessibility_and_editorial_quality: 50
+outputs:
+  - reports/paper/<release>/<run_id>/synthesis.json
+  - reports/paper/<release>/<run_id>/remediation-contract.yaml
+  - reports/paper/<release>/<run_id>/scorecard.yaml

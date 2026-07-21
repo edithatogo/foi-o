@@ -1,0 +1,6 @@
+version: 1.0.0
+risks:
+  - id: R-cross_repo_workspace_and_issue_orchestration
+    risk: stale or unauthorised cross-repository state
+    mitigation: workspace lock, duplicate search and human-gated external mutation
+    residual_status: open

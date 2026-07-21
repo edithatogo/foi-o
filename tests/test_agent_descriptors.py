@@ -27,6 +27,7 @@ def test_tool_manifest_descriptors_are_unique_and_safe() -> None:
     assert report["ok"], report["errors"]
     assert report["tool_count"] == len(report["tool_names"])
     assert "search_chunks" in report["tool_names"]
+    assert "map_fyi_nz_state" in report["tool_names"]
 
 
 def test_mcp_bundle_descriptors_are_safe_and_match_tool_contract() -> None:

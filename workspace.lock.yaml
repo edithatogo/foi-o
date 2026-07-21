@@ -1,0 +1,88 @@
+lock_version: 1.0.0
+generated_at: 2026-07-20T14:00:00Z
+workspace_root: /Volumes/PortableSSD/GitHub
+repositories:
+  foi-o:
+    remote: https://github.com/edithatogo/foi-o.git
+    role: semantic_profile_context_and_paper_owner
+    local_path: /Volumes/PortableSSD/GitHub/foi-o
+    commit: c4702380dfb50b0b856bbb1fc20953822dfaeee5
+    branch: codex/australia-profile-quality
+    dirty: true
+    upstream: gone
+    duplicate_remote_clones:
+      - local_path: /Volumes/PortableSSD/GitHub/foi-o-wiring
+        commit: a94d22fea5e0fdbfa6cd509683e0b4643c923c76
+        branch: feat/oia-rules-process-wiring
+        dirty: false
+        upstream: gone
+        authoritative: false
+  rac-conformance:
+    remote: https://github.com/edithatogo/rac-conformance.git
+    role: programme_conductor_and_conformance
+    local_path: /Volumes/PortableSSD/GitHub/rulesandprocesses
+    commit: a11d980617a1890fd13b400d3301ecb2b20394f1
+    branch: codex/process-mappings-incubator
+    dirty: true
+  fyi-cli:
+    remote: https://github.com/edithatogo/fyi-cli
+    role: capture_and_source_snapshot
+    local_path: /Volumes/PortableSSD/GitHub/fyi-cli
+    commit: dbb26ecefe83cd47034ef13600ecefd0154d8c41
+    branch: master
+    dirty: true
+    ahead_behind: {behind: 76, ahead: 1}
+  fyi-archive:
+    remote: https://github.com/edithatogo/fyi-archive.git
+    role: immutable_archive_and_publication
+    local_path: /Volumes/PortableSSD/GitHub/fyi-archive
+    commit: 57042b32dc63bbc2db636c329321b361027a8876
+    branch: codex/foio-capability-consumer-20260715
+    dirty: true
+  foi-process:
+    remote: https://github.com/edithatogo/foi-process.git
+    role: replay_ocel_process_evidence
+    local_path: /Volumes/PortableSSD/GitHub/foi-process
+    commit: f67a3512a670ed71474a2bbbfde73a5dc8fa4377
+    branch: codex/citation-metadata-20260714
+    dirty: false
+    fetch: completed_2026-07-21
+  legislation:
+    remote: https://github.com/edithatogo/legislation.git
+    role: official_legal_source_provider
+    local_path: /Volumes/PortableSSD/GitHub/legislation
+    commit: 31dbbc47abfa39af25ff8d0d20b66b89d45976fb
+    branch: main
+    dirty: true
+    ahead_behind: {behind: 0, ahead: 3}
+  nlp-policy-nz:
+    remote: https://github.com/edithatogo/nlp-policy-nz.git
+    role: normative_concept_candidate_producer
+    local_path: /Volumes/PortableSSD/GitHub/nlp-policy-nz
+    commit: 5a65be9621c1d1bc597f988c7660251f2311882d
+    branch: codex/archive-track92-actions-20260716
+    dirty: true
+  rulespec-nz:
+    remote: https://github.com/edithatogo/rulespec-nz.git
+    role: nz_deterministic_rules
+    local_path: /Volumes/PortableSSD/GitHub/rulespec-nz
+    commit: c10a809331f8e1c16dbd77a02bc8c08c08a7ee67
+    branch: main
+    dirty: false
+    ahead_behind: {behind: 0, ahead: 86}
+    fetch: completed_2026-07-21
+  sourceright:
+    remote: https://github.com/edithatogo/sourceright.git
+    role: paper_source_and_citation_audit
+    local_path: absent
+    commit: not_resolved_locally
+  authentext:
+    remote: https://github.com/edithatogo/authentext.git
+    role: final_editorial_workflow
+    local_path: absent
+    commit: not_resolved_locally
+conductor:
+  programme_repo: edithatogo/rac-conformance
+  local_repo_state: dirty_feature_branch
+  upstream_release: v0.4.1
+  bundled_archive_sha256: 4877122cf59b879d6121cd27054f99a3c9e1efee64771c22160fb487badfb528

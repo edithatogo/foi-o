@@ -1,0 +1,5 @@
+version: 1.0.0
+gates:
+  - id: HG-cross_repo_workspace_and_issue_orchestration
+    status: pending
+    action: human approval required before publication, promotion, submission or external destructive effect

@@ -1,0 +1,71 @@
+name: FOI-O programme controls
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * 6'
+
+permissions:
+  contents: read
+
+jobs:
+  quality-fast:
+    name: Fast deterministic programme quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Install project
+        run: python -m pip install --disable-pip-version-check -e '.[dev]'
+      - name: Validate requirements and capabilities
+        run: |
+          python scripts/validate_requirements.py
+          python -m foi_o_nz.cli validate-capability-registry
+      - name: Validate workflow pairs
+        run: python scripts/validate_workflows.py
+      - name: Validate version axes
+        run: python scripts/version_tool.py check
+      - name: Lint changed control-plane code
+        run: ruff check src tests scripts
+      - name: BasedPyright no-regression check
+        run: basedpyright
+      - name: zizmor workflow audit
+        run: zizmor --min-severity medium .github/workflows
+      - name: Focused deterministic tests
+        run: pytest -q tests/test_global_runtime_contracts.py tests/test_requirements_registry.py tests/test_paper_governance.py
+
+  quality-full:
+    name: Full reproducibility and governance audit
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Install project
+        run: python -m pip install --disable-pip-version-check -e '.[dev]'
+      - name: Run full tests
+        run: pytest -q
+      - name: Produce paper governance status without claiming readiness
+        run: |
+          set +e
+          python scripts/paper_governance.py > paper-governance.json
+          status=$?
+          set -e
+          test "$status" -eq 2
+      - name: Upload immutable audit outputs
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: foio-programme-audit-${{ github.sha }}
+          path: paper-governance.json
+          if-no-files-found: error
