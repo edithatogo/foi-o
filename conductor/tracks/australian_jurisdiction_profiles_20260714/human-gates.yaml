@@ -1,0 +1,7 @@
+version: 1.0.0
+gates:
+  - {id: AU-HG-01, status: pending, action: approve exact rights-reviewed Commonwealth and NSW source populations codebook sampling configuration and thresholds}
+  - {id: AU-HG-02, status: pending, action: appoint two distinct named human annotators and one distinct named human adjudicator}
+  - {id: AU-HG-03, status: pending, action: perform blinded annotation and adjudication over the frozen sample}
+  - {id: AU-HG-04, status: pending, action: approve hold or reject each pilot profile maturity claim after reviewing all adverse and uncertain results}
+  - {id: AU-HG-05, status: pending, action: separately authorize any profile promotion publication release or tranche 5 expansion}

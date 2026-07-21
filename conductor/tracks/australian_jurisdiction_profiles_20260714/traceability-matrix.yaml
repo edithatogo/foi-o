@@ -1,0 +1,7 @@
+version: 1.0.0
+traceability:
+  - {requirement: AU-EV-001, implementation: [src/foi_o_nz/australian_empirical_readiness.py, scripts/validate_australian_empirical_readiness.py, phase-3-readiness.json, phase-3-operator-packet.json, schemas/json/australian-empirical-operator-packet.schema.json], tests: [tests/test_australian_empirical_readiness.py], status: blocked_on_inputs_with_complete_operator_routing}
+  - {requirement: AU-EV-002, implementation: [src/foi_o_nz/empirical_verification.py, schemas/json/locked-annotation-record.schema.json, schemas/json/adjudication-record.schema.json], tests: [tests/test_empirical_verification.py], status: blocked_on_human_execution}
+  - {requirement: AU-EV-003, implementation: [src/foi_o_nz/empirical_verification.py, schemas/json/reliability-report.schema.json], tests: [tests/test_empirical_verification.py], status: blocked_on_adjudicated_set}
+  - {requirement: AU-EV-004, implementation: [src/foi_o_nz/source_triangulation.py, schemas/json/source-triangulation-result.schema.json, examples/v2/source-triangulation.example.json], tests: [tests/test_source_triangulation.py], status: implemented}
+  - {requirement: AU-EV-005, implementation: [workflow.md, workflow.bpmn, human-gates.yaml], tests: [tests/test_australian_empirical_readiness.py], status: blocked_on_named_human_decision}

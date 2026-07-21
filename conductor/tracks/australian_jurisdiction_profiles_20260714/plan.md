@@ -61,14 +61,43 @@ GitHub subissue: [#29](https://github.com/edithatogo/foi-o/issues/29).
 GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 
 - [ ] Task: Freeze stratified Commonwealth and NSW example samples.
+  - [x] Repository readiness subtask: machine-check exact Commonwealth/NSW
+        legal, archive, extraction, sampling, rights, and human-role inputs;
+        reject placeholder or cross-profile evidence before sample freeze.
+        (`6867bca`; strict mode currently exits 2 with 12 explicit blockers and
+        never authorizes profile promotion.)
 - [ ] Task: Dual-annotate, adjudicate, and report agreement by label family.
 - [ ] Task: Evaluate ontology-pinned extraction and route disagreements to review.
-- [ ] Task: Build a deterministic source-triangulation resolver with primary
-      source precedence and explicit exception reasons.
+- [x] Task: Build a deterministic source-triangulation resolver with primary
+      source precedence and explicit exception reasons. (`2cd36a6`; contract
+      v0.2.0 records controlling authority/source IDs, excludes derived
+      summaries from controlling evidence, and retains fail-closed exceptions.)
 - [ ] Task: Freeze the sampling frame, exclusions, unit of analysis, annotation
       codebook, and reliability thresholds before evaluation.
+  - [x] Workflow subtask: pair the fail-closed empirical sequence in
+        Markdown/Mermaid and BPMN 2.0, including the named-human decision and
+        no-promotion boundary. (`2f81588`; paired artifacts are structurally
+        tested.)
 - [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
 - [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
+
+### Phase 3 review fixes
+
+- [x] Task: Refresh generated maturation inventory counts after adding the
+      operator-packet schema. (`ea5565e`; generated summary and coverage matrix
+      now record 182 JSON Schema files.)
+- [x] Task: Publish a schema-validated operator packet that maps every current
+      readiness blocker to its owner issue, required evidence, and human gate.
+      (`dad961b`; all 12 blockers are covered exactly once and promotion and
+      tranche 5 remain prohibited.)
+- [x] Task: Refresh generated ontology inventory evidence, install the declared
+      RDF validation extra, and document the source-triangulation v0.2.0
+      migration boundary found by whole-suite review. (`f158099`; focused
+      ontology, SHACL, readiness, and triangulation review suite: 30 passed.)
+- [x] Task: Repair the legacy track's requirements, risk, traceability,
+      decisions, outputs, human-gate, workflow, issue, acceptance, closeout,
+      and append-only evidence records. (`8a828b4`; required governance files
+      parse and the workflow-pair test passes.)
 
 ## Phase 4: Pilot decision gate
 
