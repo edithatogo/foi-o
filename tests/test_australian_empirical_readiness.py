@@ -1,0 +1,120 @@
+import copy
+import json
+from pathlib import Path
+from typing import Any, cast
+
+import pytest
+from jsonschema import Draft202012Validator
+from pydantic import ValidationError
+
+from foi_o_nz.australian_empirical_readiness import (
+    AustralianEmpiricalReadiness,
+    audit_australian_empirical_readiness,
+)
+
+ROOT = Path(__file__).parent.parent
+MANIFEST = (
+    ROOT
+    / "conductor"
+    / "tracks"
+    / "australian_jurisdiction_profiles_20260714"
+    / "phase-3-readiness.json"
+)
+
+
+def _current() -> dict[str, Any]:
+    return cast(dict[str, Any], json.loads(MANIFEST.read_text(encoding="utf-8")))
+
+
+def test_current_manifest_reports_exact_fail_closed_blockers() -> None:
+    payload = _current()
+    schema = AustralianEmpiricalReadiness.model_json_schema()
+    Draft202012Validator(schema).validate(payload)
+    manifest = AustralianEmpiricalReadiness.model_validate(payload)
+
+    result = audit_australian_empirical_readiness(manifest)
+
+    assert result.ready is False
+    assert result.promotion_allowed is False
+    assert set(result.profile_ids) == {"foio-au-cth", "foio-au-nsw"}
+    assert {
+        "foio-au-cth.legislation.approved_source_pack_missing",
+        "foio-au-cth.archive.immutable_sample_missing",
+        "foio-au-cth.extraction.placeholder_or_missing",
+        "foio-au-nsw.legislation.approved_source_pack_missing",
+        "foio-au-nsw.archive.immutable_sample_missing",
+        "foio-au-nsw.extraction.placeholder_or_missing",
+        "sampling.codebook_revision_missing",
+        "sampling.configuration_not_approved",
+        "sampling.reliability_thresholds_not_approved",
+        "human_roles.two_independent_annotators_missing",
+        "human_roles.adjudicator_missing",
+        "human_roles.assignment_not_approved",
+    }.issubset(result.blockers)
+
+
+def test_complete_independent_inputs_can_be_ready_without_promoting() -> None:
+    payload = _current()
+    profiles = cast(list[dict[str, Any]], payload["profiles"])
+    for profile_index, profile in enumerate(profiles):
+        assert isinstance(profile, dict)
+        for artifact_index, key in enumerate(("legislation", "archive", "extraction")):
+            artifact = cast(dict[str, Any], profile[key])
+            artifact.update(
+                status="approved",
+                artifact_path=f"manifests/{profile['profile_id']}/{key}.json",
+                artifact_sha256=f"{profile_index + artifact_index + 1:064x}",
+                rights_reviewed=True,
+                independently_reviewed=True,
+            )
+    sampling = cast(dict[str, Any], payload["sampling"])
+    sampling.update(
+        codebook_revision="a" * 40,
+        sampling_configuration_sha256="b" * 64,
+        configuration_approved=True,
+        reliability_thresholds_approved=True,
+    )
+    roles = cast(dict[str, Any], payload["human_roles"])
+    roles.update(
+        annotator_ids=["human:annotator-a", "human:annotator-b"],
+        adjudicator_id="human:adjudicator",
+        assignment_approved=True,
+    )
+
+    result = audit_australian_empirical_readiness(
+        AustralianEmpiricalReadiness.model_validate(payload)
+    )
+
+    assert result.ready is True
+    assert result.blockers == []
+    assert result.promotion_allowed is False
+
+
+def test_repeated_placeholder_digest_is_rejected_even_if_marked_approved() -> None:
+    payload = _current()
+    profiles = cast(list[dict[str, Any]], payload["profiles"])
+    artifact = cast(dict[str, Any], profiles[0]["extraction"])
+    artifact.update(
+        status="approved",
+        artifact_path="fixture.json",
+        artifact_sha256="b" * 64,
+        rights_reviewed=True,
+        independently_reviewed=True,
+    )
+
+    result = audit_australian_empirical_readiness(
+        AustralianEmpiricalReadiness.model_validate(payload)
+    )
+
+    assert "foio-au-cth.extraction.placeholder_or_missing" in result.blockers
+
+
+def test_manifest_rejects_an_unplanned_profile() -> None:
+    payload = _current()
+    profiles = cast(list[dict[str, Any]], payload["profiles"])
+    extra = copy.deepcopy(profiles[0])
+    extra.update(profile_id="foio-au-vic", jurisdiction="AU-VIC")
+    profiles.append(extra)
+
+    with pytest.raises(ValidationError, match="exactly AU-CTH and AU-NSW"):
+        AustralianEmpiricalReadiness.model_validate(payload)
