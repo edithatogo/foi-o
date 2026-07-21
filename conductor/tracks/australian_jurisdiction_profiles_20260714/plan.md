@@ -61,6 +61,11 @@ GitHub subissue: [#29](https://github.com/edithatogo/foi-o/issues/29).
 GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 
 - [ ] Task: Freeze stratified Commonwealth and NSW example samples.
+  - [x] Repository readiness subtask: machine-check exact Commonwealth/NSW
+        legal, archive, extraction, sampling, rights, and human-role inputs;
+        reject placeholder or cross-profile evidence before sample freeze.
+        (`6867bca`; strict mode currently exits 2 with 12 explicit blockers and
+        never authorizes profile promotion.)
 - [ ] Task: Dual-annotate, adjudicate, and report agreement by label family.
 - [ ] Task: Evaluate ontology-pinned extraction and route disagreements to review.
 - [x] Task: Build a deterministic source-triangulation resolver with primary
