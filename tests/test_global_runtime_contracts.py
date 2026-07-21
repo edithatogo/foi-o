@@ -35,7 +35,7 @@ def _plan(**overrides):
         "model_version": "model-1",
     }
     values.update(overrides)
-    return ContextPlan(**values)
+    return ContextPlan.model_validate(values)
 
 
 def test_context_diff_recommends_abstention_when_evidence_is_removed():
