@@ -1,0 +1,4 @@
+Task: mark Australian jurisdiction profile track in progress
+Files: conductor/tracks.md; conductor/tracks/australian_jurisdiction_profiles_20260714/metadata.json
+Verification: metadata JSON parse; git diff --check
+Remaining risks: authentic AU pilot inputs and independent human annotation remain unavailable
