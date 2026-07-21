@@ -1,0 +1,1 @@
+Review fix: Refresh generated maturation inventory after the operator-packet schema increased the JSON Schema count from 181 to 182. Verification: ontology maturation and readiness tests 16 passed; Ruff, ty, repository, examples, requirements, profile, and workflow validators passed.
