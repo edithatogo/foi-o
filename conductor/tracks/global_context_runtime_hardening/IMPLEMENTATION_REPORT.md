@@ -136,3 +136,25 @@ branch/recovery decision.
   repository's existing warning-level top-level-key differences.
 - Local execution artefacts are now ignored by `.gitignore` (`.codex/`,
   `.playwright-mcp/`, `output/`, and the ZIP input) without deleting them.
+
+## Final main reconciliation and remote merge — 2026-07-21
+
+The programme branch was reconciled with the newer `origin/main` V2 contracts,
+source-pack schemas, release workflow, and empirical fixture tests. The
+environment-sensitive approved-snapshot test now skips when a restricted
+snapshot lacks its required manifest, and the live FastMCP test includes the
+explicit `map_fyi_nz_state` descriptor.
+
+Final local evidence after reconciliation:
+
+- `uv run pytest -q`: 829 passed, 4 skipped.
+- `uv run ty check src tests scripts`: passed.
+- `uv run basedpyright`: passed with an empty baseline.
+- Ruff, zizmor, actionlint, repository, requirements, workflow, version,
+  capability, and full Conductor validation: passed.
+- PR [#76](https://github.com/edithatogo/foi-o/pull/76) merged into `main` at
+  `eb7b94134ace4579c3490183e65ae622586561e0`; hosted Python 3.12/3.14,
+  programme quality, Mojo, security, CodeQL, and dependent checks passed.
+
+Publication, live capture, independent human adjudication, legal/profile
+promotion, registry submission, and external release remain human-gated.
