@@ -54,6 +54,21 @@
       "rejection_reason": "API key required; dataset is Federal-only and last completed in 2018, so it cannot represent the approved current AU-CTH/AU-NSW population"
     }
   ],
+  "internet_archive_cdx_attempt": {
+    "query_scope": "https://www.righttoknow.org.au/request/*",
+    "query_url": "https://web.archive.org/cdx/search/cdx?url=www.righttoknow.org.au/request/*&matchType=prefix&output=json&fl=original,timestamp,digest,statuscode,length&filter=statuscode:200&collapse=urlkey&limit=1000",
+    "retrieved_at": "2026-07-21T23:10:32Z",
+    "cdx_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "byte_count": 3,
+    "record_count": 0,
+    "import_status": "completed_empty",
+    "enrichment_status": "completed_zero_records",
+    "anna_archive": {
+      "used": false,
+      "status": "prohibited_non_authoritative_secondary_source",
+      "reason": "Not an official RightToKnow/OpenAustralia or Internet Archive provenance source; rights and chain of custody are unsuitable for this governed evidence package."
+    }
+  },
   "outputs": {
     "records_captured": 0,
     "immutable_manifests_created": 0,
