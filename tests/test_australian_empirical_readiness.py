@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any, cast
 
 import pytest
+import yaml
 from jsonschema import Draft202012Validator
 from pydantic import ValidationError
 
@@ -22,6 +23,10 @@ MANIFEST = (
     / "phase-3-readiness.json"
 )
 TRACK = MANIFEST.parent
+OPERATOR_PACKET = TRACK / "phase-3-operator-packet.json"
+OPERATOR_PACKET_SCHEMA = (
+    ROOT / "schemas" / "json" / "australian-empirical-operator-packet.schema.json"
+)
 
 
 def _current() -> dict[str, Any]:
@@ -53,6 +58,32 @@ def test_current_manifest_reports_exact_fail_closed_blockers() -> None:
         "human_roles.adjudicator_missing",
         "human_roles.assignment_not_approved",
     }.issubset(result.blockers)
+
+
+def test_operator_packet_covers_every_current_blocker_and_human_gate() -> None:
+    packet = json.loads(OPERATOR_PACKET.read_text(encoding="utf-8"))
+    schema = json.loads(OPERATOR_PACKET_SCHEMA.read_text(encoding="utf-8"))
+    Draft202012Validator(schema).validate(packet)
+
+    readiness = AustralianEmpiricalReadiness.model_validate(_current())
+    blockers = audit_australian_empirical_readiness(readiness).blockers
+    covered = [blocker for action in packet["actions"] for blocker in action["readiness_blockers"]]
+    assert sorted(covered) == blockers
+    assert len(covered) == len(set(covered))
+
+    gates = yaml.safe_load((TRACK / "human-gates.yaml").read_text(encoding="utf-8"))
+    known_gate_ids = {gate["id"] for gate in gates["gates"]}
+    assert {
+        gate_id for action in packet["actions"] for gate_id in action["human_gate_ids"]
+    }.issubset(known_gate_ids)
+    assert all(action["status"] == "pending" for action in packet["actions"])
+    assert all(action["automatable"] is False for action in packet["actions"])
+    assert packet["strict_validation_command"] == (
+        "python scripts/validate_australian_empirical_readiness.py --require-ready"
+    )
+    assert packet["tranche_3_complete"] is False
+    assert packet["tranche_5_expansion_allowed"] is False
+    assert packet["profile_promotion_allowed"] is False
 
 
 def test_complete_independent_inputs_can_be_ready_without_promoting() -> None:

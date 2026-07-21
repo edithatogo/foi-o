@@ -6,7 +6,7 @@ requirements:
     priority: must
     status: blocked
     source: spec.md#minimum-evidence-per-jurisdiction
-    acceptance_evidence: [phase-3-readiness.json, scripts/validate_australian_empirical_readiness.py]
+    acceptance_evidence: [phase-3-readiness.json, phase-3-operator-packet.json, scripts/validate_australian_empirical_readiness.py]
     dependencies: [approved_legal_source_packs, immutable_archive_samples, approved_sampling_inputs]
     supersedes: []
     superseded_by: []

@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:australian-empirical-operator-packet:0.1.0",
+  "title": "Australian empirical validation operator packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "recorded_at",
+    "track_id",
+    "readiness_manifest",
+    "phase_issue_url",
+    "implementation_pr_url",
+    "actions",
+    "strict_validation_command",
+    "tranche_3_complete",
+    "tranche_5_expansion_allowed",
+    "profile_promotion_allowed",
+    "prohibited_actions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o.australian-empirical-operator-packet.v0.1.0"
+    },
+    "packet_id": {
+      "const": "foio-au-tranche-3-operator-gates-2026-07-21"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "track_id": {
+      "const": "australian_jurisdiction_profiles_20260714"
+    },
+    "readiness_manifest": {
+      "$ref": "#/$defs/artifact"
+    },
+    "phase_issue_url": {
+      "const": "https://github.com/edithatogo/foi-o/issues/30"
+    },
+    "implementation_pr_url": {
+      "const": "https://github.com/edithatogo/foi-o/pull/88"
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "$ref": "#/$defs/action"
+      }
+    },
+    "strict_validation_command": {
+      "const": "python scripts/validate_australian_empirical_readiness.py --require-ready"
+    },
+    "tranche_3_complete": {
+      "const": false
+    },
+    "tranche_5_expansion_allowed": {
+      "const": false
+    },
+    "profile_promotion_allowed": {
+      "const": false
+    },
+    "prohibited_actions": {
+      "const": [
+        "infer_human_approval",
+        "substitute_synthetic_or_placeholder_evidence",
+        "reuse_evidence_across_profiles",
+        "promote_a_profile",
+        "begin_tranche_5",
+        "publish_or_release_empirical_outputs"
+      ]
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {
+          "const": "conductor/tracks/australian_jurisdiction_profiles_20260714/phase-3-readiness.json"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action_id",
+        "owner_repo",
+        "issue_url",
+        "readiness_blockers",
+        "human_gate_ids",
+        "action",
+        "evidence_required",
+        "status",
+        "automatable",
+        "completion_actor"
+      ],
+      "properties": {
+        "action_id": {
+          "type": "string",
+          "pattern": "^AU-OP-[0-9]{2}$"
+        },
+        "owner_repo": {
+          "type": "string",
+          "pattern": "^edithatogo/[A-Za-z0-9._-]+$"
+        },
+        "issue_url": {
+          "type": "string",
+          "pattern": "^https://github.com/edithatogo/[A-Za-z0-9._-]+/issues/[0-9]+$"
+        },
+        "readiness_blockers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "human_gate_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^AU-HG-[0-9]{2}$"
+          }
+        },
+        "action": {
+          "type": "string",
+          "minLength": 20
+        },
+        "evidence_required": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 5
+          }
+        },
+        "status": {
+          "const": "pending"
+        },
+        "automatable": {
+          "const": false
+        },
+        "completion_actor": {
+          "const": "named_human"
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 version: 1.0.0
 outputs:
   - {path: phase-3-readiness.json, status: produced, empirical_evidence: false}
+  - {path: phase-3-operator-packet.json, status: produced, empirical_evidence: false}
   - {path: workflow.md, status: produced, empirical_evidence: false}
   - {path: workflow.bpmn, status: produced, empirical_evidence: false}
   - {path: ../../../src/foi_o_nz/source_triangulation.py, status: produced, empirical_evidence: false}

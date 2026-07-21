@@ -9,3 +9,6 @@ maturity decisions are recorded.
 
 Repository machinery is necessary but not sufficient. The current readiness
 manifest is deliberately not ready and profile promotion is always false.
+The schema-validated operator packet covers every current blocker exactly once
+and identifies its owner issue, required evidence, and named-human gate; it is
+an execution handoff, not evidence that any gate has passed.
