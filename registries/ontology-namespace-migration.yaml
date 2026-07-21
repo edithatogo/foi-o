@@ -1,0 +1,11 @@
+version: 1.0.0
+canonical_namespace: https://w3id.org/foio/
+legacy_profile_namespace: https://w3id.org/foio-nz/ontology#
+status: candidate
+aliases:
+  - {legacy: https://w3id.org/foio-nz/ontology#, canonical: https://w3id.org/foio/ontology#, status: pending_review}
+policy:
+  automatic_semantic_promotion: false
+  preserve_legacy_identifiers: true
+  require_uri_redirect_plan: true
+  require_human_approval: true
