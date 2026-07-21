@@ -1,0 +1,4 @@
+Task: Australian empirical input readiness
+Files: readiness model, validator, manifest, tests, Makefile and programme CI
+Verification: 14 focused tests passed with triangulation suite; Ruff lint/format; ty check; strict readiness exits 2 with 12 explicit blockers
+Remaining risks: upstream legal/archive/extraction artifacts and independent human roles are not yet approved
