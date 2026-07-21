@@ -37,6 +37,11 @@
       "route": "https://www.righttoknow.org.au/list/all",
       "purpose": "documented HTML list route",
       "http_status": 403
+    },
+    {
+      "route": "https://www.righttoknow.org.au/request/defencegovau_robotstxt.json",
+      "purpose": "documented per-request JSON route",
+      "http_status": 403
     }
   ],
   "outputs": {
