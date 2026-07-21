@@ -73,14 +73,14 @@ requirements:
     source: CODEX_PROMPT.md#5
     rationale: Onboard profiles independently without inheriting legal conclusions.
     owner_repo: edithatogo/foi-o
-    acceptance_evidence: [profiles/registry.yaml, profiles/capability-maturity.yaml, operations/access-policy.yaml, issue-24]
+    acceptance_evidence: [profiles/registry.yaml, profiles/capability-maturity.yaml, profiles/roadmap.yaml, conductor/jurisdiction-completion-map.yaml, scripts/validate_jurisdiction_completion.py, issue-81]
     dependencies: [FOIO-REQ-CTX-001, FOIO-REQ-CAP-001]
     blockers: [operator access, rights review, independent annotation, legal promotion]
     risk: false readiness or cross-jurisdiction fallback
     release_target: profile-alpha
     supersedes: []
     superseded_by: []
-    change_log: [2026-07-21: onboarding registry and independent dimensions added]
+    change_log: [2026-07-21: onboarding registry and independent dimensions added, 2026-07-21: six-phase incremental completion contract and cross-repository ownership added]
   - id: FOIO-REQ-PAPER-001
     version: 1.0.0
     title: Global paper update and independent review harness

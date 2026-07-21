@@ -51,6 +51,7 @@ validate: ## Validate schemas, examples, RDF and mappings
 
 profile-quality: ## Validate jurisdiction lifecycle, maturity, pack, and access controls
 	uv run python scripts/validate_jurisdiction_profiles.py
+	uv run python scripts/validate_jurisdiction_completion.py
 
 ontology-quality: ## Validate ontology registry readiness and RDF quality signals
 	uv run python scripts/validate_ontology_quality.py

@@ -1,0 +1,43 @@
+version: 1.0.0
+programme_issue: https://github.com/edithatogo/foi-o/issues/81
+policy:
+  delivery: incremental_by_tranche_and_jurisdiction
+  completion_rule: every_target_must_complete_every_phase
+  legal_inference_from_platform_state: prohibited
+  automatic_profile_promotion: prohibited
+phase_contract:
+  - {id: legislation_access, owner_repo: edithatogo/legislation, requirement: use an existing official API/provider, add one where available, or make a governed manual acquisition with provenance, effective dates, rights and hashes}
+  - {id: gazette_equivalent, owner_repo: edithatogo/legislation, requirement: identify and preserve Gazette or equivalent commencement, subordinate-instrument, implementation and regulator material}
+  - {id: bounded_capture, owner_repo: edithatogo/fyi-cli, requirement: verify jurisdiction capture and add a bounded adapter when absent}
+  - {id: immutable_archive, owner_repo: edithatogo/fyi-archive, requirement: archive captures and attachments with immutable manifests and integrity evidence}
+  - {id: governed_extraction, owner_repo: edithatogo/nlp-policy-nz, requirement: extract candidate legislation, Gazette and case rules under ontology, source and human-review controls}
+  - {id: case_process_modelling, owner_repo: edithatogo/foi-process, requirement: model representative FOI cases and process paths with temporal provenance, annotation and promotion gates}
+repository_tracks:
+  - {repo: edithatogo/foi-o, issue: 81, track: jurisdiction_onboarding_and_capability_maturity}
+  - {repo: edithatogo/legislation, issue: 105, track: global_foi_legislation_gazette_coverage_20260721}
+  - {repo: edithatogo/fyi-cli, issue: 234, track: jurisdiction-capture-completion-20260721}
+  - {repo: edithatogo/fyi-archive, issue: 210, track: jurisdiction_archive_completion_20260721}
+  - {repo: edithatogo/nlp-policy-nz, issue: 144, track: track98_global_foi_jurisdiction_extraction_20260721}
+  - {repo: edithatogo/foi-process, issue: 39, track: jurisdiction_case_process_modelling_20260721}
+tranches:
+  - id: foundation
+    issue: 82
+    targets: [NZ-OIA, NZ-LGOIMA]
+  - id: australia
+    issue: 24
+    targets: [AU-CTH, AU-NSW, AU-VIC, AU-QLD, AU-ACT, AU-SA, AU-TAS, AU-WA, AU-NT]
+  - id: uk_and_european_english
+    issue: 83
+    targets: [UK-FOIA, UK-EIR, SCOT-FOISA, SCOT-EIR, EU-ACCESS-DOCUMENTS, IE-FOI-DISCOVERY]
+  - id: official_alaveteli_discovery
+    issue: 84
+    rescan_before_implementation: true
+    targets: [Czech Republic, France, Sweden, Netherlands, Belgium, Croatia, Hungary, Ukraine, Greece, Moldova, Hong Kong, Uruguay, Liberia, Colombia, New Jersey USA, Argentina, Georgia, Romania, Kosovo]
+  - id: additional_supported_platform_discovery
+    issue: 85
+    targets: [Germany/FragDenStaat, Spain/Tu Derecho a Saber, Ireland/MyRightToKnow]
+  - id: non_alaveteli
+    issue: 86
+    targets: [CA-FED, US-FOIA-FED, ZA-PAIA]
+required_evidence: [official_source_identity, effective_or_capture_date, acquisition_method, rights_and_redistribution, immutable_hashes, extractor_and_ontology_versions, positive_and_negative_examples, independent_annotation_or_oracle, issue_and_track_cross_references]
+human_gates: [operator_authorisation_for_live_capture, rights_review, legal_or_profile_promotion, publication_or_dataset_release]
