@@ -1,0 +1,4 @@
+Task: repair Australian track governance integrity
+Files: track requirements, risks, traceability, decisions, outputs, gates, workflow pair, issue export, acceptance, closeout, evidence, metadata/index, workflow test
+Verification: governance JSON/YAML/JSONL parse; 15 focused tests; Ruff and ty; git diff check
+Remaining risks: twelve readiness blockers prevent empirical execution and closeout
