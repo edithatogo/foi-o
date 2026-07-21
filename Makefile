@@ -1,6 +1,6 @@
 .PHONY: help install sync lock lint format format-fix typecheck typecheck-basedpyright test test-fast test-full test-serial test-cov \
         quality validate smoke normalise quality-gate rdf embeddings agent-policy schema-drift duckdb-sql chunks ledger risk retrieval redactions agent-pack diff repro metadata openapi tool-manifest benchmark kernel-status kernel-conformance mojo-audit kernel-manifest kernel-fixtures kernel-readiness mojo-format mojo-test mojo-build \
-        spell toml-check workflow-audit workflow-syntax security-audit sbom clean
+        spell toml-check workflow-audit workflow-syntax security-audit sbom profile-quality clean
 
 PKG := foi_o_nz
 PYTHON ?= python
@@ -48,6 +48,9 @@ test-cov: ## Run Python tests with coverage
 
 validate: ## Validate schemas, examples, RDF and mappings
 	uv run python tests/validate_repo.py
+
+profile-quality: ## Validate jurisdiction lifecycle, maturity, pack, and access controls
+	uv run python scripts/validate_jurisdiction_profiles.py
 
 smoke: ## Generate local smoke fixture and validate it
 	uv run foi-o-nz smoke-fixture --output-dir data/smoke
