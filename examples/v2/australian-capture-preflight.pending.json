@@ -1,0 +1,63 @@
+{
+  "schema_version": "foi-o.australian-capture-preflight.v0.1.0",
+  "packet_id": "foio-au-capture-preflight-20260721",
+  "status": "pending_execution_authorization_and_rights_review",
+  "execution_allowed": false,
+  "scope": {
+    "instance_id": "au-rtk",
+    "base_url": "https://www.righttoknow.org.au",
+    "jurisdictions": ["NSW", "FEDERAL"],
+    "purpose": "local empirical validation and immutable local archival",
+    "read_only": true,
+    "authenticated_access": false
+  },
+  "caps": {
+    "max_requests_per_jurisdiction": 50,
+    "max_runtime_minutes_per_jurisdiction": 30,
+    "delay_seconds": 2,
+    "continue_on_error": false,
+    "max_disk_gb": null
+  },
+  "implementation_pins": {
+    "fyi_cli_commit": "3454a24",
+    "fyi_archive_commit": "8477704",
+    "pilot_config": "configs/au/jurisdiction_rollout_empirical_pilot.json",
+    "pilot_config_commit": "8477704",
+    "execution_plan_path": "conductor/tracks/australian_jurisdiction_profiles_20260714/capture-execution-plan-20260721.md",
+    "execution_plan_sha256": "bf991cb67f0172c16e5341e81a02078c6c53d622557e84930a85cda37d053f7c"
+  },
+  "source_pack_pins": {
+    "AU-CTH": {
+      "path": "examples/v2/australian-source-pack-au-cth.candidate.json",
+      "sha256": "862d7a4d72ef85c81b29592e17d6f0977d78f9a6b43ac6bf9295450c71d8631c",
+      "rights_review_status": "pending"
+    },
+    "AU-NSW": {
+      "path": "examples/v2/australian-source-pack-au-nsw.candidate.json",
+      "sha256": "f16d487bbc629935477654c73c27f041920a49210c07b4cbbdb6267d4976975f",
+      "rights_review_status": "pending",
+      "content_acquisition_status": "direct_cli_retrieval_blocked_http_403"
+    }
+  },
+  "authorization": {
+    "record_path": "conductor/tracks/australian_jurisdiction_profiles_20260714/capture-authorization-20260721.md",
+    "record_committed": false,
+    "approval_date": null,
+    "execution_authorized_by_record": false
+  },
+  "blockers": [
+    "execution authorization record is explicitly non-authorizing and uncommitted",
+    "approval timestamp is missing",
+    "source rights review is pending for both jurisdictions",
+    "NSW source content digest is unavailable after HTTP 403",
+    "maximum disk budget is not set"
+  ],
+  "prohibitions": [
+    "no submissions",
+    "no access-control bypass",
+    "no publication or dataset release",
+    "no training",
+    "no profile promotion",
+    "no remaining-jurisdiction expansion"
+  ]
+}

@@ -29,3 +29,14 @@ def test_source_evidence_fails_closed_for_unretrieved_nsw_content() -> None:
     assert sources["AU-CTH"]["content_sha256"]
     assert sources["AU-NSW"]["content_sha256"] is None
     assert sources["AU-NSW"]["acquisition_status"] == "direct_cli_retrieval_blocked_http_403"
+
+
+def test_capture_preflight_is_pinned_and_execution_closed() -> None:
+    packet_path = ROOT / "examples/v2/australian-capture-preflight.pending.json"
+    packet = json.loads(packet_path.read_text(encoding="utf-8"))
+    assert packet["execution_allowed"] is False
+    assert packet["scope"]["jurisdictions"] == ["NSW", "FEDERAL"]
+    assert packet["authorization"]["execution_authorized_by_record"] is False
+    for jurisdiction, pin in packet["source_pack_pins"].items():
+        assert hashlib.sha256((ROOT / pin["path"]).read_bytes()).hexdigest() == pin["sha256"]
+        assert packet["source_pack_pins"][jurisdiction]["rights_review_status"] == "pending"
