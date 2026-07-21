@@ -2,3 +2,4 @@ version: 1.0.0
 outputs:
   - {path: workspace-audit.md, status: produced}
   - {path: issue-dry-run.json, status: produced}
+  - {path: review-evidence-20260721.md, status: produced}
