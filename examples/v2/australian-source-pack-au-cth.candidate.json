@@ -1,0 +1,24 @@
+{
+  "pack_id": "source-pack:au-cth:2026-07-21-candidate",
+  "jurisdiction": "AU-CTH",
+  "version": "0.1.0",
+  "generated_at": "2026-07-21T12:08:55Z",
+  "law_at_event_time": true,
+  "normative_source_ids": [
+    "au-cth.foi.act.1982.C2026C00020"
+  ],
+  "components": {
+    "legislation_versions": [
+      "au-cth.foi.act.1982.C2026C00020"
+    ],
+    "regulations_and_instruments": [],
+    "gazettes": [],
+    "parliamentary_materials": [],
+    "review_findings": [],
+    "guidance": [],
+    "calendars": [],
+    "authority_identity_history": []
+  },
+  "rights_review_status": "pending",
+  "source_manifest_sha256": "262f70623e7c7166c679fda76f2486be4e145c2358a84f7a60777be5edd8558f"
+}

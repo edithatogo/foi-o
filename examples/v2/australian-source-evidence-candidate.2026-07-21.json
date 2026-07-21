@@ -1,0 +1,39 @@
+{
+  "schema_version": "foi-o.australian-source-evidence-candidate.v0.1.0",
+  "created_at": "2026-07-21T12:08:55Z",
+  "status": "candidate_pending_rights_and_nsw_content_review",
+  "sources": [
+    {
+      "source_id": "au-cth.foi.act.1982.C2026C00020",
+      "jurisdiction": "AU-CTH",
+      "title": "Freedom of Information Act 1982",
+      "source_url": "https://www.legislation.gov.au/C2004A02562/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1/document_1.html",
+      "effective_from": "2026-01-01",
+      "retrieved_at": "2026-07-21T12:08:54Z",
+      "content_format": "official_epub_html_xml",
+      "content_sha256": "b79f06c82b7d9e01ecf2529303954842f86818365c9f3ca4a079756e195e447f",
+      "acquisition_status": "retrieved_and_hash_verified",
+      "rights_status": "pending_review"
+    },
+    {
+      "source_id": "au-nsw.gipa.act.2009-052.current",
+      "jurisdiction": "AU-NSW",
+      "title": "Government Information (Public Access) Act 2009 No 52",
+      "source_url": "https://legislation.nsw.gov.au/view/whole/html/inforce/current/act-2009-052",
+      "xml_url": "https://legislation.nsw.gov.au/view/whole/xml/inforce/current/act-2009-052",
+      "export_help_url": "https://legislation.nsw.gov.au/help/export",
+      "effective_from": "current_at_retrieval",
+      "retrieved_at": "2026-07-21T12:08:55Z",
+      "content_format": "official_html_xml_export",
+      "content_sha256": null,
+      "acquisition_status": "direct_cli_retrieval_blocked_http_403",
+      "rights_status": "pending_review"
+    }
+  ],
+  "prohibitions": [
+    "no_legal_interpretation",
+    "no_profile_promotion",
+    "no_publication_or_dataset_release",
+    "no_raw_source_redistribution_before_rights_review"
+  ]
+}
