@@ -74,6 +74,10 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       summaries from controlling evidence, and retains fail-closed exceptions.)
 - [ ] Task: Freeze the sampling frame, exclusions, unit of analysis, annotation
       codebook, and reliability thresholds before evaluation.
+  - [x] Workflow subtask: pair the fail-closed empirical sequence in
+        Markdown/Mermaid and BPMN 2.0, including the named-human decision and
+        no-promotion boundary. (`2f81588`; paired artifacts are structurally
+        tested.)
 - [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
 - [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
 
