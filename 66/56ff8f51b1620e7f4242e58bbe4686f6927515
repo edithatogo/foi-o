@@ -1,0 +1,1 @@
+Task: preserve and audit the AU-CTH calibration run. Changes: recorded restricted local intake manifest and completed inventory, intake, and diagnostic reconciliation tasks. Verification: restricted directory 0700, artifacts 0600; validator fails closed on synthetic codebook revision. Remaining gate: genuine codebook revision and fresh dependent packets.
