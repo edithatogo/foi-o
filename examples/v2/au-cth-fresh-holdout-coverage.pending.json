@@ -17,11 +17,11 @@
     "request_page_rows": 1386,
     "canonical_request_urls": 224,
     "calibration_urls_excluded": 4,
-    "additional_candidate_urls": 220,
+    "additional_candidate_urls": 217,
     "candidate_ledger": {
       "store_id": "FOI-O-private-evidence/au-cth-calibration-20260722/fresh-candidate-ledger.page0.json",
-      "sha256": "4d2246cf3fbdccd02b32f7ce802fe320cc61ccf7692c6e7001ebcfc4d218a151",
-      "record_count": 220
+      "sha256": "bc85e404d28f0aff8615c6cd7f8058491e847c6e08a40cc4f2c3650091dd484c",
+      "record_count": 217
     }
   },
   "calibration_exclusion": {
