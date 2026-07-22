@@ -55,3 +55,41 @@ def test_builder_rejects_candidate_leak(tmp_path: Path) -> None:
     frame, codebook = _write_inputs(tmp_path, leak_candidate=True)
     with pytest.raises(ValueError, match="leaks extractor candidate"):
         build_packets(frame, codebook, tmp_path / "a.json", tmp_path / "b.json")
+
+
+def test_builder_accepts_pending_codebook_only_with_matching_approval_wrapper(
+    tmp_path: Path,
+) -> None:
+    frame, codebook = _write_inputs(tmp_path)
+    codebook.write_text(
+        json.dumps(
+            {"status": "pending_human_approval", "codebook_id": "v0.2", "revision": "a" * 40}
+        ),
+        encoding="utf-8",
+    )
+    frame.write_text(
+        json.dumps(
+            {
+                **json.loads(frame.read_text()),
+                "codebook_sha256": hashlib.sha256(codebook.read_bytes()).hexdigest(),
+            }
+        ),
+        encoding="utf-8",
+    )
+    approval = tmp_path / "approval.json"
+    approval.write_text(
+        json.dumps(
+            {
+                "status": "approved_for_fresh_holdout_use",
+                "approved_artifact": {
+                    "sha256": hashlib.sha256(codebook.read_bytes()).hexdigest(),
+                    "codebook_id": "v0.2",
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    result = build_packets(
+        frame, codebook, tmp_path / "a.json", tmp_path / "b.json", approval_path=approval
+    )
+    assert result["ok"] is True
