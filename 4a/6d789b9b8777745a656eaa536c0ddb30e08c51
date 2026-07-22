@@ -1,0 +1,1 @@
+Task: document AU-CTH annotation outcome and remediation plan. Changes: added outcome interpretation, approved remediation specification and four-phase Conductor plan, track metadata/index/evidence. Verification: Conductor validation passed locally; pre-existing dirty files preserved. Risks: fresh holdout, exact codebook approval, and maturity decision remain gated.
