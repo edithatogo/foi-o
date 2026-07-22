@@ -6,8 +6,9 @@
       adjudication output, and metric packet with byte counts and SHA-256.
 - [ ] Move local-only artifacts from ephemeral storage into an approved
       durable restricted store; commit only a non-sensitive manifest.
-- [ ] Add a verifier that rejects missing artifacts, `/tmp` evidence paths,
+- [x] Add a verifier that rejects missing artifacts, `/tmp` evidence paths,
       mismatched hashes, synthetic revisions, altered units, and role overlap.
+      Commit: `ea23f2b`.
 - [ ] Recompute the nine-unit diagnostic with explicit label, span, and
       abstention denominators and reconcile the eight-item queue with the two
       primary-label disagreements.
@@ -54,4 +55,3 @@
 - [ ] Obtain and record the human maturity decision.
 - [ ] Run full validation and final Conductor review; archive only if all track
       acceptance criteria and gates are satisfied.
-
