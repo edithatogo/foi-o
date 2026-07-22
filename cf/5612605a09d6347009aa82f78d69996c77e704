@@ -1,0 +1,1 @@
+Task: validate fresh AU-CTH candidate inventory. Changes: added deterministic ledger validator and tests; corrected three fragment-bearing URLs, reducing the page-0 candidate count from 220 to 217. Verification: ledger validator PASS; focused tests 3 passed. Rights, complete pagination, freeze, and annotation remain pending.
