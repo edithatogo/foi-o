@@ -74,3 +74,14 @@ flowchart LR
 The executable tasks, gates, and acceptance criteria are maintained in
 `conductor/tracks/au_cth_annotation_reliability_remediation_20260722/`.
 
+## Fresh-holdout coverage inventory
+
+A read-only Internet Archive CDX query for
+`www.righttoknow.org.au/request/*` retrieved 10,000 bounded rows at
+`2026-07-22T13:41:09Z`, with export SHA-256
+`e9560805c2ae6ab97baa46a211afebb408f89da5b366551c142df8e11d9a42c0`.
+Within that bounded response there were 224 canonical request URLs, including
+220 candidates outside the four calibration URLs. This establishes that a
+fresh candidate pool exists, but not that it is complete, rights-eligible,
+full-text available, or suitable for sampling. The coverage record is
+`examples/v2/au-cth-fresh-holdout-coverage.pending.json`.

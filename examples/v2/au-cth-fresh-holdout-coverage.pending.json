@@ -1,0 +1,35 @@
+{
+  "schema_version": "foi-o.au-cth-fresh-holdout-coverage.v0.1.0",
+  "status": "coverage_inventory_pending_pagination_duplicate_and_rights_review",
+  "jurisdiction": "AU-CTH",
+  "source": {
+    "provider": "Internet Archive CDX",
+    "query_scope": "www.righttoknow.org.au/request/*",
+    "filters": ["statuscode:200", "mimetype:text/html"],
+    "collapse": "digest",
+    "row_limit": 10000,
+    "retrieved_at": "2026-07-22T13:41:09Z",
+    "cdx_export_sha256": "e9560805c2ae6ab97baa46a211afebb408f89da5b366551c142df8e11d9a42c0"
+  },
+  "coverage": {
+    "cdx_rows_received": 10000,
+    "request_page_rows": 1386,
+    "canonical_request_urls": 224,
+    "calibration_urls_excluded": 4,
+    "additional_candidate_urls": 220
+  },
+  "calibration_exclusion": {
+    "rule": "exclude all four calibrated canonical URLs and every duplicate cluster containing one",
+    "calibration_source_population_sha256": "2d797390fcdb84fbb362e6fccb03131e77247f553da12ed28de2ddaa4fc9ced8"
+  },
+  "rights_eligible": false,
+  "holdout_frozen": false,
+  "annotation_execution_authorized": false,
+  "limitations": [
+    "bounded response reached the 10000-row limit",
+    "pagination/completeness is not yet established",
+    "CDX presence is not full-text availability",
+    "duplicate clustering and source-artifact validation are pending",
+    "fresh-record rights approval is pending"
+  ]
+}
