@@ -1,0 +1,18 @@
+{
+  "track_id": "au_cth_annotation_reliability_remediation_20260722",
+  "type": "chore",
+  "status": "new",
+  "created_at": "2026-07-22T13:30:00Z",
+  "updated_at": "2026-07-22T13:30:00Z",
+  "description": "Preserve the AU-CTH calibration outcome, repair annotation provenance and contracts, and evaluate reliability on a fresh holdout.",
+  "evidence_schema": "1.0",
+  "depends_on": [
+    "australian_jurisdiction_profiles_20260714"
+  ],
+  "gates": [
+    {"id": "revised-codebook-approval", "kind": "human", "status": "pending"},
+    {"id": "fresh-holdout-rights-and-freeze", "kind": "human", "status": "pending"},
+    {"id": "fresh-execution-authorization", "kind": "human", "status": "pending"},
+    {"id": "maturity-decision", "kind": "human", "status": "pending"}
+  ]
+}
