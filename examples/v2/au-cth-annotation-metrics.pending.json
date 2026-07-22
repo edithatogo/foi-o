@@ -1,0 +1,32 @@
+{
+  "schema_version": "foi-o.australian-annotation-metrics.v0.1.0",
+  "status": "bounded_candidate_pending_human_maturity_decision",
+  "jurisdiction": "AU-CTH",
+  "source_population_sha256": "2d797390fcdb84fbb362e6fccb03131e77247f553da12ed28de2ddaa4fc9ced8",
+  "annotator_packet_hashes": {
+    "annotator_a": "c824925eb6bbcba6a148ea3c0119cd480e39d4d0a1b75387d33b01bfb8aa1a61",
+    "annotator_b": "01d4002554e290c5804ab81a47df1451d09dcfbbd198b5a21379bf5e9b33e005"
+  },
+  "adjudicated_artifact": {
+    "path": "/tmp/au-cth-adjudicated.json",
+    "sha256": "6786bfad11202cf8707058fefd208f548a87499cd5702e70b7cf5f447d8f464e"
+  },
+  "n_units": 9,
+  "raw_agreement": 0.7777777778,
+  "cohen_kappa": 0.4,
+  "disagreement_count": 8,
+  "thresholds": {
+    "minimum_raw_agreement": 0.8,
+    "minimum_cohen_kappa": 0.6
+  },
+  "maturity_decision": "remain_candidate",
+  "failure_reasons": [
+    "raw agreement below 0.80",
+    "Cohen kappa below 0.60",
+    "human maturity decision not yet recorded"
+  ],
+  "gold_promotion": false,
+  "publication": false,
+  "redistribution": false,
+  "legal_certification": false
+}
