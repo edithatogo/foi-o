@@ -2,14 +2,14 @@
 
 ## Phase 1: Preserve and audit the calibration run
 
-- [ ] Inventory the codebook, execution frame, blinded packets, role outputs,
+- [x] Inventory the codebook, execution frame, blinded packets, role outputs,
       adjudication output, and metric packet with byte counts and SHA-256.
-- [ ] Move local-only artifacts from ephemeral storage into an approved
+- [x] Move local-only artifacts from ephemeral storage into an approved
       durable restricted store; commit only a non-sensitive manifest.
 - [x] Add a verifier that rejects missing artifacts, `/tmp` evidence paths,
       mismatched hashes, synthetic revisions, altered units, and role overlap.
       Commit: `ea23f2b`.
-- [ ] Recompute the nine-unit diagnostic with explicit label, span, and
+- [x] Recompute the nine-unit diagnostic with explicit label, span, and
       abstention denominators and reconcile the eight-item queue with the two
       primary-label disagreements.
 - [ ] Run focused tests and Conductor review for Phase 1.
