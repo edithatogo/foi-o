@@ -8,6 +8,7 @@
     "filters": ["statuscode:200", "mimetype:text/html"],
     "collapse": "digest",
     "row_limit": 10000,
+    "reported_page_count": 27,
     "retrieved_at": "2026-07-22T13:41:09Z",
     "cdx_export_sha256": "e9560805c2ae6ab97baa46a211afebb408f89da5b366551c142df8e11d9a42c0"
   },
@@ -27,6 +28,7 @@
   "annotation_execution_authorized": false,
   "limitations": [
     "bounded response reached the 10000-row limit",
+    "the CDX service reports 27 pages; complete page retrieval is still pending",
     "pagination/completeness is not yet established",
     "CDX presence is not full-text availability",
     "duplicate clustering and source-artifact validation are pending",
