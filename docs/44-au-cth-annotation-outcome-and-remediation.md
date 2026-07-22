@@ -85,3 +85,7 @@ Within that bounded response there were 224 canonical request URLs, including
 fresh candidate pool exists, but not that it is complete, rights-eligible,
 full-text available, or suitable for sampling. The coverage record is
 `examples/v2/au-cth-fresh-holdout-coverage.pending.json`.
+
+The exact source-approval packet is
+`examples/v2/au-cth-fresh-holdout-source-approval.pending.json`; it does not
+freeze the holdout or authorize annotation.
