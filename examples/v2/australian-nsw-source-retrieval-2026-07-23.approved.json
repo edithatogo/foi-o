@@ -1,0 +1,26 @@
+{
+  "schema_version": "foi-o.australian-source-retrieval.v0.1.0",
+  "status": "approved_bounded_local_use",
+  "jurisdiction": "AU-NSW",
+  "regime": "GIPA",
+  "source_id": "au-nsw.gipa.act.2009-052.current",
+  "retrieved_at": "2026-07-23T13:25:24Z",
+  "retrieval": {
+    "html_url": "https://legislation.nsw.gov.au/view/whole/html/inforce/current/act-2009-052",
+    "xml_url": "https://legislation.nsw.gov.au/view/whole/xml/inforce/current/act-2009-052",
+    "html_path": "/Volumes/PortableSSD/FOI-O-private-evidence/au-nsw-source-20260723/gipa.html",
+    "xml_path": "/Volumes/PortableSSD/FOI-O-private-evidence/au-nsw-source-20260723/gipa.xml",
+    "html_byte_count": 405542,
+    "html_sha256": "25375b9b33ec9ba47e8287d7290cb967ed2e9314b7ccfb7c39467857eb8cc670",
+    "xml_byte_count": 20264,
+    "xml_sha256": "a463d76ffc57349c8b61b63eb30568cf5997e95280171573f145cb2dd5a31276"
+  },
+  "source_artifact_sha256": "2eb550bd34d127521debaa0b5da4bf11187151be0a10756ed94f9625ca3891e9",
+  "rights_review_status": "approved",
+  "approved_by": "edithatogo",
+  "approved_at": "2026-07-23T13:25:24Z",
+  "proposed_use": "bounded local adapter validation and immutable local archival only",
+  "prohibitions": ["publication", "redistribution", "training", "legal_certification", "profile_promotion"],
+  "execution_authorized": true,
+  "freeze_authorized": true
+}
