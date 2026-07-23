@@ -20,4 +20,6 @@ def test_pending_all_captures_request_is_exact_and_non_executing() -> None:
     assert request["authorization"]["dispatch_authorized"] is False
     assert request["retention"]["replay_authorized"] is False
     assert request["retention"]["manifest_authorized"] is False
-    assert hashlib.sha256(REQUEST.read_bytes()).hexdigest()
+    assert hashlib.sha256(REQUEST.read_bytes()).hexdigest() == (
+        "3c9bb6bda4b51ffc60001ee4f230fb6050269adb78a64122b40867ea1c9e06f1"
+    )

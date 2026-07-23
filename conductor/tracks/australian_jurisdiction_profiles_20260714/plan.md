@@ -76,9 +76,12 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       manual all-captures confirmation, complete-pagination failure evidence,
       and contract tests. (`fyi-archive` `4d410d6`; governed workflow
       `nsw-source-recovery-20260724.md`)
-- [ ] Task: Commit and approve the exact RightToKnow all-captures CDX request,
-      including instance scope, page/runtime caps, endpoint, private retention,
-      and confirmation token.
+- [x] Task: Commit the exact RightToKnow all-captures CDX request, including
+      instance scope, page/runtime caps, endpoint, artifact-only retention, and
+      confirmation token. (`599fe4e`; request SHA-256
+      `3c9bb6bda4b51ffc60001ee4f230fb6050269adb78a64122b40867ea1c9e06f1`)
+- [ ] Task: Obtain explicit authorization for that exact request before pushing
+      its required fyi-archive revision or dispatching the workflow.
 - [ ] Task: Validate a non-empty complete CDX export and its raw hash before
       recovery; retain failed, empty, or capped exports as negative evidence.
 - [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
