@@ -10,6 +10,8 @@ from typing import Any
 
 CODEBOOK_ID = "foio-au-pilot-assertion-v0.2.0"
 PATTERNS = (
+    re.compile(r"\b(?:a\s+)?Freedom of Information request to\b.{0,300}", re.IGNORECASE | re.DOTALL),
+    re.compile(r"\b(?:request under|under)\s+the\s+Freedom of Information Act\b", re.IGNORECASE),
     re.compile(r"\bCommonwealth\b.{0,120}\b(?:Freedom of Information|FOI)\b", re.IGNORECASE | re.DOTALL),
     re.compile(r"\b(?:Freedom of Information|FOI)\b.{0,120}\bCommonwealth\b", re.IGNORECASE | re.DOTALL),
     re.compile(r"\b(?:Australian Government|federal government)\b.{0,120}\b(?:Freedom of Information|FOI)\b", re.IGNORECASE | re.DOTALL),
