@@ -2,7 +2,6 @@ import hashlib
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).parents[1]
 PACKET = ROOT / "examples/v2/annotation-protocol-reapproval.pending.json"
 
