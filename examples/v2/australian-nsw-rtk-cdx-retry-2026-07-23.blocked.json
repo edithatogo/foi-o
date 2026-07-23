@@ -1,0 +1,13 @@
+{
+  "schema_version": "foi-o.australian-cdx-probe.v0.1.0",
+  "status": "blocked_provider_transient_failure",
+  "instance_id": "au-rtk",
+  "jurisdiction": "AU-NSW",
+  "provider": "Internet Archive CDX",
+  "retrieved_at": "2026-07-23T13:59:40Z",
+  "scope": "www.righttoknow.org.au/request/*",
+  "method": "complete-paginated CDX acquisition with three bounded retries per request",
+  "result": {"http_status": 503, "error": "Service Unavailable", "artifact_created": false},
+  "prohibitions": ["freeze", "publication", "redistribution", "training", "profile_promotion"],
+  "next_gate": "Retry only when Internet Archive service availability changes, or validate a distinct non-empty rights-cleared NSW artifact."
+}
