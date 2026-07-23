@@ -1,0 +1,31 @@
+{
+  "schema_version": "foi-o.australian-capture-plan.v0.1.0",
+  "status": "approved_bounded_read_only_plan_blocked_at_source_access",
+  "instance_id": "au-rtk",
+  "base_url": "https://www.righttoknow.org.au",
+  "jurisdiction": "AU-NSW",
+  "regime": "GIPA",
+  "authority_scope": {
+    "discovery_source": "fyi-archive/tests/fixtures/au_nsw_bodies.json",
+    "authorities": ["nsw-health", "nsw-treasury"],
+    "selection_rule": "NSW jurisdiction tag, deduplicated by authority slug"
+  },
+  "request_scope": "Each authority's public request feed as discovered by fyi-cli discover --authority, with one sequential worker, one-second minimum interval, and no attachments or publication.",
+  "planned_outputs": ["discovered authorities", "request JSONL", "capture ledger", "source artifact descriptor", "immutable local manifest"],
+  "prohibitions": ["publication", "redistribution", "training", "legal_certification", "profile_promotion"],
+  "approval": {
+    "approved_by": "edithatogo",
+    "approved_at": "2026-07-23T13:31:57Z",
+    "scope": "bounded read-only discovery and capture planning"
+  },
+  "execution": {
+    "attempted_at": "2026-07-23T13:31:57Z",
+    "method": "fyi-cli discover via fyi-archive/scripts/discover_nsw_requests.py",
+    "result": "blocked",
+    "blocked_url": "https://www.righttoknow.org.au/search/all?output=json&page=1&public_body=nsw-health",
+    "http_status": 403,
+    "artifact_created": false,
+    "manifest_created": false
+  },
+  "next_gate": "Obtain an approved, hash-pinned Internet Archive CDX or other rights-cleared source artifact covering this exact NSW authority scope before empirical freezing."
+}
