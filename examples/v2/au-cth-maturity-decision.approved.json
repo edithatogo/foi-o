@@ -1,10 +1,10 @@
 {
   "schema_version": "foi-o.au-cth-maturity-decision.v0.1.0",
-  "status": "approved_bounded_extractor_maturity",
+  "status": "approved_au_cth_extractor_profile_mature",
   "approved_by": "edithatogo",
   "approved_on": "2026-07-23",
   "jurisdiction": "AU-CTH",
-  "scope": "AU-CTH assertion extractor using foio-au-pilot-assertion-v0.2.0 and the approved Commonwealth agency crosswalk against the frozen 100-unit holdout",
+  "scope": "AU-CTH assertion extractor/profile using foio-au-pilot-assertion-v0.2.0 and the approved Commonwealth agency crosswalk within the bounded evidence scope represented by the frozen 100-unit holdout",
   "artifacts": {
     "frozen_frame_sha256": "92b290ba32db7f70589202ae0895303856a64ef8258fb9bab9f561bde45eec7d",
     "extractor_output_sha256": "eaae41b6ea26f47d0b32a8f3b7f69e1564568f1654286c9316d2c0120efe5e85",
@@ -13,5 +13,5 @@
     "codebook_sha256": "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9"
   },
   "observed_metrics": {"precision": 0.9358974358974359, "recall": 1.0, "f1": 0.9668874172185431, "coverage": 0.78, "provenance_completeness": 1.0, "unsafe_inference_rate": 0.0},
-  "promotion": {"bounded_extractor_maturity": true, "gold_promotion": false, "legal_certification": false, "population_wide_inference": false, "publication": false, "redistribution": false, "training": false, "release": false}
+  "promotion": {"bounded_extractor_maturity": true, "au_cth_profile_mature": true, "gold_promotion": false, "legal_certification": false, "population_wide_inference": false, "publication": false, "redistribution": false, "training": false, "release": false}
 }
