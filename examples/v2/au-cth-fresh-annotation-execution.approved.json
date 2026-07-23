@@ -1,0 +1,36 @@
+{
+  "schema_version": "foi-o.au-cth-fresh-annotation-execution.v0.1.0",
+  "status": "approved_conditional_on_fresh_holdout_freeze",
+  "approved_by": "edithatogo",
+  "approved_on": "2026-07-23",
+  "approval_statement": "I authorize two independent automated annotator roles and one distinct adjudicator to annotate and evaluate the approved fresh AU-CTH holdout under codebook foio-au-pilot-assertion-v0.2.0, subject to all existing non-publication and non-redistribution restrictions. Those roles can be agents.",
+  "jurisdiction": "AU-CTH",
+  "codebook": {
+    "id": "foio-au-pilot-assertion-v0.2.0",
+    "sha256": "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9"
+  },
+  "roles": {
+    "annotator_a": "automated-agent-role-a",
+    "annotator_b": "automated-agent-role-b",
+    "adjudicator": "automated-agent-role-adjudicator"
+  },
+  "preconditions": {
+    "fresh_holdout_source_approved": true,
+    "fresh_holdout_rights_validated": true,
+    "fresh_holdout_frozen": true,
+    "calibration_units_excluded": true
+  },
+  "authorized": {
+    "annotation": true,
+    "adjudication": true,
+    "agreement_metrics": true,
+    "extractor_metrics": true,
+    "disagreement_queues": true,
+    "gold_promotion": false,
+    "publication": false,
+    "redistribution": false,
+    "training": false,
+    "release": false,
+    "legal_certification": false
+  }
+}
