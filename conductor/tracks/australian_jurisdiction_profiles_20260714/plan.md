@@ -70,6 +70,22 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 - [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
 - [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
 
+### AU-NSW historical source recovery refinement
+
+- [x] Task: Add explicit URL-index and all-captures Internet Archive CDX modes,
+      manual all-captures confirmation, complete-pagination failure evidence,
+      and contract tests. (`fyi-archive` `4d410d6`; governed workflow
+      `nsw-source-recovery-20260724.md`)
+- [ ] Task: Commit and approve the exact RightToKnow all-captures CDX request,
+      including instance scope, page/runtime caps, endpoint, private retention,
+      and confirmation token.
+- [ ] Task: Validate a non-empty complete CDX export and its raw hash before
+      recovery; retain failed, empty, or capped exports as negative evidence.
+- [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
+      with authority evidence, and validate the normalized source JSONL.
+- [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
+      empirical-frame freeze, annotation, or maturity evaluation.
+
 ## Phase 4: Pilot decision gate
 
 GitHub subissue: [#31](https://github.com/edithatogo/foi-o/issues/31).
