@@ -1,0 +1,1 @@
+AU-NSW all-captures request pin\n\nRequest: examples/v2/australian-nsw-rtk-all-captures-request-2026-07-24.pending.json\nSHA-256: 3c9bb6bda4b51ffc60001ee4f230fb6050269adb78a64122b40867ea1c9e06f1\nVerification: focused AU-NSW request, source, and profile tests plus jurisdiction validator.\nRemaining gate: exact human authorization before push or workflow dispatch.
