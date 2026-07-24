@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  id="Definitions_AU_NSW_Source_Recovery"
+  targetNamespace="https://w3id.org/foio/process/au-nsw-source-recovery">
+  <process id="Process_AU_NSW_Source_Recovery" name="AU-NSW historical source recovery" isExecutable="false">
+    <startEvent id="Start_ApprovedRequest" name="Exact CDX request approved"/>
+    <task id="Task_ExportAllCaptures" name="Export complete all-captures CDX metadata"/>
+    <exclusiveGateway id="Gateway_CompleteNonEmpty" name="Complete and non-empty?"/>
+    <task id="Task_RetainNegativeEvidence" name="Retain failure or negative evidence only"/>
+    <endEvent id="End_SourceBlocked" name="Source remains blocked"/>
+    <task id="Task_VerifyRawExport" name="Retain raw export privately and verify hash"/>
+    <task id="Task_RecoverSnapshots" name="Recover CDX-listed archived snapshots"/>
+    <exclusiveGateway id="Gateway_ProvenanceRights" name="Provenance, coverage and rights sufficient?"/>
+    <task id="Task_RecordExclusions" name="Record exclusions and keep source blocked"/>
+    <task id="Task_ClassifyNSW" name="Classify NSW with authority evidence"/>
+    <task id="Task_ValidateJSONL" name="Validate normalized source JSONL"/>
+    <userTask id="Task_HashBoundApproval" name="Human approves exact hashes and bounded use"/>
+    <task id="Task_CreateManifest" name="Create immutable manifest and empirical frame"/>
+    <endEvent id="End_ReadyForEmpiricalWork" name="Ready for separately approved empirical work"/>
+
+    <sequenceFlow id="Flow_01" sourceRef="Start_ApprovedRequest" targetRef="Task_ExportAllCaptures"/>
+    <sequenceFlow id="Flow_02" sourceRef="Task_ExportAllCaptures" targetRef="Gateway_CompleteNonEmpty"/>
+    <sequenceFlow id="Flow_03" sourceRef="Gateway_CompleteNonEmpty" targetRef="Task_RetainNegativeEvidence" name="no"/>
+    <sequenceFlow id="Flow_04" sourceRef="Task_RetainNegativeEvidence" targetRef="End_SourceBlocked"/>
+    <sequenceFlow id="Flow_05" sourceRef="Gateway_CompleteNonEmpty" targetRef="Task_VerifyRawExport" name="yes"/>
+    <sequenceFlow id="Flow_06" sourceRef="Task_VerifyRawExport" targetRef="Task_RecoverSnapshots"/>
+    <sequenceFlow id="Flow_07" sourceRef="Task_RecoverSnapshots" targetRef="Gateway_ProvenanceRights"/>
+    <sequenceFlow id="Flow_08" sourceRef="Gateway_ProvenanceRights" targetRef="Task_RecordExclusions" name="no"/>
+    <sequenceFlow id="Flow_09" sourceRef="Task_RecordExclusions" targetRef="End_SourceBlocked"/>
+    <sequenceFlow id="Flow_10" sourceRef="Gateway_ProvenanceRights" targetRef="Task_ClassifyNSW" name="yes"/>
+    <sequenceFlow id="Flow_11" sourceRef="Task_ClassifyNSW" targetRef="Task_ValidateJSONL"/>
+    <sequenceFlow id="Flow_12" sourceRef="Task_ValidateJSONL" targetRef="Task_HashBoundApproval"/>
+    <sequenceFlow id="Flow_13" sourceRef="Task_HashBoundApproval" targetRef="Task_CreateManifest"/>
+    <sequenceFlow id="Flow_14" sourceRef="Task_CreateManifest" targetRef="End_ReadyForEmpiricalWork"/>
+  </process>
+</definitions>

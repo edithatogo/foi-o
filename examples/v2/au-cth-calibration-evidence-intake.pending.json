@@ -1,0 +1,24 @@
+{
+  "schema_version": "foi-o.au-cth-calibration-evidence-intake.v0.1.0",
+  "status": "durable_local_intake_pending_codebook_repair",
+  "jurisdiction": "AU-CTH",
+  "storage": {
+    "store_id": "FOI-O-private-evidence/au-cth-calibration-20260722",
+    "scope": "local restricted storage only",
+    "directory_mode": "0700",
+    "artifact_mode": "0600",
+    "manifest_sha256": "461f54ce7f3c2e5d4c06b36f0ae6f081b2158c672a89efe133a55f968495f1dd"
+  },
+  "source_population_sha256": "2d797390fcdb84fbb362e6fccb03131e77247f553da12ed28de2ddaa4fc9ced8",
+  "record_count": 9,
+  "captured_count": 9,
+  "calibration_only": true,
+  "publication": false,
+  "redistribution": false,
+  "validation": {
+    "command": "uv run python scripts/validate_au_calibration_evidence.py manifest.json --root <restricted-store>",
+    "result": "FAIL_CLOSED",
+    "blocking_error": "codebook revision is synthetic padded provenance"
+  },
+  "next_gate": "commit a genuine codebook revision, reapprove its exact content hash, and regenerate all dependent packets"
+}

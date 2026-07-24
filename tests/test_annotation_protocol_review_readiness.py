@@ -11,16 +11,21 @@ from foi_o_nz.validation import validate_json_schema
 ROOT = Path(__file__).parents[1]
 PACKET = ROOT / "examples/v2/annotation-protocol-review-readiness.2026-07-16.json"
 SCHEMA = ROOT / "schemas/json/annotation-protocol-review-readiness.schema.json"
+REAPPROVAL = ROOT / "examples/v2/annotation-protocol-reapproval.pending.json"
 
 
 def test_annotation_protocol_packet_is_schema_valid_and_hash_pinned() -> None:
     result = validate_json_schema(PACKET, SCHEMA)
     assert not result.errors, result.errors
     packet = json.loads(PACKET.read_text())
-    protocol = ROOT / packet["protocol_path"]
-    assert packet["protocol_sha256"] == sha256(protocol.read_bytes()).hexdigest()
     review = ROOT / packet["protocol_review_path"]
     assert packet["protocol_review_sha256"] == sha256(review.read_bytes()).hexdigest()
+    review_payload = json.loads(review.read_text())
+    assert packet["protocol_sha256"] == review_payload["protocol_sha256"]
+    reapproval = json.loads(REAPPROVAL.read_text())
+    protocol = ROOT / reapproval["protocol_path"]
+    assert reapproval["current_protocol_sha256"] == sha256(protocol.read_bytes()).hexdigest()
+    assert reapproval["prior_approved_protocol_sha256"] == packet["protocol_sha256"]
 
 
 def test_protocol_is_approved_but_execution_remains_fail_closed() -> None:

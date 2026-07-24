@@ -28,6 +28,7 @@ jobs:
         run: |
           python scripts/validate_requirements.py
           python scripts/validate_jurisdiction_profiles.py
+          python scripts/validate_jurisdiction_completion.py
           python scripts/validate_australian_empirical_readiness.py
           python scripts/validate_ontology_quality.py
           python -m foi_o_nz.cli validate-capability-registry

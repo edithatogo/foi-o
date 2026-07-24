@@ -1,0 +1,17 @@
+{
+  "schema_version": "foi-o.annotation-protocol-reapproval.v0.1.0",
+  "packet_id": "australian-annotation-protocol-reapproval-20260721",
+  "status": "pending_human_reapproval",
+  "protocol_path": "docs/41-v2-sampling-and-annotation-protocol.md",
+  "prior_approved_protocol_sha256": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63",
+  "current_protocol_sha256": "9e8415e60c90d8feba2290c5a97aa1a03f7200978fb6b212f5df54ed99b44caf",
+  "change_requires_reapproval": true,
+  "reason": "The working-tree edit changes the annotation actor model from two human annotators plus one human adjudicator to three isolated agent role instances.",
+  "execution_authorized": false,
+  "promotion_allowed": false,
+  "required_actions": [
+    "Obtain explicit human decision on the actor model.",
+    "If accepted, update the approved review packet and every protocol hash pin together.",
+    "If human annotation remains required, revert the actor-model edit through an authorized change and retain the prior approval pins."
+  ]
+}
