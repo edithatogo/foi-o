@@ -1,0 +1,1 @@
+Task: Record second authorized AU-CTH Internet Archive all-captures failure. Files: Australian completion audit, track evidence ledger, metadata. Verification: make validate profile-quality; diff check. Boundary: the CDX export failed connection-refused, so no importer, manifest, freeze, annotation, or promotion is authorized.
