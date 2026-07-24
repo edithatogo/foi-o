@@ -1,5 +1,5 @@
 {
-  "schema_version": "foi-o.source-triangulation.v0.1.0",
+  "schema_version": "foi-o.source-triangulation.v0.2.0",
   "status": "candidate",
   "request": {
     "run_id": "triangulation.example.deadline",
@@ -13,7 +13,8 @@
         "availability": "available",
         "freshness": "event_time_match",
         "rights_status": "metadata_only",
-        "integrity": "hash_verified"
+        "integrity": "hash_verified",
+        "authority_tier": "primary_law"
       },
       {
         "assertion_id": "assertion.guidance",
@@ -23,7 +24,8 @@
         "availability": "available",
         "freshness": "event_time_match",
         "rights_status": "unknown",
-        "integrity": "hash_verified"
+        "integrity": "hash_verified",
+        "authority_tier": "official_guidance"
       }
     ]
   },
@@ -33,6 +35,8 @@
     "status": "human_exception_required",
     "supporting_source_ids": ["source.oia-current"],
     "contradicting_source_ids": [],
+    "controlling_authority_tier": "primary_law",
+    "controlling_source_ids": ["source.oia-current"],
     "exception_queue": [
       {
         "reason": "rights_uncertain",

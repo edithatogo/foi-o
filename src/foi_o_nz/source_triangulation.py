@@ -13,6 +13,21 @@ ExceptionReason = Literal[
     "rights_uncertain",
     "insufficient_evidence",
 ]
+AuthorityTier = Literal[
+    "primary_law",
+    "official_implementation",
+    "official_guidance",
+    "observed_case",
+    "derived_summary",
+]
+
+_AUTHORITY_PRECEDENCE: dict[AuthorityTier, int] = {
+    "primary_law": 0,
+    "official_implementation": 1,
+    "official_guidance": 2,
+    "observed_case": 3,
+    "derived_summary": 4,
+}
 
 
 class StrictModel(BaseModel):
@@ -32,6 +47,7 @@ class SourceAssertion(StrictModel):
     freshness: Literal["event_time_match", "stale", "unknown"]
     rights_status: Literal["permitted", "metadata_only", "restricted", "unknown"]
     integrity: Literal["hash_verified", "archived_unverified", "live_unverified", "derived"]
+    authority_tier: AuthorityTier
 
 
 class TriangulationRequest(StrictModel):
@@ -70,6 +86,8 @@ class TriangulationResult(StrictModel):
     status: Literal["candidate_supported", "human_exception_required"]
     supporting_source_ids: list[str]
     contradicting_source_ids: list[str]
+    controlling_authority_tier: AuthorityTier | None
+    controlling_source_ids: list[str]
     exception_queue: list[HumanException]
     human_review_required: Literal[True] = True
     promotion_allowed: Literal[False] = False
@@ -103,6 +121,7 @@ def evaluate_triangulation(request: TriangulationRequest) -> TriangulationResult
         and item.freshness == "event_time_match"
         and item.rights_status in {"permitted", "metadata_only"}
         and item.integrity == "hash_verified"
+        and item.authority_tier != "derived_summary"
     ]
     supports = [item for item in eligible if item.stance == "supports"]
     contradicts = [item for item in eligible if item.stance == "contradicts"]
@@ -126,11 +145,28 @@ def evaluate_triangulation(request: TriangulationRequest) -> TriangulationResult
     if len(supporting_source_ids) < request.minimum_supporting_sources:
         exceptions.append(_exception("insufficient_evidence", supports))
 
+    controlling_authority_tier: AuthorityTier | None = None
+    controlling_source_ids: list[str] = []
+    if eligible:
+        controlling_authority_tier = min(
+            (item.authority_tier for item in eligible),
+            key=_AUTHORITY_PRECEDENCE.__getitem__,
+        )
+        controlling_source_ids = sorted(
+            {
+                item.source_id
+                for item in eligible
+                if item.authority_tier == controlling_authority_tier
+            }
+        )
+
     return TriangulationResult(
         run_id=request.run_id,
         claim_id=assertions[0].claim_id,
         status="human_exception_required" if exceptions else "candidate_supported",
         supporting_source_ids=supporting_source_ids,
         contradicting_source_ids=sorted({item.source_id for item in contradicts}),
+        controlling_authority_tier=controlling_authority_tier,
+        controlling_source_ids=controlling_source_ids,
         exception_queue=exceptions,
     )

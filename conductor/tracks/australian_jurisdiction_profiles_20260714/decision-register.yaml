@@ -1,0 +1,7 @@
+version: 1.0.0
+decisions:
+  - {id: AU-DEC-01, status: accepted, decision: use_exact_profiles_foio_au_cth_and_foio_au_nsw, rationale: prevent cross-jurisdiction substitution during the pilot}
+  - {id: AU-DEC-02, status: accepted, decision: require_primary_law_and_official_source_authority_tiers, rationale: preserve source precedence while retaining conflicts for human review}
+  - {id: AU-DEC-03, status: accepted, decision: reject_derived_summaries_as_controlling_evidence, rationale: derived output cannot independently validate itself}
+  - {id: AU-DEC-04, status: accepted, decision: do_not_freeze_sample_until_all_twelve_readiness_blockers_clear, rationale: no authentic Australian empirical bundle currently satisfies the approved protocol}
+  - {id: AU-DEC-05, status: accepted, decision: map_each_readiness_blocker_once_to_an_owner_issue_evidence_contract_and_human_gate, rationale: make the exact operator path auditable without inferring approval or weakening the empirical boundary}

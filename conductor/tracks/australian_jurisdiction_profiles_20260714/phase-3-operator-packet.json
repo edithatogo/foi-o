@@ -1,0 +1,151 @@
+{
+  "schema_version": "foi-o.australian-empirical-operator-packet.v0.1.0",
+  "packet_id": "foio-au-tranche-3-operator-gates-2026-07-21",
+  "recorded_at": "2026-07-21T11:15:00Z",
+  "track_id": "australian_jurisdiction_profiles_20260714",
+  "readiness_manifest": {
+    "path": "conductor/tracks/australian_jurisdiction_profiles_20260714/phase-3-readiness.json",
+    "sha256": "b388f1041bd9763f9baa477768bcc0c29c9acf64aa0ae918ee296aa1914a58aa"
+  },
+  "phase_issue_url": "https://github.com/edithatogo/foi-o/issues/30",
+  "implementation_pr_url": "https://github.com/edithatogo/foi-o/pull/88",
+  "actions": [
+    {
+      "action_id": "AU-OP-01",
+      "owner_repo": "edithatogo/legislation",
+      "issue_url": "https://github.com/edithatogo/legislation/issues/62",
+      "readiness_blockers": [
+        "foio-au-cth.legislation.approved_source_pack_missing"
+      ],
+      "human_gate_ids": ["AU-HG-01"],
+      "action": "Approve an immutable Commonwealth FOI legal source-pack manifest after source and rights review.",
+      "evidence_required": [
+        "exact legislation repository revision",
+        "source-pack path and SHA-256",
+        "effective-date coverage",
+        "rights-review record",
+        "independent-review record"
+      ],
+      "status": "pending",
+      "automatable": false,
+      "completion_actor": "named_human"
+    },
+    {
+      "action_id": "AU-OP-02",
+      "owner_repo": "edithatogo/legislation",
+      "issue_url": "https://github.com/edithatogo/legislation/issues/62",
+      "readiness_blockers": [
+        "foio-au-nsw.legislation.approved_source_pack_missing"
+      ],
+      "human_gate_ids": ["AU-HG-01"],
+      "action": "Complete and approve an immutable NSW GIPA legal source-pack manifest after source and rights review.",
+      "evidence_required": [
+        "exact legislation repository revision",
+        "source-pack path and SHA-256",
+        "effective-date coverage",
+        "rights-review record",
+        "independent-review record"
+      ],
+      "status": "pending",
+      "automatable": false,
+      "completion_actor": "named_human"
+    },
+    {
+      "action_id": "AU-OP-03",
+      "owner_repo": "edithatogo/fyi-archive",
+      "issue_url": "https://github.com/edithatogo/fyi-archive/issues/188",
+      "readiness_blockers": [
+        "foio-au-cth.archive.immutable_sample_missing",
+        "foio-au-nsw.archive.immutable_sample_missing"
+      ],
+      "human_gate_ids": ["AU-HG-01"],
+      "action": "Approve rights-cleared immutable representative source populations for Commonwealth and NSW separately.",
+      "evidence_required": [
+        "separate jurisdiction-isolated archive manifests",
+        "exact archive repository revision",
+        "manifest paths and SHA-256 digests",
+        "rights and purpose review",
+        "coverage and exclusion report"
+      ],
+      "status": "pending",
+      "automatable": false,
+      "completion_actor": "named_human"
+    },
+    {
+      "action_id": "AU-OP-04",
+      "owner_repo": "edithatogo/nlp-policy-nz",
+      "issue_url": "https://github.com/edithatogo/nlp-policy-nz/issues/144",
+      "readiness_blockers": [
+        "foio-au-cth.extraction.placeholder_or_missing",
+        "foio-au-nsw.extraction.placeholder_or_missing"
+      ],
+      "human_gate_ids": ["AU-HG-01"],
+      "action": "Replace placeholder Australian extraction fixtures with immutable jurisdiction-isolated candidate bundles.",
+      "evidence_required": [
+        "exact model and pipeline revisions",
+        "ontology and profile revisions",
+        "candidate bundle paths and SHA-256 digests",
+        "source-span and abstention provenance",
+        "independent-review record"
+      ],
+      "status": "pending",
+      "automatable": false,
+      "completion_actor": "named_human"
+    },
+    {
+      "action_id": "AU-OP-05",
+      "owner_repo": "edithatogo/foi-o",
+      "issue_url": "https://github.com/edithatogo/foi-o/issues/30",
+      "readiness_blockers": [
+        "sampling.codebook_revision_missing",
+        "sampling.configuration_not_approved",
+        "sampling.reliability_thresholds_not_approved"
+      ],
+      "human_gate_ids": ["AU-HG-01"],
+      "action": "Freeze and approve the exact codebook, sampling frame, exclusions, allocation, seed, cluster rule, and reliability thresholds.",
+      "evidence_required": [
+        "codebook path, revision, and SHA-256",
+        "sampling-configuration path and SHA-256",
+        "sample-size justification",
+        "pre-registered reliability thresholds",
+        "named approver and approval timestamp"
+      ],
+      "status": "pending",
+      "automatable": false,
+      "completion_actor": "named_human"
+    },
+    {
+      "action_id": "AU-OP-06",
+      "owner_repo": "edithatogo/foi-o",
+      "issue_url": "https://github.com/edithatogo/foi-o/issues/30",
+      "readiness_blockers": [
+        "human_roles.two_independent_annotators_missing",
+        "human_roles.adjudicator_missing",
+        "human_roles.assignment_not_approved"
+      ],
+      "human_gate_ids": ["AU-HG-02"],
+      "action": "Appoint and approve two distinct named human annotators and one different named human adjudicator.",
+      "evidence_required": [
+        "two distinct human annotator identifiers",
+        "one non-overlapping human adjudicator identifier",
+        "role-assignment approval",
+        "blinding and independence acknowledgement"
+      ],
+      "status": "pending",
+      "automatable": false,
+      "completion_actor": "named_human"
+    }
+  ],
+  "strict_validation_command": "python scripts/validate_australian_empirical_readiness.py --require-ready",
+  "tranche_3_complete": false,
+  "tranche_5_expansion_allowed": false,
+  "profile_promotion_allowed": false,
+  "prohibited_actions": [
+    "infer_human_approval",
+    "substitute_synthetic_or_placeholder_evidence",
+    "reuse_evidence_across_profiles",
+    "promote_a_profile",
+    "begin_tranche_5",
+    "publish_or_release_empirical_outputs"
+  ]
+}

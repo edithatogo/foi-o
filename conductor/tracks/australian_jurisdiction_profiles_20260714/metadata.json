@@ -1,14 +1,41 @@
 {
   "track_id": "australian_jurisdiction_profiles_20260714",
   "type": "feature",
-  "status": "new",
+  "status": "in_progress",
   "created_at": "2026-07-13T14:00:00Z",
-  "updated_at": "2026-07-14T10:30:00Z",
+  "updated_at": "2026-07-21T10:35:00Z",
   "description": "Iterate the global FOI-O model from its NZ reference implementation through evidence-backed Australian profiles, beginning with Commonwealth and NSW while preserving the jurisdiction-neutral core.",
+  "evidence_schema": "1.0",
+  "requirement_ids": ["AU-EV-001", "AU-EV-002", "AU-EV-003", "AU-EV-004", "AU-EV-005"],
   "depends_on": [
     "edithatogo/legislation:legislation-jurisdiction-mainstreaming",
     "edithatogo/fyi-archive:au_foi_corpus_readiness_20260714"
   ],
   "github_issue": "https://github.com/edithatogo/foi-o/issues/24",
-  "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns"
+  "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns",
+  "current_phase": "phase_3_empirical_validation_readiness",
+  "current_task": "freeze_australian_sampling_and_execution_inputs",
+  "gates": [
+    {
+      "id": "au-pilot-inputs",
+      "kind": "repository_dependency",
+      "status": "blocked",
+      "evidence": [
+        "https://github.com/edithatogo/foi-o/issues/29",
+        "https://github.com/edithatogo/nlp-policy-nz/issues/129"
+      ]
+    },
+    {
+      "id": "au-independent-annotation",
+      "kind": "human",
+      "status": "pending",
+      "evidence": ["https://github.com/edithatogo/foi-o/issues/30"]
+    },
+    {
+      "id": "au-profile-maturity-decision",
+      "kind": "human",
+      "status": "pending",
+      "evidence": ["https://github.com/edithatogo/foi-o/issues/31"]
+    }
+  ]
 }

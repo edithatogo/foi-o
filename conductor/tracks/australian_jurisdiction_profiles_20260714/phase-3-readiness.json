@@ -1,0 +1,94 @@
+{
+  "schema_version": "foi-o.australian-empirical-readiness.v0.1.0",
+  "recorded_at": "2026-07-21T10:35:00Z",
+  "status": "candidate_readiness",
+  "profiles": [
+    {
+      "profile_id": "foio-au-cth",
+      "jurisdiction": "AU-CTH",
+      "legislation": {
+        "owner_repo": "edithatogo/legislation",
+        "repository_revision": "e6551e47acf5056a985714cd362ac9560f03e2c5",
+        "artifact_path": null,
+        "artifact_sha256": null,
+        "status": "candidate",
+        "rights_reviewed": false,
+        "independently_reviewed": false,
+        "known_limitation": "Federal Register provider is source-backed prerelease, but no approved FOI legal source-pack manifest is pinned."
+      },
+      "archive": {
+        "owner_repo": "edithatogo/fyi-archive",
+        "repository_revision": "16b93578e64168f79f163a46a73b0929fd177b50",
+        "artifact_path": null,
+        "artifact_sha256": null,
+        "status": "missing",
+        "rights_reviewed": false,
+        "independently_reviewed": false,
+        "known_limitation": "No immutable Commonwealth representative-request sample manifest was found."
+      },
+      "extraction": {
+        "owner_repo": "edithatogo/nlp-policy-nz",
+        "repository_revision": "c6e378f210cdfe6e7d87ec80d5e8f2b1c4616bdc",
+        "artifact_path": "data/foio/australian_evaluation_fixture.json",
+        "artifact_sha256": "93478b1971d03c46c8bbe3b18b643ba31f78c85f4bd939c003067dbb8de44d16",
+        "status": "placeholder",
+        "rights_reviewed": false,
+        "independently_reviewed": false,
+        "known_limitation": "The committed fixture identifies itself with placeholder revisions, repeated hashes, and example.test sources."
+      }
+    },
+    {
+      "profile_id": "foio-au-nsw",
+      "jurisdiction": "AU-NSW",
+      "legislation": {
+        "owner_repo": "edithatogo/legislation",
+        "repository_revision": "e6551e47acf5056a985714cd362ac9560f03e2c5",
+        "artifact_path": null,
+        "artifact_sha256": null,
+        "status": "blocked",
+        "rights_reviewed": false,
+        "independently_reviewed": false,
+        "known_limitation": "NSW source shape is documented, but XML fixtures, adapter mapping, runtime integration, and source-pack approval remain incomplete."
+      },
+      "archive": {
+        "owner_repo": "edithatogo/fyi-archive",
+        "repository_revision": "16b93578e64168f79f163a46a73b0929fd177b50",
+        "artifact_path": null,
+        "artifact_sha256": null,
+        "status": "candidate",
+        "rights_reviewed": false,
+        "independently_reviewed": false,
+        "known_limitation": "The NSW seed track records a five-record smoke run, not a rights-approved immutable empirical sample manifest."
+      },
+      "extraction": {
+        "owner_repo": "edithatogo/nlp-policy-nz",
+        "repository_revision": "c6e378f210cdfe6e7d87ec80d5e8f2b1c4616bdc",
+        "artifact_path": "data/foio/australian_evaluation_fixture.json",
+        "artifact_sha256": "93478b1971d03c46c8bbe3b18b643ba31f78c85f4bd939c003067dbb8de44d16",
+        "status": "placeholder",
+        "rights_reviewed": false,
+        "independently_reviewed": false,
+        "known_limitation": "The committed fixture identifies itself with placeholder revisions, repeated hashes, and example.test sources."
+      }
+    }
+  ],
+  "sampling": {
+    "protocol_path": "docs/41-v2-sampling-and-annotation-protocol.md",
+    "protocol_sha256": "3620198f21d9b0d88e3a59cc3a7e42e65a2e664654e2dc030241dd1a46a42d63",
+    "unit_of_analysis": "request_linked_candidate_assertion",
+    "strata": ["jurisdiction", "outcome_family", "request_year", "review_pathway"],
+    "exclusions": ["outside_rights_scope", "missing_immutable_source", "cross_profile_context", "unresolved_authority_identity", "duplicate_cluster_leakage"],
+    "codebook_revision": null,
+    "sampling_configuration_sha256": null,
+    "configuration_approved": false,
+    "reliability_thresholds_approved": false
+  },
+  "human_roles": {
+    "annotator_ids": [],
+    "adjudicator_id": null,
+    "assignment_approved": false
+  },
+  "sample_freeze_allowed": false,
+  "empirical_claims_allowed": false,
+  "profile_promotion_allowed": false
+}

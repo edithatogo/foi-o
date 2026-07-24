@@ -91,6 +91,24 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 - [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
       empirical-frame freeze, annotation, or maturity evaluation.
 
+### Phase 3 review fixes
+
+- [x] Task: Refresh generated maturation inventory counts after adding the
+      operator-packet schema. (`ea5565e`; generated summary and coverage matrix
+      now record 182 JSON Schema files.)
+- [x] Task: Publish a schema-validated operator packet that maps every current
+      readiness blocker to its owner issue, required evidence, and human gate.
+      (`dad961b`; all 12 blockers are covered exactly once and promotion and
+      tranche 5 remain prohibited.)
+- [x] Task: Refresh generated ontology inventory evidence, install the declared
+      RDF validation extra, and document the source-triangulation v0.2.0
+      migration boundary found by whole-suite review. (`f158099`; focused
+      ontology, SHACL, readiness, and triangulation review suite: 30 passed.)
+- [x] Task: Repair the legacy track's requirements, risk, traceability,
+      decisions, outputs, human-gate, workflow, issue, acceptance, closeout,
+      and append-only evidence records. (`8a828b4`; required governance files
+      parse and the workflow-pair test passes.)
+
 ## Phase 4: Pilot decision gate
 
 GitHub subissue: [#31](https://github.com/edithatogo/foi-o/issues/31).

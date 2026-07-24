@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:foi-o:schema:empirical:source-triangulation-result:0.1.0",
+  "$id": "urn:foi-o:schema:empirical:source-triangulation-result:0.2.0",
   "title": "FOI-O deterministic source triangulation example",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "status", "request", "result"],
   "properties": {
-    "schema_version": {"const": "foi-o.source-triangulation.v0.1.0"},
+    "schema_version": {"const": "foi-o.source-triangulation.v0.2.0"},
     "status": {"const": "candidate"},
     "request": {"$ref": "#/$defs/request"},
     "result": {"$ref": "#/$defs/result"}
@@ -15,7 +15,7 @@
     "assertion": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["assertion_id", "source_id", "claim_id", "stance", "availability", "freshness", "rights_status", "integrity"],
+      "required": ["assertion_id", "source_id", "claim_id", "stance", "availability", "freshness", "rights_status", "integrity", "authority_tier"],
       "properties": {
         "assertion_id": {"type": "string", "minLength": 1},
         "source_id": {"type": "string", "minLength": 1},
@@ -24,7 +24,8 @@
         "availability": {"enum": ["available", "blocked"]},
         "freshness": {"enum": ["event_time_match", "stale", "unknown"]},
         "rights_status": {"enum": ["permitted", "metadata_only", "restricted", "unknown"]},
-        "integrity": {"enum": ["hash_verified", "archived_unverified", "live_unverified", "derived"]}
+        "integrity": {"enum": ["hash_verified", "archived_unverified", "live_unverified", "derived"]},
+        "authority_tier": {"enum": ["primary_law", "official_implementation", "official_guidance", "observed_case", "derived_summary"]}
       }
     },
     "request": {
@@ -51,13 +52,15 @@
     "result": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["run_id", "claim_id", "status", "supporting_source_ids", "contradicting_source_ids", "exception_queue", "human_review_required", "promotion_allowed"],
+      "required": ["run_id", "claim_id", "status", "supporting_source_ids", "contradicting_source_ids", "controlling_authority_tier", "controlling_source_ids", "exception_queue", "human_review_required", "promotion_allowed"],
       "properties": {
         "run_id": {"type": "string", "minLength": 1},
         "claim_id": {"type": "string", "minLength": 1},
         "status": {"enum": ["candidate_supported", "human_exception_required"]},
         "supporting_source_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
         "contradicting_source_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+        "controlling_authority_tier": {"type": ["string", "null"], "enum": ["primary_law", "official_implementation", "official_guidance", "observed_case", null]},
+        "controlling_source_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
         "exception_queue": {"type": "array", "items": {"$ref": "#/$defs/exception"}},
         "human_review_required": {"const": true},
         "promotion_allowed": {"const": false}
