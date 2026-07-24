@@ -14,6 +14,7 @@ REVISION = re.compile(r"^[0-9a-f]{40}$")
 
 
 def _digest(path: Path) -> str:
+    # codeql[py/path-injection]: callers accept only _relative_path-validated files.
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
@@ -25,26 +26,27 @@ def _relative_path(value: Any, root: Path, label: str, errors: list[str]) -> Pat
     if path.is_absolute() or "tmp" in path.parts or "private" in path.parts:
         errors.append(f"{label} path is ephemeral or not relative")
         return None
-    resolved = (root / path).resolve()
-    if root.resolve() not in resolved.parents and resolved != root.resolve():
+    trusted_root = root.resolve()
+    # codeql[py/path-injection]: candidate is rejected unless it remains beneath trusted_root.
+    resolved = (trusted_root / path).resolve()
+    if trusted_root not in resolved.parents and resolved != trusted_root:
         errors.append(f"{label} path escapes manifest root")
         return None
+    # codeql[py/path-injection]: containment is checked immediately above before filesystem access.
     if not resolved.is_file():
         errors.append(f"{label} path does not identify a file")
         return None
     return resolved
 
 
-def _check_file(
-    entry: dict[str, Any], root: Path, label: str, errors: list[str]
-) -> dict[str, Any] | None:
+def _check_file(entry: dict[str, Any], root: Path, label: str, errors: list[str]) -> Path | None:
     path = _relative_path(entry.get("path"), root, label, errors)
     digest = entry.get("sha256")
     if not isinstance(digest, str) or not SHA256.fullmatch(digest):
         errors.append(f"{label} has an invalid SHA-256")
     elif path is not None and _digest(path) != digest:
         errors.append(f"{label} SHA-256 does not match file")
-    return entry if path is not None else None
+    return path
 
 
 def _unit_ids(path: Path, key: str) -> set[str] | None:
@@ -105,12 +107,18 @@ def validate_manifest(manifest: dict[str, Any], root: Path) -> list[str]:
         errors.append("packet roles must be distinct annotator_a and annotator_b")
     if set(annotation_roles) != {"annotator_a", "annotator_b"}:
         errors.append("annotation roles must be distinct annotator_a and annotator_b")
+    verified_entries: list[tuple[dict[str, Any], Path, str]] = []
     for index, entry in enumerate(packet_entries):
         if isinstance(entry, dict):
-            _check_file(entry, root, f"packet {index}", errors)
+            path = _check_file(entry, root, f"packet {index}", errors)
+            if path is not None:
+                verified_entries.append((entry, path, "units"))
     for index, entry in enumerate(annotation_entries):
         if isinstance(entry, dict):
-            _check_file(entry, root, f"annotation {index}", errors)
+            path = _check_file(entry, root, f"annotation {index}", errors)
+            if path is not None:
+                key = "labels" if entry.get("role") == "annotator_a" else "records"
+                verified_entries.append((entry, path, key))
 
     adjudication = manifest.get("adjudication")
     if not isinstance(adjudication, dict):
@@ -123,19 +131,10 @@ def validate_manifest(manifest: dict[str, Any], root: Path) -> list[str]:
     expected = set(manifest.get("unit_ids") or [])
     if not expected or any(not isinstance(unit_id, str) for unit_id in expected):
         errors.append("unit_ids must be a non-empty set of strings")
-    for entry in packet_entries + annotation_entries:
-        if not isinstance(entry, dict):
-            continue
-        path = (root / str(entry.get("path"))).resolve()
-        if path.is_file():
-            key = (
-                "units"
-                if entry in packet_entries
-                else ("labels" if entry.get("role") == "annotator_a" else "records")
-            )
-            actual = _unit_ids(path, key)
-            if actual is not None and actual != expected:
-                errors.append(f"{entry.get('role')} unit membership does not match manifest")
+    for entry, path, key in verified_entries:
+        actual = _unit_ids(path, key)
+        if actual is not None and actual != expected:
+            errors.append(f"{entry.get('role')} unit membership does not match manifest")
     return errors
 
 
