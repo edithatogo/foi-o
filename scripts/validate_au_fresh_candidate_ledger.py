@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 from urllib.parse import urlsplit
 
 
@@ -28,6 +28,7 @@ def validate_ledger(
         if not isinstance(record, dict):
             errors.append(f"record {index} is not an object")
             continue
+        record = cast("dict[str, Any]", record)
         url = record.get("source_url")
         if not isinstance(url, str) or not url:
             errors.append(f"record {index} lacks source_url")

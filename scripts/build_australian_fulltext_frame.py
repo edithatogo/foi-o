@@ -7,7 +7,7 @@ import hashlib
 import json
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 from urllib.parse import urldefrag, urlsplit, urlunsplit
 
 
@@ -18,11 +18,16 @@ def _canonical_url(value: str) -> str:
 
 def build_frame(fulltext_path: Path, *, jurisdiction: str, output: Path) -> dict[str, Any]:
     payload = json.loads(fulltext_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("fulltext artifact must be a JSON object")
     records = payload.get("records")
     if not isinstance(records, list) or not records:
         raise ValueError("fulltext artifact contains no records")
     units = []
-    for index, record in enumerate(records):
+    for index, raw_record in enumerate(records):
+        if not isinstance(raw_record, dict):
+            raise ValueError(f"record {index} is not an object")
+        record = cast("dict[str, Any]", raw_record)
         source_url = str(record.get("source_url") or "")
         if not source_url:
             raise ValueError(f"record {index} has no source_url")
