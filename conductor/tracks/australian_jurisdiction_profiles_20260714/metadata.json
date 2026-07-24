@@ -3,7 +3,7 @@
   "type": "feature",
   "status": "in_progress",
   "created_at": "2026-07-13T14:00:00Z",
-  "updated_at": "2026-07-24T07:31:00Z",
+  "updated_at": "2026-07-24T07:38:00Z",
   "description": "Iterate the global FOI-O model from its NZ reference implementation through evidence-backed Australian profiles, beginning with Commonwealth and NSW while preserving the jurisdiction-neutral core.",
   "evidence_schema": "1.0",
   "requirement_ids": ["AU-EV-001", "AU-EV-002", "AU-EV-003", "AU-EV-004", "AU-EV-005"],
