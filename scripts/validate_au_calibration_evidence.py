@@ -52,14 +52,18 @@ def _unit_ids(path: Path, key: str) -> set[str] | None:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, UnicodeDecodeError, json.JSONDecodeError):
         return None
+    if not isinstance(payload, dict):
+        return None
     rows = payload.get(key)
     if not isinstance(rows, list):
         return None
-    return {
-        row.get("unit_id")
-        for row in rows
-        if isinstance(row, dict) and isinstance(row.get("unit_id"), str)
-    }
+    unit_ids: set[str] = set()
+    for row in rows:
+        if isinstance(row, dict):
+            unit_id = row.get("unit_id")
+            if isinstance(unit_id, str):
+                unit_ids.add(unit_id)
+    return unit_ids
 
 
 def validate_manifest(manifest: dict[str, Any], root: Path) -> list[str]:
