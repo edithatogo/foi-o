@@ -1,0 +1,1 @@
+Task: Record AU protocol-design reapproval. Files: decision register, human gates, metadata, evidence ledger. Verification: 5 focused protocol tests; make validate profile-quality. Remaining risks: authenticated AU source artifact and execution-specific approvals remain external gates.
