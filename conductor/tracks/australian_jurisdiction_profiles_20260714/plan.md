@@ -80,8 +80,10 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       instance scope, page/runtime caps, endpoint, artifact-only retention, and
       confirmation token. (`599fe4e`; request SHA-256
       `3c9bb6bda4b51ffc60001ee4f230fb6050269adb78a64122b40867ea1c9e06f1`)
-- [ ] Task: Obtain explicit authorization for that exact request before pushing
-      its required fyi-archive revision or dispatching the workflow.
+- [x] Task: Obtain authorization for and dispatch that exact request once.
+      GitHub Actions run `30068038481` failed safely on `2026-07-24` after
+      bounded CDX connection-refusal retries; its 90-day failure artifact is
+      negative evidence only and no source export was created.
 - [ ] Task: Validate a non-empty complete CDX export and its raw hash before
       recovery; retain failed, empty, or capped exports as negative evidence.
 - [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
