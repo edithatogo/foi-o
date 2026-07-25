@@ -30,4 +30,11 @@ profiles:
     legal_review_promotion: blocked
     annotation_gold_set: blocked
   foio-au-cth: {source_discovery: discovered, legal_review_promotion: blocked}
-  foio-au-nsw: {source_discovery: discovered, legal_review_promotion: blocked}
+  foio-au-nsw:
+    source_discovery: candidate
+    historical_legislation: implemented_candidate
+    normative_extraction: candidate
+    platform_capture: blocked
+    archive_snapshot: blocked
+    annotation_gold_set: blocked
+    legal_review_promotion: blocked

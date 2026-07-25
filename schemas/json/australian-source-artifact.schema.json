@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_id", "status", "jurisdiction", "regime", "source_url", "retrieved_at", "rights_review_status", "records_path", "records_sha256", "byte_count", "record_count"],
+  "properties": {
+    "schema_version": {"const": "foi-o.australian-source-artifact.v0.1.0"},
+    "artifact_id": {"type": "string", "minLength": 1},
+    "status": {"const": "authentic_frozen_candidate"},
+    "jurisdiction": {"enum": ["AU-CTH", "AU-NSW"]},
+    "regime": {"enum": ["FOI", "GIPA"]},
+    "source_url": {"type": "string", "format": "uri"},
+    "retrieved_at": {"type": "string", "format": "date-time"},
+    "rights_review_status": {"const": "approved"},
+    "records_path": {"type": "string", "minLength": 1},
+    "records_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "byte_count": {"type": "integer", "minimum": 1},
+    "record_count": {"type": "integer", "minimum": 1}
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "foi-o.au-cth-fresh-holdout-source-approval.v0.1.0",
+  "status": "pending_exact_source_approval",
+  "jurisdiction": "AU-CTH",
+  "proposed_scope": {
+    "provider": "Internet Archive CDX",
+    "query": "www.righttoknow.org.au/request/*",
+    "filters": ["statuscode:200", "mimetype:text/html"],
+    "collapse": "digest",
+    "reported_page_count": 27,
+    "bounded_page_limit": 10000,
+    "retrieved_at": "2026-07-22T13:41:09Z",
+    "cdx_export_sha256": "e9560805c2ae6ab97baa46a211afebb408f89da5b366551c142df8e11d9a42c0"
+  },
+  "exclusion": {
+    "calibration_population_sha256": "2d797390fcdb84fbb362e6fccb03131e77247f553da12ed28de2ddaa4fc9ced8",
+    "rule": "exclude all four calibration canonical URLs and every duplicate cluster containing one"
+  },
+  "proposed_use": "fresh AU-CTH holdout under foio-au-pilot-assertion-v0.2.0",
+  "codebook_sha256": "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9",
+  "constraints": {
+    "local_empirical_analysis_only": true,
+    "rights_review_required_before_freeze": true,
+    "fulltext_validation_required_before_freeze": true,
+    "publication": false,
+    "redistribution": false,
+    "training": false,
+    "release": false,
+    "legal_certification": false
+  },
+  "approval_statement_template": "I approve the proposed AU-CTH fresh-holdout source scope and calibration-cluster exclusion exactly as recorded in this hash-pinned packet, for bounded local empirical analysis only, subject to complete pagination, rights review, source-artifact validation, and a separate holdout freeze authorization.",
+  "holdout_frozen": false,
+  "annotation_execution_authorized": false
+}

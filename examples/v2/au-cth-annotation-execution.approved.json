@@ -1,0 +1,34 @@
+{
+  "schema_version": "foi-o.australian-annotation-execution.v0.1.0",
+  "status": "approved_bounded_annotation_execution",
+  "approval_statement": "I authorize automated agents acting as two independent annotators and one distinct adjudicator to generate blinded annotation packets and perform bounded annotation and adjudication against the frozen AU-CTH sample and approved ontology/codebook. This authorizes metric computation and disagreement queues, but not gold promotion, publication, redistribution, training, release, or legal certification.",
+  "approved_by": "edithatogo",
+  "approved_on": "2026-07-22",
+  "jurisdiction": "AU-CTH",
+  "sample_freeze_ref": "examples/v2/au-cth-fulltext-sample-freeze.approved.json",
+  "source_population_sha256": "2d797390fcdb84fbb362e6fccb03131e77247f553da12ed28de2ddaa4fc9ced8",
+  "codebook_id": "foio-au-pilot-assertion-v0.1.0",
+  "seed": 20260721,
+  "roles": {
+    "annotator_a": "automated-agent-role-a",
+    "annotator_b": "automated-agent-role-b",
+    "adjudicator": "automated-agent-role-adjudicator"
+  },
+  "packet_hashes": {
+    "annotator_a": "c824925eb6bbcba6a148ea3c0119cd480e39d4d0a1b75387d33b01bfb8aa1a61",
+    "annotator_b": "01d4002554e290c5804ab81a47df1451d09dcfbbd198b5a21379bf5e9b33e005"
+  },
+  "authorized": {
+    "blinded_packet_generation": true,
+    "bounded_annotation": true,
+    "adjudication": true,
+    "metric_computation": true,
+    "disagreement_queues": true,
+    "gold_promotion": false,
+    "publication": false,
+    "redistribution": false,
+    "training": false,
+    "release": false,
+    "legal_certification": false
+  }
+}

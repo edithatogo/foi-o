@@ -34,8 +34,18 @@ profiles:
     jurisdiction: AU-NSW
     regime: GIPA
     version: 0.1.0
-    stage: discovered
+    stage: source-ready
     status: candidate_contract_only
-    source_pack: {id: pending, sha256: pending, status: not_ready}
-    capabilities: {}
+    source_pack:
+      id: source-pack:au-nsw:2026-07-23-approved-bounded
+      sha256: 2eb550bd34d127521debaa0b5da4bf11187151be0a10756ed94f9625ca3891e9
+      status: approved_bounded_local_adapter_validation_only
+    capabilities:
+      source_discovery: candidate
+      historical_legislation: implemented_candidate
+      normative_extraction: candidate
+      platform_capture: blocked
+      archive_snapshot: blocked
+      annotation_gold_set: blocked
+      legal_review_promotion: blocked
     human_gates: [source_rights, operator_access, independent_annotation, legal_promotion]

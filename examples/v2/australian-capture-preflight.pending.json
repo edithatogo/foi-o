@@ -1,0 +1,67 @@
+{
+  "schema_version": "foi-o.australian-capture-preflight.v0.1.0",
+  "packet_id": "foio-au-capture-preflight-20260721",
+  "status": "capture_attempted_source_access_blocked",
+  "execution_allowed": false,
+  "scope": {
+    "instance_id": "au-rtk",
+    "base_url": "https://www.righttoknow.org.au",
+    "jurisdictions": ["NSW", "FEDERAL"],
+    "purpose": "local empirical validation and immutable local archival",
+    "read_only": true,
+    "authenticated_access": false
+  },
+  "jurisdiction_mapping": {
+    "NSW": "AU-NSW",
+    "FEDERAL": "AU-CTH"
+  },
+  "caps": {
+    "max_requests_per_jurisdiction": 50,
+    "max_runtime_minutes_per_jurisdiction": 30,
+    "delay_seconds": 2,
+    "continue_on_error": false,
+    "max_disk_gb": 2
+  },
+  "implementation_pins": {
+    "fyi_cli_commit": "3454a24",
+    "fyi_archive_commit": "8477704",
+    "pilot_config": "configs/au/jurisdiction_rollout_empirical_pilot.json",
+    "pilot_config_commit": "8477704",
+    "execution_plan_path": "conductor/tracks/australian_jurisdiction_profiles_20260714/capture-execution-plan-20260721.md",
+    "execution_plan_sha256": "bf991cb67f0172c16e5341e81a02078c6c53d622557e84930a85cda37d053f7c"
+  },
+  "source_pack_pins": {
+    "AU-CTH": {
+      "path": "examples/v2/australian-source-pack-au-cth.candidate.json",
+      "sha256": "e3d78d413af835a9ee3b3ec3c299406248968bfd334d2a5d54dce1be3f4f15dc",
+      "rights_review_status": "approved"
+    },
+    "AU-NSW": {
+      "path": "examples/v2/australian-source-pack-au-nsw.candidate.json",
+      "sha256": "625e6d1e9f2dbac234410d8390e2e44276e843f4d26f2accb8752914ab25effa",
+      "rights_review_status": "approved",
+      "content_acquisition_status": "direct_cli_retrieval_blocked_http_403"
+    }
+  },
+  "authorization": {
+    "record_path": "conductor/tracks/australian_jurisdiction_profiles_20260714/capture-authorization-20260721.md",
+    "record_committed": true,
+    "record_sha256": "46333d805b0655931061a936fe1a069bb2d6a283020058f129b6d6757ac20b71",
+    "approval_date": "2026-07-21",
+    "approval_recorded_at": "2026-07-21T12:57:52Z",
+    "execution_authorized_by_record": true
+  },
+  "blockers": [
+    "RightToKnow request discovery returned HTTP 403 for the public-body request feed",
+    "NSW source content digest is unavailable after HTTP 403",
+    "no immutable manifest was created because capture did not complete"
+  ],
+  "prohibitions": [
+    "no submissions",
+    "no access-control bypass",
+    "no publication or dataset release",
+    "no training",
+    "no profile promotion",
+    "no remaining-jurisdiction expansion"
+  ]
+}

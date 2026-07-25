@@ -165,7 +165,7 @@ def _prefilled_risk_label(risk: dict[str, Any] | None) -> str | None:
         return "withholding_language"
     if "ai_workload" in categories:
         return "ai_generated_request"
-    return "no_review_trigger" if not categories else sorted(categories)[0]
+    return "no_review_trigger" if not categories else min(categories)
 
 
 def tasks_from_chunks(

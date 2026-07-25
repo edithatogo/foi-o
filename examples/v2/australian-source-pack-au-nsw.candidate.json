@@ -1,0 +1,29 @@
+{
+  "pack_id": "source-pack:au-nsw:2026-07-21-candidate",
+  "jurisdiction": "AU-NSW",
+  "version": "0.1.0",
+  "generated_at": "2026-07-21T12:08:55Z",
+  "law_at_event_time": true,
+  "normative_source_ids": [
+    "au-nsw.gipa.act.2009-052.current"
+  ],
+  "components": {
+    "legislation_versions": [
+      "au-nsw.gipa.act.2009-052.current"
+    ],
+    "regulations_and_instruments": [],
+    "gazettes": [],
+    "parliamentary_materials": [],
+    "review_findings": [],
+    "guidance": [],
+    "calendars": [],
+    "authority_identity_history": []
+  },
+  "rights_review_status": "approved",
+  "rights_approval": {
+    "approved_by": "edithatogo",
+    "approved_at": "2026-07-21T12:57:52Z",
+    "notes": "User-approved bounded local empirical validation and immutable archival; publication, redistribution, training, and promotion remain prohibited."
+  },
+  "source_manifest_sha256": "262f70623e7c7166c679fda76f2486be4e145c2358a84f7a60777be5edd8558f"
+}

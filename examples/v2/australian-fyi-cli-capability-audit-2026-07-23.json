@@ -1,0 +1,20 @@
+{
+  "schema_version": "foi-o.australian-fyi-cli-capability-audit.v0.1.0",
+  "status": "verified_generic_alaveteli_capture_capability_source_access_blocked_for_nsw",
+  "repository": "edithatogo/fyi-cli",
+  "commit": "dbb26ec",
+  "scope": ["AU-CTH", "AU-NSW"],
+  "capabilities": {
+    "configurable_base_url": {"status": "implemented", "evidence": "src/fyi_system/cli.py --base-url"},
+    "authority_and_feed_discovery": {"status": "implemented", "evidence": "src/fyi_system/discovery.py discover_feed"},
+    "bounded_id_fallback": {"status": "implemented", "evidence": "src/fyi_system/discovery.py backfill_ids"},
+    "shared_rate_limiting": {"status": "implemented", "evidence": "src/fyi_system/db.py shared_rate_limit_state"},
+    "warc_wacz_and_derived_capture": {"status": "implemented", "evidence": "src/fyi_system/archive_capture.py capture_request"}
+  },
+  "jurisdiction_assessment": {
+    "AU-CTH": "generic capability supports approved bounded historical/local workflow",
+    "AU-NSW": "generic capability supports approved bounded workflow, but direct RightToKnow request discovery returned HTTP 403 and the exact Internet Archive probe was empty"
+  },
+  "prohibitions": ["access_control_bypass", "autonomous_live_capture", "publication", "redistribution", "training", "profile_promotion"],
+  "next_gate": "Use a non-empty, rights-cleared NSW source artifact or a restored permitted RightToKnow endpoint; no fyi-cli extension is justified solely by the current source-access failure."
+}

@@ -1,0 +1,15 @@
+{
+  "pack_id": "source-pack:au-nsw:2026-07-23-approved-bounded",
+  "jurisdiction": "AU-NSW",
+  "regime": "GIPA",
+  "version": "0.1.0",
+  "normative_source_ids": ["au-nsw.gipa.act.2009-052.current"],
+  "components": {"legislation_versions": ["au-nsw.gipa.act.2009-052.current"], "guidance": [], "review_findings": [], "authority_identity_history": []},
+  "rights_review_status": "approved",
+  "rights_approval": {"approved_by": "edithatogo", "approved_at": "2026-07-23T13:25:24Z", "scope": "bounded local adapter validation and immutable local archival only"},
+  "source_artifact_sha256": "2eb550bd34d127521debaa0b5da4bf11187151be0a10756ed94f9625ca3891e9",
+  "publication": false,
+  "redistribution": false,
+  "training": false,
+  "profile_promotion": false
+}

@@ -61,25 +61,35 @@ GitHub subissue: [#29](https://github.com/edithatogo/foi-o/issues/29).
 GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 
 - [ ] Task: Freeze stratified Commonwealth and NSW example samples.
-  - [x] Repository readiness subtask: machine-check exact Commonwealth/NSW
-        legal, archive, extraction, sampling, rights, and human-role inputs;
-        reject placeholder or cross-profile evidence before sample freeze.
-        (`6867bca`; strict mode currently exits 2 with 12 explicit blockers and
-        never authorizes profile promotion.)
 - [ ] Task: Dual-annotate, adjudicate, and report agreement by label family.
 - [ ] Task: Evaluate ontology-pinned extraction and route disagreements to review.
-- [x] Task: Build a deterministic source-triangulation resolver with primary
-      source precedence and explicit exception reasons. (`2cd36a6`; contract
-      v0.2.0 records controlling authority/source IDs, excludes derived
-      summaries from controlling evidence, and retains fail-closed exceptions.)
+- [ ] Task: Build a deterministic source-triangulation resolver with primary
+      source precedence and explicit exception reasons.
 - [ ] Task: Freeze the sampling frame, exclusions, unit of analysis, annotation
       codebook, and reliability thresholds before evaluation.
-  - [x] Workflow subtask: pair the fail-closed empirical sequence in
-        Markdown/Mermaid and BPMN 2.0, including the named-human decision and
-        no-promotion boundary. (`2f81588`; paired artifacts are structurally
-        tested.)
 - [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
 - [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
+
+### AU-NSW historical source recovery refinement
+
+- [x] Task: Add explicit URL-index and all-captures Internet Archive CDX modes,
+      manual all-captures confirmation, complete-pagination failure evidence,
+      and contract tests. (`fyi-archive` `4d410d6`; governed workflow
+      `nsw-source-recovery-20260724.md`)
+- [x] Task: Commit the exact RightToKnow all-captures CDX request, including
+      instance scope, page/runtime caps, endpoint, artifact-only retention, and
+      confirmation token. (`599fe4e`; request SHA-256
+      `3c9bb6bda4b51ffc60001ee4f230fb6050269adb78a64122b40867ea1c9e06f1`)
+- [x] Task: Obtain authorization for and dispatch that exact request once.
+      GitHub Actions run `30068038481` failed safely on `2026-07-24` after
+      bounded CDX connection-refusal retries; its 90-day failure artifact is
+      negative evidence only and no source export was created.
+- [ ] Task: Validate a non-empty complete CDX export and its raw hash before
+      recovery; retain failed, empty, or capped exports as negative evidence.
+- [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
+      with authority evidence, and validate the normalized source JSONL.
+- [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
+      empirical-frame freeze, annotation, or maturity evaluation.
 
 ### Phase 3 review fixes
 

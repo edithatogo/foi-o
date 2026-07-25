@@ -19,6 +19,12 @@ workstreams:
   - {id: WS-PROCESS, repo: edithatogo/foi-process, issue: 37, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBEA, url: https://github.com/edithatogo/foi-process/issues/37, track: cross_repo_workspace_and_issue_orchestration, status: in_progress}
   - {id: WS-SOURCES, repo: edithatogo/sourceright, issue: 71, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBE8, url: https://github.com/edithatogo/sourceright/issues/71, track: paper_global_impact_and_reproducibility, status: in_progress}
   - {id: WS-EDITORIAL, repo: edithatogo/authentext, issue: 61, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBFs, url: https://github.com/edithatogo/authentext/issues/61, track: paper_global_impact_and_reproducibility, status: in_progress}
+  - {id: WS-JURISDICTION-COMPLETION, repo: edithatogo/foi-o, issue: 81, project_item: PVTI_lAHOAOYc4M4Bd-EGzgziz_o, url: https://github.com/edithatogo/foi-o/issues/81, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress, tranche_issues: [24, 82, 83, 84, 85, 86]}
+  - {id: WS-GLOBAL-LEGAL-GAZETTE, repo: edithatogo/legislation, issue: 105, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0Ao, url: https://github.com/edithatogo/legislation/issues/105, track: global_foi_legislation_gazette_coverage_20260721, status: planned}
+  - {id: WS-GLOBAL-CAPTURE, repo: edithatogo/fyi-cli, issue: 234, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0Aw, url: https://github.com/edithatogo/fyi-cli/issues/234, track: jurisdiction-capture-completion-20260721, status: planned}
+  - {id: WS-GLOBAL-ARCHIVE, repo: edithatogo/fyi-archive, issue: 210, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A0, url: https://github.com/edithatogo/fyi-archive/issues/210, track: jurisdiction_archive_completion_20260721, status: planned}
+  - {id: WS-GLOBAL-NLP, repo: edithatogo/nlp-policy-nz, issue: 144, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A4, url: https://github.com/edithatogo/nlp-policy-nz/issues/144, track: track98_global_foi_jurisdiction_extraction_20260721, status: planned}
+  - {id: WS-GLOBAL-CASE-MODEL, repo: edithatogo/foi-process, issue: 39, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A8, url: https://github.com/edithatogo/foi-process/issues/39, track: jurisdiction_case_process_modelling_20260721, status: planned}
 dependencies:
   - {from: WS-CAPTURE, to: WS-ARCHIVE, relation: produces_pinned_inputs}
   - {from: WS-ARCHIVE, to: WS-PROCESS, relation: produces_immutable_process_inputs}
@@ -26,6 +32,11 @@ dependencies:
   - {from: WS-NLP, to: WS-CONTEXT, relation: supplies_candidate_concepts}
   - {from: WS-SOURCES, to: WS-PAPER, relation: supplies_claim_source_audit}
   - {from: WS-EDITORIAL, to: WS-PAPER, relation: supplies_final_editorial_review}
+  - {from: WS-GLOBAL-LEGAL-GAZETTE, to: WS-GLOBAL-NLP, relation: supplies_temporally_scoped_normative_sources}
+  - {from: WS-GLOBAL-CAPTURE, to: WS-GLOBAL-ARCHIVE, relation: supplies_bounded_capture_manifests}
+  - {from: WS-GLOBAL-ARCHIVE, to: WS-GLOBAL-NLP, relation: supplies_immutable_case_and_process_inputs}
+  - {from: WS-GLOBAL-NLP, to: WS-GLOBAL-CASE-MODEL, relation: supplies_reviewed_candidate_rules_and_events}
+  - {from: WS-GLOBAL-CASE-MODEL, to: WS-JURISDICTION-COMPLETION, relation: supplies_case_and_process_model_evidence}
 gates:
   - live_capture_operator_approval
   - rights_and_source_pack_review

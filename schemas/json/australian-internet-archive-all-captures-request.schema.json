@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "request_id",
+    "status",
+    "recorded_at",
+    "jurisdiction",
+    "regime",
+    "fyi_archive",
+    "target",
+    "query",
+    "limits",
+    "retention",
+    "expected_evidence",
+    "authorization",
+    "prohibitions"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.australian-internet-archive-all-captures-request.v0.1.0"},
+    "request_id": {"const": "au-nsw-rtk-all-captures-2026-07-24"},
+    "status": {"const": "pending_exact_human_cdx_export_authorization"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "jurisdiction": {"const": "AU-NSW"},
+    "regime": {"const": "GIPA"},
+    "fyi_archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "revision", "workflow_path", "workflow_dispatch_only"],
+      "properties": {
+        "repository": {"const": "edithatogo/fyi-archive"},
+        "revision": {"const": "4d410d6"},
+        "workflow_path": {"const": ".github/workflows/alaveteli_historical_all_captures.yml"},
+        "workflow_dispatch_only": {"const": true}
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["instance_id", "host", "url_pattern", "classification"],
+      "properties": {
+        "instance_id": {"const": "au-rtk"},
+        "host": {"const": "www.righttoknow.org.au"},
+        "url_pattern": {"const": "www.righttoknow.org.au/request/*"},
+        "classification": {"const": "AU-NSW classification occurs only after provenance-preserving recovery"}
+      }
+    },
+    "query": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider", "endpoint", "capture_mode", "status_filter", "fields", "url_collapse"],
+      "properties": {
+        "provider": {"const": "Internet Archive CDX"},
+        "endpoint": {"const": "https://web.archive.org/cdx/search/cdx"},
+        "capture_mode": {"const": "all_captures"},
+        "status_filter": {"const": "statuscode:200"},
+        "fields": {"const": ["original", "timestamp", "digest", "statuscode", "length"]},
+        "url_collapse": {"const": false}
+      }
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["page_size", "max_pages", "max_runtime_seconds", "workflow_timeout_minutes"],
+      "properties": {
+        "page_size": {"const": 1000},
+        "max_pages": {"const": 1000},
+        "max_runtime_seconds": {"const": 600},
+        "workflow_timeout_minutes": {"const": 20}
+      }
+    },
+    "retention": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["destination", "retention_days", "replay_authorized", "manifest_authorized"],
+      "properties": {
+        "destination": {"const": "GitHub Actions artifact only"},
+        "retention_days": {"const": 90},
+        "replay_authorized": {"const": false},
+        "manifest_authorized": {"const": false}
+      }
+    },
+    "expected_evidence": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 4
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exact_request_sha256_required", "remote_revision_required", "dispatch_authorized", "approval_status"],
+      "properties": {
+        "exact_request_sha256_required": {"const": true},
+        "remote_revision_required": {"const": true},
+        "dispatch_authorized": {"const": false},
+        "approval_status": {"const": "pending_exact_human_authorization"}
+      }
+    },
+    "prohibitions": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 6
+    }
+  }
+}

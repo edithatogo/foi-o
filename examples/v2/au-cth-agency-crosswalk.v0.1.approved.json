@@ -1,0 +1,30 @@
+{
+  "schema_version": "foi-o.au-cth-agency-crosswalk.v0.1.0",
+  "status": "approved_for_bounded_candidate_evaluation",
+  "crosswalk_id": "foio-au-cth-commonwealth-agencies-v0.1.0",
+  "approved_by": "edithatogo",
+  "approved_on": "2026-07-23",
+  "include_patterns": [
+    "Commonwealth", "Australian Government", "Australian Federal Police", "Australian Taxation Office",
+    "Australian Public Service Commission", "Australian Radiation Protection", "Australian Communications",
+    "Australian Securities and Investments Commission", "Australian Prudential Regulation Authority",
+    "Australian Trade Commission", "Australian Border Force", "Attorney-General's Department",
+    "Department of Finance", "Department of Health", "Department of Home Affairs", "Department of Defence",
+    "Department of Immigration", "Department of Infrastructure", "Department of the Treasury",
+    "Department of Education", "Department of Human Services", "Department of Employment",
+    "National Disability Insurance Agency", "Services Australia", "Office of the",
+    "Prime Minister", "Treasurer", "Minister for Defence", "Federal Court"
+  ],
+  "exclude_patterns": [
+    "Queensland", "New South Wales", "NSW", "Victoria", "Tasmania", "South Australia",
+    "Western Australia", "Northern Territory", "Local Government", "City Council", "Shire Council",
+    "University", "Police Service", "Police Force", "Fire and Emergency", "VicRoads"
+  ],
+  "scope": {
+    "bounded_local_candidate_evaluation": true,
+    "publication": false,
+    "redistribution": false,
+    "gold_promotion": false,
+    "legal_certification": false
+  }
+}

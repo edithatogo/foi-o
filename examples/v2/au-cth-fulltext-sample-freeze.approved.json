@@ -1,0 +1,35 @@
+{
+  "schema_version": "foi-o.australian-fulltext-sample-freeze.v0.1.0",
+  "status": "approved_bounded_sample_pending_codebook_and_execution",
+  "approval_statement": "I approve freezing the 9-record AU-CTH source population as the bounded empirical sample, including its exact artifact hash, unit ordering, duplicate-clustering rules, exclusions, sampling seed, and codebook version. This does not authorize publication, redistribution, legal conclusions, or population-wide inference.",
+  "approved_by": "edithatogo",
+  "approved_on": "2026-07-22",
+  "source_artifact": {
+    "capture_run_id": "29922684296",
+    "path": "au-rtk.fulltext.json",
+    "sha256": "5f5d4114136c0f2927287ae9edd8ca55b6648431c150dc02c334f581fb7efb48",
+    "record_count": 9,
+    "captured_count": 9,
+    "failed_count": 0
+  },
+  "source_population_sha256": "2d797390fcdb84fbb362e6fccb03131e77247f553da12ed28de2ddaa4fc9ced8",
+  "jurisdiction": "AU-CTH",
+  "sample_kind": "bounded_authentic_census",
+  "sampling": {
+    "seed": 20260721,
+    "prng": "version-pinned deterministic PRNG required by protocol",
+    "unit_order": "canonical frame order, then canonical unit digest",
+    "duplicate_clustering": "NFC; lowercase; collapse whitespace; remove URL tracking parameters; exact normalized request hash; near-duplicate MinHash Jaccard >= 0.90 or normalized Levenshtein >= 0.92 with same request-family key",
+    "exclusions": "No exclusions; inaccessible and excluded units remain in the frame ledger."
+  },
+  "codebook": {
+    "codebook_id": "foio-au-pilot-assertion-v0.1.0",
+    "approval_required": true,
+    "execution_allowed": false
+  },
+  "rights_eligible": true,
+  "annotation_execution_authorized": false,
+  "publication_authorized": false,
+  "redistribution_authorized": false,
+  "population_inference_authorized": false
+}

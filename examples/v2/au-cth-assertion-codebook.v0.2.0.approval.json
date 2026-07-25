@@ -1,0 +1,23 @@
+{
+  "schema_version": "foi-o.au-cth-assertion-codebook-approval.v0.1.0",
+  "status": "approved_for_fresh_holdout_use",
+  "approved_by": "edithatogo",
+  "approved_on": "2026-07-22",
+  "approval_statement": "I approve codebook foio-au-pilot-assertion-v0.2.0, SHA-256 ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9, for use in a fresh AU-CTH holdout annotation run under the approved remediation plan.",
+  "approved_artifact": {
+    "path": "examples/v2/au-cth-assertion-codebook.v0.2.0.pending.json",
+    "codebook_id": "foio-au-pilot-assertion-v0.2.0",
+    "sha256": "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9"
+  },
+  "scope": {
+    "fresh_holdout_use": true,
+    "calibration_units_reusable_as_holdout": false,
+    "execution_authorized": false,
+    "gold_promotion": false,
+    "publication": false,
+    "redistribution": false,
+    "training": false,
+    "release": false,
+    "legal_certification": false
+  }
+}

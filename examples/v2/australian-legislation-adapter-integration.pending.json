@@ -1,0 +1,21 @@
+{
+  "schema_version": "foi-o.australian-legislation-adapter-integration.v0.1.0",
+  "status": "pending_coordinated_repository_integration",
+  "repository": "edithatogo/legislation",
+  "branch": "codex/global-foi-legislation-gazette-track",
+  "commit": "feb55b2",
+  "jurisdictions": ["AU-CTH", "AU-NSW"],
+  "implemented_change": [
+    "Commonwealth adapter contract remains covered by existing provider tests",
+    "NSW bounded XML export adapter and contract tests added"
+  ],
+  "verification": {
+    "test_command": "pnpm test -- --runInBand",
+    "result": "146 passed, 10 skipped",
+    "typecheck": "passed",
+    "placeholder_legal_data_gate": "passed"
+  },
+  "integration_allowed": false,
+  "promotion_allowed": false,
+  "required_next_step": "Coordinate the legislation repository integration and attach its resulting immutable commit and source-pack manifest pin."
+}

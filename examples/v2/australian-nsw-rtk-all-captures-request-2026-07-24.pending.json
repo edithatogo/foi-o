@@ -1,0 +1,64 @@
+{
+  "schema_version": "foi-o.australian-internet-archive-all-captures-request.v0.1.0",
+  "request_id": "au-nsw-rtk-all-captures-2026-07-24",
+  "status": "pending_exact_human_cdx_export_authorization",
+  "recorded_at": "2026-07-23T22:49:41Z",
+  "jurisdiction": "AU-NSW",
+  "regime": "GIPA",
+  "fyi_archive": {
+    "repository": "edithatogo/fyi-archive",
+    "revision": "4d410d6",
+    "workflow_path": ".github/workflows/alaveteli_historical_all_captures.yml",
+    "workflow_dispatch_only": true
+  },
+  "target": {
+    "instance_id": "au-rtk",
+    "host": "www.righttoknow.org.au",
+    "url_pattern": "www.righttoknow.org.au/request/*",
+    "classification": "AU-NSW classification occurs only after provenance-preserving recovery"
+  },
+  "query": {
+    "provider": "Internet Archive CDX",
+    "endpoint": "https://web.archive.org/cdx/search/cdx",
+    "capture_mode": "all_captures",
+    "status_filter": "statuscode:200",
+    "fields": ["original", "timestamp", "digest", "statuscode", "length"],
+    "url_collapse": false
+  },
+  "limits": {
+    "page_size": 1000,
+    "max_pages": 1000,
+    "max_runtime_seconds": 600,
+    "workflow_timeout_minutes": 20
+  },
+  "retention": {
+    "destination": "GitHub Actions artifact only",
+    "retention_days": 90,
+    "replay_authorized": false,
+    "manifest_authorized": false
+  },
+  "expected_evidence": [
+    "raw uncollapsed CDX JSON",
+    "retrieval JSON with provider, endpoint, scope, retrieval time, SHA-256, record count, and pagination status",
+    "GitHub Actions run identifier and artifact name",
+    "failure record only when the export is empty, capped, incomplete, or unavailable"
+  ],
+  "authorization": {
+    "exact_request_sha256_required": true,
+    "remote_revision_required": true,
+    "dispatch_authorized": false,
+    "approval_status": "pending_exact_human_authorization"
+  },
+  "prohibitions": [
+    "origin-site access",
+    "archived-page replay",
+    "manifest creation",
+    "empirical-frame freezing",
+    "annotation",
+    "publication",
+    "redistribution",
+    "training",
+    "legal certification",
+    "profile promotion"
+  ]
+}
