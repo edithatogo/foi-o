@@ -37,12 +37,12 @@ changes materially.
 | --- | ---:|
 | JSON Schema files | 184 |
 | Example files | 267 |
-| Documentation files | 58 |
+| Documentation files | 59 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 6 |
-| Python test modules | 157 |
+| Python test modules | 158 |
 
 ## Semantic Snapshot
 
