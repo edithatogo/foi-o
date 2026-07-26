@@ -1,0 +1,7 @@
+Task: Repair generated maturation inventory drift found by hosted CI.
+
+Files: examples/maturation-summary.ontology-maturation.json and docs/24-schema-ontology-coverage-matrix.md.
+
+Verification: ontology maturation and Australian readiness tests 18 passed; repository validation, Ruff lint, Ruff formatting, and diff checks passed.
+
+Remaining risks: none for this generated inventory repair; eight AU-NSW readiness gates remain external.
