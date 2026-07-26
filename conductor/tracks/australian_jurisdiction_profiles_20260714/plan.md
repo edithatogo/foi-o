@@ -28,7 +28,7 @@ incomplete. Current evidence is profile-specific:
 
 | Profile | Legal/source contract | Archive/sample | Extraction/annotation | Remaining gate |
 | --- | --- | --- | --- | --- |
-| AU-CTH | Adapter integrated; source pack remains a bounded candidate | Authentic restricted holdout frozen and approved | Reliability and extractor metrics completed; bounded maturity approved; metadata-only NLP handoff in `nlp-policy-nz` PR #185 | Approve the Commonwealth source-pack candidate and integrate PR #185 |
+| AU-CTH | Adapter integrated; bounded source-pack maturity approved in `AU-DEC-07` | Authentic restricted holdout frozen and approved | Reliability and extractor metrics completed; bounded maturity approved; metadata-only NLP handoff integrated at `e4a8cf3` | No remaining Commonwealth prerequisite; all publication, redistribution, training, legal-certification, unbounded-inference, and broader-promotion boundaries remain |
 | AU-NSW | Adapter and bounded source pack approved | No non-empty authentic request artifact after three failed CDX attempts | Not started; placeholders prohibited | Supply and approve the authentic request artifact, then freeze and execute the profile-specific protocol |
 
 ## Phase 1: Profile and source contracts

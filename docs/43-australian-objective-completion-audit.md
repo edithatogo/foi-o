@@ -5,7 +5,7 @@ publication, or population-wide inference decision.
 
 | Objective item | Current evidence | Status | Remaining boundary |
 | --- | --- | --- | --- |
-| Commonwealth legislation adapter and source evidence | `examples/v2/australian-legislation-adapter-integration-2026-07-23.approved.json`; adapter commit `feb55b2` | Bounded integration evidence approved | No general legal promotion implied |
+| Commonwealth legislation adapter and source evidence | `examples/v2/australian-legislation-adapter-integration-2026-07-23.approved.json`; `examples/v2/australian-source-pack-au-cth-2026-07-26.approved.json`; source pack `19dc7ddf…e50d4` | Bounded integration and source-pack maturity approved | No publication, redistribution, training, legal certification, unbounded inference, or broader profile promotion |
 | NSW GIPA adapter and source pack | `examples/v2/australian-source-pack-au-nsw-2026-07-23.approved.json`; source artifact `2eb550bd…3891e9` | Source-ready, adapter-validation scope only | NSW request population remains unavailable |
 | fyi-cli capture support | `examples/v2/australian-fyi-cli-capability-audit-2026-07-23.json` | Generic bounded Alaveteli capture verified for AU-CTH/AU-NSW | RightToKnow source access, not CLI capability |
 | Read-only capture and archive infrastructure | `fyi-archive` commits `91eef8b`, `44e2587`, `b2eb327`, `e84b559`, `292a757`, `8d09d57`, `4d410d6`, `fc52b52`; [recovery plan](../conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md) | Registry-driven, paginated, hash-recording IA acquisition implemented; scheduled URL indexes and manual all-captures exports are distinct; runs `30068038481`, `30075664496`, and `30176570901` retained failure evidence without partial exports | A new, separately authorized capture or separately approved operator-supplied candidate must satisfy validation before rights review or empirical use |
@@ -21,13 +21,13 @@ approved archive, sampling configuration, automated annotation roles,
 adjudication, reliability metrics, and bounded maturity decision no longer
 appear as missing merely because AU-NSW is blocked. The production Australian
 placeholder in `nlp-policy-nz` is replaced by a metadata-only, ontology-pinned
-candidate in PR #185; its integration remains a gate until merged.
+bundle was integrated into the NLP repository's default branch by PR #185 at
+merged revision `e4a8cf36090be8c22106072514d9098d27445244`.
 
-The remaining programme blockers are the Commonwealth source-pack candidate
-approval, the AU-CTH NLP handoff integration, and eight AU-NSW prerequisites
-that all depend directly or indirectly on a non-empty rights-cleared request
-artifact. No NSW codebook, frame, annotation packet, metric, or maturity
-artifact may be manufactured ahead of that source gate.
+The remaining programme blockers are eight AU-NSW prerequisites that all
+depend directly or indirectly on a non-empty rights-cleared request artifact.
+No NSW codebook, frame, annotation packet, metric, or maturity artifact may be
+manufactured ahead of that source gate.
 
 ## NSW fail-closed boundary
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "foi-o.australian-empirical-readiness.v0.2.0",
-  "recorded_at": "2026-07-26T01:50:00Z",
+  "recorded_at": "2026-07-26T12:03:14Z",
   "status": "candidate_readiness",
   "profiles": [
     {
@@ -11,10 +11,10 @@
         "repository_revision": "6a00b33c624ef65187d59a293647f05d0c07ce4a",
         "artifact_path": "examples/v2/australian-source-pack-au-cth-2026-07-26.candidate.json",
         "artifact_sha256": "19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4",
-        "status": "candidate",
+        "status": "approved",
         "rights_reviewed": true,
-        "independently_reviewed": false,
-        "known_limitation": "The jurisdiction-isolated Commonwealth source pack is hash-pinned and rights-approved for bounded local use, but has no separate source-pack maturity approval."
+        "independently_reviewed": true,
+        "known_limitation": "Maturity approval is recorded in examples/v2/australian-source-pack-au-cth-2026-07-26.approved.json and remains limited to the existing bounded evidence and rights scope; publication, redistribution, training, legal certification, unbounded inference, and broader profile promotion remain prohibited."
       },
       "archive": {
         "owner_repo": "edithatogo/fyi-archive",
@@ -28,13 +28,13 @@
       },
       "extraction": {
         "owner_repo": "edithatogo/nlp-policy-nz",
-        "repository_revision": "d94d72082f4f8201c20eedd653b30e172e9bbe8a",
+        "repository_revision": "e4a8cf36090be8c22106072514d9098d27445244",
         "artifact_path": "artifacts/foio/au_cth_ontology_pinned_bundle.json",
         "artifact_sha256": "66ce14dd8abcdec4b648137faf1536c5e40ad87969450913913ab93bbdd10129",
-        "status": "candidate",
+        "status": "approved",
         "rights_reviewed": true,
         "independently_reviewed": true,
-        "known_limitation": "The metadata-only handoff is proposed in nlp-policy-nz PR #185 and is not integrated into its default branch."
+        "known_limitation": "The metadata-only handoff was integrated by nlp-policy-nz PR #185 at merged revision e4a8cf36090be8c22106072514d9098d27445244; source content remains excluded and publication, redistribution, training, release, legal certification, and unbounded inference remain prohibited."
       },
       "sampling": {
         "protocol_path": "docs/41-v2-sampling-and-annotation-protocol.md",

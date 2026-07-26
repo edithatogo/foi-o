@@ -27,6 +27,9 @@ OPERATOR_PACKET = TRACK / "phase-3-operator-packet.json"
 OPERATOR_PACKET_SCHEMA = (
     ROOT / "schemas" / "json" / "australian-empirical-operator-packet.schema.json"
 )
+AU_CTH_SOURCE_PACK_APPROVAL = (
+    ROOT / "examples" / "v2" / "australian-source-pack-au-cth-2026-07-26.approved.json"
+)
 
 
 def _current() -> dict[str, Any]:
@@ -45,8 +48,6 @@ def test_current_manifest_reports_exact_fail_closed_blockers() -> None:
     assert result.promotion_allowed is False
     assert set(result.profile_ids) == {"foio-au-cth", "foio-au-nsw"}
     assert set(result.blockers) == {
-        "foio-au-cth.legislation.approved_source_pack_missing",
-        "foio-au-cth.extraction.placeholder_or_missing",
         "foio-au-nsw.archive.immutable_sample_missing",
         "foio-au-nsw.extraction.placeholder_or_missing",
         "foio-au-nsw.sampling.codebook_pin_missing",
@@ -55,6 +56,34 @@ def test_current_manifest_reports_exact_fail_closed_blockers() -> None:
         "foio-au-nsw.annotation_roles.two_independent_annotators_missing",
         "foio-au-nsw.annotation_roles.adjudicator_missing",
         "foio-au-nsw.annotation_roles.assignment_not_approved",
+    }
+
+
+def test_current_commonwealth_inputs_are_hash_bound_and_bounded() -> None:
+    payload = _current()
+    commonwealth = cast(dict[str, Any], payload["profiles"][0])
+    legislation = cast(dict[str, Any], commonwealth["legislation"])
+    extraction = cast(dict[str, Any], commonwealth["extraction"])
+    approval = json.loads(AU_CTH_SOURCE_PACK_APPROVAL.read_text(encoding="utf-8"))
+
+    assert legislation["status"] == "approved"
+    assert legislation["artifact_sha256"] == (
+        "19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4"
+    )
+    assert extraction["status"] == "approved"
+    assert extraction["repository_revision"] == ("e4a8cf36090be8c22106072514d9098d27445244")
+    assert approval["approved_revision"] == ("5b297bcf5d3cb838e5afe40b889cc08a23a1dd66")
+    assert approval["source_evidence"]["sha256"] == (
+        "3f3577972a614a6a72c3eaf94a493ac52f1eb207ea0881e38a0969f771de2fce"
+    )
+    assert approval["authorization"] == {
+        "bounded_source_pack_maturity": True,
+        "publication": False,
+        "redistribution": False,
+        "training": False,
+        "legal_certification": False,
+        "unbounded_inference": False,
+        "broader_profile_promotion": False,
     }
 
 
@@ -68,6 +97,12 @@ def test_operator_packet_covers_every_current_blocker_and_human_gate() -> None:
     covered = [blocker for action in packet["actions"] for blocker in action["readiness_blockers"]]
     assert sorted(covered) == blockers
     assert len(covered) == len(set(covered))
+    assert [action["action_id"] for action in packet["actions"]] == [
+        "AU-OP-03",
+        "AU-OP-04",
+        "AU-OP-05",
+        "AU-OP-06",
+    ]
 
     gates = yaml.safe_load((TRACK / "human-gates.yaml").read_text(encoding="utf-8"))
     known_gate_ids = {gate["id"] for gate in gates["gates"]}
