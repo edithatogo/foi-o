@@ -21,6 +21,16 @@ closeout are not complete. The issue links below are the authoritative queues.
 | Remaining jurisdiction tranches | [#32](https://github.com/edithatogo/foi-o/issues/32) | Open |
 | Release evidence and closeout | [#33](https://github.com/edithatogo/foi-o/issues/33) | Open |
 
+### Profile-specific reconciliation (2026-07-26)
+
+The programme checkboxes below remain open when either pilot profile is
+incomplete. Current evidence is profile-specific:
+
+| Profile | Legal/source contract | Archive/sample | Extraction/annotation | Remaining gate |
+| --- | --- | --- | --- | --- |
+| AU-CTH | Adapter integrated; source pack remains a bounded candidate | Authentic restricted holdout frozen and approved | Reliability and extractor metrics completed; bounded maturity approved; metadata-only NLP handoff in `nlp-policy-nz` PR #185 | Approve the Commonwealth source-pack candidate and integrate PR #185 |
+| AU-NSW | Adapter and bounded source pack approved | No non-empty authentic request artifact after three failed CDX attempts | Not started; placeholders prohibited | Supply and approve the authentic request artifact, then freeze and execute the profile-specific protocol |
+
 ## Phase 1: Profile and source contracts
 
 GitHub subissue: [#28](https://github.com/edithatogo/foi-o/issues/28).
@@ -80,10 +90,11 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       instance scope, page/runtime caps, endpoint, artifact-only retention, and
       confirmation token. (`599fe4e`; request SHA-256
       `3c9bb6bda4b51ffc60001ee4f230fb6050269adb78a64122b40867ea1c9e06f1`)
-- [x] Task: Obtain authorization for and dispatch that exact request once.
-      GitHub Actions run `30068038481` failed safely on `2026-07-24` after
-      bounded CDX connection-refusal retries; its 90-day failure artifact is
-      negative evidence only and no source export was created.
+- [x] Task: Obtain authorization for and dispatch bounded exact requests.
+      GitHub Actions runs `30068038481`, `30075664496`, and `30176570901`
+      all failed safely after bounded Internet Archive CDX connection or TLS
+      retries. Their 90-day artifacts are negative evidence only and no source
+      export was created.
 - [ ] Task: Validate a non-empty complete CDX export and its raw hash before
       recovery; retain failed, empty, or capped exports as negative evidence.
 - [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW

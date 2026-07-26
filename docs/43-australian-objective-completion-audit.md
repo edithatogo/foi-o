@@ -14,6 +14,21 @@ publication, or population-wide inference decision.
 | NSW empirical frame, codebook, packets, metrics, maturity | `examples/v2/australian-nsw-rtk-capture-plan-2026-07-23.approved.json`; `australian-nsw-rtk-cdx-probe-2026-07-23.blocked.json` | Not achieved | Non-empty, rights-cleared NSW request artifact and exact freeze approval |
 | PR #88 merge | Historical audit records merge commit `1796e88909d029f716774ef201e2f12d0ee68c3a` | Recorded complete | No action required unless repository state contradicts this record |
 
+## Current machine-readable blocker reduction
+
+`phase-3-readiness.json` now evaluates each profile independently. AU-CTH's
+approved archive, sampling configuration, automated annotation roles,
+adjudication, reliability metrics, and bounded maturity decision no longer
+appear as missing merely because AU-NSW is blocked. The production Australian
+placeholder in `nlp-policy-nz` is replaced by a metadata-only, ontology-pinned
+candidate in PR #185; its integration remains a gate until merged.
+
+The remaining programme blockers are the Commonwealth source-pack candidate
+approval, the AU-CTH NLP handoff integration, and eight AU-NSW prerequisites
+that all depend directly or indirectly on a non-empty rights-cleared request
+artifact. No NSW codebook, frame, annotation packet, metric, or maturity
+artifact may be manufactured ahead of that source gate.
+
 ## NSW fail-closed boundary
 
 The direct RightToKnow discovery endpoint returned HTTP 403. The exact NSW
