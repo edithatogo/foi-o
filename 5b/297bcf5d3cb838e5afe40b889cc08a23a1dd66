@@ -1,0 +1,4 @@
+CI repair evidence
+PR: edithatogo/foi-o#104
+Root cause: generated ontology inventory predated two new example artifacts
+Validation: 23 affected tests passed; repository validation passed
