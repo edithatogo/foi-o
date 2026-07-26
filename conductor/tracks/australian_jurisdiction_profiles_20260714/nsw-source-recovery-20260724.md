@@ -45,7 +45,7 @@ The equivalent BPMN 2.0 review model is
       instance, page/runtime caps, source endpoint, private output location,
       and `EXPORT_ALL_CAPTURE_METADATA` confirmation. (`599fe4e`; request
       SHA-256 `3c9bb6bda4b51ffc60001ee4f230fb6050269adb78a64122b40867ea1c9e06f1`)
-- [x] Execute the authorized manual CDX export once: GitHub Actions run
+- [x] Execute the first authorized manual CDX export: GitHub Actions run
       `30068038481` on `2026-07-24`, `au-rtk`,
       `www.righttoknow.org.au/request/*`, page size `1000`, maximum pages
       `1000`, and runtime `600` seconds. It failed after bounded retries with
@@ -53,6 +53,21 @@ The equivalent BPMN 2.0 review model is
       artifact has ZIP SHA-256
       `5efe286d76f2ce7bcd71c866e4f6504dcecdd517fed9d951277792777f233237`.
       It contains no source export and is negative evidence only.
+- [x] Record two subsequent separately authorized full-capture attempts for the
+      same bounded scope. Run `30075664496` failed after bounded retries with
+      connection refusal; its 530-byte, 90-day failure ZIP is artifact
+      `8589791549`, SHA-256
+      `5726f087090ee2c8abef46ab7c425c4c491bd5e0673b0cd8e640f97778728c72`.
+      Run `30176570901` on `fyi-archive` commit
+      `ab1080c20cdfa9c342d96b18ba2e93f3d28c7945` failed after bounded retries
+      with an Internet Archive CDX TLS-handshake timeout; its 535-byte, 90-day
+      failure ZIP is artifact `8624447034`, SHA-256
+      `954af9aa0b844484cc9d88cf3a6b5bb9812644176b237c238f0419ec82fe1449`.
+      Its sole `retrieval.json` member has SHA-256
+      `e9a6735eb3fbf803e07c04fcbb1ff2446cd819cd1f65effb0900e98c7a77554d` and
+      records `retrieval_status=failed`, `pagination_complete=false`, no
+      response hash, and no record count. Both are negative evidence only;
+      neither is a CDX export or source artifact.
 - [ ] Run a separately authorized CDX export. Accept it only when the evidence
       record reports `retrieval_status=complete`, `pagination_complete=true`, a
       non-null response SHA-256, and a non-zero record count.
@@ -77,7 +92,7 @@ The equivalent BPMN 2.0 review model is
 
 | Gate | Status | Required evidence |
 | --- | --- | --- |
-| Exact all-captures request | Executed once; failed safely | Request SHA, run ID, scope, caps, confirmation token, failure artifact SHA |
+| Exact all-captures request | Three authorized attempts executed; failed safely | Request SHA, run ID, scope, caps, confirmation token, failure artifact SHA |
 | CDX completeness | Pending external source | Complete pagination, non-empty rows, raw bytes and SHA-256 |
 | Archived-content recovery | Pending external source | Capture timestamp, replay status, response hash, exclusions |
 | Rights and source validation | Pending review | Source, time, scope, coverage, rights, normalized JSONL validation |
@@ -90,3 +105,19 @@ separately labelled scope decision. A third-party catalogue is not a verificatio
 source unless it supplies the exact independently identifiable object and its
 provenance/rights can be validated. In particular, unavailable Anna's Archive
 material cannot fill a missing Internet Archive capture.
+
+## Operator-supplied candidate intake boundary
+
+An operator-supplied non-empty CDX export may be prepared for review only as a
+candidate. Its intake record must identify the provider and source URL, exact
+RightToKnow URL scope, retrieval time, raw-file SHA-256, record count, and
+pagination/completeness status; the raw bytes remain private. Supply does not
+make the object authoritative, complete, rights-cleared, or eligible for
+import. It must first pass the same provenance, coverage, rights, and source-
+artifact validation gates described above.
+
+This intake route is not a standing authorization. Before any importer,
+enricher, replay, manifest, freeze, annotation, or empirical analysis, a new
+human approval must name the actual candidate's hashes, scope, coverage,
+exclusions, and bounded use. It cannot revive or extend the consumed
+authorizations for runs `30068038481`, `30075664496`, or `30176570901`.

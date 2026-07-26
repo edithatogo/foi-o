@@ -1,6 +1,6 @@
 # Australian pilot objective completion audit
 
-Audit date: 2026-07-24. This is an evidence index, not a legal certification,
+Audit date: 2026-07-25. This is an evidence index, not a legal certification,
 publication, or population-wide inference decision.
 
 | Objective item | Current evidence | Status | Remaining boundary |
@@ -8,7 +8,7 @@ publication, or population-wide inference decision.
 | Commonwealth legislation adapter and source evidence | `examples/v2/australian-legislation-adapter-integration-2026-07-23.approved.json`; adapter commit `feb55b2` | Bounded integration evidence approved | No general legal promotion implied |
 | NSW GIPA adapter and source pack | `examples/v2/australian-source-pack-au-nsw-2026-07-23.approved.json`; source artifact `2eb550bd…3891e9` | Source-ready, adapter-validation scope only | NSW request population remains unavailable |
 | fyi-cli capture support | `examples/v2/australian-fyi-cli-capability-audit-2026-07-23.json` | Generic bounded Alaveteli capture verified for AU-CTH/AU-NSW | RightToKnow source access, not CLI capability |
-| Read-only capture and archive infrastructure | `fyi-archive` commits `91eef8b`, `44e2587`, `b2eb327`, `e84b559`, `292a757`, `8d09d57`, `4d410d6`, `fc52b52`; [recovery plan](../conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md) | Registry-driven, paginated, hash-recording IA acquisition implemented; scheduled URL indexes and manual all-captures exports are distinct; runs `30068038481` and `30075664496` retained failure evidence without partial exports | A new, separately authorized capture must succeed before rights validation or empirical use |
+| Read-only capture and archive infrastructure | `fyi-archive` commits `91eef8b`, `44e2587`, `b2eb327`, `e84b559`, `292a757`, `8d09d57`, `4d410d6`, `fc52b52`; [recovery plan](../conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md) | Registry-driven, paginated, hash-recording IA acquisition implemented; scheduled URL indexes and manual all-captures exports are distinct; runs `30068038481`, `30075664496`, and `30176570901` retained failure evidence without partial exports | A new, separately authorized capture or separately approved operator-supplied candidate must satisfy validation before rights review or empirical use |
 | AU-CTH bounded empirical work | `examples/v2/au-cth-fulltext-sample-freeze.approved.json`, `au-cth-assertion-codebook.v0.2.0.approval.json`, `au-cth-annotation-execution.approved.json` | Completed within approved bounded scope | No generalisation, release, or gold promotion |
 | AU-CTH reliability and extractor maturity | `examples/v2/au-cth-maturity-decision.approved.json` | Mature only for approved ontology and bounded evidence scope | No legal certification or population-wide inference |
 | NSW empirical frame, codebook, packets, metrics, maturity | `examples/v2/australian-nsw-rtk-capture-plan-2026-07-23.approved.json`; `australian-nsw-rtk-cdx-probe-2026-07-23.blocked.json` | Not achieved | Non-empty, rights-cleared NSW request artifact and exact freeze approval |
@@ -41,3 +41,20 @@ artifact `8589791549`, 530 bytes, SHA-256
 It contains failure evidence only—not a CDX export, source population, or
 rights/provenance assessment. No importer, enrichment, manifest, empirical
 freeze, annotation, or promotion is permitted from this result.
+
+## AU-CTH third authorized all-captures attempt
+
+The separately authorized AU-CTH RightToKnow all-captures run `30176570901`
+used `au-rtk`, `www.righttoknow.org.au/request/*`, page size `1000`, maximum
+pages `1000`, and runtime `600` seconds. It ran on `fyi-archive` commit
+`ab1080c20cdfa9c342d96b18ba2e93f3d28c7945` and failed safely after bounded
+Internet Archive CDX retries when the TLS handshake timed out. The retained
+90-day failure ZIP is artifact `8624447034`, 535 bytes, SHA-256
+`954af9aa0b844484cc9d88cf3a6b5bb9812644176b237c238f0419ec82fe1449`.
+Its only member is `retrieval.json`, SHA-256
+`e9a6735eb3fbf803e07c04fcbb1ff2446cd819cd1f65effb0900e98c7a77554d`, which
+records `retrieval_status=failed`, `pagination_complete=false`, and no response
+hash or record count. This is negative failure evidence only—not a CDX export,
+source population, rights/provenance assessment, or candidate source artifact.
+The authorization is consumed: no fourth retry, replay, import, enrichment,
+manifest, empirical freeze, annotation, or promotion follows from this result.
