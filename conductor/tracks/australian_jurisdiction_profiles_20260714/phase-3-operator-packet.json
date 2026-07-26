@@ -1,11 +1,11 @@
 {
   "schema_version": "foi-o.australian-empirical-operator-packet.v0.1.0",
   "packet_id": "foio-au-tranche-3-operator-gates-2026-07-21",
-  "recorded_at": "2026-07-21T11:15:00Z",
+  "recorded_at": "2026-07-26T01:50:00Z",
   "track_id": "australian_jurisdiction_profiles_20260714",
   "readiness_manifest": {
     "path": "conductor/tracks/australian_jurisdiction_profiles_20260714/phase-3-readiness.json",
-    "sha256": "b388f1041bd9763f9baa477768bcc0c29c9acf64aa0ae918ee296aa1914a58aa"
+    "sha256": "5cf801301d1d7ca77af239663854df6399ff0dcd06cd6ffed75049ef6291c4c5"
   },
   "phase_issue_url": "https://github.com/edithatogo/foi-o/issues/30",
   "implementation_pr_url": "https://github.com/edithatogo/foi-o/pull/88",
@@ -18,13 +18,12 @@
         "foio-au-cth.legislation.approved_source_pack_missing"
       ],
       "human_gate_ids": ["AU-HG-01"],
-      "action": "Approve an immutable Commonwealth FOI legal source-pack manifest after source and rights review.",
+      "action": "Review and approve the existing hash-pinned Commonwealth source-pack candidate for bounded programme readiness.",
       "evidence_required": [
-        "exact legislation repository revision",
         "source-pack path and SHA-256",
-        "effective-date coverage",
-        "rights-review record",
-        "independent-review record"
+        "exact legislation and FOI-O revisions",
+        "effective-date and coverage statement",
+        "independent-review decision"
       ],
       "status": "pending",
       "automatable": false,
@@ -32,19 +31,18 @@
     },
     {
       "action_id": "AU-OP-02",
-      "owner_repo": "edithatogo/legislation",
-      "issue_url": "https://github.com/edithatogo/legislation/issues/62",
+      "owner_repo": "edithatogo/nlp-policy-nz",
+      "issue_url": "https://github.com/edithatogo/nlp-policy-nz/issues/144",
       "readiness_blockers": [
-        "foio-au-nsw.legislation.approved_source_pack_missing"
+        "foio-au-cth.extraction.placeholder_or_missing"
       ],
-      "human_gate_ids": ["AU-HG-01"],
-      "action": "Complete and approve an immutable NSW GIPA legal source-pack manifest after source and rights review.",
+      "human_gate_ids": ["AU-HG-04"],
+      "action": "Integrate nlp-policy-nz PR #185 and accept its metadata-only AU-CTH bundle within the existing bounded maturity scope.",
       "evidence_required": [
-        "exact legislation repository revision",
-        "source-pack path and SHA-256",
-        "effective-date coverage",
-        "rights-review record",
-        "independent-review record"
+        "merged nlp-policy-nz revision",
+        "bundle path and SHA-256",
+        "source frame ontology extractor and metrics pins",
+        "non-publication and non-redistribution restrictions"
       ],
       "status": "pending",
       "automatable": false,
@@ -55,17 +53,15 @@
       "owner_repo": "edithatogo/fyi-archive",
       "issue_url": "https://github.com/edithatogo/fyi-archive/issues/188",
       "readiness_blockers": [
-        "foio-au-cth.archive.immutable_sample_missing",
         "foio-au-nsw.archive.immutable_sample_missing"
       ],
       "human_gate_ids": ["AU-HG-01"],
-      "action": "Approve rights-cleared immutable representative source populations for Commonwealth and NSW separately.",
+      "action": "Supply and approve a non-empty rights-cleared immutable AU-NSW request population after exact source validation.",
       "evidence_required": [
-        "separate jurisdiction-isolated archive manifests",
-        "exact archive repository revision",
-        "manifest paths and SHA-256 digests",
-        "rights and purpose review",
-        "coverage and exclusion report"
+        "exact source provider scope retrieval time and rights record",
+        "raw and normalized artifact SHA-256 values",
+        "coverage exclusions and duplicate report",
+        "separate AU-NSW immutable manifest approval"
       ],
       "status": "pending",
       "automatable": false,
@@ -76,16 +72,14 @@
       "owner_repo": "edithatogo/nlp-policy-nz",
       "issue_url": "https://github.com/edithatogo/nlp-policy-nz/issues/144",
       "readiness_blockers": [
-        "foio-au-cth.extraction.placeholder_or_missing",
         "foio-au-nsw.extraction.placeholder_or_missing"
       ],
       "human_gate_ids": ["AU-HG-01"],
-      "action": "Replace placeholder Australian extraction fixtures with immutable jurisdiction-isolated candidate bundles.",
+      "action": "Build an ontology-pinned AU-NSW extraction bundle only from the approved authentic NSW population.",
       "evidence_required": [
-        "exact model and pipeline revisions",
-        "ontology and profile revisions",
-        "candidate bundle paths and SHA-256 digests",
-        "source-span and abstention provenance",
+        "exact model pipeline ontology and profile revisions",
+        "candidate bundle path and SHA-256",
+        "source-span provenance and abstention record",
         "independent-review record"
       ],
       "status": "pending",
@@ -97,18 +91,17 @@
       "owner_repo": "edithatogo/foi-o",
       "issue_url": "https://github.com/edithatogo/foi-o/issues/30",
       "readiness_blockers": [
-        "sampling.codebook_revision_missing",
-        "sampling.configuration_not_approved",
-        "sampling.reliability_thresholds_not_approved"
+        "foio-au-nsw.sampling.codebook_pin_missing",
+        "foio-au-nsw.sampling.configuration_not_approved",
+        "foio-au-nsw.sampling.reliability_thresholds_not_approved"
       ],
       "human_gate_ids": ["AU-HG-01"],
-      "action": "Freeze and approve the exact codebook, sampling frame, exclusions, allocation, seed, cluster rule, and reliability thresholds.",
+      "action": "Freeze and approve the exact AU-NSW codebook sampling frame exclusions allocation seed cluster rule and reliability thresholds.",
       "evidence_required": [
-        "codebook path, revision, and SHA-256",
-        "sampling-configuration path and SHA-256",
-        "sample-size justification",
-        "pre-registered reliability thresholds",
-        "named approver and approval timestamp"
+        "codebook path revision and SHA-256",
+        "sampling configuration path and SHA-256",
+        "sample-size justification and finite-population disposition",
+        "named approval date and statement"
       ],
       "status": "pending",
       "automatable": false,
@@ -119,17 +112,17 @@
       "owner_repo": "edithatogo/foi-o",
       "issue_url": "https://github.com/edithatogo/foi-o/issues/30",
       "readiness_blockers": [
-        "human_roles.two_independent_annotators_missing",
-        "human_roles.adjudicator_missing",
-        "human_roles.assignment_not_approved"
+        "foio-au-nsw.annotation_roles.two_independent_annotators_missing",
+        "foio-au-nsw.annotation_roles.adjudicator_missing",
+        "foio-au-nsw.annotation_roles.assignment_not_approved"
       ],
       "human_gate_ids": ["AU-HG-02"],
-      "action": "Appoint and approve two distinct named human annotators and one different named human adjudicator.",
+      "action": "Authorize two isolated automated annotator roles and one distinct automated adjudicator role for the frozen AU-NSW sample.",
       "evidence_required": [
-        "two distinct human annotator identifiers",
-        "one non-overlapping human adjudicator identifier",
+        "two distinct automated annotator-role identifiers",
+        "one non-overlapping automated adjudicator-role identifier",
         "role-assignment approval",
-        "blinding and independence acknowledgement"
+        "blinding independence and bounded-use acknowledgement"
       ],
       "status": "pending",
       "automatable": false,

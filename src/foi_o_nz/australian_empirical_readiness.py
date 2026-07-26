@@ -26,50 +26,55 @@ class ArtifactInput(StrictModel):
     known_limitation: str = Field(min_length=1)
 
 
-class ProfileInputs(StrictModel):
-    """Bind legal, archive and extraction artifacts to one exact profile."""
-
-    profile_id: str
-    jurisdiction: str
-    legislation: ArtifactInput
-    archive: ArtifactInput
-    extraction: ArtifactInput
-
-
 class SamplingInputs(StrictModel):
-    """Record design inputs that must be approved before sample freeze."""
+    """Record one profile's approved design inputs before sample freeze."""
 
     protocol_path: str = Field(min_length=1)
     protocol_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     unit_of_analysis: Literal["request_linked_candidate_assertion"]
     strata: list[str] = Field(min_length=1)
     exclusions: list[str] = Field(min_length=1)
+    codebook_path: str | None = None
     codebook_revision: str | None = Field(default=None, pattern=r"^[0-9a-f]{40}$")
+    codebook_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
+    sampling_configuration_path: str | None = None
     sampling_configuration_sha256: str | None = Field(default=None, pattern=r"^[0-9a-f]{64}$")
     configuration_approved: bool
     reliability_thresholds_approved: bool
 
 
-class HumanRoles(StrictModel):
-    """Keep independent human empirical roles explicit and non-inferable."""
+class AnnotationRoles(StrictModel):
+    """Bind approved independent human or automated-agent roles per profile."""
 
+    role_kind: Literal["human", "automated_agent"]
     annotator_ids: list[str]
     adjudicator_id: str | None
     assignment_approved: bool
+    approval_ref: str | None
+
+
+class ProfileInputs(StrictModel):
+    """Bind all empirical prerequisites to one exact profile."""
+
+    profile_id: str
+    jurisdiction: str
+    legislation: ArtifactInput
+    archive: ArtifactInput
+    extraction: ArtifactInput
+    sampling: SamplingInputs
+    annotation_roles: AnnotationRoles
 
 
 class AustralianEmpiricalReadiness(StrictModel):
     """Australian Commonwealth/NSW empirical-input readiness contract."""
 
-    schema_version: Literal["foi-o.australian-empirical-readiness.v0.1.0"]
+    schema_version: Literal["foi-o.australian-empirical-readiness.v0.2.0"]
     recorded_at: str
     status: Literal["candidate_readiness"]
     profiles: list[ProfileInputs]
-    sampling: SamplingInputs
-    human_roles: HumanRoles
-    sample_freeze_allowed: Literal[False]
-    empirical_claims_allowed: Literal[False]
-    profile_promotion_allowed: Literal[False]
+    joint_sample_freeze_allowed: Literal[False]
+    cross_jurisdiction_empirical_claims_allowed: Literal[False]
+    unbounded_profile_promotion_allowed: Literal[False]
 
     @model_validator(mode="after")
     def require_exact_pilot_profiles(self) -> AustralianEmpiricalReadiness:
@@ -78,8 +83,8 @@ class AustralianEmpiricalReadiness(StrictModel):
         expected = {("foio-au-cth", "AU-CTH"), ("foio-au-nsw", "AU-NSW")}
         if observed != expected or len(self.profiles) != 2:
             raise ValueError("readiness contract must contain exactly AU-CTH and AU-NSW")
-        if "jurisdiction" not in self.sampling.strata:
-            raise ValueError("sampling strata must isolate jurisdiction")
+        if any("jurisdiction" not in profile.sampling.strata for profile in self.profiles):
+            raise ValueError("each profile's sampling strata must retain jurisdiction")
         return self
 
 
@@ -122,28 +127,39 @@ def audit_australian_empirical_readiness(
             if not _artifact_ready(artifact):
                 blockers.append(f"{profile.profile_id}.{field}.{suffix}")
 
-    sampling = manifest.sampling
-    if sampling.codebook_revision is None:
-        blockers.append("sampling.codebook_revision_missing")
-    if sampling.sampling_configuration_sha256 is None or not sampling.configuration_approved:
-        blockers.append("sampling.configuration_not_approved")
-    if not sampling.reliability_thresholds_approved:
-        blockers.append("sampling.reliability_thresholds_not_approved")
+        sampling = profile.sampling
+        if (
+            sampling.codebook_path is None
+            or sampling.codebook_revision is None
+            or sampling.codebook_sha256 is None
+        ):
+            blockers.append(f"{profile.profile_id}.sampling.codebook_pin_missing")
+        if (
+            sampling.sampling_configuration_path is None
+            or sampling.sampling_configuration_sha256 is None
+            or not sampling.configuration_approved
+        ):
+            blockers.append(f"{profile.profile_id}.sampling.configuration_not_approved")
+        if not sampling.reliability_thresholds_approved:
+            blockers.append(f"{profile.profile_id}.sampling.reliability_thresholds_not_approved")
 
-    roles = manifest.human_roles
-    annotators = roles.annotator_ids
-    if (
-        len(annotators) != 2
-        or len(set(annotators)) != 2
-        or not all(item.startswith("human:") for item in annotators)
-    ):
-        blockers.append("human_roles.two_independent_annotators_missing")
-    if roles.adjudicator_id is None or not roles.adjudicator_id.startswith("human:"):
-        blockers.append("human_roles.adjudicator_missing")
-    elif roles.adjudicator_id in annotators:
-        blockers.append("human_roles.adjudicator_not_independent")
-    if not roles.assignment_approved:
-        blockers.append("human_roles.assignment_not_approved")
+        roles = profile.annotation_roles
+        annotators = roles.annotator_ids
+        role_prefix = "human:" if roles.role_kind == "human" else "automated-agent-role-"
+        if (
+            len(annotators) != 2
+            or len(set(annotators)) != 2
+            or not all(item.startswith(role_prefix) for item in annotators)
+        ):
+            blockers.append(
+                f"{profile.profile_id}.annotation_roles.two_independent_annotators_missing"
+            )
+        if roles.adjudicator_id is None or not roles.adjudicator_id.startswith(role_prefix):
+            blockers.append(f"{profile.profile_id}.annotation_roles.adjudicator_missing")
+        elif roles.adjudicator_id in annotators:
+            blockers.append(f"{profile.profile_id}.annotation_roles.adjudicator_not_independent")
+        if not roles.assignment_approved or roles.approval_ref is None:
+            blockers.append(f"{profile.profile_id}.annotation_roles.assignment_not_approved")
 
     return AustralianEmpiricalReadinessResult(
         ready=not blockers,
