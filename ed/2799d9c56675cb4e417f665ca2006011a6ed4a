@@ -1,0 +1,5 @@
+Conductor evidence
+Track: australian_jurisdiction_profiles_20260714
+Candidate commit: ed2799d9c56675cb4e417f665ca2006011a6ed4a
+Validation: 13 focused tests, repository validation, and full Conductor validation passed
+Boundary: independent source-pack maturity approval remains required
