@@ -1,0 +1,7 @@
+Task: Synchronize the Conductor plan with the generated inventory review fix.
+
+Files: conductor/tracks/australian_jurisdiction_profiles_20260714/plan.md.
+
+Verification: referenced commit e04a9a6 exists and its affected 18-test suite plus repository and formatting gates passed.
+
+Remaining risks: AU-NSW source and downstream empirical gates remain open.
