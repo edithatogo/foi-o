@@ -10,7 +10,7 @@ flowchart TD
     A[Audit exact legal, archive and extraction pins] --> B{Both profiles ready?}
     B -- No --> X[Record blockers and stop]
     B -- Yes --> C[Approve codebook, strata, exclusions and thresholds]
-    C --> D{Named human roles approved?}
+    C --> D{Profile roles and execution approved?}
     D -- No --> X
     D -- Yes --> E[Freeze population, duplicate clusters and sample]
     E --> F[Run two blinded independent annotations]
@@ -28,9 +28,11 @@ flowchart TD
    Exit code 2 means no sample may be frozen.
 2. Freeze the approved source population, codebook, sampling configuration,
    duplicate clusters and exact sample before showing any unit to an annotator.
-3. Two distinct named human annotators work blind to each other and to model
-   candidates. A third named human adjudicates all label, span and abstention
-   disagreements.
+3. For each profile, run two approved distinct annotator roles blind to each
+   other and to model candidates. A third approved distinct role adjudicates
+   all label, span and abstention disagreements. Roles may be humans or
+   explicitly identified isolated automated agents; automated evidence must
+   never be represented as human-reviewed.
 4. Run the existing authentic-bundle verifier and publish all pre-registered
    denominators, missingness, abstentions, disagreement and uncertainty.
 5. Route source conflicts through the v0.2.0 triangulation contract, which

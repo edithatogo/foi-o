@@ -1,0 +1,29 @@
+{
+  "schema_version": "foi-o.au-cth-source-pack-maturity-approval.v0.1.0",
+  "status": "approved_commonwealth_source_pack_maturity",
+  "approved_by": "edithatogo",
+  "approved_on": "2026-07-26",
+  "recorded_at": "2026-07-26T12:03:14Z",
+  "jurisdiction": "AU-CTH",
+  "profile_id": "foio-au-cth",
+  "foi_o_pr": 104,
+  "approved_revision": "5b297bcf5d3cb838e5afe40b889cc08a23a1dd66",
+  "source_evidence": {
+    "path": "examples/v2/australian-source-evidence-au-cth.2026-07-26.json",
+    "sha256": "3f3577972a614a6a72c3eaf94a493ac52f1eb207ea0881e38a0969f771de2fce"
+  },
+  "source_pack": {
+    "path": "examples/v2/australian-source-pack-au-cth-2026-07-26.candidate.json",
+    "sha256": "19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4"
+  },
+  "scope": "Commonwealth source-pack maturity within the existing bounded evidence and rights scope",
+  "authorization": {
+    "bounded_source_pack_maturity": true,
+    "publication": false,
+    "redistribution": false,
+    "training": false,
+    "legal_certification": false,
+    "unbounded_inference": false,
+    "broader_profile_promotion": false
+  }
+}

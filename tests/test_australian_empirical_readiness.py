@@ -27,6 +27,9 @@ OPERATOR_PACKET = TRACK / "phase-3-operator-packet.json"
 OPERATOR_PACKET_SCHEMA = (
     ROOT / "schemas" / "json" / "australian-empirical-operator-packet.schema.json"
 )
+AU_CTH_SOURCE_PACK_APPROVAL = (
+    ROOT / "examples" / "v2" / "australian-source-pack-au-cth-2026-07-26.approved.json"
+)
 
 
 def _current() -> dict[str, Any]:
@@ -44,20 +47,44 @@ def test_current_manifest_reports_exact_fail_closed_blockers() -> None:
     assert result.ready is False
     assert result.promotion_allowed is False
     assert set(result.profile_ids) == {"foio-au-cth", "foio-au-nsw"}
-    assert {
-        "foio-au-cth.legislation.approved_source_pack_missing",
-        "foio-au-cth.archive.immutable_sample_missing",
-        "foio-au-cth.extraction.placeholder_or_missing",
-        "foio-au-nsw.legislation.approved_source_pack_missing",
+    assert set(result.blockers) == {
         "foio-au-nsw.archive.immutable_sample_missing",
         "foio-au-nsw.extraction.placeholder_or_missing",
-        "sampling.codebook_revision_missing",
-        "sampling.configuration_not_approved",
-        "sampling.reliability_thresholds_not_approved",
-        "human_roles.two_independent_annotators_missing",
-        "human_roles.adjudicator_missing",
-        "human_roles.assignment_not_approved",
-    }.issubset(result.blockers)
+        "foio-au-nsw.sampling.codebook_pin_missing",
+        "foio-au-nsw.sampling.configuration_not_approved",
+        "foio-au-nsw.sampling.reliability_thresholds_not_approved",
+        "foio-au-nsw.annotation_roles.two_independent_annotators_missing",
+        "foio-au-nsw.annotation_roles.adjudicator_missing",
+        "foio-au-nsw.annotation_roles.assignment_not_approved",
+    }
+
+
+def test_current_commonwealth_inputs_are_hash_bound_and_bounded() -> None:
+    payload = _current()
+    commonwealth = cast(dict[str, Any], payload["profiles"][0])
+    legislation = cast(dict[str, Any], commonwealth["legislation"])
+    extraction = cast(dict[str, Any], commonwealth["extraction"])
+    approval = json.loads(AU_CTH_SOURCE_PACK_APPROVAL.read_text(encoding="utf-8"))
+
+    assert legislation["status"] == "approved"
+    assert legislation["artifact_sha256"] == (
+        "19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4"
+    )
+    assert extraction["status"] == "approved"
+    assert extraction["repository_revision"] == ("e4a8cf36090be8c22106072514d9098d27445244")
+    assert approval["approved_revision"] == ("5b297bcf5d3cb838e5afe40b889cc08a23a1dd66")
+    assert approval["source_evidence"]["sha256"] == (
+        "3f3577972a614a6a72c3eaf94a493ac52f1eb207ea0881e38a0969f771de2fce"
+    )
+    assert approval["authorization"] == {
+        "bounded_source_pack_maturity": True,
+        "publication": False,
+        "redistribution": False,
+        "training": False,
+        "legal_certification": False,
+        "unbounded_inference": False,
+        "broader_profile_promotion": False,
+    }
 
 
 def test_operator_packet_covers_every_current_blocker_and_human_gate() -> None:
@@ -70,6 +97,12 @@ def test_operator_packet_covers_every_current_blocker_and_human_gate() -> None:
     covered = [blocker for action in packet["actions"] for blocker in action["readiness_blockers"]]
     assert sorted(covered) == blockers
     assert len(covered) == len(set(covered))
+    assert [action["action_id"] for action in packet["actions"]] == [
+        "AU-OP-03",
+        "AU-OP-04",
+        "AU-OP-05",
+        "AU-OP-06",
+    ]
 
     gates = yaml.safe_load((TRACK / "human-gates.yaml").read_text(encoding="utf-8"))
     known_gate_ids = {gate["id"] for gate in gates["gates"]}
@@ -100,19 +133,24 @@ def test_complete_independent_inputs_can_be_ready_without_promoting() -> None:
                 rights_reviewed=True,
                 independently_reviewed=True,
             )
-    sampling = cast(dict[str, Any], payload["sampling"])
-    sampling.update(
-        codebook_revision="a" * 40,
-        sampling_configuration_sha256="b" * 64,
-        configuration_approved=True,
-        reliability_thresholds_approved=True,
-    )
-    roles = cast(dict[str, Any], payload["human_roles"])
-    roles.update(
-        annotator_ids=["human:annotator-a", "human:annotator-b"],
-        adjudicator_id="human:adjudicator",
-        assignment_approved=True,
-    )
+        sampling = cast(dict[str, Any], profile["sampling"])
+        sampling.update(
+            codebook_path=f"codebooks/{profile['profile_id']}.json",
+            codebook_revision="a" * 40,
+            codebook_sha256=f"{profile_index + 10:064x}",
+            sampling_configuration_path=f"frames/{profile['profile_id']}.json",
+            sampling_configuration_sha256=f"{profile_index + 20:064x}",
+            configuration_approved=True,
+            reliability_thresholds_approved=True,
+        )
+        roles = cast(dict[str, Any], profile["annotation_roles"])
+        roles.update(
+            role_kind="automated_agent",
+            annotator_ids=["automated-agent-role-a", "automated-agent-role-b"],
+            adjudicator_id="automated-agent-role-adjudicator",
+            assignment_approved=True,
+            approval_ref=f"approvals/{profile['profile_id']}.json",
+        )
 
     result = audit_australian_empirical_readiness(
         AustralianEmpiricalReadiness.model_validate(payload)
@@ -140,6 +178,19 @@ def test_repeated_placeholder_digest_is_rejected_even_if_marked_approved() -> No
     )
 
     assert "foio-au-cth.extraction.placeholder_or_missing" in result.blockers
+
+
+def test_approved_automated_roles_must_remain_distinct() -> None:
+    payload = _current()
+    profiles = cast(list[dict[str, Any]], payload["profiles"])
+    roles = cast(dict[str, Any], profiles[0]["annotation_roles"])
+    roles["annotator_ids"] = ["automated-agent-role-a", "automated-agent-role-a"]
+
+    result = audit_australian_empirical_readiness(
+        AustralianEmpiricalReadiness.model_validate(payload)
+    )
+
+    assert "foio-au-cth.annotation_roles.two_independent_annotators_missing" in result.blockers
 
 
 def test_manifest_rejects_an_unplanned_profile() -> None:

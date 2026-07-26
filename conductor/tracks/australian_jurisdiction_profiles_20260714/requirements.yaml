@@ -17,7 +17,7 @@ requirements:
     status: blocked
     source: plan.md#phase-3-empirical-validation
     acceptance_evidence: [locked_annotation_sets, locked_adjudication_set, reliability_report]
-    dependencies: [AU-EV-001, two_named_human_annotators, distinct_named_human_adjudicator]
+    dependencies: [AU-EV-001, two_approved_isolated_annotator_roles, distinct_approved_adjudicator_role]
     supersedes: []
     superseded_by: []
   - id: AU-EV-003

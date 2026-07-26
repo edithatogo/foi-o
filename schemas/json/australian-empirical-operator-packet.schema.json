@@ -44,7 +44,7 @@
     },
     "actions": {
       "type": "array",
-      "minItems": 6,
+      "minItems": 1,
       "maxItems": 6,
       "items": {
         "$ref": "#/$defs/action"

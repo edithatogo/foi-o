@@ -16,7 +16,7 @@
       <bpmn:incoming>Flow_NotReady_Stop</bpmn:incoming>
       <bpmn:outgoing>Flow_Blockers_End</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_ApproveInputs" name="Approve design and human roles">
+    <bpmn:task id="Task_ApproveInputs" name="Approve design, roles and execution">
       <bpmn:incoming>Flow_Ready_Approve</bpmn:incoming>
       <bpmn:outgoing>Flow_Approve_Freeze</bpmn:outgoing>
     </bpmn:task>
