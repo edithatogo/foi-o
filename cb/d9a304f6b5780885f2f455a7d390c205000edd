@@ -1,0 +1,4 @@
+Conductor evidence
+Track: australian_jurisdiction_profiles_20260714
+Validation: 9 focused tests passed; repository, jurisdiction profile, completion map, Ruff, and full Conductor validation passed
+Boundary: AU-CTH source-pack and NLP integration gates remain; AU-NSW authentic source and downstream empirical gates remain
