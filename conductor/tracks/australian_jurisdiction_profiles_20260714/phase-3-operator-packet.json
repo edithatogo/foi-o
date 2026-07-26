@@ -5,7 +5,7 @@
   "track_id": "australian_jurisdiction_profiles_20260714",
   "readiness_manifest": {
     "path": "conductor/tracks/australian_jurisdiction_profiles_20260714/phase-3-readiness.json",
-    "sha256": "5cf801301d1d7ca77af239663854df6399ff0dcd06cd6ffed75049ef6291c4c5"
+    "sha256": "626dbe0ca3c6cfa3180dd43993ba78b58a8b250d81b3ac7180ba480ca68281cb"
   },
   "phase_issue_url": "https://github.com/edithatogo/foi-o/issues/30",
   "implementation_pr_url": "https://github.com/edithatogo/foi-o/pull/88",
@@ -21,6 +21,7 @@
       "action": "Review and approve the existing hash-pinned Commonwealth source-pack candidate for bounded programme readiness.",
       "evidence_required": [
         "source-pack path and SHA-256",
+        "jurisdiction-isolated source-manifest path and SHA-256",
         "exact legislation and FOI-O revisions",
         "effective-date and coverage statement",
         "independent-review decision"

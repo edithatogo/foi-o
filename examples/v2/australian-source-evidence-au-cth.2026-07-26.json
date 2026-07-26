@@ -1,0 +1,37 @@
+{
+  "schema_version": "foi-o.australian-source-evidence-candidate.v0.2.0",
+  "created_at": "2026-07-26T02:05:00Z",
+  "status": "candidate_ready_for_maturity_review",
+  "jurisdiction": "AU-CTH",
+  "source_count": 1,
+  "derived_from": {
+    "path": "examples/v2/australian-source-evidence-candidate.2026-07-21.json",
+    "sha256": "262f70623e7c7166c679fda76f2486be4e145c2358a84f7a60777be5edd8558f"
+  },
+  "sources": [
+    {
+      "source_id": "au-cth.foi.act.1982.C2026C00020",
+      "jurisdiction": "AU-CTH",
+      "title": "Freedom of Information Act 1982",
+      "source_url": "https://www.legislation.gov.au/C2004A02562/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1/document_1.html",
+      "effective_from": "2026-01-01",
+      "retrieved_at": "2026-07-21T12:08:54Z",
+      "content_format": "official_epub_html_xml",
+      "content_sha256": "b79f06c82b7d9e01ecf2529303954842f86818365c9f3ca4a079756e195e447f",
+      "acquisition_status": "retrieved_and_hash_verified",
+      "rights_status": "approved_bounded_local"
+    }
+  ],
+  "rights_review": {
+    "approved_by": "edithatogo",
+    "approved_at": "2026-07-21T12:57:52Z",
+    "scope": "bounded local empirical validation and immutable archival only"
+  },
+  "prohibitions": [
+    "no_legal_interpretation",
+    "no_profile_promotion",
+    "no_publication_or_dataset_release",
+    "no_raw_source_redistribution",
+    "no_training"
+  ]
+}

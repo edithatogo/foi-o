@@ -9,12 +9,12 @@
       "legislation": {
         "owner_repo": "edithatogo/foi-o",
         "repository_revision": "6a00b33c624ef65187d59a293647f05d0c07ce4a",
-        "artifact_path": "examples/v2/australian-source-pack-au-cth.candidate.json",
-        "artifact_sha256": "e3d78d413af835a9ee3b3ec3c299406248968bfd334d2a5d54dce1be3f4f15dc",
+        "artifact_path": "examples/v2/australian-source-pack-au-cth-2026-07-26.candidate.json",
+        "artifact_sha256": "19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4",
         "status": "candidate",
         "rights_reviewed": true,
         "independently_reviewed": false,
-        "known_limitation": "The Commonwealth source pack is hash-pinned and rights-approved for bounded local use, but has no separate source-pack maturity approval."
+        "known_limitation": "The jurisdiction-isolated Commonwealth source pack is hash-pinned and rights-approved for bounded local use, but has no separate source-pack maturity approval."
       },
       "archive": {
         "owner_repo": "edithatogo/fyi-archive",
