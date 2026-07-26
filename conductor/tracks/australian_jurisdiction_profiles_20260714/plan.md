@@ -119,6 +119,9 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       decisions, outputs, human-gate, workflow, issue, acceptance, closeout,
       and append-only evidence records. (`8a828b4`; required governance files
       parse and the workflow-pair test passes.)
+- [x] Task: Refresh generated maturation inventory after recording the
+      Commonwealth source-pack approval wrapper. (`e04a9a6`; the canonical
+      summary and coverage matrix now record 270 example files.)
 
 ## Phase 4: Pilot decision gate
 
