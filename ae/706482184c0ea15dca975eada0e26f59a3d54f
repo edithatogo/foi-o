@@ -1,0 +1,7 @@
+Task: Record approved AU-CTH source-pack maturity and dependency integrations.
+
+Files: approval wrapper, Australian readiness and operator packet, decision and evidence ledgers, plan/closeout/audit documentation, operator schema, and readiness tests.
+
+Verification: repository validation passed; requirements, jurisdiction profiles, workflows, and jurisdiction completion validators passed; 15 affected Australian tests passed; Ruff and JSON checks passed.
+
+Remaining risks: eight AU-NSW prerequisites remain blocked on a non-empty rights-cleared source population; publication, redistribution, training, legal certification, unbounded inference, and broader promotion remain prohibited.
