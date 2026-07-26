@@ -1,0 +1,12 @@
+Task: Record the third authorized AU-CTH RightToKnow all-captures failure and clarify operator-supplied candidate intake.
+
+Files changed:
+- docs/43-australian-objective-completion-audit.md
+- conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md
+- tests/test_nsw_source_recovery_plan.py
+
+Why: Run 30176570901 produced a retained 90-day failure artifact only. The canonical evidence must make clear that no source artifact, import, manifest, or empirical work follows, while documenting the data needed to submit a future candidate for separate review.
+
+Verification: uv run --extra dev pytest tests/test_nsw_source_recovery_plan.py (2 passed).
+
+Remaining risk: Internet Archive CDX remains externally unavailable for this bounded scope; a future non-empty candidate still requires separate hash-bound approval before downstream work.
