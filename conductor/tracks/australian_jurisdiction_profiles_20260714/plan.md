@@ -103,16 +103,20 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       `954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd`;
       all 26,000 metadata-only classifications remain unresolved pending
       separately authorized authority evidence.)
-- [~] Task: Recover only export-listed archived snapshots, classify AU-NSW
+- [x] Task: Recover only export-listed archived snapshots, classify AU-NSW
       with authority evidence, and validate the normalized source JSONL.
-      The amended bounded replay resumed successfully with one persistent,
-      paced Internet Archive connection and remains checkpointed/in progress.
+      The amended bounded replay completed successfully with one persistent,
+      paced Internet Archive connection.
       Selection SHA-256 is
       `a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51`;
-      at `2026-07-27T06:05:54Z`, at least 1,200 of 2,082 captures were complete
-      with no current failures. Parser-v3 local reprocessing, four-way
-      AU-CTH/AU-NSW/out-of-scope/unresolved classification, archive-side
-      validation, and an independent FOI-O oracle are implemented locally.
+      all 2,082 captures completed with zero failures. Parser-v3 local
+      reprocessing and four-way classification produced 1,578 AU-CTH, 179
+      AU-NSW, 115 out-of-scope, and 210 unresolved records. Normalized JSONL
+      SHA-256 is
+      `3801b4b99de6152bfcaf5f093e00e137acb4ee5d636611ada75820aed55fd807`;
+      candidate summary SHA-256 is
+      `98eae70428e630cbd36849e5ad19c4133dbd9f01c413cf33221d2b0eef0091ab`.
+      Archive-side validation and the independent FOI-O oracle passed.
       See `docs/43-au-rtk-replay-attempt-2026-07-27.md`; no manifest has been
       finalized.
 - [ ] Task: Obtain a separate hash-bound approval before immutable manifest,

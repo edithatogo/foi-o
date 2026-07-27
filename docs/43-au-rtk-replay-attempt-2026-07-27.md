@@ -2,8 +2,8 @@
 
 ## Status
 
-Recovery remains incomplete and no candidate manifest can be finalized. The
-checkpointed replay has resumed successfully with one persistent Internet
+The authorized replay is complete and independently validated. No immutable
+manifest has been finalized. The replay completed with one persistent Internet
 Archive connection and two-second launch pacing.
 
 The amended authorization selected 2,082 canonical request pages:
@@ -29,9 +29,25 @@ began refusing most TCP connections:
 - targeted CDX checkpoints failed with `[Errno 61] Connection refused`: 46
 
 A subsequent single exact CDX request also failed at connection establishment.
-The Internet Archive edge later recovered. At `2026-07-27T06:05:54Z`, at least
-1,200 of 2,082 selected captures were present as matched restricted-local raw
-and parsed checkpoints, with no failure record in the resumed run.
+The Internet Archive edge later recovered. At `2026-07-27T08:05:20Z`, all
+2,082 selected captures were present as matched restricted-local raw and parsed
+checkpoints, with zero failures and no open circuit. Parser-v3 local
+reprocessing completed at `2026-07-27T08:05:58Z`.
+
+The normalized candidate JSONL has SHA-256
+`3801b4b99de6152bfcaf5f093e00e137acb4ee5d636611ada75820aed55fd807`.
+The schema-validated jurisdiction candidate has SHA-256
+`98eae70428e630cbd36849e5ad19c4133dbd9f01c413cf33221d2b0eef0091ab`
+and exactly partitions the 2,082 records:
+
+- AU-CTH: 1,578
+- AU-NSW: 179
+- out of scope: 115
+- unresolved: 210
+
+The independent FOI-O oracle returned `ok: true` for the exact partition,
+source provenance, retained raw hashes, record hashes, path containment, and
+non-finalization boundaries.
 
 The local replay implementation now:
 
@@ -55,11 +71,9 @@ the earlier attempt's aggregate failure counts are retained above.
 
 ## Remaining boundary
 
-The authorization remains usable for the active checkpointed continuation, but
-the Conductor bounded-retry rule prevents an unbounded retry loop. Final
-parser-v3 reprocessing, AU-CTH/AU-NSW classification, normalized candidate
-JSONL validation, and non-final manifest preparation must wait for all 2,082
-authorized selections to be accounted for.
+The separately authorized 1,716-query metadata-only completion lookup for the
+858 excluded slugs is in progress. Any newly discovered canonical captures
+must be presented as a hash-pinned candidate for separate replay approval.
 
 Immutable-manifest finalization, empirical freezing, annotation, publication,
 redistribution, training, legal certification, profile promotion, push, pull
