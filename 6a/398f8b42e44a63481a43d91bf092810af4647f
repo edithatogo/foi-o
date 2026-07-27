@@ -1,0 +1,1 @@
+Conductor approval packet: prepares but does not execute immutable-manifest finalization for the 2082-record AU RightToKnow population. Pins the complete CDX, replay, classification, and no-capture completion hashes. Remaining boundary is the user's explicit hash-bound manifest-finalization approval.
