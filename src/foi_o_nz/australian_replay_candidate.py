@@ -24,6 +24,9 @@ PROVENANCE_FIELDS = (
 
 
 def _sha256(path: Path) -> str:
+    path = path.resolve(strict=True)
+    if not path.is_file():
+        raise ValueError(f"expected a regular file: {path}")
     digest = hashlib.sha256()
     with path.open("rb") as stream:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
