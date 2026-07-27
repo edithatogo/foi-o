@@ -56,3 +56,20 @@ An approval would establish whether the retained HTML subset contains
 rights-eligible, span-validatable material. Any subsequent freeze would need a
 new approval naming the resulting candidate report and its exact eligible
 membership; no population-wide inference would be permitted.
+
+## Recorded outcome
+
+The authorized local operation completed on 2026-07-27. It validated all 517
+retained AU-CTH canonical HTML members against the immutable manifest and
+classification input, with no network access or replay. All 517 contained
+extractable correspondence text and exact UTF-8 character spans. The
+non-final summary is restricted-local at
+`/Volumes/PortableSSD/foio-restricted/au-rtk-30236042144/retained-html-text-candidate/summary.json`,
+SHA-256 `efd5e6be4e588eb3d1f0eaa15104595da41faaa0c89d5b1d3958afbb9f97b8e6`.
+Its candidate JSONL has SHA-256
+`a09c4b8fc2cf01ca957c3c0c8d3963ab0e0a37253a6fbcf6731cc889a9ed8c34`.
+
+This does not establish empirical rights eligibility, freeze a frame, or
+authorize sampling or annotation. Each candidate record remains marked
+`restricted_local_non_redistributable` and ineligible for empirical use until
+the next human decision.

@@ -142,6 +142,9 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       recovery input before presenting a revised freeze approval. The no-replay
       retained-HTML candidate is
       `docs/46-au-cth-retained-html-text-validation-approval-packet-2026-07-27.md`.
+      Its 517-record result is ready for the separate rights-and-subset-freeze
+      decision in
+      `docs/47-au-cth-retained-html-rights-and-freeze-approval-packet-2026-07-27.md`.
 
 ### Phase 3 review fixes
 
