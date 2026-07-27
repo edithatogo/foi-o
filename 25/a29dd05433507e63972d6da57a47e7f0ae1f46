@@ -1,0 +1,1 @@
+Task: compute approved descriptive AU-CTH reliability report.\n\nVerification: ruff passed; report hash and bootstrap output recorded.\n\nRemaining gate: threshold/maturity and extractor metrics remain unapproved.
