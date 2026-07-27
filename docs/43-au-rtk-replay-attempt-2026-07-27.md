@@ -2,9 +2,11 @@
 
 ## Status
 
-The authorized replay is complete and independently validated. No immutable
-manifest has been finalized. The replay completed with one persistent Internet
-Archive connection and two-second launch pacing.
+The authorized replay is complete and independently validated. One immutable,
+restricted-local manifest has been finalized from the six hash-pinned inputs
+approved in `docs/44-au-rtk-immutable-manifest-approval-packet-2026-07-27.md`.
+The replay completed with one persistent Internet Archive connection and
+two-second launch pacing.
 
 The amended authorization selected 2,082 canonical request pages:
 
@@ -85,10 +87,19 @@ candidate and selection hashes, and all non-finalization controls. There is no
 additional archived-page replay candidate to authorize.
 
 The approved replay population therefore remains exactly the original 2,082
-canonical request pages. The next external gate is a separate hash-bound
-decision on an immutable manifest and any empirical-frame freeze; neither has
-been performed.
+canonical request pages. The restricted-local immutable manifest is at
+`/Volumes/PortableSSD/foio-restricted/au-rtk-30236042144/immutable-manifest/au-rtk-immutable-manifest.json`.
+Its self-pin is SHA-256
+`2e64cac3f534265a68716ed0db7e9b82039200ee3a8312e6bb145a1af91bc23c`; the
+exact stored file is 1,618 bytes with SHA-256
+`c77ce6aafad557f5555fe347d2e9025d07e460574c15a4343728bb1ba3015393`.
+The independent local validator returned `ok: true` and confirmed the 2,082
+record count, all six approved pins, the zero completion additions, and the
+restricted-local boundaries.
 
-Immutable-manifest finalization, empirical freezing, annotation, publication,
-redistribution, training, legal certification, profile promotion, push, pull
-request, and merge remain prohibited.
+The next external gate is a separate hash-bound decision on an empirical-frame
+freeze. It has not been performed.
+
+Empirical freezing, annotation, publication, redistribution, training, legal
+certification, profile promotion, push, pull request, and merge remain
+prohibited.

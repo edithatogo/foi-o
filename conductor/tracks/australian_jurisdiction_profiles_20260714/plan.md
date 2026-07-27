@@ -123,12 +123,18 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       `0dafc44c1b871357802282f138bf0e6e9d68f249a171c1d9627809bd928531c8`;
       non-final zero-record replay selection SHA-256 is
       `370a6d84e20a4bd260619209d84098458c9e72acf7e4e6f5cb3465cbaba88bb6`.
-      The non-final immutable-manifest approval packet is
+      The immutable-manifest approval packet is
       `docs/44-au-rtk-immutable-manifest-approval-packet-2026-07-27.md`.
-      See `docs/43-au-rtk-replay-attempt-2026-07-27.md`; no manifest has been
-      finalized.
-- [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
-      empirical-frame freeze, annotation, or maturity evaluation.
+      See `docs/43-au-rtk-replay-attempt-2026-07-27.md` for the finalized
+      restricted-local manifest.
+- [x] Task: Obtain a separate hash-bound approval before immutable manifest.
+      Approval was received and one restricted-local immutable manifest was
+      finalized and independently validated: self-pin SHA-256
+      `2e64cac3f534265a68716ed0db7e9b82039200ee3a8312e6bb145a1af91bc23c`;
+      stored-file SHA-256
+      `c77ce6aafad557f5555fe347d2e9025d07e460574c15a4343728bb1ba3015393`.
+- [ ] Task: Obtain a separate hash-bound approval before empirical-frame
+      freeze, annotation, or maturity evaluation.
 
 ### Phase 3 review fixes
 

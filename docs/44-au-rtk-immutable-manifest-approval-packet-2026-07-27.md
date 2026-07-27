@@ -42,3 +42,14 @@ independent validation result. It does not determine sample membership or
 authorize use of records for empirical analysis. A separate approval will be
 required for any empirical-frame freeze, annotation, adjudication, or maturity
 decision.
+
+## Recorded outcome
+
+The approved operation was finalized locally on 2026-07-27. The restricted
+local manifest has self-pin SHA-256
+`2e64cac3f534265a68716ed0db7e9b82039200ee3a8312e6bb145a1af91bc23c`; its
+exact stored 1,618-byte file has SHA-256
+`c77ce6aafad557f5555fe347d2e9025d07e460574c15a4343728bb1ba3015393`.
+The validator confirmed all six input pins, 2,082 replay records, zero
+completion additions, 858 no-capture slugs, and every restricted-local
+boundary. No empirical-frame freeze or later-stage operation was performed.
