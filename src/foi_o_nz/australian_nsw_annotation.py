@@ -22,6 +22,10 @@ _B_OBSERVED = re.compile(
     r"\bGIPA Act\b|Government Information \(Public Access\) Act", re.IGNORECASE
 )
 _CANDIDATE = re.compile(r"\binformation access\b|\bFOI\b", re.IGNORECASE)
+_SPAN = re.compile(
+    r"\bGIPA(?:\s+Act)?\b|Government Information \(Public Access\)(?:\s+Act)?",
+    re.IGNORECASE,
+)
 
 
 def _sha256(path: Path) -> str:
@@ -246,21 +250,25 @@ def run_fresh_annotation(
         records = []
         observed = _A_OBSERVED if role == ANNOTATOR_A else _B_OBSERVED
         for unit in chosen:
-            match = observed.search(str(unit["text"]))
-            label = "observed" if match else "unknown"
+            text = str(unit["text"])
+            label_match = observed.search(text)
+            span_match = _SPAN.search(text)
+            label = "observed" if label_match else "unknown"
             records.append(
                 {
                     "unit_id": unit["unit_id"],
                     "unit_sha256": unit["text_sha256"],
                     "role": role,
                     "label": label,
-                    "abstention": not match,
-                    "abstention_reason": None if match else "insufficient_evidence",
+                    "abstention": label_match is None,
+                    "abstention_reason": None
+                    if label_match is not None
+                    else "insufficient_evidence",
                     "span": None
-                    if match is None
+                    if span_match is None
                     else {
-                        "start": match.start(),
-                        "end": match.end(),
+                        "start": span_match.start(),
+                        "end": span_match.end(),
                         "coordinate_system": "utf8_character_half_open",
                     },
                 }
