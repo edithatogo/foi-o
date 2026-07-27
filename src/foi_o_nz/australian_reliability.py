@@ -67,9 +67,9 @@ def compute_descriptive(
         picks = [rng.randrange(len(a)) for _ in a]
         sa, sb = [labels_a[i] for i in picks], [labels_b[i] for i in picks]
         raw_boot.append(sum(x == y for x, y in zip(sa, sb, strict=True)) / len(sa))
-        value, _ = kappa(sa, sb)
-        if value is not None:
-            kap_boot.append(value)
+        kappa_value, _ = kappa(sa, sb)
+        if kappa_value is not None:
+            kap_boot.append(kappa_value)
     exact_span = sum(x["span"] == y["span"] for x, y in zip(a, b, strict=True))
     abstention = sum(x["abstention"] == y["abstention"] for x, y in zip(a, b, strict=True))
     value: dict[str, Any] = {
