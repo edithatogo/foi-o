@@ -103,14 +103,18 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       `954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd`;
       all 26,000 metadata-only classifications remain unresolved pending
       separately authorized authority evidence.)
-- [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
+- [~] Task: Recover only export-listed archived snapshots, classify AU-NSW
       with authority evidence, and validate the normalized source JSONL.
-      Amended bounded replay is checkpointed but incomplete: selection SHA-256
+      The amended bounded replay resumed successfully with one persistent,
+      paced Internet Archive connection and remains checkpointed/in progress.
+      Selection SHA-256 is
       `a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51`;
-      20 captures succeeded, while 116 replay and 46 exact-CDX checkpoints
-      failed with Internet Archive connection refusal. See
-      `docs/43-au-rtk-replay-attempt-2026-07-27.md` and local fyi-archive
-      implementation commit `dcdca26`.
+      at `2026-07-27T06:05:54Z`, at least 1,200 of 2,082 captures were complete
+      with no current failures. Parser-v3 local reprocessing, four-way
+      AU-CTH/AU-NSW/out-of-scope/unresolved classification, archive-side
+      validation, and an independent FOI-O oracle are implemented locally.
+      See `docs/43-au-rtk-replay-attempt-2026-07-27.md`; no manifest has been
+      finalized.
 - [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
       empirical-frame freeze, annotation, or maturity evaluation.
 
