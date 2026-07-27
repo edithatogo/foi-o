@@ -29,8 +29,8 @@ the shortest governing-act context. It supersedes v0.2.0 only after approval.
 - Reliability: the existing registered thresholds and 10,000-replicate
   singleton-cluster bootstrap; no threshold relaxation or post-hoc tuning.
 
-This is a proposed design. It does not create membership, packets, labels,
-metrics, or promotion evidence.
+The approved membership has now been created separately. It does not create
+packets, labels, metrics, or promotion evidence.
 
 ## Required approvals
 
