@@ -1,0 +1,1 @@
+Task: execute authorized AU-CTH sampling-membership draw.\n\nFiles: sampler/validator, CLIs, focused test.\n\nVerification: 29 focused tests passed; ruff check/format passed; ty passed; actual deterministic candidate membership validated at 385 units.\n\nRemaining gate: a distinct approval is required before annotation packets or labels. No external action occurred.
