@@ -159,6 +159,10 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       Its completed 385-unit membership now requires the separate annotation
       execution decision in
       `docs/49-au-cth-subset-annotation-execution-approval-packet-2026-07-27.md`.
+      The bounded automated outcome is
+      `docs/50-au-cth-subset-automated-annotation-outcome-2026-07-27.md`;
+      reliability thresholds, extractor metrics, and maturity remain separate
+      gates.
 
 ### Phase 3 review fixes
 
