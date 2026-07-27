@@ -105,6 +105,12 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       separately authorized authority evidence.)
 - [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
       with authority evidence, and validate the normalized source JSONL.
+      Amended bounded replay is checkpointed but incomplete: selection SHA-256
+      `a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51`;
+      20 captures succeeded, while 116 replay and 46 exact-CDX checkpoints
+      failed with Internet Archive connection refusal. See
+      `docs/43-au-rtk-replay-attempt-2026-07-27.md` and local fyi-archive
+      implementation commit `dcdca26`.
 - [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
       empirical-frame freeze, annotation, or maturity evaluation.
 
