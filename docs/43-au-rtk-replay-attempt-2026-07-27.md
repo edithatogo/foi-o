@@ -72,8 +72,22 @@ the earlier attempt's aggregate failure counts are retained above.
 ## Remaining boundary
 
 The separately authorized 1,716-query metadata-only completion lookup for the
-858 excluded slugs is in progress. Any newly discovered canonical captures
-must be presented as a hash-pinned candidate for separate replay approval.
+858 excluded slugs completed with zero failed queries. Its candidate SHA-256 is
+`0dafc44c1b871357802282f138bf0e6e9d68f249a171c1d9627809bd928531c8` and
+its non-final replay-selection SHA-256 is
+`370a6d84e20a4bd260619209d84098458c9e72acf7e4e6f5cb3465cbaba88bb6`.
+
+Every exact canonical JSON and HTML lookup returned the permitted no-capture
+form. The candidate therefore has zero selected replay records and all 858
+slugs in its no-capture set. The independent FOI-O oracle validated the plan,
+all retained raw response bodies, exact request parameters, response hashes,
+candidate and selection hashes, and all non-finalization controls. There is no
+additional archived-page replay candidate to authorize.
+
+The approved replay population therefore remains exactly the original 2,082
+canonical request pages. The next external gate is a separate hash-bound
+decision on an immutable manifest and any empirical-frame freeze; neither has
+been performed.
 
 Immutable-manifest finalization, empirical freezing, annotation, publication,
 redistribution, training, legal certification, profile promotion, push, pull

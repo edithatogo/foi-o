@@ -117,6 +117,12 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       candidate summary SHA-256 is
       `98eae70428e630cbd36849e5ad19c4133dbd9f01c413cf33221d2b0eef0091ab`.
       Archive-side validation and the independent FOI-O oracle passed.
+      The separately authorized 1,716 exact canonical CDX lookups for the 858
+      excluded slugs also completed with zero failures, finding no qualifying
+      canonical JSON or HTML capture. Completion candidate SHA-256 is
+      `0dafc44c1b871357802282f138bf0e6e9d68f249a171c1d9627809bd928531c8`;
+      non-final zero-record replay selection SHA-256 is
+      `370a6d84e20a4bd260619209d84098458c9e72acf7e4e6f5cb3465cbaba88bb6`.
       See `docs/43-au-rtk-replay-attempt-2026-07-27.md`; no manifest has been
       finalized.
 - [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
