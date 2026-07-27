@@ -24,11 +24,14 @@ PROVENANCE_FIELDS = (
 
 
 def _sha256(path: Path) -> str:
-    # lgtm [py/path-injection] - callers pass only paths accepted by _bounded_file.
+    # Callers pass only paths accepted by _bounded_file.
+    # lgtm [py/path-injection]  # noqa: ERA001
     path = path.resolve(strict=True)
+    # lgtm [py/path-injection]  # noqa: ERA001
     if not path.is_file():
         raise ValueError(f"expected a regular file: {path}")
     digest = hashlib.sha256()
+    # lgtm [py/path-injection]  # noqa: ERA001
     with path.open("rb") as stream:
         for chunk in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(chunk)
