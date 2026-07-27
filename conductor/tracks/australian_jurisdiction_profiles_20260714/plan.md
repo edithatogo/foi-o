@@ -163,6 +163,8 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       `docs/50-au-cth-subset-automated-annotation-outcome-2026-07-27.md`;
       reliability thresholds, extractor metrics, and maturity remain separate
       gates.
+      The next reliability-computation packet is
+      `docs/51-au-cth-subset-reliability-computation-approval-packet-2026-07-27.md`.
 
 ### Phase 3 review fixes
 
