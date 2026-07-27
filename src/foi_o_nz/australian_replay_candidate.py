@@ -52,6 +52,16 @@ def _artifact(path: Path, metadata: dict[str, Any], label: str) -> None:
         raise ValueError(f"{label} SHA-256 mismatch")
 
 
+def _bounded_file(root: Path, name: object, label: str) -> Path:
+    candidate = Path(str(name or ""))
+    if candidate.name != str(name) or candidate.is_absolute():
+        raise ValueError(f"{label} path is not a simple filename")
+    path = root / candidate
+    if path.is_symlink() or path.resolve(strict=False).parent != root.resolve():
+        raise ValueError(f"{label} path escaped its approved root")
+    return path
+
+
 def _source_boundaries(record: dict[str, Any]) -> None:
     source = urlsplit(str(record.get("source_url") or ""))
     archive = urlsplit(str(record.get("archive_url") or ""))
@@ -79,7 +89,7 @@ def validate_replay_candidate(
 
     candidate_root = summary_path.parent
     index_metadata = summary["replay_index"]
-    index_path = candidate_root / index_metadata["path"]
+    index_path = _bounded_file(candidate_root, index_metadata["path"], "replay index")
     _artifact(index_path, index_metadata, "replay index")
     index_records = _jsonl(index_path)
     index = {record.get("canonical_slug"): record for record in index_records}
@@ -89,8 +99,16 @@ def validate_replay_candidate(
         raise ValueError("replay index does not cover the approved population")
 
     for slug, entry in index.items():
-        raw_path = replay_root / "raw" / str(entry["raw_filename"])
-        record_path = replay_root / "records" / str(entry["record_filename"])
+        raw_path = _bounded_file(
+            replay_root / "raw",
+            entry["raw_filename"],
+            f"raw replay {slug}",
+        )
+        record_path = _bounded_file(
+            replay_root / "records",
+            entry["record_filename"],
+            f"parsed replay {slug}",
+        )
         _artifact(
             raw_path,
             {"byte_count": entry["raw_byte_count"], "sha256": entry["raw_sha256"]},
@@ -108,7 +126,7 @@ def validate_replay_candidate(
     seen: set[str] = set()
     for jurisdiction in JURISDICTIONS:
         metadata = summary["jurisdiction_outputs"][jurisdiction]
-        path = candidate_root / metadata["path"]
+        path = _bounded_file(candidate_root, metadata["path"], f"{jurisdiction} output")
         _artifact(path, metadata, f"{jurisdiction} output")
         records = _jsonl(path)
         if (

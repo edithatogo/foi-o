@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 
+import jsonschema
 import pytest
 
 from foi_o_nz import australian_replay_candidate as validator
@@ -126,4 +127,27 @@ def test_independent_validator_rejects_live_origin_archive_url(tmp_path, monkeyp
     payload["jurisdiction_outputs"]["AU-CTH"] = _artifact(output, 1)
     summary.write_text(json.dumps(payload))
     with pytest.raises(ValueError, match="archive URL escaped Internet Archive"):
+        validator.validate_replay_candidate(summary, replay_root=replay)
+
+
+def test_independent_validator_rejects_replay_index_path_traversal(tmp_path, monkeypatch) -> None:
+    summary, replay = _candidate(tmp_path, monkeypatch)
+    payload = json.loads(summary.read_text())
+    payload["replay_index"]["path"] = "../index.jsonl"
+    summary.write_text(json.dumps(payload))
+    with pytest.raises(
+        (jsonschema.ValidationError, ValueError),
+        match=r"does not match|simple filename",
+    ):
+        validator.validate_replay_candidate(summary, replay_root=replay)
+
+
+def test_independent_validator_rejects_raw_symlink_escape(tmp_path, monkeypatch) -> None:
+    summary, replay = _candidate(tmp_path, monkeypatch)
+    raw = replay / "raw/cth.json"
+    outside = tmp_path / "outside"
+    outside.write_bytes(raw.read_bytes())
+    raw.unlink()
+    raw.symlink_to(outside)
+    with pytest.raises(ValueError, match="escaped its approved root"):
         validator.validate_replay_candidate(summary, replay_root=replay)
