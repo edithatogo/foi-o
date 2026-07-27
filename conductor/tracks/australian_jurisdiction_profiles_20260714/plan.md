@@ -95,8 +95,14 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       all failed safely after bounded Internet Archive CDX connection or TLS
       retries. Their 90-day artifacts are negative evidence only and no source
       export was created.
-- [ ] Task: Validate a non-empty complete CDX export and its raw hash before
+- [x] Task: Validate a non-empty complete CDX export and its raw hash before
       recovery; retain failed, empty, or capped exports as negative evidence.
+      (`8002887`; run `30236042144`; artifact SHA-256
+      `1034e55f8bdfaddc1aa3ad1c1839aed9d0583641281ddd0dc88eb3a4db6c49b2`;
+      CDX SHA-256
+      `954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd`;
+      all 26,000 metadata-only classifications remain unresolved pending
+      separately authorized authority evidence.)
 - [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
       with authority evidence, and validate the normalized source JSONL.
 - [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
