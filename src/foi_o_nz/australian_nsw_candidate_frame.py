@@ -154,3 +154,91 @@ def validate_candidate_frame(path: Path) -> dict[str, Any]:
     if actual != expected:
         raise ValueError("candidate frame self-hash mismatch")
     return {"ok": True, "frame_sha256": actual, "record_count": len(units)}
+
+
+def build_immutable_frame(candidate_path: Path, output: Path) -> dict[str, Any]:
+    """Finalize the specifically approved 115-unit restricted-local frame."""
+    candidate = json.loads(candidate_path.read_text(encoding="utf-8"))
+    validate_candidate_frame(candidate_path)
+    units = [unit for unit in candidate["units"] if unit.get("text") is not None]
+    if len(units) != 115:
+        raise ValueError("approved AU-NSW text-bearing membership is not 115 units")
+    clusters: dict[str, list[str]] = {}
+    for unit in units:
+        cluster_id = f"text-sha256:{unit['text_sha256']}"
+        unit["duplicate_cluster_id"] = cluster_id
+        clusters.setdefault(cluster_id, []).append(unit["unit_id"])
+    registry = {
+        "schema": "foi-o.au-nsw-duplicate-cluster-registry.v1",
+        "rule": "exact normalized retained request-text SHA-256; singleton clusters retained",
+        "clusters": {key: sorted(value) for key, value in sorted(clusters.items())},
+    }
+    frame: dict[str, Any] = {
+        "schema": "foi-o.au-nsw-immutable-empirical-frame.v1",
+        "status": "immutable_restricted_local",
+        "jurisdiction": "AU-NSW",
+        "regime": "GIPA",
+        "source_candidate_frame_sha256": candidate["frame_sha256"],
+        "source_candidate_frame_file_sha256": _sha256(candidate_path.read_bytes()),
+        "record_count": len(units),
+        "duplicate_cluster_count": len(clusters),
+        "duplicate_clustering_rule": registry["rule"],
+        "duplicate_registry": registry,
+        "rights_eligible": True,
+        "restricted_local": True,
+        "sampling_authorized": False,
+        "annotation_authorized": False,
+        "publication_authorized": False,
+        "redistribution_authorized": False,
+        "training_authorized": False,
+        "legal_certification_authorized": False,
+        "profile_promotion_authorized": False,
+        "units": units,
+    }
+    frame["frame_sha256"] = _sha256(
+        json.dumps(frame, sort_keys=True, separators=(",", ":")).encode()
+    )
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(frame, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return frame
+
+
+def validate_immutable_frame(path: Path) -> dict[str, Any]:
+    """Validate the immutable frame without authorizing any downstream stage."""
+    frame = json.loads(path.read_text(encoding="utf-8"))
+    if frame.get("schema") != "foi-o.au-nsw-immutable-empirical-frame.v1":
+        raise ValueError("immutable frame schema is invalid")
+    if frame.get("status") != "immutable_restricted_local" or frame.get("record_count") != 115:
+        raise ValueError("immutable frame identity is invalid")
+    for key in (
+        "restricted_local",
+        "rights_eligible",
+        "sampling_authorized",
+        "annotation_authorized",
+        "publication_authorized",
+        "redistribution_authorized",
+        "training_authorized",
+        "legal_certification_authorized",
+        "profile_promotion_authorized",
+    ):
+        expected = key in {"restricted_local", "rights_eligible"}
+        if frame.get(key) is not expected:
+            raise ValueError(f"immutable frame boundary is invalid: {key}")
+    units = frame.get("units")
+    if (
+        not isinstance(units, list)
+        or len(units) != 115
+        or any(unit.get("text") is None for unit in units)
+    ):
+        raise ValueError("immutable frame membership is invalid")
+    observed = dict(frame)
+    actual = observed.pop("frame_sha256", None)
+    expected = _sha256(json.dumps(observed, sort_keys=True, separators=(",", ":")).encode())
+    if actual != expected:
+        raise ValueError("immutable frame self-hash mismatch")
+    return {
+        "ok": True,
+        "frame_sha256": actual,
+        "record_count": len(units),
+        "duplicate_cluster_count": frame["duplicate_cluster_count"],
+    }
