@@ -46,3 +46,6 @@ remains recorded for future calibration.
 | External release or registry submission | Not performed |
 
 No external action was taken in preparing this packet.
+
+Remaining approval routing is recorded in
+`docs/85-au-nsw-remaining-gates-approval-packet-2026-07-27.md`.
