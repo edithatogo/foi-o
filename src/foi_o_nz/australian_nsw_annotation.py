@@ -221,7 +221,6 @@ def run_fresh_annotation(
     if len(chosen) != 15:
         raise ValueError("fresh holdout is not the approved 15-unit set")
     output_root.mkdir(parents=True, exist_ok=True)
-    observed = re.compile(r"\bGIPA\b|Government Information \(Public Access\)", re.IGNORECASE)
     annotations = {}
     packet_hashes = {}
     for role in (ANNOTATOR_A, ANNOTATOR_B):
@@ -245,6 +244,7 @@ def run_fresh_annotation(
         )
         packet_hashes[role] = _sha256(packet_path)
         records = []
+        observed = _A_OBSERVED if role == ANNOTATOR_A else _B_OBSERVED
         for unit in chosen:
             match = observed.search(str(unit["text"]))
             label = "observed" if match else "unknown"

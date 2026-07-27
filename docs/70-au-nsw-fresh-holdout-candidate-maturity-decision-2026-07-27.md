@@ -2,7 +2,7 @@
 
 ## Review scope
 
-This restricted-local review compares the approved 15-unit fresh-holdout
+This superseded review compared the approved 15-unit fresh-holdout
 reliability artifact with the registered descriptive thresholds. It is a
 candidate decision packet only; it does not promote `foi-o-au-nsw`.
 
@@ -29,6 +29,8 @@ named approval gate. Extractor metrics were not computed.
 
 ## Decision boundary
 
-This packet authorizes no profile or gold promotion, extractor metrics,
+This packet is invalidated by the annotation-run defect documented in
+`docs/71-au-nsw-fresh-holdout-annotation-remediation-2026-07-27.md`. It
+authorizes no profile or gold promotion, extractor metrics,
 publication, redistribution, training, legal certification, push, pull
 request, or merge.
