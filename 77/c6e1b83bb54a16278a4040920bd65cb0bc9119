@@ -1,0 +1,1 @@
+Commit notes: Central AU-CTH registry now matches the hash-pinned bounded maturity approvals without promoting gold, legal certification, archive finalization, or unbounded inference. Verification: 874 passed, 4 skipped; repository/profile validators, ruff, format, and ty passed.
