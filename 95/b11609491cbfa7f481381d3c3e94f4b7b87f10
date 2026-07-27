@@ -1,0 +1,1 @@
+Commit notes: FOI-O now independently validates bounded AU replay candidates and local source bytes without trusting archive-side validation. Full verification: 883 passed, 4 skipped; ruff, ty, repository and profile gates passed. One initial parallel MuPDF timeout passed in isolation and full rerun.
