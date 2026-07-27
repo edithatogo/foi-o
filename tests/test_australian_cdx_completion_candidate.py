@@ -219,6 +219,25 @@ def test_rejects_changed_response_body_rows(tmp_path, monkeypatch) -> None:
         _validate(paths)
 
 
+def test_accepts_empty_cdx_array_for_no_capture_exact_url(tmp_path, monkeypatch) -> None:
+    candidate, selection, _plan, bodies = _fixture(tmp_path, monkeypatch)
+    payload = json.loads(candidate.read_text())
+    result = next(
+        row
+        for row in payload["results"]
+        if row["canonical_slug"] == "2" and row["media_kind"] == "json"
+    )
+    body = bodies / result["response_body_filename"]
+    body.write_text("[]")
+    result["response_byte_count"] = body.stat().st_size
+    result["response_sha256"] = _sha256(body)
+    _write_json(candidate, payload)
+    selection_payload = json.loads(selection.read_text())
+    selection_payload["completion_candidate_sha256"] = _sha256(candidate)
+    _write_json(selection, selection_payload)
+    assert _validate((candidate, selection, _plan, bodies))["ok"] is True
+
+
 def test_rejects_non_200_capture_row(tmp_path, monkeypatch) -> None:
     paths = _fixture(tmp_path, monkeypatch)
     payload = json.loads(paths[0].read_text())

@@ -227,7 +227,13 @@ def _response_body(
         payload = json.loads(body)
     except (UnicodeDecodeError, json.JSONDecodeError) as error:
         raise ValueError("result response body is not valid JSON") from error
-    if not isinstance(payload, list) or not payload or payload[0] != CDX_HEADER:
+    if not isinstance(payload, list):
+        raise ValueError("result response body CDX header mismatch")
+    # CDX returns [] rather than a header-only table for an exact URL with no
+    # captures. This is the only headerless representation accepted here.
+    if payload == []:
+        return []
+    if payload[0] != CDX_HEADER:
         raise ValueError("result response body CDX header mismatch")
     return _validate_rows(payload[1:], expected_url=expected_url, label="response body")
 
