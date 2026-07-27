@@ -48,3 +48,14 @@ about the original site or individual records.
 
 The next approval would have to name the exact sampled membership produced from
 the frozen 517-record subset before blinded packet generation or annotation.
+
+## Recorded outcome
+
+The approved frame was created and independently validated locally on
+2026-07-27. The exact 517-record frame is at
+`/Volumes/PortableSSD/foio-restricted/au-rtk-30236042144/au-cth-subset-frame/frame.json`,
+SHA-256 `47115d3d422f0b1d0a2aae856cebd1b8ffca8591e01d42c82d494818c7af2a80`.
+Its duplicate-cluster registry has SHA-256
+`e4f818d3afbbd4f7bdc1b2f57d94b1da5af73b5887a67e37d528f8813f83f38d` and
+contains 517 singleton exact clusters. Sampling and all later operations
+remain unapproved.

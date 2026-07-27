@@ -133,8 +133,14 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       `2e64cac3f534265a68716ed0db7e9b82039200ee3a8312e6bb145a1af91bc23c`;
       stored-file SHA-256
       `c77ce6aafad557f5555fe347d2e9025d07e460574c15a4343728bb1ba3015393`.
-- [ ] Task: Obtain a separate hash-bound approval before empirical-frame
-      freeze, annotation, or maturity evaluation.
+- [x] Task: Obtain a separate hash-bound approval before empirical-frame
+      freeze. The approved restricted-local AU-CTH retained-HTML subset frame
+      has 517 records; frame SHA-256 is
+      `47115d3d422f0b1d0a2aae856cebd1b8ffca8591e01d42c82d494818c7af2a80`.
+      The 517-member duplicate registry SHA-256 is
+      `e4f818d3afbbd4f7bdc1b2f57d94b1da5af73b5887a67e37d528f8813f83f38d`.
+- [ ] Task: Obtain a separate hash-bound approval before sampling membership,
+      annotation, or maturity evaluation.
       The proposed AU-CTH-only freeze packet
       `docs/45-au-cth-empirical-frame-freeze-approval-packet-2026-07-27.md`
       is fail-closed: retained JSON captures lack request/message text and
@@ -145,6 +151,8 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       Its 517-record result is ready for the separate rights-and-subset-freeze
       decision in
       `docs/47-au-cth-retained-html-rights-and-freeze-approval-packet-2026-07-27.md`.
+      The next sampling-membership packet is
+      `docs/48-au-cth-subset-sampling-membership-approval-packet-2026-07-27.md`.
 
 ### Phase 3 review fixes
 
