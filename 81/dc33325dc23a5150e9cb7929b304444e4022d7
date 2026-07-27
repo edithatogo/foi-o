@@ -1,0 +1,1 @@
+Task: record phase review for restricted-local immutable manifest finalization.\n\nVerification: evidence JSONL parses; full pytest, ruff check/format, ty, and restricted source validators passed.\n\nRemaining gate: empirical-frame freeze requires a separate exact authorization.
