@@ -23,18 +23,9 @@ PROVENANCE_FIELDS = (
 )
 
 
-def _sha256(path: Path) -> str:
-    # Callers pass only paths accepted by _bounded_file.
-    # codeql[py/path-injection]  # noqa: ERA001
-    path = path.resolve(strict=True)
-    # codeql[py/path-injection]  # noqa: ERA001
-    if not path.is_file():
-        raise ValueError(f"expected a regular file: {path}")
+def _sha256(data: bytes) -> str:
     digest = hashlib.sha256()
-    # codeql[py/path-injection]  # noqa: ERA001
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
-            digest.update(chunk)
+    digest.update(data)
     return digest.hexdigest()
 
 
@@ -55,7 +46,7 @@ def _artifact(path: Path, metadata: dict[str, Any], label: str) -> None:
         raise ValueError(f"{label} is missing")
     if path.stat().st_size != metadata["byte_count"]:
         raise ValueError(f"{label} byte count mismatch")
-    if _sha256(path) != metadata["sha256"]:
+    if _sha256(path.read_bytes()) != metadata["sha256"]:
         raise ValueError(f"{label} SHA-256 mismatch")
 
 
@@ -163,6 +154,6 @@ def validate_replay_candidate(
         "ok": True,
         "record_count": len(seen),
         "counts": summary["counts"],
-        "summary_sha256": _sha256(summary_path),
+        "summary_sha256": _sha256(summary_path.read_bytes()),
         "manifest_finalization_authorized": False,
     }
