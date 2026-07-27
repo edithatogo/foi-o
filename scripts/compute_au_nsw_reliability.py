@@ -1,4 +1,4 @@
-"""Compute descriptive reliability for the locked AU-CTH annotation report."""
+"""Compute descriptive reliability for the locked AU-NSW annotation report."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pathlib import Path
 
 from foi_o_nz.australian_reliability import compute_descriptive
 
-REPORT_SHA = "22f5850badf02b0730f30fb1221bcc9fa7f6e74ac46338755a6e777eaff1db32"
+REPORT_SHA = "74125814a8d3da0d161db777e8884847fa5c2bbe1c4f634e8aab228125ee6455"
 
 
 def main() -> int:
@@ -21,10 +21,9 @@ def main() -> int:
             report_path=args.report,
             output_path=args.output,
             expected_report_sha=REPORT_SHA,
-            expected_unit_count=385,
-            annotation_prefix="au-cth",
-            schema="foi-o.au-cth-subset-descriptive-reliability.v1",
-            include_gold_and_profile_boundaries=False,
+            expected_unit_count=100,
+            annotation_prefix="au-nsw",
+            schema="foi-o.au-nsw-descriptive-reliability.v1",
         )
     except (OSError, UnicodeDecodeError, ValueError, json.JSONDecodeError) as error:
         print(f"ERROR: {error}")
