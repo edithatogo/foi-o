@@ -1,0 +1,1 @@
+Shared reliability implementation validated for AU-CTH and AU-NSW. AU-CTH output remains byte-compatible with a17e4af07926f401fe433b7b95c2b7c3fa70c04625d39b650ef5c643bbe8e76a; NSW output is 7bc2469dadf622b9182af6b33eb3fa8dd6cabe9350040b75f46fce287770774f. No new metric or threshold decision.
