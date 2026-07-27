@@ -15,7 +15,7 @@ annotate, adjudicate, compute metrics, or promote the profile.
 | Jurisdiction and regime | `AU-NSW` / `GIPA` |
 | Eligible frame population | 115 text-bearing units |
 | Excluded from frame | 64 metadata-only units, retained in the parent candidate ledger |
-| Proposed codebook | `foio-au-pilot-assertion-v0.2.0`, SHA-256 `ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9` |
+| Proposed codebook | `examples/v2/au-nsw-assertion-codebook.v0.2.0.pending.json`, SHA-256 `3b8d76366e7dccb52e52a5e2275469ea4b52bc54eacff00b89c0bf26a8d6a49f` |
 | Proposed seed | `20260721` |
 | Proposed annotator roles | `agent:au-nsw-annotator-a`, `agent:au-nsw-annotator-b` |
 | Proposed adjudicator role | `agent:au-nsw-adjudicator` |
@@ -32,6 +32,10 @@ The primary unit is one request-linked assertion. Every unit retains its
 request slug, source URL, Internet Archive timestamp, raw SHA-256, text SHA-256,
 and immutable frame self-pin. No attachments, linked pages, or live-origin
 content may be added.
+
+The previously approved `foio-au-pilot-assertion-v0.2.0` hash is AU-CTH
+specific and cannot be used for this NSW run. The NSW candidate codebook above
+therefore requires its own hash-bound approval before packet generation.
 
 ## Exclusions
 
@@ -81,8 +85,9 @@ provenance completeness `>= 0.95`, and unsafe-inference rate `<= 0.01`.
 > census frame of 115 eligible units; exclude the 64 metadata-only records;
 > deterministic 100-unit no-replacement paired annotation workload; seed
 > `20260721`; exact-text SHA-256 singleton duplicate clusters; codebook
-> `foio-au-pilot-assertion-v0.2.0` SHA-256
-> `ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9`;
+> the NSW-specific candidate codebook at
+> `examples/v2/au-nsw-assertion-codebook.v0.2.0.pending.json` with its
+> SHA-256 `3b8d76366e7dccb52e52a5e2275469ea4b52bc54eacff00b89c0bf26a8d6a49f`;
 > two independent automated annotator roles and one distinct automated
 > adjudicator role; and reliability thresholds raw agreement `>= 0.80`, kappa
 > `>= 0.60`, exact-span agreement and overlap F1 at IoU `0.50`, with 10,000
