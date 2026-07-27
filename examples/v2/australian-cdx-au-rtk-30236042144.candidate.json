@@ -1,0 +1,64 @@
+{
+  "schema_version": "foi-o.australian-cdx-candidate-manifest.v0.1.0",
+  "packet_id": "candidate:ia-cdx:au-rtk:30236042144",
+  "status": "candidate_pending_manifest_finalization",
+  "source": {
+    "provider": "Internet Archive CDX",
+    "repository": "edithatogo/fyi-archive",
+    "workflow_run_id": "30236042144",
+    "artifact_name": "alaveteli-all-captures-au-rtk-30236042144",
+    "artifact_id": "8641731722",
+    "url_scope": "https://www.righttoknow.org.au/request/*",
+    "retrieved_at": "2026-07-27T04:03:29.802215Z"
+  },
+  "integrity": {
+    "artifact_sha256": "1034e55f8bdfaddc1aa3ad1c1839aed9d0583641281ddd0dc88eb3a4db6c49b2",
+    "cdx_sha256": "954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd",
+    "retrieval_evidence_sha256": "0795be14775616416f61fb4131c397e7f2496f72c9fc534a357a98ec6e827331",
+    "verified": true
+  },
+  "coverage": {
+    "pagination_complete": true,
+    "page_count": 26,
+    "record_count": 26000,
+    "unique_original_urls": 11958,
+    "unique_capture_keys": 25632,
+    "duplicate_capture_rows": 368,
+    "scope_conforming_records": 26000
+  },
+  "metadata_only_classification": {
+    "method": "explicit_authority_metadata_only",
+    "AU-CTH": 0,
+    "AU-NSW": 0,
+    "unresolved": 26000,
+    "classification_complete": false,
+    "reason": "The approved CDX fields are original URL, timestamp, digest, status code, and length. They contain no authority identity or jurisdiction field; request URL slugs are not legal-jurisdiction evidence."
+  },
+  "rights_boundary": {
+    "publication": false,
+    "redistribution": false,
+    "empirical_freeze": false,
+    "reference_sha256": "0795be14775616416f61fb4131c397e7f2496f72c9fc534a357a98ec6e827331"
+  },
+  "authorization": {
+    "approved_operations": [
+      "bounded_local_source_artifact_validation",
+      "metadata_only_jurisdiction_classification",
+      "candidate_immutable_manifest_packet_preparation"
+    ],
+    "prohibited_operations": [
+      "archived_page_replay",
+      "full_text_retrieval",
+      "importing",
+      "enrichment",
+      "immutable_manifest_finalization",
+      "empirical_freezing",
+      "annotation",
+      "publication",
+      "redistribution",
+      "training",
+      "legal_certification",
+      "profile_promotion"
+    ]
+  }
+}
