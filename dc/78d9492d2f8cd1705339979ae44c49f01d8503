@@ -1,0 +1,7 @@
+Task record: Mark complete-CDX validation task complete.
+
+Summary: Updated the Australian jurisdiction track plan and metadata to pin functional commit 8002887, run 30236042144, artifact/CDX hashes, candidate evidence paths, and the unresolved authority-evidence gate.
+
+Verification: JSON metadata parsed; 16 focused governance and Australian readiness tests passed; functional full suite 880 passed, 4 skipped.
+
+Boundary: recovery/replay, authority classification, manifest finalization, empirical use, and all publication/promotion gates remain open.
