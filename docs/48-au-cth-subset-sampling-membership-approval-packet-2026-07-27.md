@@ -37,3 +37,12 @@ population-wide inferences from this retained-HTML subset.
 > manifest only. It does not authorize annotation, adjudication, extractor
 > metrics, population-wide inference, publication, redistribution, training,
 > legal certification, profile promotion, push, pull request, or merge.
+
+## Recorded outcome
+
+The authorized draw completed locally on 2026-07-27. The exact 385-unit
+candidate membership manifest is at
+`/Volumes/PortableSSD/foio-restricted/au-rtk-30236042144/au-cth-subset-sampling/membership.candidate.json`,
+SHA-256 `f86ed488429009bf3d6a78a7853cca8bb67b8783c728d5ffd255575a9665bda7`.
+It was independently recomputed from the frozen frame and registry. No
+annotation packet, annotation, adjudication, or metric was created.

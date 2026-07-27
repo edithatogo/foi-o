@@ -139,8 +139,11 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       `47115d3d422f0b1d0a2aae856cebd1b8ffca8591e01d42c82d494818c7af2a80`.
       The 517-member duplicate registry SHA-256 is
       `e4f818d3afbbd4f7bdc1b2f57d94b1da5af73b5887a67e37d528f8813f83f38d`.
-- [ ] Task: Obtain a separate hash-bound approval before sampling membership,
-      annotation, or maturity evaluation.
+- [x] Task: Obtain a separate hash-bound approval before sampling membership.
+      The approved deterministic 385-unit candidate membership SHA-256 is
+      `f86ed488429009bf3d6a78a7853cca8bb67b8783c728d5ffd255575a9665bda7`.
+- [ ] Task: Obtain a separate hash-bound approval before annotation or maturity
+      evaluation.
       The proposed AU-CTH-only freeze packet
       `docs/45-au-cth-empirical-frame-freeze-approval-packet-2026-07-27.md`
       is fail-closed: retained JSON captures lack request/message text and
@@ -153,6 +156,9 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       `docs/47-au-cth-retained-html-rights-and-freeze-approval-packet-2026-07-27.md`.
       The next sampling-membership packet is
       `docs/48-au-cth-subset-sampling-membership-approval-packet-2026-07-27.md`.
+      Its completed 385-unit membership now requires the separate annotation
+      execution decision in
+      `docs/49-au-cth-subset-annotation-execution-approval-packet-2026-07-27.md`.
 
 ### Phase 3 review fixes
 
