@@ -1,0 +1,1 @@
+Task: record bounded AU-CTH automated annotation outcome.\n\nFiles: docs/50; Australian track plan, metadata, and evidence ledger.\n\nVerification: evidence JSONL and metadata JSON parse; git diff --check passed; locked annotation report validator passed.\n\nRemaining gate: reliability threshold, extractor metrics, and maturity decisions are not authorized.
