@@ -1,0 +1,1 @@
+Task: prepare AU-CTH subset reliability computation approval.\n\nFiles: docs/51; Australian track plan, metadata, and evidence ledger.\n\nVerification: packet SHA-256 computed; metadata/evidence parse; git diff --check passed.\n\nRemaining gate: explicit approval of docs/51 before reliability computation. Extractor metrics and maturity remain separate.
