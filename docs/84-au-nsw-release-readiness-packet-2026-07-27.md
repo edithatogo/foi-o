@@ -20,6 +20,8 @@ release, publication, redistribution, or merge authorization.
 
 - Profile registry validator: `ok: true`, 3 profiles.
 - AU-NSW contract/profile suite: `50 passed`.
+- Repository examples validation: `examples ok`.
+- Release/publication metadata tests: `11 passed`.
 - Candidate extractor metrics: label accuracy `13/15`, exact-span accuracy
   `15/15`.
 - Registry status: `approved_bounded_extractor_mature` at
