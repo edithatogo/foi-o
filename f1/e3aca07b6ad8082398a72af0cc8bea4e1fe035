@@ -1,0 +1,1 @@
+Commit notes: FOI-O independent validation now rejects traversal and symlink escapes for all replay candidate inputs. Verification: 885 passed, 4 skipped; ruff and ty passed.
