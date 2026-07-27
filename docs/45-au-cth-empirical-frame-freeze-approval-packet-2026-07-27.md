@@ -2,10 +2,13 @@
 
 ## Proposed operation
 
-Freeze one restricted-local AU-CTH empirical source frame derived from the
-already finalized 2,082-record AU RightToKnow immutable manifest. This packet
-is a proposal only: it does not create the frame, sample its units, generate
-annotation packets, or execute annotation.
+This packet was prepared as a proposal to freeze one restricted-local AU-CTH
+empirical source frame derived from the already finalized 2,082-record AU
+RightToKnow immutable manifest. It is now **not approvable**: the retained
+canonical JSON captures contain request metadata and event identifiers, but no
+request/message text or UTF-8 source spans. Creating empirical units from them
+would violate the pinned protocol. No frame, sample, annotation packet, or
+annotation has been created.
 
 ## Exact scope and pins
 
@@ -24,13 +27,13 @@ annotation packets, or execute annotation.
 | Approved codebook | `foio-au-pilot-assertion-v0.2.0`, SHA-256 `ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9` |
 | Seed | `20260721` |
 
-The frame would retain the exact 1,578 `AU-CTH` members from the already
-validated four-way classification. It would record every other parent member
-as excluded, with its existing classification reason. It would apply the
-pre-registered duplicate-clustering rules before any sampling: canonicalized
-request title/body/provider/jurisdiction exact clusters, plus same-family near
-duplicates at 5-gram MinHash Jaccard >= 0.90 or normalized Levenshtein >= 0.92.
-Clusters are atomic and there is no replacement after freezing.
+The proposed frame would have retained the exact 1,578 `AU-CTH` members from
+the already validated four-way classification. Local inspection found that a
+representative retained raw JSON capture has top-level request metadata and
+`info_request_events` fields only; each event has IDs, states, and timestamps,
+but no content/body/text field. The normalized candidate likewise has no
+source-span field. Thus neither the request title nor event metadata may be
+substituted as an annotation source span.
 
 The proposed frame is restricted-local and rights-bounded. It may be used only
 to construct the governed frame and subsequent candidate sampling artefacts;
@@ -38,7 +41,20 @@ it cannot be published, redistributed, used for training, or treated as a
 legal conclusion. The prior immutable-manifest approval established no right
 to annotate or disclose source material.
 
-## Required decision
+## Blocking condition and remediation
+
+Do not approve the decision below until a separately authorized, bounded
+source-text acquisition or recovery operation yields hash-pinned, rights- and
+span-validatable AU-CTH text for a defined subset. That later operation must
+not use the live RightToKnow origin or expand the approved URL population
+without its own authorization. Once authentic text exists, it must be
+validated for stable source linkage, UTF-8 character spans, restricted-local
+rights eligibility, and duplicate clustering before a revised packet is
+presented. The bounded no-replay candidate for the already retained 517 AU-CTH
+canonical HTML snapshots is
+`docs/46-au-cth-retained-html-text-validation-approval-packet-2026-07-27.md`.
+
+## Superseded decision text
 
 > I approve freezing one restricted-local AU-CTH empirical source frame of
 > exactly 1,578 classified records, derived only from immutable manifest
@@ -59,9 +75,9 @@ to annotate or disclose source material.
 > publication, redistribution, training, legal certification, profile
 > promotion, push, pull request, or merge.
 
-## Consequence of approval
+## Intended consequence after remediation
 
-An approval permits a single hash-pinned source-frame manifest and a validator
-result. A further approval must identify the exact sampled membership and
-authorize any blinded annotation execution; it cannot be inferred from this
-freeze decision.
+After remediation and a revised approval, a decision could permit a single
+hash-pinned source-frame manifest and validator result. A further approval
+would still need to identify exact sampled membership and authorize any
+blinded annotation execution.
