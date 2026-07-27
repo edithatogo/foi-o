@@ -11,6 +11,7 @@ changes materially.
 | Core event | `schemas/json/core-event.schema.json` | `foio:ProcessEvent`, `foio:hasEvidence`, `foio:assertionStatus`; `vocab/event-types.skos.ttl` | `examples/core-event.extension-notified.json`, `examples/core-event.deadline-calculated.json` | `tests/test_event_extraction_timeline.py`, `tests/test_transitions.py` | Candidate events cite evidence and assertion status. |
 | Extraction contract | `schemas/json/extraction-contract.schema.json`, `schemas/json/consumer-extraction-contract.schema.json`, `contracts/foi-o-extraction-contract/0.1.0/manifest.json` | Pins `ontology/foi-o-nz.ttl`, the ontology-release manifest schema, and the candidate assertion-status vocabulary. | `examples/v2/schema-valid/extraction-contract-1.json`, three rejection fixtures, and four offline consumer fixtures | `tests/test_extraction_contract.py`, `tests/test_consumer_contracts.py`, `tests/test_empirical_schema_fixtures.py` | Consumers fail closed on unknown revisions; offline fixtures do not claim upstream approval; certification and promotion require human approval. |
 | Re-extraction readiness | `schemas/json/reextraction-input-audit.schema.json` | Consumes the pinned extraction contract and archive provenance without changing ontology terms. | `examples/v2/reextraction-input-audit.fc27.json` | `tests/test_reextraction_input_audit.py` | Hash mismatch is rejected; incomplete rights metadata blocks extraction; raw source records are never modified. |
+| Australian replay candidate | `schemas/json/australian-replay-classification-candidate.schema.json`; independent validator in `src/foi_o_nz/australian_replay_candidate.py` | Consumes the exact approved CDX and replay-selection hashes without importing source text into the ontology or authorizing an immutable manifest. | Restricted-local candidate only; no redistributable example is committed. | `tests/test_australian_replay_candidate.py` | Recomputes every raw, parsed-record, replay-index, and jurisdiction-output hash; requires an exact four-way partition; rejects live-origin archive URLs, stale parser output, extractor labels, publication, redistribution, and manifest finalization. |
 | Upstream extraction readiness | `schemas/json/upstream-extraction-readiness.schema.json` | Pins upstream archive and NLP implementation evidence without importing or promoting upstream outputs. | `examples/v2/upstream-extraction-readiness.2026-07-16.json` | `tests/test_upstream_extraction_readiness.py`, `tests/test_initial_baseline_verification.py` | Contract alignment, a content-bearing approved source, raw-manifest entry point, immutable initial candidate baseline, independent baseline verification, and model pin are verified; independent annotation and governed comparison remain pending. |
 | Human promotion review | `schemas/json/human-promotion-review-packet.schema.json` | Keeps fixture, legal-mapping, and rights-scope decisions distinct and human-owned. | `examples/v2/human-promotion-review-packet.approved.json` | `tests/test_human_promotion_review_packet.py` | Candidate artifacts are SHA-256 pinned; `edithatogo` approved all four review items on 2026-07-16; schema-valid contract examples remain explicitly excluded as approval evidence. |
 | Empirical human-gate review | `schemas/json/empirical-human-gate-review-packet.schema.json` | Consolidates source-pack, bounded mapping, and annotation-protocol decisions without converting a pending review into certification. | `examples/v2/empirical-human-gate-review-packet.pending.json` | `tests/test_empirical_human_gate_review_packet.py` | Every artifact is hash-pinned; reviewer, approvals, annotator/adjudicator identities, source population, codebook, and sampling configuration remain empty; attachment evidence, sample freeze, and empirical comparison stay blocked. |
@@ -35,14 +36,14 @@ changes materially.
 
 | Artefact class | Count |
 | --- | ---:|
-| JSON Schema files | 184 |
-| Example files | 270 |
-| Documentation files | 59 |
+| JSON Schema files | 186 |
+| Example files | 274 |
+| Documentation files | 103 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
 | Mapping files | 6 |
-| Python test modules | 158 |
+| Python test modules | 169 |
 
 ## Semantic Snapshot
 

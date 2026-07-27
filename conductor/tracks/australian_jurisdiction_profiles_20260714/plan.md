@@ -95,12 +95,76 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       all failed safely after bounded Internet Archive CDX connection or TLS
       retries. Their 90-day artifacts are negative evidence only and no source
       export was created.
-- [ ] Task: Validate a non-empty complete CDX export and its raw hash before
+- [x] Task: Validate a non-empty complete CDX export and its raw hash before
       recovery; retain failed, empty, or capped exports as negative evidence.
-- [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
+      (`8002887`; run `30236042144`; artifact SHA-256
+      `1034e55f8bdfaddc1aa3ad1c1839aed9d0583641281ddd0dc88eb3a4db6c49b2`;
+      CDX SHA-256
+      `954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd`;
+      all 26,000 metadata-only classifications remain unresolved pending
+      separately authorized authority evidence.)
+- [x] Task: Recover only export-listed archived snapshots, classify AU-NSW
       with authority evidence, and validate the normalized source JSONL.
-- [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
-      empirical-frame freeze, annotation, or maturity evaluation.
+      The amended bounded replay completed successfully with one persistent,
+      paced Internet Archive connection.
+      Selection SHA-256 is
+      `a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51`;
+      all 2,082 captures completed with zero failures. Parser-v3 local
+      reprocessing and four-way classification produced 1,578 AU-CTH, 179
+      AU-NSW, 115 out-of-scope, and 210 unresolved records. Normalized JSONL
+      SHA-256 is
+      `3801b4b99de6152bfcaf5f093e00e137acb4ee5d636611ada75820aed55fd807`;
+      candidate summary SHA-256 is
+      `98eae70428e630cbd36849e5ad19c4133dbd9f01c413cf33221d2b0eef0091ab`.
+      Archive-side validation and the independent FOI-O oracle passed.
+      The separately authorized 1,716 exact canonical CDX lookups for the 858
+      excluded slugs also completed with zero failures, finding no qualifying
+      canonical JSON or HTML capture. Completion candidate SHA-256 is
+      `0dafc44c1b871357802282f138bf0e6e9d68f249a171c1d9627809bd928531c8`;
+      non-final zero-record replay selection SHA-256 is
+      `370a6d84e20a4bd260619209d84098458c9e72acf7e4e6f5cb3465cbaba88bb6`.
+      The immutable-manifest approval packet is
+      `docs/44-au-rtk-immutable-manifest-approval-packet-2026-07-27.md`.
+      See `docs/43-au-rtk-replay-attempt-2026-07-27.md` for the finalized
+      restricted-local manifest.
+- [x] Task: Obtain a separate hash-bound approval before immutable manifest.
+      Approval was received and one restricted-local immutable manifest was
+      finalized and independently validated: self-pin SHA-256
+      `2e64cac3f534265a68716ed0db7e9b82039200ee3a8312e6bb145a1af91bc23c`;
+      stored-file SHA-256
+      `c77ce6aafad557f5555fe347d2e9025d07e460574c15a4343728bb1ba3015393`.
+- [x] Task: Obtain a separate hash-bound approval before empirical-frame
+      freeze. The approved restricted-local AU-CTH retained-HTML subset frame
+      has 517 records; frame SHA-256 is
+      `47115d3d422f0b1d0a2aae856cebd1b8ffca8591e01d42c82d494818c7af2a80`.
+      The 517-member duplicate registry SHA-256 is
+      `e4f818d3afbbd4f7bdc1b2f57d94b1da5af73b5887a67e37d528f8813f83f38d`.
+- [x] Task: Obtain a separate hash-bound approval before sampling membership.
+      The approved deterministic 385-unit candidate membership SHA-256 is
+      `f86ed488429009bf3d6a78a7853cca8bb67b8783c728d5ffd255575a9665bda7`.
+- [ ] Task: Obtain a separate hash-bound approval before annotation or maturity
+      evaluation.
+      The proposed AU-CTH-only freeze packet
+      `docs/45-au-cth-empirical-frame-freeze-approval-packet-2026-07-27.md`
+      is fail-closed: retained JSON captures lack request/message text and
+      UTF-8 source spans. Obtain a separately authorized, bounded source-text
+      recovery input before presenting a revised freeze approval. The no-replay
+      retained-HTML candidate is
+      `docs/46-au-cth-retained-html-text-validation-approval-packet-2026-07-27.md`.
+      Its 517-record result is ready for the separate rights-and-subset-freeze
+      decision in
+      `docs/47-au-cth-retained-html-rights-and-freeze-approval-packet-2026-07-27.md`.
+      The next sampling-membership packet is
+      `docs/48-au-cth-subset-sampling-membership-approval-packet-2026-07-27.md`.
+      Its completed 385-unit membership now requires the separate annotation
+      execution decision in
+      `docs/49-au-cth-subset-annotation-execution-approval-packet-2026-07-27.md`.
+      The bounded automated outcome is
+      `docs/50-au-cth-subset-automated-annotation-outcome-2026-07-27.md`;
+      reliability thresholds, extractor metrics, and maturity remain separate
+      gates.
+      The next reliability-computation packet is
+      `docs/51-au-cth-subset-reliability-computation-approval-packet-2026-07-27.md`.
 
 ### Phase 3 review fixes
 

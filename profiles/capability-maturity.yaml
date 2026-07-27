@@ -33,7 +33,7 @@ profiles:
   foio-au-nsw:
     source_discovery: candidate
     historical_legislation: implemented_candidate
-    normative_extraction: candidate
+    normative_extraction: independently_evaluated
     platform_capture: blocked
     archive_snapshot: blocked
     annotation_gold_set: blocked
