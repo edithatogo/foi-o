@@ -1,0 +1,17 @@
+Task: Independent AU RightToKnow canonical CDX completion validator
+
+Summary: Added a standalone FOI-O oracle that verifies pinned source CDX and query-plan hashes, exact 858-slug/1,716-query membership, canonical URLs and CDX parameter multimaps, retained body containment/bytes/SHA/JSON rows, successful capture rows, JSON-preferred latest selection, exact no-capture membership, candidate/selection hashes, and non-final authorization boundaries. No fyi-archive imports or network access.
+
+Files changed:
+- src/foi_o_nz/australian_cdx_completion_candidate.py
+- scripts/validate_australian_cdx_completion_candidate.py
+- tests/test_australian_cdx_completion_candidate.py
+
+Verification:
+- uv run --extra dev pytest -q tests/test_australian_cdx_completion_candidate.py --no-cov (15 passed)
+- uv run ruff check [three scoped files] (passed)
+- uv run ruff format --check [three scoped files] (passed)
+- uv run ty check [three scoped files] (passed)
+- git diff --check (passed)
+
+Remaining risks: This commit validates candidate packets locally but does not authorize replay, publication, redistribution, manifest finalization, push, PR, or merge.
