@@ -135,6 +135,8 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       `c77ce6aafad557f5555fe347d2e9025d07e460574c15a4343728bb1ba3015393`.
 - [ ] Task: Obtain a separate hash-bound approval before empirical-frame
       freeze, annotation, or maturity evaluation.
+      Proposed AU-CTH-only freeze packet:
+      `docs/45-au-cth-empirical-frame-freeze-approval-packet-2026-07-27.md`.
 
 ### Phase 3 review fixes
 
