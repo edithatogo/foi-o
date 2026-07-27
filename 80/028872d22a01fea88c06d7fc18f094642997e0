@@ -1,0 +1,9 @@
+Task: Validate a non-empty complete AU RightToKnow CDX export and raw hash.
+
+Summary: Added a fail-closed CDX candidate schema and validator; verified run 30236042144 and all approved hashes; confirmed 26 contiguous pages, 26,000 in-scope records, 11,958 unique URLs, 25,632 unique capture keys, and 368 duplicate rows; left all 26,000 jurisdiction classifications unresolved because CDX contains no authority identity.
+
+Files: docs/24-schema-ontology-coverage-matrix.md; docs/42-au-rtk-cdx-candidate-validation-2026-07-27.md; examples/maturation-summary.ontology-maturation.json; examples/v2/australian-cdx-au-rtk-30236042144.candidate.json; schemas/json/australian-cdx-candidate-manifest.schema.json; scripts/validate_australian_cdx_candidate.py; tests/test_validate_australian_cdx_candidate.py.
+
+Verification: candidate validator PASS; focused coverage 100%; ruff check/format PASS; ty PASS; full pytest 880 passed, 4 skipped.
+
+Remaining risks: archived replay, authority enrichment, AU-CTH/AU-NSW resolution, manifest finalization, empirical freeze, publication, redistribution, training, legal certification, and profile promotion remain unauthorized.
