@@ -1,0 +1,3 @@
+Evidence: bounded AU RTK replay attempt.
+
+Selection SHA-256: a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51. Exact CDX completion plan SHA-256: ac402c3d69e6140772629e5ecb55f0138c891121a42c2fa7a180850260742d3b. Runtime: 20 captures succeeded; 116 replay and 46 CDX checkpoints failed with Errno 61; single-request retry also refused. Recovery task remains open and all downstream gates remain prohibited.
