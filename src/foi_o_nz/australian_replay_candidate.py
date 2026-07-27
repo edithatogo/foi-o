@@ -24,6 +24,7 @@ PROVENANCE_FIELDS = (
 
 
 def _sha256(path: Path) -> str:
+    # lgtm [py/path-injection] - callers pass only paths accepted by _bounded_file.
     path = path.resolve(strict=True)
     if not path.is_file():
         raise ValueError(f"expected a regular file: {path}")
