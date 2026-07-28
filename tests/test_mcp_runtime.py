@@ -62,10 +62,15 @@ def _events_jsonl(tmp_path: Path) -> Path:
 
 
 def test_mcp_runtime_status_fails_closed_without_fastmcp(monkeypatch: pytest.MonkeyPatch) -> None:
-    def missing_fastmcp() -> type[Any]:
-        raise ModuleNotFoundError("fastmcp")
+    import builtins
+    real_import = builtins.__import__
 
-    monkeypatch.setattr(mcp_server, "_load_fastmcp", missing_fastmcp)
+    def fake_import(*args, **kwargs):
+        if args and args[0] == 'fastmcp':
+            raise ModuleNotFoundError("No module named 'fastmcp'")
+        return real_import(*args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
 
     status = mcp_server.mcp_runtime_status()
 
@@ -178,3 +183,28 @@ def test_mcp_schema_resource_is_committed_schema_only() -> None:
     assert "FOI-O NZ Core Process Event" in schema_text
     with pytest.raises(ValueError, match="committed JSON Schema"):
         schema_resource("../pyproject.toml")
+
+
+def test_mcp_runtime_status_succeeds_with_fastmcp(monkeypatch: pytest.MonkeyPatch) -> None:
+    import builtins
+    real_import = builtins.__import__
+
+    class FakeFastMCPCls:
+        def __init__(self, name):
+            pass
+
+    def fake_import(*args, **kwargs):
+        if args and args[0] == 'fastmcp':
+            import types
+            mod = types.ModuleType('fastmcp')
+            mod.FastMCP = FakeFastMCPCls
+            return mod
+        return real_import(*args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
+
+    status = mcp_server.mcp_runtime_status()
+
+    assert status["ok"] is True
+    assert status["mode"] == "fastmcp"
+    assert status["read_only"] is True
