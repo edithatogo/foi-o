@@ -154,7 +154,7 @@ def create_server(
     if fastmcp_cls is None:
         try:
             fastmcp_cls = _load_fastmcp()
-        except ModuleNotFoundError as exc:  # pragma: no cover - optional dependency
+        except ModuleNotFoundError as exc:
             raise RuntimeError(MCP_UNAVAILABLE_MESSAGE) from exc
 
     root = Path(fixture_root)
