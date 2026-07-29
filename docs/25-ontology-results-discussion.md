@@ -10,7 +10,7 @@ asset manifest schema, and a small evidence-network graph export.
 
 | Result area | Current result | Evidence |
 | --- | --- | --- |
-| Core/profile boundary | FOI-O is global; NZ is the mature reference implementation and Australian adapters remain candidate-only. | `README.md`, `docs/24-ontology-methods-protocol.md` |
+| Core/profile boundary | FOI-O is global; NZ is the mature reference implementation, while AU-CTH and AU-NSW have bounded extractor/profile maturity within pinned evidence scopes. | `README.md`, `docs/24-ontology-methods-protocol.md`, `profiles/registry.yaml` |
 | Competency questions | Ten competency questions cover source-state preservation, candidate events, human certification, clock warnings, legal source versioning, PSC derivability, public-data limits, asset provenance, and global-claim boundaries. | `docs/24-ontology-methods-protocol.md` |
 | Evidence inventory | Repo-local materials and external gates are catalogued. | `docs/24-ontology-methods-evidence-inventory.md` |
 | Claims register | Supported, unsupported, and design-intent claims are separated. | `docs/24-ontology-claims-register.md` |

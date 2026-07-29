@@ -1,20 +1,36 @@
 # Australian pilot objective completion audit
 
-Audit date: 2026-07-24. This is an evidence index, not a legal certification,
+Audit date: 2026-07-29. This is an evidence index, not a legal certification,
 publication, or population-wide inference decision.
 
 | Objective item | Current evidence | Status | Remaining boundary |
 | --- | --- | --- | --- |
-| Commonwealth legislation adapter and source evidence | `examples/v2/australian-legislation-adapter-integration-2026-07-23.approved.json`; adapter commit `feb55b2` | Bounded integration evidence approved | No general legal promotion implied |
-| NSW GIPA adapter and source pack | `examples/v2/australian-source-pack-au-nsw-2026-07-23.approved.json`; source artifact `2eb550bd…3891e9` | Source-ready, adapter-validation scope only | NSW request population remains unavailable |
+| Commonwealth legislation adapter and source evidence | `examples/v2/australian-legislation-adapter-integration-2026-07-23.approved.json`; `examples/v2/australian-source-pack-au-cth-2026-07-26.approved.json`; source-pack SHA-256 `19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4` | Bounded integration and source-pack maturity approved | No publication, redistribution, training, legal certification, unbounded inference, or broader promotion |
+| NSW GIPA adapter and source pack | `examples/v2/australian-source-pack-au-nsw-2026-07-23.approved.json`; source artifact `2eb550bd…3891e9` | Bounded adapter/source-pack evidence approved | Platform-capture and legal-review dimensions remain blocked |
 | fyi-cli capture support | `examples/v2/australian-fyi-cli-capability-audit-2026-07-23.json` | Generic bounded Alaveteli capture verified for AU-CTH/AU-NSW | RightToKnow source access, not CLI capability |
-| Read-only capture and archive infrastructure | `fyi-archive` commits `91eef8b`, `44e2587`, `b2eb327`, `e84b559`, `292a757`, `8d09d57`, `4d410d6`, `fc52b52`; [recovery plan](../conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md) | Registry-driven, paginated, hash-recording IA acquisition implemented; scheduled URL indexes and manual all-captures exports are distinct; run `30068038481` retained failure evidence without a partial export | A new, separately authorized capture must succeed before rights validation or empirical use |
+| Read-only capture and archive infrastructure | `fyi-archive` commits `91eef8b`, `44e2587`, `b2eb327`, `e84b559`, `292a757`, `8d09d57`, `4d410d6`, `fc52b52`; [recovery plan](../conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md) | Registry-driven, paginated, hash-recording IA acquisition and bounded replay are implemented; complete CDX and replay artifacts are retained under restricted scope | No unbounded archive expansion or publication follows from the bounded artifacts |
 | AU-CTH bounded empirical work | `examples/v2/au-cth-fulltext-sample-freeze.approved.json`, `au-cth-assertion-codebook.v0.2.0.approval.json`, `au-cth-annotation-execution.approved.json` | Completed within approved bounded scope | No generalisation, release, or gold promotion |
 | AU-CTH reliability and extractor maturity | `examples/v2/au-cth-maturity-decision.approved.json` | Mature only for approved ontology and bounded evidence scope | No legal certification or population-wide inference |
-| NSW empirical frame, codebook, packets, metrics, maturity | `examples/v2/australian-nsw-rtk-capture-plan-2026-07-23.approved.json`; `australian-nsw-rtk-cdx-probe-2026-07-23.blocked.json` | Not achieved | Non-empty, rights-cleared NSW request artifact and exact freeze approval |
+| NSW empirical frame, codebook, packets, metrics, maturity | `docs/84-au-nsw-release-readiness-packet-2026-07-27.md`; `examples/v2/au-nsw-maturity-decision.approved.json` | Bounded local frame, paired/fresh holdout, annotation, reliability, extractor metrics, and maturity evidence complete | No gold promotion, population inference, publication, redistribution, training, legal certification, or external release |
 | PR #88 merge | Historical audit records merge commit `1796e88909d029f716774ef201e2f12d0ee68c3a` | Recorded complete | No action required unless repository state contradicts this record |
 
 ## NSW fail-closed boundary
+
+The earlier failed CDX attempts remain negative evidence and are not source
+populations. A later complete CDX artifact and bounded replay were separately
+approved and validated. The complete CDX artifact contains 26,000 metadata
+records and is pinned by CDX SHA-256
+`954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd`.
+The bounded replay selected 2,082 canonical captures; classification produced
+179 AU-NSW records. The restricted-local immutable manifest, 115-unit NSW
+frame, 100-unit paired membership, 15-unit fresh holdout, v3 reliability, and
+extractor metrics are all recorded in the numbered AU-NSW evidence packets.
+
+These artifacts do not turn the RightToKnow population into a public dataset,
+do not authorize live-origin access, and do not remove the platform-capture,
+legal-review, publication, or external-release gates.
+
+### Historical negative evidence
 
 The direct RightToKnow discovery endpoint returned HTTP 403. The exact NSW
 Health and NSW Treasury CDX feed queries and broader RightToKnow request-page

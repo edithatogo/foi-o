@@ -54,8 +54,8 @@ split requires its own migration and backwards-compatibility gate.
 |---|---|---|
 | `foi-o-nz` | Implemented repository profile | External corpus, publication, and legal-promotion evidence remains explicitly gated. |
 | `foi-o-au` | Country-contract planning | No promoted Australian country profile yet. |
-| Australian Commonwealth adapter | Candidate contract pilot | Requires immutable pins, rights-reviewed heldout data, independent annotation/adjudication, empirical metrics, and human approval. |
-| `foi-o-au-nsw` adapter | Candidate contract pilot | Same evidence gates, using NSW-specific legislation, examples, clocks, and review pathways. |
+| Australian Commonwealth adapter | Bounded extractor/profile mature | Scope is limited to the pinned source pack, ontology, 100-unit evidence, and approved maturity decision; legal promotion, gold promotion, population inference, and release remain gated. |
+| `foi-o-au-nsw` adapter | Bounded extractor/profile mature | Scope is limited to the pinned source pack, ontology, v3 holdout evidence, and approved maturity decision; legal promotion, gold promotion, population inference, and release remain gated. |
 | Other Australian subdivisions | Planned and disabled | Each jurisdiction must pass its own evidence and compatibility gates; no inheritance of legal conclusions from Commonwealth or NSW pilots. |
 
 Adapter experiments may live in downstream extraction repositories while their

@@ -15,12 +15,12 @@
     "human_legal_author_approval"
   ],
   "inventory": {
-    "documentation_files": 55,
-    "example_files": 240,
-    "json_schema_files": 181,
+    "documentation_files": 59,
+    "example_files": 267,
+    "json_schema_files": 183,
     "mapping_files": 6,
     "owl_ontology_files": 1,
-    "python_test_modules": 144,
+    "python_test_modules": 156,
     "shacl_files": 1,
     "skos_vocabulary_files": 4
   },
