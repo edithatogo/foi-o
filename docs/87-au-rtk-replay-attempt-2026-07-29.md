@@ -30,3 +30,13 @@ available for a future bounded retry.
 No source bytes were published, uploaded, redistributed, or used for empirical
 analysis. A complete replay remains an operational Internet Archive
 availability/performance gate, not an authorization gap.
+
+## Resumable replay remediation
+
+The replay implementation was extended on `fyi-archive` branch
+`codex/au-rtk-resumable-replay` at commit `0e044d6` with bounded `--offset`
+and `--limit` chunking. The new checkpoint path passed 11 focused tests. A
+10-record probe using the exact selection completed with 2 captures and 8
+fetch failures; its candidate summary reported
+`manifest_finalization_authorized: false`. This result is operational
+evidence only and is not admitted to the source population.
