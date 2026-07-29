@@ -14,6 +14,15 @@ publication, or population-wide inference decision.
 | NSW empirical frame, codebook, packets, metrics, maturity | `docs/84-au-nsw-release-readiness-packet-2026-07-27.md`; `examples/v2/au-nsw-maturity-decision.approved.json` | Bounded local frame, paired/fresh holdout, annotation, reliability, extractor metrics, and maturity evidence complete | No gold promotion, population inference, publication, redistribution, training, legal certification, or external release |
 | PR #88 merge | Historical audit records merge commit `1796e88909d029f716774ef201e2f12d0ee68c3a` | Recorded complete | No action required unless repository state contradicts this record |
 
+## Ontology-pinned NLP handoff
+
+The production Australian placeholder was replaced by the metadata-only,
+ontology-pinned AU-CTH extraction bundle in `nlp-policy-nz` PR #185, merged at
+revision `e4a8cf36090be8c22106072514d9098d27445244`. The handoff preserves
+authentic-source hashes and review-bounded output while keeping synthetic
+fixtures confined to tests. AU-NSW remains separately scoped to its approved
+FOI-O extractor evidence; no unapproved cross-profile bundle is implied.
+
 ## NSW fail-closed boundary
 
 The earlier failed CDX attempts remain negative evidence and are not source
