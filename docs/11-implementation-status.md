@@ -36,11 +36,15 @@ This status page separates implemented repo-local surfaces, experimental optiona
   mature reference implementation; its external corpus, publication, and
   legal-promotion evidence remains separately gated.
 - The FOI-O archive adapter and Australian Commonwealth and NSW adapters have
-  been reviewed as candidate contract pilots in `nlp-policy-nz`. That review is
-  not legal approval and does not promote them to certified profiles.
-- Commonwealth and NSW are the first Australian pilots. Other Australian state
-  and territory profiles remain planned and disabled pending jurisdiction-
-  specific legislation, examples, annotations, evaluation, and human review.
+  bounded, provenance-pinned contract and empirical evidence recorded in the
+  merged AU pilot work. The AU-NSW extractor/profile is mature only within its
+  approved ontology, v3 holdout evidence, and bounded evidence scope; this is
+  not legal approval or certification.
+- Commonwealth and NSW remain the first Australian pilots. Other Australian
+  state and territory profiles remain planned and disabled pending
+  jurisdiction-specific legislation, examples, annotations, evaluation, and
+  human review. Population-wide inference, publication, redistribution, and
+  training remain prohibited for the bounded AU evidence.
 
 ## Cross-repository handoff status
 

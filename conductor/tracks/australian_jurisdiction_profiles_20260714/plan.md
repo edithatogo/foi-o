@@ -4,20 +4,20 @@ Execution contract: follow [the deterministic Australian runbook](./less-capable
 in packet order. Record exact commands, results, artifacts, source digests, and
 commit SHA for every completed packet. Never mark a human gate complete.
 
-## Current status (2026-07-20)
+## Current status (2026-07-29)
 
 This track and its GitHub issue hierarchy remain active. Profile/source
-contract engineering landed in merged PRs #37, #57, #58, and #59, but the
-manual verification gate remains open. The Commonwealth/NSW pilot, empirical
-validation, go/no-go decision, later jurisdiction tranches, and release
-closeout are not complete. The issue links below are the authoritative queues.
+contract engineering landed in merged PRs #37, #57, #58, and #59. The bounded
+Commonwealth and NSW pilot evidence is now recorded in merged PRs #88, #104,
+and #105. This does not close the broader manual verification, remaining
+jurisdiction, or release gates.
 
 | Phase | GitHub issue | Status |
 | --- | --- | --- |
 | Profile and source contracts | [#28](https://github.com/edithatogo/foi-o/issues/28) | Engineering complete; verification open |
-| Commonwealth and NSW pilot | [#29](https://github.com/edithatogo/foi-o/issues/29) | Open |
-| Empirical validation | [#30](https://github.com/edithatogo/foi-o/issues/30) | Open |
-| Pilot decision gate | [#31](https://github.com/edithatogo/foi-o/issues/31) | Open |
+| Commonwealth and NSW pilot | [#29](https://github.com/edithatogo/foi-o/issues/29) | Bounded evidence complete; scope limits remain |
+| Empirical validation | [#30](https://github.com/edithatogo/foi-o/issues/30) | Bounded AU-CTH/AU-NSW evidence complete; broader inference prohibited |
+| Pilot decision gate | [#31](https://github.com/edithatogo/foi-o/issues/31) | Bounded AU-NSW extractor promotion recorded; programme gate remains |
 | Remaining jurisdiction tranches | [#32](https://github.com/edithatogo/foi-o/issues/32) | Open |
 | Release evidence and closeout | [#33](https://github.com/edithatogo/foi-o/issues/33) | Open |
 
@@ -70,6 +70,13 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 - [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
 - [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
 
+### Profile-specific reconciliation (2026-07-29)
+
+| Profile | Legal/source contract | Archive/sample | Extraction/annotation | Remaining gate |
+| --- | --- | --- | --- | --- |
+| AU-CTH | Adapter and bounded source-pack candidate integrated | Restricted-local source frame and 385-unit membership pinned | Reliability, extractor metrics, and bounded maturity evidence recorded | No publication, redistribution, training, legal certification, unbounded inference, or broader promotion |
+| AU-NSW | GIPA adapter and bounded source pack integrated | 115-unit immutable frame; 100-unit paired set and 15-unit fresh holdout pinned | v3 reliability and extractor metrics recorded; bounded extractor/profile maturity promoted in approved scope | Platform capture and legal-review dimensions remain blocked; no population-wide inference or external release |
+
 ### AU-NSW historical source recovery refinement
 
 - [x] Task: Add explicit URL-index and all-captures Internet Archive CDX modes,
@@ -84,12 +91,18 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       GitHub Actions run `30068038481` failed safely on `2026-07-24` after
       bounded CDX connection-refusal retries; its 90-day failure artifact is
       negative evidence only and no source export was created.
-- [ ] Task: Validate a non-empty complete CDX export and its raw hash before
+- [x] Task: Validate a non-empty complete CDX export and its raw hash before
       recovery; retain failed, empty, or capped exports as negative evidence.
-- [ ] Task: Recover only export-listed archived snapshots, classify AU-NSW
-      with authority evidence, and validate the normalized source JSONL.
-- [ ] Task: Obtain a separate hash-bound approval before immutable manifest,
-      empirical-frame freeze, annotation, or maturity evaluation.
+      The complete 26,000-record CDX artifact and hashes are recorded in the
+      merged AU-NSW bounded source evidence.
+- [x] Task: Recover only export-listed archived snapshots, classify AU-NSW
+      with authority evidence, and validate the normalized source JSONL. The
+      bounded 2,082-record replay and 179-record AU-NSW candidate were
+      validated locally and retained under the approved restricted scope.
+- [x] Task: Obtain a separate hash-bound approval before immutable manifest,
+      empirical-frame freeze, annotation, or maturity evaluation. The
+      resulting manifest, frames, annotation reports, reliability reports, and
+      bounded maturity decision are hash-pinned in the merged evidence.
 
 ## Phase 4: Pilot decision gate
 
