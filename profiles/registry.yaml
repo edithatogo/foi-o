@@ -25,10 +25,28 @@ profiles:
     jurisdiction: AU-CTH
     regime: FOI
     version: 0.1.0
-    stage: discovered
-    status: candidate_contract_only
-    source_pack: {id: pending, sha256: pending, status: not_ready}
-    capabilities: {}
+    stage: empirically-evaluated
+    status: approved_bounded_extractor_mature
+    maturity_scope:
+      ontology: foio-au-pilot-assertion-v0.2.0
+      frozen_frame_sha256: 92b290ba32db7f70589202ae0895303856a64ef8258fb9bab9f561bde45eec7d
+      extractor_output_sha256: eaae41b6ea26f47d0b32a8f3b7f69e1564568f1654286c9316d2c0120efe5e85
+      extractor_metrics_sha256: daebac03888f53ba5e168fed06851098efc22b0881f9225f3e75857a17fe7552
+      unit_count: 100
+      population_inference: prohibited
+      publication: prohibited
+    source_pack:
+      id: source-pack:au-cth:2026-07-26-candidate
+      sha256: 19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4
+      status: approved_bounded_local_empirical_validation_only
+    capabilities:
+      source_discovery: candidate
+      historical_legislation: implemented_candidate
+      normative_extraction: independently_evaluated
+      platform_capture: blocked
+      archive_snapshot: blocked
+      annotation_gold_set: blocked
+      legal_review_promotion: blocked
     human_gates: [source_rights, operator_access, independent_annotation, legal_promotion]
   - id: foio-au-nsw
     jurisdiction: AU-NSW
