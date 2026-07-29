@@ -67,3 +67,18 @@ The normalized candidate SHA-256 is
 The result remained `candidate_non_final`, with no pending records and
 `manifest_finalization_authorized: false`. This confirms that the connection
 refusal persisted during a later bounded retry.
+
+## Remediation retry
+
+A direct bounded HEAD request to the first CDX-listed snapshot was reachable.
+The replay was then retried at offset `100`, limit `10`, with one worker,
+1-second launch delay, 30-second timeout, and two retries. All 10 captures
+succeeded; there were no failures or pending records. The normalized candidate
+SHA-256 was
+`83a57f6fdf49dd4b45ca757ac5d6d416cbdecefa2f787498b6858ac54c3f44f1`.
+
+The replay CLI defaults were hardened in fyi-archive commit `814a2f5` to the
+proven serial settings (one worker and 1-second pacing); callers may still
+override them explicitly. This addresses the repository-side concurrency
+contributor but does not by itself complete the 2,082-record replay or permit
+manifest finalization.
