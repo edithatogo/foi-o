@@ -82,3 +82,10 @@ proven serial settings (one worker and 1-second pacing); callers may still
 override them explicitly. This addresses the repository-side concurrency
 contributor but does not by itself complete the 2,082-record replay or permit
 manifest finalization.
+
+The same remediation was then resumed over offset `100`, limit `100`, using
+one worker, 0.5-second pacing, a 20-second timeout, and one retry. Checkpoint
+resumption completed all 100 records with `100` successful captures, `0`
+failures, and `0` pending records. The normalized candidate SHA-256 was
+`640870c9a7bbc5cc2029e50fed584de6184f812d6ddf501db0203975eb1aa091`.
+This remains candidate-only and does not authorize manifest finalization.
