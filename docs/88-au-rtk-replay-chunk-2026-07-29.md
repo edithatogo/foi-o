@@ -147,3 +147,22 @@ run passed for all 1,170 consolidated records. Corrected hashes are:
 | Replay index | 1,170 | `d82ae6e51ebd905bf0283746491e587a1e72d35d0f74bcfaf299048f18feb2bd` |
 
 These remain partial, restricted-local, non-final candidates.
+
+## Candidate immutable-manifest input packet
+
+A restricted-local manifest-input packet was assembled at the current
+milestone. It contains the approved CDX and selection metadata, retrieval
+evidence, replay index, corrected classified JSONL outputs, partial summary,
+and explicit failure ledger. The packet declares 10 hashed input artifacts,
+covers 1,170 captured records, and records 10 failed records. Its status
+artifact SHA-256 is
+`dcbdd6615630e01d8e8e473f03619c8b3bd9845d1916e267507438c52e1661f2`.
+
+The generated historical-manifest candidate has SHA-256
+`137bdd0fe7c7fe783b5d0b28313c72f013d471bab0cc20dda2f6603630af3331`.
+The build validator confirmed every declared artifact hash and byte count.
+This is a preparation packet only: `status: candidate_non_final`,
+`manifest_finalization_authorized: false`, and no publication or redistribution.
+It cannot become an immutable final manifest until all 2,082 approved records
+are successfully replayed or explicitly dispositioned under the approved
+boundary.
