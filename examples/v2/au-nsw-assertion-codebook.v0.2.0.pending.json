@@ -1,0 +1,28 @@
+{
+  "schema_version": "foi-o.au-nsw-assertion-codebook.v0.2.0",
+  "status": "pending_human_approval",
+  "codebook_id": "foio-au-nsw-pilot-assertion-v0.2.0",
+  "revision": "pending-au-nsw-v0.2.0",
+  "assertion": {
+    "id": "au_nsw_gipa_matter",
+    "statement": "The authorized source record concerns a New South Wales Government Information (Public Access) matter.",
+    "unit_of_analysis": "one frozen historical request-page record",
+    "evidence_window": "captured request-page text only; source URL, archive timestamp, and provenance metadata establish identity but cannot alone support a label",
+    "required_context": ["source_url", "archive_timestamp", "captured_text"],
+    "excluded_context": ["candidate_extractor_labels", "peer_annotations", "adjudication_outcomes", "unlinked_metadata"]
+  },
+  "labels": [
+    {"id": "observed", "positive_rule": "Use only when the authorized text explicitly identifies a NSW GIPA request or NSW agency GIPA matter.", "negative_rule": "Do not use for an inference from URL, agency name alone, page layout, or general Australian context."},
+    {"id": "inferred", "positive_rule": "Use only when the text supplies explicit facts from which the assertion follows mechanically and the derivation is recorded.", "negative_rule": "Do not use for legal interpretation, ambiguous jurisdiction, or a missing source statement."},
+    {"id": "candidate", "positive_rule": "Use when the text supports a possible NSW GIPA mapping but jurisdictional or temporal evidence is incomplete.", "negative_rule": "Do not use when the mapping is contradicted or when the record is unreadable."},
+    {"id": "unknown", "positive_rule": "Use when the supplied evidence cannot decide the assertion.", "negative_rule": "Do not use as a substitute for a missing required span or as an implicit negative."}
+  ],
+  "span_policy": {"coordinate_system": "utf8_character_half_open", "required_for": ["observed", "inferred", "candidate"], "forbidden_for": ["unknown"], "boundary_rule": "cite the shortest contiguous span sufficient for the label, preserving whole Unicode code points", "maximum_span_characters": 1000, "multiple_span_rule": "at most three non-overlapping spans, sorted by start, only when one span cannot contain the explicit facts"},
+  "abstention": {"field": "abstention", "values": [true, false], "reasons": ["missing_evidence", "insufficient_evidence", "out_of_scope", "other"], "rule": "abstention=true requires a reason and label=unknown; abstention=false requires a non-empty label and valid span unless label=unknown"},
+  "serialization": {"one_primary_label": true, "annotation_schema": "foio-au-nsw-annotation.v0.2.0"},
+  "registered_thresholds": {"raw_agreement_minimum": 0.8, "cohen_kappa_minimum": 0.6, "span_overlap_iou": 0.5},
+  "approval_present": false,
+  "execution_allowed": false,
+  "gold_eligible": false,
+  "human_reviewed": false
+}

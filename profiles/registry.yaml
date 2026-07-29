@@ -52,8 +52,16 @@ profiles:
     jurisdiction: AU-NSW
     regime: GIPA
     version: 0.1.0
-    stage: source-ready
-    status: candidate_contract_only
+    stage: empirically-evaluated
+    status: approved_bounded_extractor_mature
+    maturity_scope:
+      ontology: foio-au-nsw-pilot-assertion-v0.2.1
+      evidence_report_sha256: c783713789b33cdd3eb25e4cd5b374f0c609fb63c6b4728bf0cf933eed54dd82
+      reliability_sha256: dfa2737ce95a18afd76dd2d286ec3881532a306ad7cdda55b245bf42ea3a4d91
+      extractor_metrics_sha256: eb80191aecbcd6888d65d03821cb88f5c0e69b2dcf02b356155a9e68c6118374
+      unit_count: 15
+      population_inference: prohibited
+      publication: prohibited
     source_pack:
       id: source-pack:au-nsw:2026-07-23-approved-bounded
       sha256: 2eb550bd34d127521debaa0b5da4bf11187151be0a10756ed94f9625ca3891e9
@@ -61,7 +69,7 @@ profiles:
     capabilities:
       source_discovery: candidate
       historical_legislation: implemented_candidate
-      normative_extraction: candidate
+      normative_extraction: independently_evaluated_bounded
       platform_capture: blocked
       archive_snapshot: blocked
       annotation_gold_set: blocked

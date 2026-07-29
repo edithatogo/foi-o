@@ -1,0 +1,133 @@
+{
+  "schema_version": "foi-o.australian-empirical-readiness.v0.2.0",
+  "recorded_at": "2026-07-26T12:03:14Z",
+  "status": "candidate_readiness",
+  "profiles": [
+    {
+      "profile_id": "foio-au-cth",
+      "jurisdiction": "AU-CTH",
+      "legislation": {
+        "owner_repo": "edithatogo/foi-o",
+        "repository_revision": "6a00b33c624ef65187d59a293647f05d0c07ce4a",
+        "artifact_path": "examples/v2/australian-source-pack-au-cth-2026-07-26.candidate.json",
+        "artifact_sha256": "19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4",
+        "status": "approved",
+        "rights_reviewed": true,
+        "independently_reviewed": true,
+        "known_limitation": "Maturity approval is recorded in examples/v2/australian-source-pack-au-cth-2026-07-26.approved.json and remains limited to the existing bounded evidence and rights scope; publication, redistribution, training, legal certification, unbounded inference, and broader profile promotion remain prohibited."
+      },
+      "archive": {
+        "owner_repo": "edithatogo/fyi-archive",
+        "repository_revision": "466b718a5dcb4ba9c8a5e7fac4ca3f8c97be2840",
+        "artifact_path": "restricted/au-cth-capture-20260723/au-cth-holdout-source-artifact.json",
+        "artifact_sha256": "08e78c9ced542a0339021d4d170db437a072f9b70df9e49f830f14d280b2e5e2",
+        "status": "approved",
+        "rights_reviewed": true,
+        "independently_reviewed": true,
+        "known_limitation": "The authentic 100-unit holdout remains in the restricted local store and is not approved for publication or redistribution."
+      },
+      "extraction": {
+        "owner_repo": "edithatogo/nlp-policy-nz",
+        "repository_revision": "e4a8cf36090be8c22106072514d9098d27445244",
+        "artifact_path": "artifacts/foio/au_cth_ontology_pinned_bundle.json",
+        "artifact_sha256": "66ce14dd8abcdec4b648137faf1536c5e40ad87969450913913ab93bbdd10129",
+        "status": "approved",
+        "rights_reviewed": true,
+        "independently_reviewed": true,
+        "known_limitation": "The metadata-only handoff was integrated by nlp-policy-nz PR #185 at merged revision e4a8cf36090be8c22106072514d9098d27445244; source content remains excluded and publication, redistribution, training, release, legal certification, and unbounded inference remain prohibited."
+      },
+      "sampling": {
+        "protocol_path": "docs/41-v2-sampling-and-annotation-protocol.md",
+        "protocol_sha256": "9e8415e60c90d8feba2290c5a97aa1a03f7200978fb6b212f5df54ed99b44caf",
+        "unit_of_analysis": "request_linked_candidate_assertion",
+        "strata": ["jurisdiction", "outcome_family", "request_year", "review_pathway"],
+        "exclusions": [
+          "outside_rights_scope",
+          "missing_immutable_source",
+          "cross_profile_context",
+          "unresolved_authority_identity",
+          "duplicate_cluster_leakage",
+          "all_nine_calibration_units_and_clusters"
+        ],
+        "codebook_path": "examples/v2/au-cth-assertion-codebook.v0.2.0.pending.json",
+        "codebook_revision": "6656ff8f51b1620e7f4242e58bbe4686f6927515",
+        "codebook_sha256": "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9",
+        "sampling_configuration_path": "restricted/au-cth-capture-20260723/au-cth-holdout-frame.frozen.json",
+        "sampling_configuration_sha256": "92b290ba32db7f70589202ae0895303856a64ef8258fb9bab9f561bde45eec7d",
+        "configuration_approved": true,
+        "reliability_thresholds_approved": true
+      },
+      "annotation_roles": {
+        "role_kind": "automated_agent",
+        "annotator_ids": ["automated-agent-role-a", "automated-agent-role-b"],
+        "adjudicator_id": "automated-agent-role-adjudicator",
+        "assignment_approved": true,
+        "approval_ref": "examples/v2/au-cth-fresh-annotation-execution.approved.json"
+      }
+    },
+    {
+      "profile_id": "foio-au-nsw",
+      "jurisdiction": "AU-NSW",
+      "legislation": {
+        "owner_repo": "edithatogo/foi-o",
+        "repository_revision": "c3458450d99d7a003472f6532a4f199025021409",
+        "artifact_path": "examples/v2/australian-source-pack-au-nsw-2026-07-23.approved.json",
+        "artifact_sha256": "2d569bb74aa0a68207ae777f927b7740fe1ff11ba0ed0afdb7f19a8296b8e4a4",
+        "status": "approved",
+        "rights_reviewed": true,
+        "independently_reviewed": true,
+        "known_limitation": "Approval is limited to bounded local adapter validation and immutable local archival."
+      },
+      "archive": {
+        "owner_repo": "edithatogo/fyi-archive",
+        "repository_revision": "ab1080c20cdfa9c342d96b18ba2e93f3d28c7945",
+        "artifact_path": null,
+        "artifact_sha256": null,
+        "status": "missing",
+        "rights_reviewed": false,
+        "independently_reviewed": false,
+        "known_limitation": "Three bounded Internet Archive all-captures attempts produced failure evidence only; no non-empty NSW request population exists."
+      },
+      "extraction": {
+        "owner_repo": "edithatogo/nlp-policy-nz",
+        "repository_revision": "05a31c72efc0950e4f06d913125ff00ffc04e1be",
+        "artifact_path": null,
+        "artifact_sha256": null,
+        "status": "missing",
+        "rights_reviewed": false,
+        "independently_reviewed": false,
+        "known_limitation": "Production placeholders are removed; an AU-NSW bundle requires an approved authentic NSW request population."
+      },
+      "sampling": {
+        "protocol_path": "docs/41-v2-sampling-and-annotation-protocol.md",
+        "protocol_sha256": "9e8415e60c90d8feba2290c5a97aa1a03f7200978fb6b212f5df54ed99b44caf",
+        "unit_of_analysis": "request_linked_candidate_assertion",
+        "strata": ["jurisdiction", "outcome_family", "request_year", "review_pathway"],
+        "exclusions": [
+          "outside_rights_scope",
+          "missing_immutable_source",
+          "cross_profile_context",
+          "unresolved_authority_identity",
+          "duplicate_cluster_leakage"
+        ],
+        "codebook_path": null,
+        "codebook_revision": null,
+        "codebook_sha256": null,
+        "sampling_configuration_path": null,
+        "sampling_configuration_sha256": null,
+        "configuration_approved": false,
+        "reliability_thresholds_approved": false
+      },
+      "annotation_roles": {
+        "role_kind": "automated_agent",
+        "annotator_ids": [],
+        "adjudicator_id": null,
+        "assignment_approved": false,
+        "approval_ref": null
+      }
+    }
+  ],
+  "joint_sample_freeze_allowed": false,
+  "cross_jurisdiction_empirical_claims_allowed": false,
+  "unbounded_profile_promotion_allowed": false
+}

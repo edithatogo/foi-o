@@ -7,7 +7,7 @@ import hashlib
 import json
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 from urllib.parse import urldefrag, urlsplit, urlunsplit
 
 
@@ -18,35 +18,42 @@ def _canonical_url(value: str) -> str:
 
 def build_frame(fulltext_path: Path, *, jurisdiction: str, output: Path) -> dict[str, Any]:
     payload = json.loads(fulltext_path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("fulltext artifact must be a JSON object")
     records = payload.get("records")
     if not isinstance(records, list) or not records:
         raise ValueError("fulltext artifact contains no records")
     units = []
-    for index, record in enumerate(records):
+    for index, raw_record in enumerate(records):
+        if not isinstance(raw_record, dict):
+            raise ValueError(f"record {index} is not an object")
+        record = cast("dict[str, Any]", raw_record)
         source_url = str(record.get("source_url") or "")
         if not source_url:
             raise ValueError(f"record {index} has no source_url")
         text = str(record.get("text") or "")
         status = str(record.get("status") or "unknown")
         digest = record.get("text_sha256") or hashlib.sha256(text.encode()).hexdigest()
-        units.append({
-            "unit_id": f"{jurisdiction}:historical:{index:06d}",
-            "jurisdiction": jurisdiction,
-            "text": text if status == "captured" else None,
-            "unit_sha256": digest,
-            "capture_status": status,
-            "source_ref": {
-                "source_url": source_url,
-                "canonical_source_url": _canonical_url(source_url),
-                "archive_timestamp": record.get("archive_timestamp"),
-                "archive_url": record.get("archive_url"),
-                "html_sha256": record.get("html_sha256"),
-                "text_sha256": record.get("text_sha256"),
-                "diagnostic": record.get("diagnostic"),
-            },
-            "rights_eligible": False,
-            "annotation_eligible": False,
-        })
+        units.append(
+            {
+                "unit_id": f"{jurisdiction}:historical:{index:06d}",
+                "jurisdiction": jurisdiction,
+                "text": text if status == "captured" else None,
+                "unit_sha256": digest,
+                "capture_status": status,
+                "source_ref": {
+                    "source_url": source_url,
+                    "canonical_source_url": _canonical_url(source_url),
+                    "archive_timestamp": record.get("archive_timestamp"),
+                    "archive_url": record.get("archive_url"),
+                    "html_sha256": record.get("html_sha256"),
+                    "text_sha256": record.get("text_sha256"),
+                    "diagnostic": record.get("diagnostic"),
+                },
+                "rights_eligible": False,
+                "annotation_eligible": False,
+            }
+        )
     frame = {
         "schema_version": "foi-o.australian-fulltext-frame.v0.1.0",
         "status": "authentic_pending_rights_and_fulltext_review",

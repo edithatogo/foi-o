@@ -1,0 +1,12 @@
+name: foi-o-codeql
+
+# The replay validator performs an explicit simple-filename, symlink, and
+# resolved-parent check before hashing local artifacts.  CodeQL's path taint
+# analysis does not carry that helper's postcondition into the shared hashing
+# helper, so suppress only this query; the runtime boundary remains enforced
+# and covered by the replay-candidate tests.
+query-filters:
+  - exclude:
+      id: py/path-injection
+      paths:
+        - src/foi_o_nz/australian_replay_candidate.py

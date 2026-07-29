@@ -46,7 +46,9 @@ def validate_artifact(path: Path, root: Path) -> list[str]:
 
     actual_count = 0
     try:
-        for line_number, line in enumerate(records_path.read_text(encoding="utf-8").splitlines(), 1):
+        for line_number, line in enumerate(
+            records_path.read_text(encoding="utf-8").splitlines(), 1
+        ):
             if not line.strip():
                 continue
             record = json.loads(line)

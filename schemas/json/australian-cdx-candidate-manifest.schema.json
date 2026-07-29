@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Australian Internet Archive CDX candidate manifest packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "status",
+    "source",
+    "integrity",
+    "coverage",
+    "metadata_only_classification",
+    "rights_boundary",
+    "authorization"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o.australian-cdx-candidate-manifest.v0.1.0"
+    },
+    "packet_id": {"type": "string", "minLength": 1},
+    "status": {"const": "candidate_pending_manifest_finalization"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "repository",
+        "workflow_run_id",
+        "artifact_name",
+        "artifact_id",
+        "url_scope",
+        "retrieved_at"
+      ],
+      "properties": {
+        "provider": {"const": "Internet Archive CDX"},
+        "repository": {"const": "edithatogo/fyi-archive"},
+        "workflow_run_id": {"type": "string", "pattern": "^[0-9]+$"},
+        "artifact_name": {"type": "string", "minLength": 1},
+        "artifact_id": {"type": "string", "pattern": "^[0-9]+$"},
+        "url_scope": {"type": "string", "minLength": 1},
+        "retrieved_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_sha256",
+        "cdx_sha256",
+        "retrieval_evidence_sha256",
+        "verified"
+      ],
+      "properties": {
+        "artifact_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "cdx_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "retrieval_evidence_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "verified": {"const": true}
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pagination_complete",
+        "page_count",
+        "record_count",
+        "unique_original_urls",
+        "unique_capture_keys",
+        "duplicate_capture_rows",
+        "scope_conforming_records"
+      ],
+      "properties": {
+        "pagination_complete": {"const": true},
+        "page_count": {"type": "integer", "minimum": 1},
+        "record_count": {"type": "integer", "minimum": 1},
+        "unique_original_urls": {"type": "integer", "minimum": 1},
+        "unique_capture_keys": {"type": "integer", "minimum": 1},
+        "duplicate_capture_rows": {"type": "integer", "minimum": 0},
+        "scope_conforming_records": {"type": "integer", "minimum": 1}
+      }
+    },
+    "metadata_only_classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "AU-CTH",
+        "AU-NSW",
+        "unresolved",
+        "classification_complete",
+        "reason"
+      ],
+      "properties": {
+        "method": {"const": "explicit_authority_metadata_only"},
+        "AU-CTH": {"type": "integer", "minimum": 0},
+        "AU-NSW": {"type": "integer", "minimum": 0},
+        "unresolved": {"type": "integer", "minimum": 0},
+        "classification_complete": {"const": false},
+        "reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "rights_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication",
+        "redistribution",
+        "empirical_freeze",
+        "reference_sha256"
+      ],
+      "properties": {
+        "publication": {"const": false},
+        "redistribution": {"const": false},
+        "empirical_freeze": {"const": false},
+        "reference_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "authorization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approved_operations", "prohibited_operations"],
+      "properties": {
+        "approved_operations": {
+          "type": "array",
+          "minItems": 3,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "prohibited_operations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}

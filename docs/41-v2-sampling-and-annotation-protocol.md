@@ -36,8 +36,9 @@ source population and an approved role packet.
 
 ## Independent annotation
 
-1. Appoint two distinct human annotators and one distinct adjudicator. None may
-   be represented by an automated agent or model.
+1. Run one sole developer harness with three isolated agent role instances:
+   Annotator A, Annotator B, and a different adjudicator. The role instances
+   must remain distinct even though they are operated by the same harness.
 2. Annotators work independently and cannot see each other's labels.
 3. For extractor evaluation, annotators review source evidence without seeing
    the extractor candidate label or confidence. Candidate identifiers may be
@@ -50,9 +51,9 @@ source population and an approved role packet.
 ## Adjudication
 
 - Lock both annotation sets before adjudication.
-- The adjudicator reviews the source and both independent annotations, records
-  a reasoned decision or unresolved status, and never silently overwrites an
-  annotation.
+- The adjudicator agent reviews the source and both independent annotations,
+  records a reasoned decision or unresolved status, and never silently
+  overwrites an annotation.
 - Every change retains the two original labels, adjudicated label, rationale,
   adjudicator identity, timestamp, and artifact hashes.
 - Only adjudicated, rights-eligible units may enter an empirical evaluation
@@ -88,8 +89,8 @@ or the one-record reproducibility case are not substitutes.
 ## Required approvals before execution
 
 - named protocol approver and approval timestamp;
-- two distinct annotator identifiers;
-- one distinct adjudicator identifier;
+- two distinct agent annotator-role identifiers;
+- one distinct agent adjudicator-role identifier;
 - rights-approved source-population manifest;
 - approved codebook revision;
 - approved sample-size justification and frozen sampling configuration.

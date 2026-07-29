@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "parent": "https://github.com/edithatogo/foi-o/issues/24",
+  "phase_issue": "https://github.com/edithatogo/foi-o/issues/30",
+  "status": "in_progress_blocked_on_authentic_inputs_and_human_execution",
+  "repository_outputs": ["2cd36a6", "6867bca", "2f81588", "f158099"],
+  "external_mutation_authorized": false
+}

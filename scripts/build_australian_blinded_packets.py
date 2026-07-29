@@ -63,7 +63,8 @@ def build_packets(
         len(frame["source_population_sha256"]) == SHA256_LENGTH, "invalid source population digest"
     )
     if codebook.get("status") != "approved":
-        _require(approval_path is not None, "pending codebook requires a separate approval wrapper")
+        if approval_path is None:
+            raise ValueError("pending codebook requires a separate approval wrapper")
         approval = _load(approval_path)
         _require(
             approval.get("status") == "approved_for_fresh_holdout_use",

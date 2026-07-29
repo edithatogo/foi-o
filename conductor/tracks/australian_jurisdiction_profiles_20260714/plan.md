@@ -4,22 +4,32 @@ Execution contract: follow [the deterministic Australian runbook](./less-capable
 in packet order. Record exact commands, results, artifacts, source digests, and
 commit SHA for every completed packet. Never mark a human gate complete.
 
-## Current status (2026-07-29)
+## Current status (2026-07-20)
 
 This track and its GitHub issue hierarchy remain active. Profile/source
-contract engineering landed in merged PRs #37, #57, #58, and #59. The bounded
-Commonwealth and NSW pilot evidence is now recorded in merged PRs #88, #104,
-and #105. This does not close the broader manual verification, remaining
-jurisdiction, or release gates.
+contract engineering landed in merged PRs #37, #57, #58, and #59, but the
+manual verification gate remains open. The Commonwealth/NSW pilot, empirical
+validation, go/no-go decision, later jurisdiction tranches, and release
+closeout are not complete. The issue links below are the authoritative queues.
 
 | Phase | GitHub issue | Status |
 | --- | --- | --- |
 | Profile and source contracts | [#28](https://github.com/edithatogo/foi-o/issues/28) | Engineering complete; verification open |
-| Commonwealth and NSW pilot | [#29](https://github.com/edithatogo/foi-o/issues/29) | Bounded evidence complete; scope limits remain |
-| Empirical validation | [#30](https://github.com/edithatogo/foi-o/issues/30) | Bounded AU-CTH/AU-NSW evidence complete; broader inference prohibited |
-| Pilot decision gate | [#31](https://github.com/edithatogo/foi-o/issues/31) | Bounded AU-NSW extractor promotion recorded; programme gate remains |
+| Commonwealth and NSW pilot | [#29](https://github.com/edithatogo/foi-o/issues/29) | Open |
+| Empirical validation | [#30](https://github.com/edithatogo/foi-o/issues/30) | Open |
+| Pilot decision gate | [#31](https://github.com/edithatogo/foi-o/issues/31) | Open |
 | Remaining jurisdiction tranches | [#32](https://github.com/edithatogo/foi-o/issues/32) | Open |
 | Release evidence and closeout | [#33](https://github.com/edithatogo/foi-o/issues/33) | Open |
+
+### Profile-specific reconciliation (2026-07-26)
+
+The programme checkboxes below remain open when either pilot profile is
+incomplete. Current evidence is profile-specific:
+
+| Profile | Legal/source contract | Archive/sample | Extraction/annotation | Remaining gate |
+| --- | --- | --- | --- | --- |
+| AU-CTH | Adapter integrated; bounded source-pack maturity approved in `AU-DEC-07` | Authentic restricted holdout frozen and approved | Reliability and extractor metrics completed; bounded maturity approved; metadata-only NLP handoff integrated at `e4a8cf3` | No remaining Commonwealth prerequisite; all publication, redistribution, training, legal-certification, unbounded-inference, and broader-promotion boundaries remain |
+| AU-NSW | Adapter and bounded source pack approved | No non-empty authentic request artifact after three failed CDX attempts | Not started; placeholders prohibited | Supply and approve the authentic request artifact, then freeze and execute the profile-specific protocol |
 
 ## Phase 1: Profile and source contracts
 
@@ -70,13 +80,6 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 - [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
 - [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
 
-### Profile-specific reconciliation (2026-07-29)
-
-| Profile | Legal/source contract | Archive/sample | Extraction/annotation | Remaining gate |
-| --- | --- | --- | --- | --- |
-| AU-CTH | Adapter and bounded source-pack candidate integrated | Restricted-local source frame and 385-unit membership pinned | Reliability, extractor metrics, and bounded maturity evidence recorded | No publication, redistribution, training, legal certification, unbounded inference, or broader promotion |
-| AU-NSW | GIPA adapter and bounded source pack integrated | 115-unit immutable frame; 100-unit paired set and 15-unit fresh holdout pinned | v3 reliability and extractor metrics recorded; bounded extractor/profile maturity promoted in approved scope | Platform capture and legal-review dimensions remain blocked; no population-wide inference or external release |
-
 ### AU-NSW historical source recovery refinement
 
 - [x] Task: Add explicit URL-index and all-captures Internet Archive CDX modes,
@@ -87,22 +90,102 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       instance scope, page/runtime caps, endpoint, artifact-only retention, and
       confirmation token. (`599fe4e`; request SHA-256
       `3c9bb6bda4b51ffc60001ee4f230fb6050269adb78a64122b40867ea1c9e06f1`)
-- [x] Task: Obtain authorization for and dispatch that exact request once.
-      GitHub Actions run `30068038481` failed safely on `2026-07-24` after
-      bounded CDX connection-refusal retries; its 90-day failure artifact is
-      negative evidence only and no source export was created.
+- [x] Task: Obtain authorization for and dispatch bounded exact requests.
+      GitHub Actions runs `30068038481`, `30075664496`, and `30176570901`
+      all failed safely after bounded Internet Archive CDX connection or TLS
+      retries. Their 90-day artifacts are negative evidence only and no source
+      export was created.
 - [x] Task: Validate a non-empty complete CDX export and its raw hash before
       recovery; retain failed, empty, or capped exports as negative evidence.
-      The complete 26,000-record CDX artifact and hashes are recorded in the
-      merged AU-NSW bounded source evidence.
+      (`8002887`; run `30236042144`; artifact SHA-256
+      `1034e55f8bdfaddc1aa3ad1c1839aed9d0583641281ddd0dc88eb3a4db6c49b2`;
+      CDX SHA-256
+      `954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd`;
+      all 26,000 metadata-only classifications remain unresolved pending
+      separately authorized authority evidence.)
 - [x] Task: Recover only export-listed archived snapshots, classify AU-NSW
-      with authority evidence, and validate the normalized source JSONL. The
-      bounded 2,082-record replay and 179-record AU-NSW candidate were
-      validated locally and retained under the approved restricted scope.
-- [x] Task: Obtain a separate hash-bound approval before immutable manifest,
-      empirical-frame freeze, annotation, or maturity evaluation. The
-      resulting manifest, frames, annotation reports, reliability reports, and
-      bounded maturity decision are hash-pinned in the merged evidence.
+      with authority evidence, and validate the normalized source JSONL.
+      The amended bounded replay completed successfully with one persistent,
+      paced Internet Archive connection.
+      Selection SHA-256 is
+      `a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51`;
+      all 2,082 captures completed with zero failures. Parser-v3 local
+      reprocessing and four-way classification produced 1,578 AU-CTH, 179
+      AU-NSW, 115 out-of-scope, and 210 unresolved records. Normalized JSONL
+      SHA-256 is
+      `3801b4b99de6152bfcaf5f093e00e137acb4ee5d636611ada75820aed55fd807`;
+      candidate summary SHA-256 is
+      `98eae70428e630cbd36849e5ad19c4133dbd9f01c413cf33221d2b0eef0091ab`.
+      Archive-side validation and the independent FOI-O oracle passed.
+      The separately authorized 1,716 exact canonical CDX lookups for the 858
+      excluded slugs also completed with zero failures, finding no qualifying
+      canonical JSON or HTML capture. Completion candidate SHA-256 is
+      `0dafc44c1b871357802282f138bf0e6e9d68f249a171c1d9627809bd928531c8`;
+      non-final zero-record replay selection SHA-256 is
+      `370a6d84e20a4bd260619209d84098458c9e72acf7e4e6f5cb3465cbaba88bb6`.
+      The immutable-manifest approval packet is
+      `docs/44-au-rtk-immutable-manifest-approval-packet-2026-07-27.md`.
+      See `docs/43-au-rtk-replay-attempt-2026-07-27.md` for the finalized
+      restricted-local manifest.
+- [x] Task: Obtain a separate hash-bound approval before immutable manifest.
+      Approval was received and one restricted-local immutable manifest was
+      finalized and independently validated: self-pin SHA-256
+      `2e64cac3f534265a68716ed0db7e9b82039200ee3a8312e6bb145a1af91bc23c`;
+      stored-file SHA-256
+      `c77ce6aafad557f5555fe347d2e9025d07e460574c15a4343728bb1ba3015393`.
+- [x] Task: Obtain a separate hash-bound approval before empirical-frame
+      freeze. The approved restricted-local AU-CTH retained-HTML subset frame
+      has 517 records; frame SHA-256 is
+      `47115d3d422f0b1d0a2aae856cebd1b8ffca8591e01d42c82d494818c7af2a80`.
+      The 517-member duplicate registry SHA-256 is
+      `e4f818d3afbbd4f7bdc1b2f57d94b1da5af73b5887a67e37d528f8813f83f38d`.
+- [x] Task: Obtain a separate hash-bound approval before sampling membership.
+      The approved deterministic 385-unit candidate membership SHA-256 is
+      `f86ed488429009bf3d6a78a7853cca8bb67b8783c728d5ffd255575a9665bda7`.
+- [ ] Task: Obtain a separate hash-bound approval before annotation or maturity
+      evaluation.
+      The proposed AU-CTH-only freeze packet
+      `docs/45-au-cth-empirical-frame-freeze-approval-packet-2026-07-27.md`
+      is fail-closed: retained JSON captures lack request/message text and
+      UTF-8 source spans. Obtain a separately authorized, bounded source-text
+      recovery input before presenting a revised freeze approval. The no-replay
+      retained-HTML candidate is
+      `docs/46-au-cth-retained-html-text-validation-approval-packet-2026-07-27.md`.
+      Its 517-record result is ready for the separate rights-and-subset-freeze
+      decision in
+      `docs/47-au-cth-retained-html-rights-and-freeze-approval-packet-2026-07-27.md`.
+      The next sampling-membership packet is
+      `docs/48-au-cth-subset-sampling-membership-approval-packet-2026-07-27.md`.
+      Its completed 385-unit membership now requires the separate annotation
+      execution decision in
+      `docs/49-au-cth-subset-annotation-execution-approval-packet-2026-07-27.md`.
+      The bounded automated outcome is
+      `docs/50-au-cth-subset-automated-annotation-outcome-2026-07-27.md`;
+      reliability thresholds, extractor metrics, and maturity remain separate
+      gates.
+      The next reliability-computation packet is
+      `docs/51-au-cth-subset-reliability-computation-approval-packet-2026-07-27.md`.
+
+### Phase 3 review fixes
+
+- [x] Task: Refresh generated maturation inventory counts after adding the
+      operator-packet schema. (`ea5565e`; generated summary and coverage matrix
+      now record 182 JSON Schema files.)
+- [x] Task: Publish a schema-validated operator packet that maps every current
+      readiness blocker to its owner issue, required evidence, and human gate.
+      (`dad961b`; all 12 blockers are covered exactly once and promotion and
+      tranche 5 remain prohibited.)
+- [x] Task: Refresh generated ontology inventory evidence, install the declared
+      RDF validation extra, and document the source-triangulation v0.2.0
+      migration boundary found by whole-suite review. (`f158099`; focused
+      ontology, SHACL, readiness, and triangulation review suite: 30 passed.)
+- [x] Task: Repair the legacy track's requirements, risk, traceability,
+      decisions, outputs, human-gate, workflow, issue, acceptance, closeout,
+      and append-only evidence records. (`8a828b4`; required governance files
+      parse and the workflow-pair test passes.)
+- [x] Task: Refresh generated maturation inventory after recording the
+      Commonwealth source-pack approval wrapper. (`e04a9a6`; the canonical
+      summary and coverage matrix now record 270 example files.)
 
 ## Phase 4: Pilot decision gate
 

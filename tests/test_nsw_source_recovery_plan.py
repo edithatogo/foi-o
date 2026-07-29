@@ -3,9 +3,12 @@ from __future__ import annotations
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-
-PLAN = Path("conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md")
-BPMN = Path("conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.bpmn")
+PLAN = Path(
+    "conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md"
+)
+BPMN = Path(
+    "conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.bpmn"
+)
 TRACK_PLAN = Path("conductor/tracks/australian_jurisdiction_profiles_20260714/plan.md")
 BPMN_NS = {"bpmn": "http://www.omg.org/spec/BPMN/20100524/MODEL"}
 
@@ -18,6 +21,10 @@ def test_source_recovery_plan_preserves_all_capture_and_human_gate_boundaries() 
     assert "`EXPORT_ALL_CAPTURE_METADATA`" in plan
     assert "hash-bound human approval" in plan
     assert "partial export" in plan
+    assert "30176570901" in plan
+    assert "954af9aa0b844484cc9d88cf3a6b5bb9812644176b237c238f0419ec82fe1449" in plan
+    assert "operator-supplied non-empty CDX export" in plan
+    assert "not a standing authorization" in plan
     assert "AU-NSW historical source recovery refinement" in TRACK_PLAN.read_text(encoding="utf-8")
 
 

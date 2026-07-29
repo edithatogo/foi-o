@@ -21,25 +21,29 @@ def build_frame(core_path: Path, *, jurisdiction: str, output: Path) -> dict[str
             continue
         source_url = str(record.get("source_url") or "")
         text = " | ".join(
-            value for value in (str(record.get("title") or ""), str(record.get("state") or "")) if value
+            value
+            for value in (str(record.get("title") or ""), str(record.get("state") or ""))
+            if value
         )
         if not source_url or not text:
             continue
         unit_id = f"{jurisdiction}:{record.get('request_key') or record.get('archive_digest')}"
-        units.append({
-            "unit_id": unit_id,
-            "jurisdiction": jurisdiction,
-            "text": text,
-            "unit_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
-            "source_ref": {
-                "source_url": source_url,
-                "archive_url": record.get("archive_url"),
-                "archive_digest": record.get("archive_digest"),
-                "content_sha256": record.get("content_sha256"),
-            },
-            "rights_eligible": False,
-            "annotation_eligible": False,
-        })
+        units.append(
+            {
+                "unit_id": unit_id,
+                "jurisdiction": jurisdiction,
+                "text": text,
+                "unit_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
+                "source_ref": {
+                    "source_url": source_url,
+                    "archive_url": record.get("archive_url"),
+                    "archive_digest": record.get("archive_digest"),
+                    "content_sha256": record.get("content_sha256"),
+                },
+                "rights_eligible": False,
+                "annotation_eligible": False,
+            }
+        )
     if not units:
         raise ValueError("authentic core has no usable extracted metadata units")
     frame = {

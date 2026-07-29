@@ -45,6 +45,14 @@ candidate-supported result requires at least two distinct, available,
 event-time-matched, rights-usable, hash-verified supporting sources. Repeated
 assertions from the same source do not satisfy that independence threshold.
 
+Contract v0.2.0 requires every assertion to declare an authority tier:
+`primary_law`, `official_implementation`, `official_guidance`,
+`observed_case`, or `derived_summary`. The result records the strongest
+eligible tier and its controlling source identifiers deterministically.
+Derived summaries can inform review but cannot count as independent eligible
+support or controlling evidence. Older v0.1.0 requests must be migrated by
+classifying each source explicitly; no default tier is inferred.
+
 The evaluator emits a stable human exception queue for blocked sources,
 support/contradiction conflicts, stale or temporally unknown sources,
 restricted or unknown rights, and insufficient independent evidence. Results

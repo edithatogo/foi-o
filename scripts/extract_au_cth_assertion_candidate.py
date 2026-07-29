@@ -33,12 +33,24 @@ REQUEST_TARGET = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 PATTERNS = (
-    re.compile(r"\b(?:a\s+)?Freedom of Information request to\b.{0,300}", re.IGNORECASE | re.DOTALL),
+    re.compile(
+        r"\b(?:a\s+)?Freedom of Information request to\b.{0,300}", re.IGNORECASE | re.DOTALL
+    ),
     re.compile(r"\b(?:request under|under)\s+the\s+Freedom of Information Act\b", re.IGNORECASE),
-    re.compile(r"\bCommonwealth\b.{0,120}\b(?:Freedom of Information|FOI)\b", re.IGNORECASE | re.DOTALL),
-    re.compile(r"\b(?:Freedom of Information|FOI)\b.{0,120}\bCommonwealth\b", re.IGNORECASE | re.DOTALL),
-    re.compile(r"\b(?:Australian Government|federal government)\b.{0,120}\b(?:Freedom of Information|FOI)\b", re.IGNORECASE | re.DOTALL),
-    re.compile(r"\b(?:Freedom of Information|FOI)\b.{0,120}\b(?:Australian Government|federal government)\b", re.IGNORECASE | re.DOTALL),
+    re.compile(
+        r"\bCommonwealth\b.{0,120}\b(?:Freedom of Information|FOI)\b", re.IGNORECASE | re.DOTALL
+    ),
+    re.compile(
+        r"\b(?:Freedom of Information|FOI)\b.{0,120}\bCommonwealth\b", re.IGNORECASE | re.DOTALL
+    ),
+    re.compile(
+        r"\b(?:Australian Government|federal government)\b.{0,120}\b(?:Freedom of Information|FOI)\b",
+        re.IGNORECASE | re.DOTALL,
+    ),
+    re.compile(
+        r"\b(?:Freedom of Information|FOI)\b.{0,120}\b(?:Australian Government|federal government)\b",
+        re.IGNORECASE | re.DOTALL,
+    ),
 )
 
 
@@ -50,8 +62,11 @@ def extract_unit(unit: dict[str, Any], *, extractor_revision: str) -> dict[str, 
         r"Australian Federal Police", target, re.IGNORECASE
     )
     agency_match = INCLUDE_AGENCY.search(target)
-    match = None if blocked else agency_match or next(
-        (pattern.search(text) for pattern in PATTERNS if pattern.search(text)), None
+    match = (
+        None
+        if blocked
+        else agency_match
+        or next((pattern.search(text) for pattern in PATTERNS if pattern.search(text)), None)
     )
     if match is None:
         return {

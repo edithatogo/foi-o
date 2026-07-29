@@ -1,0 +1,37 @@
+{
+  "schema_version": "foi-o.au-nsw-assertion-codebook.v0.2.1",
+  "status": "pending_human_approval",
+  "codebook_id": "foio-au-nsw-pilot-assertion-v0.2.1",
+  "revision": "pending-au-nsw-v0.2.1",
+  "supersedes": "foio-au-nsw-pilot-assertion-v0.2.0",
+  "assertion": {
+    "id": "au_nsw_gipa_matter",
+    "statement": "The authorized source record concerns a New South Wales Government Information (Public Access) matter.",
+    "unit_of_analysis": "one frozen historical request-page record",
+    "evidence_window": "captured request-page text only; source URL, archive timestamp, and provenance metadata establish identity but cannot alone support a label",
+    "required_context": ["source_url", "archive_timestamp", "captured_text"],
+    "excluded_context": ["candidate_extractor_labels", "peer_annotations", "adjudication_outcomes", "unlinked_metadata"]
+  },
+  "labels": [
+    {"id": "observed", "positive_rule": "Use only when the captured text explicitly names the GIPA Act or Government Information (Public Access) as the governing NSW information-access matter.", "negative_rule": "Do not use for an agency name, NSW location, request-page layout, attachment listing, FOI legacy label, or generic information-access phrase alone."},
+    {"id": "inferred", "positive_rule": "Use only when explicit text facts mechanically establish the NSW GIPA matter and the derivation is recorded.", "negative_rule": "Do not use for legal interpretation, agency-name inference, or ambiguous historical terminology."},
+    {"id": "candidate", "positive_rule": "Use when the text supports a possible NSW GIPA mapping but lacks an explicit governing-act statement or has unresolved temporal/regime evidence.", "negative_rule": "Do not use when the text is unreadable or provides no NSW/GIPA-relevant evidence."},
+    {"id": "unknown", "positive_rule": "Use when the supplied text cannot decide the assertion.", "negative_rule": "Do not use as an implicit negative or merely because span selection is difficult."}
+  ],
+  "span_policy": {
+    "coordinate_system": "utf8_character_half_open",
+    "required_for": ["observed", "inferred", "candidate"],
+    "forbidden_for": ["unknown"],
+    "boundary_rule": "select the shortest contiguous span containing the governing-act phrase and its immediate request context; do not include signatures, navigation, attachment lists, or unrelated correspondence",
+    "maximum_span_characters": 400,
+    "multiple_span_rule": "one span unless two non-contiguous explicit facts are necessary; never use a whole-document span",
+    "calibration_examples_required": true
+  },
+  "abstention": {"field": "abstention", "values": [true, false], "reasons": ["missing_evidence", "insufficient_evidence", "out_of_scope", "other"], "rule": "abstention=true requires reason and label=unknown; abstention=false requires a label and valid span unless label=unknown"},
+  "serialization": {"one_primary_label": true, "annotation_schema": "foio-au-nsw-annotation.v0.2.1"},
+  "registered_thresholds": {"raw_agreement_minimum": 0.8, "cohen_kappa_minimum": 0.6, "span_overlap_iou": 0.5},
+  "approval_present": false,
+  "execution_allowed": false,
+  "gold_eligible": false,
+  "human_reviewed": false
+}
