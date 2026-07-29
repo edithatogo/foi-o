@@ -124,3 +124,26 @@ Ten selected slugs remain failed or uncaptured, including one persistent
 404-selected JSON snapshot and nine transient/replay failures. The partial
 outputs remain candidate-only and are not eligible for empirical freezing or
 manifest finalization.
+
+## Validator outcome and corrected JSONL hashes
+
+The source-artifact validator was run against the existing CTH and NSW
+source-pack candidate envelopes. It failed closed for both because they are
+source-pack metadata envelopes, not `foi-o.australian-source-artifact.v0.1.0`
+records artifacts with an approved frozen-candidate status and `records_path`.
+They were not promoted or rewritten to evade that boundary.
+
+The first partial JSONL emission was also rejected by the exact-membership
+validator because it omitted `canonical_slug`. That defect was corrected by
+retaining the slug in every classified record. The corrected JSONL validator
+run passed for all 1,170 consolidated records. Corrected hashes are:
+
+| Output | Records | SHA-256 |
+| --- | ---: | --- |
+| AU-CTH | 877 | `1747f18cf98de07fa61670e595da941b185ec364d122dfb3abc227dd18050334` |
+| AU-NSW | 77 | `b77ba1f10f9ca0d555d2c517c5eb4383b65cdbcb68eed44cffee93ef66a25aea` |
+| Out of scope | 69 | `652f0f98bd44b8b3244a5a7083e2bbf5e4fc43fcfd568a3e378aa10aebfc2a05` |
+| Unresolved | 147 | `39c924017be366d2865b4af3d9905f84bb864fab32656b721a31a5c1f1f4803f` |
+| Replay index | 1,170 | `d82ae6e51ebd905bf0283746491e587a1e72d35d0f74bcfaf299048f18feb2bd` |
+
+These remain partial, restricted-local, non-final candidates.
