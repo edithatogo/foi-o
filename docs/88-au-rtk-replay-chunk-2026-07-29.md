@@ -38,3 +38,13 @@ The 44 failed records are failure evidence, not source records. The six
 successful captures remain bounded candidate material and are not admitted to
 an empirical frame by this record. No source bytes were published,
 redistributed, or used to finalize a manifest.
+
+## Follow-up chunk
+
+A second exact chunk was run with the same replay controls, offset `50` and
+limit `50`. It resolved all 50 records with `0` successful captures and `50`
+failures. Its normalized candidate SHA-256 is
+`f706dbcb4047b8e870ad1b2005d8f4985b679c8b53df34d9f4e6bf64118a2180`.
+The result was again `candidate_non_final`, with no pending records and
+`manifest_finalization_authorized: false`. The second chunk is likewise
+failure evidence only.
