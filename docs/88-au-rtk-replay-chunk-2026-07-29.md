@@ -48,3 +48,12 @@ failures. Its normalized candidate SHA-256 is
 The result was again `candidate_non_final`, with no pending records and
 `manifest_finalization_authorized: false`. The second chunk is likewise
 failure evidence only.
+
+## Failure classification
+
+The failed record checkpoints were inspected locally. The first chunk had 44
+failures with diagnostic `[Errno 61] Connection refused`; the second had 50
+failures with the same diagnostic. This identifies an Internet Archive
+endpoint availability/refusal condition rather than a selection, URL-boundary,
+parser, or validator error. No retry was expanded beyond the authorized
+canonical URLs.
