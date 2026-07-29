@@ -37,7 +37,7 @@ changes materially.
 | --- | ---:|
 | JSON Schema files | 183 |
 | Example files | 267 |
-| Documentation files | 59 |
+| Documentation files | 60 |
 | OWL ontology files | 1 |
 | SHACL files | 1 |
 | SKOS vocabulary files | 4 |
