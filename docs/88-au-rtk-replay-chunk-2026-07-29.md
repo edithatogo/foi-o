@@ -89,3 +89,16 @@ resumption completed all 100 records with `100` successful captures, `0`
 failures, and `0` pending records. The normalized candidate SHA-256 was
 `640870c9a7bbc5cc2029e50fed584de6184f812d6ddf501db0203975eb1aa091`.
 This remains candidate-only and does not authorize manifest finalization.
+
+## Serial replay milestone
+
+Using explicit 20-record chunks with one worker, bounded pacing, checkpoint
+resumption, and the pinned selection, offsets `0` through `999` are covered.
+The current aggregate is `999` successful captures, `1` failed capture, and
+`0` pending records. The sole failed record is the selected JSON URL for
+`acting_treasurer_scott_morrisons`; both the replay and a direct bounded HTTP
+check returned `404 Not Found` for its CDX-listed timestamp. It remains a
+failure-evidence exception and is not silently replaced by another capture.
+
+All successful outputs remain candidate-only. The remaining approved offsets
+`1000` through `2081` still require replay and validation.
