@@ -148,6 +148,16 @@ run passed for all 1,170 consolidated records. Corrected hashes are:
 
 These remain partial, restricted-local, non-final candidates.
 
+## Replay continuation state
+
+Subsequent serial checkpointing extended coverage to offsets `0` through
+`1279`: `1,234` successful captures, `46` failures, and `0` pending records.
+The current failure ranges are `0–19` (1), `1040–1059` (4), `1180–1199` (1),
+`1240–1259` (20), and `1260–1279` (20). The latter two ranges returned
+`[Errno 61] Connection refused` for every request and remain retryable failure
+evidence. No records were reclassified as successful without a captured and
+hash-verified response.
+
 ## Candidate immutable-manifest input packet
 
 A restricted-local manifest-input packet was assembled at the current
