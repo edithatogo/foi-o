@@ -57,3 +57,13 @@ failures with the same diagnostic. This identifies an Internet Archive
 endpoint availability/refusal condition rather than a selection, URL-boundary,
 parser, or validator error. No retry was expanded beyond the authorized
 canonical URLs.
+
+## Fresh retry
+
+A fresh 10-record retry at offset `100` and limit `10`, using the same
+archive-only controls, produced `0` successful captures and `10` failures.
+The normalized candidate SHA-256 is
+`c4e8ebf28330192ffc0d67058d35249ef3134cacd4d47a624b75a43b57707a4d`.
+The result remained `candidate_non_final`, with no pending records and
+`manifest_finalization_authorized: false`. This confirms that the connection
+refusal persisted during a later bounded retry.
