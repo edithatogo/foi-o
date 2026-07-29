@@ -102,3 +102,25 @@ failure-evidence exception and is not silently replaced by another capture.
 
 All successful outputs remain candidate-only. The remaining approved offsets
 `1000` through `2081` still require replay and validation.
+
+## Partial consolidation and classification
+
+The successful checkpoint records currently available were consolidated into a
+restricted-local, non-final candidate and classified using the existing
+explicit-authority classifier. The candidate is bound to selection SHA-256
+`a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51` and is
+not a complete replay or manifest input.
+
+| Output | Records | SHA-256 |
+| --- | ---: | --- |
+| AU-CTH | 877 | `d939080ec655236a66d83c02f0a67603647592c2bbb8bab9b96dbcc21ffe13ac` |
+| AU-NSW | 77 | `b51bd0f0aac1b12b6047c05e65ed8f71aa2513043431922f1ee9c5acf1c8cbdb` |
+| Out of scope | 69 | `6e5f46a36fc5941b91a188d69c637af7c8eb5fdf957be1cb0bf0dfb935e61aeb` |
+| Unresolved | 147 | `6efdc2d409569a53dffd17c0afcf3b4daba37a837e089fddc1b9dd297121a478` |
+
+The partial classification summary SHA-256 is
+`5247ad342bbcb73429d041d2c2371a1728489264451e3f34c2475858fe5c6be1`.
+Ten selected slugs remain failed or uncaptured, including one persistent
+404-selected JSON snapshot and nine transient/replay failures. The partial
+outputs remain candidate-only and are not eligible for empirical freezing or
+manifest finalization.
