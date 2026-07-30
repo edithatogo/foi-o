@@ -215,3 +215,32 @@ or an exact CDX-listed replacement is separately approved. A current
 non-final candidate consolidation and validation packet may be rebuilt from
 the 2,073 successful captures plus the nine-entry failure ledger; it must not
 be represented as an empirical frame or final immutable manifest.
+
+## Current candidate consolidation (2026-07-30)
+
+The successful checkpoint records were rebuilt into a fresh restricted-local
+candidate packet at `/tmp/au-rtk-current-candidate-20260730`. Exact membership
+reconciliation passed: `2,073` captured records plus the nine-entry failure
+ledger partition the approved `2,082` selection with no missing positions.
+
+The candidate classifier produced the following descriptive partition:
+
+| Output | Records | SHA-256 |
+| --- | ---: | --- |
+| AU-CTH | 1,574 | `9295f7402ee386342719406ed2b5784615cb37bef430800712325aae902c95dc` |
+| AU-NSW | 177 | `764688cf5c279ace1319a3e1c86b808bde6040d6bd4318e6580ff061900f71bb` |
+| Out of scope | 112 | `04f375e20d7b14fadc6403a7e6e5a4ecb6423d0dc4c7ec61f0e750826edb8b39` |
+| Unresolved | 210 | `b078a36b3d1d7969db3ae3664404276c5c4a9be6f52985be8ef03092b43c7d0a` |
+
+The candidate replay-index JSONL contains 2,073 records and has SHA-256
+`9bf3ff93b27f952ff5292e2a17f193e5f23fbfaaa958dfba0199532b980ddb06`.
+The candidate status artifact SHA-256 is
+`bbf98ef10fda86a5213262bc8eb59b651ce9e9aea5384dea3c28276ba25af997`; the
+hash-pinned candidate historical manifest generated from that status packet
+has SHA-256 `16aa7533e041ac44602a081b7785378f68147b031b1bba6fc300066aa20a890d`.
+
+These are candidate artifacts only. The candidate manifest is not the approved
+immutable final manifest because the nine exact CDX-selected snapshots remain
+unretrievable. No downstream empirical frame, annotation, extractor-metric,
+or maturity artifact was rerun: the approved evidence population has not
+changed, and the completed replay is not yet a complete full-text population.
