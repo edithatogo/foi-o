@@ -176,3 +176,42 @@ This is a preparation packet only: `status: candidate_non_final`,
 It cannot become an immutable final manifest until all 2,082 approved records
 are successfully replayed or explicitly dispositioned under the approved
 boundary.
+
+## Current replay checkpoint (2026-07-30)
+
+Serial checkpoint replay has now covered all 2,082 approved selection positions.
+After preferring the later successful retry for a canonical slug, the
+restricted-local ledger contains 2,073 successful captures and nine unresolved
+failures, with no unaccounted selection positions. The successful count includes
+the approved `.json`/primary-HTML choice recorded in `output/selection.json`;
+the selection SHA-256 remains
+`a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51`.
+
+The nine unresolved slugs are:
+
+```text
+acting_treasurer_scott_morrisons
+inquiry_about_contact_tracing_ap
+inquiry_about_contact_tracing_ap_2
+inquiry_about_contact_tracing_ap_5
+inquiry_about_contact_tracing_ap_7
+masschallenge_contracts
+nuclear_fuel_cycle_activities_in
+number_of_approved_citizens_wait
+which_agencies_are_rbas_transact
+```
+
+Each is an exact CDX-selected canonical URL whose selected Internet Archive
+timestamp returned `404 Not Found` after bounded replay and retry. The
+transport-failure ranges recovered on retry; no alternate timestamp, live
+origin, attachment, or link-traversed capture was substituted. The exception
+ledger therefore remains material provenance and rights evidence.
+
+The population is fully accounted for as `2073 successful + 9 explicit 404
+failures = 2082 selected positions`, but it is not a complete full-text
+replay. The formal full-population classifier and immutable-manifest finalizer
+must remain fail-closed until the nine failures receive an approved disposition
+or an exact CDX-listed replacement is separately approved. A current
+non-final candidate consolidation and validation packet may be rebuilt from
+the 2,073 successful captures plus the nine-entry failure ledger; it must not
+be represented as an empirical frame or final immutable manifest.
