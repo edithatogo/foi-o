@@ -1,0 +1,9 @@
+{
+  "base_example": "australian-rollout-pipeline.positive.json",
+  "mutation": {
+    "kind": "swap_stages",
+    "left": "select",
+    "right": "replay"
+  },
+  "expected_error": "required stage order"
+}

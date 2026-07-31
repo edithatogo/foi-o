@@ -8,28 +8,36 @@ workstreams:
   - {id: WS-CONTEXT, repo: edithatogo/foi-o, issue: 72, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA54, url: https://github.com/edithatogo/foi-o/issues/72, track: global_context_runtime_hardening, status: in_progress}
   - {id: WS-PAPER, repo: edithatogo/foi-o, issue: 74, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA6o, url: https://github.com/edithatogo/foi-o/issues/74, track: paper_global_impact_and_reproducibility, status: in_progress}
   - {id: WS-VERSION, repo: edithatogo/foi-o, issue: 73, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA7g, url: https://github.com/edithatogo/foi-o/issues/73, track: dynamic_versioning_and_release_governance, status: in_progress}
-  - {id: WS-JURISDICTIONS, repo: edithatogo/foi-o, issue: 24, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA8Y, url: https://github.com/edithatogo/foi-o/issues/24, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress, companion_issue: https://github.com/edithatogo/rac-conformance/issues/146}
+  - {id: WS-AU-JURISDICTIONS, repo: edithatogo/foi-o, issue: 24, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA8Y, url: https://github.com/edithatogo/foi-o/issues/24, track: australian_jurisdiction_profiles_20260714, status: in_progress, companion_issue: https://github.com/edithatogo/rac-conformance/issues/146}
+  - {id: WS-AU-ROLLOUT-PIPELINE, repo: edithatogo/foi-o, issue: 114, url: https://github.com/edithatogo/foi-o/issues/114, track: australian_jurisdiction_rollout_pipeline_20260731, status: in_progress, jurisdiction_issues: [115, 116, 117, 118, 119, 120, 121]}
+  - {id: WS-AU-SA, repo: edithatogo/foi-o, issue: 115, url: https://github.com/edithatogo/foi-o/issues/115, track: australian_jurisdiction_rollout_pipeline_20260731, status: blocked_by_shared_pipeline}
+  - {id: WS-AU-WA, repo: edithatogo/foi-o, issue: 116, url: https://github.com/edithatogo/foi-o/issues/116, track: australian_jurisdiction_rollout_pipeline_20260731, status: blocked_by_shared_pipeline}
+  - {id: WS-AU-NT, repo: edithatogo/foi-o, issue: 117, url: https://github.com/edithatogo/foi-o/issues/117, track: australian_jurisdiction_rollout_pipeline_20260731, status: blocked_by_shared_pipeline}
+  - {id: WS-AU-VIC, repo: edithatogo/foi-o, issue: 118, url: https://github.com/edithatogo/foi-o/issues/118, track: australian_jurisdiction_rollout_pipeline_20260731, status: blocked_by_shared_pipeline}
+  - {id: WS-AU-TAS, repo: edithatogo/foi-o, issue: 119, url: https://github.com/edithatogo/foi-o/issues/119, track: australian_jurisdiction_rollout_pipeline_20260731, status: blocked_by_shared_pipeline}
+  - {id: WS-AU-ACT, repo: edithatogo/foi-o, issue: 120, url: https://github.com/edithatogo/foi-o/issues/120, track: australian_jurisdiction_rollout_pipeline_20260731, status: blocked_by_shared_pipeline}
+  - {id: WS-AU-QLD, repo: edithatogo/foi-o, issue: 121, url: https://github.com/edithatogo/foi-o/issues/121, track: australian_jurisdiction_rollout_pipeline_20260731, status: blocked_by_shared_pipeline}
   - {id: WS-ONTOLOGY, repo: edithatogo/foi-o, issue: 74, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA6o, url: https://github.com/edithatogo/foi-o/issues/74, track: ontology_registry_and_semantic_quality, status: in_progress}
   - {id: WS-CI, repo: edithatogo/foi-o, issue: 75, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA-U, url: https://github.com/edithatogo/foi-o/issues/75, track: testing_scale_and_technology_radar, status: in_progress}
   - {id: WS-WORKSPACE, repo: edithatogo/rac-conformance, issue: 146, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgA_I, url: https://github.com/edithatogo/rac-conformance/issues/146, track: cross_repo_workspace_and_issue_orchestration, status: in_progress}
-  - {id: WS-CAPTURE, repo: edithatogo/fyi-cli, issue: 140, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBAg, url: https://github.com/edithatogo/fyi-cli/issues/140, track: cross_repo_workspace_and_issue_orchestration, status: in_progress, child_issues: [141, 142, 143, 144, 145]}
-  - {id: WS-ARCHIVE, repo: edithatogo/fyi-archive, issue: 188, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBBs, url: https://github.com/edithatogo/fyi-archive/issues/188, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress}
-  - {id: WS-LEGAL-SOURCES, repo: edithatogo/legislation, issue: 62, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBCY, url: https://github.com/edithatogo/legislation/issues/62, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress}
-  - {id: WS-NLP, repo: edithatogo/nlp-policy-nz, issue: 143, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBDM, url: https://github.com/edithatogo/nlp-policy-nz/issues/143, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress}
-  - {id: WS-PROCESS, repo: edithatogo/foi-process, issue: 37, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBEA, url: https://github.com/edithatogo/foi-process/issues/37, track: cross_repo_workspace_and_issue_orchestration, status: in_progress}
+  - {id: WS-CAPTURE-PREDECESSOR, repo: edithatogo/fyi-cli, issue: 140, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBAg, url: https://github.com/edithatogo/fyi-cli/issues/140, track: cross_repo_workspace_and_issue_orchestration, status: predecessor_complete, superseded_by: WS-GLOBAL-CAPTURE}
+  - {id: WS-ARCHIVE-PREDECESSOR, repo: edithatogo/fyi-archive, issue: 188, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBBs, url: https://github.com/edithatogo/fyi-archive/issues/188, track: jurisdiction_onboarding_and_capability_maturity, status: predecessor, superseded_by: WS-GLOBAL-ARCHIVE}
+  - {id: WS-LEGAL-SOURCES-PREDECESSOR, repo: edithatogo/legislation, issue: 62, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBCY, url: https://github.com/edithatogo/legislation/issues/62, track: jurisdiction_onboarding_and_capability_maturity, status: prerequisite, superseded_by: WS-GLOBAL-LEGAL-GAZETTE}
+  - {id: WS-NLP-PREDECESSOR, repo: edithatogo/nlp-policy-nz, issue: 143, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBDM, url: https://github.com/edithatogo/nlp-policy-nz/issues/143, track: jurisdiction_onboarding_and_capability_maturity, status: predecessor, superseded_by: WS-GLOBAL-NLP}
+  - {id: WS-PROCESS-PREDECESSOR, repo: edithatogo/foi-process, issue: 37, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBEA, url: https://github.com/edithatogo/foi-process/issues/37, track: cross_repo_workspace_and_issue_orchestration, status: predecessor_complete, superseded_by: WS-GLOBAL-CASE-MODEL}
   - {id: WS-SOURCES, repo: edithatogo/sourceright, issue: 71, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBE8, url: https://github.com/edithatogo/sourceright/issues/71, track: paper_global_impact_and_reproducibility, status: in_progress}
   - {id: WS-EDITORIAL, repo: edithatogo/authentext, issue: 61, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzgBFs, url: https://github.com/edithatogo/authentext/issues/61, track: paper_global_impact_and_reproducibility, status: in_progress}
   - {id: WS-JURISDICTION-COMPLETION, repo: edithatogo/foi-o, issue: 81, project_item: PVTI_lAHOAOYc4M4Bd-EGzgziz_o, url: https://github.com/edithatogo/foi-o/issues/81, track: jurisdiction_onboarding_and_capability_maturity, status: in_progress, tranche_issues: [24, 82, 83, 84, 85, 86]}
   - {id: WS-GLOBAL-LEGAL-GAZETTE, repo: edithatogo/legislation, issue: 105, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0Ao, url: https://github.com/edithatogo/legislation/issues/105, track: global_foi_legislation_gazette_coverage_20260721, status: planned}
-  - {id: WS-GLOBAL-CAPTURE, repo: edithatogo/fyi-cli, issue: 234, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0Aw, url: https://github.com/edithatogo/fyi-cli/issues/234, track: jurisdiction-capture-completion-20260721, status: planned}
-  - {id: WS-GLOBAL-ARCHIVE, repo: edithatogo/fyi-archive, issue: 210, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A0, url: https://github.com/edithatogo/fyi-archive/issues/210, track: jurisdiction_archive_completion_20260721, status: planned}
-  - {id: WS-GLOBAL-NLP, repo: edithatogo/nlp-policy-nz, issue: 144, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A4, url: https://github.com/edithatogo/nlp-policy-nz/issues/144, track: track98_global_foi_jurisdiction_extraction_20260721, status: planned}
-  - {id: WS-GLOBAL-CASE-MODEL, repo: edithatogo/foi-process, issue: 39, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A8, url: https://github.com/edithatogo/foi-process/issues/39, track: jurisdiction_case_process_modelling_20260721, status: planned}
+  - {id: WS-GLOBAL-CAPTURE, repo: edithatogo/fyi-cli, issue: 234, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0Aw, url: https://github.com/edithatogo/fyi-cli/issues/234, track: jurisdiction-capture-completion-20260721, status: in_progress, australian_child_issue: 283}
+  - {id: WS-GLOBAL-ARCHIVE, repo: edithatogo/fyi-archive, issue: 210, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A0, url: https://github.com/edithatogo/fyi-archive/issues/210, track: jurisdiction_archive_completion_20260721, status: in_progress, australian_child_issue: 317}
+  - {id: WS-GLOBAL-NLP, repo: edithatogo/nlp-policy-nz, issue: 144, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A4, url: https://github.com/edithatogo/nlp-policy-nz/issues/144, track: track98_global_foi_jurisdiction_extraction_20260721, status: in_progress, config_child_issue: 200}
+  - {id: WS-GLOBAL-CASE-MODEL, repo: edithatogo/foi-process, issue: 39, project_item: PVTI_lAHOAOYc4M4Bd-EGzgzi0A8, url: https://github.com/edithatogo/foi-process/issues/39, track: jurisdiction_case_process_modelling_20260721, status: in_progress, australian_child_issue: 96}
 dependencies:
-  - {from: WS-CAPTURE, to: WS-ARCHIVE, relation: produces_pinned_inputs}
-  - {from: WS-ARCHIVE, to: WS-PROCESS, relation: produces_immutable_process_inputs}
-  - {from: WS-LEGAL-SOURCES, to: WS-NLP, relation: supplies_normative_sources}
-  - {from: WS-NLP, to: WS-CONTEXT, relation: supplies_candidate_concepts}
+  - {from: WS-GLOBAL-CAPTURE, to: WS-GLOBAL-ARCHIVE, relation: produces_pinned_inputs}
+  - {from: WS-GLOBAL-ARCHIVE, to: WS-GLOBAL-CASE-MODEL, relation: produces_immutable_process_inputs}
+  - {from: WS-GLOBAL-LEGAL-GAZETTE, to: WS-GLOBAL-NLP, relation: supplies_normative_sources}
+  - {from: WS-GLOBAL-NLP, to: WS-CONTEXT, relation: supplies_candidate_concepts}
   - {from: WS-SOURCES, to: WS-PAPER, relation: supplies_claim_source_audit}
   - {from: WS-EDITORIAL, to: WS-PAPER, relation: supplies_final_editorial_review}
   - {from: WS-GLOBAL-LEGAL-GAZETTE, to: WS-GLOBAL-NLP, relation: supplies_temporally_scoped_normative_sources}
@@ -37,6 +45,18 @@ dependencies:
   - {from: WS-GLOBAL-ARCHIVE, to: WS-GLOBAL-NLP, relation: supplies_immutable_case_and_process_inputs}
   - {from: WS-GLOBAL-NLP, to: WS-GLOBAL-CASE-MODEL, relation: supplies_reviewed_candidate_rules_and_events}
   - {from: WS-GLOBAL-CASE-MODEL, to: WS-JURISDICTION-COMPLETION, relation: supplies_case_and_process_model_evidence}
+  - {from: WS-GLOBAL-LEGAL-GAZETTE, to: WS-AU-ROLLOUT-PIPELINE, relation: supplies_profile_specific_normative_sources}
+  - {from: WS-GLOBAL-CAPTURE, to: WS-AU-ROLLOUT-PIPELINE, relation: supplies_profile_capability_evidence}
+  - {from: WS-GLOBAL-ARCHIVE, to: WS-AU-ROLLOUT-PIPELINE, relation: supplies_checkpointed_archive_artifacts}
+  - {from: WS-GLOBAL-NLP, to: WS-AU-ROLLOUT-PIPELINE, relation: supplies_config_driven_extraction}
+  - {from: WS-GLOBAL-CASE-MODEL, to: WS-AU-ROLLOUT-PIPELINE, relation: supplies_process_templates}
+  - {from: WS-AU-ROLLOUT-PIPELINE, to: WS-AU-SA, relation: gates_profile_execution}
+  - {from: WS-AU-ROLLOUT-PIPELINE, to: WS-AU-WA, relation: gates_profile_execution}
+  - {from: WS-AU-ROLLOUT-PIPELINE, to: WS-AU-NT, relation: gates_profile_execution}
+  - {from: WS-AU-ROLLOUT-PIPELINE, to: WS-AU-VIC, relation: gates_profile_execution}
+  - {from: WS-AU-ROLLOUT-PIPELINE, to: WS-AU-TAS, relation: gates_profile_execution}
+  - {from: WS-AU-ROLLOUT-PIPELINE, to: WS-AU-ACT, relation: gates_profile_execution}
+  - {from: WS-AU-ROLLOUT-PIPELINE, to: WS-AU-QLD, relation: gates_profile_execution}
 gates:
   - live_capture_operator_approval
   - rights_and_source_pack_review

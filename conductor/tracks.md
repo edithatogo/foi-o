@@ -77,6 +77,9 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [~] **Track: Build evidence-backed Australian FOI jurisdiction profiles, piloting Commonwealth and NSW before the other seven jurisdictions.**
 *Link: [./tracks/australian_jurisdiction_profiles_20260714/](./tracks/australian_jurisdiction_profiles_20260714/)*
 
+- [~] **Track: Industrialise the Australian jurisdiction rollout with resumable, provenance-pinned pipeline contracts and shared empirical tooling.**
+*Link: [./tracks/australian_jurisdiction_rollout_pipeline_20260731/](./tracks/australian_jurisdiction_rollout_pipeline_20260731/)*
+
 - [~] **Track: Remediate AU-CTH annotation reliability and evidence integrity after the nine-unit calibration run.**
 *Link: [./tracks/au_cth_annotation_reliability_remediation_20260722/](./tracks/au_cth_annotation_reliability_remediation_20260722/)*
 

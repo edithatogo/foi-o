@@ -4,21 +4,25 @@ Execution contract: follow [the deterministic Australian runbook](./less-capable
 in packet order. Record exact commands, results, artifacts, source digests, and
 commit SHA for every completed packet. Never mark a human gate complete.
 
-## Current status (2026-07-20)
+## Current status (2026-07-31)
 
-This track and its GitHub issue hierarchy remain active. Profile/source
-contract engineering landed in merged PRs #37, #57, #58, and #59, but the
-manual verification gate remains open. The Commonwealth/NSW pilot, empirical
-validation, go/no-go decision, later jurisdiction tranches, and release
-closeout are not complete. The issue links below are the authoritative queues.
+This track and its GitHub issue hierarchy remain active. The Commonwealth and
+New South Wales profiles have both completed bounded empirical evaluation and
+received separate bounded maturity approvals. The final restricted-local AU
+RightToKnow manifest retains 2,073 successful captures and nine explicit HTTP
+404 exclusions; both approved empirical frames remain byte-identical, so no
+downstream rerun was required. Publication, redistribution, training, legal
+certification, population-wide inference, and unbounded promotion remain
+prohibited. The programme has moved to the shared rollout-pipeline prerequisite
+for the remaining seven jurisdictions.
 
 | Phase | GitHub issue | Status |
 | --- | --- | --- |
 | Profile and source contracts | [#28](https://github.com/edithatogo/foi-o/issues/28) | Engineering complete; verification open |
-| Commonwealth and NSW pilot | [#29](https://github.com/edithatogo/foi-o/issues/29) | Open |
-| Empirical validation | [#30](https://github.com/edithatogo/foi-o/issues/30) | Open |
-| Pilot decision gate | [#31](https://github.com/edithatogo/foi-o/issues/31) | Open |
-| Remaining jurisdiction tranches | [#32](https://github.com/edithatogo/foi-o/issues/32) | Open |
+| Commonwealth and NSW pilot | [#29](https://github.com/edithatogo/foi-o/issues/29) | Complete in bounded scope; issue closed and synchronized |
+| Empirical validation | [#30](https://github.com/edithatogo/foi-o/issues/30) | Complete in bounded scope; issue closed and synchronized |
+| Pilot decision gate | [#31](https://github.com/edithatogo/foi-o/issues/31) | Go for repository-owned remaining-jurisdiction implementation; profile-specific gates retained |
+| Remaining jurisdiction tranches | [#32](https://github.com/edithatogo/foi-o/issues/32) | Active through child track `australian_jurisdiction_rollout_pipeline_20260731` |
 | Release evidence and closeout | [#33](https://github.com/edithatogo/foi-o/issues/33) | Open |
 
 ### Profile-specific reconciliation (2026-07-26)
@@ -29,7 +33,7 @@ incomplete. Current evidence is profile-specific:
 | Profile | Legal/source contract | Archive/sample | Extraction/annotation | Remaining gate |
 | --- | --- | --- | --- | --- |
 | AU-CTH | Adapter integrated; bounded source-pack maturity approved in `AU-DEC-07` | Authentic restricted holdout frozen and approved | Reliability and extractor metrics completed; bounded maturity approved; metadata-only NLP handoff integrated at `e4a8cf3` | No remaining Commonwealth prerequisite; all publication, redistribution, training, legal-certification, unbounded-inference, and broader-promotion boundaries remain |
-| AU-NSW | Adapter and bounded source pack approved | No non-empty authentic request artifact after three failed CDX attempts | Not started; placeholders prohibited | Supply and approve the authentic request artifact, then freeze and execute the profile-specific protocol |
+| AU-NSW | Adapter and bounded source pack approved | Immutable restricted-local parent manifest and approved 115-unit frame | Reliability and extractor metrics completed; bounded maturity approved | No remaining NSW pilot prerequisite; all publication, redistribution, training, legal-certification, population-inference, and broader-promotion boundaries remain |
 
 ## Phase 1: Profile and source contracts
 
@@ -77,7 +81,7 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
       source precedence and explicit exception reasons.
 - [ ] Task: Freeze the sampling frame, exclusions, unit of analysis, annotation
       codebook, and reliability thresholds before evaluation.
-- [ ] Task: Approve or reject pilot profile maturity claims with recorded evidence.
+- [x] Task: Approve or reject pilot profile maturity claims with recorded evidence.
 - [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
 
 ### AU-NSW historical source recovery refinement
@@ -191,11 +195,11 @@ GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 
 GitHub subissue: [#31](https://github.com/edithatogo/foi-o/issues/31).
 
-- [ ] Task: Review Commonwealth and NSW contract portability, reliability,
+- [x] Task: Review Commonwealth and NSW contract portability, reliability,
       exception burden, rights coverage, and consumer evidence.
-- [ ] Task: Record a human go/no-go decision and any required profile-contract
+- [x] Task: Record a human go/no-go decision and any required profile-contract
       revision before expanding jurisdiction scope.
-- [ ] Task: Conductor - User Manual Verification 'Pilot decision gate' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Pilot decision gate' (Protocol in workflow.md)
 
 ## Phase 5: Remaining jurisdiction tranches
 

@@ -1,0 +1,33 @@
+{
+  "schema_version": "foi-o.australian-codebook-core.v1",
+  "core_id": "foio-australian-request-assertion-core",
+  "version": "1.0.0",
+  "canonicalization": "json-sort-keys-compact-utf8-v1",
+  "task_type": "request_linked_candidate_assertion",
+  "label_semantics": [
+    {"id": "observed", "definition": "Authorized source text explicitly states the assertion."},
+    {"id": "inferred", "definition": "Authorized source text states facts from which the assertion follows mechanically."},
+    {"id": "candidate", "definition": "Authorized source text supports a possible mapping with material evidence unresolved."}
+  ],
+  "evidence_boundaries": {
+    "allowed": ["authorized_captured_request_text", "approved_identity_metadata"],
+    "forbidden": ["candidate_extractor_labels", "peer_annotations", "adjudication_outcomes", "unlinked_metadata"]
+  },
+  "span_policy": {
+    "coordinate_system": "utf8_character_half_open",
+    "required_for": ["observed", "inferred", "candidate"],
+    "forbidden_for": ["abstention"],
+    "maximum_span_characters": 1000
+  },
+  "abstention_semantics": {
+    "reasons": ["missing_evidence", "insufficient_evidence", "out_of_scope", "other"],
+    "rule": "An abstention requires a null label and a registered abstention reason."
+  },
+  "serialization": {
+    "one_primary_label": true,
+    "null_label_means": "abstention_only",
+    "abstention_reason_required_when_null": true
+  },
+  "adjudication_trigger": "any_label_span_or_abstention_disagreement",
+  "overlay_override_allowlist": ["calibration_examples", "span_policy", "terminology"]
+}

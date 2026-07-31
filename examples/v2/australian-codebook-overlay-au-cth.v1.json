@@ -1,0 +1,32 @@
+{
+  "schema_version": "foi-o.australian-codebook-overlay.v1",
+  "overlay_id": "foio-au-cth-request-assertion-overlay",
+  "version": "1.0.0",
+  "core": {
+    "core_id": "foio-australian-request-assertion-core",
+    "version": "1.0.0",
+    "sha256": "3ff63320584c931f923439e8ca301c9b0e64d35bd237b64da9a3a414912367dc"
+  },
+  "jurisdiction": "AU-CTH",
+  "profile": {"profile_id": "foi-o-au-cth", "version": "0.2.0", "jurisdiction": "AU-CTH"},
+  "regime": {"regime_id": "au-cth-foi", "name": "Commonwealth Freedom of Information", "jurisdiction": "AU-CTH"},
+  "effective_interval": {"start": "1982-12-01", "end": null},
+  "pins": {
+    "source_pack": {"artifact_id": "australian-source-pack-au-cth-2026-07-26", "sha256": "19dc7ddf07f3bcff38c13f4073f373e5545a316e8e5b922808b41415683e50d4"},
+    "ontology": {"artifact_id": "foio-au-pilot-assertion-v0.2.0", "sha256": "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9"}
+  },
+  "assertions": [
+    {
+      "id": "au_cth_commonwealth_foi_matter",
+      "jurisdiction": "AU-CTH",
+      "statement": "The authorized source record concerns a Commonwealth FOI matter.",
+      "positive_criteria": ["Captured text explicitly identifies a Commonwealth FOI request or matter."],
+      "negative_criteria": ["Do not infer the assertion from a URL, agency name alone, or page layout."]
+    }
+  ],
+  "overrides": {
+    "span_policy": {"maximum_span_characters": 1000},
+    "terminology": {"governing_act": "Freedom of Information Act 1982"},
+    "calibration_examples": []
+  }
+}
