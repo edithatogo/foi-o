@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schema/australian-empirical-run-spec/1.0.0",
+  "title": "Australian empirical run specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "jurisdiction",
+    "profile_id",
+    "assessment_status",
+    "lifecycle_disposition",
+    "canonicalization",
+    "evidence_sources",
+    "referenced_artifacts",
+    "producer_provenance",
+    "stages",
+    "relationships",
+    "run_spec_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "foio.australian-empirical-run-spec.v1.0.0"},
+    "run_id": {"type": "string", "pattern": "^run:au-[a-z0-9._:-]+$"},
+    "jurisdiction": {"type": "string", "pattern": "^AU-[A-Z]{2,3}$"},
+    "profile_id": {"type": "string", "pattern": "^foi-o-au-[a-z]{2,3}$"},
+    "assessment_status": {
+      "enum": ["active", "superseded", "invalidated", "candidate"]
+    },
+    "lifecycle_disposition": {
+      "enum": ["active", "superseded", "invalidated", "opaque_producer"]
+    },
+    "canonicalization": {"const": "foio.sorted-compact-json.v1"},
+    "authority_bindings": {"$ref": "#/$defs/authorityBindings"},
+    "evidence_sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/evidenceSource"}
+    },
+    "referenced_artifacts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/referencedArtifact"}
+    },
+    "producer_provenance": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "repository",
+            "commit",
+            "command",
+            "implementation_sha256",
+            "dependency_lock_sha256",
+            "evidence_source_sha256"
+          ],
+          "properties": {
+            "status": {"const": "known"},
+            "repository": {"type": "string", "minLength": 1},
+            "commit": {"$ref": "#/$defs/gitCommit"},
+            "command": {
+              "type": "array",
+              "minItems": 1,
+              "items": {"type": "string"}
+            },
+            "implementation_sha256": {"$ref": "#/$defs/sha256"},
+            "dependency_lock_sha256": {"$ref": "#/$defs/sha256"},
+            "evidence_source_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reason", "evidence_source_sha256"],
+          "properties": {
+            "status": {"const": "opaque"},
+            "reason": {"type": "string", "minLength": 1},
+            "evidence_source_sha256": {"$ref": "#/$defs/sha256"}
+          }
+        }
+      ]
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/stage"}
+    },
+    "legacy_interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_codebook_sha256",
+        "unknown_label",
+        "normalized_label",
+        "abstention_reason",
+        "preserves_original_bytes",
+        "preserves_original_value"
+      ],
+      "properties": {
+        "source_codebook_sha256": {"$ref": "#/$defs/sha256"},
+        "unknown_label": {"const": "unknown"},
+        "normalized_label": {"type": "null"},
+        "abstention_reason": {"type": "string", "minLength": 1},
+        "preserves_original_bytes": {"const": true},
+        "preserves_original_value": {"const": true}
+      }
+    },
+    "relationships": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["supersedes", "invalidates"],
+      "properties": {
+        "supersedes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^run:au-[a-z0-9._:-]+$"}
+        },
+        "invalidates": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^run:au-[a-z0-9._:-]+$"}
+        }
+      }
+    },
+    "run_spec_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "gitCommit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "capability": {"type": "string", "pattern": "^[a-z][a-z0-9._-]+$"},
+    "authorityIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity_id", "identity_kind"],
+      "properties": {
+        "identity_id": {"type": "string", "minLength": 1},
+        "identity_kind": {"const": "external_human"}
+      }
+    },
+    "externalApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "artifact_sha256",
+        "approved_context_sha256",
+        "approver_identity"
+      ],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "approved_context_sha256": {"$ref": "#/$defs/sha256"},
+        "approver_identity": {"$ref": "#/$defs/authorityIdentity"}
+      }
+    },
+    "authorityBindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["calibration_approval", "execution_authorization_approval"],
+      "properties": {
+        "calibration_approval": {"$ref": "#/$defs/externalApproval"},
+        "execution_authorization_approval": {"$ref": "#/$defs/externalApproval"}
+      }
+    },
+    "evidenceSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "path", "sha256", "size_bytes", "git_commit"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "path": {"type": "string", "pattern": "^(docs|examples)/[^/].+$"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "git_commit": {"$ref": "#/$defs/gitCommit"}
+      }
+    },
+    "referencedArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "sha256",
+        "availability",
+        "evidence_source_sha256"
+      ],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "availability": {
+          "enum": ["committed", "restricted_local", "not_retained"]
+        },
+        "evidence_source_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "population": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "population_id",
+        "population_sha256",
+        "predecessor",
+        "included",
+        "excluded",
+        "unresolved"
+      ],
+      "properties": {
+        "population_id": {"type": "string", "minLength": 1},
+        "population_sha256": {"$ref": "#/$defs/sha256"},
+        "predecessor": {"type": "integer", "minimum": 0},
+        "included": {"type": "integer", "minimum": 0},
+        "excluded": {"type": "integer", "minimum": 0},
+        "unresolved": {"type": "integer", "minimum": 0}
+      }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage_id",
+        "sequence",
+        "stage_kind",
+        "input_sha256",
+        "output_sha256",
+        "population",
+        "allowed_capabilities",
+        "denied_capabilities"
+      ],
+      "properties": {
+        "stage_id": {"type": "string", "pattern": "^stage:[a-z0-9._:-]+$"},
+        "sequence": {"type": "integer", "minimum": 1},
+        "stage_kind": {
+          "enum": [
+            "frame",
+            "sample",
+            "packet",
+            "annotation",
+            "reliability",
+            "extractor_metrics",
+            "maturity"
+          ]
+        },
+        "input_sha256": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/sha256"}
+        },
+        "output_sha256": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/sha256"}
+        },
+        "population": {"$ref": "#/$defs/population"},
+        "allowed_capabilities": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/capability"}
+        },
+        "denied_capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/capability"}
+        }
+      }
+    }
+  }
+}
