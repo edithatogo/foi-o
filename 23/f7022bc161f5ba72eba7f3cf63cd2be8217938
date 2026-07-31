@@ -1,0 +1,1 @@
+CodeQL remediation for FOI-O PR #122. Result paths are now confined to an existing output directory, safe filename syntax, and new non-symlink targets. Validated with Ruff, BasedPyright, and six empirical CLI tests.
