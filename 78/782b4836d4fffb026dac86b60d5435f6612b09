@@ -1,0 +1,1 @@
+CI remediation for FOI-O PR #122. Validated with Ruff check/format and BasedPyright; full pytest was running clean at commit time. No source, evidence, profile, publication, or release boundary changed.
