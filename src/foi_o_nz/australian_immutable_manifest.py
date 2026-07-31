@@ -19,9 +19,7 @@ PINNED_INPUTS = {
     "completion_selection": "370a6d84e20a4bd260619209d84098458c9e72acf7e4e6f5cb3465cbaba88bb6",
 }
 MANIFEST_SCHEMA = "foi-o.au-rtk-restricted-immutable-manifest.v1"
-FAILURE_DISPOSITION_SCHEMA = (
-    "foi-o.au-rtk-restricted-immutable-manifest.explicit-failures.v1"
-)
+FAILURE_DISPOSITION_SCHEMA = "foi-o.au-rtk-restricted-immutable-manifest.explicit-failures.v1"
 FAILURE_DISPOSITION_CONFIRMATION = "FINALIZE_WITH_NINE_EXPLICIT_404_EXCLUSIONS"
 EXPECTED_FAILURE_SLUGS = {
     "acting_treasurer_scott_morrisons",

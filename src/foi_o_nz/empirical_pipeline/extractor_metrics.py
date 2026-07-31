@@ -384,8 +384,10 @@ def evaluate_extractor(
         if (
             not isinstance(role, str)
             or not role
-            or SHA256.fullmatch(str(packet_sha)) is None
-            or SHA256.fullmatch(str(annotation_sha)) is None
+            or not isinstance(packet_sha, str)
+            or SHA256.fullmatch(packet_sha) is None
+            or not isinstance(annotation_sha, str)
+            or SHA256.fullmatch(annotation_sha) is None
         ):
             raise ExtractorMetricsContractError("reference annotation lineage is invalid")
         roles.add(role)

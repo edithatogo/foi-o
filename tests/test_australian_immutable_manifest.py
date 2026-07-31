@@ -128,9 +128,7 @@ def _failure_inputs(
 def test_builds_manifest_with_explicit_404_exclusions(
     tmp_path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    selection, ledger, replay, summary, ledger_sha = _failure_inputs(
-        tmp_path, monkeypatch
-    )
+    selection, ledger, replay, summary, ledger_sha = _failure_inputs(tmp_path, monkeypatch)
     value = manifest.build_failure_disposition_manifest(
         replay_selection=selection,
         failure_ledger=ledger,
@@ -148,9 +146,7 @@ def test_builds_manifest_with_explicit_404_exclusions(
 def test_failure_manifest_requires_explicit_confirmation(
     tmp_path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    selection, ledger, replay, summary, ledger_sha = _failure_inputs(
-        tmp_path, monkeypatch
-    )
+    selection, ledger, replay, summary, ledger_sha = _failure_inputs(tmp_path, monkeypatch)
     with pytest.raises(ValueError, match="authorization"):
         manifest.build_failure_disposition_manifest(
             replay_selection=selection,
@@ -173,9 +169,7 @@ def test_failure_manifest_requires_explicit_confirmation(
 def test_failure_manifest_rejects_changed_failure_evidence(
     tmp_path, monkeypatch: pytest.MonkeyPatch, mutation: str, message: str
 ) -> None:
-    selection, ledger, replay, summary, _ledger_sha = _failure_inputs(
-        tmp_path, monkeypatch
-    )
+    selection, ledger, replay, summary, _ledger_sha = _failure_inputs(tmp_path, monkeypatch)
     value = json.loads(ledger.read_text())
     if mutation == "membership":
         value["failures"][0]["canonical_slug"] = "unit-0100"
@@ -197,9 +191,7 @@ def test_failure_manifest_rejects_changed_failure_evidence(
 def test_failure_manifest_rejects_incorrect_success_count(
     tmp_path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    selection, ledger, replay, summary, ledger_sha = _failure_inputs(
-        tmp_path, monkeypatch
-    )
+    selection, ledger, replay, summary, ledger_sha = _failure_inputs(tmp_path, monkeypatch)
     lines = replay.read_text().splitlines()
     replay.write_text("\n".join(lines[:-1]) + "\n")
     with pytest.raises(ValueError, match="successful positions"):

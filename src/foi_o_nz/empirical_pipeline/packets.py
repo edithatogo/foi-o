@@ -180,10 +180,9 @@ def _membership_rows(membership: dict[str, Any]) -> list[dict[str, str]]:
         if not isinstance(row, dict):
             raise PacketContractError("membership row must be an object")
         unit_id = row.get("unit_id")
-        digest = row.get("unit_sha256")
         if not isinstance(unit_id, str) or not unit_id:
             raise PacketContractError("membership unit identity is invalid")
-        _require_sha256(digest, "membership unit SHA-256")
+        digest = _require_sha256(row.get("unit_sha256"), "membership unit SHA-256")
         if unit_id in identities:
             raise PacketContractError("duplicate membership unit identity")
         identities.add(unit_id)

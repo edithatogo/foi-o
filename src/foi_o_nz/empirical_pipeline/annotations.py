@@ -599,11 +599,17 @@ def lock_adjudication_output(
     role = queue.get("adjudicator_role")
     if not isinstance(role, str) or role not in context.authorization.get("approved_roles", []):
         raise AnnotationContractError("adjudicator role is not approved")
-    item_ids = [item.get("unit_id") for item in queue.get("items", [])]
+    raw_item_ids = [item.get("unit_id") for item in queue.get("items", [])]
+    if any(not isinstance(item_id, str) or not item_id for item_id in raw_item_ids):
+        raise AnnotationContractError("adjudication queue identities are invalid")
+    item_ids = [item_id for item_id in raw_item_ids if isinstance(item_id, str)]
     if len(item_ids) != len(set(item_ids)):
         raise AnnotationContractError("adjudication queue identities are invalid")
     by_unit = {unit["unit_id"]: unit for unit in context.units}
-    record_ids = [record.get("unit_id") for record in records]
+    raw_record_ids = [record.get("unit_id") for record in records]
+    if any(not isinstance(record_id, str) or not record_id for record_id in raw_record_ids):
+        raise AnnotationContractError("adjudication output identities are invalid")
+    record_ids = [record_id for record_id in raw_record_ids if isinstance(record_id, str)]
     if sorted(record_ids) != sorted(item_ids):
         raise AnnotationContractError("adjudication output differs from disagreement queue")
     locked = [

@@ -7,9 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 
-EXPECTED_SELECTION_SHA256 = (
-    "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51"
-)
+EXPECTED_SELECTION_SHA256 = "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51"
 EXPECTED_FAILURES = {
     "acting_treasurer_scott_morrisons",
     "inquiry_about_contact_tracing_ap",

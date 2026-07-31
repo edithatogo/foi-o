@@ -324,10 +324,11 @@ def _parse_codebook(value: dict[str, Any], digest: str) -> VerifiedCodebook:
         or any(not isinstance(reason, str) or not reason for reason in reasons)
     ):
         raise ExecutionContextError("codebook does not define executable label vocabularies")
+    parsed_labels = frozenset(label for label in labels if isinstance(label, str))
     parsed_reasons = frozenset(reason for reason in reasons if isinstance(reason, str))
     return VerifiedCodebook(
         sha256=digest,
-        labels=frozenset(labels),
+        labels=parsed_labels,
         abstention_reasons=parsed_reasons,
         raw=MappingProxyType(value),
     )
