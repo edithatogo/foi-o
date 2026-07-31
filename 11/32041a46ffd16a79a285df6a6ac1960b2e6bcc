@@ -1,0 +1,9 @@
+Conductor evidence update
+
+Functional commit: e70e2aa
+Focused tests: 187 passed
+Full suite: 1222 passed, 4 skipped
+Independent review: accepted with exact frame/sample approval bindings, registered metric hashes, independent kappa/bootstrap recomputation, producer/oracle parity, verified context, lifecycle, duplicate and reference protections.
+External local candidates: fyi-cli 3f3befa8, fyi-archive af4c0a47, nlp-policy-nz 2a49a516, foi-process 8bc0c2c6; all independently accepted and unpushed.
+Legislation PR #106: exact head 0c0efe87, open/ready/mergeable, substantive checks green, merge not authorized.
+Boundaries: no source access, empirical execution, publication, profile promotion, push, PR, merge, or release.
