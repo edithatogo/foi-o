@@ -38,14 +38,27 @@ mappings.
   resumption, and exact-URL replacement queues.
 - [ ] Add metadata-first classification and bounded full-text selection.
 
+Local, independently reviewed implementation candidates exist for fyi-cli,
+fyi-archive, nlp-policy-nz, and foi-process. They remain outside their hosted
+default branches pending the explicit push gate recorded in the dependency
+register.
+
 ## Phase 4 — shared empirical tooling
 
 - [x] Define the Australian authority registry and core codebook contract.
 - [x] Define jurisdiction overlay composition and compatibility validation.
-- [ ] Consolidate frame, sampling, blinded packet, annotation, reliability,
+- [x] Consolidate frame, sampling, blinded packet, annotation, reliability,
   extractor metric, disagreement, and maturity-packet scripts behind shared
-  libraries.
-- [ ] Enforce a calibration gate before full annotation execution.
+  libraries. (`e70e2aa`)
+  - [x] Register immutable run specifications and compatibility pins without
+    rewriting historical artifacts. (`e70e2aa`)
+  - [x] Add shared frame, duplicate-cluster, and deterministic membership
+    contracts. (`e70e2aa`)
+  - [x] Add shared blinded-packet, isolated-role, calibration, and adjudication
+    contracts. (`e70e2aa`)
+  - [x] Add shared reliability, extractor-metric, disagreement, and bounded
+    maturity-packet contracts. (`e70e2aa`)
+- [x] Enforce a calibration gate before full annotation execution. (`e70e2aa`)
 
 ## Phase 5 — remaining jurisdictions
 

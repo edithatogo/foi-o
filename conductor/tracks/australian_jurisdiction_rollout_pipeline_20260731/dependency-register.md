@@ -77,10 +77,24 @@ new full-text replay remains a separate gate.
 
 The global legislation/Gazette control track is still held in
 [legislation PR #106](https://github.com/edithatogo/legislation/pull/106).
-Its substantive checks pass, but the hosted strict harness at head
-`e9e37d988c0d6484a2e1088996811c2e8eef0c45` fails on current high-severity
-transitive dependency advisories. A local candidate commit `057e9e3` updates
-only `package.json` and `pnpm-lock.yaml`; the strict audit now reports no high
-or critical findings, 142 tests pass with 10 skipped, the coverage ratchet and
-build pass, and every release gate passes. Updating the existing PR branch is
-a separate external-repository action and has not occurred.
+The dependency remediation was pushed. At exact head
+`0c0efe877f0b8eb7e5f05a2d89aeec82a09dbf5c`, the pull request is open,
+ready, and mergeable; all substantive hosted checks pass and the load-test job
+is intentionally skipped. Merge remains a separate human gate.
+
+## Local implementation candidates
+
+The following candidates were implemented in clean temporary clones. Their
+commits and Git notes are local only: none has been pushed, opened as a pull
+request, merged, activated, or used for source retrieval.
+
+| Repository | Issue/scope | Local candidate | Validation boundary |
+| --- | --- | --- | --- |
+| fyi-cli | #283 Australian capture capability contracts | `3f3befa8acb07dce492ce41e99457d6da5acfa88` | 740 passed, 2 opt-in network tests skipped; immutable schema/adapter pins and semantic boundaries enforced |
+| fyi-archive | #317 checkpointed content-addressed Wayback replay state | `af4c0a47e2d589f295ba2dfebee0f3f7681690f7` | 538 passed, 1 skipped; immutable boundary/approval registries and receipt-bound CDX replacement candidates |
+| nlp-policy-nz | #200 config-driven profile foundation | `2a49a516252d6e2c765c4d8a6e53336226e273bf` | 30 focused/regression tests passed; activation registry has zero grants; unrelated repository baselines remain |
+| foi-process | #96 paired Mermaid/BPMN jurisdiction template | `8bc0c2c6022a4de08d2e52515af4885ee598a094` | full local CI passed; strict profiles bind to their physical registered repository paths |
+
+An exact-head independent adversarial review accepted all four candidates
+within their stated scope. Each still requires an explicit
+external-repository push gate before it can enter hosted review.
