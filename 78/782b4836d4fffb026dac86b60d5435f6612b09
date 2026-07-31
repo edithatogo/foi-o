@@ -1,1 +1,3 @@
 CI remediation for FOI-O PR #122. Validated with Ruff check/format and BasedPyright; full pytest was running clean at commit time. No source, evidence, profile, publication, or release boundary changed.
+
+Post-commit validation completed: 1222 passed, 4 skipped; Ruff check and format check passed; BasedPyright reported 0 errors, 0 warnings, 0 notes.
