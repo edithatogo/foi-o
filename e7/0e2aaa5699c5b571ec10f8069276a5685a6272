@@ -1,0 +1,7 @@
+Australian empirical pipeline functional evidence
+
+Scope: shared verified execution contexts; exact frame and sampling approvals; blinded packets; isolated annotation/adjudication; reliability and extractor metrics with independent recomputation; pending-only maturity candidates; historical run compatibility.
+
+Validation: 187 focused tests passed; 1,222 full-suite tests passed with 4 skipped; Ruff, changed-file formatting, ty, example/schema validation, git diff check, and Conductor validation passed. Independent bounded correctness review accepted aggregate worktree SHA-256 797b6288edb692c7d3393032c9872dba633af68f5d036d76be0c080e60498f9a before final binding remediations; final acceptance then verified exact frame/sample bindings, registered metric hashes, kappa/bootstrap recomputation, producer/oracle parity, and prior lifecycle/reference protections with no defects.
+
+Boundaries: no source access or replay, no empirical execution on restricted data, no publication, redistribution, training, legal certification, profile promotion, push, PR, or merge.
