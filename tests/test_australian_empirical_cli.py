@@ -120,6 +120,56 @@ def test_cli_rejects_resealed_authority_substitution(tmp_path: Path) -> None:
     assert "authority" in completed.stderr or "roles" in completed.stderr
 
 
+def test_cli_confines_result_to_output_directory(tmp_path: Path) -> None:
+    fixture = build_context_fixture(tmp_path / "fixture")
+    output_path = tmp_path / "evidence" / "output-packet"
+    output_path.parent.mkdir()
+    output_path.write_bytes(b"output:packet")
+    result_path = tmp_path / "outside" / "result-packet.json"
+    result_path.parent.mkdir()
+    command = [
+        sys.executable,
+        str(SCRIPT),
+        "--run-spec",
+        str(fixture.paths["run_spec"]),
+        "--membership",
+        str(fixture.paths["membership"]),
+        "--units",
+        str(fixture.paths["units"]),
+        "--codebook",
+        str(fixture.paths["codebook"]),
+        "--stage-id",
+        "stage:packet",
+        "--capability",
+        "packet.generate",
+        "--input",
+        str(tmp_path / "input-packet"),
+        "--output",
+        str(output_path),
+        "--authorization",
+        str(fixture.paths["authorization"]),
+        "--calibration",
+        str(fixture.paths["calibration"]),
+        "--result",
+        str(result_path),
+    ]
+    (tmp_path / "input-packet").write_bytes(b"input:packet")
+    completed = subprocess.run(command, capture_output=True, text=True, check=False)
+    assert completed.returncode == 2
+    assert "share an exact output directory" in completed.stderr
+    assert not result_path.exists()
+
+
+def test_cli_refuses_to_overwrite_existing_result(tmp_path: Path) -> None:
+    fixture = build_context_fixture(tmp_path / "fixture")
+    result = tmp_path / "result-packet.json"
+    result.write_text("preserve")
+    completed = _run(fixture, tmp_path)
+    assert completed.returncode == 2
+    assert "new non-symlink artifact" in completed.stderr
+    assert result.read_text() == "preserve"
+
+
 def test_cli_accepts_complete_maturity_candidate_and_rejects_placeholder(
     tmp_path: Path,
 ) -> None:

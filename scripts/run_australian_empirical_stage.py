@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -63,6 +64,7 @@ CALIBRATION_FIELDS = {
     "calibrator_identity",
     "calibration_sha256",
 }
+RESULT_FILENAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$")
 
 
 class StageExecutionError(ValueError):
@@ -267,8 +269,20 @@ def _validate_maturity_outputs(
         validate_maturity_candidate(output, context=context)
 
 
+def _safe_result_path(path: Path, outputs: list[Path]) -> Path:
+    """Confine a new result to an existing output directory and safe filename."""
+    if not RESULT_FILENAME.fullmatch(path.name):
+        raise StageExecutionError("result filename violates the safe filename contract")
+    resolved = path.resolve(strict=False)
+    allowed_parents = {output.resolve().parent for output in outputs}
+    if resolved.parent not in allowed_parents:
+        raise StageExecutionError("result path must share an exact output directory")
+    if path.is_symlink() or resolved.exists():
+        raise StageExecutionError("result path must be a new non-symlink artifact")
+    return resolved
+
+
 def _atomic_write(path: Path, value: dict[str, Any]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
     descriptor, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
     try:
         with os.fdopen(descriptor, "wb") as handle:
@@ -349,7 +363,8 @@ def main() -> int:
             *(path.resolve() for path in args.output),
             *(path.resolve() for path in args.prior_result),
         }
-        if args.result.resolve() in protected:
+        result_path = _safe_result_path(args.result, args.output)
+        if result_path in protected:
             raise StageExecutionError("result path must not overwrite governed evidence")
         result = seal_record(
             {
@@ -369,7 +384,7 @@ def main() -> int:
             "stage_result_sha256",
         )
         validate_stage_result(result, spec.raw)
-        _atomic_write(args.result, result)
+        _atomic_write(result_path, result)
     except (
         EmpiricalContractError,
         ExecutionContextError,
