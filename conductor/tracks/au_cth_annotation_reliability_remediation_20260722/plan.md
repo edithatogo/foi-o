@@ -23,8 +23,10 @@
       Draft committed at `d45df67`; content SHA-256 is
       `ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9`.
       Approved through wrapper commit `c210e39`.
-- [ ] Add deterministic validators for packets, role outputs, adjudication,
-      disagreement queues, and metric inputs.
+- [~] Add deterministic validators for packets, role outputs, adjudication,
+      disagreement queues, and metric inputs. Role-output and adjudicator
+      validation implemented in `33a35f3`; packet, queue, and metric-input
+      validation remain in this task.
 - [ ] Add narrow-span and whole-document negative fixtures plus ambiguous
       AU-CTH identity fixtures.
 - [ ] Produce Markdown/Mermaid and BPMN 2.0 versions of the repaired workflow.
