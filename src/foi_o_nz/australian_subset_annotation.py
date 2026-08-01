@@ -43,6 +43,43 @@ def _annotate(unit: dict[str, Any], text: str, *, role: str) -> dict[str, Any]:
     }
 
 
+def validate_annotation_record(record: dict[str, Any], *, expected_role: str) -> None:
+    """Validate one locked automated role record without consulting peer output."""
+    if record.get("role") != expected_role:
+        raise ValueError("annotation role identity mismatch")
+    if not isinstance(record.get("unit_id"), str) or not record["unit_id"]:
+        raise ValueError("annotation unit identity is missing")
+    unit_sha256 = record.get("unit_sha256")
+    if not isinstance(unit_sha256, str) or not re.fullmatch(r"[a-f0-9]{64}", unit_sha256):
+        raise ValueError("annotation unit SHA-256 is invalid")
+    if record.get("label") not in {"observed", "inferred", "candidate", "unknown"}:
+        raise ValueError("annotation label is not in the approved codebook")
+    abstention = record.get("abstention")
+    if not isinstance(abstention, bool):
+        raise ValueError("annotation abstention must be boolean")
+    span = record.get("span")
+    if abstention:
+        if record.get("label") != "unknown" or not record.get("abstention_reason"):
+            raise ValueError("abstention requires unknown label and reason")
+        if span is not None:
+            raise ValueError("abstention span must be null")
+    elif record.get("label") == "unknown" or record.get("abstention_reason") is not None:
+        raise ValueError("non-abstaining annotation has invalid null encoding")
+    elif not isinstance(span, dict):
+        raise ValueError("non-abstaining annotation requires a span")
+    if span is not None:
+        if span.get("coordinate_system") != "utf8_character_half_open":
+            raise ValueError("annotation span coordinate system is invalid")
+        if (
+            not isinstance(span.get("start"), int)
+            or not isinstance(span.get("end"), int)
+            or span["start"] < 0
+            or span["end"] <= span["start"]
+            or span["end"] - span["start"] > 1000
+        ):
+            raise ValueError("annotation span bounds are invalid")
+
+
 def run_annotation(
     *,
     membership_path: Path,
@@ -180,7 +217,16 @@ def validate_annotation_report(report_path: Path) -> dict[str, Any]:
         path = root / f"{role.rsplit(':', 1)[1]}.annotations.json"
         if _sha256(path) != report.get("annotation_sha256", {}).get(role):
             raise ValueError("locked annotation SHA-256 mismatch")
-        sets.append(json.loads(path.read_text(encoding="utf-8")))
+        records = json.loads(path.read_text(encoding="utf-8"))
+        if not isinstance(records, list) or len(records) != report.get("unit_count"):
+            raise ValueError("locked annotation record count mismatch")
+        for record in records:
+            if not isinstance(record, dict):
+                raise ValueError("locked annotation record is not an object")
+            validate_annotation_record(record, expected_role=role)
+        if len({record["unit_id"] for record in records}) != len(records):
+            raise ValueError("locked annotation unit IDs are not unique")
+        sets.append(records)
     disagreements = sum(
         (left["label"], left["span"], left["abstention"])
         != (right["label"], right["span"], right["abstention"])
@@ -190,6 +236,10 @@ def validate_annotation_report(report_path: Path) -> dict[str, Any]:
     if _sha256(adjudications_path) != report.get("adjudications_sha256"):
         raise ValueError("adjudication SHA-256 mismatch")
     adjudications = json.loads(adjudications_path.read_text(encoding="utf-8"))
+    if not isinstance(adjudications, list):
+        raise ValueError("adjudication output is not a list")
+    if any(item.get("role") != "agent:au-cth-adjudicator" for item in adjudications):
+        raise ValueError("adjudication role identity mismatch")
     if (
         report.get("disagreement_count") != disagreements
         or report.get("adjudication_count") != len(adjudications)
