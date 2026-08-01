@@ -32,3 +32,5 @@ Local implementation and review evidence are complete for the read-only slice.
 The track remains in progress because duplicate workspace disposition and all
 external mutation, publication, submission, and profile/legal gates are still
 open. No external action is implied by this report.
+
+The exact choices and paths are recorded in `closeout-decision-packet.md`.
