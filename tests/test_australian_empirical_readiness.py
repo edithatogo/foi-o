@@ -36,7 +36,7 @@ def _current() -> dict[str, Any]:
     return cast(dict[str, Any], json.loads(MANIFEST.read_text(encoding="utf-8")))
 
 
-def test_current_manifest_reports_exact_fail_closed_blockers() -> None:
+def test_current_manifest_reports_no_machine_blockers_without_promotion() -> None:
     payload = _current()
     schema = AustralianEmpiricalReadiness.model_json_schema()
     Draft202012Validator(schema).validate(payload)
@@ -44,19 +44,10 @@ def test_current_manifest_reports_exact_fail_closed_blockers() -> None:
 
     result = audit_australian_empirical_readiness(manifest)
 
-    assert result.ready is False
+    assert result.ready is True
     assert result.promotion_allowed is False
     assert set(result.profile_ids) == {"foio-au-cth", "foio-au-nsw"}
-    assert set(result.blockers) == {
-        "foio-au-nsw.archive.immutable_sample_missing",
-        "foio-au-nsw.extraction.placeholder_or_missing",
-        "foio-au-nsw.sampling.codebook_pin_missing",
-        "foio-au-nsw.sampling.configuration_not_approved",
-        "foio-au-nsw.sampling.reliability_thresholds_not_approved",
-        "foio-au-nsw.annotation_roles.two_independent_annotators_missing",
-        "foio-au-nsw.annotation_roles.adjudicator_missing",
-        "foio-au-nsw.annotation_roles.assignment_not_approved",
-    }
+    assert result.blockers == []
 
 
 def test_current_commonwealth_inputs_are_hash_bound_and_bounded() -> None:

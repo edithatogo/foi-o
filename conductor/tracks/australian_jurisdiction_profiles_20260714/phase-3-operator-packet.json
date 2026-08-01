@@ -5,7 +5,7 @@
   "track_id": "australian_jurisdiction_profiles_20260714",
   "readiness_manifest": {
     "path": "conductor/tracks/australian_jurisdiction_profiles_20260714/phase-3-readiness.json",
-    "sha256": "63a2ac27116d9f3b6d6ec765770b7bdf3fb5d3bf5848f2783c072ff17a2561eb"
+    "sha256": "9ef60b9753bdd0afa09e85f1eeb6bf765877b6ea3ce6715bba868e91073a87c3"
   },
   "phase_issue_url": "https://github.com/edithatogo/foi-o/issues/30",
   "implementation_pr_url": "https://github.com/edithatogo/foi-o/pull/88",
@@ -14,9 +14,7 @@
       "action_id": "AU-OP-03",
       "owner_repo": "edithatogo/fyi-archive",
       "issue_url": "https://github.com/edithatogo/fyi-archive/issues/188",
-      "readiness_blockers": [
-        "foio-au-nsw.archive.immutable_sample_missing"
-      ],
+      "readiness_blockers": [],
       "human_gate_ids": ["AU-HG-01"],
       "action": "Supply and approve a non-empty rights-cleared immutable AU-NSW request population after exact source validation.",
       "evidence_required": [
@@ -33,9 +31,7 @@
       "action_id": "AU-OP-04",
       "owner_repo": "edithatogo/nlp-policy-nz",
       "issue_url": "https://github.com/edithatogo/nlp-policy-nz/issues/144",
-      "readiness_blockers": [
-        "foio-au-nsw.extraction.placeholder_or_missing"
-      ],
+      "readiness_blockers": [],
       "human_gate_ids": ["AU-HG-01"],
       "action": "Build an ontology-pinned AU-NSW extraction bundle only from the approved authentic NSW population.",
       "evidence_required": [
@@ -52,11 +48,7 @@
       "action_id": "AU-OP-05",
       "owner_repo": "edithatogo/foi-o",
       "issue_url": "https://github.com/edithatogo/foi-o/issues/30",
-      "readiness_blockers": [
-        "foio-au-nsw.sampling.codebook_pin_missing",
-        "foio-au-nsw.sampling.configuration_not_approved",
-        "foio-au-nsw.sampling.reliability_thresholds_not_approved"
-      ],
+      "readiness_blockers": [],
       "human_gate_ids": ["AU-HG-01"],
       "action": "Freeze and approve the exact AU-NSW codebook sampling frame exclusions allocation seed cluster rule and reliability thresholds.",
       "evidence_required": [
@@ -73,11 +65,7 @@
       "action_id": "AU-OP-06",
       "owner_repo": "edithatogo/foi-o",
       "issue_url": "https://github.com/edithatogo/foi-o/issues/30",
-      "readiness_blockers": [
-        "foio-au-nsw.annotation_roles.two_independent_annotators_missing",
-        "foio-au-nsw.annotation_roles.adjudicator_missing",
-        "foio-au-nsw.annotation_roles.assignment_not_approved"
-      ],
+      "readiness_blockers": [],
       "human_gate_ids": ["AU-HG-02"],
       "action": "Authorize two isolated automated annotator roles and one distinct automated adjudicator role for the frozen AU-NSW sample.",
       "evidence_required": [
