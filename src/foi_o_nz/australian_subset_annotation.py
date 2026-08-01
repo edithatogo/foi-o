@@ -58,8 +58,12 @@ def validate_annotation_record(record: dict[str, Any], *, expected_role: str) ->
     if not isinstance(abstention, bool):
         raise ValueError("annotation abstention must be boolean")
     span = record.get("span")
+    reason = record.get("abstention_reason")
+    allowed_reasons = {"missing_evidence", "insufficient_evidence", "out_of_scope", "other"}
+    if reason is not None and reason not in allowed_reasons:
+        raise ValueError("annotation abstention reason is not in the approved codebook")
     if abstention:
-        if record.get("label") != "unknown" or not record.get("abstention_reason"):
+        if record.get("label") != "unknown" or not reason:
             raise ValueError("abstention requires unknown label and reason")
         if span is not None:
             raise ValueError("abstention span must be null")
