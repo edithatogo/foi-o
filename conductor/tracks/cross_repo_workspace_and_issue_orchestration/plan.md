@@ -14,6 +14,6 @@
       keep the runtime-only observation in the review record. [939c689]
 - [x] Prepare closeout decision packet covering duplicate workspace identities
       and remaining external gates. [b5268e1]
-- [~] Prepare exact external-gate approval wording and record the issue/project
-      project-number discrepancy for bounded verification.
+- [x] Prepare exact external-gate approval wording and record the issue/project
+      project-number discrepancy for bounded verification. [65e57ee]
 - [ ] Stop at declared human gates.
