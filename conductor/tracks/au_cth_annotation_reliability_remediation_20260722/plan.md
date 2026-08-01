@@ -12,7 +12,7 @@
 - [x] Recompute the nine-unit diagnostic with explicit label, span, and
       abstention denominators and reconcile the eight-item queue with the two
       primary-label disagreements.
-- [ ] Run focused tests and Conductor review for Phase 1.
+- [x] Run focused tests and Conductor review for Phase 1. Commit: `414c885`
 
 ## Phase 2: Repair the annotation contract
 
