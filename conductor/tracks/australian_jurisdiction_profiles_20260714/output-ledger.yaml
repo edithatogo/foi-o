@@ -8,5 +8,5 @@ outputs:
   - {path: ../../../src/foi_o_nz/australian_empirical_readiness.py, status: produced, empirical_evidence: false}
   - {path: restricted/au-cth-capture-20260723/metrics.json, status: produced_private_hash_verified, empirical_evidence: true}
   - {path: ../../../examples/v2/au-cth-maturity-decision.approved.json, status: produced_bounded_scope, empirical_evidence: true}
-  - {path: au-nsw-reliability-report.json, status: blocked_on_authentic_source, empirical_evidence: false}
-  - {path: au-nsw-maturity-decision.json, status: blocked_on_prior_gates, empirical_evidence: false}
+  - {path: ../../../docs/78-au-nsw-v3-threshold-review-approval-packet-2026-07-27.md, status: produced_bounded_scope, empirical_evidence: true}
+  - {path: ../../../examples/v2/au-nsw-maturity-decision.approved.json, status: produced_bounded_scope, empirical_evidence: true}
