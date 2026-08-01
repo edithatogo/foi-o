@@ -34,3 +34,5 @@ external mutation, publication, submission, and profile/legal gates are still
 open. No external action is implied by this report.
 
 The exact choices and paths are recorded in `closeout-decision-packet.md`.
+The recommended preservation disposition has been accepted; no checkout
+cleanup, relocation or deletion is authorized by that decision.

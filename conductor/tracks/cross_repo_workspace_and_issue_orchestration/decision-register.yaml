@@ -4,3 +4,8 @@ decisions:
     decision: preserve current repository boundaries and uncommitted work
     status: accepted
     human_gate: false
+  - id: D-cross_repo_workspace_and_issue_orchestration-duplicates
+    decision: retain all identified duplicate FOI-O and fyi-archive checkouts unchanged
+    status: accepted
+    evidence: closeout-decision-packet.md
+    human_gate: false
