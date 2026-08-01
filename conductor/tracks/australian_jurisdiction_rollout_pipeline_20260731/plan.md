@@ -30,6 +30,11 @@ authorization/input mismatch, malformed provenance envelopes, failed
 attestations, unpinned codebook cores, and cross-jurisdiction authority
 mappings.
 
+- [x] Resolve the repository-owned adversarial review follow-up: the focused
+  rollout/provenance/authority suite covers the registered gate, lineage,
+  authorization, provenance, attestation, codebook, and authority-isolation
+  rejection cases. Verification: 89 passed on 2026-08-01.
+
 ## Phase 3 — archive execution adapters
 
 - [ ] Integrate durable first-batch checkpoints and content-addressed artifact
