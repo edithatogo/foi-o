@@ -18,4 +18,6 @@
       project-number discrepancy for bounded verification. [65e57ee]
 - [x] Verify the linked hosted issue/project state read-only and record the
       result without mutation. [0895ccf]
+- [~] Split machine-readable gate status into satisfied verification and
+      explicitly pending external/human gates.
 - [ ] Stop at declared human gates.

@@ -1,5 +1,18 @@
 version: 1.0.0
 gates:
-  - id: HG-cross_repo_workspace_and_issue_orchestration
+  - id: HG-issue-project-verification
+    kind: external-read-only
+    status: satisfied
+    evidence: hosted-verification-2026-08-01.json
+  - id: HG-external-mutation
+    kind: external-write
     status: pending
-    action: human approval required before publication, promotion, submission or external destructive effect
+    evidence: external-gate-approval-packet.md
+  - id: HG-publication-release-submission
+    kind: human
+    status: pending
+    evidence: external-gate-approval-packet.md
+  - id: HG-legal-profile-promotion
+    kind: human
+    status: pending
+    evidence: external-gate-approval-packet.md
