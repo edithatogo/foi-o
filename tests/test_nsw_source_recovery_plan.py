@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-import xml.etree.ElementTree as ET
 from pathlib import Path
+
+import defusedxml.ElementTree as ET  # noqa: N817
 
 PLAN = Path(
     "conductor/tracks/australian_jurisdiction_profiles_20260714/nsw-source-recovery-20260724.md"

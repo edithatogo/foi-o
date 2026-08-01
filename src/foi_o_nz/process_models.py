@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import xml.etree.ElementTree as ET
 from html import escape
 from pathlib import Path
 from typing import Any, Literal
+
+import defusedxml.ElementTree as ET  # noqa: N817
 
 from foi_o_nz.io import write_json
 from foi_o_nz.state_machine import ALLOWED_TRANSITIONS, TERMINAL_STATES, RequestState
@@ -215,7 +216,7 @@ def _pnml_transition_id(index: int) -> str:
 
 def _summarise_bpmn(path: Path) -> dict[str, Any]:
     # These are committed repo-local process-model artefacts, not user-supplied XML.
-    root = ET.parse(path).getroot()  # noqa: S314
+    root = ET.parse(path).getroot()
     process = root.find("bpmn:process", BPMN_NS)
     if process is None:
         raise ValueError(f"{path}: missing BPMN process")
@@ -245,7 +246,7 @@ def _summarise_bpmn(path: Path) -> dict[str, Any]:
 
 def _summarise_pnml(path: Path) -> dict[str, Any]:
     # These are committed repo-local process-model artefacts, not user-supplied XML.
-    root = ET.parse(path).getroot()  # noqa: S314
+    root = ET.parse(path).getroot()
     places = {place.attrib["id"] for place in root.findall(".//place")}
     transitions = {transition.attrib["id"] for transition in root.findall(".//transition")}
     arcs = {(arc.attrib["source"], arc.attrib["target"]) for arc in root.findall(".//arc")}

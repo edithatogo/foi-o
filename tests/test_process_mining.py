@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
-import xml.etree.ElementTree as ET
 from pathlib import Path
+
+import defusedxml.ElementTree as ET  # noqa: N817
 
 from foi_o_nz.process_mining import (
     build_ocel_event_log,

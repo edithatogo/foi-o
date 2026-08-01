@@ -1,9 +1,9 @@
 import copy
 import json
-import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any, cast
 
+import defusedxml.ElementTree as ET  # noqa: N817
 import pytest
 import yaml
 from jsonschema import Draft202012Validator
