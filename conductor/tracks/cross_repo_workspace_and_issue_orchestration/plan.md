@@ -5,4 +5,7 @@
 - [x] Implement the read-only workspace doctor, duplicate-clone audit, and issue/project reconciliation.
 - [x] Run review and closeout evidence. Current workspace-doctor output and
       duplicate-clone findings are recorded in `review-2026-08-01.md`.
+      Verification: 13 focused control tests passed on 2026-08-01;
+      workspace doctor, requirements, workflow, repository, Ruff, formatting,
+      and diff checks passed.
 - [ ] Stop at declared human gates.
