@@ -39,8 +39,10 @@ incomplete. Current evidence is profile-specific:
 
 GitHub subissue: [#28](https://github.com/edithatogo/foi-o/issues/28).
 
-- [ ] Task: Write failing tests for jurisdiction identity, bitemporal legal
+- [x] Task: Write failing tests for jurisdiction identity, bitemporal legal
       sources, provenance, unsupported states, and cross-profile isolation.
+      Reconciled against existing registry and contract coverage in
+      `profile-contract-reconciliation-2026-08-01.md`.
 - [ ] Task: Define the jurisdiction-neutral profile interface and Australian
       extension registry.
 - [ ] Task: Version profile contracts, capability negotiation, migrations, and
