@@ -36,3 +36,9 @@ open. No external action is implied by this report.
 The exact choices and paths are recorded in `closeout-decision-packet.md`.
 The recommended preservation disposition has been accepted; no checkout
 cleanup, relocation or deletion is authorized by that decision.
+
+The remaining external-gate choices are recorded in
+`external-gate-approval-packet.md`. The local issue/project references contain
+an identified project-number discrepancy (cross-repository export project 29
+versus the FOI-O integration contract's project 10), so no synchronization is
+inferred or performed.
