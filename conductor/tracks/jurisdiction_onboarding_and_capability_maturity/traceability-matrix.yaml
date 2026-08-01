@@ -1,3 +1,3 @@
 version: 1.0.0
 rows:
-  - {requirement: FOIO-REQ-JUR-001, source: CODEX_PROMPT.md, implementation: local-contracts, evidence: review-evidence-20260721.md, status: locally_verified_pending_human_gate}
+  - {requirement: FOIO-REQ-JUR-001, source: CODEX_PROMPT.md, implementation: local-contracts, evidence: review-evidence-20260721.md, dependency_gate_plan: dependency-gate-plan-2026-08-01.md, status: locally_verified_pending_owner_repo_and_human_gates}
