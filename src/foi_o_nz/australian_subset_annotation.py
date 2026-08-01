@@ -228,7 +228,7 @@ def validate_annotation_report(report_path: Path) -> dict[str, Any]:
             if not isinstance(record, dict):
                 raise ValueError("locked annotation record is not an object")
             validate_annotation_record(record, expected_role=role)
-        records = cast(list[dict[str, Any]], records)
+        records = cast("list[dict[str, Any]]", records)
         if len({record["unit_id"] for record in records}) != len(records):
             raise ValueError("locked annotation unit IDs are not unique")
         sets.append(records)
