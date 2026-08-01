@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:au-cth-annotation-output:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_id", "unit_sha256", "annotator_id", "codebook_revision", "jurisdiction", "target_assertion", "evidence_window", "label", "spans", "abstention", "abstention_reason", "blinded_to_candidate"],
+  "properties": {
+    "schema_version": {"const": "foi-o.au-cth-annotation-output.v0.1.0"},
+    "record_id": {"type": "string", "minLength": 1},
+    "unit_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "annotator_id": {"type": "string", "pattern": "^automated-agent-role-[a-z][a-z0-9-]*$"},
+    "codebook_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "jurisdiction": {"const": "AU-CTH"},
+    "target_assertion": {"const": "au_cth_commonwealth_foi_matter"},
+    "evidence_window": {"const": "captured request-page text only"},
+    "label": {"type": "string", "enum": ["observed", "inferred", "candidate", "unknown"]},
+    "spans": {
+      "type": "array", "maxItems": 3,
+      "items": {"type": "object", "additionalProperties": false, "required": ["start", "end", "coordinate_system"], "properties": {"start": {"type": "integer", "minimum": 0}, "end": {"type": "integer", "minimum": 1}, "coordinate_system": {"const": "utf8_character_half_open"}}}
+    },
+    "abstention": {"type": "boolean"},
+    "abstention_reason": {"type": ["string", "null"], "enum": [null, "missing_evidence", "insufficient_evidence", "out_of_scope", "other"]},
+    "blinded_to_candidate": {"const": true}
+  },
+  "allOf": [
+    {"if": {"properties": {"label": {"const": "unknown"}}}, "then": {"properties": {"spans": {"maxItems": 0}, "abstention": {"const": true}, "abstention_reason": {"type": "string"}}}},
+    {"if": {"properties": {"label": {"enum": ["observed", "inferred", "candidate"]}}}, "then": {"properties": {"spans": {"minItems": 1}, "abstention": {"const": false}, "abstention_reason": {"const": null}}}},
+    {"if": {"properties": {"abstention": {"const": true}}}, "then": {"properties": {"label": {"const": "unknown"}, "spans": {"maxItems": 0}, "abstention_reason": {"type": "string"}}}}
+  ]
+}
