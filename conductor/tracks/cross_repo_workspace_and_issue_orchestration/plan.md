@@ -12,6 +12,6 @@
       blockers, recommendations and fallbacks in `implementation-report.md`.
 - [x] Review Fixes: remove the absolute runtime path from the output ledger;
       keep the runtime-only observation in the review record. [939c689]
-- [~] Prepare closeout decision packet covering duplicate workspace identities
-      and remaining external gates.
+- [x] Prepare closeout decision packet covering duplicate workspace identities
+      and remaining external gates. [b5268e1]
 - [ ] Stop at declared human gates.
