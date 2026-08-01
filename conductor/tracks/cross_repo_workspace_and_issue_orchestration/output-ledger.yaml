@@ -5,4 +5,3 @@ outputs:
   - {path: conductor/cross-repo-issue-map.yaml, status: produced}
   - {path: conductor/tracks/cross_repo_workspace_and_issue_orchestration/issue-export.json, status: produced}
   - {path: conductor/tracks/cross_repo_workspace_and_issue_orchestration/review-2026-08-01.md, status: produced}
-  - {path: /tmp/foio-workspace-doctor.json, status: runtime-only}

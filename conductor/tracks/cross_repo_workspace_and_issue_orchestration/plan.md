@@ -10,4 +10,6 @@
       and diff checks passed.
 - [x] Reconcile the output ledger and document the dependency sequence,
       blockers, recommendations and fallbacks in `implementation-report.md`.
+- [~] Review Fixes: remove the absolute runtime path from the output ledger;
+      keep the runtime-only observation in the review record.
 - [ ] Stop at declared human gates.
