@@ -80,23 +80,23 @@
       },
       "archive": {
         "owner_repo": "edithatogo/fyi-archive",
-        "repository_revision": "ab1080c20cdfa9c342d96b18ba2e93f3d28c7945",
-        "artifact_path": null,
-        "artifact_sha256": null,
-        "status": "missing",
-        "rights_reviewed": false,
-        "independently_reviewed": false,
-        "known_limitation": "Three bounded Internet Archive all-captures attempts produced failure evidence only; no non-empty NSW request population exists."
+        "repository_revision": "23f7022bc161f5ba72eba7f3cf63cd2be8217938",
+        "artifact_path": "docs/55-au-nsw-immutable-frame-outcome-2026-07-27.md",
+        "artifact_sha256": "d09deb2ce966fb1b13ef33244f542a4c897df534baaeab94e7bc064c10643176",
+        "status": "approved",
+        "rights_reviewed": true,
+        "independently_reviewed": true,
+        "known_limitation": "The 115-unit AU-NSW frame is restricted-local and bounded to the approved RightToKnow evidence scope; no publication, redistribution, training, legal certification, or population-wide inference is authorized."
       },
       "extraction": {
         "owner_repo": "edithatogo/nlp-policy-nz",
-        "repository_revision": "05a31c72efc0950e4f06d913125ff00ffc04e1be",
-        "artifact_path": null,
-        "artifact_sha256": null,
-        "status": "missing",
-        "rights_reviewed": false,
-        "independently_reviewed": false,
-        "known_limitation": "Production placeholders are removed; an AU-NSW bundle requires an approved authentic NSW request population."
+        "repository_revision": "23f7022bc161f5ba72eba7f3cf63cd2be8217938",
+        "artifact_path": "examples/v2/au-nsw-maturity-decision.approved.json",
+        "artifact_sha256": "996d26686aa5f8b7e4d92d8c4fcf75cc2d0ad8fef65ca9bde47e5b80cb9b67f8",
+        "status": "approved",
+        "rights_reviewed": true,
+        "independently_reviewed": true,
+        "known_limitation": "The profile is mature only within the approved AU-NSW ontology and v3 holdout evidence scope; this is not gold promotion, publication, redistribution, training, legal certification, or population-wide inference."
       },
       "sampling": {
         "protocol_path": "docs/41-v2-sampling-and-annotation-protocol.md",
@@ -110,20 +110,20 @@
           "unresolved_authority_identity",
           "duplicate_cluster_leakage"
         ],
-        "codebook_path": null,
-        "codebook_revision": null,
-        "codebook_sha256": null,
-        "sampling_configuration_path": null,
-        "sampling_configuration_sha256": null,
-        "configuration_approved": false,
-        "reliability_thresholds_approved": false
+        "codebook_path": "examples/v2/au-nsw-assertion-codebook.v0.2.1.pending.json",
+        "codebook_revision": "23f7022bc161f5ba72eba7f3cf63cd2be8217938",
+        "codebook_sha256": "56c33dd1d681841b5512aa75dc859fa6febb1da687d2b74d9193b40230ebe1c6",
+        "sampling_configuration_path": "docs/65-au-nsw-fresh-holdout-membership-outcome-2026-07-27.md",
+        "sampling_configuration_sha256": "2acdb55b8679a060175eaca7c2183e90e59a557fb53fc992df45c965275f8d91",
+        "configuration_approved": true,
+        "reliability_thresholds_approved": true
       },
       "annotation_roles": {
         "role_kind": "automated_agent",
-        "annotator_ids": [],
-        "adjudicator_id": null,
-        "assignment_approved": false,
-        "approval_ref": null
+        "annotator_ids": ["automated-agent-role-a", "automated-agent-role-b"],
+        "adjudicator_id": "automated-agent-role-adjudicator",
+        "assignment_approved": true,
+        "approval_ref": "docs/76-au-nsw-v3-reliability-approval-packet-2026-07-27.md"
       }
     }
   ],
