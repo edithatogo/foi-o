@@ -8,4 +8,6 @@
       Verification: 13 focused control tests passed on 2026-08-01;
       workspace doctor, requirements, workflow, repository, Ruff, formatting,
       and diff checks passed.
+- [x] Reconcile the output ledger and document the dependency sequence,
+      blockers, recommendations and fallbacks in `implementation-report.md`.
 - [ ] Stop at declared human gates.

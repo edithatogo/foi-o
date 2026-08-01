@@ -1,4 +1,8 @@
 version: 1.0.0
 outputs:
-  - {path: workspace-audit.md, status: produced}
-  - {path: issue-dry-run.json, status: produced}
+  - {path: scripts/workspace_doctor.py, status: produced}
+  - {path: workspace.lock.yaml, status: produced}
+  - {path: conductor/cross-repo-issue-map.yaml, status: produced}
+  - {path: conductor/tracks/cross_repo_workspace_and_issue_orchestration/issue-export.json, status: produced}
+  - {path: conductor/tracks/cross_repo_workspace_and_issue_orchestration/review-2026-08-01.md, status: produced}
+  - {path: /tmp/foio-workspace-doctor.json, status: runtime-only}
