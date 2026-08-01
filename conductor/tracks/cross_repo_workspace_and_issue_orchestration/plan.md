@@ -16,4 +16,6 @@
       and remaining external gates. [b5268e1]
 - [x] Prepare exact external-gate approval wording and record the issue/project
       project-number discrepancy for bounded verification. [65e57ee]
+- [~] Verify the linked hosted issue/project state read-only and record the
+      result without mutation.
 - [ ] Stop at declared human gates.

@@ -1,0 +1,24 @@
+{
+  "verified_at": "2026-08-01",
+  "track_id": "cross_repo_workspace_and_issue_orchestration",
+  "issue": {
+    "repository": "edithatogo/rac-conformance",
+    "number": 146,
+    "state": "OPEN",
+    "project_status": "In Progress",
+    "title": "Coordinate FOI-O workspace lock and cross-repository issue orchestration"
+  },
+  "project": {
+    "owner": "edithatogo",
+    "number": 29,
+    "title": "FOI-O Global Next-Generation Programme",
+    "state": "open",
+    "issue_linkage_verified": true
+  },
+  "comparison": {
+    "project_10_is_separate": true,
+    "reconciliation_required": false,
+    "mutation_performed": false
+  },
+  "authorization_scope": "read-only verification and exact reconciliation only"
+}

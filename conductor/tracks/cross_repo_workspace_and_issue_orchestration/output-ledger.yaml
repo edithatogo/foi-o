@@ -4,4 +4,5 @@ outputs:
   - {path: workspace.lock.yaml, status: produced}
   - {path: conductor/cross-repo-issue-map.yaml, status: produced}
   - {path: conductor/tracks/cross_repo_workspace_and_issue_orchestration/issue-export.json, status: produced}
+  - {path: conductor/tracks/cross_repo_workspace_and_issue_orchestration/hosted-verification-2026-08-01.json, status: produced}
   - {path: conductor/tracks/cross_repo_workspace_and_issue_orchestration/review-2026-08-01.md, status: produced}

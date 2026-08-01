@@ -7,19 +7,15 @@ remaining decisions needed for closeout.
 
 ## 1. Issue/project synchronization
 
-The local track links to `edithatogo/rac-conformance#146` and the cross-repo
-issue export records project 29. The FOI-O integration contract identifies
-project 10 as the FOI-O Conductor Roadmap. These are not interchangeable
-without confirmation.
+The read-only verification recorded in
+`hosted-verification-2026-08-01.json` confirms that
+`edithatogo/rac-conformance#146` is open, in progress, and linked to project
+29, “FOI-O Global Next-Generation Programme”. Project 10 is a separate older
+FOI-O project and does not require reconciliation for this track.
 
-Recommended option: approve a read-only hosted verification first, then
-authorize only the exact issue/project update required to reconcile the
-track's linked issue and project item. This preserves the local map if hosted
-state is unavailable.
+Disposition: verified; no hosted mutation was required or performed.
 
-Alternative: retain the current cross-repository coordination links and close
-the local track without hosted synchronization. This requires an explicit
-waiver of the same-repository linkage rule.
+The local map and hosted state are now aligned for this track.
 
 ## 2. Publication, submission and release
 
@@ -37,12 +33,6 @@ pending. This track does not establish legal outcomes or profile maturity.
 Alternative: authorize a separate evidence-bound promotion review naming the
 profile, version, scope, thresholds and approving evidence.
 
-## Exact approval wording for the recommended path
-
-> I authorize read-only verification of the linked issue and project state for
-> `cross_repo_workspace_and_issue_orchestration`, followed only by the exact
-> reconciliation required by the verified state. I do not authorize
-> publication, release, submission, profile promotion, legal certification,
-> destructive workspace operations, or unrelated repository changes.
-
-This packet does not itself authorize any external action.
+The authorization used for this verification did not authorize publication,
+release, submission, profile promotion, legal certification, destructive
+workspace operations, or unrelated repository changes.

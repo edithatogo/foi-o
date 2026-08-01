@@ -38,7 +38,7 @@ The recommended preservation disposition has been accepted; no checkout
 cleanup, relocation or deletion is authorized by that decision.
 
 The remaining external-gate choices are recorded in
-`external-gate-approval-packet.md`. The local issue/project references contain
-an identified project-number discrepancy (cross-repository export project 29
-versus the FOI-O integration contract's project 10), so no synchronization is
-inferred or performed.
+`external-gate-approval-packet.md`. Read-only verification confirmed that
+project 29 is the current linked programme project for this track; project 10
+is a separate historical FOI-O project. No synchronization mutation was
+required or performed.
