@@ -34,6 +34,11 @@
       Approval wrapper commit: `c210e39`.
 - [ ] Run focused and repository contract tests and Conductor review for Phase 2.
 
+### Review Fixes
+
+- [x] Enforce the approved closed abstention-reason set in role-output
+      validation and add regression coverage. Commit: `53e7fbb`
+
 ## Phase 3: Freeze a fresh holdout
 
 - [ ] Acquire additional rights-eligible authentic AU-CTH records or record
