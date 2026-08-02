@@ -19,20 +19,14 @@ The local map and hosted state are now aligned for this track.
 
 ## 2. Publication, submission and release
 
-Recommended option: no action; leave these gates pending because this track
-contains coordination evidence, not a release artifact.
-
-Alternative: authorize a separately scoped release/publication packet after
-its target repository, artifact hashes, destination and rights are specified.
+Disposition: not applicable because this track contains coordination evidence,
+not a release artifact.
 
 ## 3. Legal/profile promotion
 
-Recommended option: no action; leave profile and legal certification gates
-pending. This track does not establish legal outcomes or profile maturity.
+Disposition: not applicable because this track establishes no legal outcome or
+profile maturity claim.
 
-Alternative: authorize a separate evidence-bound promotion review naming the
-profile, version, scope, thresholds and approving evidence.
-
-The authorization used for this verification did not authorize publication,
-release, submission, profile promotion, legal certification, destructive
-workspace operations, or unrelated repository changes.
+No external action is authorized or required by these dispositions. The
+preservation decision and all gate dispositions are recorded in the decision
+register and gate register.

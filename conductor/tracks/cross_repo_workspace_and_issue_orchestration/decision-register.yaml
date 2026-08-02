@@ -9,3 +9,18 @@ decisions:
     status: accepted
     evidence: closeout-decision-packet.md
     human_gate: false
+  - id: D-cross_repo_workspace_and_issue_orchestration-external-mutation
+    decision: no external issue or project mutation is required
+    status: accepted
+    evidence: hosted-verification-2026-08-01.json
+    human_gate: false
+  - id: D-cross_repo_workspace_and_issue_orchestration-publication
+    decision: publication, release and submission are not applicable to this coordination-only track
+    status: accepted
+    evidence: external-gate-approval-packet.md
+    human_gate: false
+  - id: D-cross_repo_workspace_and_issue_orchestration-promotion
+    decision: legal certification and profile promotion are not applicable to this track
+    status: accepted
+    evidence: external-gate-approval-packet.md
+    human_gate: false

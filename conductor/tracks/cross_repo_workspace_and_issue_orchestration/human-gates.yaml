@@ -6,13 +6,16 @@ gates:
     evidence: hosted-verification-2026-08-01.json
   - id: HG-external-mutation
     kind: external-write
-    status: pending
+    status: not_applicable
+    disposition: no_action_required
     evidence: external-gate-approval-packet.md
   - id: HG-publication-release-submission
     kind: human
-    status: pending
+    status: not_applicable
+    disposition: coordination_only_track
     evidence: external-gate-approval-packet.md
   - id: HG-legal-profile-promotion
     kind: human
-    status: pending
+    status: not_applicable
+    disposition: no_legal_or_profile_claim
     evidence: external-gate-approval-packet.md

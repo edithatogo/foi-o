@@ -22,4 +22,5 @@
       explicitly pending external/human gates. [ce180e5]
 - [x] Review Fixes: reconcile accepted duplicate-workspace wording and commit
       the append-only evidence ledger that was previously ignored. [e2d03c0]
-- [ ] Stop at declared human gates.
+- [x] Stop at declared human gates after recording the approved no-action and
+      not-applicable dispositions.
