@@ -36,3 +36,9 @@ decisions:
   - id: D-012
     decision: separate_rendered_html_attachment_supplement_from_canonical_fyi_json_capture
     rationale: request 11872 exposes three attachment links in rendered HTML while its FYI JSON attachment inventory is empty
+  - id: D-013
+    decision: recover_original_bounded_pilot_payloads_before_considering_replacement_sources
+    rationale: preserve the approved source identity, rights boundary, unit order, and hash-pinned two-case authorization
+  - id: D-014
+    decision: use_one_case_35076_as_the_contingency_if_11872_is_irretrievable
+    rationale: avoid inventing or silently substituting missing 11872 attachment evidence; a replacement population requires fresh exact approval

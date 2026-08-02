@@ -15,6 +15,47 @@ hash-pinned manifests, readiness records, and provenance, but not the source
 payloads. No Git object or local storage candidate was found for the missing
 directories.
 
+## Recovery options and recommendation
+
+### Option A — restore the original approved bundles (recommended)
+
+Obtain the original owner-readable bundles from their producing workspace or
+backup, without changing bytes or provenance. Verify every recorded manifest,
+inventory, candidate, and independent-verification hash before placing the
+payloads at the authorized paths.
+
+Rationale: this preserves the approved population, rights decision, unit
+ordering, and exact authorization. It has the lowest evidentiary risk and
+requires no change to the pilot design.
+
+### Option B — recover from a controlled local backup or handoff
+
+Use a local backup, encrypted handoff, or owner-provided archive containing the
+same bytes. Treat it as a candidate until all existing hashes, permissions,
+record counts, and manifests reproduce exactly.
+
+Rationale: this may be faster than recovering the producing workspace, but a
+backup is not evidence by itself. Any mismatch returns to the new-authorization
+contingency.
+
+### Option C — create a new bounded source candidate
+
+Capture or assemble replacement material under a separately scoped source,
+rights, and population authorization. Produce new manifests and a new
+two-case or one-case execution authorization for approval.
+
+Rationale: this is the recovery path only when the original bytes are
+irretrievable. It cannot silently repair the existing authorization because it
+changes source identity and potentially the evidence population.
+
+### Recommendation and stopping rule
+
+Use Option A first, then Option B. Use Option C only after documenting that the
+original bytes are irretrievable. The current track may perform discovery,
+hash verification, permission checks, and pre-execution verification only. It
+must stop before new capture, source replay, context presentation, analyst
+execution, reconciliation, publication, or release.
+
 ## Dependency-ordered recovery
 
 1. Recover or re-provide the approved request `35076` bundle. Verify manifest
@@ -46,6 +87,18 @@ directories.
   occur under the two-case authorization.
 - If both roots are restored but verification fails, preserve the failure
   evidence and stop before context materialization.
+- If a backup reproduces the payload but not the recorded permissions, repair
+  permissions locally and re-verify; do not alter content or hashes.
+- If only one source root is restored, retain it for evidence but do not create
+  a partial pilot or infer that the two-case authorization is executable.
+
+## Decision points
+
+No decision is required for Option A or B if the original approved bytes are
+available. A decision is required only if both fail: choose whether to stop the
+track or authorize Option C with a new source/right/population approval. The
+recommended choice in that case is to prepare a one-case `35076` candidate,
+because it avoids inventing or reusing the missing `11872` attachment evidence.
 
 ## Explicit boundaries
 

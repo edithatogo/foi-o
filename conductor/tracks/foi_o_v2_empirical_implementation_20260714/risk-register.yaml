@@ -33,3 +33,9 @@ risks:
   - id: R-011
     risk: attachment links recovered from rendered FYI HTML could be mistaken for canonical JSON attachment capture or reuse approval
     mitigation: preserve the empty canonical inventory declare the supplemental capture separately hash every byte and require exact named-human snapshot rights approval
+  - id: R-012
+    risk: replacement or stale backup bytes could be silently substituted for the missing approved pilot inputs
+    mitigation: attempt original-bundle recovery first; require exact manifest, inventory, candidate, independent-verification, byte-count, and permission checks; require fresh authorization for any changed source
+  - id: R-013
+    risk: a partially recovered two-case input could be treated as executable or used to make an empirical claim
+    mitigation: keep G-EMP-LOCAL-INPUT-RECOVERY blocked until both source roots and all verifier conditions pass; prohibit partial execution and population inference
