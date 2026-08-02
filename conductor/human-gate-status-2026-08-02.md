@@ -31,6 +31,21 @@ tag, dispatch, or merge is authorized by this packet.
   release, publication, profile promotion, registry submission, or external
   mutation.
 
+## Release dry-run evidence added 2026-08-02
+
+- Release checklist dry run: valid; 6 evidence items and 5 external gates.
+  Candidate SHA-256: `e73dfc73822f5b672490bcc5bc14078c2c9db1106fec9cc1fc9141b226381ff7`.
+- Repository-release metadata dry run: valid; 4 artifacts and 4 publication
+  targets. Candidate SHA-256:
+  `bcb7a540804d168bb1db71f35ef9cfeaa8c779f6fab3fe924971f7ef7c183988`.
+- Version registry check: valid at registry/lock `1.0.0`.
+- Existing release metadata check: reports `0.8.1` as consistent with its
+  current fixture.
+- **Open release gate:** choose and align the intended release version before
+  any tag, package, or publication action. Recommended: regenerate all release
+  artifacts for the selected version and re-run every check; do not infer that
+  0.9.0, 1.0.0, or 0.8.1 is approved from the dry run alone.
+
 ## Required evidence before approval
 
 ### Promotion
