@@ -87,6 +87,16 @@ def test_mcp_runtime_status_fails_closed_without_fastmcp(monkeypatch: pytest.Mon
         mcp_server.create_server()
 
 
+def test_create_server_fails_closed_without_fastmcp(monkeypatch: pytest.MonkeyPatch) -> None:
+    def missing_fastmcp() -> type[Any]:
+        raise ModuleNotFoundError("fastmcp")
+
+    monkeypatch.setattr(mcp_server, "_load_fastmcp", missing_fastmcp)
+
+    with pytest.raises(RuntimeError, match="fail-closed"):
+        mcp_server.create_server()
+
+
 def test_mcp_server_registers_read_only_safe_tools_and_prompt() -> None:
     server = mcp_server.create_server(fastmcp_cls=FakeFastMCP)
 
