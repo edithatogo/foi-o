@@ -90,10 +90,10 @@ retrieval.
 
 | Repository | Issue/scope | Local candidate | Validation boundary |
 | --- | --- | --- | --- |
-| fyi-cli | #283 Australian capture capability contracts | `3f3befa8acb07dce492ce41e99457d6da5acfa88` | PR #286, exact head, all required checks passing; 740 passed, 2 opt-in network tests skipped |
+| fyi-cli | #283 Australian capture capability contracts | `3f3befa8acb07dce492ce41e99457d6da5acfa88` | PR #286 merged by squash at `1e74fff72b532f146fd7309af7323dfaa3e9d815`; refreshed required checks passed |
 | fyi-archive | #317 checkpointed content-addressed Wayback replay state | repair head `93d7f327a2cf5bfd24fc657a047051f0ff436652` (candidate base `af4c0a47e2d589f295ba2dfebee0f3f7681690f7`) | PR #327, functional/protected checks passing; Codecov patch remains 73.25% vs 90% threshold; 538 passed, 1 skipped |
-| nlp-policy-nz | #200 config-driven profile foundation | `2a49a516252d6e2c765c4d8a6e53336226e273bf` | 30 focused/regression tests passed; activation registry has zero grants; unrelated repository baselines remain |
-| foi-process | #96 paired Mermaid/BPMN jurisdiction template | `8bc0c2c6022a4de08d2e52515af4885ee598a094` | full local CI passed; strict profiles bind to their physical registered repository paths |
+| nlp-policy-nz | #200 config-driven profile foundation | `2a49a516252d6e2c765c4d8a6e53336226e273bf` | PR #235 merged by squash at `a2d559935a0454316efe7a008e79bfd27687feae`; conflict-resolution merge and refreshed required checks passed |
+| foi-process | #96 paired Mermaid/BPMN jurisdiction template | `8bc0c2c6022a4de08d2e52515af4885ee598a094` | PR #97 merged by squash at `18bcc11b2933bcf4693ef66365bf57ad378a1903`; required checks passed |
 
 The exact candidates were pushed under the approved external-action gate and
 opened as draft PRs: fyi-cli #286, fyi-archive #327, nlp-policy-nz #235, and
