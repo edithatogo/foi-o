@@ -15,6 +15,12 @@ hash-pinned manifests, readiness records, and provenance, but not the source
 payloads. No Git object or local storage candidate was found for the missing
 directories.
 
+Recovery audit result (2026-08-02): the producing checkouts,
+owner-controlled PortableSSD/OneDrive/Downloads/Documents locations, FOI-O Git
+objects and refs, and `edithatogo/fyi-archive` retained Actions-artifact/release
+metadata yielded no exact payload candidate for either request. The remote
+inspection was metadata-only; no artifact or release was downloaded.
+
 ## Recovery options and recommendation
 
 ### Option A — restore the original approved bundles (recommended)
