@@ -51,6 +51,19 @@ tag, dispatch, or merge is authorized by this packet.
   a separately reviewed package-version change; regenerate all artifacts only
   after that choice. No version was changed autonomously.
 
+## Current-package release candidate
+
+Following the recommended conservative path, a separate restricted-local
+`0.8.1` candidate was generated without changing committed fixtures:
+
+- checklist SHA-256: `d158fd78cae58201cd2d4e6f28671b7ec8057cf06f07c080cfed7e0bd35888b1`
+- repository-release metadata SHA-256:
+  `b2d5bc60dec84f45e2d9466849b058ccd56c89a2cf805113630b17010330d9ba`
+- candidate validation: `ok`; examples: `examples ok`.
+
+This is a release candidate, not a release. Tagging, package publication,
+GitHub release creation, and registry deposition remain human-gated.
+
 ## Required evidence before approval
 
 ### Promotion
