@@ -70,3 +70,13 @@ restoration, context materialization, analyst execution, or reconciliation was
 performed. A refreshed exact authorization at the current clean HEAD and
 restored owner-private approved source roots are required before execution can
 resume.
+
+The first refresh record did not update a stale implementation pin. A corrected
+inert authorization candidate has therefore been prepared at
+`examples/v2/bounded-pilot-batched-execution-authorization.current-head.pending.json`,
+SHA-256 `0f8499a508c1536c4072a7900b9260acc42242aab606c06c8d096a5161008b42`,
+commit `2dcebb88223f0d01f38c108bfd909967c0e7c01d`. It updates only the
+`scripts/build_submission_latex.py` implementation pin to SHA-256
+`dd39f60d5178a0bb6aa67d5f6a87b239cda0a9b1f0ae47859b2e353c2a72f6aa` at commit
+`fc6d650b40b245dec0bd084dd4cc58a9f4f49e06`. Exact approval of this corrected
+candidate is required before it can replace the canonical authorization.
