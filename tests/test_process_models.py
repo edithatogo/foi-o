@@ -1,8 +1,9 @@
 from __future__ import annotations
 
 import json
-import xml.etree.ElementTree as ET
 from pathlib import Path
+
+import defusedxml.ElementTree as ET  # noqa: N817
 
 from foi_o_nz.process_models import (
     build_bpmn_model,
@@ -42,6 +43,7 @@ def test_process_model_document_distinguishes_ontology_from_process_model() -> N
 def test_bpmn_core_process_model_parses_and_preserves_human_certification() -> None:
     tree = ET.parse(BPMN)
     root = tree.getroot()
+    assert root is not None
 
     process = root.find("bpmn:process", BPMN_NS)
     assert process is not None
@@ -73,6 +75,7 @@ def test_bpmn_core_process_model_parses_and_preserves_human_certification() -> N
 def test_pnml_core_process_model_parses_and_preserves_human_certification() -> None:
     tree = ET.parse(PNML)
     root = tree.getroot()
+    assert root is not None
 
     places = {place.attrib["id"] for place in root.findall(".//place")}
     transitions = {transition.attrib["id"] for transition in root.findall(".//transition")}
@@ -107,6 +110,7 @@ def test_generated_process_models_match_canonical_transition_generator() -> None
 def test_generated_bpmn_and_pnml_parse() -> None:
     bpmn_tree = ET.parse(GENERATED_BPMN)
     bpmn_root = bpmn_tree.getroot()
+    assert bpmn_root is not None
     bpmn_process = bpmn_root.find("bpmn:process", BPMN_NS)
     assert bpmn_process is not None
     assert bpmn_process.attrib["isExecutable"] == "false"
@@ -115,6 +119,7 @@ def test_generated_bpmn_and_pnml_parse() -> None:
 
     pnml_tree = ET.parse(GENERATED_PNML)
     pnml_root = pnml_tree.getroot()
+    assert pnml_root is not None
     assert len(pnml_root.findall(".//place")) >= 20
     assert len(pnml_root.findall(".//transition")) >= 37
 

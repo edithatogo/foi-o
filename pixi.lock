@@ -7998,6 +7998,8 @@ packages:
   - loguru>=0.7.2
   - orjson>=3.10.0
   - msgspec>=0.18.0
+  - defusedxml>=0.7.1
+  - defusedxml>=0.7.1
   - polars>=1.0.0 ; extra == 'analytics'
   - pyarrow>=18.0.0 ; extra == 'analytics'
   - duckdb>=1.1.0 ; extra == 'analytics'

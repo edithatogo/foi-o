@@ -891,6 +891,7 @@ name = "foi-o-nz"
 version = "0.8.1"
 source = { editable = "." }
 dependencies = [
+    { name = "defusedxml" },
     { name = "jsonschema" },
     { name = "loguru" },
     { name = "msgspec" },
@@ -945,6 +946,7 @@ rdf = [
 requires-dist = [
     { name = "basedpyright", marker = "extra == 'dev'", specifier = ">=1.39.9" },
     { name = "cyclonedx-bom", marker = "extra == 'dev'", specifier = ">=5.1.0" },
+    { name = "defusedxml", specifier = ">=0.7.1" },
     { name = "duckdb", marker = "extra == 'analytics'", specifier = ">=1.1.0" },
     { name = "fastmcp", marker = "extra == 'mcp'", specifier = ">=2.0.0" },
     { name = "hypothesis", marker = "extra == 'dev'", specifier = ">=6.130.0" },

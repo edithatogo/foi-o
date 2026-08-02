@@ -1,9 +1,9 @@
 import copy
 import json
-import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any, cast
 
+import defusedxml.ElementTree as ET  # noqa: N817
 import pytest
 import yaml
 from jsonschema import Draft202012Validator
@@ -210,6 +210,7 @@ def test_phase_workflow_has_paired_mermaid_and_bpmn_contracts() -> None:
     assert "workflow.bpmn" in workflow
 
     root = ET.parse(TRACK / "workflow.bpmn").getroot()
+    assert root is not None
     namespace = "{http://www.omg.org/spec/BPMN/20100524/MODEL}"
     process = root.find(f"{namespace}process")
     assert process is not None
