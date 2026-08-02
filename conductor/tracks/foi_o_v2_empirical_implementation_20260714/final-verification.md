@@ -26,3 +26,23 @@ does not become human-reviewed, gold, legal, release, or publication evidence.
 
 Repository-wide coverage and type-check baselines are recorded in `audit.md` and
 `release-gates.yaml`; neither was caused or hidden by this overlay.
+
+## Current checkpoint — 2026-08-02
+
+The repository-native recheck passed:
+
+- `uv run pytest -q`: 1,233 passed, 4 skipped.
+- `uv run python tests/validate_repo.py`: passed.
+- `uv run python scripts/validate_requirements.py`: passed.
+- `uv run python scripts/validate_workflows.py`: passed.
+- `uv run ruff check src tests scripts`: passed.
+- `uv run ruff format --check src tests scripts`: passed.
+- `uv run ty check src tests scripts`: passed.
+- `git diff --check`: passed.
+
+No empirical or release gate changed status. The next unchecked empirical task
+remains blocked because the available wider snapshot is not a rights-cleared,
+content-bearing population and the bounded candidate still lacks independent
+annotation/adjudication. No source capture, replay, external repository
+mutation, publication, release, promotion, or legal certification was
+performed.
