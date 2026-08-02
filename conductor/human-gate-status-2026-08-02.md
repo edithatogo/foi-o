@@ -22,6 +22,15 @@ tag, dispatch, or merge is authorized by this packet.
 | External mutation | partially completed historically; no new action authorized here | fyi-process #97, fyi-cli #286, nlp-policy-nz #235 merged; fyi-archive #327 blocked by Codecov | keep fyi-archive unmerged until 90% patch gate passes |
 | Legal/accountability | pending per public claim | agents can prepare evidence but cannot certify legal outcomes | name scope and accountable approver in each packet |
 
+## Validation evidence added 2026-08-02
+
+- Targeted release/publication checks: `10 passed`.
+- Example validation: `examples ok`.
+- Full FOI-O suite: `1233 passed, 4 skipped` in `204.75s`.
+- These are repository-owned validation results only; they do not authorize a
+  release, publication, profile promotion, registry submission, or external
+  mutation.
+
 ## Required evidence before approval
 
 ### Promotion
