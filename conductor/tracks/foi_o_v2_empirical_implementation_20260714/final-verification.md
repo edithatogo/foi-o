@@ -55,3 +55,18 @@ human-gated boundaries remain aligned. Full validation was rerun during review
 with the same passing results above. The track remains active and must not be
 archived or promoted while the blocked empirical and release gates remain
 unsatisfied.
+
+## Authorized pilot pre-execution check — 2026-08-02
+
+The exact pre-materialization verifier was invoked against the approved
+two-case batched authorization. It failed closed with:
+
+`ValueError: HEAD does not equal authorization commit`
+
+The authorization is anchored to repository commit `e9252ef`, while the
+current clean branch is `c65ef46`. The authorized local source roots expected
+under `/private/tmp` were also not present at the check. No HEAD change, source
+restoration, context materialization, analyst execution, or reconciliation was
+performed. A refreshed exact authorization at the current clean HEAD and
+restored owner-private approved source roots are required before execution can
+resume.
