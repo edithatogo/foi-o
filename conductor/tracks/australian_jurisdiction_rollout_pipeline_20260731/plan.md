@@ -11,6 +11,8 @@ next effect crosses a gate declared in `metadata.json`.
   fyi-archive, nlp-policy-nz, foi-process, and FOI-O.
 - [x] Record platform families, official-source dependencies, rights gates,
   and the dependency-first tranche order.
+- [x] Create the authoritative-source and rights-evidence recovery plan:
+  `authoritative-source-rights-plan.md`.
 - [x] Synchronize existing issues; create new issues only for uncovered,
   independently actionable work.
 

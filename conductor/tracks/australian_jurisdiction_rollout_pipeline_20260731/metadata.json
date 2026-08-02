@@ -4,7 +4,7 @@
   "type": "feature",
   "status": "in_progress",
   "created_at": "2026-07-31T00:00:00Z",
-  "updated_at": "2026-08-01T11:52:00Z",
+  "updated_at": "2026-08-02T13:20:00Z",
   "description": "Industrialise Australian jurisdiction rollout with resumable content-addressed stages, shared empirical tooling, and approval-safe provenance.",
   "requirement_ids": [
     "FOIO-REQ-AU-PIPE-001",
@@ -24,6 +24,30 @@
     "annotation_or_adjudication_execution",
     "maturity_or_profile_promotion",
     "publication_or_redistribution",
-    "external_repository_merge"
+    "external_repository_merge",
+    "qld_api_registration_and_terms",
+    "official_source_fixture_rights_approval",
+    "mirror_crosscheck_scope_approval"
+  ],
+  "gates": [
+    {
+      "id": "G-AU-SOURCE-RIGHTS-ALL-20260802",
+      "kind": "external_evidence",
+      "status": "pending",
+      "evidence": "authoritative-source-rights-plan.md",
+      "scope": "ACT, QLD, VIC, WA, SA, TAS, NT official source and rights packets"
+    },
+    {
+      "id": "G-AU-QLD-API-REGISTRATION-20260802",
+      "kind": "human_authorization",
+      "status": "pending",
+      "evidence": "Queensland API registration, access agreement, privacy notice, and bounded fixture approval"
+    },
+    {
+      "id": "G-AU-MIRROR-CROSSCHECK-20260802",
+      "kind": "human_authorization",
+      "status": "pending",
+      "evidence": "Mirrors may be used only as independent comparison evidence, never as authority"
+    }
   ]
 }
