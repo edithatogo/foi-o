@@ -5,6 +5,14 @@ policy:
   completion_rule: every_target_must_complete_every_phase
   legal_inference_from_platform_state: prohibited
   automatic_profile_promotion: prohibited
+  australian_platform_family: au-rtk-alaveteli
+  australian_dependency_first_order:
+    - unblock: [AU-ACT, AU-QLD]
+    - shared_capture_archive_audit: [AU-VIC, AU-QLD, AU-ACT, AU-SA, AU-TAS, AU-WA, AU-NT]
+    - tranche_1: [AU-SA, AU-WA, AU-NT]
+    - tranche_2: [AU-VIC, AU-TAS]
+    - tranche_3: [AU-ACT, AU-QLD]
+  platform_reuse_does_not_transfer_legal_or_empirical_evidence: true
 phase_contract:
   - {id: legislation_access, owner_repo: edithatogo/legislation, requirement: use an existing official API/provider, add one where available, or make a governed manual acquisition with provenance, effective dates, rights and hashes}
   - {id: gazette_equivalent, owner_repo: edithatogo/legislation, requirement: identify and preserve Gazette or equivalent commencement, subordinate-instrument, implementation and regulator material}
@@ -26,6 +34,9 @@ tranches:
   - id: australia
     issue: 24
     targets: [AU-CTH, AU-NSW, AU-VIC, AU-QLD, AU-ACT, AU-SA, AU-TAS, AU-WA, AU-NT]
+    completed_bounded_profiles: [AU-CTH, AU-NSW]
+    implementation_issue: 32
+    rollout_track: australian_jurisdiction_rollout_pipeline_20260731
   - id: uk_and_european_english
     issue: 83
     targets: [UK-FOIA, UK-EIR, SCOT-FOISA, SCOT-EIR, EU-ACCESS-DOCUMENTS, IE-FOI-DISCOVERY]

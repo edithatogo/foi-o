@@ -1,0 +1,86 @@
+{
+  "schema_version": "foio.australian-empirical-run-spec.v1.0.0",
+  "run_id": "run:au-cth-bounded-maturity-v1",
+  "jurisdiction": "AU-CTH",
+  "profile_id": "foi-o-au-cth",
+  "assessment_status": "active",
+  "lifecycle_disposition": "opaque_producer",
+  "canonicalization": "foio.sorted-compact-json.v1",
+  "evidence_sources": [
+    {
+      "artifact_id": "evidence:au-cth-maturity-decision",
+      "path": "examples/v2/au-cth-maturity-decision.approved.json",
+      "sha256": "bbf5f18d824440222adcfdfbc88c5e0c7f6506bff32a532b736faee3b7c0ffc7",
+      "size_bytes": 1355,
+      "git_commit": "d69d624577eb3534f59072245012390a4cbb034a"
+    }
+  ],
+  "referenced_artifacts": [
+    {
+      "artifact_id": "frame:au-cth-bounded-holdout",
+      "sha256": "92b290ba32db7f70589202ae0895303856a64ef8258fb9bab9f561bde45eec7d",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "bbf5f18d824440222adcfdfbc88c5e0c7f6506bff32a532b736faee3b7c0ffc7"
+    },
+    {
+      "artifact_id": "metrics:au-cth-extractor",
+      "sha256": "daebac03888f53ba5e168fed06851098efc22b0881f9225f3e75857a17fe7552",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "bbf5f18d824440222adcfdfbc88c5e0c7f6506bff32a532b736faee3b7c0ffc7"
+    },
+    {
+      "artifact_id": "codebook:foio-au-pilot-assertion-v0.2.0",
+      "sha256": "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9",
+      "availability": "committed",
+      "evidence_source_sha256": "bbf5f18d824440222adcfdfbc88c5e0c7f6506bff32a532b736faee3b7c0ffc7"
+    }
+  ],
+  "producer_provenance": {
+    "status": "opaque",
+    "reason": "The committed maturity decision pins inputs and outputs but not the exact producing command, implementation digest, dependency lock, and occurrence.",
+    "evidence_source_sha256": "bbf5f18d824440222adcfdfbc88c5e0c7f6506bff32a532b736faee3b7c0ffc7"
+  },
+  "stages": [
+    {
+      "stage_id": "stage:au-cth-bounded-maturity",
+      "sequence": 1,
+      "stage_kind": "maturity",
+      "input_sha256": [
+        "92b290ba32db7f70589202ae0895303856a64ef8258fb9bab9f561bde45eec7d",
+        "daebac03888f53ba5e168fed06851098efc22b0881f9225f3e75857a17fe7552",
+        "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9"
+      ],
+      "output_sha256": [
+        "bbf5f18d824440222adcfdfbc88c5e0c7f6506bff32a532b736faee3b7c0ffc7"
+      ],
+      "population": {
+        "population_id": "population:au-cth-bounded-holdout",
+        "population_sha256": "92b290ba32db7f70589202ae0895303856a64ef8258fb9bab9f561bde45eec7d",
+        "predecessor": 100,
+        "included": 100,
+        "excluded": 0,
+        "unresolved": 0
+      },
+      "allowed_capabilities": ["maturity.describe_bounded"],
+      "denied_capabilities": [
+        "gold.promote",
+        "legal.certify",
+        "publication.release",
+        "training.use"
+      ]
+    }
+  ],
+  "legacy_interpretation": {
+    "source_codebook_sha256": "ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9",
+    "unknown_label": "unknown",
+    "normalized_label": null,
+    "abstention_reason": "insufficient_evidence",
+    "preserves_original_bytes": true,
+    "preserves_original_value": true
+  },
+  "relationships": {
+    "supersedes": [],
+    "invalidates": []
+  },
+  "run_spec_sha256": "237bd9716b86ebf68cee29e44a6dff0b7890154950eb4aa6426ee0cc46269ef3"
+}

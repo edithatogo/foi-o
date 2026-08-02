@@ -3,7 +3,7 @@
   "type": "feature",
   "status": "in_progress",
   "created_at": "2026-07-13T14:00:00Z",
-  "updated_at": "2026-07-27T12:30:00Z",
+  "updated_at": "2026-07-31T00:00:00Z",
   "description": "Iterate the global FOI-O model from its NZ reference implementation through evidence-backed Australian profiles, beginning with Commonwealth and NSW while preserving the jurisdiction-neutral core.",
   "evidence_format": "legacy_jsonl",
   "requirement_ids": ["AU-EV-001", "AU-EV-002", "AU-EV-003", "AU-EV-004", "AU-EV-005"],
@@ -13,37 +13,41 @@
   ],
   "github_issue": "https://github.com/edithatogo/foi-o/issues/24",
   "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns",
-  "current_phase": "phase_3_empirical_validation_readiness",
-  "current_task": "await_au_cth_extractor_metrics_or_threshold_decision_authorization",
+  "current_phase": "phase_5_remaining_jurisdiction_tranches",
+  "current_task": "industrialise_shared_rollout_pipeline_and_resolve_dependencies",
   "gates": [
     {
       "id": "au-pilot-inputs",
       "kind": "repository_dependency",
-      "status": "blocked",
+      "status": "satisfied",
       "evidence": [
         "https://github.com/edithatogo/foi-o/issues/29",
         "https://github.com/edithatogo/nlp-policy-nz/pull/185",
         "conductor/tracks/australian_jurisdiction_profiles_20260714/phase-3-readiness.json",
         "examples/v2/australian-cdx-au-rtk-30236042144.candidate.json",
         "docs/42-au-rtk-cdx-candidate-validation-2026-07-27.md",
-        "docs/43-au-rtk-replay-attempt-2026-07-27.md"
+        "docs/43-au-rtk-replay-attempt-2026-07-27.md",
+        "docs/91-au-rtk-restricted-immutable-manifest-outcome-2026-07-31.md",
+        "examples/v2/au-nsw-maturity-decision.approved.json"
       ]
     },
     {
       "id": "au-independent-annotation",
       "kind": "human",
-      "status": "blocked",
+      "status": "satisfied",
       "evidence": [
         "examples/v2/au-cth-fresh-annotation-execution.approved.json",
+        "examples/v2/au-nsw-maturity-decision.approved.json",
         "https://github.com/edithatogo/foi-o/issues/30"
       ]
     },
     {
       "id": "au-profile-maturity-decision",
       "kind": "human",
-      "status": "blocked",
+      "status": "satisfied",
       "evidence": [
         "examples/v2/au-cth-maturity-decision.approved.json",
+        "examples/v2/au-nsw-maturity-decision.approved.json",
         "https://github.com/edithatogo/foi-o/issues/31"
       ]
     }

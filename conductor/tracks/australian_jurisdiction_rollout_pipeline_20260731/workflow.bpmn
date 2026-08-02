@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  id="Definitions_AustralianRollout" targetNamespace="https://foi-o.example/workflows">
+  <bpmn:process id="AustralianJurisdictionRollout" isExecutable="false">
+    <bpmn:startEvent id="Start" name="Bounded jurisdiction scope"/>
+    <bpmn:task id="Discover" name="Discover metadata"/>
+    <bpmn:task id="Select" name="Select bounded URLs"/>
+    <bpmn:exclusiveGateway id="ReplayGate" name="Replay authorized?"/>
+    <bpmn:userTask id="ReplayPacket" name="Generate replay approval packet"/>
+    <bpmn:task id="Replay" name="Replay with durable checkpoints"/>
+    <bpmn:task id="Reconcile" name="Reconcile failures"/>
+    <bpmn:task id="Classify" name="Classify metadata then text"/>
+    <bpmn:task id="Validate" name="Validate artifacts"/>
+    <bpmn:exclusiveGateway id="ManifestGate" name="Manifest finalization authorized?"/>
+    <bpmn:userTask id="ManifestPacket" name="Generate manifest approval packet"/>
+    <bpmn:task id="Manifest" name="Finalize immutable manifest"/>
+    <bpmn:exclusiveGateway id="FrameGate" name="Empirical frame authorized?"/>
+    <bpmn:userTask id="FramePacket" name="Generate empirical-frame approval packet"/>
+    <bpmn:task id="FrameSample" name="Build frame and sample"/>
+    <bpmn:task id="Calibrate" name="Run calibration"/>
+    <bpmn:exclusiveGateway id="AnnotationGate" name="Calibration and annotation gates pass?"/>
+    <bpmn:task id="Remediate" name="Remediate codebook or evidence"/>
+    <bpmn:task id="Annotate" name="Annotate and adjudicate"/>
+    <bpmn:task id="Evaluate" name="Evaluate reliability and extractor"/>
+    <bpmn:exclusiveGateway id="MaturityGate" name="Maturity review authorized?"/>
+    <bpmn:userTask id="MaturityPacket" name="Generate maturity packet"/>
+    <bpmn:userTask id="Maturity" name="Record bounded maturity decision"/>
+    <bpmn:endEvent id="End" name="Jurisdiction evidence packet complete"/>
+
+    <bpmn:sequenceFlow id="f1" sourceRef="Start" targetRef="Discover"/>
+    <bpmn:sequenceFlow id="f2" sourceRef="Discover" targetRef="Select"/>
+    <bpmn:sequenceFlow id="f3" sourceRef="Select" targetRef="ReplayGate"/>
+    <bpmn:sequenceFlow id="f4_yes" name="yes" sourceRef="ReplayGate" targetRef="Replay">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">authorized</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f4_no" name="no" sourceRef="ReplayGate" targetRef="ReplayPacket">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">not authorized</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f4_loop" sourceRef="ReplayPacket" targetRef="ReplayGate"/>
+    <bpmn:sequenceFlow id="f5" sourceRef="Replay" targetRef="Reconcile"/>
+    <bpmn:sequenceFlow id="f6" sourceRef="Reconcile" targetRef="Classify"/>
+    <bpmn:sequenceFlow id="f7" sourceRef="Classify" targetRef="Validate"/>
+    <bpmn:sequenceFlow id="f8" sourceRef="Validate" targetRef="ManifestGate"/>
+    <bpmn:sequenceFlow id="f9_yes" name="yes" sourceRef="ManifestGate" targetRef="Manifest">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">authorized</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f9_no" name="no" sourceRef="ManifestGate" targetRef="ManifestPacket">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">not authorized</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f9_loop" sourceRef="ManifestPacket" targetRef="ManifestGate"/>
+    <bpmn:sequenceFlow id="f10" sourceRef="Manifest" targetRef="FrameGate"/>
+    <bpmn:sequenceFlow id="f11_yes" name="yes" sourceRef="FrameGate" targetRef="FrameSample">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">authorized</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f11_no" name="no" sourceRef="FrameGate" targetRef="FramePacket">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">not authorized</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f11_loop" sourceRef="FramePacket" targetRef="FrameGate"/>
+    <bpmn:sequenceFlow id="f12" sourceRef="FrameSample" targetRef="Calibrate"/>
+    <bpmn:sequenceFlow id="f13" sourceRef="Calibrate" targetRef="AnnotationGate"/>
+    <bpmn:sequenceFlow id="f14_yes" name="yes" sourceRef="AnnotationGate" targetRef="Annotate">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">all gates pass</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f14_no" name="no" sourceRef="AnnotationGate" targetRef="Remediate">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">gate failure</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f14_loop" sourceRef="Remediate" targetRef="Calibrate"/>
+    <bpmn:sequenceFlow id="f15" sourceRef="Annotate" targetRef="Evaluate"/>
+    <bpmn:sequenceFlow id="f16" sourceRef="Evaluate" targetRef="MaturityGate"/>
+    <bpmn:sequenceFlow id="f17_yes" name="yes" sourceRef="MaturityGate" targetRef="Maturity">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">authorized</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f17_no" name="no" sourceRef="MaturityGate" targetRef="MaturityPacket">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">not authorized</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="f17_loop" sourceRef="MaturityPacket" targetRef="MaturityGate"/>
+    <bpmn:sequenceFlow id="f18" sourceRef="Maturity" targetRef="End"/>
+  </bpmn:process>
+</bpmn:definitions>

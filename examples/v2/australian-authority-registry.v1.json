@@ -1,0 +1,179 @@
+{
+  "schema_version": "foi-o.australian-authority-registry.v1",
+  "registry_id": "foi-o-australian-authorities",
+  "version": "1.0.0",
+  "canonicalization": "json-sort-keys-compact-utf8-v1",
+  "profiles": [
+    {
+      "jurisdiction": "AU-CTH",
+      "profile_id": "foi-o-au-cth",
+      "regime_id": "au-cth-foi",
+      "effective_interval": {"start": "1982-12-01", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-cth", "sha256": "1111111111111111111111111111111111111111111111111111111111111111"}
+    },
+    {
+      "jurisdiction": "AU-NSW",
+      "profile_id": "foi-o-au-nsw",
+      "regime_id": "au-nsw-gipa",
+      "effective_interval": {"start": "2009-07-01", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-nsw", "sha256": "2222222222222222222222222222222222222222222222222222222222222222"}
+    },
+    {
+      "jurisdiction": "AU-VIC",
+      "profile_id": "foi-o-au-vic",
+      "regime_id": "au-vic-foi",
+      "effective_interval": {"start": "1983-07-05", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-vic", "sha256": "3333333333333333333333333333333333333333333333333333333333333333"}
+    },
+    {
+      "jurisdiction": "AU-QLD",
+      "profile_id": "foi-o-au-qld",
+      "regime_id": "au-qld-rti",
+      "effective_interval": {"start": "2009-07-01", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-qld", "sha256": "4444444444444444444444444444444444444444444444444444444444444444"}
+    },
+    {
+      "jurisdiction": "AU-SA",
+      "profile_id": "foi-o-au-sa",
+      "regime_id": "au-sa-foi",
+      "effective_interval": {"start": "1992-01-01", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-sa", "sha256": "5555555555555555555555555555555555555555555555555555555555555555"}
+    },
+    {
+      "jurisdiction": "AU-WA",
+      "profile_id": "foi-o-au-wa",
+      "regime_id": "au-wa-foi",
+      "effective_interval": {"start": "1993-11-01", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-wa", "sha256": "6666666666666666666666666666666666666666666666666666666666666666"}
+    },
+    {
+      "jurisdiction": "AU-TAS",
+      "profile_id": "foi-o-au-tas",
+      "regime_id": "au-tas-rti",
+      "effective_interval": {"start": "2009-12-07", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-tas", "sha256": "7777777777777777777777777777777777777777777777777777777777777777"}
+    },
+    {
+      "jurisdiction": "AU-ACT",
+      "profile_id": "foi-o-au-act",
+      "regime_id": "au-act-foi",
+      "effective_interval": {"start": "1989-05-11", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-act", "sha256": "8888888888888888888888888888888888888888888888888888888888888888"}
+    },
+    {
+      "jurisdiction": "AU-NT",
+      "profile_id": "foi-o-au-nt",
+      "regime_id": "au-nt-information",
+      "effective_interval": {"start": "2003-07-01", "end": null},
+      "source_pin": {"artifact_id": "fixture:profile:au-nt", "sha256": "9999999999999999999999999999999999999999999999999999999999999999"}
+    }
+  ],
+  "authorities": [
+    {
+      "authority_id": "au-cth:fixture-authority",
+      "canonical_name": "Fixture Commonwealth Authority",
+      "jurisdiction": "AU-CTH",
+      "profile_id": "foi-o-au-cth",
+      "regime_id": "au-cth-foi",
+      "effective_interval": {"start": "1982-12-01", "end": null},
+      "aliases": [{"value": "Commonwealth Fixture Agency", "effective_interval": {"start": "1982-12-01", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-cth", "sha256": "1111111111111111111111111111111111111111111111111111111111111111"}}],
+      "tag_history": [{"value": "jurisdiction:cth", "effective_interval": {"start": "1982-12-01", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-cth", "sha256": "1111111111111111111111111111111111111111111111111111111111111111"}}],
+      "source_pin": {"artifact_id": "fixture:authority:au-cth", "sha256": "1111111111111111111111111111111111111111111111111111111111111111"}
+    },
+    {
+      "authority_id": "au-nsw:fixture-authority",
+      "canonical_name": "Fixture New South Wales Authority",
+      "jurisdiction": "AU-NSW",
+      "profile_id": "foi-o-au-nsw",
+      "regime_id": "au-nsw-gipa",
+      "effective_interval": {"start": "2009-07-01", "end": null},
+      "aliases": [{"value": "NSW Fixture Agency", "effective_interval": {"start": "2009-07-01", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-nsw", "sha256": "2222222222222222222222222222222222222222222222222222222222222222"}}],
+      "tag_history": [{"value": "jurisdiction:nsw", "effective_interval": {"start": "2009-07-01", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-nsw", "sha256": "2222222222222222222222222222222222222222222222222222222222222222"}}],
+      "source_pin": {"artifact_id": "fixture:authority:au-nsw", "sha256": "2222222222222222222222222222222222222222222222222222222222222222"}
+    },
+    {
+      "authority_id": "au-vic:fixture-authority",
+      "canonical_name": "Fixture Victoria Authority",
+      "jurisdiction": "AU-VIC",
+      "profile_id": "foi-o-au-vic",
+      "regime_id": "au-vic-foi",
+      "effective_interval": {"start": "1983-07-05", "end": null},
+      "aliases": [{"value": "Victorian Fixture Agency", "effective_interval": {"start": "1983-07-05", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-vic", "sha256": "3333333333333333333333333333333333333333333333333333333333333333"}}],
+      "tag_history": [{"value": "jurisdiction:vic", "effective_interval": {"start": "1983-07-05", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-vic", "sha256": "3333333333333333333333333333333333333333333333333333333333333333"}}],
+      "source_pin": {"artifact_id": "fixture:authority:au-vic", "sha256": "3333333333333333333333333333333333333333333333333333333333333333"}
+    },
+    {
+      "authority_id": "au-qld:fixture-authority",
+      "canonical_name": "Fixture Queensland Authority",
+      "jurisdiction": "AU-QLD",
+      "profile_id": "foi-o-au-qld",
+      "regime_id": "au-qld-rti",
+      "effective_interval": {"start": "2009-07-01", "end": null},
+      "aliases": [{"value": "Queensland Fixture Agency", "effective_interval": {"start": "2009-07-01", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-qld", "sha256": "4444444444444444444444444444444444444444444444444444444444444444"}}],
+      "tag_history": [{"value": "jurisdiction:qld", "effective_interval": {"start": "2009-07-01", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-qld", "sha256": "4444444444444444444444444444444444444444444444444444444444444444"}}],
+      "source_pin": {"artifact_id": "fixture:authority:au-qld", "sha256": "4444444444444444444444444444444444444444444444444444444444444444"}
+    },
+    {
+      "authority_id": "au-sa:fixture-authority",
+      "canonical_name": "Fixture South Australia Authority",
+      "jurisdiction": "AU-SA",
+      "profile_id": "foi-o-au-sa",
+      "regime_id": "au-sa-foi",
+      "effective_interval": {"start": "1992-01-01", "end": null},
+      "aliases": [{"value": "South Australian Fixture Agency", "effective_interval": {"start": "1992-01-01", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-sa", "sha256": "5555555555555555555555555555555555555555555555555555555555555555"}}],
+      "tag_history": [{"value": "jurisdiction:sa", "effective_interval": {"start": "1992-01-01", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-sa", "sha256": "5555555555555555555555555555555555555555555555555555555555555555"}}],
+      "source_pin": {"artifact_id": "fixture:authority:au-sa", "sha256": "5555555555555555555555555555555555555555555555555555555555555555"}
+    },
+    {
+      "authority_id": "au-wa:fixture-authority",
+      "canonical_name": "Fixture Western Australia Authority",
+      "jurisdiction": "AU-WA",
+      "profile_id": "foi-o-au-wa",
+      "regime_id": "au-wa-foi",
+      "effective_interval": {"start": "1993-11-01", "end": null},
+      "aliases": [{"value": "WA Fixture Agency", "effective_interval": {"start": "1993-11-01", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-wa", "sha256": "6666666666666666666666666666666666666666666666666666666666666666"}}],
+      "tag_history": [
+        {"value": "jurisdiction:wa", "effective_interval": {"start": "1993-11-01", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-wa", "sha256": "6666666666666666666666666666666666666666666666666666666666666666"}},
+        {"value": "jurisdiction:wa-act-ambiguous", "effective_interval": {"start": "1993-11-01", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-wa-act", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}
+      ],
+      "source_pin": {"artifact_id": "fixture:authority:au-wa", "sha256": "6666666666666666666666666666666666666666666666666666666666666666"}
+    },
+    {
+      "authority_id": "au-tas:fixture-authority",
+      "canonical_name": "Fixture Tasmania Authority",
+      "jurisdiction": "AU-TAS",
+      "profile_id": "foi-o-au-tas",
+      "regime_id": "au-tas-rti",
+      "effective_interval": {"start": "2009-12-07", "end": null},
+      "aliases": [{"value": "Tasmanian Fixture Agency", "effective_interval": {"start": "2009-12-07", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-tas", "sha256": "7777777777777777777777777777777777777777777777777777777777777777"}}],
+      "tag_history": [{"value": "jurisdiction:tas", "effective_interval": {"start": "2009-12-07", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-tas", "sha256": "7777777777777777777777777777777777777777777777777777777777777777"}}],
+      "source_pin": {"artifact_id": "fixture:authority:au-tas", "sha256": "7777777777777777777777777777777777777777777777777777777777777777"}
+    },
+    {
+      "authority_id": "au-act:fixture-authority",
+      "canonical_name": "Fixture Australian Capital Territory Authority",
+      "jurisdiction": "AU-ACT",
+      "profile_id": "foi-o-au-act",
+      "regime_id": "au-act-foi",
+      "effective_interval": {"start": "1989-05-11", "end": null},
+      "aliases": [{"value": "ACT Fixture Agency", "effective_interval": {"start": "1989-05-11", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-act", "sha256": "8888888888888888888888888888888888888888888888888888888888888888"}}],
+      "tag_history": [
+        {"value": "jurisdiction:act", "effective_interval": {"start": "1989-05-11", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-act", "sha256": "8888888888888888888888888888888888888888888888888888888888888888"}},
+        {"value": "jurisdiction:wa-act-ambiguous", "effective_interval": {"start": "1993-11-01", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-wa-act", "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}
+      ],
+      "source_pin": {"artifact_id": "fixture:authority:au-act", "sha256": "8888888888888888888888888888888888888888888888888888888888888888"}
+    },
+    {
+      "authority_id": "au-nt:fixture-authority",
+      "canonical_name": "Fixture Northern Territory Authority",
+      "jurisdiction": "AU-NT",
+      "profile_id": "foi-o-au-nt",
+      "regime_id": "au-nt-information",
+      "effective_interval": {"start": "2003-07-01", "end": null},
+      "aliases": [{"value": "NT Fixture Agency", "effective_interval": {"start": "2003-07-01", "end": null}, "source_pin": {"artifact_id": "fixture:alias:au-nt", "sha256": "9999999999999999999999999999999999999999999999999999999999999999"}}],
+      "tag_history": [{"value": "jurisdiction:nt", "effective_interval": {"start": "2003-07-01", "end": null}, "source_pin": {"artifact_id": "fixture:tag:au-nt", "sha256": "9999999999999999999999999999999999999999999999999999999999999999"}}],
+      "source_pin": {"artifact_id": "fixture:authority:au-nt", "sha256": "9999999999999999999999999999999999999999999999999999999999999999"}
+    }
+  ],
+  "self_sha256": "2709b90abdad94cebbb772cda3e3b0ca843f14067f6d605055cbcaf7eeba0565"
+}

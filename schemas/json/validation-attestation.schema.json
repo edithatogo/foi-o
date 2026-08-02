@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schema/validation-attestation/1.0.0",
+  "title": "FOI-O validation attestation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "attestation_id",
+    "validator",
+    "validated_envelope_sha256",
+    "checks",
+    "valid",
+    "limitations",
+    "attestation_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "foio.validation-attestation.v1.0.0"},
+    "attestation_id": {"type": "string", "minLength": 1},
+    "validator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["implementation", "revision", "independent_oracle"],
+      "properties": {
+        "implementation": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "independent_oracle": {"type": "boolean"}
+      }
+    },
+    "validated_envelope_sha256": {"$ref": "#/$defs/sha256"},
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "passed"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "passed": {"type": "boolean"},
+          "detail": {"type": "string"}
+        }
+      }
+    },
+    "valid": {"type": "boolean"},
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "attestation_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"valid": {"const": true}}, "required": ["valid"]},
+      "then": {
+        "properties": {
+          "validator": {
+            "properties": {"independent_oracle": {"const": true}},
+            "required": ["independent_oracle"]
+          },
+          "checks": {
+            "items": {
+              "properties": {"passed": {"const": true}},
+              "required": ["passed"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "validator": {
+            "properties": {"independent_oracle": {"const": true}},
+            "required": ["independent_oracle"]
+          },
+          "checks": {
+            "items": {
+              "properties": {"passed": {"const": true}},
+              "required": ["passed"]
+            }
+          }
+        },
+        "required": ["validator", "checks"]
+      },
+      "then": {"properties": {"valid": {"const": true}}, "required": ["valid"]}
+    }
+  ],
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

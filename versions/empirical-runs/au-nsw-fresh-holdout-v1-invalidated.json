@@ -1,0 +1,71 @@
+{
+  "schema_version": "foio.australian-empirical-run-spec.v1.0.0",
+  "run_id": "run:au-nsw-fresh-holdout-v1",
+  "jurisdiction": "AU-NSW",
+  "profile_id": "foi-o-au-nsw",
+  "assessment_status": "invalidated",
+  "lifecycle_disposition": "invalidated",
+  "canonicalization": "foio.sorted-compact-json.v1",
+  "evidence_sources": [
+    {
+      "artifact_id": "evidence:au-nsw-fresh-holdout-v1-invalidated",
+      "path": "docs/70-au-nsw-fresh-holdout-candidate-maturity-decision-2026-07-27.md",
+      "sha256": "d6085aac1f2f563fd9864fd90aa6861ffb94b76e8b283cd0df207e4de9f581ef",
+      "size_bytes": 1492,
+      "git_commit": "d69d624577eb3534f59072245012390a4cbb034a"
+    }
+  ],
+  "referenced_artifacts": [
+    {
+      "artifact_id": "annotation-report:au-nsw-fresh-holdout-v1",
+      "sha256": "83dfd246d5e51fcb6a05decfb5fd72ac66ca77ede2a16fb59146bcab5c660683",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "d6085aac1f2f563fd9864fd90aa6861ffb94b76e8b283cd0df207e4de9f581ef"
+    },
+    {
+      "artifact_id": "reliability:au-nsw-fresh-holdout-v1",
+      "sha256": "3a63a044e7b54c73ef76d6dd877b9dd06965d215cb7e130d0d20323341889ca3",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "d6085aac1f2f563fd9864fd90aa6861ffb94b76e8b283cd0df207e4de9f581ef"
+    }
+  ],
+  "producer_provenance": {
+    "status": "opaque",
+    "reason": "The committed invalidation packet identifies the defective artifacts but does not pin a complete producing occurrence.",
+    "evidence_source_sha256": "d6085aac1f2f563fd9864fd90aa6861ffb94b76e8b283cd0df207e4de9f581ef"
+  },
+  "stages": [
+    {
+      "stage_id": "stage:au-nsw-fresh-holdout-v1-reliability",
+      "sequence": 1,
+      "stage_kind": "reliability",
+      "input_sha256": [
+        "83dfd246d5e51fcb6a05decfb5fd72ac66ca77ede2a16fb59146bcab5c660683"
+      ],
+      "output_sha256": [
+        "3a63a044e7b54c73ef76d6dd877b9dd06965d215cb7e130d0d20323341889ca3"
+      ],
+      "population": {
+        "population_id": "population:au-nsw-fresh-holdout-v1",
+        "population_sha256": "2acdb55b8679a060175eaca7c2183e90e59a557fb53fc992df45c965275f8d91",
+        "predecessor": 15,
+        "included": 15,
+        "excluded": 0,
+        "unresolved": 0
+      },
+      "allowed_capabilities": ["reliability.preserve_invalidated"],
+      "denied_capabilities": [
+        "extractor.evaluate",
+        "gold.promote",
+        "maturity.decide",
+        "profile.promote",
+        "publication.release"
+      ]
+    }
+  ],
+  "relationships": {
+    "supersedes": [],
+    "invalidates": []
+  },
+  "run_spec_sha256": "09e3b59eeba8011cb996705a3544440c64737b69003c11e6e42626350091fa6f"
+}

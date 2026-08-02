@@ -1,0 +1,32 @@
+{
+  "schema_version": "foi-o.australian-codebook-overlay.v1",
+  "overlay_id": "foio-au-nsw-request-assertion-overlay",
+  "version": "1.0.0",
+  "core": {
+    "core_id": "foio-australian-request-assertion-core",
+    "version": "1.0.0",
+    "sha256": "3ff63320584c931f923439e8ca301c9b0e64d35bd237b64da9a3a414912367dc"
+  },
+  "jurisdiction": "AU-NSW",
+  "profile": {"profile_id": "foi-o-au-nsw", "version": "0.2.1", "jurisdiction": "AU-NSW"},
+  "regime": {"regime_id": "au-nsw-gipa", "name": "NSW Government Information (Public Access)", "jurisdiction": "AU-NSW"},
+  "effective_interval": {"start": "2010-07-01", "end": null},
+  "pins": {
+    "source_pack": {"artifact_id": "au-nsw-immutable-empirical-frame", "sha256": "37af88495c8896e83028b4692a10f18f2dd5a5e4dcad6b6140f40312f64d4000"},
+    "ontology": {"artifact_id": "foio-au-nsw-pilot-assertion-v0.2.1", "sha256": "56c33dd1d681841b5512aa75dc859fa6febb1da687d2b74d9193b40230ebe1c6"}
+  },
+  "assertions": [
+    {
+      "id": "au_nsw_gipa_matter",
+      "jurisdiction": "AU-NSW",
+      "statement": "The authorized source record concerns a New South Wales GIPA matter.",
+      "positive_criteria": ["Captured text explicitly names the GIPA Act or Government Information (Public Access)."],
+      "negative_criteria": ["Do not infer the assertion from an NSW agency name, location, or page layout."]
+    }
+  ],
+  "overrides": {
+    "span_policy": {"maximum_span_characters": 400},
+    "terminology": {"governing_act": "Government Information (Public Access) Act 2009"},
+    "calibration_examples": []
+  }
+}

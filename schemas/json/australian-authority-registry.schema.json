@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:australian-authority-registry:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "registry_id",
+    "version",
+    "canonicalization",
+    "profiles",
+    "authorities",
+    "self_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.australian-authority-registry.v1"},
+    "registry_id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$"},
+    "canonicalization": {"const": "json-sort-keys-compact-utf8-v1"},
+    "profiles": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": {"$ref": "#/$defs/profile"}
+    },
+    "authorities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/authority"}
+    },
+    "self_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "sha256"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": {"type": "string", "format": "date"},
+        "end": {
+          "oneOf": [
+            {"type": "string", "format": "date"},
+            {"type": "null"}
+          ]
+        }
+      }
+    },
+    "identity": {
+      "oneOf": [
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-CTH"},
+            "profile_id": {"const": "foi-o-au-cth"},
+            "regime_id": {"const": "au-cth-foi"}
+          }
+        },
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-NSW"},
+            "profile_id": {"const": "foi-o-au-nsw"},
+            "regime_id": {"const": "au-nsw-gipa"}
+          }
+        },
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-VIC"},
+            "profile_id": {"const": "foi-o-au-vic"},
+            "regime_id": {"const": "au-vic-foi"}
+          }
+        },
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-QLD"},
+            "profile_id": {"const": "foi-o-au-qld"},
+            "regime_id": {"const": "au-qld-rti"}
+          }
+        },
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-SA"},
+            "profile_id": {"const": "foi-o-au-sa"},
+            "regime_id": {"const": "au-sa-foi"}
+          }
+        },
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-WA"},
+            "profile_id": {"const": "foi-o-au-wa"},
+            "regime_id": {"const": "au-wa-foi"}
+          }
+        },
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-TAS"},
+            "profile_id": {"const": "foi-o-au-tas"},
+            "regime_id": {"const": "au-tas-rti"}
+          }
+        },
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-ACT"},
+            "profile_id": {"const": "foi-o-au-act"},
+            "regime_id": {"const": "au-act-foi"}
+          }
+        },
+        {
+          "properties": {
+            "jurisdiction": {"const": "AU-NT"},
+            "profile_id": {"const": "foi-o-au-nt"},
+            "regime_id": {"const": "au-nt-information"}
+          }
+        }
+      ]
+    },
+    "profile": {
+      "type": "object",
+      "allOf": [{"$ref": "#/$defs/identity"}],
+      "additionalProperties": false,
+      "required": [
+        "jurisdiction",
+        "profile_id",
+        "regime_id",
+        "effective_interval",
+        "source_pin"
+      ],
+      "properties": {
+        "jurisdiction": {
+          "enum": [
+            "AU-CTH",
+            "AU-NSW",
+            "AU-VIC",
+            "AU-QLD",
+            "AU-SA",
+            "AU-WA",
+            "AU-TAS",
+            "AU-ACT",
+            "AU-NT"
+          ]
+        },
+        "profile_id": {"type": "string", "pattern": "^foi-o-au-[a-z]+$"},
+        "regime_id": {"type": "string", "minLength": 1},
+        "effective_interval": {"$ref": "#/$defs/interval"},
+        "source_pin": {"$ref": "#/$defs/pin"}
+      }
+    },
+    "history": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "effective_interval", "source_pin"],
+      "properties": {
+        "value": {"type": "string", "minLength": 1},
+        "effective_interval": {"$ref": "#/$defs/interval"},
+        "source_pin": {"$ref": "#/$defs/pin"}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "allOf": [{"$ref": "#/$defs/identity"}],
+      "additionalProperties": false,
+      "required": [
+        "authority_id",
+        "canonical_name",
+        "jurisdiction",
+        "profile_id",
+        "regime_id",
+        "effective_interval",
+        "aliases",
+        "tag_history",
+        "source_pin"
+      ],
+      "properties": {
+        "authority_id": {"type": "string", "pattern": "^au-[a-z]+:[a-z0-9-]+$"},
+        "canonical_name": {"type": "string", "minLength": 1},
+        "jurisdiction": {
+          "enum": [
+            "AU-CTH",
+            "AU-NSW",
+            "AU-VIC",
+            "AU-QLD",
+            "AU-SA",
+            "AU-WA",
+            "AU-TAS",
+            "AU-ACT",
+            "AU-NT"
+          ]
+        },
+        "profile_id": {"type": "string", "pattern": "^foi-o-au-[a-z]+$"},
+        "regime_id": {"type": "string", "minLength": 1},
+        "effective_interval": {"$ref": "#/$defs/interval"},
+        "aliases": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/history"}
+        },
+        "tag_history": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/history"}
+        },
+        "source_pin": {"$ref": "#/$defs/pin"}
+      }
+    }
+  }
+}

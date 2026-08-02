@@ -1,0 +1,8 @@
+{
+  "base_example": "australian-rollout-pipeline.positive.json",
+  "mutation": {
+    "kind": "activate_stage",
+    "stage": "replay"
+  },
+  "expected_error": "activates without external authorization"
+}

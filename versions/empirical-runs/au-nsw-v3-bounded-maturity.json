@@ -1,0 +1,97 @@
+{
+  "schema_version": "foio.australian-empirical-run-spec.v1.0.0",
+  "run_id": "run:au-nsw-v3-bounded-maturity",
+  "jurisdiction": "AU-NSW",
+  "profile_id": "foi-o-au-nsw",
+  "assessment_status": "active",
+  "lifecycle_disposition": "opaque_producer",
+  "canonicalization": "foio.sorted-compact-json.v1",
+  "evidence_sources": [
+    {
+      "artifact_id": "evidence:au-nsw-v3-maturity-decision",
+      "path": "examples/v2/au-nsw-maturity-decision.approved.json",
+      "sha256": "996d26686aa5f8b7e4d92d8c4fcf75cc2d0ad8fef65ca9bde47e5b80cb9b67f8",
+      "size_bytes": 1381,
+      "git_commit": "d69d624577eb3534f59072245012390a4cbb034a"
+    }
+  ],
+  "referenced_artifacts": [
+    {
+      "artifact_id": "annotation-report:au-nsw-v3",
+      "sha256": "c783713789b33cdd3eb25e4cd5b374f0c609fb63c6b4728bf0cf933eed54dd82",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "996d26686aa5f8b7e4d92d8c4fcf75cc2d0ad8fef65ca9bde47e5b80cb9b67f8"
+    },
+    {
+      "artifact_id": "reliability:au-nsw-v3",
+      "sha256": "dfa2737ce95a18afd76dd2d286ec3881532a306ad7cdda55b245bf42ea3a4d91",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "996d26686aa5f8b7e4d92d8c4fcf75cc2d0ad8fef65ca9bde47e5b80cb9b67f8"
+    },
+    {
+      "artifact_id": "extractor-metrics:au-nsw-v3",
+      "sha256": "eb80191aecbcd6888d65d03821cb88f5c0e69b2dcf02b356155a9e68c6118374",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "996d26686aa5f8b7e4d92d8c4fcf75cc2d0ad8fef65ca9bde47e5b80cb9b67f8"
+    },
+    {
+      "artifact_id": "codebook:foio-au-nsw-pilot-assertion-v0.2.1",
+      "sha256": "56c33dd1d681841b5512aa75dc859fa6febb1da687d2b74d9193b40230ebe1c6",
+      "availability": "committed",
+      "evidence_source_sha256": "996d26686aa5f8b7e4d92d8c4fcf75cc2d0ad8fef65ca9bde47e5b80cb9b67f8"
+    }
+  ],
+  "producer_provenance": {
+    "status": "opaque",
+    "reason": "The committed maturity decision pins the bounded evidence but does not pin the complete producing command, implementation, dependency lock, and occurrence.",
+    "evidence_source_sha256": "996d26686aa5f8b7e4d92d8c4fcf75cc2d0ad8fef65ca9bde47e5b80cb9b67f8"
+  },
+  "stages": [
+    {
+      "stage_id": "stage:au-nsw-v3-bounded-maturity",
+      "sequence": 1,
+      "stage_kind": "maturity",
+      "input_sha256": [
+        "c783713789b33cdd3eb25e4cd5b374f0c609fb63c6b4728bf0cf933eed54dd82",
+        "dfa2737ce95a18afd76dd2d286ec3881532a306ad7cdda55b245bf42ea3a4d91",
+        "eb80191aecbcd6888d65d03821cb88f5c0e69b2dcf02b356155a9e68c6118374",
+        "56c33dd1d681841b5512aa75dc859fa6febb1da687d2b74d9193b40230ebe1c6"
+      ],
+      "output_sha256": [
+        "996d26686aa5f8b7e4d92d8c4fcf75cc2d0ad8fef65ca9bde47e5b80cb9b67f8"
+      ],
+      "population": {
+        "population_id": "population:au-nsw-v3-holdout",
+        "population_sha256": "2acdb55b8679a060175eaca7c2183e90e59a557fb53fc992df45c965275f8d91",
+        "predecessor": 15,
+        "included": 15,
+        "excluded": 0,
+        "unresolved": 0
+      },
+      "allowed_capabilities": ["maturity.describe_bounded"],
+      "denied_capabilities": [
+        "gold.promote",
+        "legal.certify",
+        "population.infer",
+        "publication.release",
+        "training.use"
+      ]
+    }
+  ],
+  "legacy_interpretation": {
+    "source_codebook_sha256": "56c33dd1d681841b5512aa75dc859fa6febb1da687d2b74d9193b40230ebe1c6",
+    "unknown_label": "unknown",
+    "normalized_label": null,
+    "abstention_reason": "insufficient_evidence",
+    "preserves_original_bytes": true,
+    "preserves_original_value": true
+  },
+  "relationships": {
+    "supersedes": [
+      "run:au-nsw-fresh-holdout-v1",
+      "run:au-nsw-paired-reliability-v1"
+    ],
+    "invalidates": []
+  },
+  "run_spec_sha256": "bd348d530cb1167ab0e9da74051c769ec1b78115ebcf9aff70b3d8eba14ce667"
+}

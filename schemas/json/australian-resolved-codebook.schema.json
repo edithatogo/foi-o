@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:australian-resolved-codebook:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "canonicalization",
+    "core",
+    "overlay",
+    "jurisdiction",
+    "profile",
+    "regime",
+    "effective_interval",
+    "pins",
+    "label_semantics",
+    "evidence_boundaries",
+    "span_policy",
+    "abstention_semantics",
+    "serialization",
+    "adjudication_trigger",
+    "terminology",
+    "calibration_examples",
+    "assertions",
+    "self_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.australian-resolved-codebook.v1"},
+    "canonicalization": {"const": "json-sort-keys-compact-utf8-v1"},
+    "core": {"$ref": "#/$defs/component"},
+    "overlay": {"$ref": "#/$defs/component"},
+    "jurisdiction": {"type": "string", "pattern": "^AU-"},
+    "profile": {"type": "object"},
+    "regime": {"type": "object"},
+    "effective_interval": {"type": "object"},
+    "pins": {"type": "object"},
+    "label_semantics": {"type": "array", "minItems": 1},
+    "evidence_boundaries": {"type": "object"},
+    "span_policy": {"type": "object"},
+    "abstention_semantics": {"type": "object"},
+    "serialization": {"type": "object"},
+    "legacy_compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_codebook", "label_mapping"],
+      "properties": {
+        "source_codebook": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["artifact_id", "sha256"],
+          "properties": {
+            "artifact_id": {"type": "string", "minLength": 1},
+            "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          }
+        },
+        "label_mapping": {
+          "const": {
+            "unknown": {
+              "primary_label": null,
+              "abstention_reason": "insufficient_evidence"
+            }
+          }
+        }
+      }
+    },
+    "adjudication_trigger": {"type": "string"},
+    "terminology": {"type": "object"},
+    "calibration_examples": {"type": "array"},
+    "assertions": {"type": "array", "minItems": 1},
+    "self_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "sha256"],
+      "properties": {
+        "core_id": {"type": "string"},
+        "overlay_id": {"type": "string"},
+        "version": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      },
+      "oneOf": [
+        {"required": ["core_id"], "not": {"required": ["overlay_id"]}},
+        {"required": ["overlay_id"], "not": {"required": ["core_id"]}}
+      ]
+    }
+  }
+}

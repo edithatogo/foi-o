@@ -1,0 +1,22 @@
+registry_id: foio.transformation-registry
+schema_version: foio.transformation-registry.v1.0.0
+canonicalization:
+  id: foio.sorted-compact-json.v1
+  implementation: python-stdlib-json
+  rules:
+    encoding: UTF-8
+    object_keys: lexicographic
+    whitespace: none
+    ensure_ascii: false
+    allow_nan: false
+    array_order: preserved
+  limitation: This is a FOI-O contract, not an RFC 8785 claim.
+transformations:
+  - id: foio.provenance-envelope
+    version: 1.0.0
+    stage: provenance
+    contract_schema: schemas/json/transformation-contract.schema.json
+    envelope_schema: schemas/json/provenance-envelope.schema.json
+    compatibility:
+      unknown_major_behavior: reject
+      legacy_artifacts: preserve_bytes_and_add_sidecars_only

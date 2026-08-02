@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://foi-o.example/schemas/australian-empirical-calibration-result.schema.json",
+  "title": "Empirical calibration result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "calibration_id",
+    "status",
+    "run_spec_sha256",
+    "membership_sha256",
+    "codebook_sha256",
+    "role_ids",
+    "calibrator_identity",
+    "external_approval",
+    "calibration_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "foio.empirical-calibration-result.v1.0.0"},
+    "calibration_id": {"type": "string", "minLength": 1},
+    "status": {"const": "passed"},
+    "run_spec_sha256": {"$ref": "#/$defs/sha256"},
+    "membership_sha256": {"$ref": "#/$defs/sha256"},
+    "codebook_sha256": {"$ref": "#/$defs/sha256"},
+    "role_ids": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "calibrator_identity": {"$ref": "#/$defs/identity"},
+    "external_approval": {"$ref": "#/$defs/externalApproval"},
+    "calibration_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["identity_id", "identity_kind"],
+      "properties": {
+        "identity_id": {"type": "string", "minLength": 1},
+        "identity_kind": {"enum": ["automated_calibration_harness", "external_human"]}
+      }
+    },
+    "externalApproval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_id",
+        "artifact_sha256",
+        "approved_context_sha256",
+        "approver_identity"
+      ],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "artifact_sha256": {"$ref": "#/$defs/sha256"},
+        "approved_context_sha256": {"$ref": "#/$defs/sha256"},
+        "approver_identity": {
+          "allOf": [
+            {"$ref": "#/$defs/identity"},
+            {"properties": {"identity_kind": {"const": "external_human"}}}
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:australian-codebook-core:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "core_id",
+    "version",
+    "canonicalization",
+    "task_type",
+    "label_semantics",
+    "evidence_boundaries",
+    "span_policy",
+    "abstention_semantics",
+    "serialization",
+    "adjudication_trigger",
+    "overlay_override_allowlist"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.australian-codebook-core.v1"},
+    "core_id": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$"},
+    "canonicalization": {"const": "json-sort-keys-compact-utf8-v1"},
+    "task_type": {"const": "request_linked_candidate_assertion"},
+    "label_semantics": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "definition"],
+        "properties": {
+          "id": {"enum": ["observed", "inferred", "candidate"]},
+          "definition": {"type": "string", "minLength": 10}
+        }
+      }
+    },
+    "evidence_boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed", "forbidden"],
+      "properties": {
+        "allowed": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "forbidden": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "span_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["coordinate_system", "required_for", "forbidden_for", "maximum_span_characters"],
+      "properties": {
+        "coordinate_system": {"const": "utf8_character_half_open"},
+        "required_for": {"const": ["observed", "inferred", "candidate"]},
+        "forbidden_for": {"const": ["abstention"]},
+        "maximum_span_characters": {"type": "integer", "minimum": 1}
+      }
+    },
+    "abstention_semantics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reasons", "rule"],
+      "properties": {
+        "reasons": {"const": ["missing_evidence", "insufficient_evidence", "out_of_scope", "other"]},
+        "rule": {"type": "string", "minLength": 10}
+      }
+    },
+    "serialization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["one_primary_label", "null_label_means", "abstention_reason_required_when_null"],
+      "properties": {
+        "one_primary_label": {"const": true},
+        "null_label_means": {"const": "abstention_only"},
+        "abstention_reason_required_when_null": {"const": true}
+      }
+    },
+    "legacy_compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_codebook", "label_mapping"],
+      "properties": {
+        "source_codebook": {"$ref": "#/$defs/pin"},
+        "label_mapping": {
+          "const": {
+            "unknown": {
+              "primary_label": null,
+              "abstention_reason": "insufficient_evidence"
+            }
+          }
+        }
+      }
+    },
+    "adjudication_trigger": {"const": "any_label_span_or_abstention_disagreement"},
+    "overlay_override_allowlist": {"const": ["calibration_examples", "span_policy", "terminology"]}
+  },
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_id", "sha256"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+      }
+    }
+  }
+}

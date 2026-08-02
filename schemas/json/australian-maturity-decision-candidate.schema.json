@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schema/australian-maturity-decision-candidate/1.0.0",
+  "title": "Pending Australian maturity decision candidate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "run_id",
+    "run_spec_sha256",
+    "membership_sha256",
+    "codebook_sha256",
+    "population_sha256",
+    "authorization_artifact_sha256",
+    "calibration_artifact_sha256",
+    "reliability_sha256",
+    "extractor_metrics_sha256",
+    "source_metrics",
+    "evidence_lifecycle",
+    "threshold_results",
+    "all_thresholds_satisfied",
+    "decision",
+    "decision_authorized",
+    "gold_promotion_authorized",
+    "profile_promotion_authorized",
+    "publication_authorized",
+    "redistribution_authorized",
+    "training_authorized",
+    "legal_certification_authorized",
+    "candidate_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "foio.australian-maturity-decision-candidate.v1.0.0"},
+    "status": {"const": "pending_human_decision"},
+    "run_id": {"type": "string", "pattern": "^run:au-[a-z0-9._:-]+$"},
+    "run_spec_sha256": {"$ref": "#/$defs/sha256"},
+    "membership_sha256": {"$ref": "#/$defs/sha256"},
+    "codebook_sha256": {"$ref": "#/$defs/sha256"},
+    "population_sha256": {"$ref": "#/$defs/sha256"},
+    "authorization_artifact_sha256": {"$ref": "#/$defs/sha256"},
+    "calibration_artifact_sha256": {"$ref": "#/$defs/sha256"},
+    "reliability_sha256": {"$ref": "#/$defs/sha256"},
+    "extractor_metrics_sha256": {"$ref": "#/$defs/sha256"},
+    "source_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reliability", "extractor_metrics"],
+      "properties": {
+        "reliability": {"type": "object"},
+        "extractor_metrics": {"type": "object"}
+      }
+    },
+    "evidence_lifecycle": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_sha256",
+          "disposition",
+          "superseded_by_sha256",
+          "reason"
+        ],
+        "properties": {
+          "artifact_sha256": {"$ref": "#/$defs/sha256"},
+          "disposition": {"enum": ["active", "superseded", "invalidated"]},
+          "superseded_by_sha256": {
+            "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+          },
+          "reason": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "threshold_results": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "threshold_id",
+          "artifact",
+          "metric_path",
+          "operator",
+          "value",
+          "observed",
+          "threshold_eligible",
+          "passed"
+        ],
+        "properties": {
+          "threshold_id": {"type": "string", "minLength": 1},
+          "artifact": {"enum": ["reliability", "extractor_metrics"]},
+          "metric_path": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_]*)+$"
+          },
+          "operator": {"enum": [">=", ">", "<=", "<", "=="]},
+          "value": {"type": "number"},
+          "observed": {"type": "number"},
+          "threshold_eligible": {"const": true},
+          "passed": {"type": "boolean"}
+        }
+      }
+    },
+    "all_thresholds_satisfied": {"type": "boolean"},
+    "decision": {"type": "null"},
+    "decision_authorized": {"const": false},
+    "gold_promotion_authorized": {"const": false},
+    "profile_promotion_authorized": {"const": false},
+    "publication_authorized": {"const": false},
+    "redistribution_authorized": {"const": false},
+    "training_authorized": {"const": false},
+    "legal_certification_authorized": {"const": false},
+    "candidate_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

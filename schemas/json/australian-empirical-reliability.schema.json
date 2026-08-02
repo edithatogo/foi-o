@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://w3id.org/foio/schema/australian-empirical-reliability/1.0.0",
+  "title": "Australian empirical descriptive reliability artifact",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "run_id", "run_spec_sha256", "membership_sha256",
+    "codebook_sha256", "population_sha256", "calibration_artifact_sha256",
+    "authorization_artifact_sha256", "calibration_sha256", "authorization_sha256",
+    "source_bundle_sha256", "annotation_lineage", "annotation_set_sha256", "agreement_rows", "unit_count",
+    "bootstrap", "raw_label_agreement", "cohen_kappa", "all_unit_exact_span_agreement",
+    "exact_span_agreement", "abstention_agreement", "threshold_satisfaction_authorized",
+    "gold_promotion_authorized", "profile_promotion_authorized", "publication_authorized",
+    "redistribution_authorized", "training_authorized", "reliability_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "foio.empirical-reliability.v1.0.0"},
+    "status": {"const": "computed_descriptive"},
+    "run_id": {"type": "string", "pattern": "^run:au-[a-z0-9._:-]+$"},
+    "run_spec_sha256": {"$ref": "#/$defs/sha256"},
+    "membership_sha256": {"$ref": "#/$defs/sha256"},
+    "codebook_sha256": {"$ref": "#/$defs/sha256"},
+    "population_sha256": {"$ref": "#/$defs/sha256"},
+    "calibration_artifact_sha256": {"$ref": "#/$defs/sha256"},
+    "authorization_artifact_sha256": {"$ref": "#/$defs/sha256"},
+    "calibration_sha256": {"$ref": "#/$defs/sha256"},
+    "authorization_sha256": {"$ref": "#/$defs/sha256"},
+    "source_bundle_sha256": {"$ref": "#/$defs/sha256"},
+    "annotation_lineage": {
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "items": {"$ref": "#/$defs/annotationLineage"}
+    },
+    "annotation_set_sha256": {
+      "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+      "items": {"$ref": "#/$defs/sha256"}
+    },
+    "agreement_rows": {
+      "type": "array", "minItems": 1,
+      "items": {"$ref": "#/$defs/agreementRow"}
+    },
+    "unit_count": {"type": "integer", "minimum": 1},
+    "bootstrap": {
+      "type": "object", "additionalProperties": false,
+      "required": ["seed", "replicates", "confidence", "unit", "cluster_count"],
+      "properties": {
+        "seed": {"type": "integer"},
+        "replicates": {"type": "integer", "minimum": 1},
+        "confidence": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1},
+        "unit": {"enum": ["singleton", "duplicate_cluster"]},
+        "cluster_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "raw_label_agreement": {"$ref": "#/$defs/rateWithCi"},
+    "cohen_kappa": {
+      "type": "object", "additionalProperties": false,
+      "required": ["estimate", "ci", "undefined_reason", "bootstrap_replicates_valid", "bootstrap_replicates_undefined"],
+      "properties": {
+        "estimate": {"type": ["number", "null"], "minimum": -1, "maximum": 1},
+        "ci": {"$ref": "#/$defs/nullableCi"},
+        "undefined_reason": {"type": ["string", "null"]},
+        "bootstrap_replicates_valid": {"type": "integer", "minimum": 0},
+        "bootstrap_replicates_undefined": {"type": "integer", "minimum": 0}
+      }
+    },
+    "all_unit_exact_span_agreement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["numerator", "denominator", "estimate", "ci", "eligibility", "threshold_eligible"],
+      "properties": {
+        "numerator": {"type": "integer", "minimum": 0},
+        "denominator": {"type": "integer", "minimum": 1},
+        "estimate": {"type": "number", "minimum": 0, "maximum": 1},
+        "ci": {"$ref": "#/$defs/nullableCi"},
+        "eligibility": {"const": "all_units_including_abstentions"},
+        "threshold_eligible": {"const": false}
+      }
+    },
+    "exact_span_agreement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["numerator", "denominator", "estimate", "ci", "eligibility", "threshold_eligible", "bootstrap_replicates_valid", "bootstrap_replicates_undefined"],
+      "properties": {
+        "numerator": {"type": "integer", "minimum": 0},
+        "denominator": {"type": "integer", "minimum": 0},
+        "estimate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+        "ci": {"$ref": "#/$defs/nullableCi"},
+        "eligibility": {"const": "matching_non_null_label"},
+        "threshold_eligible": {"const": true},
+        "bootstrap_replicates_valid": {"type": "integer", "minimum": 0},
+        "bootstrap_replicates_undefined": {"type": "integer", "minimum": 0}
+      }
+    },
+    "abstention_agreement": {"$ref": "#/$defs/rateWithCi"},
+    "threshold_satisfaction_authorized": {"const": false},
+    "gold_promotion_authorized": {"const": false},
+    "profile_promotion_authorized": {"const": false},
+    "publication_authorized": {"const": false},
+    "redistribution_authorized": {"const": false},
+    "training_authorized": {"const": false},
+    "reliability_sha256": {"$ref": "#/$defs/sha256"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "annotationLineage": {
+      "type": "object", "additionalProperties": false,
+      "required": ["role_id", "packet_sha256", "annotation_set_sha256"],
+      "properties": {
+        "role_id": {"type": "string", "minLength": 1},
+        "packet_sha256": {"$ref": "#/$defs/sha256"},
+        "annotation_set_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "agreementRow": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "unit_id", "unit_sha256", "bootstrap_cluster_id", "left_label", "right_label",
+        "left_spans_sha256", "right_spans_sha256"
+      ],
+      "properties": {
+        "unit_id": {"type": "string", "minLength": 1},
+        "unit_sha256": {"$ref": "#/$defs/sha256"},
+        "bootstrap_cluster_id": {"type": "string", "minLength": 1},
+        "left_label": {"type": ["string", "null"]},
+        "right_label": {"type": ["string", "null"]},
+        "left_spans_sha256": {"$ref": "#/$defs/sha256"},
+        "right_spans_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "ci": {
+      "type": "object", "additionalProperties": false,
+      "required": ["lower", "upper"],
+      "properties": {"lower": {"type": "number"}, "upper": {"type": "number"}}
+    },
+    "nullableCi": {"oneOf": [{"$ref": "#/$defs/ci"}, {"type": "null"}]},
+    "rateWithCi": {
+      "type": "object", "additionalProperties": false,
+      "required": ["numerator", "denominator", "estimate", "ci"],
+      "properties": {
+        "numerator": {"type": "integer", "minimum": 0},
+        "denominator": {"type": "integer", "minimum": 1},
+        "estimate": {"type": "number", "minimum": 0, "maximum": 1},
+        "ci": {"$ref": "#/$defs/nullableCi"}
+      }
+    }
+  }
+}

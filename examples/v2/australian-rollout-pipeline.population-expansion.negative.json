@@ -1,0 +1,9 @@
+{
+  "base_example": "australian-rollout-pipeline.positive.json",
+  "mutation": {
+    "kind": "set_stage_population_count",
+    "stage": "select",
+    "unit_count": 101
+  },
+  "expected_error": "expands the bounded population"
+}

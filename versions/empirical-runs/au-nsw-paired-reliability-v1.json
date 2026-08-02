@@ -1,0 +1,70 @@
+{
+  "schema_version": "foio.australian-empirical-run-spec.v1.0.0",
+  "run_id": "run:au-nsw-paired-reliability-v1",
+  "jurisdiction": "AU-NSW",
+  "profile_id": "foi-o-au-nsw",
+  "assessment_status": "superseded",
+  "lifecycle_disposition": "superseded",
+  "canonicalization": "foio.sorted-compact-json.v1",
+  "evidence_sources": [
+    {
+      "artifact_id": "evidence:au-nsw-paired-reliability-v1",
+      "path": "docs/60-au-nsw-descriptive-reliability-outcome-2026-07-27.md",
+      "sha256": "4a36d1d324e0ca9adb88107bb273566ed2b8335bfc36aff35fa7abe2e588c9d5",
+      "size_bytes": 957,
+      "git_commit": "d69d624577eb3534f59072245012390a4cbb034a"
+    }
+  ],
+  "referenced_artifacts": [
+    {
+      "artifact_id": "annotation-report:au-nsw-paired-v1",
+      "sha256": "74125814a8d3da0d161db777e8884847fa5c2bbe1c4f634e8aab228125ee6455",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "4a36d1d324e0ca9adb88107bb273566ed2b8335bfc36aff35fa7abe2e588c9d5"
+    },
+    {
+      "artifact_id": "reliability:au-nsw-paired-v1",
+      "sha256": "7bc2469dadf622b9182af6b33eb3fa8dd6cabe9350040b75f46fce287770774f",
+      "availability": "restricted_local",
+      "evidence_source_sha256": "4a36d1d324e0ca9adb88107bb273566ed2b8335bfc36aff35fa7abe2e588c9d5"
+    }
+  ],
+  "producer_provenance": {
+    "status": "opaque",
+    "reason": "The committed outcome records the report pins and descriptive method but not a complete content-addressed run occurrence.",
+    "evidence_source_sha256": "4a36d1d324e0ca9adb88107bb273566ed2b8335bfc36aff35fa7abe2e588c9d5"
+  },
+  "stages": [
+    {
+      "stage_id": "stage:au-nsw-paired-reliability-v1",
+      "sequence": 1,
+      "stage_kind": "reliability",
+      "input_sha256": [
+        "74125814a8d3da0d161db777e8884847fa5c2bbe1c4f634e8aab228125ee6455"
+      ],
+      "output_sha256": [
+        "7bc2469dadf622b9182af6b33eb3fa8dd6cabe9350040b75f46fce287770774f"
+      ],
+      "population": {
+        "population_id": "population:au-nsw-paired-v1",
+        "population_sha256": "4f9ec5e094ff9e9fa4e2dbb6f1c83c3fe33d28eb68c89397997c4e9bb9988840",
+        "predecessor": 100,
+        "included": 100,
+        "excluded": 0,
+        "unresolved": 0
+      },
+      "allowed_capabilities": ["reliability.describe"],
+      "denied_capabilities": [
+        "extractor.evaluate",
+        "gold.promote",
+        "maturity.decide",
+        "publication.release"
+      ]
+    }
+  ],
+  "relationships": {
+    "supersedes": [],
+    "invalidates": []
+  },
+  "run_spec_sha256": "9f482a189b19f7d789f3a96bbb0b223c77f581b1d35544960b8823c72c247c79"
+}
