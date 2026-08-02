@@ -59,7 +59,8 @@ coverage additions, not a threshold exception or merge.
 
 ### Lane 4 — human-gate closeout
 
-Use `conductor/human-gate-closeout-plan.md` as the shared gate register. Prepare
+Use `conductor/human-gate-closeout-plan.md` as the shared gate register and
+`conductor/human-gate-status-2026-08-02.md` as the current packet. Prepare
 promotion, release, publication, redistribution, and external-mutation packets
 in dependency order, but stop before each accountable action. Exact heads,
 hashes, rights, destinations, and check receipts must be refreshed immediately
