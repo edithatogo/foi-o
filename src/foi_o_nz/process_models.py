@@ -217,6 +217,8 @@ def _pnml_transition_id(index: int) -> str:
 def _summarise_bpmn(path: Path) -> dict[str, Any]:
     # These are committed repo-local process-model artefacts, not user-supplied XML.
     root = ET.parse(path).getroot()
+    if root is None:
+        raise ValueError(f"{path}: missing XML root")
     process = root.find("bpmn:process", BPMN_NS)
     if process is None:
         raise ValueError(f"{path}: missing BPMN process")
@@ -247,6 +249,8 @@ def _summarise_bpmn(path: Path) -> dict[str, Any]:
 def _summarise_pnml(path: Path) -> dict[str, Any]:
     # These are committed repo-local process-model artefacts, not user-supplied XML.
     root = ET.parse(path).getroot()
+    if root is None:
+        raise ValueError(f"{path}: missing XML root")
     places = {place.attrib["id"] for place in root.findall(".//place")}
     transitions = {transition.attrib["id"] for transition in root.findall(".//transition")}
     arcs = {(arc.attrib["source"], arc.attrib["target"]) for arc in root.findall(".//arc")}

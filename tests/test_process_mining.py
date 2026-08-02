@@ -61,6 +61,7 @@ def test_process_mining_xes_fixture_matches_generator() -> None:
     assert XES.read_text(encoding="utf-8") == build_xes_event_log(events)
 
     root = ET.parse(XES).getroot()
+    assert root is not None
     assert root.attrib["xes.version"] == "1.0"
     trace = root.find("xes:trace", XES_NS)
     assert trace is not None

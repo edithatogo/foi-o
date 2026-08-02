@@ -30,8 +30,9 @@ def test_source_recovery_plan_preserves_all_capture_and_human_gate_boundaries() 
 
 
 def test_source_recovery_bpmn_is_a_non_executable_human_gated_review_model() -> None:
-    process = ET.parse(BPMN).getroot().find("bpmn:process", BPMN_NS)
-
+    root = ET.parse(BPMN).getroot()
+    assert root is not None
+    process = root.find("bpmn:process", BPMN_NS)
     assert process is not None
     assert process.attrib["isExecutable"] == "false"
     approvals = {task.attrib["id"] for task in process.findall("bpmn:userTask", BPMN_NS)}
