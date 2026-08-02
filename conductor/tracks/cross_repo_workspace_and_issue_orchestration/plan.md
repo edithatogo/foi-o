@@ -20,4 +20,6 @@
       result without mutation. [0895ccf]
 - [x] Split machine-readable gate status into satisfied verification and
       explicitly pending external/human gates. [ce180e5]
+- [~] Review Fixes: reconcile accepted duplicate-workspace wording and commit
+      the append-only evidence ledger that was previously ignored.
 - [ ] Stop at declared human gates.

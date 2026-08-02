@@ -25,6 +25,7 @@ build/
 *.parquet
 *.jsonl
 !examples/process-mining-events.fixture.jsonl
+!conductor/tracks/cross_repo_workspace_and_issue_orchestration/evidence.jsonl
 
 # OS/editor
 .DS_Store

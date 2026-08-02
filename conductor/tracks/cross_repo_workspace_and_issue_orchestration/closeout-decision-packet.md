@@ -8,7 +8,7 @@ Keep all four identified workspaces intact and leave this track unarchived.
 This is the safest reversible disposition while the checkouts have different
 branches, commits, dirty state and upstream configuration.
 
-## Workspace decisions still required
+## Workspace decision already accepted
 
 ### FOI-O duplicate identity
 
@@ -52,6 +52,7 @@ The following remain pending independently of the duplicate decision:
 - publication, submission or release;
 - legal or profile promotion.
 
-No option above authorizes those actions. The track can be archived only after
-its closeout contract is amended or all listed gates and workspace decisions
-are recorded with exact evidence.
+No option above authorizes those actions. The preservation decision is already
+recorded in `decision-register.yaml` and is no longer a blocker. The track can
+be archived only after the remaining external and human gates are resolved
+with exact evidence.
