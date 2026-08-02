@@ -1,0 +1,105 @@
+{
+  "schema_version": "foio.au.source_evidence_candidate.v1",
+  "status": "candidate_restricted_local",
+  "retrieved_at": "2026-08-02T13:07:38Z",
+  "retrieval_policy": {
+    "method": "bounded_read_only_official_html",
+    "user_agent": "Mozilla/5.0 (compatible; FOI-O source evidence)",
+    "max_time_seconds_per_url": 30,
+    "retries": 0,
+    "no_live_foi_origin": true,
+    "no_archive_replay": true,
+    "no_attachment_retrieval": true
+  },
+  "artifacts": [
+    {
+      "jurisdiction": "AU-WA",
+      "url": "https://www.legislation.wa.gov.au/",
+      "http_status": 200,
+      "bytes": 7919,
+      "mime_type": "text/html",
+      "sha256": "5b12d4a9a3122ff419abe39a0d2735317926ef74e2d01b2c21469a5cb1032a7d",
+      "rights_status": "pending_terms_review"
+    },
+    {
+      "jurisdiction": "AU-VIC",
+      "url": "https://www.legislation.vic.gov.au/",
+      "http_status": 200,
+      "bytes": 138448,
+      "mime_type": "text/html",
+      "sha256": "843c7c9306f150b682c9bf0f94736fd9bf84b5280ffeee985a5bcdac7518a56d",
+      "rights_status": "pending_terms_review"
+    },
+    {
+      "jurisdiction": "AU-TAS",
+      "url": "https://www.legislation.tas.gov.au/help",
+      "http_status": 200,
+      "bytes": 29218,
+      "mime_type": "text/html",
+      "sha256": "d55b0254942b69e7c3cc1a9e6ccf4e5c242ce5dc4657e94ea70a141882064e6f",
+      "rights_status": "pending_terms_review"
+    },
+    {
+      "jurisdiction": "AU-ACT",
+      "url": "https://www.legislation.act.gov.au/Static/Help/About/about_the_register.html",
+      "http_status": 200,
+      "bytes": 26299,
+      "mime_type": "text/html",
+      "sha256": "dab790f81e44d2fcaf6b55bb29d893cacd8e4e1acb6b6d5e0689cfadf942457d",
+      "rights_status": "pending_terms_review"
+    },
+    {
+      "jurisdiction": "AU-NT",
+      "url": "https://legislation.nt.gov.au/en",
+      "http_status": 200,
+      "bytes": 17683,
+      "mime_type": "text/html",
+      "sha256": "b2710c94c3224297ed70e894a96d8e56e3a203d5c71ae704594dda6808c98789",
+      "rights_status": "pending_terms_review"
+    },
+    {
+      "jurisdiction": "AU-QLD",
+      "url": "https://www.legislation.qld.gov.au/api",
+      "http_status": 200,
+      "bytes": 17454,
+      "mime_type": "text/html",
+      "sha256": "11ace17c3cdf2e6d96cb6ead3718e4a940fc779a1c52fee736be456e6d202177",
+      "rights_status": "api_registration_pending"
+    },
+    {
+      "jurisdiction": "AU-QLD",
+      "url": "https://www.legislation.qld.gov.au/api/usage-guidelines",
+      "http_status": 200,
+      "bytes": 31047,
+      "mime_type": "text/html",
+      "sha256": "c8636dd775fe3055af939d82c0ed4d9364aca097357c2002acbb6a9a82253693",
+      "rights_status": "api_registration_pending"
+    },
+    {
+      "jurisdiction": "AU-SA",
+      "url": "https://www.legislation.sa.gov.au/copyright",
+      "http_status": 403,
+      "bytes": 5762,
+      "mime_type": "text/html",
+      "sha256": null,
+      "rights_status": "access_blocked_no_substitution"
+    },
+    {
+      "jurisdiction": "AU-SA",
+      "url": "https://www.legislation.sa.gov.au/understanding-legislation/authorised-versions-of-legislation",
+      "http_status": 403,
+      "bytes": 5979,
+      "mime_type": "text/html",
+      "sha256": null,
+      "rights_status": "access_blocked_no_substitution"
+    }
+  ],
+  "restrictions": [
+    "candidate evidence only",
+    "restricted local retention",
+    "no publication or redistribution",
+    "no runtime activation",
+    "no empirical freezing or annotation",
+    "no legal certification"
+  ]
+}

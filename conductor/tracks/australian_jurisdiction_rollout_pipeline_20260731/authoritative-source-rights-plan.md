@@ -1,6 +1,6 @@
 # Remaining-jurisdiction authoritative-source and rights plan
 
-Status: planning and public-metadata triage only (2026-08-02). This document
+Status: candidate evidence captured, rights review pending (2026-08-02). This document
 does not authorise network retrieval, source capture, replay, redistribution,
 runtime activation, legal conclusions, empirical freezing, or profile
 promotion.
@@ -32,6 +32,14 @@ For every candidate source, record:
 
 No source is treated as authoritative merely because it is public, searchable,
 mirrored, or machine-readable.
+
+The first bounded candidate evidence record is
+`source-evidence-candidate-2026-08-02.json`, SHA-256
+`d177f2133790d4f23610edb99a845ec7b58d5669d72e24f7ed8db34b2909cfcb`.
+It contains official HTML retrieval receipts for WA, VIC, TAS, ACT, NT, and
+QLD, plus explicit SA HTTP 403 failures. The source bytes remain restricted
+local in the capture workspace; the JSON record is a candidate provenance
+index, not an immutable source manifest.
 
 ## Public metadata findings and source routes
 
