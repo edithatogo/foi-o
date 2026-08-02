@@ -64,6 +64,22 @@ Following the recommended conservative path, a separate restricted-local
 This is a release candidate, not a release. Tagging, package publication,
 GitHub release creation, and registry deposition remain human-gated.
 
+## Exact next approval statement
+
+> I approve the restricted-local FOI-O package release candidate at exact
+> commit `[commit]`, package version `0.8.1`, checklist SHA-256
+> `d158fd78cae58201cd2d4e6f28671b7ec8057cf06f07c080cfed7e0bd35888b1`, and
+> repository-release metadata SHA-256
+> `b2d5bc60dec84f45e2d9466849b058ccd56c89a2cf805113630b17010330d9ba`, subject
+> to final required checks remaining green. I authorize creation of the exact
+> repository release/tag only if branch protections and release controls are
+> satisfied. This does not authorize Hugging Face, Zenodo, OSF, website, or
+> source-text publication; redistribution; training; legal certification;
+> profile promotion; live source capture; or unrelated external mutations.
+
+The `[commit]` placeholder must be replaced with the final verified release
+commit immediately before approval. A stale commit invalidates this statement.
+
 ## Required evidence before approval
 
 ### Promotion
