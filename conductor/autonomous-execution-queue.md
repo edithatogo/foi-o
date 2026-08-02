@@ -57,6 +57,14 @@ coverage additions, not a threshold exception or merge.
 - `paper_global_impact_and_reproducibility`: prepare local reproducibility and
   impact evidence only; do not submit or update a paper.
 
+### Lane 4 — human-gate closeout
+
+Use `conductor/human-gate-closeout-plan.md` as the shared gate register. Prepare
+promotion, release, publication, redistribution, and external-mutation packets
+in dependency order, but stop before each accountable action. Exact heads,
+hashes, rights, destinations, and check receipts must be refreshed immediately
+before requesting approval.
+
 ## Required subagent protocol
 
 Each subagent receives one track and a disjoint write set. It must:
