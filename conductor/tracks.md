@@ -103,5 +103,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [~] **Track: Scale testing and govern the technology radar.**
 *Link: [./tracks/testing_scale_and_technology_radar/](./tracks/testing_scale_and_technology_radar/)*
 
-- [~] **Track: Coordinate workspace and cross-repository issue orchestration.**
-*Link: [./tracks/cross_repo_workspace_and_issue_orchestration/](./tracks/cross_repo_workspace_and_issue_orchestration/)*
+- [x] **Track: Coordinate workspace and cross-repository issue orchestration.**
+*Link: [./archive/cross_repo_workspace_and_issue_orchestration/](./archive/cross_repo_workspace_and_issue_orchestration/)*
