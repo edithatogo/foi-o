@@ -38,13 +38,18 @@ tag, dispatch, or merge is authorized by this packet.
 - Repository-release metadata dry run: valid; 4 artifacts and 4 publication
   targets. Candidate SHA-256:
   `bcb7a540804d168bb1db71f35ef9cfeaa8c779f6fab3fe924971f7ef7c183988`.
-- Version registry check: valid at registry/lock `1.0.0`.
-- Existing release metadata check: reports `0.8.1` as consistent with its
-  current fixture.
-- **Open release gate:** choose and align the intended release version before
-  any tag, package, or publication action. Recommended: regenerate all release
-  artifacts for the selected version and re-run every check; do not infer that
-  0.9.0, 1.0.0, or 0.8.1 is approved from the dry run alone.
+- Version registry check: valid at registry/lock `1.0.0`; this is the
+  compatibility/version-axis registry, not the Python distribution release
+  number.
+- Package version: `0.8.1` in `pyproject.toml` and `src/foi_o_nz/version.py`.
+- Release-package fixture: planned candidate `0.9.0`, with the existing tests
+  and documentation bound to that fixture name.
+- **Corrected open release gate:** keep the compatibility registry (`1.0.0`),
+  package version (`0.8.1`), and planned release-package fixture (`0.9.0`)
+  explicitly separate. Before any tag or package publication, the maintainer
+  must choose whether to release the current package as `0.8.1` or first make
+  a separately reviewed package-version change; regenerate all artifacts only
+  after that choice. No version was changed autonomously.
 
 ## Required evidence before approval
 
