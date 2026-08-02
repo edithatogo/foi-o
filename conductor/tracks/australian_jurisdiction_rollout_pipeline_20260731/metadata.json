@@ -17,6 +17,8 @@
   "parent_issue": "https://github.com/edithatogo/foi-o/issues/32",
   "evidence_schema": "1.0",
   "human_gates": [
+    "candidate_commit_verification_and_receipt",
+    "external_repository_push_and_draft_pr",
     "network_capture_or_replay",
     "rights_or_empirical_frame_approval",
     "annotation_or_adjudication_execution",

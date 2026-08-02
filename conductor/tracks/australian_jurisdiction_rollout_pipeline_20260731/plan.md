@@ -37,6 +37,8 @@ mappings.
 
 ## Phase 3 — archive execution adapters
 
+Dependency recovery and hosted-review plan: `dependency-recovery-plan.md`.
+
 - [ ] Integrate durable first-batch checkpoints and content-addressed artifact
   identities with fyi-archive.
 - [ ] Add adaptive Internet Archive pacing, bounded retry classes, checkpoint
