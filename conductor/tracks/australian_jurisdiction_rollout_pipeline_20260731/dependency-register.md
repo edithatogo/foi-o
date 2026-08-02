@@ -75,26 +75,31 @@ new full-text replay remains a separate gate.
 
 ## Early external blocker
 
-The global legislation/Gazette control track is still held in
+The global legislation/Gazette control track was merged in
 [legislation PR #106](https://github.com/edithatogo/legislation/pull/106).
-The dependency remediation was pushed. At exact head
+The dependency remediation was pushed and merged at exact head
 `0c0efe877f0b8eb7e5f05a2d89aeec82a09dbf5c`, the pull request is open,
 ready, and mergeable; all substantive hosted checks pass and the load-test job
-is intentionally skipped. Merge remains a separate human gate.
+is intentionally skipped.
 
 ## Local implementation candidates
 
-The following candidates were implemented in clean temporary clones. Their
-commits and Git notes are local only: none has been pushed, opened as a pull
-request, merged, activated, or used for source retrieval.
+The following candidates were implemented in clean temporary clones and are
+now in hosted draft review. None is merged, activated, or used for source
+retrieval.
 
 | Repository | Issue/scope | Local candidate | Validation boundary |
 | --- | --- | --- | --- |
-| fyi-cli | #283 Australian capture capability contracts | `3f3befa8acb07dce492ce41e99457d6da5acfa88` | 740 passed, 2 opt-in network tests skipped; immutable schema/adapter pins and semantic boundaries enforced |
-| fyi-archive | #317 checkpointed content-addressed Wayback replay state | `af4c0a47e2d589f295ba2dfebee0f3f7681690f7` | 538 passed, 1 skipped; immutable boundary/approval registries and receipt-bound CDX replacement candidates |
+| fyi-cli | #283 Australian capture capability contracts | `3f3befa8acb07dce492ce41e99457d6da5acfa88` | PR #286, exact head, all required checks passing; 740 passed, 2 opt-in network tests skipped |
+| fyi-archive | #317 checkpointed content-addressed Wayback replay state | repair head `93d7f327a2cf5bfd24fc657a047051f0ff436652` (candidate base `af4c0a47e2d589f295ba2dfebee0f3f7681690f7`) | PR #327, functional/protected checks passing; Codecov patch remains 73.25% vs 90% threshold; 538 passed, 1 skipped |
 | nlp-policy-nz | #200 config-driven profile foundation | `2a49a516252d6e2c765c4d8a6e53336226e273bf` | 30 focused/regression tests passed; activation registry has zero grants; unrelated repository baselines remain |
 | foi-process | #96 paired Mermaid/BPMN jurisdiction template | `8bc0c2c6022a4de08d2e52515af4885ee598a094` | full local CI passed; strict profiles bind to their physical registered repository paths |
 
-An exact-head independent adversarial review accepted all four candidates
-within their stated scope. Each still requires an explicit
-external-repository push gate before it can enter hosted review.
+The exact candidates were pushed under the approved external-action gate and
+opened as draft PRs: fyi-cli #286, fyi-archive #327, nlp-policy-nz #235, and
+foi-process #97. fyi-cli, nlp-policy-nz, and foi-process have passing required
+checks. fyi-archive has one remaining repository-quality gate: Codecov patch
+coverage is below the unchanged 90% threshold. Do not weaken that threshold;
+either add focused tests for the new defensive branches or retain the PR as
+blocked. No runtime activation, source retrieval, profile promotion, release,
+or publication is implied.

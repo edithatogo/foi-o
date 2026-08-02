@@ -32,6 +32,13 @@ is read-only until an integrator assigns a disjoint write set.
 - `foi_o_v2_empirical_implementation_20260714`: perform only the bounded local
   source recovery plan; stop if the approved payloads are not recoverable.
 
+Current integration evidence: legislation PR #106 is merged at its approved
+exact head. fyi-cli #286, nlp-policy-nz #235, and foi-process #97 are in draft
+review with required checks passing. fyi-archive #327 is in draft review with
+all functional/protected checks passing except Codecov patch coverage
+(73.25% against the unchanged 90% threshold); the next safe action is focused
+coverage additions, not a threshold exception or merge.
+
 ### Lane 2 — programme quality and registry work (parallel)
 
 - `global_context_runtime_hardening`: verify fail-closed context compilation
