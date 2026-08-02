@@ -39,3 +39,6 @@ risks:
   - id: R-013
     risk: a partially recovered two-case input could be treated as executable or used to make an empirical claim
     mitigation: keep G-EMP-LOCAL-INPUT-RECOVERY blocked until both source roots and all verifier conditions pass; prohibit partial execution and population inference
+  - id: R-014
+    risk: parallel agents modify shared Conductor ledgers or cross-track contracts inconsistently
+    mitigation: assign disjoint write sets, use one integrator for shared records, require task commits and git notes, and run cross-track validation before status changes

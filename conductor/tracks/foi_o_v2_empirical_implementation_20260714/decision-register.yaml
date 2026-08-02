@@ -42,3 +42,6 @@ decisions:
   - id: D-014
     decision: use_one_case_35076_as_the_contingency_if_11872_is_irretrievable
     rationale: avoid inventing or silently substituting missing 11872 attachment evidence; a replacement population requires fresh exact approval
+  - id: D-015
+    decision: execute_remaining_tracks_as_dependency_ordered_parallel_lanes_with_single_integrator
+    rationale: maximize independent local progress while preventing shared-ledger conflicts and preserving external and human gates
