@@ -19,6 +19,15 @@ The authoritative candidate records are
 `examples/v2/au-cth-fresh-holdout-coverage.pending.json` and
 `examples/v2/au-cth-fresh-holdout-source-approval.pending.json`.
 
+The exact-scope completion attempt on 2026-08-02 reproduced the complete
+Internet Archive CDX artifact: 26 pages, 26,000 records, CDX SHA-256
+`954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd`, and
+retrieval-evidence SHA-256
+`b6dc23e32048b1ef252b2157080280d7e411870d0fe0f4ca181ca8a4e8160d64`. This
+resolves pagination completeness for the metadata artifact only. It does not
+resolve authority identity, rights, accessible text, duplicate-cluster
+exclusions, or empirical-frame eligibility.
+
 ## Options
 
 ### Option A — complete the CDX population and validate records (recommended)
@@ -60,7 +69,8 @@ text cannot be established.
    export hash, and coverage counts.
 3. Build a canonical URL ledger and duplicate-cluster registry. Exclude every
    calibration URL and cluster before rights review.
-4. Replay only CDX-listed canonical HTML captures, or validate already retained
+4. After separate bounded replay authorization, replay only CDX-listed
+   canonical HTML captures, or validate already retained
    HTML. Do not access the live origin, follow links, retrieve attachments, or
    expand the URL population.
 5. For each candidate, record source URL, archive timestamp, HTTP status,
@@ -102,3 +112,6 @@ archived-page replay:
 
 None of these options authorizes annotation, maturity promotion, publication,
 redistribution, training, legal certification, or release.
+
+The CDX completion authorization has now been used for metadata retrieval. A
+new decision is required before replaying canonical archived HTML pages.
