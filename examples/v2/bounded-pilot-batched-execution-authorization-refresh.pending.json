@@ -1,0 +1,36 @@
+{
+  "schema_version": "foi-o.bounded-pilot-batched-execution-authorization-refresh.v0.1.0",
+  "status": "pending_exact_human_approval",
+  "refresh_id": "bounded-pilot-11872-35076-current-head-refresh-v0.1",
+  "created_from_clean_head": "9be042fc19169f6216c6577aa9a51acba0d1c1ed",
+  "canonical_authorization": {
+    "path": "examples/v2/bounded-pilot-batched-execution-authorization.approved.json",
+    "sha256": "51fc3c34982d0b2b0a6eb9459f21e494da2d8c634778408b752bacc7958088fa",
+    "historical_repository_commit": "e9252ef07c4540bfc4babd997066dcaca3472ef0"
+  },
+  "scope": {
+    "request_ids": ["11872", "35076"],
+    "analyst_ids": [
+      "agent:bounded-pilot-analyst-a",
+      "agent:bounded-pilot-analyst-b"
+    ],
+    "reconciler_id": "agent:bounded-pilot-reconciler",
+    "local_only": true
+  },
+  "permissions": {
+    "context_materialization": true,
+    "context_presentation": true,
+    "analyst_execution": true,
+    "conditional_reconciliation_after_dual_lock": true,
+    "empirical_result_approved": false,
+    "human_reviewed": false,
+    "gold_eligible": false,
+    "population_inference_allowed": false,
+    "archive_wide_claim_allowed": false,
+    "redistribution_allowed": false,
+    "publication_allowed": false,
+    "release_allowed": false,
+    "external_action_allowed": false
+  },
+  "approval_boundary": "This refresh binds the unchanged canonical authorization to the clean repository commit recorded after this candidate is committed. Exact SHA-256 and commit approval are required before pre-execution verification or any restricted source access."
+}
