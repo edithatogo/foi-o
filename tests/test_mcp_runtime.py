@@ -62,10 +62,19 @@ def _events_jsonl(tmp_path: Path) -> Path:
 
 
 def test_mcp_runtime_status_fails_closed_without_fastmcp(monkeypatch: pytest.MonkeyPatch) -> None:
-    def missing_fastmcp() -> type[Any]:
-        raise ModuleNotFoundError("fastmcp")
+    import builtins
+    import sys
 
-    monkeypatch.setattr(mcp_server, "_load_fastmcp", missing_fastmcp)
+    monkeypatch.delitem(sys.modules, "fastmcp", raising=False)
+
+    original_import = builtins.__import__
+
+    def failing_import(name, globals=None, locals=None, fromlist=(), level=0):
+        if name == "fastmcp":
+            raise ModuleNotFoundError("No module named 'fastmcp'")
+        return original_import(name, globals, locals, fromlist, level)
+
+    monkeypatch.setattr(builtins, "__import__", failing_import)
 
     status = mcp_server.mcp_runtime_status()
 
