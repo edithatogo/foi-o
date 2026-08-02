@@ -32,6 +32,15 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
 [#26](https://github.com/edithatogo/foi-o/issues/26), and
 [#27](https://github.com/edithatogo/foi-o/issues/27).
 
+- [~] Recover the approved bounded-pilot local inputs and rerun the exact
+  pre-execution verifier.
+  - Recovery plan: `source-recovery-plan.md`.
+  - Read-only audit on 2026-08-02 found all four authorized local roots absent
+    from local temporary/storage locations and repository refs. Recovery is
+    blocked pending re-provision of the original source payloads or a new
+    explicitly scoped source authorization. No substitute source or execution
+    is permitted.
+
 - [x] Export a versioned FOI-O extraction contract for `nlp-policy-nz`, including
   ontology, schema, codebook, provenance, and candidate-status identifiers (`dfab583`).
   - Output: `contracts/foi-o-extraction-contract/0.1.0/manifest.json` plus

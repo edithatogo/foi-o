@@ -10,6 +10,21 @@
   "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns",
   "gates": [
     {
+      "id": "G-EMP-LOCAL-INPUT-RECOVERY",
+      "kind": "local_source_recovery",
+      "status": "blocked",
+      "condition": "Recover the exact approved local payloads for requests 11872 and 35076, verify their recorded hashes and ownership, recreate only the approved empty derived/workspace roots, and pass the canonical pre-execution verifier before any pilot execution is considered.",
+      "evidence_refs": [
+        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/source-recovery-plan.md",
+        "examples/v2/fyi-attachment-snapshot-readiness.11872.json",
+        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/reextraction-readiness.md"
+      ],
+      "authorization_refs": [
+        "examples/v2/bounded-pilot-batched-execution-authorization.approved.json"
+      ],
+      "note": "The four authorized roots are absent. No substitute source, new capture, or pilot execution is authorized by the recovery approval."
+    },
+    {
       "id": "G-EMP-AUTHENTIC-INPUTS",
       "kind": "source_rights_and_population",
       "status": "blocked",
