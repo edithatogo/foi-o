@@ -43,6 +43,9 @@
 
 - [ ] Acquire additional rights-eligible authentic AU-CTH records or record
       that the available population cannot support an independent holdout.
+      - Recovery and decision plan: `fresh-holdout-rights-freeze-plan.md`.
+      - Current candidate is incomplete: 10,000-row CDX bound reached, 27-page
+        pagination incomplete, and rights/full-text disposition pending.
 - [ ] Apply the registered duplicate clustering rules and exclude every
       calibration cluster from the holdout.
 - [ ] Freeze the frame, membership, exclusions, seed, PRNG version, unit order,

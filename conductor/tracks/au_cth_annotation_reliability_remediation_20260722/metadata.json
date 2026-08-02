@@ -11,7 +11,7 @@
   ],
   "gates": [
     {"id": "revised-codebook-approval", "kind": "human", "status": "pending"},
-    {"id": "fresh-holdout-rights-and-freeze", "kind": "human", "status": "pending"},
+    {"id": "fresh-holdout-rights-and-freeze", "kind": "human", "status": "pending", "evidence_refs": ["conductor/tracks/au_cth_annotation_reliability_remediation_20260722/fresh-holdout-rights-freeze-plan.md", "examples/v2/au-cth-fresh-holdout-coverage.pending.json", "examples/v2/au-cth-fresh-holdout-source-approval.pending.json"], "condition": "Complete or explicitly bound the candidate source population, verify pagination, rights, accessibility, duplicate exclusions, and source artifacts, then approve one exact restricted-local frame before sampling or annotation."},
     {"id": "fresh-execution-authorization", "kind": "human", "status": "pending"},
     {"id": "maturity-decision", "kind": "human", "status": "pending"}
   ]
