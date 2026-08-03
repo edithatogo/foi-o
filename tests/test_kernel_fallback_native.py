@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
+from unittest.mock import patch
 
 from foi_o_nz.kernel_fallback import (
     action_requires_review,
@@ -16,10 +18,12 @@ from foi_o_nz.kernel_fallback import (
     risk_level_from_score,
     token_estimate_from_chars,
 )
-import subprocess
-from unittest.mock import patch
-from foi_o_nz.native_kernel import KernelDiscovery, evaluate_kernel, kernel_status, run_kernel_conformance
-
+from foi_o_nz.native_kernel import (
+    KernelDiscovery,
+    evaluate_kernel,
+    kernel_status,
+    run_kernel_conformance,
+)
 from foi_o_nz.validation import validate_json_schema
 
 
@@ -84,13 +88,15 @@ def test_kernel_eval_fallback_on_native_error():
         exceptions = [
             OSError("Mock OS Error"),
             RuntimeError("Mock Runtime Error"),
-            subprocess.TimeoutExpired(cmd=["/fake/path"], timeout=5.0)
+            subprocess.TimeoutExpired(cmd=["/fake/path"], timeout=5.0),
         ]
 
         for exc in exceptions:
             with patch("foi_o_nz.native_kernel._call_mojo_binary", side_effect=exc):
                 # Using normalise_alaveteli_state, as it's tested elsewhere
-                result = evaluate_kernel("normalise_alaveteli_state", "successful", prefer_native=True)
+                result = evaluate_kernel(
+                    "normalise_alaveteli_state", "successful", prefer_native=True
+                )
 
                 assert result["ok"] is True
                 assert result["runtime_used"] == "python-fallback"
