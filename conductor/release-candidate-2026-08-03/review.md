@@ -6,18 +6,18 @@ integration, release, and publication remain unauthorized.
 ## Exact candidate
 
 - Target commit:
-  `04ed03c52761b4a83579e8721aeef20ce2d9282e`
+  `ef591fa7fd37d56942aff3699bb42968127672f4`
 - Manifest canonical self-pin:
-  `d1e14b94aa5e998120d0361c22dda24bc91b94dc797773050452b19c73b8553a`
+  `0dcb1547a82f7f802ef0e15cd32ce7baabf8c07e0da053646d6b5bdc06b9499d`
 - Serialized manifest SHA-256:
-  `19b285d70f6d61a123602d7e1fa284b17d16f40a26be0cbd1c583025f37b8e37`
+  `c28925f6b0a7130fd8affbc37f10cee6471a0a5b3375b155c7a5923f45466f11`
 - Destination-neutral archive SHA-256:
-  `86778bae632e12c6483531f13b396817d2e77d7cb1cc4fd4f51267e2e3ea66e1`
+  `84a6374420bbe03fa75f155965b23aee89b1a2feb40759aa678b20f97d4caf74`
 - Archive receipt SHA-256:
-  `c87282d4234e45cfd3da2ea3026854f9929066df1bd66248fc1ff6f4c32e1359`
+  `6dfaf57f80f95bac41ba2b90e7f88d90946527d122b9f2f77616a01fce02fa7c`
 - Files: 12, exact allowlist, sorted and unique
-- Total source bytes: 24,145
-- Archive: 13 members and 8,209 bytes
+- Total source bytes: 24,094
+- Archive: 13 members and 8,189 bytes
 - Publication authorized: false
 - Release authorized: false
 - Scope approval SHA-256:
@@ -104,8 +104,10 @@ citation-scope, and Conductor-baseline defects. All were remediated in
 `1993b54db7805fc0c2ebde5a7801f9360d923350` with positive and negative tests.
 The branch then incorporated `origin/main` commit
 `4d5126d70eec608a0ff1ed9226defedaa25e8202` without rebasing and regenerated
-the candidate against the reconciled functional head
-`04ed03c52761b4a83579e8721aeef20ce2d9282e`. The exact candidate requires
+the candidate against the reconciled functional head. The rights re-review then
+identified conflicting ORCIDs in the repository and artifact citation files;
+`ef591fa7fd37d56942aff3699bb42968127672f4` safely omitted the unverified
+semantic-core ORCID without selecting an identity. The exact candidate requires
 fresh independent review.
 
 ## Remaining gates

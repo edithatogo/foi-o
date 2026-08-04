@@ -2,7 +2,7 @@
   "schema_version": "foi-o.release-manifest.v2",
   "status": "candidate_not_authorized",
   "repository": "https://github.com/edithatogo/foi-o",
-  "target_commit": "04ed03c52761b4a83579e8721aeef20ce2d9282e",
+  "target_commit": "ef591fa7fd37d56942aff3699bb42968127672f4",
   "selection": {
     "include_files": [
       "CITATION-SEMANTIC-CORE.cff",
@@ -44,9 +44,9 @@
   "files": [
     {
       "path": "CITATION-SEMANTIC-CORE.cff",
-      "blob_oid": "11f5e9a39ed4931ca19684a7c7772fbfe8c64254",
-      "sha256": "f36e6c7905f2c7965e6a4bb530ca18c4c46171dccdcf759073cff0591848c8d4",
-      "size": 588,
+      "blob_oid": "e88a533c88a6e8dfad817542f3758c893ac8ed15",
+      "sha256": "9b77e27b564b6a041a30fbfcef656dc253a756a1555377c70258fdc07f8bfa1f",
+      "size": 537,
       "license": "CC-BY-4.0"
     },
     {
@@ -128,8 +128,8 @@
     }
   ],
   "file_count": 12,
-  "total_bytes": 24145,
+  "total_bytes": 24094,
   "publication_authorized": false,
   "release_authorized": false,
-  "manifest_sha256": "d1e14b94aa5e998120d0361c22dda24bc91b94dc797773050452b19c73b8553a"
+  "manifest_sha256": "0dcb1547a82f7f802ef0e15cd32ce7baabf8c07e0da053646d6b5bdc06b9499d"
 }
