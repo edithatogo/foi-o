@@ -1,0 +1,126 @@
+{
+  "schema_version": "foi-o.release-manifest.v2",
+  "status": "candidate_not_authorized",
+  "repository": "https://github.com/edithatogo/foi-o",
+  "target_commit": "154c64fbde0ad558f7f60159c9289a0115a2f63f",
+  "selection": {
+    "include_files": [
+      "CITATION.cff",
+      "LICENSE-CODE.md",
+      "LICENSE-CONTENT.md",
+      "LICENSE.md",
+      "contexts/foi-o-nz.context.jsonld",
+      "ontology/foi-o-nz.ttl",
+      "shacl/foi-o-nz.shapes.ttl",
+      "vocab/agent-boundaries.skos.ttl",
+      "vocab/assertion-status.skos.ttl",
+      "vocab/event-types.skos.ttl",
+      "vocab/request-states.skos.ttl"
+    ],
+    "include_roots": [],
+    "excluded_classes": [
+      "authentic_source_content",
+      "archive_payloads",
+      "attachments",
+      "restricted_evidence",
+      "credentials",
+      "unapproved_empirical_records",
+      "training_data",
+      "legal_conclusions"
+    ],
+    "license_policy": {
+      "CITATION.cff": "CC-BY-4.0",
+      "LICENSE-CODE.md": "MIT",
+      "LICENSE-CONTENT.md": "CC-BY-4.0",
+      "LICENSE.md": "CC-BY-4.0",
+      "contexts": "MIT",
+      "ontology": "CC-BY-4.0",
+      "shacl": "MIT",
+      "vocab": "CC-BY-4.0"
+    }
+  },
+  "files": [
+    {
+      "path": "CITATION.cff",
+      "blob_oid": "7ddd865f8b5f1d1de1de424fe0e6e9bc933aa853",
+      "sha256": "dc0bdb185b07ff6ccb53358d53c9a10d1877cc3e4f13e52f8fea8a4e3660d2db",
+      "size": 712,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "LICENSE-CODE.md",
+      "blob_oid": "5cfecc4a8a4b754ab4c0810141022c6e61e06be0",
+      "sha256": "438bae2e21119e73258a5327663060e1d2a64823aceacbfefa55d40e4298739c",
+      "size": 1236,
+      "license": "MIT"
+    },
+    {
+      "path": "LICENSE-CONTENT.md",
+      "blob_oid": "c766240aad7c88b73e55f8fa4feaded26d08f972",
+      "sha256": "7f3e879efc150744ec9d02cd4d6c5e89440d82ea5a0e39f2c1b4fcc511f34677",
+      "size": 810,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "LICENSE.md",
+      "blob_oid": "20f9495087b42cc80af26166cd92aeb8a2d309de",
+      "sha256": "d2399c17ea11342c4c946c65adf8f8cd0d01c1ea92d0a4cf2717c1c21d03171b",
+      "size": 1694,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "contexts/foi-o-nz.context.jsonld",
+      "blob_oid": "f112d92f992d8b6005680419487436b4a778834b",
+      "sha256": "ffffee2e450424654ecacbb053f965a40329034af4423fd8fedf1f4301570e17",
+      "size": 2023,
+      "license": "MIT"
+    },
+    {
+      "path": "ontology/foi-o-nz.ttl",
+      "blob_oid": "e015416109750b77b1aa2ac3641fe26043e7df40",
+      "sha256": "27360decdeb6d2bbfdab68964aca3a610565b13e89b60289e6f9ab46e2a821f2",
+      "size": 7635,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "shacl/foi-o-nz.shapes.ttl",
+      "blob_oid": "97001b1335c92240f3372f18fe0e44fe748730a4",
+      "sha256": "6fc0eddf3261aeaf04df7c91b64259ca6044584c6aba5e072d997cd68c136321",
+      "size": 2666,
+      "license": "MIT"
+    },
+    {
+      "path": "vocab/agent-boundaries.skos.ttl",
+      "blob_oid": "814a83babc3299276813cfc5b657243ed002aead",
+      "sha256": "6f4e67a3f9f3716e69d78bb2015675416c83b7f12f145035ecb243ccc4048e01",
+      "size": 1039,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "vocab/assertion-status.skos.ttl",
+      "blob_oid": "47938f93e9cf19919cefc91742124e7e54f220a3",
+      "sha256": "70105e11214d2c29557cf4967b781a2f45f2362ad50104fe9c749227f8ce0ddf",
+      "size": 1271,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "vocab/event-types.skos.ttl",
+      "blob_oid": "4186899bfbec92e2a062ec2ffd8a2c5446bb2b9c",
+      "sha256": "d501f464600f11f281ded9286ff39c7453263b09365bb7797ccf40fa3cfb92b9",
+      "size": 2031,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "vocab/request-states.skos.ttl",
+      "blob_oid": "4127f721e6c1645e46d1bebc9aee9658a80b1810",
+      "sha256": "a7e8f005250d96e45045c9e299fd33307e2c38b5b6a53579de8b2e3e6fd571fd",
+      "size": 2437,
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "file_count": 11,
+  "total_bytes": 23554,
+  "publication_authorized": false,
+  "release_authorized": false,
+  "manifest_sha256": "3b8799f220dcb76bac913716ccf8cf60664c59b3770fe48f9987b3d1b20ff03f"
+}

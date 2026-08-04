@@ -52,9 +52,10 @@
       - Independent integrity and rights/public-scope reviews pass; release and
         publication remain unauthorized.
       - Review: `conductor/release-candidate-2026-08-03/review.md`.
-- [ ] Rebase the repository-owned release prerequisites onto current `main` in
+- [x] Rebase the repository-owned release prerequisites onto current `main` in
       an isolated branch, validate deterministic destination-neutral archive
       construction, and regenerate all commit-bound candidate evidence.
+      (`81b78c5`, `154c64f`)
 - [ ] Obtain destination-specific authorization and verify one destination at
       a time.
 

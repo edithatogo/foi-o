@@ -1,0 +1,87 @@
+{
+  "schema_version": "foi-o.release-bundle-receipt.v1",
+  "status": "candidate_not_authorized",
+  "bundle_name": "foi-o-nz-semantic-core-0.1.0",
+  "target_commit": "154c64fbde0ad558f7f60159c9289a0115a2f63f",
+  "manifest_sha256": "3b8799f220dcb76bac913716ccf8cf60664c59b3770fe48f9987b3d1b20ff03f",
+  "manifest_file_sha256": "550a2b5c53b8fe15ebb050ffc58b8b924c09d930b1f90c720f916291f14854f2",
+  "bundle_sha256": "dcdb26f1b6c1bdc43d65627f22ce6f2ffe8d97504f76dbbb5b00d7fabdea699c",
+  "bundle_size": 7882,
+  "member_count": 12,
+  "members": [
+    {
+      "path": "RELEASE-MANIFEST.json",
+      "sha256": "550a2b5c53b8fe15ebb050ffc58b8b924c09d930b1f90c720f916291f14854f2",
+      "size": 4105,
+      "license": "MIT"
+    },
+    {
+      "path": "CITATION.cff",
+      "sha256": "dc0bdb185b07ff6ccb53358d53c9a10d1877cc3e4f13e52f8fea8a4e3660d2db",
+      "size": 712,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "LICENSE-CODE.md",
+      "sha256": "438bae2e21119e73258a5327663060e1d2a64823aceacbfefa55d40e4298739c",
+      "size": 1236,
+      "license": "MIT"
+    },
+    {
+      "path": "LICENSE-CONTENT.md",
+      "sha256": "7f3e879efc150744ec9d02cd4d6c5e89440d82ea5a0e39f2c1b4fcc511f34677",
+      "size": 810,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "LICENSE.md",
+      "sha256": "d2399c17ea11342c4c946c65adf8f8cd0d01c1ea92d0a4cf2717c1c21d03171b",
+      "size": 1694,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "contexts/foi-o-nz.context.jsonld",
+      "sha256": "ffffee2e450424654ecacbb053f965a40329034af4423fd8fedf1f4301570e17",
+      "size": 2023,
+      "license": "MIT"
+    },
+    {
+      "path": "ontology/foi-o-nz.ttl",
+      "sha256": "27360decdeb6d2bbfdab68964aca3a610565b13e89b60289e6f9ab46e2a821f2",
+      "size": 7635,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "shacl/foi-o-nz.shapes.ttl",
+      "sha256": "6fc0eddf3261aeaf04df7c91b64259ca6044584c6aba5e072d997cd68c136321",
+      "size": 2666,
+      "license": "MIT"
+    },
+    {
+      "path": "vocab/agent-boundaries.skos.ttl",
+      "sha256": "6f4e67a3f9f3716e69d78bb2015675416c83b7f12f145035ecb243ccc4048e01",
+      "size": 1039,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "vocab/assertion-status.skos.ttl",
+      "sha256": "70105e11214d2c29557cf4967b781a2f45f2362ad50104fe9c749227f8ce0ddf",
+      "size": 1271,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "vocab/event-types.skos.ttl",
+      "sha256": "d501f464600f11f281ded9286ff39c7453263b09365bb7797ccf40fa3cfb92b9",
+      "size": 2031,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "vocab/request-states.skos.ttl",
+      "sha256": "a7e8f005250d96e45045c9e299fd33307e2c38b5b6a53579de8b2e3e6fd571fd",
+      "size": 2437,
+      "license": "CC-BY-4.0"
+    }
+  ],
+  "release_authorized": false,
+  "publication_authorized": false
+}
