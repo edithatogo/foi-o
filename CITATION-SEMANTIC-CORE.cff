@@ -7,7 +7,6 @@ type: dataset
 authors:
   - family-names: Mordaunt
     given-names: Dylan
-    orcid: "https://orcid.org/0009-0006-1152-7383"
 version: 0.1.0
 repository-code: "https://github.com/edithatogo/foi-o"
 abstract: >-
