@@ -319,6 +319,24 @@ def test_repository_policy_rejects_repository_and_exclusion_drift(tmp_path: Path
     assert "release exclusions do not match policy" in errors
 
 
+def test_repository_policy_rejects_malformed_selection_without_crashing(tmp_path: Path) -> None:
+    repo, revision = repository(tmp_path)
+    manifest = build_release_manifest(
+        repo=repo,
+        revision=revision,
+        include_files=("README.md",),
+        include_roots=(),
+        excluded_classes=("authentic_source_content",),
+        license_policy={"README.md": "CC-BY-4.0"},
+    )
+    manifest["selection"] = "not-an-object"
+
+    errors = validate_repository_release_manifest(manifest, repo=repo)
+
+    assert "release selection must be an object" in errors
+    assert "release files do not match policy" in errors
+
+
 def test_release_bundle_validation_rejects_noncanonical_tar_metadata(tmp_path: Path) -> None:
     repo, revision = repository(tmp_path)
     manifest = build_release_manifest(

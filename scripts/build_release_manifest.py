@@ -64,6 +64,9 @@ def validate_repository_release_manifest(manifest: dict, *, repo: Path) -> list[
         for error in Draft202012Validator(schema).iter_errors(manifest)
     )
     selection = manifest.get("selection", {})
+    if not isinstance(selection, dict):
+        errors.append("release selection must be an object")
+        selection = {}
     if manifest.get("repository") != REPOSITORY:
         errors.append("release repository mismatch")
     if selection.get("include_files") != list(INCLUDE_FILES):

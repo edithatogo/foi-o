@@ -10,6 +10,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from foi_o_nz.release_manifest import build_release_bundle, validate_release_bundle
+from scripts.build_release_manifest import validate_repository_release_manifest
 
 ROOT = Path(__file__).parents[1]
 
@@ -28,6 +29,10 @@ def parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = parser().parse_args()
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
+    manifest_errors = validate_repository_release_manifest(manifest, repo=args.repo)
+    if manifest_errors:
+        print("\n".join(manifest_errors))
+        return 1
     if args.validate:
         receipt = json.loads(args.receipt.read_text(encoding="utf-8"))
         schema = json.loads(
