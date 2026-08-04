@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:release-bundle-receipt:1",
+  "title": "FOI-O deterministic candidate release-bundle receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "bundle_name",
+    "target_commit",
+    "manifest_sha256",
+    "manifest_file_sha256",
+    "bundle_sha256",
+    "bundle_size",
+    "member_count",
+    "members",
+    "release_authorized",
+    "publication_authorized"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.release-bundle-receipt.v1"},
+    "status": {"const": "candidate_not_authorized"},
+    "bundle_name": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"},
+    "target_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "manifest_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "bundle_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "bundle_size": {"type": "integer", "minimum": 1},
+    "member_count": {"type": "integer", "minimum": 2},
+    "members": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "size", "license"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "size": {"type": "integer", "minimum": 1},
+          "license": {"enum": ["MIT", "CC-BY-4.0"]}
+        }
+      }
+    },
+    "release_authorized": {"const": false},
+    "publication_authorized": {"const": false}
+  }
+}

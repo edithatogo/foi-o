@@ -83,6 +83,12 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [~] **Track: Remediate AU-CTH annotation reliability and evidence integrity after the nine-unit calibration run.**
 *Link: [./tracks/au_cth_annotation_reliability_remediation_20260722/](./tracks/au_cth_annotation_reliability_remediation_20260722/)*
 
+- [~] **Track: Coordinate remaining evidence and release gates across NZ, Australia, and destination publication.**
+*Link: [./tracks/remaining_evidence_and_release_gates_20260803/](./tracks/remaining_evidence_and_release_gates_20260803/)*
+
+- [~] **Track: Separate reusable public governance contracts from case-specific approval, provenance, and execution metadata.**
+*Link: [./tracks/public_governance_metadata_refactor_20260803/](./tracks/public_governance_metadata_refactor_20260803/)*
+
 ---
 
 - [~] **Track: Harden global request/profile context compilation.**

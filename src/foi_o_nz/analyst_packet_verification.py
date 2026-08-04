@@ -15,6 +15,9 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 FORBIDDEN_CONTEXT_KEYS = frozenset({"assertion_status", "confidence"})
 SCHEMA_DIR = Path(__file__).parents[2] / "schemas" / "json"
+LEGACY_FIXTURE_LICENSE_PLACEHOLDER_SHA256 = (
+    "4b433d662d19413093921cb1fe70ae3d95dfc1c77646cf7fb818e4bab82aee30"
+)
 CANDIDATE_PACKET_NAMES = frozenset(
     {
         "source-population.json",
@@ -1007,9 +1010,19 @@ def verify_approved_fixture_inputs(
         unchanged["protocol"],
         root / "examples/process-mining-events.fixture.jsonl",
         root / "examples/event-timeline.small.json",
-        root / "LICENSE.md",
     ]
     verify_git_artifacts_at_commit(root, expected_base_repository_commit, historical_paths)
+    try:
+        legacy_license = run(
+            ["git", "show", f"{expected_base_repository_commit}:LICENSE.md"],
+            cwd=root,
+            check=True,
+            capture_output=True,
+        ).stdout
+    except CalledProcessError as error:
+        raise ValueError("LICENSE.md: not present at base commit") from error
+    if sha256(legacy_license).hexdigest() != LEGACY_FIXTURE_LICENSE_PLACEHOLDER_SHA256:
+        raise ValueError("historical license placeholder pin mismatch")
     final_paths = [paths["approved_readiness"], *expected_pins.values(), *unchanged.values()]
     verify_git_artifacts_at_commit(root, expected_promotion_repository_commit, final_paths)
 
@@ -2249,8 +2262,7 @@ def verify_analyst_execution_packet(
     derived = derive_fixture_units(root)
     source_hashes = {unit.source_path: unit.source_artifact_sha256 for unit in derived}
     source_paths = [resolve_repo_artifact(root, path) for path in sorted(source_hashes)]
-    license_path = resolve_repo_artifact(root, "LICENSE.md")
-    verify_git_anchor(root, expected_repository_commit, [*source_paths, license_path])
+    verify_git_anchor(root, expected_repository_commit, source_paths)
     unit_manifest = _load_object(artifact_paths["unit_manifest"])
     redaction_manifest = _load_object(artifact_paths["redaction_manifest"])
     cluster_registry = _load_object(artifact_paths["duplicate_cluster_registry"])
@@ -2274,7 +2286,7 @@ def verify_analyst_execution_packet(
         raise ValueError("rights-review source SHA-256 set mismatch")
     if (
         rights["license_placeholder"]["path"] != "LICENSE.md"
-        or rights["license_placeholder"]["sha256"] != sha256(license_path.read_bytes()).hexdigest()
+        or rights["license_placeholder"]["sha256"] != LEGACY_FIXTURE_LICENSE_PLACEHOLDER_SHA256
     ):
         raise ValueError("rights-review license placeholder mismatch")
 

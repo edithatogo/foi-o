@@ -56,11 +56,14 @@ def _committed_approved_bundle(
         "examples/process-mining-events.fixture.jsonl",
         "examples/event-timeline.small.json",
         "docs/42-v2-analyst-execution-protocol.md",
-        "LICENSE.md",
     ]:
         destination = root / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / relative, destination)
+    shutil.copy2(
+        ROOT / "tests/fixtures/legacy-license-placeholder.v0.1.0.md",
+        root / "LICENSE.md",
+    )
     for filename in CANDIDATE_FILES:
         shutil.copy2(ROOT / "examples/v2/analyst-fixture-packet" / filename, packet / filename)
 

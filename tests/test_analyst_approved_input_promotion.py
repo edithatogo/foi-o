@@ -56,11 +56,14 @@ def _committed_candidate(tmp_path: Path) -> tuple[Path, Path, str]:
     for relative in [
         "examples/process-mining-events.fixture.jsonl",
         "examples/event-timeline.small.json",
-        "LICENSE.md",
     ]:
         destination = root / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / relative, destination)
+    shutil.copy2(
+        ROOT / "tests/fixtures/legacy-license-placeholder.v0.1.0.md",
+        root / "LICENSE.md",
+    )
     run(["git", "init", "-q"], cwd=root, check=True)
     run(["git", "config", "user.email", "fixture@example.invalid"], cwd=root, check=True)
     run(["git", "config", "user.name", "Fixture"], cwd=root, check=True)

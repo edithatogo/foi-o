@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="public-governance-metadata-refactor" targetNamespace="https://foi-o.dev/conductor">
+  <process id="publicGovernanceMetadataRefactor" isExecutable="false">
+    <startEvent id="StartEvent" name="Inventory candidate paths"/>
+    <task id="Classify" name="Classify governance metadata"/>
+    <exclusiveGateway id="Boundary" name="Reusable and public-safe?"/>
+    <task id="PrivateRef" name="Retain private artifact and expose opaque pin"/>
+    <task id="GenericContract" name="Define generic versioned contract"/>
+    <task id="Compatibility" name="Verify historical compatibility"/>
+    <task id="Validate" name="Run contract and repository validation"/>
+    <exclusiveGateway id="ExternalGate" name="External action authorized?"/>
+    <task id="Candidate" name="Retain local candidate"/>
+    <endEvent id="EndEvent" name="Hand off exact approved candidate"/>
+    <sequenceFlow id="f1" sourceRef="StartEvent" targetRef="Classify"/>
+    <sequenceFlow id="f2" sourceRef="Classify" targetRef="Boundary"/>
+    <sequenceFlow id="f3" sourceRef="Boundary" targetRef="PrivateRef" name="no"/>
+    <sequenceFlow id="f4" sourceRef="Boundary" targetRef="GenericContract" name="yes"/>
+    <sequenceFlow id="f5" sourceRef="PrivateRef" targetRef="Compatibility"/>
+    <sequenceFlow id="f6" sourceRef="GenericContract" targetRef="Compatibility"/>
+    <sequenceFlow id="f7" sourceRef="Compatibility" targetRef="Validate"/>
+    <sequenceFlow id="f8" sourceRef="Validate" targetRef="ExternalGate"/>
+    <sequenceFlow id="f9" sourceRef="ExternalGate" targetRef="Candidate" name="no"/>
+    <sequenceFlow id="f10" sourceRef="ExternalGate" targetRef="EndEvent" name="yes"/>
+    <sequenceFlow id="f11" sourceRef="Candidate" targetRef="EndEvent"/>
+  </process>
+</definitions>

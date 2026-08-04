@@ -6,7 +6,11 @@ import json
 from hashlib import sha1, sha256
 from pathlib import Path
 
-from foi_o_nz.analyst_packet_verification import derive_fixture_units, ordered_unit_commitment
+from foi_o_nz.analyst_packet_verification import (
+    LEGACY_FIXTURE_LICENSE_PLACEHOLDER_SHA256,
+    derive_fixture_units,
+    ordered_unit_commitment,
+)
 
 ROOT = Path(__file__).parents[1]
 OUTPUT = ROOT / "examples/v2/analyst-fixture-packet"
@@ -289,7 +293,7 @@ def main(output: Path = OUTPUT) -> None:
             "sources": [{"path": path, "sha256": source_hashes[path]} for path in source_paths],
             "license_placeholder": {
                 "path": "LICENSE.md",
-                "sha256": _digest(ROOT / "LICENSE.md"),
+                "sha256": LEGACY_FIXTURE_LICENSE_PLACEHOLDER_SHA256,
                 "grants_redistribution": False,
             },
             "local_analysis_allowed": False,
