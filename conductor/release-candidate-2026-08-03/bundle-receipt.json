@@ -2,16 +2,16 @@
   "schema_version": "foi-o.release-bundle-receipt.v1",
   "status": "candidate_not_authorized",
   "bundle_name": "foi-o-nz-semantic-core-0.1.0",
-  "target_commit": "1993b54db7805fc0c2ebde5a7801f9360d923350",
-  "manifest_sha256": "eb60ae6acc67c553c294ce49e453fe1047fc47e8f1c6f3b8cfc09c3121e07736",
-  "manifest_file_sha256": "e9ef932bffa6a48e0b828853a44f295c0dec4041ac42a6aa23e578401f56c94a",
-  "bundle_sha256": "22899c3becaab1ff7fff6b045c794a966db7aea5b699231d335ce68f85f13cdd",
+  "target_commit": "04ed03c52761b4a83579e8721aeef20ce2d9282e",
+  "manifest_sha256": "d1e14b94aa5e998120d0361c22dda24bc91b94dc797773050452b19c73b8553a",
+  "manifest_file_sha256": "19b285d70f6d61a123602d7e1fa284b17d16f40a26be0cbd1c583025f37b8e37",
+  "bundle_sha256": "86778bae632e12c6483531f13b396817d2e77d7cb1cc4fd4f51267e2e3ea66e1",
   "bundle_size": 8209,
   "member_count": 13,
   "members": [
     {
       "path": "RELEASE-MANIFEST.json",
-      "sha256": "e9ef932bffa6a48e0b828853a44f295c0dec4041ac42a6aa23e578401f56c94a",
+      "sha256": "19b285d70f6d61a123602d7e1fa284b17d16f40a26be0cbd1c583025f37b8e37",
       "size": 4471,
       "license": "CC-BY-4.0"
     },

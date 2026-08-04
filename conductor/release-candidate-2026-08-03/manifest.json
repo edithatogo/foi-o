@@ -2,7 +2,7 @@
   "schema_version": "foi-o.release-manifest.v2",
   "status": "candidate_not_authorized",
   "repository": "https://github.com/edithatogo/foi-o",
-  "target_commit": "1993b54db7805fc0c2ebde5a7801f9360d923350",
+  "target_commit": "04ed03c52761b4a83579e8721aeef20ce2d9282e",
   "selection": {
     "include_files": [
       "CITATION-SEMANTIC-CORE.cff",
@@ -131,5 +131,5 @@
   "total_bytes": 24145,
   "publication_authorized": false,
   "release_authorized": false,
-  "manifest_sha256": "eb60ae6acc67c553c294ce49e453fe1047fc47e8f1c6f3b8cfc09c3121e07736"
+  "manifest_sha256": "d1e14b94aa5e998120d0361c22dda24bc91b94dc797773050452b19c73b8553a"
 }
