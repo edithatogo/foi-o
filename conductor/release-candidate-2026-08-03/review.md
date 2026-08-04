@@ -6,18 +6,18 @@ integration, release, and publication remain unauthorized.
 ## Exact candidate
 
 - Target commit:
-  `154c64fbde0ad558f7f60159c9289a0115a2f63f`
+  `1993b54db7805fc0c2ebde5a7801f9360d923350`
 - Manifest canonical self-pin:
-  `3b8799f220dcb76bac913716ccf8cf60664c59b3770fe48f9987b3d1b20ff03f`
+  `eb60ae6acc67c553c294ce49e453fe1047fc47e8f1c6f3b8cfc09c3121e07736`
 - Serialized manifest SHA-256:
-  `550a2b5c53b8fe15ebb050ffc58b8b924c09d930b1f90c720f916291f14854f2`
+  `e9ef932bffa6a48e0b828853a44f295c0dec4041ac42a6aa23e578401f56c94a`
 - Destination-neutral archive SHA-256:
-  `dcdb26f1b6c1bdc43d65627f22ce6f2ffe8d97504f76dbbb5b00d7fabdea699c`
+  `22899c3becaab1ff7fff6b045c794a966db7aea5b699231d335ce68f85f13cdd`
 - Archive receipt SHA-256:
-  `5135b726f978ec67d99353c48eadc11160eac6e559abe50f67b7ef93456a899e`
-- Files: 11, exact allowlist, sorted and unique
-- Total source bytes: 23,554
-- Archive: 12 members and 7,882 bytes
+  `a1360d6e1c6f39c4d9878658cf0a7ce47647c2ffe915905e01a2ebdbd7d2704f`
+- Files: 12, exact allowlist, sorted and unique
+- Total source bytes: 24,145
+- Archive: 13 members and 8,209 bytes
 - Publication authorized: false
 - Release authorized: false
 - Scope approval SHA-256:
@@ -26,8 +26,9 @@ integration, release, and publication remain unauthorized.
 The candidate is precisely an **FOI-O NZ semantic core**, not a global
 jurisdiction-neutral ontology, source dataset, empirical evidence bundle, or
 installable Python package. It contains the citation record, split-licence
-notices, one JSON-LD context, the NZ seed ontology, its SHACL shapes, and four
-SKOS vocabularies. It excludes broad code and schemas, mappings, examples,
+notices, an artifact-specific citation and scope notice, one JSON-LD context,
+the NZ seed ontology, its SHACL shapes, and four SKOS vocabularies. It excludes
+broad code and schemas, mappings, examples,
 Conductor records, authentic source content, archive material, credentials,
 restricted evidence, empirical records, training data, and legal conclusions.
 
@@ -36,12 +37,13 @@ restricted evidence, empirical records, training data, and legal conclusions.
 The manifest validator reproduced the exact file set from the target Git tree,
 verified each Git blob ID, SHA-256, size, licence assignment, count, total size,
 ordering, and canonical self-pin. Negative tests reject path traversal, missing
-allowlisted files, extra members, hash changes, licence drift, and authorization
-flags that do not remain false.
+allowlisted files, extra members, hash changes, target-commit drift, repository
+or exclusion-policy drift, noncanonical gzip/tar metadata, licence drift, and
+authorization flags that do not remain false.
 
 The archive builder writes fixed ownership, mode, order, path, and timestamp
 metadata. Rebuilding the same candidate produces the same gzip/tar SHA-256. The
-archive contains `RELEASE-MANIFEST.json` and exactly the 11 allowlisted files.
+archive contains `RELEASE-MANIFEST.json` and exactly the 12 allowlisted files.
 Its receipt is candidate-only and independently validates archive bytes,
 members, manifest identity, and authorization flags.
 
@@ -67,8 +69,9 @@ or redistribution-sensitive records. Per-file licensing matches the approved
 split:
 
 - MIT: `LICENSE-CODE.md`, the JSON-LD context, and SHACL validation schema;
-- CC BY 4.0: `LICENSE-CONTENT.md`, `LICENSE.md`, `CITATION.cff`, the ontology,
-  and SKOS vocabularies.
+- CC BY 4.0: `LICENSE-CONTENT.md`, `LICENSE.md`,
+  `CITATION-SEMANTIC-CORE.cff`, `SEMANTIC-CORE-SCOPE.md`, the generated
+  `RELEASE-MANIFEST.json`, the ontology, and SKOS vocabularies.
 
 Historical ontology and vocabulary bytes remain unchanged because earlier
 analyses pin them exactly. Their disposition is recorded by the included
@@ -77,7 +80,7 @@ rights-engineering and public-scope review, not legal certification.
 
 ## Repository validation — pass with one recorded baseline exception
 
-- `uv run pytest -q`: 1,237 passed, 2 skipped;
+- `uv run pytest -q`: 1,241 passed, 2 skipped;
 - `uv run ruff check src tests scripts`: passed;
 - `uv run ruff format --check src tests scripts`: 386 files formatted;
 - `uv run ty check src tests scripts`: passed;
@@ -90,10 +93,16 @@ counts now include the two release schemas and the new test module; a historical
 Homebrew executable pin remains immutable but clean environments now verify its
 fail-closed execution state when that exact version is absent.
 
-The bundled Conductor validator reports seven evidence links already broken on
-`origin/main` because those active tracks opt into evidence ledgers but do not
-contain `evidence.jsonl`. The two tracks introduced by this branch validate.
-No absent unrelated ledger was reconstructed from uncommitted workspace state.
+Full Conductor validation passes. Seven tracks whose `origin/main` scaffolds
+referenced absent evidence ledgers now contain canonical initialization entries
+that explicitly infer no historical event or external-gate satisfaction. One
+pre-existing legacy track remains a warning because it has evidence without an
+`evidence_schema` opt-in; it is not part of this release candidate.
+
+The first independent review found receipt/commit, canonical-archive, licensing,
+citation-scope, and Conductor-baseline defects. All were remediated in
+`1993b54db7805fc0c2ebde5a7801f9360d923350` with positive and negative tests;
+the exact regenerated candidate requires fresh independent review.
 
 ## Remaining gates
 

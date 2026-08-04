@@ -10,8 +10,9 @@ Recommended sequence:
    exact `main` commit;
 3. create the canonical Git tag and GitHub release;
 4. create a **new** Zenodo semantic-core record from that exact archive;
-5. optionally create a dedicated Hugging Face dataset repository and a separate
-   OSF project/component, each from the same archive and receipt.
+5. optionally route a Hugging Face package through an exact reviewed
+   `fyi-archive` revision and create a separate OSF project/component, each from
+   the same archive and receipt.
 
 This sequence gives one canonical Git identity and prevents historical
 destinations from being silently repurposed. The existing public Hugging Face
@@ -38,11 +39,13 @@ It must not authorize a tag, GitHub release, upload, deposit, publication,
 profile promotion, source-content redistribution, training, or legal
 certification.
 
-Recommended authorization wording (replace `[exact-head]` after the candidate
-evidence commit is created):
+The exact integration head is reported in the user-facing gate request after
+this packet's containing commit is created. Embedding that SHA here would be
+self-referential and would immediately change it. Recommended authorization
+wording:
 
-> I authorize pushing branch `codex/semantic-core-release-20260804` at exact
-> head `[exact-head]` to origin, opening a pull request against `main`, and
+> I authorize pushing branch `codex/semantic-core-release-20260804` at the exact
+> head stated with this gate request to origin, opening a pull request against `main`, and
 > squash-merging it only after required checks pass and without bypassing branch
 > protections. I authorize addressing required-check failures within the exact
 > release-governance scope and, after merge, read-only verification of the
@@ -65,8 +68,9 @@ action.
 Recommended destination policy:
 
 - Zenodo: create a new open semantic-core record only after the GitHub release;
-- Hugging Face: if desired, create `edithatogo/foi-o-nz-semantic-core`, with the
-  split licence represented in the dataset card and no source/archive records;
+- Hugging Face: if desired, prepare the semantic-core package through the
+  declared `fyi-archive` publication boundary at an exact reviewed revision;
+  any new destination identity remains separately approved;
 - OSF: if desired, create a separate semantic-core project/component rather
   than replacing `5j7qa`.
 

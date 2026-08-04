@@ -2,13 +2,14 @@
   "schema_version": "foi-o.release-manifest.v2",
   "status": "candidate_not_authorized",
   "repository": "https://github.com/edithatogo/foi-o",
-  "target_commit": "154c64fbde0ad558f7f60159c9289a0115a2f63f",
+  "target_commit": "1993b54db7805fc0c2ebde5a7801f9360d923350",
   "selection": {
     "include_files": [
-      "CITATION.cff",
+      "CITATION-SEMANTIC-CORE.cff",
       "LICENSE-CODE.md",
       "LICENSE-CONTENT.md",
       "LICENSE.md",
+      "SEMANTIC-CORE-SCOPE.md",
       "contexts/foi-o-nz.context.jsonld",
       "ontology/foi-o-nz.ttl",
       "shacl/foi-o-nz.shapes.ttl",
@@ -29,10 +30,11 @@
       "legal_conclusions"
     ],
     "license_policy": {
-      "CITATION.cff": "CC-BY-4.0",
+      "CITATION-SEMANTIC-CORE.cff": "CC-BY-4.0",
       "LICENSE-CODE.md": "MIT",
       "LICENSE-CONTENT.md": "CC-BY-4.0",
       "LICENSE.md": "CC-BY-4.0",
+      "SEMANTIC-CORE-SCOPE.md": "CC-BY-4.0",
       "contexts": "MIT",
       "ontology": "CC-BY-4.0",
       "shacl": "MIT",
@@ -41,10 +43,10 @@
   },
   "files": [
     {
-      "path": "CITATION.cff",
-      "blob_oid": "7ddd865f8b5f1d1de1de424fe0e6e9bc933aa853",
-      "sha256": "dc0bdb185b07ff6ccb53358d53c9a10d1877cc3e4f13e52f8fea8a4e3660d2db",
-      "size": 712,
+      "path": "CITATION-SEMANTIC-CORE.cff",
+      "blob_oid": "11f5e9a39ed4931ca19684a7c7772fbfe8c64254",
+      "sha256": "f36e6c7905f2c7965e6a4bb530ca18c4c46171dccdcf759073cff0591848c8d4",
+      "size": 588,
       "license": "CC-BY-4.0"
     },
     {
@@ -66,6 +68,13 @@
       "blob_oid": "20f9495087b42cc80af26166cd92aeb8a2d309de",
       "sha256": "d2399c17ea11342c4c946c65adf8f8cd0d01c1ea92d0a4cf2717c1c21d03171b",
       "size": 1694,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "SEMANTIC-CORE-SCOPE.md",
+      "blob_oid": "5924286f780696e7e8bba1c944f5c681c458a90c",
+      "sha256": "5ab4262875abfb6171f5318161cc8602895b01f5d9c2e6c0422051f418d9f208",
+      "size": 715,
       "license": "CC-BY-4.0"
     },
     {
@@ -118,9 +127,9 @@
       "license": "CC-BY-4.0"
     }
   ],
-  "file_count": 11,
-  "total_bytes": 23554,
+  "file_count": 12,
+  "total_bytes": 24145,
   "publication_authorized": false,
   "release_authorized": false,
-  "manifest_sha256": "3b8799f220dcb76bac913716ccf8cf60664c59b3770fe48f9987b3d1b20ff03f"
+  "manifest_sha256": "eb60ae6acc67c553c294ce49e453fe1047fc47e8f1c6f3b8cfc09c3121e07736"
 }

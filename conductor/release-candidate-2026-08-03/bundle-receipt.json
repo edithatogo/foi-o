@@ -2,23 +2,23 @@
   "schema_version": "foi-o.release-bundle-receipt.v1",
   "status": "candidate_not_authorized",
   "bundle_name": "foi-o-nz-semantic-core-0.1.0",
-  "target_commit": "154c64fbde0ad558f7f60159c9289a0115a2f63f",
-  "manifest_sha256": "3b8799f220dcb76bac913716ccf8cf60664c59b3770fe48f9987b3d1b20ff03f",
-  "manifest_file_sha256": "550a2b5c53b8fe15ebb050ffc58b8b924c09d930b1f90c720f916291f14854f2",
-  "bundle_sha256": "dcdb26f1b6c1bdc43d65627f22ce6f2ffe8d97504f76dbbb5b00d7fabdea699c",
-  "bundle_size": 7882,
-  "member_count": 12,
+  "target_commit": "1993b54db7805fc0c2ebde5a7801f9360d923350",
+  "manifest_sha256": "eb60ae6acc67c553c294ce49e453fe1047fc47e8f1c6f3b8cfc09c3121e07736",
+  "manifest_file_sha256": "e9ef932bffa6a48e0b828853a44f295c0dec4041ac42a6aa23e578401f56c94a",
+  "bundle_sha256": "22899c3becaab1ff7fff6b045c794a966db7aea5b699231d335ce68f85f13cdd",
+  "bundle_size": 8209,
+  "member_count": 13,
   "members": [
     {
       "path": "RELEASE-MANIFEST.json",
-      "sha256": "550a2b5c53b8fe15ebb050ffc58b8b924c09d930b1f90c720f916291f14854f2",
-      "size": 4105,
-      "license": "MIT"
+      "sha256": "e9ef932bffa6a48e0b828853a44f295c0dec4041ac42a6aa23e578401f56c94a",
+      "size": 4471,
+      "license": "CC-BY-4.0"
     },
     {
-      "path": "CITATION.cff",
-      "sha256": "dc0bdb185b07ff6ccb53358d53c9a10d1877cc3e4f13e52f8fea8a4e3660d2db",
-      "size": 712,
+      "path": "CITATION-SEMANTIC-CORE.cff",
+      "sha256": "f36e6c7905f2c7965e6a4bb530ca18c4c46171dccdcf759073cff0591848c8d4",
+      "size": 588,
       "license": "CC-BY-4.0"
     },
     {
@@ -37,6 +37,12 @@
       "path": "LICENSE.md",
       "sha256": "d2399c17ea11342c4c946c65adf8f8cd0d01c1ea92d0a4cf2717c1c21d03171b",
       "size": 1694,
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "SEMANTIC-CORE-SCOPE.md",
+      "sha256": "5ab4262875abfb6171f5318161cc8602895b01f5d9c2e6c0422051f418d9f208",
+      "size": 715,
       "license": "CC-BY-4.0"
     },
     {

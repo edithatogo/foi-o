@@ -55,7 +55,7 @@
 - [x] Rebase the repository-owned release prerequisites onto current `main` in
       an isolated branch, validate deterministic destination-neutral archive
       construction, and regenerate all commit-bound candidate evidence.
-      (`81b78c5`, `154c64f`)
+      (`81b78c5`, `154c64f`, `1993b54`)
 - [ ] Obtain destination-specific authorization and verify one destination at
       a time.
 
