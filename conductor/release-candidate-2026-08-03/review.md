@@ -6,15 +6,15 @@ integration, release, and publication remain unauthorized.
 ## Exact candidate
 
 - Target commit:
-  `1993b54db7805fc0c2ebde5a7801f9360d923350`
+  `04ed03c52761b4a83579e8721aeef20ce2d9282e`
 - Manifest canonical self-pin:
-  `eb60ae6acc67c553c294ce49e453fe1047fc47e8f1c6f3b8cfc09c3121e07736`
+  `d1e14b94aa5e998120d0361c22dda24bc91b94dc797773050452b19c73b8553a`
 - Serialized manifest SHA-256:
-  `e9ef932bffa6a48e0b828853a44f295c0dec4041ac42a6aa23e578401f56c94a`
+  `19b285d70f6d61a123602d7e1fa284b17d16f40a26be0cbd1c583025f37b8e37`
 - Destination-neutral archive SHA-256:
-  `22899c3becaab1ff7fff6b045c794a966db7aea5b699231d335ce68f85f13cdd`
+  `86778bae632e12c6483531f13b396817d2e77d7cb1cc4fd4f51267e2e3ea66e1`
 - Archive receipt SHA-256:
-  `a1360d6e1c6f39c4d9878658cf0a7ce47647c2ffe915905e01a2ebdbd7d2704f`
+  `c87282d4234e45cfd3da2ea3026854f9929066df1bd66248fc1ff6f4c32e1359`
 - Files: 12, exact allowlist, sorted and unique
 - Total source bytes: 24,145
 - Archive: 13 members and 8,209 bytes
@@ -80,9 +80,9 @@ rights-engineering and public-scope review, not legal certification.
 
 ## Repository validation — pass with one recorded baseline exception
 
-- `uv run pytest -q`: 1,241 passed, 2 skipped;
+- `uv run pytest -q`: 1,243 passed, 2 skipped;
 - `uv run ruff check src tests scripts`: passed;
-- `uv run ruff format --check src tests scripts`: 386 files formatted;
+- `uv run ruff format --check src tests scripts`: 387 files formatted;
 - `uv run ty check src tests scripts`: passed;
 - `uv run python scripts/validate_examples.py`: passed;
 - `uv run python scripts/validate_workflows.py`: passed;
@@ -101,8 +101,12 @@ pre-existing legacy track remains a warning because it has evidence without an
 
 The first independent review found receipt/commit, canonical-archive, licensing,
 citation-scope, and Conductor-baseline defects. All were remediated in
-`1993b54db7805fc0c2ebde5a7801f9360d923350` with positive and negative tests;
-the exact regenerated candidate requires fresh independent review.
+`1993b54db7805fc0c2ebde5a7801f9360d923350` with positive and negative tests.
+The branch then incorporated `origin/main` commit
+`4d5126d70eec608a0ff1ed9226defedaa25e8202` without rebasing and regenerated
+the candidate against the reconciled functional head
+`04ed03c52761b4a83579e8721aeef20ce2d9282e`. The exact candidate requires
+fresh independent review.
 
 ## Remaining gates
 
