@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import gzip
+import hashlib
+import io
 import json
 import subprocess
 import tarfile
@@ -13,17 +16,23 @@ from foi_o_nz.release_manifest import (
     validate_release_bundle,
     validate_release_manifest,
 )
-from scripts.build_release_manifest import INCLUDE_FILES, INCLUDE_ROOTS, LICENSE_POLICY
+from scripts.build_release_manifest import (
+    INCLUDE_FILES,
+    INCLUDE_ROOTS,
+    LICENSE_POLICY,
+    validate_repository_release_manifest,
+)
 
 ROOT = Path(__file__).parent.parent
 
 
 def test_repository_release_policy_is_semantic_core_only() -> None:
     assert INCLUDE_FILES == (
-        "CITATION.cff",
+        "CITATION-SEMANTIC-CORE.cff",
         "LICENSE-CODE.md",
         "LICENSE-CONTENT.md",
         "LICENSE.md",
+        "SEMANTIC-CORE-SCOPE.md",
         "contexts/foi-o-nz.context.jsonld",
         "ontology/foi-o-nz.ttl",
         "shacl/foi-o-nz.shapes.ttl",
@@ -34,10 +43,11 @@ def test_repository_release_policy_is_semantic_core_only() -> None:
     )
     assert INCLUDE_ROOTS == ()
     assert LICENSE_POLICY == {
-        "CITATION.cff": "CC-BY-4.0",
+        "CITATION-SEMANTIC-CORE.cff": "CC-BY-4.0",
         "LICENSE-CODE.md": "MIT",
         "LICENSE-CONTENT.md": "CC-BY-4.0",
         "LICENSE.md": "CC-BY-4.0",
+        "SEMANTIC-CORE-SCOPE.md": "CC-BY-4.0",
         "contexts": "MIT",
         "ontology": "CC-BY-4.0",
         "shacl": "MIT",
@@ -60,6 +70,13 @@ def test_repository_split_licence_contract() -> None:
     assert "MIT License" in code_licence
     assert "Creative Commons Attribution 4.0 International" in content_licence
     assert "https://creativecommons.org/licenses/by/4.0/" in content_licence
+
+    citation = (ROOT / "CITATION-SEMANTIC-CORE.cff").read_text(encoding="utf-8")
+    scope = (ROOT / "SEMANTIC-CORE-SCOPE.md").read_text(encoding="utf-8")
+    assert "version: 0.1.0" in citation
+    assert "excludes source" in citation
+    assert "not legal advice" in scope
+    assert "statutory determinations" in scope
 
 
 def git(repo: Path, *args: str) -> str:
@@ -219,7 +236,8 @@ def test_release_bundle_is_deterministic_and_exact(tmp_path: Path) -> None:
 
     assert first.read_bytes() == second.read_bytes()
     assert first_receipt == second_receipt
-    assert validate_release_bundle(first_receipt, bundle=first, manifest=manifest) == []
+    assert first_receipt["members"][0]["license"] == "CC-BY-4.0"
+    assert validate_release_bundle(first_receipt, bundle=first, manifest=manifest, repo=repo) == []
     receipt_schema = json.loads(
         (ROOT / "schemas/json/release-bundle-receipt.schema.json").read_text(encoding="utf-8")
     )
@@ -254,5 +272,121 @@ def test_release_bundle_validation_rejects_changed_bytes(tmp_path: Path) -> None
     bundle.write_bytes(bundle.read_bytes() + b"changed")
 
     assert "bundle SHA-256 mismatch" in validate_release_bundle(
-        receipt, bundle=bundle, manifest=manifest
+        receipt, bundle=bundle, manifest=manifest, repo=repo
+    )
+
+
+def test_release_bundle_validation_rejects_target_commit_mutation(tmp_path: Path) -> None:
+    repo, revision = repository(tmp_path)
+    manifest = build_release_manifest(
+        repo=repo,
+        revision=revision,
+        include_files=("README.md",),
+        include_roots=(),
+        excluded_classes=("authentic_source_content",),
+        license_policy={"README.md": "CC-BY-4.0"},
+    )
+    bundle = tmp_path / "bundle.tar.gz"
+    receipt = build_release_bundle(
+        manifest=manifest,
+        repo=repo,
+        output=bundle,
+        bundle_name="example-semantic-core-0.1.0",
+    )
+    receipt["target_commit"] = "0" * 40
+
+    assert "bundle target commit mismatch" in validate_release_bundle(
+        receipt, bundle=bundle, manifest=manifest, repo=repo
+    )
+
+
+def test_repository_policy_rejects_repository_and_exclusion_drift(tmp_path: Path) -> None:
+    repo, revision = repository(tmp_path)
+    manifest = build_release_manifest(
+        repo=repo,
+        revision=revision,
+        include_files=("README.md",),
+        include_roots=(),
+        excluded_classes=("authentic_source_content",),
+        license_policy={"README.md": "CC-BY-4.0"},
+    )
+    manifest["repository"] = "https://example.invalid/other"
+    manifest["selection"]["excluded_classes"] = ["credentials"]
+
+    errors = validate_repository_release_manifest(manifest, repo=repo)
+
+    assert "release repository mismatch" in errors
+    assert "release exclusions do not match policy" in errors
+
+
+def test_release_bundle_validation_rejects_noncanonical_tar_metadata(tmp_path: Path) -> None:
+    repo, revision = repository(tmp_path)
+    manifest = build_release_manifest(
+        repo=repo,
+        revision=revision,
+        include_files=("README.md",),
+        include_roots=(),
+        excluded_classes=("authentic_source_content",),
+        license_policy={"README.md": "CC-BY-4.0"},
+    )
+    bundle = tmp_path / "bundle.tar.gz"
+    receipt = build_release_bundle(
+        manifest=manifest,
+        repo=repo,
+        output=bundle,
+        bundle_name="example-semantic-core-0.1.0",
+    )
+    with tarfile.open(bundle, "r:gz") as archive:
+        members = []
+        for member in archive:
+            extracted = archive.extractfile(member)
+            assert extracted is not None
+            members.append((member.name, extracted.read()))
+    raw = io.BytesIO()
+    with (
+        gzip.GzipFile(filename="changed", mode="wb", fileobj=raw, mtime=42) as compressed,
+        tarfile.open(fileobj=compressed, mode="w") as archive,
+    ):
+        for name, content in members:
+            info = tarfile.TarInfo(name)
+            info.size = len(content)
+            info.mtime = 42
+            archive.addfile(info, io.BytesIO(content))
+    bundle.write_bytes(raw.getvalue())
+    receipt["bundle_sha256"] = hashlib.sha256(bundle.read_bytes()).hexdigest()
+    receipt["bundle_size"] = bundle.stat().st_size
+
+    assert "bundle is not canonical" in validate_release_bundle(
+        receipt, bundle=bundle, manifest=manifest, repo=repo
+    )
+
+
+def test_release_bundle_schema_allows_hash_pinned_empty_members(tmp_path: Path) -> None:
+    repo, _revision = repository(tmp_path)
+    (repo / "EMPTY.md").write_bytes(b"")
+    git(repo, "add", "EMPTY.md")
+    git(repo, "commit", "-qm", "add empty fixture")
+    revision = git(repo, "rev-parse", "HEAD")
+    manifest = build_release_manifest(
+        repo=repo,
+        revision=revision,
+        include_files=("EMPTY.md", "README.md"),
+        include_roots=(),
+        excluded_classes=("authentic_source_content",),
+        license_policy={"EMPTY.md": "CC-BY-4.0", "README.md": "CC-BY-4.0"},
+    )
+    bundle = tmp_path / "bundle.tar.gz"
+    receipt = build_release_bundle(
+        manifest=manifest,
+        repo=repo,
+        output=bundle,
+        bundle_name="example-semantic-core-0.1.0",
+    )
+    schema = json.loads(
+        (ROOT / "schemas/json/release-bundle-receipt.schema.json").read_text(encoding="utf-8")
+    )
+
+    Draft202012Validator(schema).validate(receipt)
+    assert (
+        next(member for member in receipt["members"] if member["path"] == "EMPTY.md")["size"] == 0
     )

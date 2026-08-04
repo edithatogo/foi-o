@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:foi-o:schema:release-manifest:1",
+  "$id": "urn:foi-o:schema:release-manifest:2",
   "title": "FOI-O commit-bound public-safe release manifest",
   "type": "object",
   "additionalProperties": false,

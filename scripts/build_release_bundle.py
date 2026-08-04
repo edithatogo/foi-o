@@ -7,7 +7,11 @@ import argparse
 import json
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
+
 from foi_o_nz.release_manifest import build_release_bundle, validate_release_bundle
+
+ROOT = Path(__file__).parents[1]
 
 
 def parser() -> argparse.ArgumentParser:
@@ -26,7 +30,17 @@ def main() -> int:
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     if args.validate:
         receipt = json.loads(args.receipt.read_text(encoding="utf-8"))
-        errors = validate_release_bundle(receipt, bundle=args.bundle, manifest=manifest)
+        schema = json.loads(
+            (ROOT / "schemas/json/release-bundle-receipt.schema.json").read_text(encoding="utf-8")
+        )
+        schema_errors = [
+            f"release bundle receipt schema: {error.message}"
+            for error in Draft202012Validator(schema).iter_errors(receipt)
+        ]
+        errors = validate_release_bundle(
+            receipt, bundle=args.bundle, manifest=manifest, repo=args.repo
+        )
+        errors = [*schema_errors, *errors]
         if errors:
             print("\n".join(errors))
             return 1

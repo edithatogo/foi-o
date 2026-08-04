@@ -245,6 +245,18 @@ def _tar_member(name: str, content: bytes) -> tuple[tarfile.TarInfo, io.BytesIO]
     return info, io.BytesIO(content)
 
 
+def _bundle_bytes(bundle_name: str, members: list[tuple[str, bytes, str]]) -> bytes:
+    raw = io.BytesIO()
+    with (
+        GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed,
+        tarfile.open(fileobj=compressed, mode="w", format=tarfile.USTAR_FORMAT) as archive,
+    ):
+        for relative, content, _license in members:
+            info, stream = _tar_member(f"{bundle_name}/{relative}", content)
+            archive.addfile(info, stream)
+    return raw.getvalue()
+
+
 def build_release_bundle(
     *,
     manifest: dict[str, Any],
@@ -260,7 +272,9 @@ def build_release_bundle(
         raise ValueError("invalid release manifest: " + "; ".join(errors))
 
     manifest_content = _manifest_bytes(manifest)
-    members: list[tuple[str, bytes, str]] = [("RELEASE-MANIFEST.json", manifest_content, "MIT")]
+    members: list[tuple[str, bytes, str]] = [
+        ("RELEASE-MANIFEST.json", manifest_content, "CC-BY-4.0")
+    ]
     target = str(manifest["target_commit"])
     for item in manifest["files"]:
         path = str(item["path"])
@@ -269,16 +283,8 @@ def build_release_bundle(
         )
 
     output.parent.mkdir(parents=True, exist_ok=True)
-    with (
-        output.open("wb") as raw,
-        GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as compressed,
-        tarfile.open(fileobj=compressed, mode="w", format=tarfile.USTAR_FORMAT) as archive,
-    ):
-        for relative, content, _license in members:
-            info, stream = _tar_member(f"{bundle_name}/{relative}", content)
-            archive.addfile(info, stream)
-
-    bundle_bytes = output.read_bytes()
+    bundle_bytes = _bundle_bytes(bundle_name, members)
+    output.write_bytes(bundle_bytes)
     return {
         "schema_version": BUNDLE_SCHEMA_VERSION,
         "status": "candidate_not_authorized",
@@ -304,10 +310,13 @@ def build_release_bundle(
 
 
 def validate_release_bundle(
-    receipt: dict[str, Any], *, bundle: Path, manifest: dict[str, Any]
+    receipt: dict[str, Any], *, bundle: Path, manifest: dict[str, Any], repo: Path
 ) -> list[str]:
     """Validate a deterministic archive receipt against its release manifest."""
-    errors: list[str] = []
+    errors = [
+        f"invalid release manifest: {error}"
+        for error in validate_release_manifest(manifest, repo=repo)
+    ]
     if receipt.get("schema_version") != BUNDLE_SCHEMA_VERSION:
         errors.append("unsupported bundle receipt schema")
     if receipt.get("status") != "candidate_not_authorized":
@@ -324,6 +333,8 @@ def validate_release_bundle(
         errors.append("bundle size mismatch")
     if receipt.get("manifest_sha256") != manifest.get("manifest_sha256"):
         errors.append("bundle manifest self-pin mismatch")
+    if receipt.get("target_commit") != manifest.get("target_commit"):
+        errors.append("bundle target commit mismatch")
     manifest_content = _manifest_bytes(manifest)
     if receipt.get("manifest_file_sha256") != hashlib.sha256(manifest_content).hexdigest():
         errors.append("bundle manifest file SHA-256 mismatch")
@@ -337,7 +348,7 @@ def validate_release_bundle(
     ):
         errors.append("unsafe bundle name")
         return errors
-    expected = [("RELEASE-MANIFEST.json", manifest_content, "MIT")]
+    expected = [("RELEASE-MANIFEST.json", manifest_content, "CC-BY-4.0")]
     expected.extend(
         (str(item["path"]), None, str(item["license"])) for item in manifest.get("files", [])
     )
@@ -348,6 +359,7 @@ def validate_release_bundle(
             if [member.name for member in members] != expected_names:
                 errors.append("bundle member set mismatch")
             actual_receipt_members: list[dict[str, Any]] = []
+            canonical_members: list[tuple[str, bytes, str]] = []
             manifest_by_path = {str(item["path"]): item for item in manifest.get("files", [])}
             for member in members:
                 if not member.isfile() or member.issym() or member.islnk():
@@ -361,7 +373,7 @@ def validate_release_bundle(
                 relative = member.name.removeprefix(f"{bundle_name}/")
                 if relative == "RELEASE-MANIFEST.json":
                     expected_content = manifest_content
-                    license_id = "MIT"
+                    license_id = "CC-BY-4.0"
                 else:
                     item = manifest_by_path.get(relative)
                     expected_content = None
@@ -380,10 +392,13 @@ def validate_release_bundle(
                         "license": license_id,
                     }
                 )
+                canonical_members.append((relative, member_content, license_id))
             if receipt.get("members") != actual_receipt_members:
                 errors.append("bundle member receipt mismatch")
             if receipt.get("member_count") != len(members):
                 errors.append("bundle member count mismatch")
+            if content != _bundle_bytes(bundle_name, canonical_members):
+                errors.append("bundle is not canonical")
     except (tarfile.TarError, OSError):
         errors.append("invalid release bundle archive")
     return errors

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: >-
+  If you use the FOI-O NZ semantic core, cite this release and preserve its
+  per-file licence manifest.
+title: "FOI-O NZ semantic core"
+type: dataset
+authors:
+  - family-names: Mordaunt
+    given-names: Dylan
+    orcid: "https://orcid.org/0009-0006-1152-7383"
+version: 0.1.0
+repository-code: "https://github.com/edithatogo/foi-o"
+abstract: >-
+  A bounded semantic artifact containing the FOI-O NZ JSON-LD context,
+  ontology, SHACL shapes, and controlled vocabularies. It excludes source
+  content, empirical evidence, extraction contracts, and analytics.
