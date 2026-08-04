@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import subprocess
+import sys
 import tarfile
 from pathlib import Path
 
@@ -24,6 +25,17 @@ from scripts.build_release_manifest import (
 )
 
 ROOT = Path(__file__).parent.parent
+
+
+def test_release_bundle_cli_is_directly_executable() -> None:
+    result = subprocess.run(
+        [sys.executable, "scripts/build_release_bundle.py", "--help"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
 
 
 def test_repository_release_policy_is_semantic_core_only() -> None:

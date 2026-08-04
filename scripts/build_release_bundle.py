@@ -10,7 +10,11 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from foi_o_nz.release_manifest import build_release_bundle, validate_release_bundle
-from scripts.build_release_manifest import validate_repository_release_manifest
+
+try:
+    from scripts.build_release_manifest import validate_repository_release_manifest
+except ModuleNotFoundError:  # Direct `python scripts/build_release_bundle.py` execution.
+    from build_release_manifest import validate_repository_release_manifest
 
 ROOT = Path(__file__).parents[1]
 
