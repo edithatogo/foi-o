@@ -6,18 +6,18 @@ integration, release, and publication remain unauthorized.
 ## Exact candidate
 
 - Target commit:
-  `ef591fa7fd37d56942aff3699bb42968127672f4`
+  `d51d5ac54a4601ce51aff6e938ae4b0fdea8e9db`
 - Manifest canonical self-pin:
-  `0dcb1547a82f7f802ef0e15cd32ce7baabf8c07e0da053646d6b5bdc06b9499d`
+  `25e364d99058fe0f84418a19d3d4b0f4a0eb442b3a5bc1307feaeddd6206dc71`
 - Serialized manifest SHA-256:
-  `c28925f6b0a7130fd8affbc37f10cee6471a0a5b3375b155c7a5923f45466f11`
+  `a53fbb7ef2b2dc376591f463014e2b2ea4fd823e3b34a31094e75e622f218443`
 - Destination-neutral archive SHA-256:
-  `84a6374420bbe03fa75f155965b23aee89b1a2feb40759aa678b20f97d4caf74`
+  `ffb304e349df04593e0903f28a82ef515d60a64a5685fc6a6fdd64a9da194806`
 - Archive receipt SHA-256:
-  `6dfaf57f80f95bac41ba2b90e7f88d90946527d122b9f2f77616a01fce02fa7c`
+  `837e07e6f93962d61f2fc1eab8ce9edbd8d3f629f51bce6b0ceaab58adae9b78`
 - Files: 12, exact allowlist, sorted and unique
 - Total source bytes: 24,094
-- Archive: 13 members and 8,189 bytes
+- Archive: 13 members and 8,188 bytes
 - Publication authorized: false
 - Release authorized: false
 - Scope approval SHA-256:
@@ -80,7 +80,7 @@ rights-engineering and public-scope review, not legal certification.
 
 ## Repository validation — pass with one recorded baseline exception
 
-- `uv run pytest -q`: 1,243 passed, 2 skipped;
+- `uv run pytest -q`: 1,245 passed, 2 skipped;
 - `uv run ruff check src tests scripts`: passed;
 - `uv run ruff format --check src tests scripts`: 387 files formatted;
 - `uv run ty check src tests scripts`: passed;
@@ -107,8 +107,11 @@ The branch then incorporated `origin/main` commit
 the candidate against the reconciled functional head. The rights re-review then
 identified conflicting ORCIDs in the repository and artifact citation files;
 `ef591fa7fd37d56942aff3699bb42968127672f4` safely omitted the unverified
-semantic-core ORCID without selecting an identity. The exact candidate requires
-fresh independent review.
+semantic-core ORCID without selecting an identity. The integrity re-review then
+identified two CLI fail-closed gaps; `3e3d5ffb372bbf1bb722b07f32513b9ae78b30a5`
+and `d51d5ac54a4601ce51aff6e938ae4b0fdea8e9db` now enforce repository policy in
+both CLIs, handle malformed selections deterministically, and preserve direct
+script execution. The exact candidate requires final independent closure review.
 
 ## Remaining gates
 
