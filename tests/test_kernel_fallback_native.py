@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from unittest.mock import patch
 
 from foi_o_nz.kernel_fallback import (
     action_requires_review,
@@ -16,7 +17,12 @@ from foi_o_nz.kernel_fallback import (
     risk_level_from_score,
     token_estimate_from_chars,
 )
-from foi_o_nz.native_kernel import evaluate_kernel, kernel_status, run_kernel_conformance
+from foi_o_nz.native_kernel import (
+    _existing_executable,
+    evaluate_kernel,
+    kernel_status,
+    run_kernel_conformance,
+)
 from foi_o_nz.validation import validate_json_schema
 
 
@@ -48,7 +54,9 @@ def test_kernel_status_has_python_fallback() -> None:
 
 
 def test_kernel_eval_uses_fallback_when_no_binary() -> None:
-    result = evaluate_kernel("normalise_alaveteli_state", "successful", prefer_native=False)
+    result = evaluate_kernel(
+        "normalise_alaveteli_state", "successful", prefer_native=False
+    )
     assert result["ok"] is True
     assert result["value"] == "ReleasedInFull"
     assert result["runtime_used"] == "python-fallback"
@@ -59,5 +67,13 @@ def test_kernel_conformance_report_validates(tmp_path: Path) -> None:
     report = run_kernel_conformance(output)
     assert report["ok"] is True
     assert report["case_count"] >= 20
-    validation = validate_json_schema(output, Path("schemas/json/kernel-conformance.schema.json"))
+    validation = validate_json_schema(
+        output, Path("schemas/json/kernel-conformance.schema.json")
+    )
     assert validation.ok, validation.errors
+
+
+def test_existing_executable_oserror() -> None:
+    with patch("pathlib.Path.exists", side_effect=OSError("mocked error")):
+        result = _existing_executable(Path("fake_path"))
+        assert result is None
