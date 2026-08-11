@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from foi_o_nz.agent_pack import write_agent_context_pack
 from foi_o_nz.diff import diff_jsonl
 from foi_o_nz.io import write_jsonl
@@ -175,3 +177,28 @@ def test_reproducibility_manifest_digests_files(tmp_path: Path) -> None:
     assert result["schema_version"] == "foi-o-nz.reproducibility.v0.1.0"
     assert result["files"][0]["path"] == "artifact.json"
     assert len(result["files"][0]["sha256"]) == 64
+
+
+def test_tool_version_handles_subprocess_exception(monkeypatch: pytest.MonkeyPatch) -> None:
+    import shutil
+    import subprocess
+
+    from foi_o_nz.reproducibility import tool_version
+
+    # Mock shutil.which to return a dummy path so we proceed to subprocess.run
+    monkeypatch.setattr(shutil, "which", lambda x: "/usr/bin/dummy")
+
+    # Mock subprocess.run to raise a generic Exception
+    def mock_run(*args, **kwargs):
+        raise RuntimeError("simulated error")
+
+    monkeypatch.setattr(subprocess, "run", mock_run)
+
+    # Call tool_version
+    result = tool_version("dummy_tool", "--version")
+
+    # Verify the results
+    assert result.name == "dummy_tool"
+    assert result.available is True
+    assert result.executable == "/usr/bin/dummy"
+    assert "version check failed: simulated error" in result.version_output
