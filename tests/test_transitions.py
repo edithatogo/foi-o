@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from foi_o_nz.transitions import audit_transitions
+from foi_o_nz.state_machine import RequestState
+from foi_o_nz.transitions import _state, audit_transitions
 
 
 def test_transition_audit_flags_unexpected_transition() -> None:
@@ -40,3 +41,7 @@ def test_transition_audit_accepts_known_transition() -> None:
     ]
     result = audit_transitions(events)
     assert result["ok"]
+
+
+def test_state_invalid_value_returns_unknown() -> None:
+    assert _state("InvalidStateThatCausesValueError") == RequestState.UNKNOWN
