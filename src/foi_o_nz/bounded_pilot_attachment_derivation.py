@@ -701,9 +701,9 @@ def _freeze_sources(
                 info = os.fstat(descriptor)
                 if not stat.S_ISREG(info.st_mode) or info.st_size != source["size"]:
                     raise ValueError("attachment source descriptor identity mismatch")
-                data = b""
+                data = bytearray()
                 while chunk := os.read(descriptor, 1024 * 1024):
-                    data += chunk
+                    data.extend(chunk)
                 if sha256(data).hexdigest() != source["sha256"]:
                     raise ValueError("attachment frozen source SHA-256 mismatch")
                 frozen_path = directory / f"source-{index:03d}.pdf"
