@@ -4,7 +4,7 @@
 [![Mojo/MAX](https://img.shields.io/badge/Mojo%20%2B%20MAX-experimental-orange)](https://docs.modular.com/)
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000)](https://github.com/astral-sh/ruff)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE.md)
+[![License: MIT + CC BY 4.0](https://img.shields.io/badge/license-MIT%20%2B%20CC%20BY%204.0-green)](LICENSE.md)
 
 **Global agent-facing process model, ontology, validation stack, and analytical workbench for freedom-of-information administration. Developed first through New Zealand's OIA and iterated through Australian jurisdictions.**
 
@@ -368,7 +368,12 @@ Agents must not autonomously certify:
 
 ## Licence and notice
 
-Code, schemas, ontology seed, and documentation are MIT licensed. Source request/archive content remains subject to its original rights and platform terms. This repository is not an official New Zealand government or Ombudsman publication channel.
+Repository-owned code and schemas are [MIT licensed](LICENSE-CODE.md).
+Repository-owned documentation, ontology, vocabularies, and mappings are
+[CC BY 4.0 licensed](LICENSE-CONTENT.md). Third-party and source content remains
+subject to its original rights and platform terms; see the complete
+[licence map](LICENSE.md). This repository is not an official New Zealand
+government or Ombudsman publication channel.
 
 
 ## v0.6+ additional commands

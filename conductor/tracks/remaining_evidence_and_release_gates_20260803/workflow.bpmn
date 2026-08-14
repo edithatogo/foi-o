@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="remaining-gates" targetNamespace="https://foi-o.dev/conductor">
+  <process id="remainingEvidenceAndReleaseGates" isExecutable="false">
+    <startEvent id="start" name="Inventory pinned evidence"/>
+    <parallelGateway id="prepareSplit" name="Prepare evidence lanes"/>
+    <task id="nzPayload" name="Recover or replace NZ payload"/>
+    <task id="auFixtures" name="Prepare official Australian fixture packets"/>
+    <task id="cthLedger" name="Verify AU-CTH ledger candidate"/>
+    <task id="releaseAllowlist" name="Prepare public-safe release allow-list"/>
+    <task id="qldRegistration" name="Complete Queensland registration and terms gate"/>
+    <task id="mirrorDecision" name="Record named mirror-oracle decision"/>
+    <task id="freshFrame" name="Prepare fresh AU-CTH frame candidate"/>
+    <parallelGateway id="rightsJoin" name="Collect exact evidence decisions"/>
+    <exclusiveGateway id="rightsGateway" name="Provenance and rights approved?"/>
+    <task id="blocked" name="Record blocked or candidate gate"/>
+    <exclusiveGateway id="executionGateway" name="Exact frame and execution approved?"/>
+    <task id="boundedWork" name="Run only bounded authorized empirical work"/>
+    <exclusiveGateway id="releaseScope" name="Manifest includes new empirical outputs?"/>
+    <exclusiveGateway id="empiricalReady" name="Exact empirical outputs complete and approved?"/>
+    <task id="releaseReview" name="Run integrity and rights publication review"/>
+    <exclusiveGateway id="releaseGateway" name="Exact manifest and one destination approved?"/>
+    <task id="destinationAction" name="Perform one approved destination action"/>
+    <task id="receipt" name="Verify receipt and destination hashes"/>
+    <endEvent id="end" name="Recorded outcome"/>
+    <sequenceFlow id="f1" sourceRef="start" targetRef="prepareSplit"/>
+    <sequenceFlow id="f2" sourceRef="prepareSplit" targetRef="nzPayload"/>
+    <sequenceFlow id="f3" sourceRef="prepareSplit" targetRef="auFixtures"/>
+    <sequenceFlow id="f4" sourceRef="prepareSplit" targetRef="cthLedger"/>
+    <sequenceFlow id="f5" sourceRef="prepareSplit" targetRef="releaseAllowlist"/>
+    <sequenceFlow id="f6" sourceRef="auFixtures" targetRef="qldRegistration"/>
+    <sequenceFlow id="f7" sourceRef="auFixtures" targetRef="mirrorDecision"/>
+    <sequenceFlow id="f8" sourceRef="cthLedger" targetRef="freshFrame"/>
+    <sequenceFlow id="f9" sourceRef="nzPayload" targetRef="rightsJoin"/>
+    <sequenceFlow id="f10" sourceRef="mirrorDecision" targetRef="rightsJoin"/>
+    <sequenceFlow id="f11" sourceRef="freshFrame" targetRef="rightsJoin"/>
+    <sequenceFlow id="f25" sourceRef="qldRegistration" targetRef="rightsJoin"/>
+    <sequenceFlow id="f12" sourceRef="rightsJoin" targetRef="rightsGateway"/>
+    <sequenceFlow id="f13" sourceRef="rightsGateway" targetRef="executionGateway" name="yes"/>
+    <sequenceFlow id="f14" sourceRef="rightsGateway" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f15" sourceRef="executionGateway" targetRef="boundedWork" name="yes"/>
+    <sequenceFlow id="f16" sourceRef="executionGateway" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f17" sourceRef="boundedWork" targetRef="end"/>
+    <sequenceFlow id="f18" sourceRef="releaseAllowlist" targetRef="releaseScope"/>
+    <sequenceFlow id="f19" sourceRef="releaseScope" targetRef="releaseReview" name="no, public-safe allow-list"/>
+    <sequenceFlow id="f27" sourceRef="releaseScope" targetRef="empiricalReady" name="yes"/>
+    <sequenceFlow id="f28" sourceRef="empiricalReady" targetRef="releaseReview" name="yes"/>
+    <sequenceFlow id="f29" sourceRef="empiricalReady" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f26" sourceRef="releaseReview" targetRef="releaseGateway"/>
+    <sequenceFlow id="f20" sourceRef="releaseGateway" targetRef="destinationAction" name="yes"/>
+    <sequenceFlow id="f21" sourceRef="releaseGateway" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f22" sourceRef="destinationAction" targetRef="receipt"/>
+    <sequenceFlow id="f23" sourceRef="receipt" targetRef="end"/>
+    <sequenceFlow id="f24" sourceRef="blocked" targetRef="end"/>
+  </process>
+</definitions>

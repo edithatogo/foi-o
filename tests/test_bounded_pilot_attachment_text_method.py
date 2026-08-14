@@ -28,7 +28,14 @@ def test_attachment_text_method_pins_local_tool_and_exact_argv() -> None:
     method = json.loads(METHOD.read_text())
     runtime = method["runtime_observation"]
     executable = Path(runtime["resolved_path"])
-    assert runtime["executable_sha256"] == sha256(executable.read_bytes()).hexdigest()
+    if executable.exists():
+        assert runtime["executable_sha256"] == sha256(executable.read_bytes()).hexdigest()
+    else:
+        # Historical runtime observations remain immutable when package-manager
+        # upgrades remove a versioned executable. Absence must keep execution
+        # disabled instead of making repository validation host-dependent.
+        assert method["runtime_approved"] is False
+        assert method["derivation_allowed"] is False
     assert method["argv_template"] == [
         "pdftotext",
         "-layout",

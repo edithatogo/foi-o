@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:release-manifest:2",
+  "title": "FOI-O commit-bound public-safe release manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "repository",
+    "target_commit",
+    "selection",
+    "files",
+    "file_count",
+    "total_bytes",
+    "publication_authorized",
+    "release_authorized",
+    "manifest_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": "foi-o.release-manifest.v2"},
+    "status": {"const": "candidate_not_authorized"},
+    "repository": {"const": "https://github.com/edithatogo/foi-o"},
+    "target_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["include_files", "include_roots", "excluded_classes", "license_policy"],
+      "properties": {
+        "include_files": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "include_roots": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "excluded_classes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+        "license_policy": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"enum": ["MIT", "CC-BY-4.0"]}
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "blob_oid", "sha256", "size", "license"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "blob_oid": {"type": "string", "pattern": "^[0-9a-f]{40,64}$"},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "size": {"type": "integer", "minimum": 0},
+          "license": {"enum": ["MIT", "CC-BY-4.0"]}
+        }
+      }
+    },
+    "file_count": {"type": "integer", "minimum": 1},
+    "total_bytes": {"type": "integer", "minimum": 1},
+    "publication_authorized": {"const": false},
+    "release_authorized": {"const": false},
+    "manifest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
