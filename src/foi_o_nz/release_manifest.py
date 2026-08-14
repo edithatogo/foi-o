@@ -138,7 +138,13 @@ def validate_release_manifest(manifest: dict[str, Any], *, repo: Path) -> list[s
     if not isinstance(files, list) or not files:
         errors.append("manifest files must be non-empty")
         files = []
-    paths = [item.get("path") for item in files if isinstance(item, dict)]
+    paths = [
+        path
+        for item in files
+        if isinstance(item, dict)
+        for path in [item.get("path")]
+        if isinstance(path, str)
+    ]
     if paths != sorted(paths) or len(paths) != len(set(paths)):
         errors.append("manifest paths must be sorted and unique")
     if manifest.get("file_count") != len(files):
@@ -348,7 +354,9 @@ def validate_release_bundle(
     ):
         errors.append("unsafe bundle name")
         return errors
-    expected = [("RELEASE-MANIFEST.json", manifest_content, "CC-BY-4.0")]
+    expected: list[tuple[str, bytes | None, str]] = [
+        ("RELEASE-MANIFEST.json", manifest_content, "CC-BY-4.0")
+    ]
     expected.extend(
         (str(item["path"]), None, str(item["license"])) for item in manifest.get("files", [])
     )
