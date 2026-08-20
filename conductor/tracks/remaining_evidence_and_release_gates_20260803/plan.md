@@ -56,8 +56,9 @@
       an isolated branch, validate deterministic destination-neutral archive
       construction, and regenerate all commit-bound candidate evidence.
       (`81b78c5`, `154c64f`, `1993b54`, `04ed03c`, `ef591fa`, `d51d5ac`)
-- [ ] Obtain destination-specific authorization and verify one destination at
-      a time.
+- [x] Obtain destination-specific authorization and verify one destination at
+      a time. (`GitHub release verified 2026-08-20; see
+      github-semantic-core-release-receipt-2026-08-20.md`)
 
 ## Review and completion boundary
 

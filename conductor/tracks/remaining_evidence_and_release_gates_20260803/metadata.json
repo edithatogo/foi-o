@@ -4,7 +4,7 @@
   "type": "chore",
   "status": "in_progress",
   "created_at": "2026-08-03T00:00:00Z",
-  "updated_at": "2026-08-04T00:00:00Z",
+  "updated_at": "2026-08-20T13:22:36Z",
   "description": "Coordinate remaining NZ empirical, Australian source-rights, AU-CTH remediation, and destination release gates.",
   "evidence_schema": "1.0",
   "depends_on": [
@@ -28,6 +28,6 @@
     {"id":"G-REMAINING-QLD-REGISTRATION","kind":"human","status":"pending","evidence":"conductor/tracks/australian_jurisdiction_rollout_pipeline_20260731/authoritative-source-rights-plan.md"},
     {"id":"G-REMAINING-MIRROR-SCOPE","kind":"human","status":"pending","evidence":"conductor/tracks/australian_jurisdiction_rollout_pipeline_20260731/authoritative-source-rights-plan.md"},
     {"id":"G-REMAINING-AU-CTH-FRESH","kind":"human","status":"pending","evidence":"conductor/tracks/au_cth_annotation_reliability_remediation_20260722/metadata.json"},
-    {"id":"G-REMAINING-RELEASE","kind":"external_action","status":"pending","evidence":"conductor/tracks/remaining_evidence_and_release_gates_20260803/release-scope-and-licensing-approval-2026-08-03.md; conductor/release-candidate-2026-08-03/manifest.json; conductor/release-candidate-2026-08-03/bundle-receipt.json; conductor/release-candidate-2026-08-03/review.md; conductor/release-candidate-2026-08-03/integration-and-publication-gates.md","condition":"The exact semantic-core integration candidate passed integrity, deterministic-archive, and rights/public-scope review. Exact branch integration authorization is required first; destination-specific external-action authorization remains separate. Superseded authorization routes not present on current main are not relied upon."}
+    {"id":"G-REMAINING-RELEASE","kind":"external_action","status":"satisfied","evidence":"conductor/tracks/remaining_evidence_and_release_gates_20260803/github-semantic-core-release-receipt-2026-08-20.md; conductor/tracks/remaining_evidence_and_release_gates_20260803/evidence.jsonl","condition":"Satisfied only by the approved public GitHub release `foi-o-nz-semantic-core-0.1.0` at target `f91d90ffb2232ec88a047d42e273ba9be46a8487`. No other destination is implied or authorized."}
   ]
 }
