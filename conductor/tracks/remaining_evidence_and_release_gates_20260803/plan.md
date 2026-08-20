@@ -58,7 +58,7 @@
       (`81b78c5`, `154c64f`, `1993b54`, `04ed03c`, `ef591fa`, `d51d5ac`)
 - [x] Obtain destination-specific authorization and verify one destination at
       a time. (`GitHub release verified 2026-08-20; see
-      github-semantic-core-release-receipt-2026-08-20.md`)
+      github-semantic-core-release-receipt-2026-08-20.md`; `a5d2a98`)
 
 ## Review and completion boundary
 
