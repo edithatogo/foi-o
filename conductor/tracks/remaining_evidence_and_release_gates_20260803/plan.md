@@ -43,6 +43,10 @@
 - [x] Reconcile the stale 10,000-row AU-CTH candidates and earlier retrieval
       pin against the completed 26,000-record CDX evidence before frame work.
       (`7786350`)
+- [x] Verify the exact pending nine-record candidate against the downloaded
+      pinned CDX and parent-manifest metadata, remediate the restricted-local
+      receipt integrity defect, and prepare one panel-synthesized decision
+      bundle without creating a new candidate or modifying a manifest. (`edd88a8`)
 - [ ] Resolve AU-CTH replay compatibility, failure-ledger evidence, fresh-frame
       approval, and execution authorization.
 - [ ] Run empirical work only after the exact upstream gates are satisfied.
