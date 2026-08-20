@@ -5,6 +5,8 @@
 - [x] Add the repository-wide agent-panel protocol, correct unrelated gate
       joins, and require one synthesized decision brief for each human or
       external gate. (`771a5da`)
+- [~] Bind every Conductor track with human or external gates to the protocol
+      and add regression coverage for the binding.
 
 ## Phase 1: Establish the cross-track gate map
 
