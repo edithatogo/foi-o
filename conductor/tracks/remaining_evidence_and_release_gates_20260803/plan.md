@@ -7,6 +7,9 @@
       external gate. (`771a5da`)
 - [x] Bind every Conductor track with human or external gates to the protocol
       and add regression coverage for the binding. (`092a4ea`)
+- [~] Restore the two historically committed NZ decision packets referenced by
+      this track, verify byte identity, and preserve their blocked/pending
+      dispositions.
 
 ## Phase 1: Establish the cross-track gate map
 
