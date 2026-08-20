@@ -2,9 +2,9 @@
 
 ## Phase 0: Sole-maintainer gate governance
 
-- [~] Add the repository-wide agent-panel protocol, correct unrelated gate
+- [x] Add the repository-wide agent-panel protocol, correct unrelated gate
       joins, and require one synthesized decision brief for each human or
-      external gate.
+      external gate. (`771a5da`)
 
 ## Phase 1: Establish the cross-track gate map
 
