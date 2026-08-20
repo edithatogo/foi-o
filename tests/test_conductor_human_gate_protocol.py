@@ -36,3 +36,11 @@ def test_no_agent_review_can_satisfy_a_human_gate_by_itself() -> None:
     assert "cannot approve" in text
     assert "sole maintainer explicitly approves" in text
     assert "If a panel cannot be formed, a candidate remains pending" in text
+
+
+def test_protocol_reuses_unchanged_exact_authorizations() -> None:
+    text = (ROOT / PROTOCOL).read_text(encoding="utf-8")
+    normalized = " ".join(text.split())
+    assert "Authorization reuse and decision hygiene" in text
+    assert "Reuse an existing explicit authorization" in text
+    assert "do not ask the maintainer to restate an unchanged authorization" in normalized

@@ -64,6 +64,17 @@ rights basis, terms version, destination, visibility, scope, retention rule,
 or irreversible action. New agent commentary or a repeated validation alone
 does not invalidate an otherwise exact decision.
 
+## Authorization reuse and decision hygiene
+
+Before preparing a new request, the orchestrator must check the recorded gate
+and decision lifecycle. Reuse an existing explicit authorization where the
+revision, candidate/input hashes, rights basis, destination, visibility, scope,
+retention, and operation match and it has not been consumed or invalidated.
+Record the operation as authorized, executed, invalidated, or superseded; do
+not ask the maintainer to restate an unchanged authorization merely because a
+validator or panel reruns. A generic continuation can advance local preparation
+but cannot replace a required explicit gate.
+
 ## Evidence language
 
 Use **agent advisory panel**, **sole maintainer approval**, and **verified
