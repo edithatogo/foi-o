@@ -4,6 +4,7 @@
 - [Implementation Plan](./plan.md)
 - [Metadata](./metadata.json)
 - [Evidence](./evidence.jsonl)
+- [Sole-maintainer agent-panel protocol](../../sole-maintainer-agent-panel-gate-protocol.md)
 - [Six-gate resolution plan](./gate-resolution-plan.md)
 - [Current release candidate review](../../release-candidate-2026-08-03/review.md)
 - [Release-scope and licensing approval](./release-scope-and-licensing-approval-2026-08-03.md)

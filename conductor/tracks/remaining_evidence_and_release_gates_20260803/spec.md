@@ -11,6 +11,10 @@ human/external gate statuses, and passing Conductor validation. It does not
 require or imply source capture, credentials, publication, redistribution,
 profile promotion, or legal certification.
 
+Every remaining human or external gate must first receive the repository-wide
+sole-maintainer agent-panel review, then be presented to the sole maintainer as
+one complete decision brief. Advisory agents never satisfy the gate.
+
 The resolution plan must define, for every remaining gate, at least one
 recommended route and one fail-closed contingency; compare material trade-offs;
 identify evidence inputs and outputs; name stop conditions and accountable

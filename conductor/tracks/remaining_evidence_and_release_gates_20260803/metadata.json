@@ -4,7 +4,7 @@
   "type": "chore",
   "status": "in_progress",
   "created_at": "2026-08-03T00:00:00Z",
-  "updated_at": "2026-08-20T13:22:36Z",
+  "updated_at": "2026-08-20T21:45:33Z",
   "description": "Coordinate remaining NZ empirical, Australian source-rights, AU-CTH remediation, and destination release gates.",
   "evidence_schema": "1.0",
   "depends_on": [
@@ -18,8 +18,11 @@
     "au_source_fixture_rights",
     "qld_api_registration_and_terms",
     "au_cth_fresh_holdout_and_execution",
-    "destination_specific_release_authorization"
+    "destination_specific_release_authorization",
+    "mirror_scope",
+    "sole_maintainer_agent_panel_review"
   ],
+  "human_gate_protocol": "conductor/sole-maintainer-agent-panel-gate-protocol.md",
   "resolution_plan": "conductor/tracks/remaining_evidence_and_release_gates_20260803/gate-resolution-plan.md",
   "gates": [
     {"id":"G-REMAINING-NZ-PAYLOAD","kind":"local_source_recovery","status":"blocked","evidence":"docs/97-nz-empirical-payload-recovery-outcome-2026-08-03.md"},

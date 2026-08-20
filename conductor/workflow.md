@@ -19,6 +19,17 @@ not authoritative until imported into an artefact.
    submission, release and destructive Git operations remain explicit human
    gates.
 
+## Sole-maintainer gate protocol
+
+Every human, external, or irreversible gate follows the
+[sole-maintainer agent-panel gate protocol](./sole-maintainer-agent-panel-gate-protocol.md).
+Agents supply isolated advisory reviews and dissent records; the repository
+owner remains the only accountable approver. Do not ask serial partial
+questions: present one complete decision brief with options, trade-offs,
+contingencies, rationale, recommendation, exact approval wording, and its
+non-authorized boundary. Keep decisions separate when their rights basis,
+evidence set, destination, visibility, or irreversibility differs.
+
 Every workflow is represented by Markdown/Mermaid and BPMN 2.0 XML. BPMN 2.0
 is the interoperable implementation of the earlier BPML 2.0 wording.
 

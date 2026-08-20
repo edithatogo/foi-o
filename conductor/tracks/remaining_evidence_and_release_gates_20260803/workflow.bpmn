@@ -8,48 +8,71 @@
     <task id="cthLedger" name="Verify AU-CTH ledger candidate"/>
     <task id="releaseAllowlist" name="Prepare public-safe release allow-list"/>
     <task id="qldRegistration" name="Complete Queensland registration and terms gate"/>
-    <task id="mirrorDecision" name="Record named mirror-oracle decision"/>
+    <task id="mirrorDecision" name="Record named mirror-comparator decision"/>
     <task id="freshFrame" name="Prepare fresh AU-CTH frame candidate"/>
-    <parallelGateway id="rightsJoin" name="Collect exact evidence decisions"/>
-    <exclusiveGateway id="rightsGateway" name="Provenance and rights approved?"/>
-    <task id="blocked" name="Record blocked or candidate gate"/>
-    <exclusiveGateway id="executionGateway" name="Exact frame and execution approved?"/>
-    <task id="boundedWork" name="Run only bounded authorized empirical work"/>
+    <task id="nzPanel" name="Run NZ agent advisory panel"/>
+    <task id="auPanel" name="Run official-fixture agent advisory panel"/>
+    <task id="qldPanel" name="Run Queensland agent advisory panel"/>
+    <task id="mirrorPanel" name="Run mirror agent advisory panel"/>
+    <task id="cthPanel" name="Run AU-CTH agent advisory panel"/>
+    <task id="releasePanel" name="Run release agent advisory panel"/>
+    <exclusiveGateway id="nzDecision" name="Sole maintainer approves NZ scope?"/>
+    <exclusiveGateway id="auDecision" name="Sole maintainer approves official fixture scope?"/>
+    <exclusiveGateway id="qldDecision" name="Sole maintainer approves QLD scope?"/>
+    <exclusiveGateway id="mirrorGate" name="Sole maintainer approves mirror scope?"/>
+    <exclusiveGateway id="cthDecision" name="Sole maintainer approves frame and execution?"/>
+    <task id="nzWork" name="Run only bounded authorized NZ work"/>
+    <task id="cthWork" name="Run only bounded authorized AU-CTH work"/>
     <exclusiveGateway id="releaseScope" name="Manifest includes new empirical outputs?"/>
-    <exclusiveGateway id="empiricalReady" name="Exact empirical outputs complete and approved?"/>
+    <exclusiveGateway id="empiricalReady" name="Exact empirical outputs approved?"/>
     <task id="releaseReview" name="Run integrity and rights publication review"/>
-    <exclusiveGateway id="releaseGateway" name="Exact manifest and one destination approved?"/>
+    <exclusiveGateway id="releaseDecision" name="Sole maintainer approves exact destination?"/>
     <task id="destinationAction" name="Perform one approved destination action"/>
     <task id="receipt" name="Verify receipt and destination hashes"/>
+    <task id="blocked" name="Record blocked or candidate gate"/>
     <endEvent id="end" name="Recorded outcome"/>
     <sequenceFlow id="f1" sourceRef="start" targetRef="prepareSplit"/>
     <sequenceFlow id="f2" sourceRef="prepareSplit" targetRef="nzPayload"/>
     <sequenceFlow id="f3" sourceRef="prepareSplit" targetRef="auFixtures"/>
     <sequenceFlow id="f4" sourceRef="prepareSplit" targetRef="cthLedger"/>
     <sequenceFlow id="f5" sourceRef="prepareSplit" targetRef="releaseAllowlist"/>
-    <sequenceFlow id="f6" sourceRef="auFixtures" targetRef="qldRegistration"/>
-    <sequenceFlow id="f7" sourceRef="auFixtures" targetRef="mirrorDecision"/>
-    <sequenceFlow id="f8" sourceRef="cthLedger" targetRef="freshFrame"/>
-    <sequenceFlow id="f9" sourceRef="nzPayload" targetRef="rightsJoin"/>
-    <sequenceFlow id="f10" sourceRef="mirrorDecision" targetRef="rightsJoin"/>
-    <sequenceFlow id="f11" sourceRef="freshFrame" targetRef="rightsJoin"/>
-    <sequenceFlow id="f25" sourceRef="qldRegistration" targetRef="rightsJoin"/>
-    <sequenceFlow id="f12" sourceRef="rightsJoin" targetRef="rightsGateway"/>
-    <sequenceFlow id="f13" sourceRef="rightsGateway" targetRef="executionGateway" name="yes"/>
-    <sequenceFlow id="f14" sourceRef="rightsGateway" targetRef="blocked" name="no"/>
-    <sequenceFlow id="f15" sourceRef="executionGateway" targetRef="boundedWork" name="yes"/>
-    <sequenceFlow id="f16" sourceRef="executionGateway" targetRef="blocked" name="no"/>
-    <sequenceFlow id="f17" sourceRef="boundedWork" targetRef="end"/>
-    <sequenceFlow id="f18" sourceRef="releaseAllowlist" targetRef="releaseScope"/>
-    <sequenceFlow id="f19" sourceRef="releaseScope" targetRef="releaseReview" name="no, public-safe allow-list"/>
+    <sequenceFlow id="f6" sourceRef="nzPayload" targetRef="nzPanel"/>
+    <sequenceFlow id="f7" sourceRef="nzPanel" targetRef="nzDecision"/>
+    <sequenceFlow id="f8" sourceRef="nzDecision" targetRef="nzWork" name="yes"/>
+    <sequenceFlow id="f9" sourceRef="nzDecision" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f10" sourceRef="auFixtures" targetRef="auPanel"/>
+    <sequenceFlow id="f11" sourceRef="auPanel" targetRef="auDecision"/>
+    <sequenceFlow id="f12" sourceRef="auDecision" targetRef="qldRegistration" name="yes"/>
+    <sequenceFlow id="f13" sourceRef="auDecision" targetRef="mirrorDecision" name="yes"/>
+    <sequenceFlow id="f14" sourceRef="auDecision" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f15" sourceRef="qldRegistration" targetRef="qldPanel"/>
+    <sequenceFlow id="f16" sourceRef="qldPanel" targetRef="qldDecision"/>
+    <sequenceFlow id="f17" sourceRef="qldDecision" targetRef="end" name="yes"/>
+    <sequenceFlow id="f18" sourceRef="qldDecision" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f19" sourceRef="mirrorDecision" targetRef="mirrorPanel"/>
+    <sequenceFlow id="f41" sourceRef="mirrorPanel" targetRef="mirrorGate"/>
+    <sequenceFlow id="f42" sourceRef="mirrorGate" targetRef="end" name="yes"/>
+    <sequenceFlow id="f43" sourceRef="mirrorGate" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f20" sourceRef="cthLedger" targetRef="freshFrame"/>
+    <sequenceFlow id="f21" sourceRef="freshFrame" targetRef="cthPanel"/>
+    <sequenceFlow id="f22" sourceRef="cthPanel" targetRef="cthDecision"/>
+    <sequenceFlow id="f23" sourceRef="cthDecision" targetRef="cthWork" name="yes"/>
+    <sequenceFlow id="f24" sourceRef="cthDecision" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f25" sourceRef="releaseAllowlist" targetRef="releaseScope"/>
+    <sequenceFlow id="f26" sourceRef="releaseScope" targetRef="releaseReview" name="no, public-safe allow-list"/>
     <sequenceFlow id="f27" sourceRef="releaseScope" targetRef="empiricalReady" name="yes"/>
-    <sequenceFlow id="f28" sourceRef="empiricalReady" targetRef="releaseReview" name="yes"/>
-    <sequenceFlow id="f29" sourceRef="empiricalReady" targetRef="blocked" name="no"/>
-    <sequenceFlow id="f26" sourceRef="releaseReview" targetRef="releaseGateway"/>
-    <sequenceFlow id="f20" sourceRef="releaseGateway" targetRef="destinationAction" name="yes"/>
-    <sequenceFlow id="f21" sourceRef="releaseGateway" targetRef="blocked" name="no"/>
-    <sequenceFlow id="f22" sourceRef="destinationAction" targetRef="receipt"/>
-    <sequenceFlow id="f23" sourceRef="receipt" targetRef="end"/>
-    <sequenceFlow id="f24" sourceRef="blocked" targetRef="end"/>
+    <sequenceFlow id="f28" sourceRef="nzWork" targetRef="empiricalReady"/>
+    <sequenceFlow id="f29" sourceRef="cthWork" targetRef="empiricalReady"/>
+    <sequenceFlow id="f30" sourceRef="empiricalReady" targetRef="releaseReview" name="yes"/>
+    <sequenceFlow id="f31" sourceRef="empiricalReady" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f32" sourceRef="releaseReview" targetRef="releasePanel"/>
+    <sequenceFlow id="f33" sourceRef="releasePanel" targetRef="releaseDecision"/>
+    <sequenceFlow id="f34" sourceRef="releaseDecision" targetRef="destinationAction" name="yes"/>
+    <sequenceFlow id="f35" sourceRef="releaseDecision" targetRef="blocked" name="no"/>
+    <sequenceFlow id="f36" sourceRef="destinationAction" targetRef="receipt"/>
+    <sequenceFlow id="f37" sourceRef="receipt" targetRef="end"/>
+    <sequenceFlow id="f38" sourceRef="nzWork" targetRef="end"/>
+    <sequenceFlow id="f39" sourceRef="cthWork" targetRef="end"/>
+    <sequenceFlow id="f40" sourceRef="blocked" targetRef="end"/>
   </process>
 </definitions>

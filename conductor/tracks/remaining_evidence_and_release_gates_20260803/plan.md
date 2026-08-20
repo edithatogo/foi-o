@@ -1,5 +1,11 @@
 # Implementation Plan
 
+## Phase 0: Sole-maintainer gate governance
+
+- [~] Add the repository-wide agent-panel protocol, correct unrelated gate
+      joins, and require one synthesized decision brief for each human or
+      external gate.
+
 ## Phase 1: Establish the cross-track gate map
 
 - [x] Create the umbrella track with dependency and human-gate metadata.
