@@ -1,0 +1,86 @@
+version: 1
+status: candidate_register_only
+scope: "AU-VIC, AU-QLD, AU-ACT, AU-SA, AU-TAS, AU-WA, AU-NT"
+boundaries:
+  source_content_retention: restricted_local_only_pending_packet_approval
+  publication: false
+  redistribution: false
+  training: false
+  empirical_freeze: false
+  profile_activation: false
+  legal_certification: false
+evidence_contract:
+  required:
+    - jurisdiction
+    - regime_id
+    - authority_identity
+    - official_source_url
+    - source_type
+    - retrieval_timestamp
+    - http_status
+    - mime_type
+    - byte_count
+    - sha256
+    - effective_date_semantics
+    - authority_status
+    - rights_basis
+    - exclusions
+    - permitted_use
+    - transformation_id
+    - next_gate
+  acceptance_rule: "No source is authoritative or rights-cleared by public availability alone."
+jurisdictions:
+  AU-VIC:
+    profile_id: foi-o-au-vic
+    regime_id: au-vic-foi
+    authority_route: https://www.legislation.vic.gov.au/
+    source_classes: [legislation_register, gazette, html, pdf]
+    current_status: candidate_metadata_evidence
+    next_gate: stable_machine_route_and_restricted_fixture_rights
+  AU-QLD:
+    profile_id: foi-o-au-qld
+    regime_id: au-qld-foi
+    authority_route: https://www.legislation.qld.gov.au/
+    api_route: https://www.legislation.qld.gov.au/api
+    source_classes: [legislation_api, xml, json, html, pdf]
+    current_status: blocked_registration_and_terms
+    next_gate: user_registration_terms_and_bounded_fixture_approval
+  AU-ACT:
+    profile_id: foi-o-au-act
+    regime_id: au-act-foi
+    authority_route: https://www.legislation.act.gov.au/
+    source_classes: [authoritative_pdf, html, word]
+    current_status: candidate_metadata_evidence
+    next_gate: pdf_authority_and_accessibility_crosswalk_rights_packet
+  AU-SA:
+    profile_id: foi-o-au-sa
+    regime_id: au-sa-foi
+    authority_route: https://legislation.sa.gov.au/
+    source_classes: [authoritative_electronic_version, html, pdf]
+    current_status: blocked_source_route_requires_retry
+    next_gate: terms_and_authorised_version_fixture
+  AU-TAS:
+    profile_id: foi-o-au-tas
+    regime_id: au-tas-rti
+    authority_route: https://www.legislation.tas.gov.au/
+    source_classes: [html, xml, pdf]
+    current_status: candidate_metadata_evidence
+    next_gate: xml_html_identity_and_rights_fixture
+  AU-WA:
+    profile_id: foi-o-au-wa
+    regime_id: au-wa-foi
+    authority_route: https://www.legislation.wa.gov.au/
+    source_classes: [register, gazette, notification_feed, html, xml, pdf]
+    current_status: candidate_metadata_evidence
+    next_gate: stable_rendition_identity_and_wa_act_crosswalk
+  AU-NT:
+    profile_id: foi-o-au-nt
+    regime_id: au-nt-information
+    authority_route: https://legislation.nt.gov.au/en
+    source_classes: [register, gazette, html, word, pdf, api]
+    current_status: candidate_metadata_evidence
+    next_gate: rendition_authority_and_rights_fixture
+review_roles:
+  provenance: independent_artifact_identity_and_hash_review
+  rights: independent_terms_permitted_use_and_exclusion_review
+  conflict_rule: "Any disagreement leaves the jurisdiction candidate and does not permit activation."
