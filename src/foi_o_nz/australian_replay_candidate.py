@@ -21,6 +21,8 @@ PROVENANCE_FIELDS = (
     "archive_digest",
     "raw_sha256",
 )
+LEGACY_REPLAY_SCHEMA = "fyi-archive.au-rtk-replay-result.v1"
+NORMALIZED_REPLAY_SHA256 = "3801b4b99de6152bfcaf5f093e00e137acb4ee5d636611ada75820aed55fd807"
 
 
 def _sha256(data: bytes) -> str:
@@ -71,6 +73,37 @@ def _source_boundaries(record: dict[str, Any]) -> None:
         raise ValueError("candidate source URL escaped the approved RightToKnow scope")
     if archive.scheme != "https" or (archive.hostname or "").lower() != "web.archive.org":
         raise ValueError("candidate archive URL escaped Internet Archive")
+
+
+def validate_legacy_replay_summary(summary_path: Path) -> dict[str, Any]:
+    """Validate the legacy replay envelope without treating it as classification."""
+    value = json.loads(summary_path.read_text(encoding="utf-8"))
+    if value.get("schema") != LEGACY_REPLAY_SCHEMA:
+        raise ValueError("legacy replay summary schema is not recognized")
+    if value.get("status") != "candidate_non_final":
+        raise ValueError("legacy replay summary is not a non-final candidate")
+    if value.get("selection_sha256") != "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51":
+        raise ValueError("legacy replay summary selection pin mismatch")
+    if value.get("record_count") != 2082 or value.get("captured_count") != 2082:
+        raise ValueError("legacy replay summary does not cover the approved population")
+    if value.get("failed_count") != 0 or value.get("pending_count") != 0:
+        raise ValueError("legacy replay summary contains failed or pending records")
+    if value.get("circuit_open") is not False:
+        raise ValueError("legacy replay summary circuit state is not closed")
+    if value.get("publication") is not False or value.get("redistribution") is not False:
+        raise ValueError("legacy replay summary has an external-action flag")
+    if value.get("manifest_finalization_authorized") is not False:
+        raise ValueError("legacy replay summary authorizes manifest finalization")
+    if value.get("normalized_candidate_sha256") != NORMALIZED_REPLAY_SHA256:
+        raise ValueError("legacy replay summary normalized-candidate pin mismatch")
+    return {
+        "ok": True,
+        "schema": LEGACY_REPLAY_SCHEMA,
+        "selection_sha256": value["selection_sha256"],
+        "record_count": value["record_count"],
+        "normalized_candidate_sha256": value["normalized_candidate_sha256"],
+        "classification_validation_required": True,
+    }
 
 
 def validate_replay_candidate(

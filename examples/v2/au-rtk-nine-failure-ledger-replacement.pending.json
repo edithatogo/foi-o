@@ -1,0 +1,24 @@
+{
+  "schema": "foio.au-rtk-replay-failure-ledger-replacement.pending.v1",
+  "status": "candidate_non_final",
+  "verification_status": "unverified_http_404_dispositions",
+  "selection_sha256": "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51",
+  "source_cdx_sha256": "954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd",
+  "parent_manifest_sha256": "246cd65c3c60733fb31478b07f12bd251877b1efe9559643d5c566bc337d0ff8",
+  "approved_ledger_sha256": "0df9720ea56fe1882091093adbfbaf2d201ab7ab8f2b76ca9956ab2733ce4c50",
+  "evidence_boundary": "Metadata-only reconstruction candidate; no response-body or HTTP-404 evidence is asserted.",
+  "publication": false,
+  "redistribution": false,
+  "manifest_finalization_authorized": false,
+  "failures": [
+    {"canonical_slug":"acting_treasurer_scott_morrisons","source_url":"https://www.righttoknow.org.au/request/acting_treasurer_scott_morrisons.json","archive_timestamp":"20230109003309","archive_digest":"WHJRRJTSGFGPRTPBT65FJG57E7KLWAIL","media_kind":"json","observed_selection_statuscode":"200","disposition":"unverified"},
+    {"canonical_slug":"inquiry_about_contact_tracing_ap","source_url":"https://www.righttoknow.org.au/request/inquiry_about_contact_tracing_ap.json","archive_timestamp":"20210408051634","archive_digest":"MBEZKPRJIWG3TC4OT3EEFGKEPD3OTFXM","media_kind":"json","observed_selection_statuscode":"200","disposition":"unverified"},
+    {"canonical_slug":"inquiry_about_contact_tracing_ap_2","source_url":"https://www.righttoknow.org.au/request/inquiry_about_contact_tracing_ap_2.json","archive_timestamp":"20210408044258","archive_digest":"PQULEQKDJN53PO5M5WTKWJEBDAEHDFCB","media_kind":"json","observed_selection_statuscode":"200","disposition":"unverified"},
+    {"canonical_slug":"inquiry_about_contact_tracing_ap_5","source_url":"https://www.righttoknow.org.au/request/inquiry_about_contact_tracing_ap_5.json","archive_timestamp":"20210408051611","archive_digest":"6HMHRPJH3DU3TNZVABGNW7QBQXJFXWIC","media_kind":"json","observed_selection_statuscode":"200","disposition":"unverified"},
+    {"canonical_slug":"inquiry_about_contact_tracing_ap_7","source_url":"https://www.righttoknow.org.au/request/inquiry_about_contact_tracing_ap_7.json","archive_timestamp":"20210408044308","archive_digest":"4CJZ4RZ44MEWUPAADKN6UYCZH47QXWXA","media_kind":"json","observed_selection_statuscode":"200","disposition":"unverified"},
+    {"canonical_slug":"masschallenge_contracts","source_url":"https://www.righttoknow.org.au/request/masschallenge_contracts.json","archive_timestamp":"20210408054624","archive_digest":"BTTVHMZYLVD764GHPT2MY27IPQVDBRF6","media_kind":"json","observed_selection_statuscode":"200","disposition":"unverified"},
+    {"canonical_slug":"nuclear_fuel_cycle_activities_in","source_url":"https://www.righttoknow.org.au/request/nuclear_fuel_cycle_activities_in","archive_timestamp":"20240116015703","archive_digest":"RTBMB6NKGCQCIWZE3QNX3B3ALKD2IGCS","media_kind":"html","observed_selection_statuscode":"200","disposition":"unverified"},
+    {"canonical_slug":"number_of_approved_citizens_wait","source_url":"https://www.righttoknow.org.au/request/number_of_approved_citizens_wait.json?unfold=1","archive_timestamp":"20221105053902","archive_digest":"MMBIKIEWSFWWHO2ZXX3PRY4A6J5ATGIV","media_kind":"json","observed_selection_statuscode":"200","disposition":"unverified"},
+    {"canonical_slug":"which_agencies_are_rbas_transact","source_url":"https://www.righttoknow.org.au/request/which_agencies_are_rbas_transact.json","archive_timestamp":"20240806012406","archive_digest":"6OSSDFEBNTLQQRRXESFYM6SRU44SVCJO","media_kind":"json","observed_selection_statuscode":"200","disposition":"unverified"}
+  ]
+}
