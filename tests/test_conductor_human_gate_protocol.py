@@ -4,13 +4,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 ROOT = Path(__file__).parents[1]
 PROTOCOL = "conductor/sole-maintainer-agent-panel-gate-protocol.md"
 HUMAN_GATE_KINDS = {"human", "external_action"}
 
 
-def _requires_protocol(metadata: dict[str, object]) -> bool:
+def _requires_protocol(metadata: dict[str, Any]) -> bool:
     if metadata.get("human_gates"):
         return True
     return any(
