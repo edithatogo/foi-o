@@ -4,7 +4,7 @@
   "type": "chore",
   "status": "in_progress",
   "created_at": "2026-08-03T00:00:00Z",
-  "updated_at": "2026-08-21T00:00:00Z",
+  "updated_at": "2026-08-21T00:15:00Z",
   "description": "Coordinate remaining NZ empirical, Australian source-rights, AU-CTH remediation, and destination release gates.",
   "evidence_schema": "1.0",
   "depends_on": [

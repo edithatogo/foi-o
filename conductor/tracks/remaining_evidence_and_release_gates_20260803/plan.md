@@ -23,6 +23,13 @@
       contingencies, trade-offs, evidence contracts, and approval boundaries.
       (`9612f08`)
 
+## Phase 1A: Repair future evidence-ledger appendability
+
+- [x] Document a fail-closed migration that preserves the mixed-prefix ledger
+      byte-for-byte and requires a separately named canonical successor. (`8c28f75`)
+- [ ] Implement successor-ledger reconciliation and validators with positive and
+      negative tests, without altering the historical ledger.
+
 ## Phase 2: Maintain source and rights boundaries
 
 - [x] Record NZ authentic-content rights packet and metadata-only limitation.
