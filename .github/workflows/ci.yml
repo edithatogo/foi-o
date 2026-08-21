@@ -171,6 +171,8 @@ jobs:
           python-version: '3.14'
       - name: Sync dependencies
         run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
+      - name: Update pip security floor
+        run: uv pip install --python .venv/bin/python "pip>=26.2"
       - name: pip-audit
         run: uv run pip-audit
       - name: Generate SBOM

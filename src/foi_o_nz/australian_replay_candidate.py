@@ -82,7 +82,10 @@ def validate_legacy_replay_summary(summary_path: Path) -> dict[str, Any]:
         raise ValueError("legacy replay summary schema is not recognized")
     if value.get("status") != "candidate_non_final":
         raise ValueError("legacy replay summary is not a non-final candidate")
-    if value.get("selection_sha256") != "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51":
+    if (
+        value.get("selection_sha256")
+        != "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51"
+    ):
         raise ValueError("legacy replay summary selection pin mismatch")
     if value.get("record_count") != 2082 or value.get("captured_count") != 2082:
         raise ValueError("legacy replay summary does not cover the approved population")
