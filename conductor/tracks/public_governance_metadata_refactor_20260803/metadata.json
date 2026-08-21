@@ -5,6 +5,7 @@
   "created_at": "2026-08-03T14:00:00Z",
   "updated_at": "2026-08-03T14:30:00Z",
   "description": "Separate reusable public governance contracts from case-specific approval, provenance, and execution metadata.",
+  "human_gate_protocol": "conductor/sole-maintainer-agent-panel-gate-protocol.md",
   "evidence_schema": "1.0",
   "depends_on": ["remaining_evidence_and_release_gates_20260803"],
   "human_gates": ["external_repository_or_destination_action"],

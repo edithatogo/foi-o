@@ -1,0 +1,33 @@
+{
+  "schema_version": "foi-o.source-triangulation.v0.3.0",
+  "status": "candidate",
+  "request": {
+    "run_id": "triangulation.fixture.missing-role",
+    "minimum_supporting_sources": 2,
+    "assertions": [
+      {
+        "assertion_id": "assertion.mirror",
+        "source_id": "source.mirror",
+        "claim_id": "claim.identity",
+        "stance": "supports",
+        "availability": "available",
+        "freshness": "event_time_match",
+        "rights_status": "metadata_only",
+        "integrity": "hash_verified",
+        "authority_tier": "primary_law"
+      }
+    ]
+  },
+  "result": {
+    "run_id": "triangulation.fixture.missing-role",
+    "claim_id": "claim.identity",
+    "status": "human_exception_required",
+    "supporting_source_ids": [],
+    "contradicting_source_ids": [],
+    "controlling_authority_tier": null,
+    "controlling_source_ids": [],
+    "exception_queue": [],
+    "human_review_required": true,
+    "promotion_allowed": false
+  }
+}

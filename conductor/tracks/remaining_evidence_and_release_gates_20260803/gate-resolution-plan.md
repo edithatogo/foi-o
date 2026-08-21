@@ -11,6 +11,12 @@ work. Repository-owned preparation proceeds autonomously. Source retrieval,
 credential use, authentic-content use, empirical execution, maturity decisions,
 and external publication remain fail-closed until their exact gate is satisfied.
 
+Before any human or external decision, follow the repository-wide
+[`sole-maintainer agent-panel gate protocol`](../../sole-maintainer-agent-panel-gate-protocol.md).
+The panel is advisory; the sole maintainer is the only accountable decision
+owner. The plan's older wording of distinct "reviewers" identifies subject
+matter to examine, not separate human approvers.
+
 Historical approvals and receipts remain evidence for their original scope.
 They do not authorize a replacement payload, a new frame, the current
 repository revision, or a new destination action.
@@ -50,12 +56,12 @@ run in parallel. A downstream arrow is a prerequisite, not inferred approval.
 
 | Gate | Recommended option | Primary contingency | Decision owner |
 | --- | --- | --- | --- |
-| NZ payloads and authentic-content rights | Recover byte-identical originals, then perform item-level rights review | Prepare a new one- or two-case replacement candidate with full provenance and obtain new approval | Artifact custodian and rights reviewer |
-| Remaining Australian official fixture rights | Approve restricted-local, official-first representative fixtures jurisdiction by jurisdiction | Keep metadata-only disabled scaffolds where terms or stable bytes remain unavailable | Rights reviewer |
-| Queensland API | Complete official registration and accept the pinned terms in a user-controlled credential environment | Use official public HTML/PDF only for disabled adapter-shape work | Account holder and credential custodian |
-| Mirrors | Permit named mirrors only as independent identity/oracle evidence | Use no mirror when terms, identity, or independence cannot be established | Rights and methodology reviewer |
-| AU-CTH fresh frame and execution | Verify the replacement ledger, freeze one exact fresh frame, then activate the existing conditional execution gate against that frame | Preserve historical maturity and defer fresh evaluation | Rights/frame approver, then execution approver |
-| Release and publication | Freeze a current-HEAD public-safe allow-list manifest, then authorize one destination at a time | Retain a validated local bundle and publish nothing | Release owner and destination owner |
+| NZ payloads and authentic-content rights | Recover byte-identical originals, then perform item-level rights review | Prepare a new one- or two-case replacement candidate with full provenance and obtain new approval | Sole maintainer after panel |
+| Remaining Australian official fixture rights | Approve restricted-local, official-first representative fixtures jurisdiction by jurisdiction | Keep metadata-only disabled scaffolds where terms or stable bytes remain unavailable | Sole maintainer after panel |
+| Queensland API | Complete official registration and accept the pinned terms in a user-controlled credential environment | Use official public HTML/PDF only for disabled adapter-shape work | Sole maintainer after panel |
+| Mirrors | Permit named mirrors only as independent identity/oracle evidence | Use no mirror when terms, identity, or independence cannot be established | Sole maintainer after panel |
+| AU-CTH fresh frame and execution | Verify the replacement ledger, freeze one exact fresh frame, then activate the existing conditional execution gate against that frame | Preserve historical maturity and defer fresh evaluation | Sole maintainer after panel |
+| Release and publication | Freeze a current-HEAD public-safe allow-list manifest, then authorize one destination at a time | Retain a validated local bundle and publish nothing | Sole maintainer after panel |
 
 ## Gate 1 — Recover or replace NZ payloads and approve authentic-content rights
 

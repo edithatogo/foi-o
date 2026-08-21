@@ -9,10 +9,12 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 ExceptionReason = Literal[
     "blocked",
     "conflicting",
+    "comparator_disagreement",
     "stale",
     "rights_uncertain",
     "insufficient_evidence",
 ]
+SourceRole = Literal["authority_evidence", "mirror_comparator"]
 AuthorityTier = Literal[
     "primary_law",
     "official_implementation",
@@ -48,6 +50,7 @@ class SourceAssertion(StrictModel):
     rights_status: Literal["permitted", "metadata_only", "restricted", "unknown"]
     integrity: Literal["hash_verified", "archived_unverified", "live_unverified", "derived"]
     authority_tier: AuthorityTier
+    source_role: SourceRole
 
 
 class TriangulationRequest(StrictModel):
@@ -96,6 +99,7 @@ class TriangulationResult(StrictModel):
 _MESSAGES: dict[ExceptionReason, str] = {
     "blocked": "one or more declared sources could not be inspected",
     "conflicting": "available event-time sources both support and contradict the claim",
+    "comparator_disagreement": "an eligible mirror comparator disagrees with authority evidence",
     "stale": "one or more sources do not match the claim event time",
     "rights_uncertain": "one or more sources have restricted or unknown reuse rights",
     "insufficient_evidence": "too few independent eligible sources support the claim",
@@ -122,6 +126,16 @@ def evaluate_triangulation(request: TriangulationRequest) -> TriangulationResult
         and item.rights_status in {"permitted", "metadata_only"}
         and item.integrity == "hash_verified"
         and item.authority_tier != "derived_summary"
+        and item.source_role == "authority_evidence"
+    ]
+    eligible_comparators = [
+        item
+        for item in assertions
+        if item.availability == "available"
+        and item.freshness == "event_time_match"
+        and item.rights_status in {"permitted", "metadata_only"}
+        and item.integrity == "hash_verified"
+        and item.source_role == "mirror_comparator"
     ]
     supports = [item for item in eligible if item.stance == "supports"]
     contradicts = [item for item in eligible if item.stance == "contradicts"]
@@ -132,6 +146,22 @@ def evaluate_triangulation(request: TriangulationRequest) -> TriangulationResult
         exceptions.append(_exception("blocked", blocked))
     if supports and contradicts:
         exceptions.append(_exception("conflicting", supports + contradicts))
+    authority_stances = {item.stance for item in eligible}
+    comparator_disagreements = [
+        item for item in eligible_comparators if authority_stances - {item.stance}
+    ]
+    if comparator_disagreements:
+        disagreeing_authority = [
+            item
+            for item in eligible
+            if any(item.stance != comparator.stance for comparator in comparator_disagreements)
+        ]
+        exceptions.append(
+            _exception(
+                "comparator_disagreement",
+                comparator_disagreements + disagreeing_authority,
+            )
+        )
     stale = [item for item in assertions if item.freshness in {"stale", "unknown"}]
     if stale:
         exceptions.append(_exception("stale", stale))

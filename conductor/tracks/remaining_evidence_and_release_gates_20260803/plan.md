@@ -1,5 +1,16 @@
 # Implementation Plan
 
+## Phase 0: Sole-maintainer gate governance
+
+- [x] Add the repository-wide agent-panel protocol, correct unrelated gate
+      joins, and require one synthesized decision brief for each human or
+      external gate. (`771a5da`)
+- [x] Bind every Conductor track with human or external gates to the protocol
+      and add regression coverage for the binding. (`092a4ea`)
+- [x] Restore the two historically committed NZ decision packets referenced by
+      this track, verify byte identity, and preserve their blocked/pending
+      dispositions. (`194775c`)
+
 ## Phase 1: Establish the cross-track gate map
 
 - [x] Create the umbrella track with dependency and human-gate metadata.
@@ -11,6 +22,13 @@
 - [x] Create a dependency-ordered six-gate resolution playbook with options,
       contingencies, trade-offs, evidence contracts, and approval boundaries.
       (`9612f08`)
+
+## Phase 1A: Repair future evidence-ledger appendability
+
+- [x] Document a fail-closed migration that preserves the mixed-prefix ledger
+      byte-for-byte and requires a separately named canonical successor. (`8c28f75`)
+- [ ] Implement successor-ledger reconciliation and validators with positive and
+      negative tests, without altering the historical ledger.
 
 ## Phase 2: Maintain source and rights boundaries
 
@@ -32,6 +50,10 @@
 - [x] Reconcile the stale 10,000-row AU-CTH candidates and earlier retrieval
       pin against the completed 26,000-record CDX evidence before frame work.
       (`7786350`)
+- [x] Verify the exact pending nine-record candidate against the downloaded
+      pinned CDX and parent-manifest metadata, remediate the restricted-local
+      receipt integrity defect, and prepare one panel-synthesized decision
+      bundle without creating a new candidate or modifying a manifest. (`edd88a8`)
 - [ ] Resolve AU-CTH replay compatibility, failure-ledger evidence, fresh-frame
       approval, and execution authorization.
 - [ ] Run empirical work only after the exact upstream gates are satisfied.
@@ -56,8 +78,9 @@
       an isolated branch, validate deterministic destination-neutral archive
       construction, and regenerate all commit-bound candidate evidence.
       (`81b78c5`, `154c64f`, `1993b54`, `04ed03c`, `ef591fa`, `d51d5ac`)
-- [ ] Obtain destination-specific authorization and verify one destination at
-      a time.
+- [x] Obtain destination-specific authorization and verify one destination at
+      a time. (`GitHub release verified 2026-08-20; see
+      github-semantic-core-release-receipt-2026-08-20.md`; `a5d2a98`)
 
 ## Review and completion boundary
 

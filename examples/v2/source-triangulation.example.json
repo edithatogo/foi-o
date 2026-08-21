@@ -1,5 +1,5 @@
 {
-  "schema_version": "foi-o.source-triangulation.v0.2.0",
+  "schema_version": "foi-o.source-triangulation.v0.3.0",
   "status": "candidate",
   "request": {
     "run_id": "triangulation.example.deadline",
@@ -14,7 +14,8 @@
         "freshness": "event_time_match",
         "rights_status": "metadata_only",
         "integrity": "hash_verified",
-        "authority_tier": "primary_law"
+        "authority_tier": "primary_law",
+        "source_role": "authority_evidence"
       },
       {
         "assertion_id": "assertion.guidance",
@@ -25,7 +26,8 @@
         "freshness": "event_time_match",
         "rights_status": "unknown",
         "integrity": "hash_verified",
-        "authority_tier": "official_guidance"
+        "authority_tier": "official_guidance",
+        "source_role": "authority_evidence"
       }
     ]
   },

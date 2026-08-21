@@ -25,6 +25,7 @@ def assertion(assertion_id: str, source_id: str, **overrides: object) -> SourceA
         "rights_status": "permitted",
         "integrity": "hash_verified",
         "authority_tier": "official_guidance",
+        "source_role": "authority_evidence",
     }
     values.update(overrides)
     return SourceAssertion.model_validate(values)
@@ -132,6 +133,59 @@ def test_derived_source_cannot_be_a_controlling_source() -> None:
     assert result.controlling_authority_tier is None
     assert result.controlling_source_ids == []
     assert "insufficient_evidence" in {item.reason for item in result.exception_queue}
+
+
+def test_mirror_comparator_cannot_control_or_satisfy_support_threshold() -> None:
+    request = TriangulationRequest(
+        run_id="mirror-comparator",
+        assertions=[
+            assertion("official", "official-guidance"),
+            assertion(
+                "mirror",
+                "mirror-service",
+                source_role="mirror_comparator",
+                authority_tier="primary_law",
+            ),
+        ],
+    )
+
+    result = evaluate_triangulation(request)
+
+    assert result.status == "human_exception_required"
+    assert result.supporting_source_ids == ["official-guidance"]
+    assert result.controlling_authority_tier == "official_guidance"
+    assert result.controlling_source_ids == ["official-guidance"]
+    assert [item.reason for item in result.exception_queue] == ["insufficient_evidence"]
+
+
+def test_mirror_comparator_disagreement_enters_human_queue() -> None:
+    request = TriangulationRequest(
+        run_id="mirror-disagreement",
+        assertions=[
+            assertion("official", "official-source"),
+            assertion(
+                "mirror",
+                "mirror-service",
+                source_role="mirror_comparator",
+                stance="contradicts",
+            ),
+        ],
+    )
+
+    result = evaluate_triangulation(request)
+
+    reasons = [item.reason for item in result.exception_queue]
+    assert reasons == ["comparator_disagreement", "insufficient_evidence"]
+    assert result.contradicting_source_ids == []
+    assert result.exception_queue[0].source_ids == ["mirror-service", "official-source"]
+
+
+def test_source_role_is_required() -> None:
+    values = assertion("a1", "official").model_dump()
+    values.pop("source_role")
+
+    with pytest.raises(ValidationError, match="source_role"):
+        SourceAssertion.model_validate(values)
 
 
 def test_duplicate_assertion_ids_are_rejected() -> None:

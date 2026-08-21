@@ -1,0 +1,53 @@
+{
+  "schema_version": "foi-o.source-triangulation.v0.3.0",
+  "status": "candidate",
+  "request": {
+    "run_id": "triangulation.fixture.mirror",
+    "minimum_supporting_sources": 2,
+    "assertions": [
+      {
+        "assertion_id": "assertion.official",
+        "source_id": "source.official",
+        "claim_id": "claim.identity",
+        "stance": "supports",
+        "availability": "available",
+        "freshness": "event_time_match",
+        "rights_status": "permitted",
+        "integrity": "hash_verified",
+        "authority_tier": "official_guidance",
+        "source_role": "authority_evidence"
+      },
+      {
+        "assertion_id": "assertion.mirror",
+        "source_id": "source.mirror",
+        "claim_id": "claim.identity",
+        "stance": "supports",
+        "availability": "available",
+        "freshness": "event_time_match",
+        "rights_status": "metadata_only",
+        "integrity": "hash_verified",
+        "authority_tier": "primary_law",
+        "source_role": "mirror_comparator"
+      }
+    ]
+  },
+  "result": {
+    "run_id": "triangulation.fixture.mirror",
+    "claim_id": "claim.identity",
+    "status": "human_exception_required",
+    "supporting_source_ids": ["source.official"],
+    "contradicting_source_ids": [],
+    "controlling_authority_tier": "official_guidance",
+    "controlling_source_ids": ["source.official"],
+    "exception_queue": [
+      {
+        "reason": "insufficient_evidence",
+        "assertion_ids": ["assertion.official"],
+        "source_ids": ["source.official"],
+        "message": "too few independent eligible sources support the claim"
+      }
+    ],
+    "human_review_required": true,
+    "promotion_allowed": false
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "foi-o.au-cth-fresh-holdout-evidence-reconciliation.v1",
+  "status": "candidate_reconciliation_only",
+  "jurisdiction": "AU-CTH",
+  "recorded_on": "2026-08-03",
+  "historical_non_freezeable_candidates": [
+    {
+      "path": "examples/v2/au-cth-fresh-holdout-coverage.pending.json",
+      "sha256": "3a6ae005811ccc560e21059048e9fde6d3da2c73b2de5a6dc8c370ec36d219ad",
+      "cdx_row_limit": 10000,
+      "cdx_sha256": "e9560805c2ae6ab97baa46a211afebb408f89da5b366551c142df8e11d9a42c0",
+      "disposition": "superseded_metadata_basis_preserved_not_freezeable"
+    },
+    {
+      "path": "examples/v2/au-cth-fresh-holdout-source-approval.pending.json",
+      "sha256": "5f0499a59b39e9417e62d24c26058661089ee3a6ad39b4a4975c8547c63e49d8",
+      "cdx_row_limit": 10000,
+      "cdx_sha256": "e9560805c2ae6ab97baa46a211afebb408f89da5b366551c142df8e11d9a42c0",
+      "disposition": "superseded_metadata_basis_preserved_not_approvable"
+    }
+  ],
+  "controlling_metadata_evidence": {
+    "scope": "https://www.righttoknow.org.au/request/*",
+    "page_count": 26,
+    "record_count": 26000,
+    "cdx_sha256": "954b0f80ad2a44038f364d240cc9baac815f252a43535c8403dec060ddb730bd",
+    "retrieval_evidence_sha256": "0795be14775616416f61fb4131c397e7f2496f72c9fc534a357a98ec6e827331",
+    "disposition": "complete_metadata_parent_only_not_source_population"
+  },
+  "superseded_historical_retrieval_evidence_sha256": "b6dc23e32048b1ef252b2157080280d7e411870d0fe0f4ca181ca8a4e8160d64",
+  "blocking_evidence": {
+    "unrecovered_failure_ledger_sha256": "0df9720ea56fe1882091093adbfbaf2d201ab7ab8f2b76ca9956ab2733ce4c50",
+    "replacement_candidate_path": "examples/v2/au-rtk-nine-failure-ledger-replacement.pending.json",
+    "replacement_candidate_sha256": "8da8534a2f663bab7b6ed263797baf16aeb9ae00665e1e35e3ba359228180b42",
+    "replacement_disposition": "unverified_not_a_404_ledger",
+    "next_gate": "recover_the_exact_ledger_or_approve_a_provenance_complete_replacement_after_independent_verification"
+  },
+  "references": [
+    "docs/95-au-cth-replay-ledger-recovery-outcome-2026-08-03.md",
+    "conductor/tracks/au_cth_annotation_reliability_remediation_20260722/fresh-holdout-rights-freeze-plan.md"
+  ],
+  "authorizations": {
+    "additional_replay": false,
+    "frame_freeze": false,
+    "sampling": false,
+    "annotation": false,
+    "evaluation": false,
+    "maturity_decision": false,
+    "publication": false,
+    "release": false
+  }
+}

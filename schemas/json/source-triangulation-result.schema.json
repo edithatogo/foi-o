@@ -1,12 +1,12 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:foi-o:schema:empirical:source-triangulation-result:0.2.0",
+  "$id": "urn:foi-o:schema:empirical:source-triangulation-result:0.3.0",
   "title": "FOI-O deterministic source triangulation example",
   "type": "object",
   "additionalProperties": false,
   "required": ["schema_version", "status", "request", "result"],
   "properties": {
-    "schema_version": {"const": "foi-o.source-triangulation.v0.2.0"},
+    "schema_version": {"const": "foi-o.source-triangulation.v0.3.0"},
     "status": {"const": "candidate"},
     "request": {"$ref": "#/$defs/request"},
     "result": {"$ref": "#/$defs/result"}
@@ -15,7 +15,7 @@
     "assertion": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["assertion_id", "source_id", "claim_id", "stance", "availability", "freshness", "rights_status", "integrity", "authority_tier"],
+      "required": ["assertion_id", "source_id", "claim_id", "stance", "availability", "freshness", "rights_status", "integrity", "authority_tier", "source_role"],
       "properties": {
         "assertion_id": {"type": "string", "minLength": 1},
         "source_id": {"type": "string", "minLength": 1},
@@ -25,7 +25,8 @@
         "freshness": {"enum": ["event_time_match", "stale", "unknown"]},
         "rights_status": {"enum": ["permitted", "metadata_only", "restricted", "unknown"]},
         "integrity": {"enum": ["hash_verified", "archived_unverified", "live_unverified", "derived"]},
-        "authority_tier": {"enum": ["primary_law", "official_implementation", "official_guidance", "observed_case", "derived_summary"]}
+        "authority_tier": {"enum": ["primary_law", "official_implementation", "official_guidance", "observed_case", "derived_summary"]},
+        "source_role": {"enum": ["authority_evidence", "mirror_comparator"]}
       }
     },
     "request": {
@@ -43,7 +44,7 @@
       "additionalProperties": false,
       "required": ["reason", "assertion_ids", "source_ids", "message"],
       "properties": {
-        "reason": {"enum": ["blocked", "conflicting", "stale", "rights_uncertain", "insufficient_evidence"]},
+        "reason": {"enum": ["blocked", "conflicting", "comparator_disagreement", "stale", "rights_uncertain", "insufficient_evidence"]},
         "assertion_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
         "source_ids": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
         "message": {"type": "string", "minLength": 1}

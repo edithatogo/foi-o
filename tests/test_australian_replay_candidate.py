@@ -151,3 +151,51 @@ def test_independent_validator_rejects_raw_symlink_escape(tmp_path, monkeypatch)
     raw.symlink_to(outside)
     with pytest.raises(ValueError, match="escaped its approved root"):
         validator.validate_replay_candidate(summary, replay_root=replay)
+
+
+def test_legacy_replay_summary_is_only_a_compatibility_receipt(tmp_path) -> None:
+    summary = tmp_path / "summary.json"
+    summary.write_text(
+        json.dumps(
+            {
+                "schema": validator.LEGACY_REPLAY_SCHEMA,
+                "status": "candidate_non_final",
+                "selection_sha256": "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51",
+                "record_count": 2082,
+                "captured_count": 2082,
+                "failed_count": 0,
+                "pending_count": 0,
+                "circuit_open": False,
+                "normalized_candidate_sha256": validator.NORMALIZED_REPLAY_SHA256,
+                "publication": False,
+                "redistribution": False,
+                "manifest_finalization_authorized": False,
+            }
+        )
+    )
+    result = validator.validate_legacy_replay_summary(summary)
+    assert result["classification_validation_required"] is True
+
+
+def test_legacy_replay_summary_rejects_unpinned_normalized_candidate(tmp_path) -> None:
+    summary = tmp_path / "summary.json"
+    summary.write_text(
+        json.dumps(
+            {
+                "schema": validator.LEGACY_REPLAY_SCHEMA,
+                "status": "candidate_non_final",
+                "selection_sha256": "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51",
+                "record_count": 2082,
+                "captured_count": 2082,
+                "failed_count": 0,
+                "pending_count": 0,
+                "circuit_open": False,
+                "normalized_candidate_sha256": "0" * 64,
+                "publication": False,
+                "redistribution": False,
+                "manifest_finalization_authorized": False,
+            }
+        )
+    )
+    with pytest.raises(ValueError, match="normalized-candidate pin mismatch"):
+        validator.validate_legacy_replay_summary(summary)
