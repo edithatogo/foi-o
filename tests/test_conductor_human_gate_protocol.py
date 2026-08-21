@@ -5,7 +5,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-
 ROOT = Path(__file__).parents[1]
 PROTOCOL = "conductor/sole-maintainer-agent-panel-gate-protocol.md"
 HUMAN_GATE_KINDS = {"human", "external_action"}
