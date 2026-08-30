@@ -51,6 +51,17 @@
         "examples/v2/au-nsw-maturity-decision.approved.json",
         "https://github.com/edithatogo/foi-o/issues/31"
       ]
+    },
+    {
+      "id": "au-cth-source-recovery-and-freeze-approval",
+      "kind": "human",
+      "status": "approved",
+      "evidence": [
+        "conductor/sole-maintainer-blanket-authorization-2026-08-30.json",
+        "docs/45-au-cth-empirical-frame-freeze-approval-packet-2026-07-27.md",
+        "docs/46-au-cth-retained-html-text-validation-approval-packet-2026-07-27.md",
+        "docs/47-au-cth-retained-html-rights-and-freeze-approval-packet-2026-07-27.md"
+      ]
     }
   ]
 }
