@@ -52,6 +52,12 @@ coverage-ratchet: ## Check coverage against the monotonic baseline
 coverage-ratchet-update: ## Raise the coverage baseline to the current total (intentional change)
 	uv run python scripts/coverage_ratchet_update.py
 
+test-memray: ## Run memory-budget tests with pytest-memray (opt-in trial)
+	uv run pytest -q --memray tests/test_memory_budgets.py
+
+gremlins-trial: ## Scoped mutation-testing trial (fast Hypothesis profile)
+	HYPOTHESIS_PROFILE=fast uv run pytest -q --gremlins --gremlin-targets=src/foi_o_nz/archive_adapters.py tests/test_retry_policy_properties.py --gremlin-report=console
+
 test-cov: ## Run Python tests with coverage
 	uv run pytest --cov=$(PKG) --cov-report=term-missing --cov-report=html
 

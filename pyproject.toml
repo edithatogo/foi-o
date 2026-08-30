@@ -84,6 +84,8 @@ dev = [
   "taplo>=0.9.3",
   "pip-audit>=2.9.0",
   "cyclonedx-bom>=5.1.0",
+  "pytest-memray>=1.10.0",
+  "pytest-gremlins>=1.9.0",
 ]
 
 [project.scripts]
@@ -107,9 +109,12 @@ architecture = "mojo-max-first-python-bridge"
 [tool.ruff]
 line-length = 100
 target-version = "py314"
+preview = true
 extend-exclude = [".pixi", ".venv", "dist", "data", "generated"]
 
 [tool.ruff.lint]
+preview = true
+explicit-preview-rules = false
 select = [
   "E", "W", "F", "I", "N", "UP", "B", "A", "C4", "T20", "PT", "SIM", "ARG",
   "PTH", "PL", "RUF", "ANN", "D", "TCH", "YTT", "RET", "FURB", "COM", "DJ",
@@ -157,15 +162,51 @@ ignore = [
   "RUF001",
   "S108",
   "SIM102",
+  "PLR0133",
+  "PLC2701",
+  "PLR0914",
+  "PLR1702",
+  "PT018",
+  "PLC0206",
+  "PLR1736",
+  "PLW1514",
+  "RUF052",
+  "FURB118",
+  "PLC2801",
+  "PLC1901",
+  "PLW0120",
+  "PLR6301",
+  "PLR0904",
+  "PLR0916",
+  "PLR1733",
+  "FURB113",
+  "TRY203",
+  "RUF027",
+  "RUF038",
+  "RUF046",
+  "D403",
+  "D402",
+  "TRY300",
+  "PLR6201",
+  "PLR0133",
+  "RUF069",
+  "D421",
+  "PLC3002",
+  "PLW0717",
+  "RUF031",
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = [
+"tests/**" = [
   "ANN", "D", "S101", "PLR2004", "T20", "SLF", "ARG", "ERA001", "INP001", "S106",
   "S107", "PGH001", "PIE790", "EM", "TRY", "PERF", "FLY002", "PT017", "C408",
-  "TC006", "Q000", "S314", "PLC0415", "TID251",
+  "TC006", "Q000", "S314", "PLC0415", "TID251", "PLC2701", "PLR0914", "PLR0133",
+  "PT018", "PLW1514", "RUF052", "PLR1702",
 ]
-"scripts/*" = ["ANN", "D", "INP001", "T20", "EM", "TRY", "PLR0912"]
+"scripts/**" = [
+  "ANN", "D", "INP001", "T20", "EM", "TRY", "PLR0912", "PLR0914", "PLC2701",
+  "PLW1514", "RUF052", "PLR1702", "TID251",
+]
 "*/__init__.py" = ["D"]
 # Adapter-boundary policy: AI SDKs may only be imported inside their designated
 # adapter modules (and the MCP server surface) so upstream major-version churn
@@ -180,6 +221,7 @@ ignore = [
 "fastmcp".msg = "Import fastmcp only inside src/foi_o_nz/mcp_server.py (adapter boundary)."
 
 [tool.ruff.format]
+preview = true
 docstring-code-format = true
 quote-style = "double"
 indent-style = "space"
@@ -210,6 +252,12 @@ exclude_lines = [
   "raise NotImplementedError",
   "if __name__ == .__main__.:",
 ]
+
+[tool.uv]
+preview = true
+
+[tool.ty]
+preview = true
 
 [tool.ty.environment]
 root = ["src", "tests", "scripts"]

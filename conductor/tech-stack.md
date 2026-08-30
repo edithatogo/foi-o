@@ -32,7 +32,15 @@
 
 - Test runner: pytest with pytest-xdist for the normal four-worker local/CI
   profile and a retained serial scheduled/release profile.
-- Coverage: coverage.py via pytest-cov, with an 80% configured threshold.
+- Property-based testing: Hypothesis, with `default` (100 examples) and `fast`
+  (10 examples) profiles selected via `HYPOTHESIS_PROFILE` (see
+  `tests/conftest.py`); property tests cover retry-backoff invariants,
+  state-machine transition legality, and checkpoint content-addressing.
+- Trial tooling (radar-tracked, opt-in only): pytest-memray memory budgets
+  (`make test-memray`) and pytest-gremlins scoped mutation testing
+  (`make gremlins-trial`); neither gates normal CI runs.
+- Coverage: coverage.py via pytest-cov, with an 80% configured threshold and a
+  monotonic coverage ratchet (`.coverage-baseline.json`).
 - Lint and format: Ruff.
 - Type checking: ty for rapid feedback and BasedPyright with the tracked
   no-regression baseline plus a staged strict-mode ratchet over repaired runtime
