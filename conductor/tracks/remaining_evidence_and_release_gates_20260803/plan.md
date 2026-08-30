@@ -86,7 +86,8 @@
 
 ## Review and completion boundary
 
-- [ ] Run whole-track review after repository-owned tasks are complete.
+- [x] Run whole-track review after repository-owned tasks are complete. (Review:
+      `track-review-2026-08-30.md`)
 - [ ] Archive only after all acceptance gates are satisfied; external gates do
       not become satisfied from local validation.
 
