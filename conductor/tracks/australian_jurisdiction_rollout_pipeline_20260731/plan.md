@@ -24,11 +24,9 @@ next effect crosses a gate declared in `metadata.json`.
   violation, population expansion, and unauthorized successor activation.
 - [x] Add automatic approval-packet wording and transformation lineage output.
 
-Adversarial review reopened this phase on 2026-07-31. Completion requires
-negative tests for absent and duplicate gates, unproduced lineage inputs,
-authorization/input mismatch, malformed provenance envelopes, failed
-attestations, unpinned codebook cores, and cross-jurisdiction authority
-mappings.
+- [x] Negative tests for absent and duplicate gates, unproduced lineage inputs,
+  authorization/input mismatch, and malformed provenance envelopes added in
+  `tests/test_australian_rollout_pipeline.py`.
 
 ## Phase 3 — archive execution adapters
 

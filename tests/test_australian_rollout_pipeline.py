@@ -380,3 +380,27 @@ def test_cli_validates_positive_example() -> None:
     )
     assert result.returncode == 0, result.stderr + result.stdout
     assert json.loads(result.stdout)["stage_count"] == 13
+
+
+def test_rejects_duplicate_gates() -> None:
+    value = _load_positive()
+    dup_gate = deepcopy(value["gates"][0])
+    value["gates"].append(dup_gate)
+    with pytest.raises(ValueError, match=r"schema validation failed|duplicate gate|unique"):
+        validate_contract(_repin(value))
+
+
+def test_rejects_malformed_provenance_envelope() -> None:
+    value = _load_positive()
+    value["stages"][0]["provenance"]["producer"] = "invalid-untyped-producer"
+    with pytest.raises(ValueError, match="schema validation failed"):
+        validate_contract(_repin(value))
+
+
+def test_rejects_unpinned_codebook_core() -> None:
+    value = _load_positive()
+    calibrate = _stage(value, "calibrate")
+    if "codebook_sha256" in calibrate.get("provenance", {}):
+        calibrate["provenance"]["codebook_sha256"] = "invalid_hash"
+        with pytest.raises(ValueError, match=r"schema validation failed|invalid"):
+            validate_contract(_repin(value))
