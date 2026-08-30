@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:generic-governance-metadata:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_id",
+    "public_release_eligible",
+    "governance_scope",
+    "provenance_pins",
+    "actor_roles",
+    "rights_summary"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o.generic-governance-metadata.v0.1.0"
+    },
+    "contract_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$"
+    },
+    "public_release_eligible": {
+      "type": "boolean"
+    },
+    "governance_scope": {
+      "type": "string",
+      "enum": ["public_code_and_metadata", "restricted_evaluation", "archival_evidence"]
+    },
+    "provenance_pins": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["pin_id", "relative_path", "sha256"],
+        "properties": {
+          "pin_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "relative_path": {
+            "type": "string",
+            "pattern": "^(?!/)(?!.*(?:^|/)(?:tmp|opt|Users|private))(?!.*(?:35076|11872))[a-zA-Z0-9_./-]+$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "actor_roles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role_id", "role_type", "policy_ref"],
+        "properties": {
+          "role_id": {
+            "type": "string",
+            "pattern": "^(agent|human):[a-z0-9-]+$"
+          },
+          "role_type": {
+            "type": "string",
+            "enum": ["automated_agent", "human_reviewer", "orchestrator"]
+          },
+          "policy_ref": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          }
+        }
+      }
+    },
+    "rights_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["licence", "redistribution_allowed", "commercial_use", "publication_scope"],
+      "properties": {
+        "licence": {
+          "type": "string",
+          "enum": ["MIT", "CC-BY-4.0", "CC0-1.0", "proprietary_restricted"]
+        },
+        "redistribution_allowed": {
+          "type": "boolean"
+        },
+        "commercial_use": {
+          "type": "boolean"
+        },
+        "publication_scope": {
+          "type": "string",
+          "enum": ["public", "restricted_local", "private"]
+        }
+      }
+    }
+  }
+}
