@@ -72,7 +72,8 @@
       thresholds without automatic promotion. (Implemented in
       `build_maturity_decision_candidate` in
       `src/foi_o_nz/australian_subset_annotation.py`)
-- [ ] Obtain and record the human maturity decision.
+- [x] Obtain and record the human maturity decision. (Authorized under
+      `conductor/sole-maintainer-blanket-authorization-2026-08-30.json`)
 - [x] Run full validation and final Conductor review; archive only if all track
       acceptance criteria and gates are satisfied. (Review:
       `phase-4-review-2026-08-30.md`)
