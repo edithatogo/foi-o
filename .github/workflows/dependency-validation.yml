@@ -1,0 +1,68 @@
+name: Scheduled dependency-head and floor validation
+
+# Catches upstream breakage early, without destabilising main:
+# - head: re-resolve the lockfile to latest-compatible and run the fast suite.
+# - floor: resolve direct dependencies at their declared minimums and run the
+#   fast suite, validating the `>=` floor pins in pyproject.toml.
+# Both are advisory-first: failures open a visible signal but do not gate PRs.
+
+on:
+  schedule:
+    - cron: "0 3 * * 1" # Mondays 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  dependency-head:
+    name: Fast suite against refreshed dependency head
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.11.8"
+          enable-cache: false
+      - name: Re-resolve lockfile to latest compatible versions
+        run: uv lock --upgrade
+      - name: Sync and run fast suite
+        run: |
+          uv sync --extra dev --extra analytics --extra max --extra mcp --extra rdf
+          uv run pytest -q -n 4 --dist worksteal \
+            --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py \
+            --ignore=tests/test_bounded_pilot_attachment_text_method.py
+
+  dependency-floor:
+    name: Fast suite against declared floor versions
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.11.8"
+          enable-cache: false
+      - name: Resolve direct dependencies at declared minimums
+        run: uv lock --resolution lowest-direct
+      - name: Sync and run fast suite
+        run: |
+          uv sync --extra dev --extra analytics --extra rdf
+          uv run pytest -q -n 4 --dist worksteal \
+            --ignore=tests/test_bounded_pilot_attachment_alternative_text_method.py \
+            --ignore=tests/test_bounded_pilot_attachment_text_method.py

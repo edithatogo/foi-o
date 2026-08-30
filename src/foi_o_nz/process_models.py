@@ -151,21 +151,17 @@ def build_process_model_conformance(
         },
     ]
     if not core_bpmn_summary["human_certification_before_outcome"]:
-        findings.append(
-            {
-                "severity": "error",
-                "code": "bpmn_human_certification_missing",
-                "message": "Core BPMN does not route decision-like outcomes through human certification.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "bpmn_human_certification_missing",
+            "message": "Core BPMN does not route decision-like outcomes through human certification.",
+        })
     if not core_pnml_summary["human_certification_before_outcome"]:
-        findings.append(
-            {
-                "severity": "error",
-                "code": "pnml_human_certification_missing",
-                "message": "Core PNML does not route decision-like outcomes through human certification.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "pnml_human_certification_missing",
+            "message": "Core PNML does not route decision-like outcomes through human certification.",
+        })
     error_count = sum(1 for finding in findings if finding["severity"] == "error")
     return {
         "schema_version": "foi-o-nz.process-model-conformance.v0.1.0",

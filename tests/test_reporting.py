@@ -71,14 +71,12 @@ def test_metric_table_uses_reporting_metric_schema(tmp_path: Path) -> None:
 def test_build_psc_aggregate_report_flags_derivability_boundaries(tmp_path: Path) -> None:
     events = tmp_path / "events.jsonl"
     events.write_text(
-        "\n".join(
-            [
-                '{"event_type":"RequestObserved","request_id":"100"}',
-                '{"event_type":"DecisionCommunicated","request_ref":{"source_request_id":100}}',
-                '{"event_type":"ExtensionNotified","request_id":"100"}',
-                '{"event_type":"ComplaintObserved","request_id":"100"}',
-            ]
-        )
+        "\n".join([
+            '{"event_type":"RequestObserved","request_id":"100"}',
+            '{"event_type":"DecisionCommunicated","request_ref":{"source_request_id":100}}',
+            '{"event_type":"ExtensionNotified","request_id":"100"}',
+            '{"event_type":"ComplaintObserved","request_id":"100"}',
+        ])
         + "\n",
         encoding="utf-8",
     )

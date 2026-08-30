@@ -10,27 +10,25 @@ from typing import Any, cast
 REQUEST_IDS = ("11872", "35076")
 ANALYST_IDS = ("agent:bounded-pilot-analyst-a", "agent:bounded-pilot-analyst-b")
 RECONCILER_ID = "agent:bounded-pilot-reconciler"
-LABELS = frozenset(
-    (
-        "observed",
-        "submitted",
-        "awaiting_response",
-        "awaiting_clarification",
-        "scope_amended",
-        "transferred",
-        "extension_notified",
-        "decision_communicated",
-        "released_in_full",
-        "released_in_part",
-        "refused",
-        "information_not_held",
-        "withdrawn",
-        "overdue",
-        "complaint_observed",
-        "closed",
-        "unknown",
-    )
-)
+LABELS = frozenset((
+    "observed",
+    "submitted",
+    "awaiting_response",
+    "awaiting_clarification",
+    "scope_amended",
+    "transferred",
+    "extension_notified",
+    "decision_communicated",
+    "released_in_full",
+    "released_in_part",
+    "refused",
+    "information_not_held",
+    "withdrawn",
+    "overdue",
+    "complaint_observed",
+    "closed",
+    "unknown",
+))
 PROHIBITED_ACTIONS = [
     "empirical_result_approval",
     "population_inference",
@@ -236,16 +234,14 @@ def validate_context_manifest(value: dict[str, Any]) -> dict[str, dict[str, Any]
     expected_segments = []
     for context in contexts:
         for source in context["sources"]:
-            expected_segments.append(
-                {
-                    "request_id": context["request_id"],
-                    "segment_id": source["source_id"],
-                    "source_sha256": source["source_sha256"],
-                    "source_kind": source["source_kind"],
-                    "start": context["global_start"] + source["start"],
-                    "end": context["global_start"] + source["end"],
-                }
-            )
+            expected_segments.append({
+                "request_id": context["request_id"],
+                "segment_id": source["source_id"],
+                "source_sha256": source["source_sha256"],
+                "source_kind": source["source_kind"],
+                "start": context["global_start"] + source["start"],
+                "end": context["global_start"] + source["end"],
+            })
     if segments != expected_segments:
         raise ValueError("global segments do not match ordered unit-local sources")
     return result
@@ -583,9 +579,11 @@ def build_reconciliation_set(
             record[key] for key in ("empirical_result_approved", "human_reviewed", "gold_eligible")
         ):
             raise ValueError("reconciliation promotion flags must remain false")
-        entries.append(
-            {"request_id": request_id, "record_sha256": canonical_sha256(record), "record": record}
-        )
+        entries.append({
+            "request_id": request_id,
+            "record_sha256": canonical_sha256(record),
+            "record": record,
+        })
     agreements = [request_id for request_id in REQUEST_IDS if request_id not in ids]
     return {
         "schema_version": "foi-o.bounded-pilot-reconciliation-set.v0.2.0",
@@ -685,15 +683,13 @@ def compute_candidate_diagnostics(
             unresolved += int(outcome == "unresolved")
         else:
             outcome = "mechanical_agreement"
-        cases.append(
-            {
-                "request_id": request_id,
-                "label_agreement": label_agree,
-                "span_exact_agreement": span_agree,
-                "abstention_agreement": abstention_agree,
-                "reconciliation_outcome": outcome,
-            }
-        )
+        cases.append({
+            "request_id": request_id,
+            "label_agreement": label_agree,
+            "span_exact_agreement": span_agree,
+            "abstention_agreement": abstention_agree,
+            "reconciliation_outcome": outcome,
+        })
     return {
         "schema_version": "foi-o.bounded-pilot-candidate-diagnostics.v0.2.0",
         "diagnostics_id": "bounded-pilot-11872-35076-candidate-diagnostics",

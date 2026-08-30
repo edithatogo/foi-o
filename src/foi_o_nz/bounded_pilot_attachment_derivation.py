@@ -701,9 +701,9 @@ def _freeze_sources(
                 info = os.fstat(descriptor)
                 if not stat.S_ISREG(info.st_mode) or info.st_size != source["size"]:
                     raise ValueError("attachment source descriptor identity mismatch")
-                data = b""
+                data = bytearray()
                 while chunk := os.read(descriptor, 1024 * 1024):
-                    data += chunk
+                    data.extend(chunk)
                 if sha256(data).hexdigest() != source["sha256"]:
                     raise ValueError("attachment frozen source SHA-256 mismatch")
                 frozen_path = directory / f"source-{index:03d}.pdf"
@@ -816,15 +816,13 @@ def _quarantine_diagnostic_attempts(
                     diagnostic_file.write(stderr_data)
                     diagnostic_file.flush()
                     os.fsync(diagnostic_file.fileno())
-            metadata_attempts.append(
-                {
-                    **attempt,
-                    "stderr_file": diagnostic_name,
-                    "stderr_sha256": sha256(stderr_data).hexdigest(),
-                    "stderr_byte_count": len(stderr_data),
-                    "derived_text_retained": False,
-                }
-            )
+            metadata_attempts.append({
+                **attempt,
+                "stderr_file": diagnostic_name,
+                "stderr_sha256": sha256(stderr_data).hexdigest(),
+                "stderr_byte_count": len(stderr_data),
+                "derived_text_retained": False,
+            })
         metadata = {
             "schema_version": "foi-o.bounded-pilot-attachment-stderr-diagnostic.v0.1.0",
             "status": "quarantined_local_diagnostic_review_required",
@@ -913,17 +911,15 @@ def derive_attachment_text(
                 stderr_path.unlink()
                 if permission.diagnostic_only:
                     target.unlink(missing_ok=True)
-                    diagnostic_attempts.append(
-                        {
-                            "pass_number": pass_index + 1,
-                            "source_index": index,
-                            "source_inventory_pointer": source.get("inventory_pointer"),
-                            "source_relative_path": source["relative_path"],
-                            "source_sha256": source["sha256"],
-                            "returncode": returncode,
-                            "stderr_data": stderr_data,
-                        }
-                    )
+                    diagnostic_attempts.append({
+                        "pass_number": pass_index + 1,
+                        "source_index": index,
+                        "source_inventory_pointer": source.get("inventory_pointer"),
+                        "source_relative_path": source["relative_path"],
+                        "source_sha256": source["sha256"],
+                        "returncode": returncode,
+                        "stderr_data": stderr_data,
+                    })
                     continue
                 if returncode != 0:
                     target.unlink(missing_ok=True)

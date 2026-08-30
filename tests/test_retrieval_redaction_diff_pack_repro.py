@@ -58,9 +58,11 @@ def test_search_chunks_jsonl_writes_report(tmp_path: Path) -> None:
 
 
 def test_redaction_candidates_are_masked_and_candidate_only() -> None:
-    candidates = find_redaction_candidates(
-        {"chunk_id": "c1", "request_id": "123", "text": "Email test@example.org about ABC1234."}
-    )
+    candidates = find_redaction_candidates({
+        "chunk_id": "c1",
+        "request_id": "123",
+        "text": "Email test@example.org about ABC1234.",
+    })
     assert {candidate.span_type for candidate in candidates} >= {"email_address", "possible_nhi"}
     email_candidate = next(
         candidate for candidate in candidates if candidate.span_type == "email_address"
@@ -150,14 +152,12 @@ def test_agent_context_pack_excludes_mismatched_retrieval(tmp_path: Path) -> Non
         ],
     )
     retrieval.write_text(
-        json.dumps(
-            {
-                "results": [
-                    {"chunk_id": "good", "request_id": "123"},
-                    {"chunk_id": "bad", "request_id": "other"},
-                ]
-            }
-        ),
+        json.dumps({
+            "results": [
+                {"chunk_id": "good", "request_id": "123"},
+                {"chunk_id": "bad", "request_id": "other"},
+            ]
+        }),
         encoding="utf-8",
     )
     result = write_agent_context_pack(

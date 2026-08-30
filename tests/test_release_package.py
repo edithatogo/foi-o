@@ -49,13 +49,11 @@ def test_release_checklist_example_references_existing_evidence_and_external_gat
 
 def test_release_checklist_validation_reports_missing_evidence(tmp_path: Path) -> None:
     checklist = _load_checklist()
-    checklist["evidence"].append(
-        {
-            "path": "docs/does-not-exist.md",
-            "description": "Synthetic missing path for validation test.",
-            "required": True,
-        }
-    )
+    checklist["evidence"].append({
+        "path": "docs/does-not-exist.md",
+        "description": "Synthetic missing path for validation test.",
+        "required": True,
+    })
     broken = tmp_path / "release-checklist.missing.json"
     broken.write_text(json.dumps(checklist), encoding="utf-8")
 

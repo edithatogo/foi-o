@@ -57,23 +57,19 @@ MATURITY_LINEAGE_FIELDS = (
     "calibration_artifact_sha256",
 )
 THRESHOLD_ELIGIBLE_METRICS = {
-    "reliability": frozenset(
-        {
-            "raw_label_agreement.estimate",
-            "cohen_kappa.estimate",
-            "exact_span_agreement.estimate",
-            "abstention_agreement.estimate",
-        }
-    ),
-    "extractor_metrics": frozenset(
-        {
-            "label_metrics.precision",
-            "label_metrics.recall",
-            "label_metrics.f1",
-            "coverage.estimate",
-            "exact_span.estimate",
-        }
-    ),
+    "reliability": frozenset({
+        "raw_label_agreement.estimate",
+        "cohen_kappa.estimate",
+        "exact_span_agreement.estimate",
+        "abstention_agreement.estimate",
+    }),
+    "extractor_metrics": frozenset({
+        "label_metrics.precision",
+        "label_metrics.recall",
+        "label_metrics.f1",
+        "coverage.estimate",
+        "exact_span.estimate",
+    }),
 }
 
 
@@ -232,20 +228,18 @@ def _approval_context(
         }
     }
     return hashlib.sha256(
-        _canonical_bytes(
-            {
-                "schema_version": "foio.empirical-approved-execution-context.v1.0.0",
-                "membership_sha256": membership_sha256,
-                "codebook_sha256": codebook_sha256,
-                "source_bundle_sha256": source_bundle_sha256,
-                "calibration_content_sha256": hashlib.sha256(
-                    _canonical_bytes(calibration_content)
-                ).hexdigest(),
-                "authorization_content_sha256": hashlib.sha256(
-                    _canonical_bytes(authorization_content)
-                ).hexdigest(),
-            }
-        )
+        _canonical_bytes({
+            "schema_version": "foio.empirical-approved-execution-context.v1.0.0",
+            "membership_sha256": membership_sha256,
+            "codebook_sha256": codebook_sha256,
+            "source_bundle_sha256": source_bundle_sha256,
+            "calibration_content_sha256": hashlib.sha256(
+                _canonical_bytes(calibration_content)
+            ).hexdigest(),
+            "authorization_content_sha256": hashlib.sha256(
+                _canonical_bytes(authorization_content)
+            ).hexdigest(),
+        })
     ).hexdigest()
 
 

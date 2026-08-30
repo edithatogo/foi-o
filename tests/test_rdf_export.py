@@ -16,18 +16,16 @@ FOIO_STATE = Namespace("https://w3id.org/foio-nz/state/")
 def test_export_rdf_from_requests(tmp_path: Path) -> None:
     requests = tmp_path / "requests.jsonl"
     requests.write_text(
-        json.dumps(
-            {
-                "request_id": 1,
-                "title": "Example request",
-                "authority": "Example Ministry",
-                "normalised_state": "Received",
-                "source": "fyi-archive-nz",
-                "source_state": "waiting_response",
-                "source_url": "https://fyi.org.nz/request/1_example",
-                "first_sent": "2026-06-01T00:00:00Z",
-            }
-        )
+        json.dumps({
+            "request_id": 1,
+            "title": "Example request",
+            "authority": "Example Ministry",
+            "normalised_state": "Received",
+            "source": "fyi-archive-nz",
+            "source_state": "waiting_response",
+            "source_url": "https://fyi.org.nz/request/1_example",
+            "first_sent": "2026-06-01T00:00:00Z",
+        })
         + "\n",
         encoding="utf-8",
     )
@@ -56,18 +54,16 @@ def test_export_rdf_from_requests(tmp_path: Path) -> None:
 def test_export_rdf_uses_skos_identifier_uris_for_event_terms(tmp_path: Path) -> None:
     events = tmp_path / "events.jsonl"
     events.write_text(
-        json.dumps(
-            {
-                "event_id": "foio-nz:event:decision",
-                "event_type": "DecisionCommunicated",
-                "event_time": "2026-06-10T00:00:00Z",
-                "assertion_status": "inferred",
-                "lifecycle_state_after": "ReleasedInFull",
-                "request_ref": {"source_request_id": "123"},
-                "requires_human_certification": True,
-                "evidence": [{"evidence_id": "evidence:1"}],
-            }
-        )
+        json.dumps({
+            "event_id": "foio-nz:event:decision",
+            "event_type": "DecisionCommunicated",
+            "event_time": "2026-06-10T00:00:00Z",
+            "assertion_status": "inferred",
+            "lifecycle_state_after": "ReleasedInFull",
+            "request_ref": {"source_request_id": "123"},
+            "requires_human_certification": True,
+            "evidence": [{"evidence_id": "evidence:1"}],
+        })
         + "\n",
         encoding="utf-8",
     )

@@ -182,13 +182,9 @@ def evaluate_triangulation(request: TriangulationRequest) -> TriangulationResult
             (item.authority_tier for item in eligible),
             key=_AUTHORITY_PRECEDENCE.__getitem__,
         )
-        controlling_source_ids = sorted(
-            {
-                item.source_id
-                for item in eligible
-                if item.authority_tier == controlling_authority_tier
-            }
-        )
+        controlling_source_ids = sorted({
+            item.source_id for item in eligible if item.authority_tier == controlling_authority_tier
+        })
 
     return TriangulationResult(
         run_id=request.run_id,

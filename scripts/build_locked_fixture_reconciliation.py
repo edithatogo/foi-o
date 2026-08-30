@@ -178,9 +178,11 @@ def build(*, repository_root: Path, response_path: Path, output_path: Path) -> N
             created < instant or locked < instant for instant in input_locks
         ):
             raise ValueError(f"{unit_id}: reconciliation timestamp ordering mismatch")
-        entries.append(
-            {"unit_id": unit_id, "record_sha256": canonical_sha256(record), "record": record}
-        )
+        entries.append({
+            "unit_id": unit_id,
+            "record_sha256": canonical_sha256(record),
+            "record": record,
+        })
     document = {
         "schema_version": "foi-o.analyst-fixture-reconciliation-set.v0.1.0",
         "set_id": "local-fixture-reconciliation",

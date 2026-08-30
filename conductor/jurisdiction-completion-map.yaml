@@ -17,7 +17,7 @@ phase_contract:
   - {id: legislation_access, owner_repo: edithatogo/legislation, requirement: use an existing official API/provider, add one where available, or make a governed manual acquisition with provenance, effective dates, rights and hashes}
   - {id: gazette_equivalent, owner_repo: edithatogo/legislation, requirement: identify and preserve Gazette or equivalent commencement, subordinate-instrument, implementation and regulator material}
   - {id: bounded_capture, owner_repo: edithatogo/fyi-cli, requirement: verify jurisdiction capture and add a bounded adapter when absent}
-  - {id: immutable_archive, owner_repo: edithatogo/fyi-archive, requirement: archive captures and attachments with immutable manifests and integrity evidence}
+  - {id: immutable_archive, owner_repo: edithatogo/fyi-cli, requirement: archive captures and attachments with immutable manifests and integrity evidence, note: "successor of archived edithatogo/fyi-archive; historical evidence referencing fyi-archive remains valid"}
   - {id: governed_extraction, owner_repo: edithatogo/nlp-policy-nz, requirement: extract candidate legislation, Gazette and case rules under ontology, source and human-review controls}
   - {id: case_process_modelling, owner_repo: edithatogo/foi-process, requirement: model representative FOI cases and process paths with temporal provenance, annotation and promotion gates}
 repository_tracks:

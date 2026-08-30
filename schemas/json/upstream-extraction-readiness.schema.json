@@ -60,7 +60,7 @@
       "additionalProperties": false,
       "required": ["repository", "repository_revision", "verification_evidence", "verified_record_count", "published_manifest_revision", "published_manifest_sha256", "rights_metadata_complete", "approved_local_content_snapshot"],
       "properties": {
-        "repository": {"const": "https://github.com/edithatogo/fyi-archive"},
+        "repository": {"enum": ["https://github.com/edithatogo/fyi-archive", "https://github.com/edithatogo/fyi-cli"]},
         "repository_revision": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
         "verification_evidence": {"$ref": "#/$defs/pin"},
         "verified_record_count": {"type": "integer", "minimum": 1},

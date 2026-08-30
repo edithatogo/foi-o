@@ -15,7 +15,7 @@ REQUIRED_PHASES = {
     "legislation_access": "edithatogo/legislation",
     "gazette_equivalent": "edithatogo/legislation",
     "bounded_capture": "edithatogo/fyi-cli",
-    "immutable_archive": "edithatogo/fyi-archive",
+    "immutable_archive": "edithatogo/fyi-cli",
     "governed_extraction": "edithatogo/nlp-policy-nz",
     "case_process_modelling": "edithatogo/foi-process",
 }

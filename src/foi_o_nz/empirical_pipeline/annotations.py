@@ -17,33 +17,29 @@ from .packets import (
 )
 
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
-ANNOTATION_FIELDS = frozenset(
-    {
-        "unit_id",
-        "unit_sha256",
-        "role_id",
-        "label",
-        "abstention_reason",
-        "spans",
-    }
-)
-LOCKED_OUTPUT_FIELDS = frozenset(
-    {
-        "schema_version",
-        "status",
-        "run_id",
-        "run_spec_sha256",
-        "membership_sha256",
-        "codebook_sha256",
-        "calibration_sha256",
-        "authorization_sha256",
-        "packet_sha256",
-        "source_bundle_sha256",
-        "role_id",
-        "annotations",
-        "annotation_set_sha256",
-    }
-)
+ANNOTATION_FIELDS = frozenset({
+    "unit_id",
+    "unit_sha256",
+    "role_id",
+    "label",
+    "abstention_reason",
+    "spans",
+})
+LOCKED_OUTPUT_FIELDS = frozenset({
+    "schema_version",
+    "status",
+    "run_id",
+    "run_spec_sha256",
+    "membership_sha256",
+    "codebook_sha256",
+    "calibration_sha256",
+    "authorization_sha256",
+    "packet_sha256",
+    "source_bundle_sha256",
+    "role_id",
+    "annotations",
+    "annotation_set_sha256",
+})
 
 
 class AnnotationContractError(ValueError):
@@ -419,9 +415,10 @@ def derive_disagreements(
                         "calibration_sha256": left_output["calibration_sha256"],
                         "authorization_sha256": left_output["authorization_sha256"],
                         "source_bundle_sha256": left_output["source_bundle_sha256"],
-                        "annotator_packet_sha256s": sorted(
-                            [left_output["packet_sha256"], right_output["packet_sha256"]]
-                        ),
+                        "annotator_packet_sha256s": sorted([
+                            left_output["packet_sha256"],
+                            right_output["packet_sha256"],
+                        ]),
                         "dimensions": dimensions,
                         "left_annotation": left[unit_id],
                         "right_annotation": right[unit_id],

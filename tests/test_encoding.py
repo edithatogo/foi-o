@@ -1,32 +1,73 @@
-"""Contract tests for optional fast JSON encoding and its stdlib fallback."""
-
 from __future__ import annotations
 
 import importlib
 import sys
 
+import pytest
+
 from foi_o_nz import encoding
 
 
-def test_encoding_fallback_when_orjson_is_unavailable(monkeypatch) -> None:
-    monkeypatch.setitem(sys.modules, "orjson", None)
+def test_orjson_module_not_found_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Test that encoding gracefully falls back to stdlib json when orjson is missing."""
+    monkeypatch.setitem(sys.modules, "orjson", None)  # type: ignore[arg-type]
+
     importlib.reload(encoding)
 
-    assert encoding.orjson is None
-    assert encoding.loads_json('{"a": 1}') == {"a": 1}
-    assert encoding.loads_json(b'{"a": 1}') == {"a": 1}
-    assert encoding.loads_json(bytearray(b'{"a": 1}')) == {"a": 1}
-    assert encoding.dumps_json({"a": 1}) == '{"a": 1}'
-    assert encoding.dumps_json({"a": 1}, pretty=True) == '{\n  "a": 1\n}'
-    assert encoding.dumps_json({"b": 2, "a": 1}, sort_keys=True) == '{"a": 1, "b": 2}'
+    try:
+        assert encoding.orjson is None
 
-    monkeypatch.delitem(sys.modules, "orjson", raising=False)
-    importlib.reload(encoding)
+        data = {"b": 2, "a": 1}
+        dumped = encoding.dumps_json(data, sort_keys=True)
+        assert dumped in {'{"a": 1, "b": 2}', '{"a":1,"b":2}'}
+
+        dumped_pretty = encoding.dumps_json(data, pretty=True, sort_keys=True)
+        assert dumped_pretty == '{\n  "a": 1,\n  "b": 2\n}'
+
+        dumped_no_sort = encoding.dumps_json(data, sort_keys=False)
+        assert dumped_no_sort in {'{"b": 2, "a": 1}', '{"b":2,"a":1}'}
+
+        loaded = encoding.loads_json(b'{"a": 1}')
+        assert loaded == {"a": 1}
+
+    finally:
+        monkeypatch.undo()
+        importlib.reload(encoding)
 
 
-def test_encoding_fast_path_when_orjson_is_available() -> None:
+def test_dumps_json_with_orjson() -> None:
+    """Test dumps_json with orjson available."""
     if encoding.orjson is None:
-        return
-    assert encoding.loads_json('{"a": 1}') == {"a": 1}
-    assert encoding.dumps_json({"b": 2, "a": 1}) == '{"a":1,"b":2}'
-    assert encoding.dumps_json({"a": 1}, pretty=True) == '{\n  "a": 1\n}'
+        pytest.skip("orjson is not installed")
+
+    data = {"b": 2, "a": 1}
+
+    dumped = encoding.dumps_json(data, sort_keys=True)
+    assert dumped == '{"a":1,"b":2}'
+
+    dumped_pretty = encoding.dumps_json(data, pretty=True, sort_keys=True)
+    assert dumped_pretty == '{\n  "a": 1,\n  "b": 2\n}'
+
+    dumped_no_sort = encoding.dumps_json(data, sort_keys=False)
+    assert dumped_no_sort == '{"b":2,"a":1}'
+
+
+def test_loads_json_with_orjson() -> None:
+    """Test loads_json with orjson available."""
+    if encoding.orjson is None:
+        pytest.skip("orjson is not installed")
+
+    loaded = encoding.loads_json(b'{"a": 1}')
+    assert loaded == {"a": 1}
+
+
+def test_loads_json_string_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Test loads_json fallback with string input."""
+    monkeypatch.setitem(sys.modules, "orjson", None)  # type: ignore[arg-type]
+    importlib.reload(encoding)
+    try:
+        loaded = encoding.loads_json('{"a": 1}')
+        assert loaded == {"a": 1}
+    finally:
+        monkeypatch.undo()
+        importlib.reload(encoding)

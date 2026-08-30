@@ -12,6 +12,7 @@
     "edithatogo/legislation:legislation-jurisdiction-mainstreaming",
     "edithatogo/fyi-archive:au_foi_corpus_readiness_20260714"
   ],
+  "depends_on_current": "edithatogo/fyi-cli",
   "github_issue": "https://github.com/edithatogo/foi-o/issues/24",
   "design_provenance": "edithatogo/rac-conformance conformance, triangulation, fixture-independence, and publication-handoff patterns",
   "current_phase": "phase_5_remaining_jurisdiction_tranches",

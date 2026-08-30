@@ -55,13 +55,11 @@ def _candidate_binary_paths(project_root: Path | None = None) -> list[Path]:
     if env_path:
         candidates.append(Path(env_path))
     root = project_root or Path.cwd()
-    candidates.extend(
-        [
-            root / "build" / "foi-o-nz-mojo",
-            root / "build" / "foi-o-nz-kernel",
-            root / "dist" / "foi-o-nz-mojo",
-        ]
-    )
+    candidates.extend([
+        root / "build" / "foi-o-nz-mojo",
+        root / "build" / "foi-o-nz-kernel",
+        root / "dist" / "foi-o-nz-mojo",
+    ])
     which = shutil.which("foi-o-nz-mojo") or shutil.which("foi-o-nz-kernel")
     if which:
         candidates.append(Path(which))
@@ -229,18 +227,16 @@ def run_kernel_conformance(
             native_attempted += 1
         if not ok:
             failed += 1
-        cases.append(
-            {
-                "operation": operation,
-                "args": list(args),
-                "expected": expected,
-                "value": result["value"],
-                "fallback_value": result["fallback_value"],
-                "runtime_used": result["runtime_used"],
-                "native_error": result["native_error"],
-                "ok": ok,
-            }
-        )
+        cases.append({
+            "operation": operation,
+            "args": list(args),
+            "expected": expected,
+            "value": result["value"],
+            "fallback_value": result["fallback_value"],
+            "runtime_used": result["runtime_used"],
+            "native_error": result["native_error"],
+            "ok": ok,
+        })
     report = {
         "schema_version": KERNEL_CONFORMANCE_SCHEMA_VERSION,
         "ok": failed == 0,

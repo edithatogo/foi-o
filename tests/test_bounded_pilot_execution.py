@@ -55,13 +55,11 @@ def _blocks(text: str, values: list[str]) -> list[dict[str, object]]:
         start = text.index(value, cursor)
         end = start + len(value)
         cursor = end
-        result.append(
-            {
-                "element_id": f"block-{index}",
-                "text_span": {"start": start, "end": end},
-                "text_sha256": sha256(value.encode()).hexdigest(),
-            }
-        )
+        result.append({
+            "element_id": f"block-{index}",
+            "text_span": {"start": start, "end": end},
+            "text_sha256": sha256(value.encode()).hexdigest(),
+        })
     return result
 
 
@@ -87,14 +85,12 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, *, provenance_brid
         path.write_text(text)
         path.chmod(0o600)
         source_sha = sha256(f"pdf-{index}".encode()).hexdigest()
-        outputs.append(
-            {
-                "output_name": path.name,
-                "source_sha256": source_sha,
-                "output_sha256": _sha(path),
-                "byte_count": path.stat().st_size,
-            }
-        )
+        outputs.append({
+            "output_name": path.name,
+            "source_sha256": source_sha,
+            "output_sha256": _sha(path),
+            "byte_count": path.stat().st_size,
+        })
         files.append({"sha256": source_sha})
     records = [
         {

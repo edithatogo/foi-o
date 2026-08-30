@@ -76,13 +76,11 @@ def compare_committed_schemas(committed_dir: Path) -> dict[str, Any]:
         generated_keys = set(schema)
         committed_keys = set(committed)
         if generated_keys != committed_keys:
-            findings.append(
-                {
-                    "severity": "warning",
-                    "code": "top_level_schema_key_drift",
-                    "file": filename,
-                    "generated_only": sorted(generated_keys - committed_keys),
-                    "committed_only": sorted(committed_keys - generated_keys),
-                }
-            )
+            findings.append({
+                "severity": "warning",
+                "code": "top_level_schema_key_drift",
+                "file": filename,
+                "generated_only": sorted(generated_keys - committed_keys),
+                "committed_only": sorted(committed_keys - generated_keys),
+            })
     return {"ok": not any(item["severity"] == "error" for item in findings), "findings": findings}

@@ -13,19 +13,17 @@ from typing import Any, cast
 SCHEMA_VERSION = "foi-o.australian-authority-registry.v1"
 RESULT_SCHEMA_VERSION = "foi-o.australian-authority-classification.v1"
 CANONICALIZATION = "json-sort-keys-compact-utf8-v1"
-AUSTRALIAN_JURISDICTIONS = frozenset(
-    {
-        "AU-CTH",
-        "AU-NSW",
-        "AU-VIC",
-        "AU-QLD",
-        "AU-SA",
-        "AU-WA",
-        "AU-TAS",
-        "AU-ACT",
-        "AU-NT",
-    }
-)
+AUSTRALIAN_JURISDICTIONS = frozenset({
+    "AU-CTH",
+    "AU-NSW",
+    "AU-VIC",
+    "AU-QLD",
+    "AU-SA",
+    "AU-WA",
+    "AU-TAS",
+    "AU-ACT",
+    "AU-NT",
+})
 PROFILE_IDENTITIES = {
     "AU-CTH": ("foi-o-au-cth", "au-cth-foi"),
     "AU-NSW": ("foi-o-au-nsw", "au-nsw-gipa"),
@@ -374,16 +372,14 @@ def classify_authority(
 
     if len(identity_ids) == 1:
         selected = identity_matches[0]
-        result.update(
-            {
-                "disposition": "classified",
-                "authority_id": selected["authority_id"],
-                "jurisdiction": selected["jurisdiction"],
-                "profile_id": selected["profile_id"],
-                "basis": sorted({item["basis"] for item in identity_matches}),
-                "candidates": identity_matches,
-            }
-        )
+        result.update({
+            "disposition": "classified",
+            "authority_id": selected["authority_id"],
+            "jurisdiction": selected["jurisdiction"],
+            "profile_id": selected["profile_id"],
+            "basis": sorted({item["basis"] for item in identity_matches}),
+            "candidates": identity_matches,
+        })
         contradictory = sorted(tag_jurisdictions - {selected["jurisdiction"]})
         if contradictory:
             result["conflicts"] = [
@@ -407,15 +403,13 @@ def classify_authority(
         ]
     elif len(tag_jurisdictions) == 1:
         jurisdiction = next(iter(tag_jurisdictions))
-        result.update(
-            {
-                "disposition": "classified",
-                "jurisdiction": jurisdiction,
-                "profile_id": profiles[jurisdiction]["profile_id"],
-                "basis": ["platform_tag"],
-                "candidates": tag_matches,
-            }
-        )
+        result.update({
+            "disposition": "classified",
+            "jurisdiction": jurisdiction,
+            "profile_id": profiles[jurisdiction]["profile_id"],
+            "basis": ["platform_tag"],
+            "candidates": tag_matches,
+        })
     elif len(tag_jurisdictions) > 1:
         result["disposition"] = "conflict"
         result["basis"] = ["platform_tag"]

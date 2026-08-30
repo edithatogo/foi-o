@@ -98,31 +98,29 @@ def verify_initial_baseline(
         text = content_bytes.decode("utf-8")
         for family, label, pattern in _PATTERNS:
             for index, match in enumerate(pattern.finditer(text)):
-                expected_records.append(
-                    {
-                        "record_id": f"nz:fyi:{request_id}#{family}-{index}",
-                        "family": family,
-                        "label": label,
-                        "value": match.group(0),
-                        "confidence": 0.5,
-                        "attributes": {
-                            "requires_human_review": True,
-                            "source_field": "content_text",
-                        },
-                        "source_trace": {
-                            "citation_path": f"nz/fyi/request/{request_id}",
-                            "source_sha256": content_digest,
-                            "source_url": str(request.get("source_url") or ""),
-                            "spans": [
-                                {
-                                    "start": match.start(),
-                                    "end": match.end(),
-                                    "text": match.group(0),
-                                }
-                            ],
-                        },
-                    }
-                )
+                expected_records.append({
+                    "record_id": f"nz:fyi:{request_id}#{family}-{index}",
+                    "family": family,
+                    "label": label,
+                    "value": match.group(0),
+                    "confidence": 0.5,
+                    "attributes": {
+                        "requires_human_review": True,
+                        "source_field": "content_text",
+                    },
+                    "source_trace": {
+                        "citation_path": f"nz/fyi/request/{request_id}",
+                        "source_sha256": content_digest,
+                        "source_url": str(request.get("source_url") or ""),
+                        "spans": [
+                            {
+                                "start": match.start(),
+                                "end": match.end(),
+                                "text": match.group(0),
+                            }
+                        ],
+                    },
+                })
 
     manifest = baseline.get("manifest", {})
     records = manifest.get("records")

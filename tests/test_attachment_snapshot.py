@@ -88,9 +88,11 @@ def _write_snapshot(root: Path, *, rights_status: str = "pending") -> tuple[Path
         path = snapshot / relative
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_bytes(content)
-        artifacts.append(
-            {"path": relative, "sha256": sha256(content).hexdigest(), "size": len(content)}
-        )
+        artifacts.append({
+            "path": relative,
+            "sha256": sha256(content).hexdigest(),
+            "size": len(content),
+        })
     manifest = {
         "schema_version": "foi-o.fyi-attachment-evidence-snapshot.v0.1.0",
         "status": "pending_named_human_rights_review",
@@ -150,14 +152,12 @@ def test_approved_snapshot_requires_and_records_named_review(tmp_path: Path) -> 
     shutil.copytree(reviewed_snapshot, snapshot)
     manifest = json.loads((snapshot / "manifest.json").read_text())
     rights = manifest["rights_review"]
-    rights.update(
-        {
-            "status": "approved",
-            "reviewer": "edithatogo",
-            "reviewed_at": "2026-07-16T13:00:00Z",
-            "reviewed_snapshot_manifest_sha256": reviewed_digest,
-        }
-    )
+    rights.update({
+        "status": "approved",
+        "reviewer": "edithatogo",
+        "reviewed_at": "2026-07-16T13:00:00Z",
+        "reviewed_snapshot_manifest_sha256": reviewed_digest,
+    })
     (snapshot / "rights-review.json").write_text(json.dumps(rights) + "\n")
     manifest["ready_for_raw_state_mapping_audit"] = True
     _refresh_artifact(snapshot, manifest, "rights-review.json")
@@ -253,14 +253,12 @@ def test_approved_snapshot_rejects_content_different_from_reviewed_pending(
     shutil.copytree(reviewed_snapshot, snapshot)
     manifest = json.loads((snapshot / "manifest.json").read_text())
     rights = manifest["rights_review"]
-    rights.update(
-        {
-            "status": "approved",
-            "reviewer": "edithatogo",
-            "reviewed_at": "2026-07-16T13:00:00Z",
-            "reviewed_snapshot_manifest_sha256": reviewed_digest,
-        }
-    )
+    rights.update({
+        "status": "approved",
+        "reviewer": "edithatogo",
+        "reviewed_at": "2026-07-16T13:00:00Z",
+        "reviewed_snapshot_manifest_sha256": reviewed_digest,
+    })
     (snapshot / "rights-review.json").write_text(json.dumps(rights) + "\n")
     manifest["ready_for_raw_state_mapping_audit"] = True
     (snapshot / "content/attachments/response.pdf").write_bytes(b"%PDF-different")

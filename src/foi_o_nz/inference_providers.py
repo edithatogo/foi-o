@@ -108,41 +108,33 @@ def validate_candidate_output(record: dict[str, Any]) -> dict[str, Any]:
     assertion_status = str(record.get("assertion_status") or "")
     machine_generated = record.get("machine_generated") is True
     if machine_generated and record.get("human_review_required") is not True:
-        findings.append(
-            {
-                "severity": "error",
-                "code": "model_output_review_required",
-                "message": "Machine-generated provider outputs must be routed for human review.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "model_output_review_required",
+            "message": "Machine-generated provider outputs must be routed for human review.",
+        })
     if assertion_status == "certified" and machine_generated:
-        findings.append(
-            {
-                "severity": "error",
-                "code": "certified_model_output_rejected",
-                "message": "Machine-generated provider outputs must not assert certified status.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "certified_model_output_rejected",
+            "message": "Machine-generated provider outputs must not assert certified status.",
+        })
     if (
         event_type in HUMAN_CERTIFICATION_EVENT_TYPES
         and record.get("requires_human_certification") is not True
     ):
-        findings.append(
-            {
-                "severity": "error",
-                "code": "human_certification_boundary_required",
-                "message": f"{event_type} provider outputs must require human certification.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "human_certification_boundary_required",
+            "message": f"{event_type} provider outputs must require human certification.",
+        })
     certification = record.get("human_certification")
     if isinstance(certification, dict) and certification.get("certified") is True:
-        findings.append(
-            {
-                "severity": "error",
-                "code": "provider_human_certification_rejected",
-                "message": "Provider outputs cannot carry positive human certification metadata.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "provider_human_certification_rejected",
+            "message": "Provider outputs cannot carry positive human certification metadata.",
+        })
     return {
         "ok": not any(finding["severity"] == "error" for finding in findings),
         "finding_count": len(findings),

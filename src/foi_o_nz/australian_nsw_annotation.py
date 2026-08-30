@@ -254,25 +254,21 @@ def run_fresh_annotation(
             label_match = observed.search(text)
             span_match = _SPAN.search(text)
             label = "observed" if label_match else "unknown"
-            records.append(
-                {
-                    "unit_id": unit["unit_id"],
-                    "unit_sha256": unit["text_sha256"],
-                    "role": role,
-                    "label": label,
-                    "abstention": label_match is None,
-                    "abstention_reason": None
-                    if label_match is not None
-                    else "insufficient_evidence",
-                    "span": None
-                    if span_match is None
-                    else {
-                        "start": span_match.start(),
-                        "end": span_match.end(),
-                        "coordinate_system": "utf8_character_half_open",
-                    },
-                }
-            )
+            records.append({
+                "unit_id": unit["unit_id"],
+                "unit_sha256": unit["text_sha256"],
+                "role": role,
+                "label": label,
+                "abstention": label_match is None,
+                "abstention_reason": None if label_match is not None else "insufficient_evidence",
+                "span": None
+                if span_match is None
+                else {
+                    "start": span_match.start(),
+                    "end": span_match.end(),
+                    "coordinate_system": "utf8_character_half_open",
+                },
+            })
         annotations[role] = records
         (output_root / f"{role.rsplit(':', 1)[1]}.annotations.json").write_text(
             json.dumps(records, indent=2, sort_keys=True) + "\n", encoding="utf-8"

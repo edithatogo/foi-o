@@ -48,24 +48,20 @@ def test_normative_source_rights_guard() -> None:
 
 
 def test_sampling_design_guard() -> None:
-    SamplingDesign.model_validate(
-        {
-            "design_type": "probability_stratified",
-            "strata_variables": ["year"],
-            "population_estimation_allowed": True,
-            "weights_available": True,
-            "inclusion_probability_field": "pi",
-            "weight_field": "w",
-        }
-    )
+    SamplingDesign.model_validate({
+        "design_type": "probability_stratified",
+        "strata_variables": ["year"],
+        "population_estimation_allowed": True,
+        "weights_available": True,
+        "inclusion_probability_field": "pi",
+        "weight_field": "w",
+    })
     with pytest.raises(ValidationError):
-        SamplingDesign.model_validate(
-            {
-                "design_type": "rare_event_enrichment",
-                "population_estimation_allowed": True,
-                "weights_available": False,
-            }
-        )
+        SamplingDesign.model_validate({
+            "design_type": "rare_event_enrichment",
+            "population_estimation_allowed": True,
+            "weights_available": False,
+        })
 
 
 def test_authority_identity_conflict_and_approval_guards() -> None:

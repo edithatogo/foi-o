@@ -152,45 +152,35 @@ def build_process_mining_conformance(events: list[dict[str, Any]]) -> dict[str, 
         }
     ]
     if activities != EXPECTED_RELEASE_PATH:
-        findings.append(
-            {
-                "severity": "error",
-                "code": "release_path_sequence_mismatch",
-                "message": "Fixture activities do not match the expected release-path sequence.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "release_path_sequence_mismatch",
+            "message": "Fixture activities do not match the expected release-path sequence.",
+        })
     if not _activity_before(activities, "HumanDecisionCertified", "DecisionCommunicated"):
-        findings.append(
-            {
-                "severity": "error",
-                "code": "decision_communicated_before_certification",
-                "message": "Decision communication must follow human certification in the fixture path.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "decision_communicated_before_certification",
+            "message": "Decision communication must follow human certification in the fixture path.",
+        })
     if not _activity_before(activities, "HumanDecisionCertified", "ReleaseMade"):
-        findings.append(
-            {
-                "severity": "error",
-                "code": "release_before_certification",
-                "message": "Release must follow human certification in the fixture path.",
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "release_before_certification",
+            "message": "Release must follow human certification in the fixture path.",
+        })
     if len(case_ids) != 1:
-        findings.append(
-            {
-                "severity": "warning",
-                "code": "unexpected_fixture_case_count",
-                "message": "The current fixture conformance report is designed for one request case.",
-            }
-        )
+        findings.append({
+            "severity": "warning",
+            "code": "unexpected_fixture_case_count",
+            "message": "The current fixture conformance report is designed for one request case.",
+        })
     if any(event.get("assertion_status") == "candidate" for event in ordered):
-        findings.append(
-            {
-                "severity": "info",
-                "code": "candidate_events_preserved",
-                "message": "Candidate events are preserved in the fixture and not treated as certified outcomes.",
-            }
-        )
+        findings.append({
+            "severity": "info",
+            "code": "candidate_events_preserved",
+            "message": "Candidate events are preserved in the fixture and not treated as certified outcomes.",
+        })
     error_count = sum(1 for finding in findings if finding["severity"] == "error")
     return {
         "schema_version": PROCESS_MINING_CONFORMANCE_SCHEMA_VERSION,
@@ -206,13 +196,11 @@ def build_process_mining_conformance(events: list[dict[str, Any]]) -> dict[str, 
         "human_certification_before_release": _activity_before(
             activities, "HumanDecisionCertified", "ReleaseMade"
         ),
-        "candidate_event_types": sorted(
-            {
-                str(event["event_type"])
-                for event in ordered
-                if event.get("assertion_status") == "candidate"
-            }
-        ),
+        "candidate_event_types": sorted({
+            str(event["event_type"])
+            for event in ordered
+            if event.get("assertion_status") == "candidate"
+        }),
         "findings": findings,
         "ok": error_count == 0,
     }

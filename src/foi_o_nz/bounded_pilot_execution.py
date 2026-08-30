@@ -491,15 +491,13 @@ def _context_segments(permission: StagePermission) -> list[dict[str, Any]]:
             text = page_text[start:end]
             if _digest_bytes(text.encode()) != block["text_sha256"]:
                 raise ValueError("correspondence slice differs from governed census")
-            result.append(
-                {
-                    "request_id": request_id,
-                    "segment_id": block["element_id"],
-                    "text": text,
-                    "source_sha256": block["text_sha256"],
-                    "source_kind": "correspondence",
-                }
-            )
+            result.append({
+                "request_id": request_id,
+                "segment_id": block["element_id"],
+                "text": text,
+                "source_sha256": block["text_sha256"],
+                "source_kind": "correspondence",
+            })
         if request_id == "11872":
             for output in permission.derivation_result["outputs"]:
                 path = permission.source_roots["derived_attachments"] / output["output_name"]
@@ -512,15 +510,13 @@ def _context_segments(permission: StagePermission) -> list[dict[str, Any]]:
                     text = data.decode("utf-8", errors="strict")
                 except UnicodeDecodeError as error:
                     raise ValueError("derived attachment is not strict UTF-8") from error
-                result.append(
-                    {
-                        "request_id": request_id,
-                        "segment_id": output["output_name"],
-                        "text": text,
-                        "source_sha256": output["output_sha256"],
-                        "source_kind": "attachment_derived_text",
-                    }
-                )
+                result.append({
+                    "request_id": request_id,
+                    "segment_id": output["output_name"],
+                    "text": text,
+                    "source_sha256": output["output_sha256"],
+                    "source_kind": "attachment_derived_text",
+                })
     return result
 
 
@@ -557,27 +553,23 @@ def _compose_context(
         unit_cursor = 0
         sources = []
         for index, (segment, text) in enumerate(selected):
-            sources.append(
-                {
-                    "source_kind": segment["source_kind"],
-                    "source_id": segment["segment_id"],
-                    "source_sha256": segment["source_sha256"],
-                    "start": unit_cursor,
-                    "end": unit_cursor + len(text),
-                    "character_count": len(text),
-                }
-            )
+            sources.append({
+                "source_kind": segment["source_kind"],
+                "source_id": segment["segment_id"],
+                "source_sha256": segment["source_sha256"],
+                "start": unit_cursor,
+                "end": unit_cursor + len(text),
+                "character_count": len(text),
+            })
             unit_cursor += len(text) + (len(SEPARATOR) if index < len(selected) - 1 else 0)
-        contexts.append(
-            {
-                "request_id": request_id,
-                "unit_sha256": permission.unit_sha256_by_request[request_id],
-                "context_sha256": _digest_bytes(unit_text.encode("utf-8")),
-                "global_start": global_cursor,
-                "global_end": global_cursor + len(unit_text),
-                "sources": sources,
-            }
-        )
+        contexts.append({
+            "request_id": request_id,
+            "unit_sha256": permission.unit_sha256_by_request[request_id],
+            "context_sha256": _digest_bytes(unit_text.encode("utf-8")),
+            "global_start": global_cursor,
+            "global_end": global_cursor + len(unit_text),
+            "sources": sources,
+        })
         global_cursor += len(unit_text) + (len(SEPARATOR) if request_id == "11872" else 0)
     return context.encode("utf-8"), segments, contexts
 

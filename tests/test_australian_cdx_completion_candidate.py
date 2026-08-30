@@ -50,47 +50,41 @@ def _fixture(tmp_path: Path, monkeypatch) -> tuple[Path, Path, Path, Path]:
                 options[media_kind] = rows[-1]
             body_path = body_root / f"{slug}.{media_kind}.json"
             _write_json(body_path, [validator.CDX_HEADER, *rows])
-            request_url = "https://web.archive.org/cdx/search/cdx?" + urlencode(
-                [
-                    ("url", exact_url),
-                    ("matchType", "exact"),
-                    ("output", "json"),
-                    ("fl", ",".join(validator.CDX_HEADER)),
-                    ("filter", "statuscode:200"),
-                ]
-            )
-            results.append(
-                {
-                    **query,
-                    "status": "complete",
-                    "retrieved_at": "2026-07-27T00:00:00+00:00",
-                    "record_count": len(rows),
-                    "records": rows,
-                    "request_url": request_url,
-                    "response_body_filename": body_path.name,
-                    "response_byte_count": body_path.stat().st_size,
-                    "response_sha256": _sha256(body_path),
-                }
-            )
+            request_url = "https://web.archive.org/cdx/search/cdx?" + urlencode([
+                ("url", exact_url),
+                ("matchType", "exact"),
+                ("output", "json"),
+                ("fl", ",".join(validator.CDX_HEADER)),
+                ("filter", "statuscode:200"),
+            ])
+            results.append({
+                **query,
+                "status": "complete",
+                "retrieved_at": "2026-07-27T00:00:00+00:00",
+                "record_count": len(rows),
+                "records": rows,
+                "request_url": request_url,
+                "response_body_filename": body_path.name,
+                "response_byte_count": body_path.stat().st_size,
+                "response_sha256": _sha256(body_path),
+            })
         chosen_kind = "json" if "json" in options else "html"
         if chosen_kind in options:
             row = options[chosen_kind]
-            selected.append(
-                {
-                    "canonical_slug": slug,
-                    "media_kind": chosen_kind,
-                    "source_url": row[0],
-                    "archive_timestamp": row[1],
-                    "archive_digest": row[2],
-                    "statuscode": row[3],
-                    "length": row[4],
-                    "selection_reason": (
-                        "latest_successful_canonical_json"
-                        if chosen_kind == "json"
-                        else "latest_successful_canonical_html_fallback"
-                    ),
-                }
-            )
+            selected.append({
+                "canonical_slug": slug,
+                "media_kind": chosen_kind,
+                "source_url": row[0],
+                "archive_timestamp": row[1],
+                "archive_digest": row[2],
+                "statuscode": row[3],
+                "length": row[4],
+                "selection_reason": (
+                    "latest_successful_canonical_json"
+                    if chosen_kind == "json"
+                    else "latest_successful_canonical_html_fallback"
+                ),
+            })
         else:
             no_capture.append(slug)
 

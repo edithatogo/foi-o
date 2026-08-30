@@ -350,22 +350,20 @@ def _expected_selection(
             no_capture.append(slug)
             continue
         latest = max(choices, key=lambda row: row[1])
-        records.append(
-            {
-                "canonical_slug": slug,
-                "media_kind": media_kind,
-                "source_url": latest[0],
-                "archive_timestamp": latest[1],
-                "archive_digest": latest[2],
-                "statuscode": latest[3],
-                "length": latest[4],
-                "selection_reason": (
-                    "latest_successful_canonical_json"
-                    if media_kind == "json"
-                    else "latest_successful_canonical_html_fallback"
-                ),
-            }
-        )
+        records.append({
+            "canonical_slug": slug,
+            "media_kind": media_kind,
+            "source_url": latest[0],
+            "archive_timestamp": latest[1],
+            "archive_digest": latest[2],
+            "statuscode": latest[3],
+            "length": latest[4],
+            "selection_reason": (
+                "latest_successful_canonical_json"
+                if media_kind == "json"
+                else "latest_successful_canonical_html_fallback"
+            ),
+        })
     return records, no_capture
 
 

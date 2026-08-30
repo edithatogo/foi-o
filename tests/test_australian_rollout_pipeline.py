@@ -187,20 +187,16 @@ def test_accepts_activation_only_with_pinned_external_human_authorization() -> N
     replay = _stage(value, "replay")
     replay["status"] = "active"
     replay["inputs"] = deepcopy(select["outputs"])
-    _gate(value, "select").update(
-        {
-            "authorization_state": "externally_authorized",
-            "authorized_by": "external_human",
-            "authorization_evidence_sha256": "6" * 64,
-        }
-    )
-    _gate(value, "replay").update(
-        {
-            "authorization_state": "externally_authorized",
-            "authorized_by": "external_human",
-            "authorization_evidence_sha256": "8" * 64,
-        }
-    )
+    _gate(value, "select").update({
+        "authorization_state": "externally_authorized",
+        "authorized_by": "external_human",
+        "authorization_evidence_sha256": "6" * 64,
+    })
+    _gate(value, "replay").update({
+        "authorization_state": "externally_authorized",
+        "authorized_by": "external_human",
+        "authorization_evidence_sha256": "8" * 64,
+    })
     result = validate_contract(_repin(value))
     assert result["last_completed_stage"] == "select"
 
@@ -256,12 +252,10 @@ def test_rejects_forward_declared_predecessor() -> None:
 
 def test_rejects_gate_evidence_that_does_not_declare_external_human_authority() -> None:
     value = _load_positive()
-    _gate(value, "replay").update(
-        {
-            "authorization_state": "externally_authorized",
-            "authorization_evidence_sha256": "8" * 64,
-        }
-    )
+    _gate(value, "replay").update({
+        "authorization_state": "externally_authorized",
+        "authorization_evidence_sha256": "8" * 64,
+    })
     with pytest.raises(ValueError, match="schema validation failed"):
         validate_contract(_repin(value))
 
@@ -277,12 +271,12 @@ def test_rejects_resume_checkpoint_for_different_definition() -> None:
     value = _load_positive()
     value["resume_checkpoint"]["definition_sha256"] = "9" * 64
     checkpoint = value["resume_checkpoint"]
-    checkpoint["checkpoint_sha256"] = _oracle_sha256(
-        {key: item for key, item in checkpoint.items() if key != "checkpoint_sha256"}
-    )
-    value["contract_sha256"] = _oracle_sha256(
-        {key: item for key, item in value.items() if key != "contract_sha256"}
-    )
+    checkpoint["checkpoint_sha256"] = _oracle_sha256({
+        key: item for key, item in checkpoint.items() if key != "checkpoint_sha256"
+    })
+    value["contract_sha256"] = _oracle_sha256({
+        key: item for key, item in value.items() if key != "contract_sha256"
+    })
     with pytest.raises(ValueError, match="different pipeline definition"):
         validate_contract(value)
 

@@ -145,16 +145,14 @@ def _committed_approved_bundle(
             "state": "locked",
         },
     }
-    pins.update(
-        {
-            role: {
-                "path": f"examples/v2/analyst-fixture-packet/{filename}",
-                "sha256": sha256((packet / filename).read_bytes()).hexdigest(),
-                "state": "locked",
-            }
-            for role, filename in PROMOTED_FILES.items()
+    pins.update({
+        role: {
+            "path": f"examples/v2/analyst-fixture-packet/{filename}",
+            "sha256": sha256((packet / filename).read_bytes()).hexdigest(),
+            "state": "locked",
         }
-    )
+        for role, filename in PROMOTED_FILES.items()
+    })
     actor = lambda actor_id, role, session: {  # noqa: E731
         "actor_id": actor_id,
         "actor_class": "automated_agent",
@@ -329,9 +327,9 @@ def test_manifest_cross_checks_require_exact_unit_redaction_cluster_bijection() 
         for unit in derived
     ]
     unit_manifest = {
-        "ordered_unit_commitment_sha256": ordered_unit_commitment(
-            [unit.unit_sha256 for unit in derived]
-        ),
+        "ordered_unit_commitment_sha256": ordered_unit_commitment([
+            unit.unit_sha256 for unit in derived
+        ]),
         "ordered_unit_commitment_algorithm": "sha256_lowercase_hex_lines_final_newline_v1",
         "units": units,
     }

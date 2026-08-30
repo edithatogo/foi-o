@@ -9,16 +9,14 @@ from foi_o_nz.analytics import summarise_events_jsonl
 def test_summarise_events_jsonl(tmp_path: Path) -> None:
     events = tmp_path / "events.jsonl"
     events.write_text(
-        json.dumps(
-            {
-                "event_type": "RequestObserved",
-                "assertion_status": "observed",
-                "confidence": 1.0,
-                "requires_human_certification": False,
-                "machine_generated": True,
-                "quality_flags": ["example"],
-            }
-        )
+        json.dumps({
+            "event_type": "RequestObserved",
+            "assertion_status": "observed",
+            "confidence": 1.0,
+            "requires_human_certification": False,
+            "machine_generated": True,
+            "quality_flags": ["example"],
+        })
         + "\n",
         encoding="utf-8",
     )

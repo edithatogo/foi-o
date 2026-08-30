@@ -511,23 +511,21 @@ def load_verified_execution_context(
         authorization,
     )
     receipt = hashlib.sha256(
-        canonical_bytes(
-            {
-                "schema_version": "foio.empirical-verification-receipt.v1.0.0",
-                "run_spec_sha256": spec.run_spec_sha256,
-                "membership_sha256": membership["membership_sha256"],
-                "source_bundle_sha256": source_bundle_sha,
-                "codebook_sha256": codebook_sha,
-                "calibration_sha256": calibration["calibration_sha256"],
-                "authorization_sha256": authorization["authorization_sha256"],
-                "repository_head": subprocess.run(
-                    ["git", "-C", str(repository), "rev-parse", "HEAD"],
-                    check=True,
-                    capture_output=True,
-                    text=True,
-                ).stdout.strip(),
-            }
-        )
+        canonical_bytes({
+            "schema_version": "foio.empirical-verification-receipt.v1.0.0",
+            "run_spec_sha256": spec.run_spec_sha256,
+            "membership_sha256": membership["membership_sha256"],
+            "source_bundle_sha256": source_bundle_sha,
+            "codebook_sha256": codebook_sha,
+            "calibration_sha256": calibration["calibration_sha256"],
+            "authorization_sha256": authorization["authorization_sha256"],
+            "repository_head": subprocess.run(
+                ["git", "-C", str(repository), "rev-parse", "HEAD"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout.strip(),
+        })
     ).hexdigest()
     return VerifiedExecutionContext(
         _CONSTRUCTION_TOKEN,

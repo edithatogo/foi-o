@@ -249,38 +249,51 @@ def _candidate_events_from_message(
     text = message.body
     candidates: list[tuple[str, str | None, float, str]] = []
     if _EXTENSION_RE.search(text):
-        candidates.append(
-            ("ExtensionNotified", "ExtensionApplied", 0.58, "extension_language_detected")
-        )
+        candidates.append((
+            "ExtensionNotified",
+            "ExtensionApplied",
+            0.58,
+            "extension_language_detected",
+        ))
     if _TRANSFER_RE.search(text):
-        candidates.append(
-            ("TransferNotified", "TransferredInFull", 0.54, "transfer_language_detected")
-        )
+        candidates.append((
+            "TransferNotified",
+            "TransferredInFull",
+            0.54,
+            "transfer_language_detected",
+        ))
     if _CLARIFICATION_RE.search(text):
-        candidates.append(
-            (
-                "ClarificationRequested",
-                "AwaitingClarification",
-                0.52,
-                "clarification_language_detected",
-            )
-        )
+        candidates.append((
+            "ClarificationRequested",
+            "AwaitingClarification",
+            0.52,
+            "clarification_language_detected",
+        ))
     if _CHARGE_RE.search(text):
-        candidates.append(
-            ("ChargeNoticeSent", "ChargeAssessment", 0.42, "charge_language_detected")
-        )
+        candidates.append((
+            "ChargeNoticeSent",
+            "ChargeAssessment",
+            0.42,
+            "charge_language_detected",
+        ))
     if _REFUSAL_RE.search(text):
         candidates.append(("RefusalCommunicated", "Refused", 0.46, "refusal_language_detected"))
     if _RELEASE_RE.search(text):
         candidates.append(("ReleaseMade", "ReleasedInPart", 0.38, "release_language_detected"))
     if _COMPLAINT_RE.search(text):
-        candidates.append(
-            ("ComplaintObserved", "ComplaintMade", 0.44, "complaint_or_review_language_detected")
-        )
+        candidates.append((
+            "ComplaintObserved",
+            "ComplaintMade",
+            0.44,
+            "complaint_or_review_language_detected",
+        ))
     if _DECISION_RE.search(text):
-        candidates.append(
-            ("DecisionCommunicated", profile.normalised_state, 0.40, "decision_language_detected")
-        )
+        candidates.append((
+            "DecisionCommunicated",
+            profile.normalised_state,
+            0.40,
+            "decision_language_detected",
+        ))
 
     out: list[CoreEvent] = []
     for event_type, lifecycle_state, confidence, flag in candidates:

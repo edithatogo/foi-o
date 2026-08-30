@@ -235,15 +235,13 @@ def build_maturity_candidate(
         ):
             raise MaturityContractError("threshold value must be finite numeric")
         observed = _metric(artifacts[artifact_name], artifact_name, threshold["metric_path"])
-        results.append(
-            {
-                **threshold,
-                "value": float(value),
-                "observed": observed,
-                "threshold_eligible": True,
-                "passed": _compare(observed, operator, float(value)),
-            }
-        )
+        results.append({
+            **threshold,
+            "value": float(value),
+            "observed": observed,
+            "threshold_eligible": True,
+            "passed": _compare(observed, operator, float(value)),
+        })
     results.sort(key=lambda row: row["threshold_id"])
     candidate = seal_record(
         {

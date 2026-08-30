@@ -91,15 +91,13 @@ def build_release_manifest(
     for path in selected:
         content = _git(repo, "show", f"{target_commit}:{path}")
         blob_oid = _git(repo, "rev-parse", f"{target_commit}:{path}").decode().strip()
-        files.append(
-            {
-                "path": path,
-                "blob_oid": blob_oid,
-                "sha256": hashlib.sha256(content).hexdigest(),
-                "size": len(content),
-                "license": license_for(path),
-            }
-        )
+        files.append({
+            "path": path,
+            "blob_oid": blob_oid,
+            "sha256": hashlib.sha256(content).hexdigest(),
+            "size": len(content),
+            "license": license_for(path),
+        })
 
     manifest: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -284,9 +282,11 @@ def build_release_bundle(
     target = str(manifest["target_commit"])
     for item in manifest["files"]:
         path = str(item["path"])
-        members.append(
-            (path, _git(repo.resolve(), "show", f"{target}:{path}"), str(item["license"]))
-        )
+        members.append((
+            path,
+            _git(repo.resolve(), "show", f"{target}:{path}"),
+            str(item["license"]),
+        ))
 
     output.parent.mkdir(parents=True, exist_ok=True)
     bundle_bytes = _bundle_bytes(bundle_name, members)
@@ -392,14 +392,12 @@ def validate_release_bundle(
                     item = manifest_by_path[relative]
                     if hashlib.sha256(member_content).hexdigest() != item["sha256"]:
                         errors.append(f"bundle member hash mismatch: {relative}")
-                actual_receipt_members.append(
-                    {
-                        "path": relative,
-                        "sha256": hashlib.sha256(member_content).hexdigest(),
-                        "size": len(member_content),
-                        "license": license_id,
-                    }
-                )
+                actual_receipt_members.append({
+                    "path": relative,
+                    "sha256": hashlib.sha256(member_content).hexdigest(),
+                    "size": len(member_content),
+                    "license": license_id,
+                })
                 canonical_members.append((relative, member_content, license_id))
             if receipt.get("members") != actual_receipt_members:
                 errors.append("bundle member receipt mismatch")
@@ -407,6 +405,6 @@ def validate_release_bundle(
                 errors.append("bundle member count mismatch")
             if content != _bundle_bytes(bundle_name, canonical_members):
                 errors.append("bundle is not canonical")
-    except (tarfile.TarError, OSError):
+    except tarfile.TarError, OSError:
         errors.append("invalid release bundle archive")
     return errors

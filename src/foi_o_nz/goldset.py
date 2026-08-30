@@ -87,18 +87,16 @@ def sample_goldset_records(
         if stratum_counts.get(stratum, 0) >= per_stratum:
             continue
         rid = _record_id(record, len(selected))
-        selected.append(
-            {
-                "schema_version": "foi-o-nz.goldset-item.v0.1.0",
-                "record_id": rid,
-                "record_kind": kind,
-                "stratum": stratum,
-                "sampling_seed": seed,
-                "source_record": record,
-                "annotation_status": "unlabelled",
-                "labels": {},
-            }
-        )
+        selected.append({
+            "schema_version": "foi-o-nz.goldset-item.v0.1.0",
+            "record_id": rid,
+            "record_kind": kind,
+            "stratum": stratum,
+            "sampling_seed": seed,
+            "source_record": record,
+            "annotation_status": "unlabelled",
+            "labels": {},
+        })
         stratum_counts[stratum] = stratum_counts.get(stratum, 0) + 1
     manifest = {
         "schema_version": "foi-o-nz.goldset-manifest.v0.1.0",

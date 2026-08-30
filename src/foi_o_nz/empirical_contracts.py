@@ -175,7 +175,9 @@ class ConsumerExtractionContract(StrictModel):
     """Offline candidate conformance declaration for one named consumer."""
 
     schema_version: Literal["foi-o.consumer-extraction-contract.v0.1.0"]
-    consumer_id: Literal["foi-o-nz", "fyi-archive", "nlp-policy-nz", "foi-o-read-only-mcp"]
+    consumer_id: Literal[
+        "foi-o-nz", "fyi-archive", "fyi-cli", "nlp-policy-nz", "foi-o-read-only-mcp"
+    ]
     consumer_surface: Literal[
         "producer_validation", "archive_derived_layer", "candidate_extraction", "read_only_mcp"
     ]

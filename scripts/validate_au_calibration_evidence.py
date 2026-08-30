@@ -52,7 +52,7 @@ def _check_file(entry: dict[str, Any], root: Path, label: str, errors: list[str]
 def _unit_ids(path: Path, key: str) -> set[str] | None:
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+    except OSError, UnicodeDecodeError, json.JSONDecodeError:
         return None
     if not isinstance(payload, dict):
         return None

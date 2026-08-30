@@ -66,15 +66,13 @@ def test_missing_max_dependency_degrades_to_deterministic_fallback(monkeypatch) 
 
 
 def test_candidate_output_rejects_certified_legal_outcomes() -> None:
-    report = validate_candidate_output(
-        {
-            "event_id": "foio-nz:event:model-release",
-            "event_type": "ReleaseMade",
-            "assertion_status": "certified",
-            "machine_generated": True,
-            "requires_human_certification": False,
-        }
-    )
+    report = validate_candidate_output({
+        "event_id": "foio-nz:event:model-release",
+        "event_type": "ReleaseMade",
+        "assertion_status": "certified",
+        "machine_generated": True,
+        "requires_human_certification": False,
+    })
 
     assert report["ok"] is False
     assert any(

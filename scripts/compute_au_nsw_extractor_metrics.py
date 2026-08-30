@@ -39,17 +39,15 @@ def main() -> int:
     rows = []
     for unit_id, expected in reference.items():
         actual = extract_assertion(frame[unit_id]["text"])
-        rows.append(
-            {
-                "unit_id": unit_id,
-                "reference_label": expected["label"],
-                "extractor_label": actual["label"],
-                "reference_span": expected.get("span"),
-                "extractor_span": actual["span"],
-                "label_match": actual["label"] == expected["label"],
-                "span_match": actual["span"] == expected.get("span"),
-            }
-        )
+        rows.append({
+            "unit_id": unit_id,
+            "reference_label": expected["label"],
+            "extractor_label": actual["label"],
+            "reference_span": expected.get("span"),
+            "extractor_span": actual["span"],
+            "label_match": actual["label"] == expected["label"],
+            "span_match": actual["span"] == expected.get("span"),
+        })
     output = {
         "schema": "foi-o.au-nsw-extractor-metrics.v1",
         "status": "descriptive_candidate_not_mature",

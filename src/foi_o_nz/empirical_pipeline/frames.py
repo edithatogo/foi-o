@@ -72,14 +72,12 @@ def validate_units(units: list[dict[str, Any]]) -> list[dict[str, str]]:
             raise FrameContractError("duplicate unit SHA-256")
         ids.add(unit_id)
         digests.add(digest)
-        parsed.append(
-            {
-                "unit_id": unit_id,
-                "unit_sha256": digest,
-                "duplicate_key": duplicate_key,
-                "stratum": stratum,
-            }
-        )
+        parsed.append({
+            "unit_id": unit_id,
+            "unit_sha256": digest,
+            "duplicate_key": duplicate_key,
+            "stratum": stratum,
+        })
     return sorted(parsed, key=lambda unit: (unit["unit_id"], unit["unit_sha256"]))
 
 
@@ -96,14 +94,12 @@ def build_duplicate_cluster_registry(units: list[dict[str, Any]]) -> dict[str, A
         groups[unit["duplicate_key"]].append(unit)
     clusters = []
     for duplicate_key, members in sorted(groups.items(), key=lambda item: _cluster_id(item[0])):
-        clusters.append(
-            {
-                "cluster_id": _cluster_id(duplicate_key),
-                "duplicate_key": duplicate_key,
-                "unit_ids": [member["unit_id"] for member in members],
-                "unit_sha256": [member["unit_sha256"] for member in members],
-            }
-        )
+        clusters.append({
+            "cluster_id": _cluster_id(duplicate_key),
+            "duplicate_key": duplicate_key,
+            "unit_ids": [member["unit_id"] for member in members],
+            "unit_sha256": [member["unit_sha256"] for member in members],
+        })
     return seal_record(
         {
             "schema_version": "foio.empirical-duplicate-cluster-registry.v1.0.0",

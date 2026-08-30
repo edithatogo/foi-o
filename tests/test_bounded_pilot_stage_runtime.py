@@ -102,13 +102,11 @@ def _fixture(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
                 "empirical_result_approved": False,
             },
         )
-        evidence_pins.append(
-            {
-                "actor_id": role["actor_id"],
-                "path": relative,
-                "sha256": runtime.sha256((repo / relative).read_bytes()).hexdigest(),
-            }
-        )
+        evidence_pins.append({
+            "actor_id": role["actor_id"],
+            "path": relative,
+            "sha256": runtime.sha256((repo / relative).read_bytes()).hexdigest(),
+        })
     readiness_path = "readiness.json"
     _write(repo / readiness_path, {"evidence": evidence_pins})
     run(["git", "add", "."], cwd=repo, check=True)

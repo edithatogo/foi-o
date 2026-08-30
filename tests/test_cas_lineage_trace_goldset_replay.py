@@ -142,3 +142,16 @@ def test_write_guardrail_replay(tmp_path: Path) -> None:
     result = write_guardrail_replay(output)
     assert result["ok"] is True
     assert output.exists()
+
+
+def test_replay_guardrails_invalid_action_triggers_error(tmp_path: Path) -> None:
+    actions = tmp_path / "actions.jsonl"
+    write_jsonl(actions, [{"action_id": "act-invalid", "action_type": "invalid_type"}])
+    report = replay_guardrails(actions_jsonl=actions)
+    assert not report.ok
+    assert any(finding.code == "invalid_agent_action" for finding in report.findings)
+    assert any(
+        finding.source_id is not None and "act-invalid" in finding.source_id
+        for finding in report.findings
+        if finding.code == "invalid_agent_action"
+    )
