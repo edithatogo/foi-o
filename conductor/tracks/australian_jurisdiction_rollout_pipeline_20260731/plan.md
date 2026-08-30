@@ -30,11 +30,14 @@ next effect crosses a gate declared in `metadata.json`.
 
 ## Phase 3 — archive execution adapters
 
-- [ ] Integrate durable first-batch checkpoints and content-addressed artifact
-  identities with fyi-archive.
-- [ ] Add adaptive Internet Archive pacing, bounded retry classes, checkpoint
-  resumption, and exact-URL replacement queues.
-- [ ] Add metadata-first classification and bounded full-text selection.
+- [x] Integrate durable first-batch checkpoints and content-addressed artifact
+  identities with fyi-archive. (Implemented in `src/foi_o_nz/archive_adapters.py`
+  and covered in `tests/test_archive_execution_adapters.py`)
+- [x] Add adaptive Internet Archive pacing, bounded retry classes, checkpoint
+  resumption, and exact-URL replacement queues. (Implemented in `RetryPolicy` and
+  `ArchiveCheckpointManager` in `src/foi_o_nz/archive_adapters.py`)
+- [x] Add metadata-first classification and bounded full-text selection. (Implemented in
+  `MetadataFirstSelector` in `src/foi_o_nz/archive_adapters.py`)
 
 Local, independently reviewed implementation candidates exist for fyi-cli,
 fyi-archive, nlp-policy-nz, and foi-process. They remain outside their hosted
