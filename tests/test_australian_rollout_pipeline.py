@@ -386,7 +386,7 @@ def test_rejects_duplicate_gates() -> None:
     value = _load_positive()
     dup_gate = deepcopy(value["gates"][0])
     value["gates"].append(dup_gate)
-    with pytest.raises(ValueError, match="schema validation failed|duplicate gate|unique"):
+    with pytest.raises(ValueError, match=r"schema validation failed|duplicate gate|unique"):
         validate_contract(_repin(value))
 
 
@@ -402,5 +402,5 @@ def test_rejects_unpinned_codebook_core() -> None:
     calibrate = _stage(value, "calibrate")
     if "codebook_sha256" in calibrate.get("provenance", {}):
         calibrate["provenance"]["codebook_sha256"] = "invalid_hash"
-        with pytest.raises(ValueError, match="schema validation failed|invalid"):
+        with pytest.raises(ValueError, match=r"schema validation failed|invalid"):
             validate_contract(_repin(value))
