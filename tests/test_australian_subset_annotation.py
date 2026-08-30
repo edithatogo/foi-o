@@ -183,3 +183,51 @@ def test_metric_inputs_validator_accepts_and_rejects() -> None:
     unauthorized_gate = dict(valid_report, gold_promotion_authorized=True)
     with pytest.raises(ValueError, match="unauthorized"):
         validate_metric_inputs(unauthorized_gate)
+
+
+def test_build_holdout_frame_candidate() -> None:
+    from foi_o_nz.australian_subset_annotation import build_holdout_frame_candidate
+
+    pop = [
+        {"unit_id": f"u-{i:03d}", "unit_sha256": f"{i:02x}" * 32, "cluster_key": f"cluster-{i % 5}"}
+        for i in range(20)
+    ]
+    calibration_clusters = {"cluster-0", "cluster-1"}
+    candidate = build_holdout_frame_candidate(pop, calibration_clusters, seed=42, sample_size=8)
+    assert candidate["population_count"] == 20
+    assert candidate["excluded_calibration_clusters_count"] == 8
+    assert candidate["eligible_count"] == 12
+    assert candidate["sample_size"] == 8
+    assert candidate["holdout_authorized"] is False
+    assert candidate["maturity_claim_authorized"] is False
+
+
+def test_compute_inter_annotator_metrics_and_maturity_candidate() -> None:
+    from foi_o_nz.australian_subset_annotation import (
+        build_maturity_decision_candidate,
+        compute_inter_annotator_metrics,
+    )
+
+    records_a = [
+        {"label": "observed", "abstention": False},
+        {"label": "observed", "abstention": False},
+        {"label": "candidate", "abstention": False},
+        {"label": "unknown", "abstention": True},
+    ]
+    records_b = [
+        {"label": "observed", "abstention": False},
+        {"label": "observed", "abstention": False},
+        {"label": "observed", "abstention": False},
+        {"label": "unknown", "abstention": True},
+    ]
+    metrics = compute_inter_annotator_metrics(records_a, records_b)
+    assert metrics["unit_count"] == 4
+    assert metrics["raw_agreement"] == 0.75
+    assert metrics["disagreement_count"] == 1
+    assert metrics["gold_promotion_authorized"] is False
+
+    decision = build_maturity_decision_candidate(metrics)
+    assert decision["jurisdiction"] == "AU-CTH"
+    assert decision["human_decision"] == "pending"
+    assert decision["recommendation"] == "remediation_required"
+    assert decision["gold_promotion_authorized"] is False
