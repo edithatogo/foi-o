@@ -43,6 +43,173 @@ def _annotate(unit: dict[str, Any], text: str, *, role: str) -> dict[str, Any]:
     }
 
 
+def validate_annotation_record(record: dict[str, Any], *, expected_role: str) -> None:
+    """Validate one locked automated role record without consulting peer output."""
+    if record.get("role") != expected_role:
+        raise ValueError("annotation role identity mismatch")
+    if not isinstance(record.get("unit_id"), str) or not record["unit_id"]:
+        raise ValueError("annotation unit identity is missing")
+    unit_sha256 = record.get("unit_sha256")
+    if not isinstance(unit_sha256, str) or not re.fullmatch(r"[a-f0-9]{64}", unit_sha256):
+        raise ValueError("annotation unit SHA-256 is invalid")
+    if record.get("label") not in {"observed", "inferred", "candidate", "unknown"}:
+        raise ValueError("annotation label is not in the approved codebook")
+    abstention = record.get("abstention")
+    if not isinstance(abstention, bool):
+        raise ValueError("annotation abstention must be boolean")
+    span = record.get("span")
+    reason = record.get("abstention_reason")
+    allowed_reasons = {"missing_evidence", "insufficient_evidence", "out_of_scope", "other"}
+    if reason is not None and reason not in allowed_reasons:
+        raise ValueError("annotation abstention reason is not in the approved codebook")
+    if abstention:
+        if record.get("label") != "unknown" or not reason:
+            raise ValueError("abstention requires unknown label and reason")
+        if span is not None:
+            raise ValueError("abstention span must be null")
+    elif record.get("label") == "unknown" or record.get("abstention_reason") is not None:
+        raise ValueError("non-abstaining annotation has invalid null encoding")
+    elif not isinstance(span, dict):
+        raise ValueError("non-abstaining annotation requires a span")
+    if span is not None:
+        if span.get("coordinate_system") != "utf8_character_half_open":
+            raise ValueError("annotation span coordinate system is invalid")
+        if (
+            not isinstance(span.get("start"), int)
+            or not isinstance(span.get("end"), int)
+            or span["start"] < 0
+            or span["end"] <= span["start"]
+            or span["end"] - span["start"] > 1000
+        ):
+            raise ValueError("annotation span bounds are invalid")
+
+
+def validate_annotation_packet(packet: dict[str, Any], *, expected_role: str | None = None) -> None:
+    """Validate one blinded annotation packet before or during role execution."""
+    if not isinstance(packet, dict):
+        raise ValueError("packet must be an object")
+    role = packet.get("role")
+    if not isinstance(role, str) or not role.startswith("agent:"):
+        raise ValueError("packet role identity is missing or invalid")
+    if expected_role is not None and role != expected_role:
+        raise ValueError("packet role identity mismatch")
+    if packet.get("blinded_to_peer") is not True:
+        raise ValueError("packet must be blinded to peer annotator")
+    if packet.get("blinded_to_extractor") is not True:
+        raise ValueError("packet must be blinded to extractor")
+    units = packet.get("units")
+    if not isinstance(units, list) or not units:
+        raise ValueError("packet units must be a non-empty list")
+    seen_units: set[str] = set()
+    for item in units:
+        if not isinstance(item, dict):
+            raise ValueError("packet unit item is not an object")
+        unit_id = item.get("unit_id")
+        if not isinstance(unit_id, str) or not unit_id:
+            raise ValueError("packet unit_id is missing")
+        if unit_id in seen_units:
+            raise ValueError(f"duplicate unit_id in packet: {unit_id}")
+        seen_units.add(unit_id)
+        unit_sha256 = item.get("unit_sha256")
+        if not isinstance(unit_sha256, str) or not re.fullmatch(r"[a-f0-9]{64}", unit_sha256):
+            raise ValueError("packet unit SHA-256 is invalid")
+        text_filename = item.get("text_filename")
+        if not isinstance(text_filename, str) or not text_filename:
+            raise ValueError("packet text_filename is missing")
+        if any(
+            leak_key in item
+            for leak_key in (
+                "label",
+                "span",
+                "peer_label",
+                "extractor_label",
+                "confidence",
+            )
+        ):
+            raise ValueError("packet contains unblinded label or extractor prediction metadata")
+
+
+def validate_adjudication_record(
+    record: dict[str, Any], *, expected_role: str = "agent:au-cth-adjudicator"
+) -> None:
+    """Validate one adjudication record."""
+    if not isinstance(record, dict):
+        raise ValueError("adjudication record must be an object")
+    if record.get("role") != expected_role:
+        raise ValueError("adjudication role identity mismatch")
+    if not isinstance(record.get("unit_id"), str) or not record["unit_id"]:
+        raise ValueError("adjudication unit identity is missing")
+    outcome = record.get("outcome")
+    if outcome not in {"resolved", "unresolved"}:
+        raise ValueError("adjudication outcome is invalid")
+    label = record.get("label")
+    if outcome == "resolved":
+        if label not in {"observed", "inferred", "candidate", "unknown"}:
+            raise ValueError("resolved adjudication label is not in approved codebook")
+    elif label is not None:
+        raise ValueError("unresolved adjudication label must be null")
+    rationale = record.get("rationale")
+    if not isinstance(rationale, str) or not rationale.strip():
+        raise ValueError("adjudication rationale is required")
+
+
+def validate_disagreement_queue(disagreements: list[dict[str, Any]]) -> None:
+    """Validate disagreement queue accounting and structure."""
+    if not isinstance(disagreements, list):
+        raise ValueError("disagreement queue must be a list")
+    seen_units: set[str] = set()
+    for row in disagreements:
+        if not isinstance(row, dict):
+            raise ValueError("disagreement item must be an object")
+        unit_id = row.get("unit_id")
+        if not isinstance(unit_id, str) or not unit_id:
+            raise ValueError("disagreement unit_id is missing")
+        if unit_id in seen_units:
+            raise ValueError(f"duplicate unit_id in disagreement queue: {unit_id}")
+        seen_units.add(unit_id)
+        if row.get("a_label") not in {"observed", "inferred", "candidate", "unknown"}:
+            raise ValueError("disagreement a_label is invalid")
+        if row.get("b_label") not in {"observed", "inferred", "candidate", "unknown"}:
+            raise ValueError("disagreement b_label is invalid")
+        if not isinstance(row.get("dimension"), str) or not row["dimension"]:
+            raise ValueError("disagreement dimension is required")
+
+
+def validate_metric_inputs(report: dict[str, Any]) -> None:
+    """Validate report inputs and calculation integrity before metric derivation."""
+    if not isinstance(report, dict):
+        raise ValueError("metric input report must be an object")
+    unit_count = report.get("unit_count")
+    if not isinstance(unit_count, int) or unit_count <= 0:
+        raise ValueError("metric input unit_count must be a positive integer")
+    raw_agreement = report.get("raw_label_agreement")
+    if not isinstance(raw_agreement, dict):
+        raise ValueError("raw_label_agreement must be an object")
+    num = raw_agreement.get("numerator")
+    den = raw_agreement.get("denominator")
+    est = raw_agreement.get("estimate")
+    if (
+        not isinstance(num, int)
+        or not isinstance(den, int)
+        or den != unit_count
+        or num < 0
+        or num > den
+    ):
+        raise ValueError("raw_label_agreement numerator/denominator mismatch")
+    if not isinstance(est, (int, float)) or abs(est - (num / den)) > 1e-9:
+        raise ValueError("raw_label_agreement estimate mismatch")
+    disagreements = report.get("disagreement_count")
+    adjudications = report.get("adjudication_count")
+    if (
+        not isinstance(disagreements, int)
+        or not isinstance(adjudications, int)
+        or disagreements != adjudications
+    ):
+        raise ValueError("disagreement_count and adjudication_count mismatch")
+    if any(item is not False for key, item in report.items() if key.endswith("_authorized")):
+        raise ValueError("metric inputs contain unauthorized promotion/release flags")
+
+
 def run_annotation(
     *,
     membership_path: Path,
@@ -171,12 +338,19 @@ def run_annotation(
 def validate_annotation_report(report_path: Path) -> dict[str, Any]:
     """Bind the automated report to its two locked role outputs and queue."""
     report = json.loads(report_path.read_text(encoding="utf-8"))
+    validate_metric_inputs(report)
     root = report_path.parent
     roles = ["agent:au-cth-annotator-a", "agent:au-cth-annotator-b"]
     if report.get("membership_sha256") != MEMBERSHIP_SHA256 or report.get("unit_count") != 385:
         raise ValueError("annotation report membership or unit count mismatch")
     sets = []
     for role in roles:
+        packet_path = root / f"{role.rsplit(':', 1)[1]}.packet.json"
+        if packet_path.exists():
+            if _sha256(packet_path) != report.get("packet_sha256", {}).get(role):
+                raise ValueError("packet SHA-256 mismatch")
+            packet_data = json.loads(packet_path.read_text(encoding="utf-8"))
+            validate_annotation_packet(packet_data, expected_role=role)
         path = root / f"{role.rsplit(':', 1)[1]}.annotations.json"
         if _sha256(path) != report.get("annotation_sha256", {}).get(role):
             raise ValueError("locked annotation SHA-256 mismatch")
@@ -190,12 +364,16 @@ def validate_annotation_report(report_path: Path) -> dict[str, Any]:
     if _sha256(adjudications_path) != report.get("adjudications_sha256"):
         raise ValueError("adjudication SHA-256 mismatch")
     adjudications = json.loads(adjudications_path.read_text(encoding="utf-8"))
+    if not isinstance(adjudications, list):
+        raise ValueError("adjudication output is not a list")
+    for item in adjudications:
+        if not isinstance(item, dict):
+            raise ValueError("adjudication record is not an object")
+        validate_adjudication_record(item, expected_role="agent:au-cth-adjudicator")
     if (
         report.get("disagreement_count") != disagreements
         or report.get("adjudication_count") != len(adjudications)
         or len(adjudications) != disagreements
     ):
         raise ValueError("disagreement queue accounting mismatch")
-    if any(item is not False for key, item in report.items() if key.endswith("_authorized")):
-        raise ValueError("annotation report crossed an unapproved boundary")
     return {"ok": True, "report_sha256": _sha256(report_path), "disagreement_count": disagreements}

@@ -23,8 +23,10 @@
       Draft committed at `d45df67`; content SHA-256 is
       `ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9`.
       Approved through wrapper commit `c210e39`.
-- [ ] Add deterministic validators for packets, role outputs, adjudication,
-      disagreement queues, and metric inputs.
+- [x] Add deterministic validators for packets, role outputs, adjudication,
+      disagreement queues, and metric inputs. Implemented in
+      `src/foi_o_nz/australian_subset_annotation.py` and covered in
+      `tests/test_australian_subset_annotation.py`.
 - [ ] Add narrow-span and whole-document negative fixtures plus ambiguous
       AU-CTH identity fixtures.
 - [ ] Produce Markdown/Mermaid and BPMN 2.0 versions of the repaired workflow.

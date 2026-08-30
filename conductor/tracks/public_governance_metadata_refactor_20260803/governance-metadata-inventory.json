@@ -1,0 +1,1696 @@
+{
+  "schema_version": "1.0",
+  "track_id": "public_governance_metadata_refactor_20260803",
+  "summary": {
+    "total_files_audited": 474,
+    "files_with_findings": 91,
+    "total_findings": 162
+  },
+  "categories": {
+    "local_absolute_path": "Absolute filesystem paths embedding environment specifics.",
+    "case_identifier": "Hardcoded pilot request IDs in reusable schema contracts.",
+    "named_actor": "Hardcoded individual usernames/names in schema contracts."
+  },
+  "findings": [
+    {
+      "file": "schemas/json/analyst-approved-fixture-codebook.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/analyst-approved-local-rights-review.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/analyst-approved-sampling-configuration.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/analyst-empirical-protocol-approval-request.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/analyst-empirical-protocol-approval.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/analyst-fixture-input-approval.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/annotation-protocol-review-readiness.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/annotation-protocol-review.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/australian-cdx-candidate-manifest.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/australian-empirical-operator-packet.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/australian-internet-archive-all-captures-request.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-empirical-pilot-sample-approval.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-empirical-pilot-sample-candidate.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-analysis-set-v0.2.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-analyst-execution-approval-v0.2.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-analyst-execution-request-v0.2.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-analyst-record-v0.2.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-alternative-text-method-approval.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-alternative-text-method.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-derivation-attempt-failure.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-derivation-execution-authorization.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-derivation-execution-request.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-derivation-human-approval.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-diagnostic-execution-authorization.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-diagnostic-human-approval.schema.json",
+      "item_count": 4,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-mutool-derivation-result.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-mutool-execution-authorization.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-mutool-execution-request.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-mutool-human-approval.schema.json",
+      "item_count": 5,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived.",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-stderr-content-review-approval.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/.foio-attachment-diagnostic-zdnisebu.",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-stderr-content-review-request.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/.foio-attachment-diagnostic-zdnisebu",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-stderr-content-review-result.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-stderr-diagnostic-request.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-stderr-diagnostic-result.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/.foio-attachment-diagnostic-zdnisebu",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-text-method-approval.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-attachment-text-method.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-batched-execution-approval.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-batched-execution-authorization.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-batched-execution-plan.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-blinded-codebook.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-candidate-diagnostics-v0.2.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-context-manifest-v0.2.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-dual-analysis-lock-v0.2.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-evidence-manifest.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-execution-input-readiness-v0.2-approval.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-execution-input-readiness-v0.2-approved.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-execution-input-readiness-v0.2.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-execution-input-readiness.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-input-approval.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-pilot-reconciliation-set-v0.2.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/bounded-raw-state-mapping-review.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/empirical-human-gate-review-packet.schema.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/fixture-diagnostics-execution-authorization.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/fixture-diagnostics-method-approval.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/fixture-execution-authorization-candidate-approval.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/fixture-execution-authorization.v0.2.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/fixture-role-authorization-approval.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/fixture-runtime-handshake-authorization.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/fyi-attachment-snapshot-readiness.schema.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "request_id_11872",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        },
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/governed-reextraction-packet.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "request_id_35076",
+          "category": "case_identifier",
+          "sensitivity": "case_specific",
+          "ownership": "pilot_governance",
+          "migration_disposition": "parameterize_in_generic_schemas"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/nz-nonlegislation-source-manifest.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-nz-nonleg-source-evidence-20260716",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/nz-nonlegislation-source-review.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/nz-oia-applicability-interval-review.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/nz-source-pack-promotion.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/nz-source-pack-review-readiness.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/psc-provider-scope-review.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/release-checklist.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/release-manifest.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/repository-release-metadata.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "schemas/json/upstream-extraction-readiness.schema.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "edithatogo",
+          "category": "named_actor",
+          "sensitivity": "governance_attribution",
+          "ownership": "review_policy",
+          "migration_disposition": "abstract_to_actor_provenance_interface"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/au-cth-annotation-metrics.pending.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "/tmp/au-cth-adjudicated.json",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-derivation-execution-authorization.approved.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-derivation-execution-request.pending.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/opt/homebrew/Cellar/poppler/26.07.0/bin/pdftotext",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/opt/homebrew/bin/pdftotext",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-derivation-human-approval.approved.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived.",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-diagnostic-execution-authorization.approved.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-diagnostic-human-approval.approved.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived.",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-mutool-derivation-result.1.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-mutool-execution-authorization.approved.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-mutool-execution-request.pending.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-mutool-human-approval.approved.json",
+      "item_count": 3,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived.",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-stderr-content-review-request.pending.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "/private/tmp/.foio-attachment-diagnostic-zdnisebu",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-stderr-content-review.approved.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "/private/tmp/.foio-attachment-diagnostic-zdnisebu.",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-request.pending.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-stderr-diagnostic-result.1.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "/private/tmp/.foio-attachment-diagnostic-zdnisebu",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-attachment-text-method.pending.json",
+      "item_count": 2,
+      "items": [
+        {
+          "pattern": "/opt/homebrew/Cellar/poppler/26.07.0/bin/pdftotext",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/opt/homebrew/bin/pdftotext",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-batched-execution-authorization.approved.json",
+      "item_count": 4,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-analysis-v0.2",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-governed-reextraction-35076-verified",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-batched-execution-authorization.current-head.pending.json",
+      "item_count": 4,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-analysis-v0.2",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-governed-reextraction-35076-verified",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-batched-execution-plan.pending.json",
+      "item_count": 4,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-analysis-v0.2",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/foio-governed-reextraction-35076-verified",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        },
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/bounded-pilot-execution-input-readiness.v0.2.pending.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-bounded-pilot-11872-derived",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/fyi-attachment-snapshot-readiness.11872.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "/private/tmp/fyi-attachment-snapshot-11872-approved",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    },
+    {
+      "file": "examples/v2/nz-nonlegislation-source-manifest.2026-07-16.json",
+      "item_count": 1,
+      "items": [
+        {
+          "pattern": "/private/tmp/foio-nz-nonleg-source-evidence-20260716",
+          "category": "local_absolute_path",
+          "sensitivity": "internal_environment",
+          "ownership": "local_runtime",
+          "migration_disposition": "replace_with_opaque_or_relative_reference"
+        }
+      ]
+    }
+  ]
+}
