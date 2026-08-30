@@ -407,6 +407,6 @@ def validate_release_bundle(
                 errors.append("bundle member count mismatch")
             if content != _bundle_bytes(bundle_name, canonical_members):
                 errors.append("bundle is not canonical")
-    except (tarfile.TarError, OSError):
+    except tarfile.TarError, OSError:
         errors.append("invalid release bundle archive")
     return errors

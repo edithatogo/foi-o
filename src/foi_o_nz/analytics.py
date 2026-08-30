@@ -55,7 +55,7 @@ def _confidence_band(value: object) -> str:
         return "unknown"
     try:
         confidence = float(value)
-    except (TypeError, ValueError):
+    except TypeError, ValueError:
         return "unknown"
     if confidence >= 0.8:
         return "high"
