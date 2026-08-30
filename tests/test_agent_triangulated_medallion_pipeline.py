@@ -315,3 +315,129 @@ def test_global_countries_triangulation_and_modeling(tmp_path: Path) -> None:
         assert (jur_dir / "process_model.mmd").exists()
         assert (jur_dir / "process_log.xes").exists()
         assert (jur_dir / "process_log.ocel.json").exists()
+
+
+def test_subnational_and_devolved_profiles_coverage() -> None:
+    """Verify that sub-national profiles exist for UK, US 50 states, Canada, Germany, Spain."""
+    from foi_o_nz.agent_triangulated_medallion import resolve_statutory_profile
+    from foi_o_nz.subnational_profiles import (
+        CANADIAN_SUBNATIONAL_PROFILES,
+        GERMAN_LAENDER_PROFILES,
+        SPANISH_AUTONOMOUS_PROFILES,
+        UK_DEVOLVED_PROFILES,
+        US_SUBNATIONAL_PROFILES,
+    )
+
+    # Check UK devolved
+    for key in UK_DEVOLVED_PROFILES:
+        prof = resolve_statutory_profile(key)
+        assert prof is not None
+        assert prof.statutory_timeframe_days == 20
+
+    # Check US states (all 50 + DC + PR)
+    assert len(US_SUBNATIONAL_PROFILES) >= 52
+    for state_code in ("US-CA", "US-NY", "US-TX", "US-FL", "US-IL", "US-WA", "US-DC"):
+        prof = resolve_statutory_profile(state_code)
+        assert prof is not None
+        assert prof.statutory_timeframe_days > 0
+
+    # Check Canadian provinces & territories (10 provinces + 3 territories)
+    assert len(CANADIAN_SUBNATIONAL_PROFILES) == 13
+    for prov_code in ("CA-ON", "CA-QC", "CA-BC", "CA-AB", "CA-YT"):
+        prof = resolve_statutory_profile(prov_code)
+        assert prof is not None
+        assert prof.statutory_timeframe_days in (20, 30)
+
+    # Check German Länder (16 states)
+    assert len(GERMAN_LAENDER_PROFILES) == 16
+    for land_code in ("DE-BY", "DE-BE", "DE-NW", "DE-HH"):
+        prof = resolve_statutory_profile(land_code)
+        assert prof is not None
+
+    # Check Spanish CCAA (17 communities)
+    assert len(SPANISH_AUTONOMOUS_PROFILES) == 17
+    for ccaa_code in ("ES-CT", "ES-AN", "ES-MD", "ES-PV", "ES-GA"):
+        prof = resolve_statutory_profile(ccaa_code)
+        assert prof is not None
+
+
+def test_subnational_triangulation_and_modeling(tmp_path: Path) -> None:
+    """Verify Bronze -> Silver -> Gold execution for subnational and devolved entities."""
+    subnational_records = [
+        MedallionRecord(
+            record_id="rec-wales-001",
+            jurisdiction="UK-WALES-FOIA",
+            regime="FOIA",
+            raw_text="Welsh Government clinical NHS review. All documents released in full.",
+            received_date="2026-01-01",
+            decision_date="2026-01-20",
+        ),
+        MedallionRecord(
+            record_id="rec-ni-001",
+            jurisdiction="UK-NI-FOIA",
+            regime="FOIA",
+            raw_text="Belfast City Council infrastructure dataset. Released in part with redactions.",
+            received_date="2026-02-01",
+            decision_date="2026-02-22",
+        ),
+        MedallionRecord(
+            record_id="rec-california-001",
+            jurisdiction="US-CA",
+            regime="CPRA",
+            raw_text="California Department of Transportation highway traffic assessment. Full release.",
+            received_date="2026-03-01",
+            decision_date="2026-03-09",
+        ),
+        MedallionRecord(
+            record_id="rec-ontario-001",
+            jurisdiction="CA-ON",
+            regime="FIPPA",
+            raw_text="Ontario Ministry of Health vaccine safety surveillance report. Access granted in full.",
+            received_date="2026-04-01",
+            decision_date="2026-04-25",
+        ),
+        MedallionRecord(
+            record_id="rec-bavaria-001",
+            jurisdiction="DE-BY",
+            regime="BayUIG",
+            raw_text="Bayerisches Staatsministerium für Umwelt Gewässergütebericht. Auskunft erteilt.",
+            received_date="2026-05-01",
+            decision_date="2026-05-28",
+        ),
+        MedallionRecord(
+            record_id="rec-catalunya-001",
+            jurisdiction="ES-CT",
+            regime="Llei de transparència",
+            raw_text="Departament de Territori informes ambientals. Acceso concedido y entregado.",
+            received_date="2026-06-01",
+            decision_date="2026-06-25",
+        ),
+    ]
+
+    summary = run_agent_triangulated_medallion_pipeline(
+        bronze_records=subnational_records,
+        output_dir=tmp_path,
+        min_supporting_agents=2,
+        export_duckdb=True,
+    )
+
+    assert summary.bronze_record_count == 6
+    assert summary.silver_request_count == 6
+    assert summary.agent_consensus_rate == 1.0
+
+    # Verify Gold models exist for subnational targets
+    for jur_dir_name in (
+        "uk-wales-foia",
+        "uk-ni-foia",
+        "us-ca",
+        "ca-on",
+        "de-by",
+        "es-ct",
+    ):
+        jur_dir = tmp_path / "gold" / jur_dir_name
+        assert jur_dir.exists()
+        assert (jur_dir / "process_model.pnml").exists()
+        assert (jur_dir / "process_model.bpmn").exists()
+        assert (jur_dir / "process_model.mmd").exists()
+        assert (jur_dir / "process_log.xes").exists()
+        assert (jur_dir / "process_log.ocel.json").exists()
