@@ -14,23 +14,21 @@ from .contracts import canonical_bytes, content_sha256, seal_record
 from .execution import ExecutionContextError, VerifiedExecutionContext
 
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
-LOCKED_OUTPUT_FIELDS = frozenset(
-    {
-        "schema_version",
-        "status",
-        "run_id",
-        "run_spec_sha256",
-        "membership_sha256",
-        "codebook_sha256",
-        "calibration_sha256",
-        "authorization_sha256",
-        "packet_sha256",
-        "source_bundle_sha256",
-        "role_id",
-        "annotations",
-        "annotation_set_sha256",
-    }
-)
+LOCKED_OUTPUT_FIELDS = frozenset({
+    "schema_version",
+    "status",
+    "run_id",
+    "run_spec_sha256",
+    "membership_sha256",
+    "codebook_sha256",
+    "calibration_sha256",
+    "authorization_sha256",
+    "packet_sha256",
+    "source_bundle_sha256",
+    "role_id",
+    "annotations",
+    "annotation_set_sha256",
+})
 COMMON_LINEAGE_FIELDS = (
     "run_id",
     "run_spec_sha256",

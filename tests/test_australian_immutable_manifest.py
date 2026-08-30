@@ -35,9 +35,9 @@ def test_rejects_manifest_with_changed_pin(tmp_path) -> None:
     value = _value()
     value["approved_inputs"] = {**manifest.PINNED_INPUTS, "source_cdx": "0" * 64}
     value["manifest_sha256"] = sha256(
-        manifest._canonical_bytes(
-            {key: item for key, item in value.items() if key != "manifest_sha256"}
-        )
+        manifest._canonical_bytes({
+            key: item for key, item in value.items() if key != "manifest_sha256"
+        })
     ).hexdigest()
     path = tmp_path / "manifest.json"
     path.write_bytes(manifest._canonical_bytes(value))
@@ -49,9 +49,9 @@ def test_rejects_manifest_with_downstream_authority(tmp_path) -> None:
     value = _value()
     value["boundaries"] = {"restricted_local": True, "annotation_authorized": True}
     value["manifest_sha256"] = sha256(
-        manifest._canonical_bytes(
-            {key: item for key, item in value.items() if key != "manifest_sha256"}
-        )
+        manifest._canonical_bytes({
+            key: item for key, item in value.items() if key != "manifest_sha256"
+        })
     ).hexdigest()
     path = tmp_path / "manifest.json"
     path.write_bytes(manifest._canonical_bytes(value))
@@ -66,15 +66,13 @@ def _failure_inputs(
     records = []
     for index in range(2082):
         slug = failures[index] if index < len(failures) else f"unit-{index:04d}"
-        records.append(
-            {
-                "canonical_slug": slug,
-                "source_url": f"https://www.righttoknow.org.au/request/{slug}.json",
-                "archive_timestamp": f"20260101{index:06d}",
-                "archive_digest": sha256(slug.encode()).hexdigest()[:32],
-                "media_kind": "json",
-            }
-        )
+        records.append({
+            "canonical_slug": slug,
+            "source_url": f"https://www.righttoknow.org.au/request/{slug}.json",
+            "archive_timestamp": f"20260101{index:06d}",
+            "archive_digest": sha256(slug.encode()).hexdigest()[:32],
+            "media_kind": "json",
+        })
     selection = {
         "source_cdx_sha256": "c" * 64,
         "record_count": 2082,

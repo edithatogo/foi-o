@@ -61,13 +61,11 @@ def test_immutable_frame_requires_exactly_115_text_units(tmp_path) -> None:
         "exact normalized retained request-text SHA-256; singleton clusters retained"
     )
     frame["duplicate_registry"] = {"clusters": {"text-sha256:test": ["AU-NSW:0"]}}
-    frame.update(
-        {
-            "training_authorized": False,
-            "legal_certification_authorized": False,
-            "profile_promotion_authorized": False,
-        }
-    )
+    frame.update({
+        "training_authorized": False,
+        "legal_certification_authorized": False,
+        "profile_promotion_authorized": False,
+    })
     frame["frame_sha256"] = hashlib.sha256(
         json.dumps(frame, sort_keys=True, separators=(",", ":")).encode()
     ).hexdigest()

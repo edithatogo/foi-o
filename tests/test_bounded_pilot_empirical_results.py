@@ -32,16 +32,14 @@ def _sources(request_id: str) -> list[dict[str, Any]]:
     result = []
     cursor = 0
     for index in range(count):
-        result.append(
-            {
-                "source_kind": "correspondence" if index < 4 else "attachment_derived_text",
-                "source_id": f"source-{request_id}-{index}",
-                "source_sha256": f"{index + 1:x}" * 64,
-                "start": cursor,
-                "end": cursor + 10,
-                "character_count": 10,
-            }
-        )
+        result.append({
+            "source_kind": "correspondence" if index < 4 else "attachment_derived_text",
+            "source_id": f"source-{request_id}-{index}",
+            "source_sha256": f"{index + 1:x}" * 64,
+            "start": cursor,
+            "end": cursor + 10,
+            "character_count": 10,
+        })
         cursor += 11
     return result
 

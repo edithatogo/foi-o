@@ -108,9 +108,9 @@ def task_from_risk_assessment(record: dict[str, Any], *, sequence: int = 0) -> R
         return None
     source_id = _source_id(record, f"risk-{sequence}")
     hits = cast("list[Any]", record.get("hits")) if isinstance(record.get("hits"), list) else []
-    categories = sorted(
-        {str(hit.get("category")) for hit in hits if isinstance(hit, dict) and hit.get("category")}
-    )
+    categories = sorted({
+        str(hit.get("category")) for hit in hits if isinstance(hit, dict) and hit.get("category")
+    })
     rationale = "Review deterministic risk signals: " + (
         ", ".join(categories) if categories else "unspecified"
     )

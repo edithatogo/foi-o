@@ -21,23 +21,21 @@ from .packets import canonical_unit_sha256
 Prediction = dict[str, Any]
 Extractor = Callable[[dict[str, Any]], Prediction]
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
-LOCKED_OUTPUT_FIELDS = frozenset(
-    {
-        "schema_version",
-        "status",
-        "run_id",
-        "run_spec_sha256",
-        "membership_sha256",
-        "codebook_sha256",
-        "calibration_sha256",
-        "authorization_sha256",
-        "packet_sha256",
-        "source_bundle_sha256",
-        "role_id",
-        "annotations",
-        "annotation_set_sha256",
-    }
-)
+LOCKED_OUTPUT_FIELDS = frozenset({
+    "schema_version",
+    "status",
+    "run_id",
+    "run_spec_sha256",
+    "membership_sha256",
+    "codebook_sha256",
+    "calibration_sha256",
+    "authorization_sha256",
+    "packet_sha256",
+    "source_bundle_sha256",
+    "role_id",
+    "annotations",
+    "annotation_set_sha256",
+})
 COMMON_LINEAGE_FIELDS = (
     "run_id",
     "run_spec_sha256",
@@ -483,17 +481,15 @@ def evaluate_extractor(
             exact_span += int(spans == ref["spans"])
             if span_iou_threshold is not None:
                 iou_matched += int(_span_iou(ref["spans"], spans) >= span_iou_threshold)
-        confusion_rows.append(
-            {
-                "unit_id": unit_id,
-                "unit_sha256": unit["unit_sha256"],
-                "reference_label": ref_label,
-                "predicted_label": label,
-                "label_match": label == ref_label,
-                "exact_span_match": spans == ref["spans"],
-                "span_threshold_eligible": span_eligible,
-            }
-        )
+        confusion_rows.append({
+            "unit_id": unit_id,
+            "unit_sha256": unit["unit_sha256"],
+            "reference_label": ref_label,
+            "predicted_label": label,
+            "label_match": label == ref_label,
+            "exact_span_match": spans == ref["spans"],
+            "span_threshold_eligible": span_eligible,
+        })
     count = len(unit_map)
     record = {
         "schema_version": "foio.empirical-extractor-metrics.v1.0.0",

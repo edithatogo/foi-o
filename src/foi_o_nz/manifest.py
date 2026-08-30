@@ -31,13 +31,11 @@ def build_run_manifest(
     output_records = []
     for path in outputs:
         if path.exists() and path.is_file():
-            output_records.append(
-                {
-                    "path": str(path),
-                    "bytes": path.stat().st_size,
-                    "sha256": sha256_file(path),
-                }
-            )
+            output_records.append({
+                "path": str(path),
+                "bytes": path.stat().st_size,
+                "sha256": sha256_file(path),
+            })
     return {
         "schema_version": "foi-o-nz.run-manifest.v0.2.0",
         "created_at": datetime.now(UTC).isoformat(),

@@ -72,28 +72,26 @@ def build_candidate_frame(
         is_html = record.get("media_kind") == "html"
         text = _extract(raw.decode("utf-8")) if is_html else None
         accessibility = "accessible_request_text" if text else "metadata_only_no_request_text"
-        units.append(
-            {
-                "unit_id": f"AU-NSW:{slug}",
-                "canonical_slug": slug,
-                "jurisdiction": "AU-NSW",
-                "regime": "GIPA",
-                "text": text,
-                "text_sha256": _sha256(text.encode("utf-8")) if text else None,
-                "accessibility": accessibility,
-                "rights_disposition": "restricted_local_non_redistributable",
-                "rights_eligible": False,
-                "annotation_eligible": False,
-                "source_ref": {
-                    "source_url": record["source_url"],
-                    "archive_url": record["archive_url"],
-                    "archive_timestamp": record["archive_timestamp"],
-                    "raw_sha256": record["raw_sha256"],
-                    "content_type": record["content_type"],
-                    "jurisdiction_basis": record["jurisdiction_basis"],
-                },
-            }
-        )
+        units.append({
+            "unit_id": f"AU-NSW:{slug}",
+            "canonical_slug": slug,
+            "jurisdiction": "AU-NSW",
+            "regime": "GIPA",
+            "text": text,
+            "text_sha256": _sha256(text.encode("utf-8")) if text else None,
+            "accessibility": accessibility,
+            "rights_disposition": "restricted_local_non_redistributable",
+            "rights_eligible": False,
+            "annotation_eligible": False,
+            "source_ref": {
+                "source_url": record["source_url"],
+                "archive_url": record["archive_url"],
+                "archive_timestamp": record["archive_timestamp"],
+                "raw_sha256": record["raw_sha256"],
+                "content_type": record["content_type"],
+                "jurisdiction_basis": record["jurisdiction_basis"],
+            },
+        })
     frame: dict[str, Any] = {
         "schema": "foi-o.au-nsw-restricted-candidate-frame.v1",
         "status": "candidate_frame_restricted_local_not_empirical",

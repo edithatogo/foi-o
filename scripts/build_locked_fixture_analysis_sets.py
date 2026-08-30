@@ -154,13 +154,11 @@ def build(
             span = record.get("span")
             if isinstance(span, dict) and span.get("end", 0) <= span.get("start", 0):
                 raise ValueError(f"{unit_id}: span must be non-empty")
-            entries.append(
-                {
-                    "unit_id": unit_id,
-                    "record_sha256": sha256(_canonical(record)).hexdigest(),
-                    "record": record,
-                }
-            )
+            entries.append({
+                "unit_id": unit_id,
+                "record_sha256": sha256(_canonical(record)).hexdigest(),
+                "record": record,
+            })
         analyst = entries[0]["record"]["analyst"]
         if any(entry["record"]["analyst"] != analyst for entry in entries):
             raise ValueError(f"analyst {key}: provenance changes within set")
@@ -171,9 +169,9 @@ def build(
             **pins,
             "analyst": analyst,
             "unit_count": 11,
-            "ordered_unit_commitment_sha256": ordered_unit_commitment(
-                [expected_units[i]["unit_sha256"] for i in expected_ids]
-            ),
+            "ordered_unit_commitment_sha256": ordered_unit_commitment([
+                expected_units[i]["unit_sha256"] for i in expected_ids
+            ]),
             "record_hash_algorithm": "sha256_canonical_json_utf8_sort_keys_compact_v1",
             "entries": entries,
             "local_only": True,
@@ -204,9 +202,9 @@ def build(
             for path, document in zip(set_paths, set_documents, strict=True)
         ],
         "unit_count": 11,
-        "ordered_unit_commitment_sha256": ordered_unit_commitment(
-            [expected_units[i]["unit_sha256"] for i in expected_ids]
-        ),
+        "ordered_unit_commitment_sha256": ordered_unit_commitment([
+            expected_units[i]["unit_sha256"] for i in expected_ids
+        ]),
         "first_pass_sets_complete": True,
         "reconciliation_inputs_ready": True,
         "reconciliation_executed": False,

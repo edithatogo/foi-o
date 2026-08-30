@@ -59,16 +59,14 @@ def audit(root: Path) -> dict[str, Any]:
             continue
         for name, expected in REPOSITORIES.items():
             if remote == expected:
-                found[name].append(
-                    {
-                        "path": str(candidate),
-                        "remote": remote,
-                        "commit": _git(candidate, "rev-parse", "HEAD"),
-                        "branch": _git(candidate, "branch", "--show-current"),
-                        "dirty": bool(_git(candidate, "status", "--porcelain")),
-                        "upstream": _git(candidate, "rev-parse", "--abbrev-ref", "@{upstream}"),
-                    }
-                )
+                found[name].append({
+                    "path": str(candidate),
+                    "remote": remote,
+                    "commit": _git(candidate, "rev-parse", "HEAD"),
+                    "branch": _git(candidate, "branch", "--show-current"),
+                    "dirty": bool(_git(candidate, "status", "--porcelain")),
+                    "upstream": _git(candidate, "rev-parse", "--abbrev-ref", "@{upstream}"),
+                })
     duplicates = {name: entries for name, entries in found.items() if len(entries) > 1}
     return {"root": str(root), "repositories": found, "duplicate_remote_identities": duplicates}
 

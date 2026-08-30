@@ -28,3 +28,24 @@ def test_local_benchmarks_emit_rates(tmp_path: Path) -> None:
     write_result = write_local_benchmarks(output, iterations=10)
     assert write_result["ok"] is True
     assert output.exists()
+
+
+def test_tool_version_runtime_error_handled(monkeypatch) -> None:
+    import shutil
+    import subprocess
+
+    from foi_o_nz.reproducibility import tool_version
+
+    monkeypatch.setattr(shutil, "which", lambda _x: "/usr/bin/dummy")
+
+    def mock_run(*_args, **_kwargs):
+        raise RuntimeError("simulated error")
+
+    monkeypatch.setattr(subprocess, "run", mock_run)
+
+    result = tool_version("dummy_tool", "--version")
+    assert result.name == "dummy_tool"
+    assert result.available is True
+    assert result.executable == "/usr/bin/dummy"
+    assert result.version_output is not None
+    assert "version check failed: simulated error" in result.version_output

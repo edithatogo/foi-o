@@ -14,18 +14,19 @@ RESOLVED_SCHEMA_VERSION = "foi-o.australian-resolved-codebook.v1"
 CANONICALIZATION = "json-sort-keys-compact-utf8-v1"
 ALLOWED_OVERRIDES = frozenset({"span_policy", "terminology", "calibration_examples"})
 PRIMARY_LABELS = frozenset({"observed", "inferred", "candidate"})
-ABSTENTION_REASONS = frozenset(
-    {"missing_evidence", "insufficient_evidence", "out_of_scope", "other"}
-)
-PROTECTED_CORE_FIELDS = frozenset(
-    {
-        "label_semantics",
-        "abstention_semantics",
-        "evidence_boundaries",
-        "serialization",
-        "adjudication_trigger",
-    }
-)
+ABSTENTION_REASONS = frozenset({
+    "missing_evidence",
+    "insufficient_evidence",
+    "out_of_scope",
+    "other",
+})
+PROTECTED_CORE_FIELDS = frozenset({
+    "label_semantics",
+    "abstention_semantics",
+    "evidence_boundaries",
+    "serialization",
+    "adjudication_trigger",
+})
 
 
 def canonical_json_bytes(value: Any) -> bytes:

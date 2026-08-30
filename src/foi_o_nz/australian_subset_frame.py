@@ -71,23 +71,21 @@ def build_subset_frame(
         unit_sha256 = hashlib.sha256(
             f"{slug}\x1f{candidate['text_sha256']}\x1f{candidate['raw_sha256']}".encode()
         ).hexdigest()
-        units.append(
-            {
-                "unit_id": f"AU-CTH:retained-html:{slug}",
-                "canonical_slug": slug,
-                "unit_sha256": unit_sha256,
-                "raw_sha256": candidate["raw_sha256"],
-                "text_sha256": candidate["text_sha256"],
-                "text_filename": candidate["text_filename"],
-                "source_spans": candidate["source_spans"],
-                "authority": record["authority"],
-                "duplicate_cluster_id": _cluster_id(
-                    title=record["title"], authority=record["authority"], text=text
-                ),
-                "rights_eligible": True,
-                "accessibility": "accessible",
-            }
-        )
+        units.append({
+            "unit_id": f"AU-CTH:retained-html:{slug}",
+            "canonical_slug": slug,
+            "unit_sha256": unit_sha256,
+            "raw_sha256": candidate["raw_sha256"],
+            "text_sha256": candidate["text_sha256"],
+            "text_filename": candidate["text_filename"],
+            "source_spans": candidate["source_spans"],
+            "authority": record["authority"],
+            "duplicate_cluster_id": _cluster_id(
+                title=record["title"], authority=record["authority"], text=text
+            ),
+            "rights_eligible": True,
+            "accessibility": "accessible",
+        })
     clusters: dict[str, list[str]] = {}
     for unit in units:
         cluster_id = str(unit["duplicate_cluster_id"])

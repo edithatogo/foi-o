@@ -23,23 +23,19 @@ SCHEMAS = {
     ),
 }
 THRESHOLD_ELIGIBLE_METRICS = {
-    "reliability": frozenset(
-        {
-            "raw_label_agreement.estimate",
-            "cohen_kappa.estimate",
-            "exact_span_agreement.estimate",
-            "abstention_agreement.estimate",
-        }
-    ),
-    "extractor_metrics": frozenset(
-        {
-            "label_metrics.precision",
-            "label_metrics.recall",
-            "label_metrics.f1",
-            "coverage.estimate",
-            "exact_span.estimate",
-        }
-    ),
+    "reliability": frozenset({
+        "raw_label_agreement.estimate",
+        "cohen_kappa.estimate",
+        "exact_span_agreement.estimate",
+        "abstention_agreement.estimate",
+    }),
+    "extractor_metrics": frozenset({
+        "label_metrics.precision",
+        "label_metrics.recall",
+        "label_metrics.f1",
+        "coverage.estimate",
+        "exact_span.estimate",
+    }),
 }
 
 

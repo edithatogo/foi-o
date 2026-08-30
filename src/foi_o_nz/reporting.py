@@ -138,9 +138,9 @@ def write_psc_aggregate_report(
 def _aggregate_metric(metric: dict[str, Any], events: list[dict[str, Any]]) -> dict[str, Any]:
     dependencies = set(metric["event_dependencies"])
     matches = [event for event in events if str(event.get("event_type") or "") in dependencies]
-    request_ids = sorted(
-        {request_id for event in matches if (request_id := _event_request_id(event)) is not None}
-    )
+    request_ids = sorted({
+        request_id for event in matches if (request_id := _event_request_id(event)) is not None
+    })
     derivability = metric["derivability"]
     if derivability == "public_fyi_derivable":
         status = "derived_public_indicator"

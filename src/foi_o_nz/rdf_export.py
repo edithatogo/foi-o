@@ -73,9 +73,11 @@ def graph_from_request_profiles(records: list[dict[str, Any]]) -> Graph:
         if source_url := record.get("source_url"):
             graph.add((request_uri, PROV.wasDerivedFrom, URIRef(str(source_url))))
         if first_sent := record.get("first_sent"):
-            graph.add(
-                (request_uri, FOIO.firstSentAt, Literal(str(first_sent), datatype=XSD.dateTime))
-            )
+            graph.add((
+                request_uri,
+                FOIO.firstSentAt,
+                Literal(str(first_sent), datatype=XSD.dateTime),
+            ))
     return graph
 
 
@@ -93,22 +95,18 @@ def graph_from_events(records: list[dict[str, Any]]) -> Graph:
         graph.add((event_uri, RDF.type, FOIO.ProcessEvent))
         event_type = str(record.get("event_type") or "unknown")
         graph.add((event_uri, FOIO.eventType, FOIO_EVENT[_uri_fragment(event_type)]))
-        graph.add(
-            (
-                event_uri,
-                PROV.generatedAtTime,
-                Literal(str(record.get("event_time")), datatype=XSD.dateTime),
-            )
-        )
+        graph.add((
+            event_uri,
+            PROV.generatedAtTime,
+            Literal(str(record.get("event_time")), datatype=XSD.dateTime),
+        ))
         assertion_status = str(record.get("assertion_status") or "unknown")
         graph.add((event_uri, FOIO.assertionStatus, FOIO_ASSERT[_uri_fragment(assertion_status)]))
-        graph.add(
-            (
-                event_uri,
-                FOIO.requiresHumanCertification,
-                Literal(bool(record.get("requires_human_certification")), datatype=XSD.boolean),
-            )
-        )
+        graph.add((
+            event_uri,
+            FOIO.requiresHumanCertification,
+            Literal(bool(record.get("requires_human_certification")), datatype=XSD.boolean),
+        ))
         if state := record.get("lifecycle_state_after"):
             graph.add((event_uri, FOIO.lifecycleStateAfter, FOIO_STATE[_camel_to_snake(state)]))
         request_ref = record.get("request_ref")

@@ -56,16 +56,14 @@ def _candidate(tmp_path: Path, monkeypatch) -> tuple[Path, Path]:
             "jurisdiction": jurisdiction,
         }
         parsed_path.write_text(json.dumps(base) + "\n")
-        index_rows.append(
-            {
-                **{field: base[field] for field in validator.PROVENANCE_FIELDS},
-                "raw_filename": raw_path.name,
-                "raw_byte_count": raw_path.stat().st_size,
-                "record_filename": parsed_path.name,
-                "record_byte_count": parsed_path.stat().st_size,
-                "record_sha256": _sha256(parsed_path),
-            }
-        )
+        index_rows.append({
+            **{field: base[field] for field in validator.PROVENANCE_FIELDS},
+            "raw_filename": raw_path.name,
+            "raw_byte_count": raw_path.stat().st_size,
+            "record_filename": parsed_path.name,
+            "record_byte_count": parsed_path.stat().st_size,
+            "record_sha256": _sha256(parsed_path),
+        })
         output = candidate / f"{jurisdiction}.jsonl"
         output.write_text(json.dumps(base) + "\n")
         outputs[jurisdiction] = _artifact(output, 1)
@@ -156,22 +154,20 @@ def test_independent_validator_rejects_raw_symlink_escape(tmp_path, monkeypatch)
 def test_legacy_replay_summary_is_only_a_compatibility_receipt(tmp_path) -> None:
     summary = tmp_path / "summary.json"
     summary.write_text(
-        json.dumps(
-            {
-                "schema": validator.LEGACY_REPLAY_SCHEMA,
-                "status": "candidate_non_final",
-                "selection_sha256": "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51",
-                "record_count": 2082,
-                "captured_count": 2082,
-                "failed_count": 0,
-                "pending_count": 0,
-                "circuit_open": False,
-                "normalized_candidate_sha256": validator.NORMALIZED_REPLAY_SHA256,
-                "publication": False,
-                "redistribution": False,
-                "manifest_finalization_authorized": False,
-            }
-        )
+        json.dumps({
+            "schema": validator.LEGACY_REPLAY_SCHEMA,
+            "status": "candidate_non_final",
+            "selection_sha256": "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51",
+            "record_count": 2082,
+            "captured_count": 2082,
+            "failed_count": 0,
+            "pending_count": 0,
+            "circuit_open": False,
+            "normalized_candidate_sha256": validator.NORMALIZED_REPLAY_SHA256,
+            "publication": False,
+            "redistribution": False,
+            "manifest_finalization_authorized": False,
+        })
     )
     result = validator.validate_legacy_replay_summary(summary)
     assert result["classification_validation_required"] is True
@@ -180,22 +176,20 @@ def test_legacy_replay_summary_is_only_a_compatibility_receipt(tmp_path) -> None
 def test_legacy_replay_summary_rejects_unpinned_normalized_candidate(tmp_path) -> None:
     summary = tmp_path / "summary.json"
     summary.write_text(
-        json.dumps(
-            {
-                "schema": validator.LEGACY_REPLAY_SCHEMA,
-                "status": "candidate_non_final",
-                "selection_sha256": "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51",
-                "record_count": 2082,
-                "captured_count": 2082,
-                "failed_count": 0,
-                "pending_count": 0,
-                "circuit_open": False,
-                "normalized_candidate_sha256": "0" * 64,
-                "publication": False,
-                "redistribution": False,
-                "manifest_finalization_authorized": False,
-            }
-        )
+        json.dumps({
+            "schema": validator.LEGACY_REPLAY_SCHEMA,
+            "status": "candidate_non_final",
+            "selection_sha256": "a1c2308ecc81de3754f37b3c26f7ba7fc232ff5bac930b86b36fb10463178c51",
+            "record_count": 2082,
+            "captured_count": 2082,
+            "failed_count": 0,
+            "pending_count": 0,
+            "circuit_open": False,
+            "normalized_candidate_sha256": "0" * 64,
+            "publication": False,
+            "redistribution": False,
+            "manifest_finalization_authorized": False,
+        })
     )
     with pytest.raises(ValueError, match="normalized-candidate pin mismatch"):
         validator.validate_legacy_replay_summary(summary)

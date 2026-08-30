@@ -34,37 +34,29 @@ def find_unsafe_descriptor_text(descriptor: dict[str, Any]) -> list[dict[str, st
     searchable = f"{name} {description}".lower().replace("_", " ")
     for phrase in UNSAFE_DESCRIPTOR_PHRASES:
         if phrase in searchable:
-            findings.append(
-                {
-                    "code": "unsafe_descriptor_text",
-                    "message": f"descriptor contains unsafe phrase: {phrase}",
-                    "name": name,
-                }
-            )
+            findings.append({
+                "code": "unsafe_descriptor_text",
+                "message": f"descriptor contains unsafe phrase: {phrase}",
+                "name": name,
+            })
     if descriptor.get("machine_certification_allowed") is True:
-        findings.append(
-            {
-                "code": "machine_certification_allowed",
-                "message": "machine certification must be disabled",
-                "name": name,
-            }
-        )
+        findings.append({
+            "code": "machine_certification_allowed",
+            "message": "machine certification must be disabled",
+            "name": name,
+        })
     if descriptor.get("legal_effect") not in {None, "none", "preparatory"}:
-        findings.append(
-            {
-                "code": "unsafe_legal_effect",
-                "message": "agent descriptors must be none or preparatory only",
-                "name": name,
-            }
-        )
+        findings.append({
+            "code": "unsafe_legal_effect",
+            "message": "agent descriptors must be none or preparatory only",
+            "name": name,
+        })
     if descriptor.get("read_only") is False:
-        findings.append(
-            {
-                "code": "not_read_only",
-                "message": "agent descriptors must be read-only",
-                "name": name,
-            }
-        )
+        findings.append({
+            "code": "not_read_only",
+            "message": "agent descriptors must be read-only",
+            "name": name,
+        })
     return findings
 
 

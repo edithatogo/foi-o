@@ -7,25 +7,23 @@ from scripts.build_australian_fulltext_frame import build_frame
 def test_fulltext_frame_preserves_capture_disposition(tmp_path: Path) -> None:
     artifact = tmp_path / "fulltext.json"
     artifact.write_text(
-        json.dumps(
-            {
-                "schema": "fyi-archive.historical-fulltext.v1",
-                "records": [
-                    {
-                        "source_url": "https://example.test/request/a?utm_source=x",
-                        "status": "captured",
-                        "text": "A",
-                        "text_sha256": "a" * 64,
-                    },
-                    {
-                        "source_url": "https://example.test/request/b",
-                        "status": "failed",
-                        "diagnostic": "403",
-                        "text": "",
-                    },
-                ],
-            }
-        ),
+        json.dumps({
+            "schema": "fyi-archive.historical-fulltext.v1",
+            "records": [
+                {
+                    "source_url": "https://example.test/request/a?utm_source=x",
+                    "status": "captured",
+                    "text": "A",
+                    "text_sha256": "a" * 64,
+                },
+                {
+                    "source_url": "https://example.test/request/b",
+                    "status": "failed",
+                    "diagnostic": "403",
+                    "text": "",
+                },
+            ],
+        }),
         encoding="utf-8",
     )
     frame = build_frame(artifact, jurisdiction="AU-CTH", output=tmp_path / "frame.json")

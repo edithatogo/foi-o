@@ -18,17 +18,15 @@ SCHEMA_DIR = Path(__file__).parents[2] / "schemas" / "json"
 LEGACY_FIXTURE_LICENSE_PLACEHOLDER_SHA256 = (
     "4b433d662d19413093921cb1fe70ae3d95dfc1c77646cf7fb818e4bab82aee30"
 )
-CANDIDATE_PACKET_NAMES = frozenset(
-    {
-        "source-population.json",
-        "codebook.json",
-        "sampling-configuration.json",
-        "unit-manifest.json",
-        "cluster-registry.json",
-        "redaction-manifest.json",
-        "local-rights-review.pending.json",
-    }
-)
+CANDIDATE_PACKET_NAMES = frozenset({
+    "source-population.json",
+    "codebook.json",
+    "sampling-configuration.json",
+    "unit-manifest.json",
+    "cluster-registry.json",
+    "redaction-manifest.json",
+    "local-rights-review.pending.json",
+})
 
 
 @dataclass(frozen=True, slots=True)
@@ -587,9 +585,9 @@ def verify_locked_fixture_analysis(
     allowed_labels = {item["label"] for item in codebook["labels"]}
     expected_ids = [item["unit_id"] for item in contexts]
     expected = {item["unit_id"]: item for item in contexts}
-    expected_commitment = ordered_unit_commitment(
-        [expected[item]["unit_sha256"] for item in expected_ids]
-    )
+    expected_commitment = ordered_unit_commitment([
+        expected[item]["unit_sha256"] for item in expected_ids
+    ])
     if document["ordered_unit_commitment_sha256"] != expected_commitment:
         raise ValueError("analysis lock ordered unit commitment mismatch")
     actors: list[str] = []
@@ -1184,17 +1182,15 @@ def _verify_fixture_role_authorization_request(
         presented = json.loads(encoded)
         if _contains_forbidden_context_key(presented):
             raise ValueError(f"{unit.unit_id}: forbidden context key remains")
-        expected_contexts.append(
-            {
-                "unit_id": unit.unit_id,
-                "unit_sha256": unit.unit_sha256,
-                "context_sha256": unit.context_sha256,
-                "source_path": unit.source_path,
-                "source_span": {"start": unit.source_span[0], "end": unit.source_span[1]},
-                "removed_keys": list(removed),
-                "presented_context": presented,
-            }
-        )
+        expected_contexts.append({
+            "unit_id": unit.unit_id,
+            "unit_sha256": unit.unit_sha256,
+            "context_sha256": unit.context_sha256,
+            "source_path": unit.source_path,
+            "source_span": {"start": unit.source_span[0], "end": unit.source_span[1]},
+            "removed_keys": list(removed),
+            "presented_context": presented,
+        })
     if context_document["contexts"] != expected_contexts:
         raise ValueError("context presentation is not the exact ordered redacted census")
     if handshake.read_bytes() == b"":

@@ -347,15 +347,13 @@ def map_state(source_state: str) -> None:
     """Map an FYI/Alaveteli source state to the FOI-O NZ lifecycle vocabulary."""
     mapping = map_alaveteli_state(source_state)
     console.print_json(
-        json.dumps(
-            {
-                "source_state": mapping.source_state,
-                "normalised_state": mapping.normalised_state.value,
-                "confidence": mapping.confidence,
-                "assertion_status": mapping.assertion_status,
-                "notes": mapping.notes,
-            }
-        )
+        json.dumps({
+            "source_state": mapping.source_state,
+            "normalised_state": mapping.normalised_state.value,
+            "confidence": mapping.confidence,
+            "assertion_status": mapping.assertion_status,
+            "notes": mapping.notes,
+        })
     )
 
 
@@ -364,13 +362,11 @@ def can_transition_command(from_state: RequestState, to_state: RequestState) -> 
     """Check whether a lifecycle transition is permitted by the current profile."""
     ok = can_transition(from_state, to_state)
     console.print_json(
-        json.dumps(
-            {
-                "from_state": from_state.value,
-                "to_state": to_state.value,
-                "allowed": ok,
-            }
-        )
+        json.dumps({
+            "from_state": from_state.value,
+            "to_state": to_state.value,
+            "allowed": ok,
+        })
     )
     if not ok:
         raise typer.Exit(code=2)
@@ -1217,9 +1213,11 @@ def export_capability_manifest_command(
     manifest = build_registry_manifest()
     write_json(output, manifest)
     console.print_json(
-        json.dumps(
-            {"ok": True, "output": str(output), "capability_count": len(manifest["capabilities"])}
-        )
+        json.dumps({
+            "ok": True,
+            "output": str(output),
+            "capability_count": len(manifest["capabilities"]),
+        })
     )
 
 

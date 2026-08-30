@@ -106,14 +106,12 @@ def build_public_governance_provenance_map(
             raise FileNotFoundError(f"target file not found: {target}")
         sha = hashlib.sha256(target.read_bytes()).hexdigest()
         sanitized_id = re.sub(r"[^a-z0-9-]", "-", rel_path.lower().replace(".", "-"))
-        results.append(
-            {
-                "schema_version": "foi-o.provenance-reference.v0.1.0",
-                "reference_id": f"ref-{sanitized_id}",
-                "relative_path": rel_path,
-                "content_sha256": sha,
-                "classification": "public_asset",
-                "redacted": False,
-            }
-        )
+        results.append({
+            "schema_version": "foi-o.provenance-reference.v0.1.0",
+            "reference_id": f"ref-{sanitized_id}",
+            "relative_path": rel_path,
+            "content_sha256": sha,
+            "classification": "public_asset",
+            "redacted": False,
+        })
     return results

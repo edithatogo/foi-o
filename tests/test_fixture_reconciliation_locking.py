@@ -44,9 +44,10 @@ def test_builder_is_deterministic_and_preserves_first_pass_bytes(
     document = json.loads(first)
     assert document["ordered_disagreement_unit_ids"] == ["pm-06", "tl-02"]
     assert document["disagreement_count"] == len(document["entries"]) == 2
-    assert document["ordered_disagreement_commitment_sha256"] == builder.canonical_sha256(
-        ["pm-06", "tl-02"]
-    )
+    assert document["ordered_disagreement_commitment_sha256"] == builder.canonical_sha256([
+        "pm-06",
+        "tl-02",
+    ])
     for entry in document["entries"]:
         assert entry["record_sha256"] == builder.canonical_sha256(entry["record"])
 

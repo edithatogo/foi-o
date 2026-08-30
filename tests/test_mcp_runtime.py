@@ -44,17 +44,15 @@ class FakeFastMCP:
 def _events_jsonl(tmp_path: Path) -> Path:
     path = tmp_path / "events.jsonl"
     path.write_text(
-        json.dumps(
-            {
-                "event_id": "foio-nz:event:mcp-ok",
-                "event_type": "RequestObserved",
-                "assertion_status": "observed",
-                "machine_generated": True,
-                "generator": {"system": "foi-o-nz-test"},
-                "requires_human_certification": False,
-                "evidence": [{"evidence_id": "e1"}],
-            }
-        )
+        json.dumps({
+            "event_id": "foio-nz:event:mcp-ok",
+            "event_type": "RequestObserved",
+            "assertion_status": "observed",
+            "machine_generated": True,
+            "generator": {"system": "foi-o-nz-test"},
+            "requires_human_certification": False,
+            "evidence": [{"evidence_id": "e1"}],
+        })
         + "\n",
         encoding="utf-8",
     )
@@ -151,15 +149,13 @@ def test_mcp_runtime_tools_are_fixture_backed_and_do_not_write(tmp_path: Path) -
     schema_path = tmp_path / "instance.schema.json"
     instance_path.write_text(json.dumps({"ok": True}), encoding="utf-8")
     schema_path.write_text(
-        json.dumps(
-            {
-                "$schema": "https://json-schema.org/draft/2020-12/schema",
-                "type": "object",
-                "additionalProperties": False,
-                "required": ["ok"],
-                "properties": {"ok": {"type": "boolean"}},
-            }
-        ),
+        json.dumps({
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "additionalProperties": False,
+            "required": ["ok"],
+            "properties": {"ok": {"type": "boolean"}},
+        }),
         encoding="utf-8",
     )
 

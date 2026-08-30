@@ -2,17 +2,15 @@
 
 from __future__ import annotations
 
-HUMAN_CERTIFICATION_EVENT_TYPES: frozenset[str] = frozenset(
-    {
-        "HumanDecisionCertified",
-        "DecisionCommunicated",
-        "ReleaseMade",
-        "RefusalCommunicated",
-        "ChargeNoticeSent",
-        "ExtensionNotified",
-        "TransferNotified",
-    }
-)
+HUMAN_CERTIFICATION_EVENT_TYPES: frozenset[str] = frozenset({
+    "HumanDecisionCertified",
+    "DecisionCommunicated",
+    "ReleaseMade",
+    "RefusalCommunicated",
+    "ChargeNoticeSent",
+    "ExtensionNotified",
+    "TransferNotified",
+})
 
 SOURCE_SYSTEM_FYI_ARCHIVE = "fyi-archive-nz"
 DEFAULT_JURISDICTION = "NZ"

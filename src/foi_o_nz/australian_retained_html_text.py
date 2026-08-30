@@ -129,39 +129,35 @@ def build_candidate(
             text_path = _bounded(text_root, filename)
             text_path.write_text(text + "\n", encoding="utf-8")
             text_bytes = text_path.read_bytes()
-            output_rows.append(
-                {
-                    "canonical_slug": slug,
-                    "raw_sha256": record["raw_sha256"],
-                    "text_filename": filename,
-                    "text_sha256": _sha256_bytes(text_bytes),
-                    "text_byte_count": len(text_bytes),
-                    "source_spans": [
-                        {
-                            "start": 0,
-                            "end": len(text),
-                            "coordinate_system": "utf8_character_half_open",
-                        }
-                    ],
-                    "accessibility": "accessible",
-                    "rights_disposition": "restricted_local_non_redistributable",
-                    "rights_eligible_for_empirical_use": False,
-                }
-            )
+            output_rows.append({
+                "canonical_slug": slug,
+                "raw_sha256": record["raw_sha256"],
+                "text_filename": filename,
+                "text_sha256": _sha256_bytes(text_bytes),
+                "text_byte_count": len(text_bytes),
+                "source_spans": [
+                    {
+                        "start": 0,
+                        "end": len(text),
+                        "coordinate_system": "utf8_character_half_open",
+                    }
+                ],
+                "accessibility": "accessible",
+                "rights_disposition": "restricted_local_non_redistributable",
+                "rights_eligible_for_empirical_use": False,
+            })
         else:
-            output_rows.append(
-                {
-                    "canonical_slug": slug,
-                    "raw_sha256": record["raw_sha256"],
-                    "text_filename": None,
-                    "text_sha256": None,
-                    "text_byte_count": 0,
-                    "source_spans": [],
-                    "accessibility": "missing_source_text",
-                    "rights_disposition": "restricted_local_non_redistributable",
-                    "rights_eligible_for_empirical_use": False,
-                }
-            )
+            output_rows.append({
+                "canonical_slug": slug,
+                "raw_sha256": record["raw_sha256"],
+                "text_filename": None,
+                "text_sha256": None,
+                "text_byte_count": 0,
+                "source_spans": [],
+                "accessibility": "missing_source_text",
+                "rights_disposition": "restricted_local_non_redistributable",
+                "rights_eligible_for_empirical_use": False,
+            })
     jsonl_path = output_root / "retained-html-text.candidate.jsonl"
     jsonl_path.write_text(
         "".join(json.dumps(row, sort_keys=True) + "\n" for row in output_rows), encoding="utf-8"

@@ -55,16 +55,14 @@ def build_conformance_fixture_records() -> list[dict[str, Any]]:
     """Return JSONL-friendly conformance fixture records."""
     records: list[dict[str, Any]] = []
     for index, (operation, args, expected) in enumerate(conformance_cases(), start=1):
-        records.append(
-            {
-                "case_id": _case_id(index, operation),
-                "operation": operation,
-                "args": list(args),
-                "arg_types": [_json_type(value) for value in args],
-                "expected": expected,
-                "expected_type": _json_type(expected),
-            }
-        )
+        records.append({
+            "case_id": _case_id(index, operation),
+            "operation": operation,
+            "args": list(args),
+            "arg_types": [_json_type(value) for value in args],
+            "expected": expected,
+            "expected_type": _json_type(expected),
+        })
     return records
 
 
@@ -82,21 +80,19 @@ def build_kernel_manifest(*, mojo_root: Path = Path("mojo")) -> dict[str, Any]:
     operations: list[dict[str, Any]] = []
     for operation in sorted(by_operation):
         first = by_operation[operation][0]
-        operations.append(
-            {
-                "operation": operation,
-                "arg_types": first["arg_types"],
-                "return_type": first["expected_type"],
-                "conformance_case_count": len(by_operation[operation]),
-                "python_fallback": True,
-                "mojo_declared": operation in declarations_by_name,
-                "mojo_paths": sorted(declarations_by_name.get(operation, [])),
-                "native_runtime_verified": False,
-                "risk_class": "certification-boundary"
-                if any(hint in operation for hint in CERTIFICATION_OPERATION_HINTS)
-                else "deterministic-helper",
-            }
-        )
+        operations.append({
+            "operation": operation,
+            "arg_types": first["arg_types"],
+            "return_type": first["expected_type"],
+            "conformance_case_count": len(by_operation[operation]),
+            "python_fallback": True,
+            "mojo_declared": operation in declarations_by_name,
+            "mojo_paths": sorted(declarations_by_name.get(operation, [])),
+            "native_runtime_verified": False,
+            "risk_class": "certification-boundary"
+            if any(hint in operation for hint in CERTIFICATION_OPERATION_HINTS)
+            else "deterministic-helper",
+        })
     return {
         "schema_version": KERNEL_MANIFEST_SCHEMA_VERSION,
         "generated_at": datetime.now(UTC).isoformat(),

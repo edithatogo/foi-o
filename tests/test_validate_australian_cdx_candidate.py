@@ -200,16 +200,14 @@ def test_candidate_rejects_retrieval_and_classification_drift(tmp_path: Path) ->
     packet, artifact, unpacked = _write_fixture(tmp_path)
     retrieval = unpacked / "retrieval.json"
     value = _json(retrieval)
-    value.update(
-        {
-            "pagination_complete": False,
-            "retrieval_status": "partial",
-            "eligible_for_empirical_freeze": True,
-            "publication": True,
-            "redistribution": True,
-            "response_sha256": "0" * 64,
-        }
-    )
+    value.update({
+        "pagination_complete": False,
+        "retrieval_status": "partial",
+        "eligible_for_empirical_freeze": True,
+        "publication": True,
+        "redistribution": True,
+        "response_sha256": "0" * 64,
+    })
     _write_json(retrieval, value)
     _rehash(packet, artifact, unpacked)
     value = _json(packet)

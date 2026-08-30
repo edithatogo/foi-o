@@ -114,14 +114,12 @@ def approve_attachment_snapshot(
     rights = manifest.get("rights_review")
     if not isinstance(rights, dict):
         raise ValueError("snapshot rights review missing")
-    rights.update(
-        {
-            "status": "approved",
-            "reviewer": reviewer,
-            "reviewed_at": reviewed_at,
-            "reviewed_snapshot_manifest_sha256": expected_reviewed_manifest_sha256,
-        }
-    )
+    rights.update({
+        "status": "approved",
+        "reviewer": reviewer,
+        "reviewed_at": reviewed_at,
+        "reviewed_snapshot_manifest_sha256": expected_reviewed_manifest_sha256,
+    })
     _write_json(approved_snapshot_dir / "rights-review.json", rights)
     artifacts = manifest.get("artifacts")
     if not isinstance(artifacts, list):

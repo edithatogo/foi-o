@@ -147,17 +147,15 @@ def main(output: Path = PACKET, *, repository_root: Path = ROOT) -> None:
         encoded, removed = canonical_redacted_context(value)
         if sha256(encoded).hexdigest() != unit.context_sha256:
             raise ValueError(f"{unit.unit_id}: redacted context digest mismatch")
-        contexts.append(
-            {
-                "unit_id": unit.unit_id,
-                "unit_sha256": unit.unit_sha256,
-                "context_sha256": unit.context_sha256,
-                "source_path": unit.source_path,
-                "source_span": {"start": unit.source_span[0], "end": unit.source_span[1]},
-                "removed_keys": list(removed),
-                "presented_context": json.loads(encoded),
-            }
-        )
+        contexts.append({
+            "unit_id": unit.unit_id,
+            "unit_sha256": unit.unit_sha256,
+            "context_sha256": unit.context_sha256,
+            "source_path": unit.source_path,
+            "source_span": {"start": unit.source_span[0], "end": unit.source_span[1]},
+            "removed_keys": list(removed),
+            "presented_context": json.loads(encoded),
+        })
     context_path = output / "context-presentation.pending.json"
     _write_json(
         context_path,

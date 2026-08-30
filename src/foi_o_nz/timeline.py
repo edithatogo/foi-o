@@ -64,29 +64,23 @@ def build_event_timeline(events: list[dict[str, Any]]) -> dict[str, Any]:
         parsed_time = parse_datetime(raw_time)
         event_id = str(event.get("event_id") or f"source-index:{source_index}")
         if raw_time in {None, ""}:
-            warnings.append(
-                {
-                    "code": "missing_event_time",
-                    "event_id": event_id,
-                    "message": "event_time missing; timeline order falls back to source order",
-                }
-            )
+            warnings.append({
+                "code": "missing_event_time",
+                "event_id": event_id,
+                "message": "event_time missing; timeline order falls back to source order",
+            })
         elif parsed_time is None:
-            warnings.append(
-                {
-                    "code": "invalid_event_time",
-                    "event_id": event_id,
-                    "raw_event_time": raw_time,
-                    "message": "event_time could not be parsed; timeline order falls back to source order",
-                }
-            )
+            warnings.append({
+                "code": "invalid_event_time",
+                "event_id": event_id,
+                "raw_event_time": raw_time,
+                "message": "event_time could not be parsed; timeline order falls back to source order",
+            })
         sort_time = parsed_time or datetime.max.replace(tzinfo=UTC)
-        sortable.append(
-            (
-                (parsed_time is None, sort_time, source_index, event_id),
-                _timeline_item(event, source_index=source_index, parsed_time=parsed_time),
-            )
-        )
+        sortable.append((
+            (parsed_time is None, sort_time, source_index, event_id),
+            _timeline_item(event, source_index=source_index, parsed_time=parsed_time),
+        ))
     ordered = [item for _key, item in sorted(sortable, key=lambda pair: pair[0])]
     return {
         "schema_version": "foi-o-nz.event-timeline.v0.1.0",

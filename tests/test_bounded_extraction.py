@@ -75,17 +75,15 @@ def test_write_extraction_requests_outputs_safe_fixture_records(tmp_path: Path) 
 
 
 def test_candidate_output_requires_human_review_for_machine_events() -> None:
-    report = validate_candidate_output(
-        {
-            "event_id": "foio-nz:event:model-decision",
-            "event_type": "DecisionCommunicated",
-            "assertion_status": "inferred",
-            "machine_generated": True,
-            "requires_human_certification": True,
-            "human_certification": {"certified": False},
-            "human_review_required": False,
-        }
-    )
+    report = validate_candidate_output({
+        "event_id": "foio-nz:event:model-decision",
+        "event_type": "DecisionCommunicated",
+        "assertion_status": "inferred",
+        "machine_generated": True,
+        "requires_human_certification": True,
+        "human_certification": {"certified": False},
+        "human_review_required": False,
+    })
 
     assert report["ok"] is False
     assert any(finding["code"] == "model_output_review_required" for finding in report["findings"])

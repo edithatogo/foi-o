@@ -740,25 +740,23 @@ def _prepare_references(source_root: Path) -> tuple[list[CommandResult], list[Ch
                 "AuthenText checkout is unavailable; manuscript prose review remains local-only.",
             )
         )
-    checks.extend(
-        [
-            CheckResult(
-                "vancouver-bibliography-generated",
-                "passed",
-                "Generated numbered Vancouver-style reference review output and arXiv-compatible main.bbl.",
-                [
-                    _relative(source_root / "references.vancouver.md"),
-                    _relative(source_root / "main.bbl"),
-                ],
-            ),
-            CheckResult(
-                "sourceright-provider-verification",
-                "external_gate",
-                "Live provider enrichment and final citation verification remain outside the offline build.",
-                [_relative(source_root / "sourceright-reference-report.json")],
-            ),
-        ]
-    )
+    checks.extend([
+        CheckResult(
+            "vancouver-bibliography-generated",
+            "passed",
+            "Generated numbered Vancouver-style reference review output and arXiv-compatible main.bbl.",
+            [
+                _relative(source_root / "references.vancouver.md"),
+                _relative(source_root / "main.bbl"),
+            ],
+        ),
+        CheckResult(
+            "sourceright-provider-verification",
+            "external_gate",
+            "Live provider enrichment and final citation verification remain outside the offline build.",
+            [_relative(source_root / "sourceright-reference-report.json")],
+        ),
+    ])
     return commands, checks
 
 
@@ -1061,12 +1059,10 @@ def _artifact_inventory(source_root: Path) -> list[dict[str, str]]:
     inventory = []
     for path in sorted(source_root.rglob("*")):
         if path.is_file():
-            inventory.append(
-                {
-                    "path": _relative(path),
-                    "sha256": _sha256(path),
-                }
-            )
+            inventory.append({
+                "path": _relative(path),
+                "sha256": _sha256(path),
+            })
     return inventory
 
 

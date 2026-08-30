@@ -28,9 +28,9 @@ def _schemas() -> dict[str, dict[str, Any]]:
 
 @lru_cache(maxsize=1)
 def _registry() -> Registry:
-    return Registry().with_resources(
-        [(schema["$id"], Resource.from_contents(schema)) for schema in _schemas().values()]
-    )
+    return Registry().with_resources([
+        (schema["$id"], Resource.from_contents(schema)) for schema in _schemas().values()
+    ])
 
 
 def schema_errors(instance: Any, schema_name: str) -> list[str]:

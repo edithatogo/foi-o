@@ -18,25 +18,23 @@ UNIT_FIELDS = frozenset({"unit_id", "unit_sha256", "text", "source_spans"})
 REQUIRED_UNIT_FIELDS = frozenset({"unit_id", "unit_sha256", "text"})
 LEAKAGE_MARKERS = ("annotation", "candidate", "extractor", "gold", "label", "prediction")
 SCHEMA_DIR = Path(__file__).resolve().parents[3] / "schemas" / "json"
-PACKET_FIELDS = frozenset(
-    {
-        "schema_version",
-        "status",
-        "run_id",
-        "run_spec_sha256",
-        "membership_sha256",
-        "codebook_sha256",
-        "calibration_sha256",
-        "authorization_sha256",
-        "source_bundle_sha256",
-        "role_id",
-        "blinded_to_peer_outputs",
-        "blinded_to_candidate_extractor",
-        "packet_can_authorize_execution",
-        "units",
-        "packet_sha256",
-    }
-)
+PACKET_FIELDS = frozenset({
+    "schema_version",
+    "status",
+    "run_id",
+    "run_spec_sha256",
+    "membership_sha256",
+    "codebook_sha256",
+    "calibration_sha256",
+    "authorization_sha256",
+    "source_bundle_sha256",
+    "role_id",
+    "blinded_to_peer_outputs",
+    "blinded_to_candidate_extractor",
+    "packet_can_authorize_execution",
+    "units",
+    "packet_sha256",
+})
 
 
 class PacketContractError(ValueError):
@@ -104,20 +102,20 @@ def approved_execution_context_sha256(
         "source_bundle_sha256": source_bundle_sha256,
         "calibration_content_sha256": _approval_independent_content_sha256(
             calibration,
-            excluded_fields=frozenset(
-                {"calibration_sha256", "external_approval", "run_spec_sha256"}
-            ),
+            excluded_fields=frozenset({
+                "calibration_sha256",
+                "external_approval",
+                "run_spec_sha256",
+            }),
         ),
         "authorization_content_sha256": _approval_independent_content_sha256(
             authorization,
-            excluded_fields=frozenset(
-                {
-                    "authorization_sha256",
-                    "calibration_sha256",
-                    "external_approval",
-                    "run_spec_sha256",
-                }
-            ),
+            excluded_fields=frozenset({
+                "authorization_sha256",
+                "calibration_sha256",
+                "external_approval",
+                "run_spec_sha256",
+            }),
         ),
     }
     return hashlib.sha256(canonical_bytes(context)).hexdigest()

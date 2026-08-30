@@ -50,11 +50,8 @@ illegal_pairs = st.sampled_from(_illegal_pairs)
 def test_can_transition_agrees_with_allowed_transitions(
     source: RequestState, target: RequestState
 ) -> None:
-    # Documented semantics: self-loops are always permitted (idempotent
-    # re-statements of the same state), and terminal states emit no
-    # transitions to other states even where ALLOWED_TRANSITIONS lists a key.
     expected = source == target or (
-        target in ALLOWED_TRANSITIONS.get(source, set()) and source not in TERMINAL_STATES
+        target in ALLOWED_TRANSITIONS.get(source, frozenset()) and source not in TERMINAL_STATES
     )
     assert can_transition(source, target) == expected
 
@@ -70,7 +67,7 @@ def _events_for(request_id: str, chain: list[RequestState]) -> list[dict[str, ob
     return [
         {
             "event_id": f"evt-{request_id}-{index}",
-            "request_id": request_id,
+            "request_ref": {"source_request_id": request_id},
             "event_time": f"2026-01-01T00:00:{index:02d}Z",
             "lifecycle_state_after": state.value,
         }

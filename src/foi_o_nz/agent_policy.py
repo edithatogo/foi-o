@@ -268,47 +268,39 @@ def evaluate_agent_action(action: AgentAction | dict[str, Any]) -> dict[str, Any
     findings: list[dict[str, str]] = []
     for key in ["legal_effect", "requires_human_certification", "safety_class"]:
         if getattr(parsed, key) != policy[key]:
-            findings.append(
-                {
-                    "severity": "error",
-                    "code": f"policy_mismatch_{key}",
-                    "message": f"{key} should be {policy[key]!r} for {parsed.action_type}",
-                }
-            )
+            findings.append({
+                "severity": "error",
+                "code": f"policy_mismatch_{key}",
+                "message": f"{key} should be {policy[key]!r} for {parsed.action_type}",
+            })
     missing_prohibitions = sorted(
         set(policy["prohibited_follow_on_actions"]) - set(parsed.prohibited_follow_on_actions)
     )
     if missing_prohibitions:
-        findings.append(
-            {
-                "severity": "warning",
-                "code": "missing_prohibited_follow_on_actions",
-                "message": ", ".join(missing_prohibitions),
-            }
-        )
+        findings.append({
+            "severity": "warning",
+            "code": "missing_prohibited_follow_on_actions",
+            "message": ", ".join(missing_prohibitions),
+        })
     blocked_follow_on_actions = sorted(
         set(policy["prohibited_follow_on_actions"]) & set(parsed.requested_follow_on_actions)
     )
     if blocked_follow_on_actions:
-        findings.append(
-            {
-                "severity": "error",
-                "code": "prohibited_follow_on_action_requested",
-                "message": (
-                    "Requested follow-on actions require human review and cannot be "
-                    f"performed by this agent action: {', '.join(blocked_follow_on_actions)}"
-                ),
-            }
-        )
+        findings.append({
+            "severity": "error",
+            "code": "prohibited_follow_on_action_requested",
+            "message": (
+                "Requested follow-on actions require human review and cannot be "
+                f"performed by this agent action: {', '.join(blocked_follow_on_actions)}"
+            ),
+        })
     if parsed.tool_descriptor:
         for descriptor_finding in find_unsafe_descriptor_text(parsed.tool_descriptor):
-            findings.append(
-                {
-                    "severity": "error",
-                    "code": f"unsafe_tool_descriptor_{descriptor_finding['code']}",
-                    "message": descriptor_finding["message"],
-                }
-            )
+            findings.append({
+                "severity": "error",
+                "code": f"unsafe_tool_descriptor_{descriptor_finding['code']}",
+                "message": descriptor_finding["message"],
+            })
     return {
         "ok": not any(item["severity"] == "error" for item in findings),
         "action_id": parsed.action_id,

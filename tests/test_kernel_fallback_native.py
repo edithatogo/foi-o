@@ -20,6 +20,7 @@ from foi_o_nz.kernel_fallback import (
 )
 from foi_o_nz.native_kernel import (
     KernelDiscovery,
+    _existing_executable,
     evaluate_kernel,
     kernel_status,
     run_kernel_conformance,
@@ -102,3 +103,9 @@ def test_kernel_eval_fallback_on_native_error():
                 assert result["runtime_used"] == "python-fallback"
                 assert result["value"] == "ReleasedInFull"
                 assert result["native_error"] == str(exc)
+
+
+def test_existing_executable_oserror() -> None:
+    with patch("pathlib.Path.exists", side_effect=OSError("mocked error")):
+        result = _existing_executable(Path("fake_path"))
+        assert result is None

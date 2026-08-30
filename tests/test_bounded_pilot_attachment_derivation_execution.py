@@ -274,14 +274,12 @@ def _expand_to_three_sources(repository: Path, source_root: Path) -> None:
         relative_path = f"content/attachments/synthetic-{index}.pdf"
         path = source_root / relative_path
         path.write_bytes(f"synthetic PDF bytes {index}\n".encode())
-        sources.append(
-            {
-                "relative_path": relative_path,
-                "sha256": _digest(path),
-                "size": path.stat().st_size,
-                "output_name": f"attachment-{index:03d}.txt",
-            }
-        )
+        sources.append({
+            "relative_path": relative_path,
+            "sha256": _digest(path),
+            "size": path.stat().st_size,
+            "output_name": f"attachment-{index:03d}.txt",
+        })
     request["sources"] = sources
     _write_json(request_path, request)
     _git(repository, "add", REQUEST_RELATIVE_PATH)

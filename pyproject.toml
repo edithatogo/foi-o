@@ -256,9 +256,6 @@ exclude_lines = [
 [tool.uv]
 preview = true
 
-[tool.ty]
-preview = true
-
 [tool.ty.environment]
 root = ["src", "tests", "scripts"]
 python-version = "3.14"

@@ -25,16 +25,14 @@ REVISION = "fc27bfa471c598a31d975cfa2b603b1a11408e55"
 
 def _write_manifest(path: Path, requests: list[dict[str, object]]) -> str:
     path.write_text(
-        json.dumps(
-            {
-                "meta": {
-                    "record_count": len(requests),
-                    "generated_at": "2026-07-13T01:57:41Z",
-                    "version": "0.10.3",
-                },
-                "requests": requests,
-            }
-        ),
+        json.dumps({
+            "meta": {
+                "record_count": len(requests),
+                "generated_at": "2026-07-13T01:57:41Z",
+                "version": "0.10.3",
+            },
+            "requests": requests,
+        }),
         encoding="utf-8",
     )
     return sha256(path.read_bytes()).hexdigest()

@@ -138,9 +138,9 @@ def test_envelope_and_component_schemas_accept_built_record() -> None:
         _schema("validation-attestation.schema.json"),
         _schema("provenance-envelope.schema.json"),
     ]
-    registry = Registry().with_resources(
-        [(schema["$id"], Resource.from_contents(schema)) for schema in schemas]
-    )
+    registry = Registry().with_resources([
+        (schema["$id"], Resource.from_contents(schema)) for schema in schemas
+    ])
     Draft202012Validator(schemas[-1], registry=registry).validate(envelope)
 
 

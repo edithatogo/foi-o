@@ -186,9 +186,9 @@ def main(output: Path = OUTPUT) -> None:
             "gold_eligible": False,
             "release_qualifying": False,
             "publication_eligible": False,
-            "ordered_unit_commitment_sha256": ordered_unit_commitment(
-                [unit.unit_sha256 for unit in units]
-            ),
+            "ordered_unit_commitment_sha256": ordered_unit_commitment([
+                unit.unit_sha256 for unit in units
+            ]),
             "ordered_unit_commitment_algorithm": "sha256_lowercase_hex_lines_final_newline_v1",
             "created_at": CREATED_AT,
             "locked_at": CREATED_AT,

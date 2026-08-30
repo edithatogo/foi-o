@@ -151,74 +151,65 @@ _STATE_MAP: dict[str, AlaveteliStateMapping] = {
     ),
 }
 
-TERMINAL_STATES: frozenset[RequestState] = frozenset(
-    {
-        RequestState.RELEASED_IN_FULL,
-        RequestState.RELEASED_IN_PART,
-        RequestState.REFUSED,
-        RequestState.NO_DOCUMENTS_FOUND,
-        RequestState.WITHDRAWN,
-        RequestState.CLOSED,
-    }
-)
+TERMINAL_STATES: frozenset[RequestState] = frozenset({
+    RequestState.RELEASED_IN_FULL,
+    RequestState.RELEASED_IN_PART,
+    RequestState.REFUSED,
+    RequestState.NO_DOCUMENTS_FOUND,
+    RequestState.WITHDRAWN,
+    RequestState.CLOSED,
+})
 
 ALLOWED_TRANSITIONS: dict[RequestState, frozenset[RequestState]] = {
     RequestState.DRAFTED: frozenset({RequestState.SUBMITTED, RequestState.WITHDRAWN}),
     RequestState.SUBMITTED: frozenset({RequestState.RECEIVED, RequestState.AWAITING_CLARIFICATION}),
-    RequestState.RECEIVED: frozenset(
-        {
-            RequestState.ACKNOWLEDGED,
-            RequestState.VALIDITY_CHECKING,
-            RequestState.TRANSFERRED_IN_FULL,
-            RequestState.SEARCH_PLANNING,
-            RequestState.AWAITING_CLARIFICATION,
-            RequestState.EXTENSION_APPLIED,
-            RequestState.CHARGE_ASSESSMENT,
-            RequestState.WITHDRAWN,
-        }
-    ),
-    RequestState.SEARCH_PLANNING: frozenset(
-        {RequestState.SEARCHING, RequestState.CONSULTATION_REQUIRED}
-    ),
-    RequestState.SEARCHING: frozenset(
-        {
-            RequestState.DOCUMENTS_IDENTIFIED,
-            RequestState.NO_DOCUMENTS_FOUND,
-            RequestState.EXTENSION_APPLIED,
-            RequestState.CONSULTATION_REQUIRED,
-            RequestState.CHARGE_ASSESSMENT,
-        }
-    ),
-    RequestState.EXTENSION_APPLIED: frozenset(
-        {
-            RequestState.SEARCH_PLANNING,
-            RequestState.SEARCHING,
-            RequestState.DOCUMENTS_IDENTIFIED,
-            RequestState.CONSULTATION_REQUIRED,
-            RequestState.DECISION_DRAFTING,
-            RequestState.HUMAN_DECISION_REQUIRED,
-        }
-    ),
-    RequestState.CHARGE_ASSESSMENT: frozenset(
-        {
-            RequestState.SEARCH_PLANNING,
-            RequestState.SEARCHING,
-            RequestState.DECISION_DRAFTING,
-            RequestState.WITHDRAWN,
-        }
-    ),
-    RequestState.DOCUMENTS_IDENTIFIED: frozenset(
-        {
-            RequestState.DECISION_DRAFTING,
-            RequestState.CONSULTATION_REQUIRED,
-            RequestState.HUMAN_DECISION_REQUIRED,
-        }
-    ),
+    RequestState.RECEIVED: frozenset({
+        RequestState.ACKNOWLEDGED,
+        RequestState.VALIDITY_CHECKING,
+        RequestState.TRANSFERRED_IN_FULL,
+        RequestState.SEARCH_PLANNING,
+        RequestState.AWAITING_CLARIFICATION,
+        RequestState.EXTENSION_APPLIED,
+        RequestState.CHARGE_ASSESSMENT,
+        RequestState.WITHDRAWN,
+    }),
+    RequestState.SEARCH_PLANNING: frozenset({
+        RequestState.SEARCHING,
+        RequestState.CONSULTATION_REQUIRED,
+    }),
+    RequestState.SEARCHING: frozenset({
+        RequestState.DOCUMENTS_IDENTIFIED,
+        RequestState.NO_DOCUMENTS_FOUND,
+        RequestState.EXTENSION_APPLIED,
+        RequestState.CONSULTATION_REQUIRED,
+        RequestState.CHARGE_ASSESSMENT,
+    }),
+    RequestState.EXTENSION_APPLIED: frozenset({
+        RequestState.SEARCH_PLANNING,
+        RequestState.SEARCHING,
+        RequestState.DOCUMENTS_IDENTIFIED,
+        RequestState.CONSULTATION_REQUIRED,
+        RequestState.DECISION_DRAFTING,
+        RequestState.HUMAN_DECISION_REQUIRED,
+    }),
+    RequestState.CHARGE_ASSESSMENT: frozenset({
+        RequestState.SEARCH_PLANNING,
+        RequestState.SEARCHING,
+        RequestState.DECISION_DRAFTING,
+        RequestState.WITHDRAWN,
+    }),
+    RequestState.DOCUMENTS_IDENTIFIED: frozenset({
+        RequestState.DECISION_DRAFTING,
+        RequestState.CONSULTATION_REQUIRED,
+        RequestState.HUMAN_DECISION_REQUIRED,
+    }),
     RequestState.DECISION_DRAFTING: frozenset({RequestState.HUMAN_DECISION_REQUIRED}),
     RequestState.HUMAN_DECISION_REQUIRED: frozenset({RequestState.DECISION_APPROVED}),
-    RequestState.DECISION_APPROVED: frozenset(
-        {RequestState.RELEASED_IN_FULL, RequestState.RELEASED_IN_PART, RequestState.REFUSED}
-    ),
+    RequestState.DECISION_APPROVED: frozenset({
+        RequestState.RELEASED_IN_FULL,
+        RequestState.RELEASED_IN_PART,
+        RequestState.REFUSED,
+    }),
 }
 
 

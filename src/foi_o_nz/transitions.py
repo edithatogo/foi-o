@@ -46,18 +46,16 @@ def audit_transitions(events: list[dict[str, Any]]) -> dict[str, Any]:
             if previous is not None and current != previous:
                 transition_count += 1
                 if not can_transition(previous, current):
-                    findings.append(
-                        {
-                            "severity": "warning",
-                            "code": "unexpected_transition",
-                            "request_id": request_id,
-                            "from_state": previous.value,
-                            "to_state": current.value,
-                            "previous_event_id": previous_event_id,
-                            "event_id": event.get("event_id"),
-                            "message": "transition is not in the conservative process profile",
-                        }
-                    )
+                    findings.append({
+                        "severity": "warning",
+                        "code": "unexpected_transition",
+                        "request_id": request_id,
+                        "from_state": previous.value,
+                        "to_state": current.value,
+                        "previous_event_id": previous_event_id,
+                        "event_id": event.get("event_id"),
+                        "message": "transition is not in the conservative process profile",
+                    })
             previous = current
             previous_event_id = str(event.get("event_id") or "") or None
     return {

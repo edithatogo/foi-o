@@ -62,13 +62,11 @@ def test_readiness_unit_and_cluster_identities_are_recomputed() -> None:
 
     for unit in readiness["units"]:
         request_id = unit["request_id"]
-        linkage = _canonical_sha256(
-            {
-                "jurisdiction": "NZ",
-                "request_id": request_id,
-                "source_system": "fyi.org.nz",
-            }
-        )
+        linkage = _canonical_sha256({
+            "jurisdiction": "NZ",
+            "request_id": request_id,
+            "source_system": "fyi.org.nz",
+        })
         assert unit["request_linkage_sha256"] == linkage
 
         descriptor = {

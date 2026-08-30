@@ -128,12 +128,10 @@ def test_rejects_missing_core_content_pin(core: dict, cth: dict) -> None:
 
 def test_rejects_unknown_as_a_current_primary_label(core: dict, cth: dict) -> None:
     changed_core = deepcopy(core)
-    changed_core["label_semantics"].append(
-        {
-            "id": "unknown",
-            "definition": "Evidence cannot decide the assertion.",
-        }
-    )
+    changed_core["label_semantics"].append({
+        "id": "unknown",
+        "definition": "Evidence cannot decide the assertion.",
+    })
     changed = deepcopy(cth)
     changed["core"]["sha256"] = canonical_sha256(changed_core)
     with pytest.raises(ValueError, match="unknown evidence must use null-label abstention"):

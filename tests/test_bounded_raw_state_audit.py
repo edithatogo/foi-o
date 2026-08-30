@@ -37,9 +37,11 @@ def _write_snapshot(root: Path, *, attachments: list[object] | None = None) -> P
     for relative, content in files.items():
         path = snapshot / relative
         path.write_bytes(content)
-        artifacts.append(
-            {"path": relative, "sha256": sha256(content).hexdigest(), "size": len(content)}
-        )
+        artifacts.append({
+            "path": relative,
+            "sha256": sha256(content).hexdigest(),
+            "size": len(content),
+        })
     manifest = {
         "artifacts": artifacts,
         "rights_review": {

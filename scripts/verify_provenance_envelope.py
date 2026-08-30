@@ -48,9 +48,9 @@ def _load_schemas() -> dict[str, dict[str, Any]]:
 
 def _schema_errors(instance: Any, schema_name: str) -> list[str]:
     schemas = _load_schemas()
-    registry = Registry().with_resources(
-        [(schema["$id"], Resource.from_contents(schema)) for schema in schemas.values()]
-    )
+    registry = Registry().with_resources([
+        (schema["$id"], Resource.from_contents(schema)) for schema in schemas.values()
+    ])
     validator = Draft202012Validator(
         schemas[schema_name],
         registry=registry,

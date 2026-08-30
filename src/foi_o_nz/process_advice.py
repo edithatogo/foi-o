@@ -80,41 +80,33 @@ def build_process_advice(
 
     if not events:
         missing_artifacts.append("core_event_stream")
-        next_safe_actions.append(
-            {
-                "action": "extract_events",
-                "legal_effect": "none",
-                "rationale": "No event stream was supplied for the request.",
-            }
-        )
+        next_safe_actions.append({
+            "action": "extract_events",
+            "legal_effect": "none",
+            "rationale": "No event stream was supplied for the request.",
+        })
     if "RequestObserved" not in types:
         missing_artifacts.append("RequestObserved")
     if "DeadlineCalculated" not in types:
-        next_safe_actions.append(
-            {
-                "action": "calculate_deadline",
-                "legal_effect": "preparatory",
-                "rationale": "No indicative deadline event is present.",
-            }
-        )
+        next_safe_actions.append({
+            "action": "calculate_deadline",
+            "legal_effect": "preparatory",
+            "rationale": "No indicative deadline event is present.",
+        })
     if "SearchPlanDrafted" not in types and str(current_state) not in _TERMINAL_STATES:
-        next_safe_actions.append(
-            {
-                "action": "draft_search_plan",
-                "legal_effect": "preparatory",
-                "rationale": "A search plan is useful before document identification or consultation.",
-            }
-        )
+        next_safe_actions.append({
+            "action": "draft_search_plan",
+            "legal_effect": "preparatory",
+            "rationale": "A search plan is useful before document identification or consultation.",
+        })
     if "DecisionPackDrafted" not in types and any(
         t in types for t in ("RecordsIdentified", "SearchPerformed")
     ):
-        next_safe_actions.append(
-            {
-                "action": "draft_decision_pack",
-                "legal_effect": "preparatory",
-                "rationale": "Search/document-identification events are present but no decision pack has been drafted.",
-            }
-        )
+        next_safe_actions.append({
+            "action": "draft_decision_pack",
+            "legal_effect": "preparatory",
+            "rationale": "Search/document-identification events are present but no decision pack has been drafted.",
+        })
 
     uncertified_dispositive = []
     for event in events:
@@ -125,13 +117,11 @@ def build_process_advice(
         if not isinstance(certification, dict) or certification.get("certified") is not True:
             uncertified_dispositive.append(event_type)
     if uncertified_dispositive:
-        required_human_reviews.append(
-            {
-                "review_type": "certification_boundary",
-                "event_types": sorted(set(uncertified_dispositive)),
-                "rationale": "Dispositive/process-altering events require authorised human certification before being treated as certified.",
-            }
-        )
+        required_human_reviews.append({
+            "review_type": "certification_boundary",
+            "event_types": sorted(set(uncertified_dispositive)),
+            "rationale": "Dispositive/process-altering events require authorised human certification before being treated as certified.",
+        })
 
     if review_queue_jsonl is not None:
         queue_tasks = [
@@ -140,14 +130,12 @@ def build_process_advice(
             if str(record.get("request_id")) == str(request_id)
         ]
         for task in queue_tasks[:20]:
-            required_human_reviews.append(
-                {
-                    "review_type": task.get("task_type"),
-                    "priority": task.get("priority"),
-                    "task_id": task.get("task_id"),
-                    "rationale": task.get("rationale"),
-                }
-            )
+            required_human_reviews.append({
+                "review_type": task.get("task_type"),
+                "priority": task.get("priority"),
+                "task_id": task.get("task_id"),
+                "rationale": task.get("rationale"),
+            })
 
     if str(current_state) in _TERMINAL_STATES:
         warnings.append(

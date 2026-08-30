@@ -44,21 +44,19 @@ def test_iter_message_records_covers_supported_manifest_shapes() -> None:
 
 def test_candidate_event_rules_and_certification_boundary() -> None:
     profile = build_request_profile(BASE_RECORD)
-    messages = iter_message_records(
-        {
-            **BASE_RECORD,
-            "messages": [
-                {"id": "extension", "body": "We extend the time limit by 10 working days."},
-                {"id": "transfer", "body": "We are transferring this under section 14."},
-                {"id": "clarify", "body": "Please clarify the scope of your request."},
-                {"id": "charge", "body": "A charge, deposit, or invoice may apply."},
-                {"id": "refusal", "body": "We refuse this under section 18."},
-                {"id": "release", "body": "The requested documents are attached and provided."},
-                {"id": "complaint", "body": "You may complain to the Ombudsman."},
-                {"id": "decision", "body": "This is our decision on your request."},
-            ],
-        }
-    )
+    messages = iter_message_records({
+        **BASE_RECORD,
+        "messages": [
+            {"id": "extension", "body": "We extend the time limit by 10 working days."},
+            {"id": "transfer", "body": "We are transferring this under section 14."},
+            {"id": "clarify", "body": "Please clarify the scope of your request."},
+            {"id": "charge", "body": "A charge, deposit, or invoice may apply."},
+            {"id": "refusal", "body": "We refuse this under section 18."},
+            {"id": "release", "body": "The requested documents are attached and provided."},
+            {"id": "complaint", "body": "You may complain to the Ombudsman."},
+            {"id": "decision", "body": "This is our decision on your request."},
+        ],
+    })
 
     events = build_message_events(profile, messages)
     by_type = {event.event_type: event for event in events}
@@ -90,14 +88,12 @@ def test_candidate_event_rules_and_certification_boundary() -> None:
 
 
 def test_normalise_records_keeps_message_observation_and_candidates() -> None:
-    _profiles, events = normalise_records(
-        [
-            {
-                **BASE_RECORD,
-                "messages": [{"id": "release", "body": "The documents are attached."}],
-            }
-        ]
-    )
+    _profiles, events = normalise_records([
+        {
+            **BASE_RECORD,
+            "messages": [{"id": "release", "body": "The documents are attached."}],
+        }
+    ])
 
     event_types = [event.event_type for event in events]
     assert "MessageObserved" in event_types
@@ -105,39 +101,37 @@ def test_normalise_records_keeps_message_observation_and_candidates() -> None:
 
 
 def test_timeline_orders_by_time_source_order_and_event_id() -> None:
-    timeline = build_event_timeline(
-        [
-            {
-                "event_id": "foio-nz:event:late",
-                "event_type": "ReleaseMade",
-                "event_time": "2026-06-03T00:00:00Z",
-                "request_ref": {"source_request_id": "evt-1"},
-                "lifecycle_state_after": "ReleasedInPart",
-                "assertion_status": "inferred",
-                "confidence": 0.38,
-                "evidence": [{"evidence_id": "evidence:late"}],
-            },
-            {
-                "event_id": "foio-nz:event:early-b",
-                "event_type": "MessageObserved",
-                "event_time": "2026-06-01T00:00:00Z",
-                "request_ref": {"source_request_id": "evt-1"},
-                "assertion_status": "observed",
-                "confidence": 1.0,
-                "evidence": [{"evidence_id": "evidence:early-b"}],
-            },
-            {
-                "event_id": "foio-nz:event:early-a",
-                "event_type": "RequestObserved",
-                "event_time": "2026-06-01T00:00:00Z",
-                "request_ref": {"source_request_id": "evt-1"},
-                "payload": {"source_state": "waiting_response"},
-                "assertion_status": "observed",
-                "confidence": 1.0,
-                "evidence": [{"evidence_id": "evidence:early-a"}],
-            },
-        ]
-    )
+    timeline = build_event_timeline([
+        {
+            "event_id": "foio-nz:event:late",
+            "event_type": "ReleaseMade",
+            "event_time": "2026-06-03T00:00:00Z",
+            "request_ref": {"source_request_id": "evt-1"},
+            "lifecycle_state_after": "ReleasedInPart",
+            "assertion_status": "inferred",
+            "confidence": 0.38,
+            "evidence": [{"evidence_id": "evidence:late"}],
+        },
+        {
+            "event_id": "foio-nz:event:early-b",
+            "event_type": "MessageObserved",
+            "event_time": "2026-06-01T00:00:00Z",
+            "request_ref": {"source_request_id": "evt-1"},
+            "assertion_status": "observed",
+            "confidence": 1.0,
+            "evidence": [{"evidence_id": "evidence:early-b"}],
+        },
+        {
+            "event_id": "foio-nz:event:early-a",
+            "event_type": "RequestObserved",
+            "event_time": "2026-06-01T00:00:00Z",
+            "request_ref": {"source_request_id": "evt-1"},
+            "payload": {"source_state": "waiting_response"},
+            "assertion_status": "observed",
+            "confidence": 1.0,
+            "evidence": [{"evidence_id": "evidence:early-a"}],
+        },
+    ])
 
     assert [event["event_id"] for event in timeline["events"]] == [
         "foio-nz:event:early-b",
@@ -149,23 +143,21 @@ def test_timeline_orders_by_time_source_order_and_event_id() -> None:
 
 
 def test_timeline_missing_and_invalid_dates_warn_without_fabricated_precision() -> None:
-    timeline = build_event_timeline(
-        [
-            {
-                "event_id": "foio-nz:event:missing",
-                "event_type": "MessageObserved",
-                "request_ref": {"source_request_id": "evt-1"},
-                "evidence": [{"evidence_id": "evidence:missing"}],
-            },
-            {
-                "event_id": "foio-nz:event:invalid",
-                "event_type": "MessageObserved",
-                "event_time": "not-a-date",
-                "request_ref": {"source_request_id": "evt-1"},
-                "evidence": [{"evidence_id": "evidence:invalid"}],
-            },
-        ]
-    )
+    timeline = build_event_timeline([
+        {
+            "event_id": "foio-nz:event:missing",
+            "event_type": "MessageObserved",
+            "request_ref": {"source_request_id": "evt-1"},
+            "evidence": [{"evidence_id": "evidence:missing"}],
+        },
+        {
+            "event_id": "foio-nz:event:invalid",
+            "event_type": "MessageObserved",
+            "event_time": "not-a-date",
+            "request_ref": {"source_request_id": "evt-1"},
+            "evidence": [{"evidence_id": "evidence:invalid"}],
+        },
+    ])
 
     assert [event["event_time"] for event in timeline["events"]] == [None, None]
     assert timeline["warning_count"] == 2
