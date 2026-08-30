@@ -10,8 +10,8 @@ that their provenance and approval boundaries are inspectable.
 
 ```mermaid
 flowchart LR
-  A[FYI / Alaveteli public records] --> B[fyi-cli capture and deltas]
-  B --> C[fyi-archive manifests and provenance]
+  A[FYI / Alaveteli public records] --> B[fyi-cli capture & archive]
+  B --> C[fyi-cli provenance & manifests]
   C --> D[Hugging Face / Zenodo / OSF]
   C --> E[foi-process document evidence and OCR]
   E --> F[nlp-policy-nz candidate extraction]
@@ -37,10 +37,12 @@ public metadata, not an implementation dependency for FOI-O governance.
 
 ### 2. Archive layer
 
-`fyi-cli` captures source and delta inputs. `fyi-archive` preserves source
-material, produces manifests and publication packages, and sends versioned
-datasets to Hugging Face and preservation services. This layer prioritises
-fidelity over interpretation.
+`fyi-cli` captures source and delta inputs and executes active archive orchestration
+(succeeding `fyi-archive`). It preserves source material, produces manifests and
+publication packages, and sends versioned datasets to Hugging Face (`fyi-archive-nz`)
+and preservation services. Historical captures and citations referencing `fyi-archive`
+remain preserved as valid historical provenance. This layer prioritises fidelity over
+interpretation.
 
 ### 3. Semantic layer
 

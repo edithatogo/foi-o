@@ -20,7 +20,7 @@
   ],
   "properties": {
     "schema_version": {"const": "foi-o.consumer-extraction-contract.v0.1.0"},
-    "consumer_id": {"enum": ["foi-o-nz", "fyi-archive", "nlp-policy-nz", "foi-o-read-only-mcp"]},
+    "consumer_id": {"enum": ["foi-o-nz", "fyi-archive", "fyi-cli", "nlp-policy-nz", "foi-o-read-only-mcp"]},
     "consumer_surface": {"enum": ["producer_validation", "archive_derived_layer", "candidate_extraction", "read_only_mcp"]},
     "contract_id": {"const": "foi-o.extraction-contract"},
     "accepted_versions": {

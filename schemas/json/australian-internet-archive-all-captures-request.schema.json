@@ -30,7 +30,7 @@
       "additionalProperties": false,
       "required": ["repository", "revision", "workflow_path", "workflow_dispatch_only"],
       "properties": {
-        "repository": {"const": "edithatogo/fyi-archive"},
+        "repository": {"enum": ["edithatogo/fyi-archive", "edithatogo/fyi-cli"]},
         "revision": {"const": "4d410d6"},
         "workflow_path": {"const": ".github/workflows/alaveteli_historical_all_captures.yml"},
         "workflow_dispatch_only": {"const": true}

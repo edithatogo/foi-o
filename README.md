@@ -18,8 +18,8 @@ governance programme:
 
 | Repository | Role |
 | --- | --- |
-| [`fyi-cli`](https://github.com/edithatogo/fyi-cli) | Capture, delta inputs, local request management, and Alaveteli-compatible monitoring and exports. |
-| [`fyi-archive`](https://github.com/edithatogo/fyi-archive) | Read-only archive orchestration, manifests, provenance, dataset packaging, and publication to Hugging Face, Zenodo, and OSF. |
+| [`fyi-cli`](https://github.com/edithatogo/fyi-cli) | Active capture, archive orchestration, delta inputs, local request management, Alaveteli monitoring, manifests, and dataset packaging (succeeding `fyi-archive`). |
+| [`fyi-archive`](https://github.com/edithatogo/fyi-archive) | Historical read-only archive orchestration, manifests, provenance, and dataset publication (archived; succeeded by `fyi-cli`). |
 | [`foi-process`](https://github.com/edithatogo/foi-process) | Integration spine for document evidence, OCR, and process views. |
 | [`foi-o`](https://github.com/edithatogo/foi-o) | Core ontology method plus versioned process and jurisdiction contracts; this repository currently packages the NZ implementation as `foi-o-nz`. |
 | [`nlp-policy-nz`](https://github.com/edithatogo/nlp-policy-nz) | Review-bounded extraction and empirical adapter evaluation; its outputs remain candidates until promoted by humans. |
@@ -31,8 +31,8 @@ The first milestone is **not** an autonomous FOI decision system. It is an audit
 
 ```mermaid
 flowchart LR
-  A[FYI / Alaveteli public records] --> B[fyi-cli capture]
-  B --> C[fyi-archive provenance and packaging]
+  A[FYI / Alaveteli public records] --> B[fyi-cli capture & archive]
+  B --> C[fyi-cli provenance & packaging]
   C --> D[Hugging Face / Zenodo / OSF]
   C --> E[foi-process evidence and OCR]
   E --> F[nlp-policy-nz candidate extraction]

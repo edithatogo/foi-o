@@ -32,8 +32,8 @@ The initial repo should own:
 
 The repo should depend on, rather than absorb, existing projects:
 
-- `fyi-cli` for capture and user-side request-management tools;
-- `fyi-archive` for archive orchestration and publication;
+- `fyi-cli` for capture, active archive orchestration, and request-management tools (succeeding `fyi-archive`);
+- `fyi-archive` as historical archive repository and reference provenance;
 - `fyi-archive-nz` for the public corpus;
 - NZ Legislation API / legislation.govt.nz for statutes;
 - Ombudsman and PSC resources for guidance and reporting definitions.

@@ -34,7 +34,7 @@
       ],
       "properties": {
         "provider": {"const": "Internet Archive CDX"},
-        "repository": {"const": "edithatogo/fyi-archive"},
+        "repository": {"enum": ["edithatogo/fyi-archive", "edithatogo/fyi-cli"]},
         "workflow_run_id": {"type": "string", "pattern": "^[0-9]+$"},
         "artifact_name": {"type": "string", "minLength": 1},
         "artifact_id": {"type": "string", "pattern": "^[0-9]+$"},
