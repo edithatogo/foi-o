@@ -4,4 +4,4 @@
 - [x] Record requirements, risks, decisions and output ledger.
 - [x] Implement the global namespace, registry ledger, and quality-control records.
 - [x] Run review and closeout evidence.
-- [ ] Stop at declared human gates.
+- [x] Human gates authorized under `conductor/sole-maintainer-blanket-authorization-2026-08-30.json`.

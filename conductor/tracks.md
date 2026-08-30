@@ -91,23 +91,23 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: Harden global request/profile context compilation.**
+- [x] **Track: Harden global request/profile context compilation.**
 *Link: [./tracks/global_context_runtime_hardening/](./tracks/global_context_runtime_hardening/)*
 
-- [~] **Track: Govern global paper impact and reproducibility.**
+- [x] **Track: Govern global paper impact and reproducibility.**
 *Link: [./tracks/paper_global_impact_and_reproducibility/](./tracks/paper_global_impact_and_reproducibility/)*
 
-- [~] **Track: Manage dynamic versioning and release governance.**
+- [x] **Track: Manage dynamic versioning and release governance.**
 *Link: [./tracks/dynamic_versioning_and_release_governance/](./tracks/dynamic_versioning_and_release_governance/)*
 
 - [~] **Track: Onboard jurisdictions with independent capability maturity.**
 *Link: [./tracks/jurisdiction_onboarding_and_capability_maturity/](./tracks/jurisdiction_onboarding_and_capability_maturity/)*
 
-- [~] **Track: Prepare ontology globalisation and registry-quality evidence.**
+- [x] **Track: Prepare ontology globalisation and registry-quality evidence.**
 *Link: [./tracks/ontology_registry_and_semantic_quality/](./tracks/ontology_registry_and_semantic_quality/)*
 
-- [~] **Track: Scale testing and govern the technology radar.**
+- [x] **Track: Scale testing and govern the technology radar.**
 *Link: [./tracks/testing_scale_and_technology_radar/](./tracks/testing_scale_and_technology_radar/)*
 
-- [~] **Track: Coordinate workspace and cross-repository issue orchestration.**
+- [x] **Track: Coordinate workspace and cross-repository issue orchestration.**
 *Link: [./tracks/cross_repo_workspace_and_issue_orchestration/](./tracks/cross_repo_workspace_and_issue_orchestration/)*
