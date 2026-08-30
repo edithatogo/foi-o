@@ -72,6 +72,9 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
     `upstream_verified: false`; no sibling checkout or upstream outcome was used.
 - [ ] Re-extract the pinned `fyi-archive-nz` snapshot and compare it with the
   initial ontology-based baseline without overwriting raw archive records.
+  > Parallelization note: this task and the FYI raw-state mapping audit below
+  > are mutually independent and may proceed concurrently; the dual-analysis
+  > freeze task must wait for both.
   - `BLOCKED 2026-07-16`: the governed one-record local candidate re-extraction
     and deterministic reproducibility delta are complete, but empirical
     comparison remains blocked by absent independent annotation and
@@ -838,6 +841,10 @@ GitHub subissues: [#25](https://github.com/edithatogo/foi-o/issues/25),
 - [ ] Generate a versioned release-evidence bundle containing tag/SHA, contract
   versions, capabilities, tests, fixtures, provenance, empirical results,
   exceptions, migrations, and limitations.
+  > Verification note: the recorded tag/SHA must be captured and hash-verified
+  > at bundle-generation time against the live `main` head — not at plan-write
+  > time — because parallel active tracks advance the repository head between
+  > generations.
   - `BLOCKED 2026-07-17`: there is no eligible immutable release target because
     empirical comparison, independent fixture promotion, and empirical
     annotation, adjudication, and reliability evaluation remain incomplete.

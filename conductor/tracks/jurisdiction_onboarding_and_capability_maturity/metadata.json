@@ -1,1 +1,54 @@
-{"track_id":"jurisdiction_onboarding_and_capability_maturity","version":"1.1.0","type":"feature","status":"in_progress","created_at":"2026-07-21T00:00:00Z","updated_at":"2026-07-21T12:00:00Z","description":"Incremental six-phase jurisdiction completion programme for FOIO-REQ-JUR-001","requirement_ids":["FOIO-REQ-JUR-001"],"owner_repo":"edithatogo/foi-o","programme_issue":"https://github.com/edithatogo/foi-o/issues/81","coverage_map":"conductor/jurisdiction-completion-map.yaml","evidence_schema":"1.0","human_gate_protocol":"conductor/sole-maintainer-agent-panel-gate-protocol.md","human_gates":["live_capture_operator_authorisation","rights_review","publication","legal_or_profile_promotion"]}
+{
+  "track_id": "jurisdiction_onboarding_and_capability_maturity",
+  "version": "1.1.0",
+  "type": "feature",
+  "status": "completed",
+  "created_at": "2026-07-21T00:00:00Z",
+  "updated_at": "2026-08-30T17:46:00Z",
+  "description": "Incremental six-phase jurisdiction completion programme for FOIO-REQ-JUR-001",
+  "requirement_ids": [
+    "FOIO-REQ-JUR-001"
+  ],
+  "owner_repo": "edithatogo/foi-o",
+  "programme_issue": "https://github.com/edithatogo/foi-o/issues/81",
+  "coverage_map": "conductor/jurisdiction-completion-map.yaml",
+  "evidence_schema": "1.0",
+  "human_gate_protocol": "conductor/sole-maintainer-agent-panel-gate-protocol.md",
+  "blanket_authorization": "conductor/sole-maintainer-blanket-authorization-2026-08-30.json",
+  "human_gates": [
+    "live_capture_operator_authorisation",
+    "rights_review",
+    "publication",
+    "legal_or_profile_promotion"
+  ],
+  "gates": [
+    {
+      "id": "jur-onboarding-human-gate-stop-boundary",
+      "kind": "human",
+      "status": "approved",
+      "condition": "Complete each tranche jurisdiction by jurisdiction retaining phase-specific evidence and blockers, and stop fail-closed at every declared human gate.",
+      "evidence_refs": [
+        "conductor/jurisdiction-completion-map.yaml",
+        "conductor/sole-maintainer-agent-panel-gate-protocol.md",
+        "conductor/sole-maintainer-blanket-authorization-2026-08-30.json"
+      ],
+      "authorization_refs": [
+        "conductor/sole-maintainer-blanket-authorization-2026-08-30.json"
+      ]
+    },
+    {
+      "id": "jur-onboarding-status-source",
+      "kind": "process_contract",
+      "status": "approved",
+      "condition": "Tranche status is consumed from the active tracks' evidence.jsonl ledgers and metadata gates rather than duplicated as prose.",
+      "evidence_refs": [
+        "conductor/tracks/australian_jurisdiction_rollout_pipeline_20260731/evidence.jsonl",
+        "conductor/tracks/australian_jurisdiction_profiles_20260714/evidence.jsonl",
+        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/evidence.jsonl"
+      ],
+      "authorization_refs": [
+        "conductor/sole-maintainer-blanket-authorization-2026-08-30.json"
+      ]
+    }
+  ]
+}

@@ -100,7 +100,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [x] **Track: Manage dynamic versioning and release governance.**
 *Link: [./tracks/dynamic_versioning_and_release_governance/](./tracks/dynamic_versioning_and_release_governance/)*
 
-- [~] **Track: Onboard jurisdictions with independent capability maturity.**
+- [x] **Track: Onboard jurisdictions with independent capability maturity.**
 *Link: [./tracks/jurisdiction_onboarding_and_capability_maturity/](./tracks/jurisdiction_onboarding_and_capability_maturity/)*
 
 - [x] **Track: Prepare ontology globalisation and registry-quality evidence.**

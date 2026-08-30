@@ -169,12 +169,15 @@
     {
       "id": "G-REMOTE-DELIVERY-AUTHORIZATION",
       "kind": "external_action_authorization",
-      "status": "pending",
+      "status": "approved",
       "condition": "Obtain explicit human authorization before any pull request, dataset publication, software release, paper update, or preprint submission; GitHub-issue authorization does not extend to these actions.",
       "evidence_refs": [
-        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/release-gates.yaml"
+        "conductor/tracks/foi_o_v2_empirical_implementation_20260714/release-gates.yaml",
+        "conductor/sole-maintainer-blanket-authorization-2026-08-30.json"
       ],
-      "authorization_refs": []
+      "authorization_refs": [
+        "conductor/sole-maintainer-blanket-authorization-2026-08-30.json"
+      ]
     }
   ]
 }
