@@ -86,7 +86,7 @@ This file tracks all major tracks for the project. Each track has its own detail
 - [~] **Track: Coordinate remaining evidence and release gates across NZ, Australia, and destination publication.**
 *Link: [./tracks/remaining_evidence_and_release_gates_20260803/](./tracks/remaining_evidence_and_release_gates_20260803/)*
 
-- [~] **Track: Separate reusable public governance contracts from case-specific approval, provenance, and execution metadata.**
+- [x] **Track: Separate reusable public governance contracts from case-specific approval, provenance, and execution metadata.**
 *Link: [./tracks/public_governance_metadata_refactor_20260803/](./tracks/public_governance_metadata_refactor_20260803/)*
 
 ---

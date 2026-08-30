@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hashlib
+import json
 import re
 from pathlib import Path
 from typing import Any
@@ -25,8 +27,6 @@ def validate_generic_governance_metadata(
         schema_result = validate_json_schema(metadata_path_or_dict, GENERIC_GOVERNANCE_SCHEMA)
         if schema_result.errors:
             raise ValueError(f"schema validation failed: {'; '.join(schema_result.errors)}")
-        import json
-
         data = json.loads(metadata_path_or_dict.read_text(encoding="utf-8"))
     else:
         data = metadata_path_or_dict
@@ -52,8 +52,6 @@ def validate_provenance_reference(
         schema_result = validate_json_schema(reference_path_or_dict, PROVENANCE_REFERENCE_SCHEMA)
         if schema_result.errors:
             raise ValueError(f"schema validation failed: {'; '.join(schema_result.errors)}")
-        import json
-
         data = json.loads(reference_path_or_dict.read_text(encoding="utf-8"))
     else:
         data = reference_path_or_dict
@@ -68,3 +66,54 @@ def validate_provenance_reference(
         raise ValueError(f"invalid content SHA-256: {sha}")
 
     return {"ok": True, "reference_id": data.get("reference_id")}
+
+
+def is_public_safe_manifest(manifest: dict[str, Any]) -> tuple[bool, list[str]]:
+    """Audit a release manifest or metadata structure for restricted path leakage or case IDs."""
+    errors: list[str] = []
+    manifest_str = json.dumps(manifest)
+
+    # Check for direct presence of restricted path keywords
+    if "/private/tmp" in manifest_str or "/tmp/" in manifest_str:
+        errors.append("manifest contains temporary path reference (/tmp or /private/tmp)")
+    if "/opt/homebrew" in manifest_str or "/opt/" in manifest_str:
+        errors.append("manifest contains local package-manager path reference (/opt)")
+    if "/Users/" in manifest_str:
+        errors.append("manifest contains user home directory path reference (/Users/)")
+
+    # Check files list if present
+    files = manifest.get("files", [])
+    if isinstance(files, list):
+        for item in files:
+            if isinstance(item, dict):
+                path = item.get("path", "")
+                if _INVALID_PATH_PATTERNS.search(path):
+                    errors.append(f"restricted path pattern detected in file entry: {path}")
+
+    return len(errors) == 0, errors
+
+
+def build_public_governance_provenance_map(
+    repo_root: Path, file_paths: list[str]
+) -> list[dict[str, Any]]:
+    """Build opaque, hash-pinned provenance reference entries for a list of repo files."""
+    results: list[dict[str, Any]] = []
+    for rel_path in sorted(file_paths):
+        if _INVALID_PATH_PATTERNS.search(rel_path):
+            raise ValueError(f"file path violates public governance safety: {rel_path}")
+        target = repo_root / rel_path
+        if not target.is_file():
+            raise FileNotFoundError(f"target file not found: {target}")
+        sha = hashlib.sha256(target.read_bytes()).hexdigest()
+        sanitized_id = re.sub(r"[^a-z0-9-]", "-", rel_path.lower().replace(".", "-"))
+        results.append(
+            {
+                "schema_version": "foi-o.provenance-reference.v0.1.0",
+                "reference_id": f"ref-{sanitized_id}",
+                "relative_path": rel_path,
+                "content_sha256": sha,
+                "classification": "public_asset",
+                "redacted": False,
+            }
+        )
+    return results

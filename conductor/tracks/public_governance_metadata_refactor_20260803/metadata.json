@@ -1,7 +1,7 @@
 {
   "track_id": "public_governance_metadata_refactor_20260803",
   "type": "refactor",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-08-03T14:00:00Z",
   "updated_at": "2026-08-03T14:30:00Z",
   "description": "Separate reusable public governance contracts from case-specific approval, provenance, and execution metadata.",
