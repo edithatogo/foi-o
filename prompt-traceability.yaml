@@ -9,8 +9,8 @@ project:
   github_project: https://github.com/users/edithatogo/projects/29
 sections:
   - {section: "0", title: operating principles, status: incorporated, evidence: [AGENTS.md, conductor/workflow.md]}
-  - {section: "1", title: validate and inventory bundle, status: verified, evidence: [.codex/foio-nextgen-input/tools/validate_bundle.py, workspace-audit.md]}
-  - {section: "2", title: workspace discovery and live GitHub audit, status: incorporated, evidence: [workspace.lock.yaml, workspace-audit.md, conductor/cross-repo-issue-map.yaml]}
+  - {section: "1", title: validate and inventory bundle, status: verified, evidence: [.codex/foio-nextgen-input/tools/validate_bundle.py, reports/workspace-audit-2026-08-30.md]}
+  - {section: "2", title: workspace discovery and live GitHub audit, status: incorporated, evidence: [workspace.lock.yaml, reports/workspace-audit-2026-08-30.md, conductor/cross-repo-issue-map.yaml]}
   - {section: "3", title: Conductor hierarchy and required tracks, status: incorporated_candidate, evidence: [conductor/tracks.md, conductor/tracks/, conductor/product.md]}
   - {section: "4", title: P0 runtime and context hardening, status: implemented_candidate, evidence: [src/foi_o_nz/context_pack.py, src/foi_o_nz/agent_pack.py, src/foi_o_nz/profile_runtime.py, src/foi_o_nz/capability_registry.py, tests/test_context_pack.py, tests/test_global_runtime_contracts.py], issue: https://github.com/edithatogo/foi-o/issues/72}
   - {section: "5", title: jurisdiction onboarding operating system, status: tracked_and_cross_repo_wired, evidence: [profiles/registry.yaml, profiles/roadmap.yaml, profiles/jurisdiction-pack-template.yaml, profiles/capability-maturity.yaml, operations/access-policy.yaml, conductor/tracks/jurisdiction_onboarding_and_capability_maturity/, conductor/cross-repo-issue-map.yaml], issue: https://github.com/edithatogo/foi-o/issues/24}
@@ -25,7 +25,7 @@ sections:
   - {section: "14", title: governed self-improvement, status: incorporated_as_policy, evidence: [technology-radar.yaml, conductor-feature-radar.yaml, conductor/tracks/testing_scale_and_technology_radar/]}
   - {section: "15", title: cross-repository issue orchestration, status: wired, evidence: [conductor/cross-repo-issue-map.yaml, issue-creation-ledger.json], project: https://github.com/users/edithatogo/projects/29}
   - {section: "16", title: implementation order, status: tracked_by_tracks_and_requirements, evidence: [requirements.yaml, conductor/tracks.md]}
-  - {section: "17", title: validation and acceptance, status: partially_verified, evidence: [conductor/tracks/global_context_runtime_hardening/IMPLEMENTATION_REPORT.md, workspace-audit.md, tests/test_global_runtime_contracts.py, scripts/validate_workflows.py]}
+  - {section: "17", title: validation and acceptance, status: partially_verified, evidence: [conductor/tracks/global_context_runtime_hardening/IMPLEMENTATION_REPORT.md, reports/workspace-audit-2026-08-30.md, tests/test_global_runtime_contracts.py, scripts/validate_workflows.py]}
   - {section: "18", title: required final outputs, status: incorporated_candidate, evidence: [conductor/tracks/global_context_runtime_hardening/IMPLEMENTATION_REPORT.md, issue-creation-ledger.json, workspace.lock.yaml]}
 human_gates:
   - legal_or_profile_certification

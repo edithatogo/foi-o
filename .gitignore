@@ -37,3 +37,9 @@ Thumbs.db
 .playwright-mcp/
 output/
 foi-o-codex-autostart.zip
+
+# Historical snapshots and one-shot scaffolds (archive outside the repo tree)
+*.bundle
+foi-o-v2-codex-one-shot/
+foi-o-v2-codex-one-shot.zip
+.hypothesis/

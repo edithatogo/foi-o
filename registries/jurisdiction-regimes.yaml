@@ -1,0 +1,1513 @@
+registry_id: foio.jurisdiction-regimes
+version: 1.0.0
+description: Canonical declarative registry of statutory FOI regime profiles consumed by the agent-triangulated Medallion
+  pipeline.
+profiles:
+- id: NZ
+  jurisdiction: NZ
+  regime: OIA
+  statute_name: Official Information Act 1982
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Public Service Agencies & Ministers
+  exemption_clauses:
+  - s6(a)
+  - s6(b)
+  - s9(2)(a)
+  - s9(2)(ba)
+  - s9(2)(f)(iv)
+  - s18(e)
+- id: NZ-OIA
+  jurisdiction: NZ-OIA
+  regime: OIA
+  statute_name: Official Information Act 1982
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Public Service Agencies & Ministers
+  exemption_clauses:
+  - s6(a)
+  - s6(b)
+  - s9(2)(a)
+  - s9(2)(ba)
+  - s9(2)(f)(iv)
+  - s18(e)
+- id: NZ-LGOIMA
+  jurisdiction: NZ-LGOIMA
+  regime: LGOIMA
+  statute_name: Local Government Official Information and Meetings Act 1987
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Local Authorities & Regional Councils
+  exemption_clauses:
+  - s6
+  - s7(2)(a)
+  - s7(2)(b)
+  - s17
+- id: AU-CTH
+  jurisdiction: AU-CTH
+  regime: FOI
+  statute_name: Freedom of Information Act 1982 (Cth)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Commonwealth Departments & Prescribed Authorities
+  exemption_clauses:
+  - s33
+  - s47
+  - s47C
+  - s47E
+  - s47F
+- id: AU-NSW
+  jurisdiction: AU-NSW
+  regime: GIPA
+  statute_name: Government Information (Public Access) Act 2009 (NSW)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: NSW Public Sector Agencies
+  exemption_clauses:
+  - s14 Table 1
+  - s14 Table 3
+  - s14 Table 4
+  - s58(1)(b)
+- id: AU-VIC
+  jurisdiction: AU-VIC
+  regime: FOI
+  statute_name: Freedom of Information Act 1982 (Vic)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Victorian Government Agencies & Councils
+  exemption_clauses:
+  - s28
+  - s30
+  - s33
+  - s35
+  - s25A
+- id: AU-QLD
+  jurisdiction: AU-QLD
+  regime: RTI
+  statute_name: Right to Information Act 2009 (Qld)
+  statutory_timeframe_days: 25
+  timeframe_type: working_days
+  default_agency_scope: Queensland Public Authorities
+  exemption_clauses:
+  - Schedule 3
+  - Schedule 4 Part 3
+  - Schedule 4 Part 4
+- id: AU-WA
+  jurisdiction: AU-WA
+  regime: FOI
+  statute_name: Freedom of Information Act 1992 (WA)
+  statutory_timeframe_days: 45
+  timeframe_type: calendar_days
+  default_agency_scope: Western Australian State & Local Agencies
+  exemption_clauses:
+  - Schedule 1 Clause 1
+  - Schedule 1 Clause 3
+  - Schedule 1 Clause 4
+- id: AU-SA
+  jurisdiction: AU-SA
+  regime: FOI
+  statute_name: Freedom of Information Act 1991 (SA)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: South Australian Government Agencies
+  exemption_clauses:
+  - Schedule 1 Clause 1
+  - Schedule 1 Clause 6
+  - Schedule 1 Clause 7
+- id: AU-TAS
+  jurisdiction: AU-TAS
+  regime: RTI
+  statute_name: Right to Information Act 2009 (Tas)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Tasmanian Public Authorities
+  exemption_clauses:
+  - s26
+  - s35
+  - s36
+  - s39
+- id: AU-ACT
+  jurisdiction: AU-ACT
+  regime: FOI
+  statute_name: Freedom of Information Act 2016 (ACT)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: ACT Directorates & Territory Entities
+  exemption_clauses:
+  - Schedule 1
+  - Schedule 2
+- id: AU-NT
+  jurisdiction: AU-NT
+  regime: Information
+  statute_name: Information Act 2002 (NT)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Northern Territory Public Sector Organisations
+  exemption_clauses:
+  - s44
+  - s45
+  - s49
+  - s56
+- id: UK-FOIA
+  jurisdiction: UK-FOIA
+  regime: FOIA
+  statute_name: Freedom of Information Act 2000 (UK)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: UK Public Authorities & Government Departments
+  exemption_clauses:
+  - s21
+  - s22
+  - s30
+  - s35
+  - s36
+  - s40
+  - s42
+  - s43
+- id: UK-EIR
+  jurisdiction: UK-EIR
+  regime: EIR
+  statute_name: Environmental Information Regulations 2004 (UK)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Public Authorities holding environmental information
+  exemption_clauses:
+  - r12(4)(a)
+  - r12(4)(b)
+  - r12(5)(a)
+  - r12(5)(b)
+  - r13
+- id: SCOT-FOISA
+  jurisdiction: SCOT-FOISA
+  regime: FOISA
+  statute_name: Freedom of Information (Scotland) Act 2002
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Scottish Public Authorities
+  exemption_clauses:
+  - s25
+  - s27
+  - s30
+  - s33
+  - s36
+  - s38
+- id: SCOT-EIR
+  jurisdiction: SCOT-EIR
+  regime: EIR
+  statute_name: Environmental Information (Scotland) Regulations 2004
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Scottish Public Authorities with environmental remit
+  exemption_clauses:
+  - r10(4)
+  - r10(5)
+  - r11
+- id: EU-ACCESS-DOCUMENTS
+  jurisdiction: EU-ACCESS-DOCUMENTS
+  regime: Regulation 1049/2001
+  statute_name: Regulation (EC) No 1049/2001 (European Union)
+  statutory_timeframe_days: 15
+  timeframe_type: working_days
+  default_agency_scope: European Parliament, Council and Commission
+  exemption_clauses:
+  - Art 4(1)(a)
+  - Art 4(1)(b)
+  - Art 4(2)
+  - Art 4(3)
+- id: IE-FOI-DISCOVERY
+  jurisdiction: IE-FOI-DISCOVERY
+  regime: FOI
+  statute_name: Freedom of Information Act 2014 (Ireland)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Irish FOI Public Bodies
+  exemption_clauses:
+  - s28
+  - s29
+  - s30
+  - s31
+  - s32
+  - s35
+  - s36
+  - s37
+- id: CA-FED
+  jurisdiction: CA-FED
+  regime: ATIA
+  statute_name: Access to Information Act (R.S.C., 1985, c. A-1 Canada)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Canadian Federal Government Institutions
+  exemption_clauses:
+  - s13
+  - s14
+  - s15
+  - s16
+  - s19
+  - s20
+  - s21
+- id: US-FOIA-FED
+  jurisdiction: US-FOIA-FED
+  regime: FOIA
+  statute_name: Freedom of Information Act 5 U.S.C. § 552 (USA)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: United States Federal Executive Agencies
+  exemption_clauses:
+  - b(1)
+  - b(2)
+  - b(3)
+  - b(4)
+  - b(5)
+  - b(6)
+  - b(7)
+- id: ZA-PAIA
+  jurisdiction: ZA-PAIA
+  regime: PAIA
+  statute_name: Promotion of Access to Information Act 2 of 2000 (South Africa)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: South African Public and Private Bodies
+  exemption_clauses:
+  - s34
+  - s36
+  - s37
+  - s38
+  - s41
+  - s42
+  - s44
+- id: Germany/FragDenStaat
+  jurisdiction: Germany/FragDenStaat
+  regime: IFG
+  statute_name: Informationsfreiheitsgesetz (IFG Germany)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: German Federal & State Public Authorities
+  exemption_clauses:
+  - § 3
+  - § 4
+  - § 5
+  - § 6
+- id: Spain/Tu Derecho a Saber
+  jurisdiction: Spain/Tu Derecho a Saber
+  regime: LTA
+  statute_name: Ley 19/2013 de transparencia y acceso a la información (Spain)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Spanish Public Administration & Constitutional Bodies
+  exemption_clauses:
+  - Art 14.1(a)
+  - Art 14.1(f)
+  - Art 14.1(h)
+  - Art 15
+- id: Ireland/MyRightToKnow
+  jurisdiction: Ireland/MyRightToKnow
+  regime: FOI
+  statute_name: Freedom of Information Act 2014 (Ireland MRTK)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Irish Public Sector Bodies
+  exemption_clauses:
+  - s29
+  - s30
+  - s31
+  - s35
+  - s36
+  - s37
+- id: Czech Republic
+  jurisdiction: Czech Republic
+  regime: 106/1999
+  statute_name: Zákon č. 106/1999 Sb. o svobodném přístupu k informacím (Czech Republic)
+  statutory_timeframe_days: 15
+  timeframe_type: calendar_days
+  default_agency_scope: Czech State Bodies and Self-Governing Units
+  exemption_clauses:
+  - § 7
+  - § 8a
+  - § 9
+  - § 11
+- id: France
+  jurisdiction: France
+  regime: CRPA
+  statute_name: Code des relations entre le public et l'administration (CADA France)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: French Public Administrations & Local Authorities
+  exemption_clauses:
+  - L311-5
+  - L311-6
+- id: Sweden
+  jurisdiction: Sweden
+  regime: TF
+  statute_name: Tryckfrihetsförordningen 1766 / Offentlighetsprincipen (Sweden)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Swedish Government Agencies & Municipalities
+  exemption_clauses:
+  - OSL Kap 15
+  - OSL Kap 18
+  - OSL Kap 21
+- id: Netherlands
+  jurisdiction: Netherlands
+  regime: Woo
+  statute_name: Wet open overheid (Woo Netherlands)
+  statutory_timeframe_days: 28
+  timeframe_type: calendar_days
+  default_agency_scope: Dutch Administrative Authorities
+  exemption_clauses:
+  - Art 5.1
+  - Art 5.2
+- id: Belgium
+  jurisdiction: Belgium
+  regime: WOB
+  statute_name: Wet betreffende de openbaarheid van bestuur (Belgium)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Belgian Federal & Regional Public Authorities
+  exemption_clauses:
+  - Art 6 §1
+  - Art 6 §2
+- id: Croatia
+  jurisdiction: Croatia
+  regime: ZPPI
+  statute_name: Zakon o pravu na pristup informacijama (Croatia)
+  statutory_timeframe_days: 15
+  timeframe_type: calendar_days
+  default_agency_scope: Croatian Public Authority Bodies
+  exemption_clauses:
+  - Članak 15
+- id: Hungary
+  jurisdiction: Hungary
+  regime: Infotv
+  statute_name: 2011. évi CXII. törvény (Infotv Hungary)
+  statutory_timeframe_days: 15
+  timeframe_type: calendar_days
+  default_agency_scope: Hungarian Public Service and State Organs
+  exemption_clauses:
+  - 27. §
+- id: Ukraine
+  jurisdiction: Ukraine
+  regime: DPI
+  statute_name: Закон України «Про доступ до публічної інформації»
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Ukrainian State & Local Self-Government Bodies
+  exemption_clauses:
+  - Стаття 6
+  - Стаття 7
+  - Стаття 8
+  - Стаття 9
+- id: Greece
+  jurisdiction: Greece
+  regime: KDD
+  statute_name: Νόμος 2690/1999 Κώδικας Διοικητικής Διαδικασίας (Greece)
+  statutory_timeframe_days: 20
+  timeframe_type: calendar_days
+  default_agency_scope: Greek Public Administrative Services
+  exemption_clauses:
+  - Άρθρο 5 §3
+- id: Moldova
+  jurisdiction: Moldova
+  regime: L148
+  statute_name: Legea nr. 148/2023 privind accesul la informație (Moldova)
+  statutory_timeframe_days: 15
+  timeframe_type: calendar_days
+  default_agency_scope: Moldovan Public Authorities and Public Enterprises
+  exemption_clauses:
+  - Art 11
+  - Art 12
+- id: Hong Kong
+  jurisdiction: Hong Kong
+  regime: Code
+  statute_name: Code on Access to Information (Hong Kong)
+  statutory_timeframe_days: 21
+  timeframe_type: calendar_days
+  default_agency_scope: Hong Kong Government Departments & Policy Bureaux
+  exemption_clauses:
+  - Part 2 Clause 1-16
+- id: Uruguay
+  jurisdiction: Uruguay
+  regime: L18381
+  statute_name: Ley Nº 18.381 de Acceso a la Información Pública (Uruguay)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Uruguayan State Organs & Autonomous Entities
+  exemption_clauses:
+  - Art 9
+  - Art 10
+- id: Liberia
+  jurisdiction: Liberia
+  regime: FOI
+  statute_name: Freedom of Information Act 2010 (Liberia)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Liberian Public Authorities & Private Entities receiving public funds
+  exemption_clauses:
+  - Section 4.1-4.8
+- id: Colombia
+  jurisdiction: Colombia
+  regime: L1712
+  statute_name: Ley 1712 de 2014 de Transparencia y Acceso a la Información (Colombia)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Colombian Public Entities and Public Functionaries
+  exemption_clauses:
+  - Art 18
+  - Art 19
+- id: New Jersey USA
+  jurisdiction: New Jersey USA
+  regime: OPRA
+  statute_name: New Jersey Open Public Records Act (OPRA N.J.S.A. 47:1A-1)
+  statutory_timeframe_days: 7
+  timeframe_type: working_days
+  default_agency_scope: New Jersey State & Municipal Government Agencies
+  exemption_clauses:
+  - N.J.S.A. 47:1A-1.1
+  - Executive Orders
+- id: Argentina
+  jurisdiction: Argentina
+  regime: L27275
+  statute_name: Ley 27.275 de Derecho de Acceso a la Información Pública (Argentina)
+  statutory_timeframe_days: 15
+  timeframe_type: working_days
+  default_agency_scope: Argentine National Executive, Legislative and Judicial Bodies
+  exemption_clauses:
+  - Art 8
+- id: Georgia
+  jurisdiction: Georgia
+  regime: GAC
+  statute_name: General Administrative Code of Georgia (Chapter 3)
+  statutory_timeframe_days: 10
+  timeframe_type: calendar_days
+  default_agency_scope: Georgian Public Institutions & Administrative Bodies
+  exemption_clauses:
+  - Article 28
+  - Article 29
+- id: Romania
+  jurisdiction: Romania
+  regime: L544
+  statute_name: Legea nr. 544/2001 privind liberul acces la informații de interes public (Romania)
+  statutory_timeframe_days: 10
+  timeframe_type: calendar_days
+  default_agency_scope: Romanian Public Authorities and Institutions
+  exemption_clauses:
+  - Art 12
+- id: Kosovo
+  jurisdiction: Kosovo
+  regime: L06-L081
+  statute_name: Ligji Nr. 06/L-081 për Qasje në Dokumente Publike (Kosovo)
+  statutory_timeframe_days: 7
+  timeframe_type: calendar_days
+  default_agency_scope: Kosovo Public Institutions and Bodies
+  exemption_clauses:
+  - Neni 17
+- id: UK-ENG-FOIA
+  jurisdiction: UK-ENG-FOIA
+  regime: FOIA
+  statute_name: Freedom of Information Act 2000 (England & UK-Wide)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: UK Government Departments & English Public Authorities
+  exemption_clauses:
+  - s21
+  - s22
+  - s30
+  - s35
+  - s36
+  - s40
+  - s42
+  - s43
+- id: UK-WALES-FOIA
+  jurisdiction: UK-WALES-FOIA
+  regime: FOIA
+  statute_name: Freedom of Information Act 2000 (Wales) & Welsh Language Standards
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Welsh Government, Senedd Cymru, Welsh Local Authorities & NHS Wales
+  exemption_clauses:
+  - s21
+  - s22
+  - s35
+  - s36
+  - s40
+  - s42
+- id: UK-NI-FOIA
+  jurisdiction: UK-NI-FOIA
+  regime: FOIA
+  statute_name: Freedom of Information Act 2000 (Northern Ireland)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Northern Ireland Executive Departments, Assembly & District Councils
+  exemption_clauses:
+  - s21
+  - s22
+  - s35
+  - s36
+  - s40
+  - s42
+- id: US-AL
+  jurisdiction: US-AL
+  regime: Open Records
+  statute_name: Alabama Open Records Act (Ala. Code § 36-12-40)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Alabama State and Municipal Agencies
+  exemption_clauses:
+  - § 36-12-40 exceptions
+  - Executive Privilege
+- id: US-AK
+  jurisdiction: US-AK
+  regime: PRA
+  statute_name: Alaska Public Records Act (AS 40.25.110)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Alaska State Agencies & Boroughs
+  exemption_clauses:
+  - AS 40.25.120
+- id: US-AZ
+  jurisdiction: US-AZ
+  regime: Public Records
+  statute_name: Arizona Public Records Law (A.R.S. § 39-121)
+  statutory_timeframe_days: 15
+  timeframe_type: working_days
+  default_agency_scope: Arizona State, County, and City Bodies
+  exemption_clauses:
+  - A.R.S. § 39-121.01(D)
+  - Confidentiality Statutes
+- id: US-AR
+  jurisdiction: US-AR
+  regime: FOIA
+  statute_name: Arkansas Freedom of Information Act (Ark. Code Ann. § 25-19-101)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Arkansas State and Local Entities
+  exemption_clauses:
+  - § 25-19-105(b)
+- id: US-CA
+  jurisdiction: US-CA
+  regime: CPRA
+  statute_name: California Public Records Act (Cal. Gov. Code § 7920.000)
+  statutory_timeframe_days: 10
+  timeframe_type: calendar_days
+  default_agency_scope: California State and Local Public Agencies
+  exemption_clauses:
+  - Gov Code § 7927.705
+  - § 7927.700
+  - § 7922.000
+- id: US-CO
+  jurisdiction: US-CO
+  regime: CORA
+  statute_name: Colorado Open Records Act (C.R.S. § 24-72-201)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Colorado State and Municipal Entities
+  exemption_clauses:
+  - C.R.S. § 24-72-204
+- id: US-CT
+  jurisdiction: US-CT
+  regime: FOIA
+  statute_name: Connecticut Freedom of Information Act (Conn. Gen. Stat. § 1-200)
+  statutory_timeframe_days: 4
+  timeframe_type: working_days
+  default_agency_scope: Connecticut Executive, Legislative and Local Bodies
+  exemption_clauses:
+  - Conn. Gen. Stat. § 1-210(b)
+- id: US-DE
+  jurisdiction: US-DE
+  regime: FOIA
+  statute_name: Delaware Freedom of Information Act (29 Del. C. § 10001)
+  statutory_timeframe_days: 15
+  timeframe_type: working_days
+  default_agency_scope: Delaware Public Bodies
+  exemption_clauses:
+  - 29 Del. C. § 10002(o)
+- id: US-FL
+  jurisdiction: US-FL
+  regime: Sunshine Law
+  statute_name: Florida Public Records Act (Fla. Stat. ch. 119 / Sunshine Law)
+  statutory_timeframe_days: 7
+  timeframe_type: working_days
+  default_agency_scope: Florida State, County, and Municipal Agencies
+  exemption_clauses:
+  - Fla. Stat. § 119.071
+- id: US-GA
+  jurisdiction: US-GA
+  regime: Open Records
+  statute_name: Georgia Open Records Act (O.C.G.A. § 50-18-70)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Georgia State and Local Authorities
+  exemption_clauses:
+  - O.C.G.A. § 50-18-72
+- id: US-HI
+  jurisdiction: US-HI
+  regime: UIPA
+  statute_name: Hawaii Uniform Information Practices Act (HRS Chapter 92F)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Hawaii State and County Government Agencies
+  exemption_clauses:
+  - HRS § 92F-13
+- id: US-ID
+  jurisdiction: US-ID
+  regime: PRA
+  statute_name: Idaho Public Records Act (Idaho Code § 74-101)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Idaho State and Local Public Agencies
+  exemption_clauses:
+  - Idaho Code §§ 74-104 to 74-111
+- id: US-IL
+  jurisdiction: US-IL
+  regime: FOIA
+  statute_name: Illinois Freedom of Information Act (5 ILCS 140)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Illinois State and Municipal Public Bodies
+  exemption_clauses:
+  - 5 ILCS 140/7
+  - 5 ILCS 140/7.5
+- id: US-IN
+  jurisdiction: US-IN
+  regime: APRA
+  statute_name: Indiana Access to Public Records Act (IC 5-14-3)
+  statutory_timeframe_days: 7
+  timeframe_type: working_days
+  default_agency_scope: Indiana Public Agencies
+  exemption_clauses:
+  - IC 5-14-3-4
+- id: US-IA
+  jurisdiction: US-IA
+  regime: Open Records
+  statute_name: Iowa Open Records Act (Iowa Code Chapter 22)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Iowa Government Bodies
+  exemption_clauses:
+  - Iowa Code § 22.7
+- id: US-KS
+  jurisdiction: US-KS
+  regime: KORA
+  statute_name: Kansas Open Records Act (K.S.A. 45-215)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Kansas Public Agencies
+  exemption_clauses:
+  - K.S.A. 45-221
+- id: US-KY
+  jurisdiction: US-KY
+  regime: Open Records
+  statute_name: Kentucky Open Records Act (KRS 61.870)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Kentucky Public Agencies
+  exemption_clauses:
+  - KRS 61.878
+- id: US-LA
+  jurisdiction: US-LA
+  regime: Public Records
+  statute_name: Louisiana Public Records Law (La. R.S. 44:1)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Louisiana State and Municipal Custodians
+  exemption_clauses:
+  - La. R.S. 44:4.1
+- id: US-ME
+  jurisdiction: US-ME
+  regime: FOAA
+  statute_name: Maine Freedom of Access Act (1 M.R.S. § 401)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Maine Public Bodies & Agencies
+  exemption_clauses:
+  - 1 M.R.S. § 402(3)
+- id: US-MD
+  jurisdiction: US-MD
+  regime: PIA
+  statute_name: Maryland Public Information Act (Md. Code, Gen. Prov. § 4-101)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Maryland State and Local Government Units
+  exemption_clauses:
+  - GP §§ 4-301 to 4-356
+- id: US-MA
+  jurisdiction: US-MA
+  regime: Public Records
+  statute_name: Massachusetts Public Records Law (M.G.L. c. 66, § 10)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Massachusetts State and Municipal Agencies
+  exemption_clauses:
+  - M.G.L. c. 4, § 7(26)
+- id: US-MI
+  jurisdiction: US-MI
+  regime: FOIA
+  statute_name: Michigan Freedom of Information Act (MCL 15.231)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Michigan Public Bodies
+  exemption_clauses:
+  - MCL 15.243
+- id: US-MN
+  jurisdiction: US-MN
+  regime: MGDPA
+  statute_name: Minnesota Government Data Practices Act (Minn. Stat. § 13.01)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Minnesota State Agencies and Political Subdivisions
+  exemption_clauses:
+  - Minn. Stat. § 13.02
+  - Specific Classifications
+- id: US-MS
+  jurisdiction: US-MS
+  regime: Public Records
+  statute_name: Mississippi Public Records Act (Miss. Code Ann. § 25-61-1)
+  statutory_timeframe_days: 7
+  timeframe_type: working_days
+  default_agency_scope: Mississippi Public Bodies
+  exemption_clauses:
+  - Miss. Code Ann. § 25-61-9
+- id: US-MO
+  jurisdiction: US-MO
+  regime: Sunshine Law
+  statute_name: Missouri Sunshine Law (RSMo Chapter 610)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Missouri Public Governmental Bodies
+  exemption_clauses:
+  - RSMo § 610.021
+- id: US-MT
+  jurisdiction: US-MT
+  regime: Right to Know
+  statute_name: Montana Public Records Act (MCA 2-6-1001)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Montana State and Local Public Agencies
+  exemption_clauses:
+  - MCA 2-6-1002
+  - Constitutional Privacy Test
+- id: US-NE
+  jurisdiction: US-NE
+  regime: Public Records
+  statute_name: Nebraska Public Records Statutes (Neb. Rev. Stat. § 84-712)
+  statutory_timeframe_days: 4
+  timeframe_type: working_days
+  default_agency_scope: Nebraska Public Bodies
+  exemption_clauses:
+  - Neb. Rev. Stat. § 84-712.05
+- id: US-NV
+  jurisdiction: US-NV
+  regime: NPRA
+  statute_name: Nevada Public Records Act (NRS Chapter 239)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Nevada State and Local Government Entities
+  exemption_clauses:
+  - NRS 239.010 Table of Exceptions
+- id: US-NH
+  jurisdiction: US-NH
+  regime: Right-to-Know
+  statute_name: New Hampshire Right-to-Know Law (RSA 91-A)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: New Hampshire Public Bodies & Agencies
+  exemption_clauses:
+  - RSA 91-A:5
+- id: US-NJ
+  jurisdiction: US-NJ
+  regime: OPRA
+  statute_name: New Jersey Open Public Records Act (N.J.S.A. 47:1A-1)
+  statutory_timeframe_days: 7
+  timeframe_type: working_days
+  default_agency_scope: New Jersey State, County, and Municipal Entities
+  exemption_clauses:
+  - N.J.S.A. 47:1A-1.1
+  - Executive Orders
+- id: US-NM
+  jurisdiction: US-NM
+  regime: IPRA
+  statute_name: New Mexico Inspection of Public Records Act (NMSA 1978, § 14-2-1)
+  statutory_timeframe_days: 15
+  timeframe_type: calendar_days
+  default_agency_scope: New Mexico Public Bodies
+  exemption_clauses:
+  - NMSA 1978, § 14-2-1(A)
+- id: US-NY
+  jurisdiction: US-NY
+  regime: FOIL
+  statute_name: New York Freedom of Information Law (Public Officers Law § 84)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: New York State and Municipal Agencies
+  exemption_clauses:
+  - POL § 87(2)
+- id: US-NC
+  jurisdiction: US-NC
+  regime: Public Records
+  statute_name: North Carolina Public Records Law (N.C.G.S. Chapter 132)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: North Carolina Public Agencies
+  exemption_clauses:
+  - N.C.G.S. § 132-1.1 to 132-1.14
+- id: US-ND
+  jurisdiction: US-ND
+  regime: Open Records
+  statute_name: North Dakota Open Records Law (N.D.C.C. § 44-04-18)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: North Dakota Public Entities
+  exemption_clauses:
+  - N.D.C.C. §§ 44-04-18.1 to 44-04-18.28
+- id: US-OH
+  jurisdiction: US-OH
+  regime: Public Records
+  statute_name: Ohio Public Records Act (Ohio Rev. Code § 149.43)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Ohio Public Offices
+  exemption_clauses:
+  - R.C. 149.43(A)(1)
+- id: US-OK
+  jurisdiction: US-OK
+  regime: Open Records
+  statute_name: Oklahoma Open Records Act (51 O.S. § 24A.1)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Oklahoma Public Bodies
+  exemption_clauses:
+  - 51 O.S. §§ 24A.5 to 24A.29
+- id: US-OR
+  jurisdiction: US-OR
+  regime: Public Records
+  statute_name: Oregon Public Records Law (ORS 192.311)
+  statutory_timeframe_days: 15
+  timeframe_type: working_days
+  default_agency_scope: Oregon Public Bodies
+  exemption_clauses:
+  - ORS 192.345
+  - ORS 192.355
+- id: US-PA
+  jurisdiction: US-PA
+  regime: RTKL
+  statute_name: Pennsylvania Right-to-Know Law (65 P.S. § 67.101)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Pennsylvania Commonwealth, Local, and Legislative Agencies
+  exemption_clauses:
+  - 65 P.S. § 67.708(b)
+- id: US-RI
+  jurisdiction: US-RI
+  regime: APRA
+  statute_name: Rhode Island Access to Public Records Act (R.I. Gen. Laws § 38-2-1)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Rhode Island Public Bodies
+  exemption_clauses:
+  - R.I. Gen. Laws § 38-2-2(4)
+- id: US-SC
+  jurisdiction: US-SC
+  regime: FOIA
+  statute_name: South Carolina Freedom of Information Act (S.C. Code Ann. § 30-4-10)
+  statutory_timeframe_days: 15
+  timeframe_type: working_days
+  default_agency_scope: South Carolina Public Bodies
+  exemption_clauses:
+  - S.C. Code Ann. § 30-4-40
+- id: US-SD
+  jurisdiction: US-SD
+  regime: Open Records
+  statute_name: South Dakota Public Records Law (SDCL 1-27)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: South Dakota Public Agencies
+  exemption_clauses:
+  - SDCL 1-27-1.5
+- id: US-TN
+  jurisdiction: US-TN
+  regime: TPRA
+  statute_name: Tennessee Public Records Act (Tenn. Code Ann. § 10-7-503)
+  statutory_timeframe_days: 7
+  timeframe_type: working_days
+  default_agency_scope: Tennessee Governmental Entities
+  exemption_clauses:
+  - Tenn. Code Ann. § 10-7-504
+- id: US-TX
+  jurisdiction: US-TX
+  regime: PIA
+  statute_name: Texas Public Information Act (Tex. Gov't Code Chapter 552)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Texas Governmental Bodies
+  exemption_clauses:
+  - Tex. Gov't Code §§ 552.101 to 552.160
+- id: US-UT
+  jurisdiction: US-UT
+  regime: GRAMA
+  statute_name: Utah Government Records Access and Management Act (Utah Code § 63G-2-101)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Utah Governmental Entities
+  exemption_clauses:
+  - Utah Code §§ 63G-2-302 to 63G-2-305
+- id: US-VT
+  jurisdiction: US-VT
+  regime: Public Records
+  statute_name: Vermont Public Records Act (1 V.S.A. § 315)
+  statutory_timeframe_days: 3
+  timeframe_type: working_days
+  default_agency_scope: Vermont Public Agencies
+  exemption_clauses:
+  - 1 V.S.A. § 317(c)
+- id: US-VA
+  jurisdiction: US-VA
+  regime: VFOIA
+  statute_name: Virginia Freedom of Information Act (Va. Code § 2.2-3700)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Virginia Public Bodies
+  exemption_clauses:
+  - Va. Code §§ 2.2-3705.1 to 2.2-3705.8
+- id: US-WA
+  jurisdiction: US-WA
+  regime: PRA
+  statute_name: Washington Public Records Act (RCW 42.56)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: Washington State and Local Agencies
+  exemption_clauses:
+  - RCW 42.56.210 to 42.56.480
+- id: US-WV
+  jurisdiction: US-WV
+  regime: FOIA
+  statute_name: West Virginia Freedom of Information Act (W. Va. Code § 29B-1-1)
+  statutory_timeframe_days: 5
+  timeframe_type: working_days
+  default_agency_scope: West Virginia Public Bodies
+  exemption_clauses:
+  - W. Va. Code § 29B-1-4
+- id: US-WI
+  jurisdiction: US-WI
+  regime: Public Records
+  statute_name: Wisconsin Public Records Law (Wis. Stat. §§ 19.31-19.39)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Wisconsin Authorities
+  exemption_clauses:
+  - Wis. Stat. § 19.36
+  - Common Law Balancing Test
+- id: US-WY
+  jurisdiction: US-WY
+  regime: Public Records
+  statute_name: Wyoming Public Records Act (Wyo. Stat. Ann. § 16-4-201)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Wyoming Governmental Entities
+  exemption_clauses:
+  - Wyo. Stat. Ann. § 16-4-203
+- id: US-DC
+  jurisdiction: US-DC
+  regime: FOIA
+  statute_name: District of Columbia Freedom of Information Act (D.C. Code § 2-531)
+  statutory_timeframe_days: 15
+  timeframe_type: working_days
+  default_agency_scope: District of Columbia Executive Agencies & Council
+  exemption_clauses:
+  - D.C. Code § 2-534
+- id: US-PR
+  jurisdiction: US-PR
+  regime: Ley de Transparencia
+  statute_name: Ley de Transparencia y Acceso a la Información (Ley Núm. 141-2019 Puerto Rico)
+  statutory_timeframe_days: 10
+  timeframe_type: working_days
+  default_agency_scope: Puerto Rico Public Entities
+  exemption_clauses:
+  - Artículo 5
+- id: CA-ON
+  jurisdiction: CA-ON
+  regime: FIPPA/MFIPPA
+  statute_name: Freedom of Information and Protection of Privacy Act (R.S.O. 1990, c. F.31 Ontario)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Ontario Ministries, Agencies, Hospitals, Universities & Municipalities
+  exemption_clauses:
+  - s12
+  - s13
+  - s14
+  - s17
+  - s18
+  - s21
+- id: CA-QC
+  jurisdiction: CA-QC
+  regime: Loi sur l'accès
+  statute_name: Loi sur l'accès aux documents des organismes publics (RLRQ c. A-2.1 Québec)
+  statutory_timeframe_days: 20
+  timeframe_type: calendar_days
+  default_agency_scope: Québec Government Bodies, Municipalities & Health Agencies
+  exemption_clauses:
+  - Art 18
+  - Art 21
+  - Art 28
+  - Art 53
+- id: CA-BC
+  jurisdiction: CA-BC
+  regime: FIPPA
+  statute_name: Freedom of Information and Protection of Privacy Act (RSBC 1996 c. 165 BC)
+  statutory_timeframe_days: 30
+  timeframe_type: working_days
+  default_agency_scope: British Columbia Public Bodies
+  exemption_clauses:
+  - s12
+  - s13
+  - s14
+  - s15
+  - s17
+  - s22
+- id: CA-AB
+  jurisdiction: CA-AB
+  regime: FOIP
+  statute_name: Freedom of Information and Protection of Privacy Act (RSA 2000 c. F-25 Alberta)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Alberta Public Bodies
+  exemption_clauses:
+  - s16
+  - s17
+  - s20
+  - s24
+- id: CA-MB
+  jurisdiction: CA-MB
+  regime: FIPPA
+  statute_name: Freedom of Information and Protection of Privacy Act (C.C.S.M. c. F175 Manitoba)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Manitoba Public Bodies
+  exemption_clauses:
+  - s17
+  - s18
+  - s19
+  - s23
+- id: CA-SK
+  jurisdiction: CA-SK
+  regime: FOIP/LAFOIP
+  statute_name: Freedom of Information and Protection of Privacy Act (SS 1990-91 c. F-22.01 Saskatchewan)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Saskatchewan Government Institutions and Local Authorities
+  exemption_clauses:
+  - s16
+  - s17
+  - s19
+  - s29
+- id: CA-NS
+  jurisdiction: CA-NS
+  regime: FOIPOP
+  statute_name: Freedom of Information and Protection of Privacy Act (SNS 1993 c. 5 Nova Scotia)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Nova Scotia Public Bodies
+  exemption_clauses:
+  - s13
+  - s14
+  - s15
+  - s20
+- id: CA-NB
+  jurisdiction: CA-NB
+  regime: RTIPPA
+  statute_name: Right to Information and Protection of Privacy Act (SNB 2009 c. R-10.6 New Brunswick)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: New Brunswick Public Bodies
+  exemption_clauses:
+  - s17
+  - s18
+  - s21
+  - s26
+- id: CA-NL
+  jurisdiction: CA-NL
+  regime: ATIPPA
+  statute_name: Access to Information and Protection of Privacy Act, 2015 (SNL2015 c. A-1.2 NL)
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Newfoundland and Labrador Public Bodies
+  exemption_clauses:
+  - s27
+  - s29
+  - s31
+  - s39
+- id: CA-PE
+  jurisdiction: CA-PE
+  regime: FOIPP
+  statute_name: Freedom of Information and Protection of Privacy Act (RSPEI 1988 c. F-15.01 PEI)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Prince Edward Island Public Bodies
+  exemption_clauses:
+  - s14
+  - s15
+  - s18
+  - s22
+- id: CA-YT
+  jurisdiction: CA-YT
+  regime: ATIPP
+  statute_name: Access to Information and Protection of Privacy Act (SY 2019 c. 12 Yukon)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Yukon Public Bodies
+  exemption_clauses:
+  - s33
+  - s36
+  - s42
+- id: CA-NT
+  jurisdiction: CA-NT
+  regime: ATIPP
+  statute_name: Access to Information and Protection of Privacy Act (SNWT 1994 c. 20 NWT)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Northwest Territories Public Bodies
+  exemption_clauses:
+  - s14
+  - s17
+  - s23
+- id: CA-NU
+  jurisdiction: CA-NU
+  regime: ATIPP
+  statute_name: Access to Information and Protection of Privacy Act (SNWT (Nu) 1994 c. 20 Nunavut)
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Nunavut Public Bodies
+  exemption_clauses:
+  - s14
+  - s17
+  - s23
+- id: DE-BW
+  jurisdiction: DE-BW
+  regime: LIFG
+  statute_name: Landesinformationsfreiheitsgesetz Baden-Württemberg
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Landes Baden-Württemberg und der Kommunen
+  exemption_clauses:
+  - § 4
+  - § 5
+  - § 6
+- id: DE-BY
+  jurisdiction: DE-BY
+  regime: BayUIG
+  statute_name: Bayerisches Umweltinformationsgesetz / Kommunale Satzungen
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Bayerische Behörden (Umwelt) und Satzungsgemeinden
+  exemption_clauses:
+  - Art 7
+  - Art 8
+- id: DE-BE
+  jurisdiction: DE-BE
+  regime: BerlIFG
+  statute_name: Berliner Informationsfreiheitsgesetz
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Landes Berlin und Bezirksämter
+  exemption_clauses:
+  - § 6
+  - § 7
+  - § 8
+  - § 9
+- id: DE-BB
+  jurisdiction: DE-BB
+  regime: BbgIFG
+  statute_name: Brandenburgisches Informationsfreiheitsgesetz
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Landes Brandenburg
+  exemption_clauses:
+  - § 4
+  - § 5
+  - § 6
+- id: DE-HB
+  jurisdiction: DE-HB
+  regime: BremIFG
+  statute_name: Bremer Informationsfreiheitsgesetz
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden der Freien Hansestadt Bremen
+  exemption_clauses:
+  - § 4
+  - § 5
+  - § 6
+- id: DE-HH
+  jurisdiction: DE-HH
+  regime: HmbTG
+  statute_name: Hamburgisches Transparenzgesetz
+  statutory_timeframe_days: 15
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden der Freien und Hansestadt Hamburg
+  exemption_clauses:
+  - § 16
+  - § 17
+  - § 18
+- id: DE-HE
+  jurisdiction: DE-HE
+  regime: HGIG
+  statute_name: Hessisches Gesetz über die Freiheit des Informationszugangs
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Hessische Landes- und Kommunalbehörden
+  exemption_clauses:
+  - § 6
+  - § 7
+  - § 8
+- id: DE-MV
+  jurisdiction: DE-MV
+  regime: IFG M-V
+  statute_name: Informationsfreiheitsgesetz Mecklenburg-Vorpommern
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Landes Mecklenburg-Vorpommern
+  exemption_clauses:
+  - § 5
+  - § 6
+  - § 7
+- id: DE-NI
+  jurisdiction: DE-NI
+  regime: NTranspG
+  statute_name: Niedersächsisches Transparenzgesetz
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Niedersächsische Landes- und Kommunalbehörden
+  exemption_clauses:
+  - § 8
+  - § 9
+  - § 10
+- id: DE-NW
+  jurisdiction: DE-NW
+  regime: IFG NRW
+  statute_name: Informationsfreiheitsgesetz Nordrhein-Westfalen
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Landes Nordrhein-Westfalen und Kommunen
+  exemption_clauses:
+  - § 6
+  - § 7
+  - § 8
+  - § 9
+- id: DE-RP
+  jurisdiction: DE-RP
+  regime: LTranspG
+  statute_name: Landestransparenzgesetz Rheinland-Pfalz
+  statutory_timeframe_days: 15
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Landes Rheinland-Pfalz
+  exemption_clauses:
+  - § 14
+  - § 15
+  - § 16
+- id: DE-SL
+  jurisdiction: DE-SL
+  regime: SIFG
+  statute_name: Saarländisches Informationsfreiheitsgesetz
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Saarlandes
+  exemption_clauses:
+  - § 5
+  - § 6
+  - § 7
+- id: DE-SN
+  jurisdiction: DE-SN
+  regime: SächsTranspG
+  statute_name: Sächsisches Transparenzgesetz
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Freistaates Sachsen
+  exemption_clauses:
+  - § 13
+  - § 14
+  - § 15
+- id: DE-ST
+  jurisdiction: DE-ST
+  regime: IZG LSA
+  statute_name: Informationszugangsgesetz Sachsen-Anhalt
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Landes Sachsen-Anhalt
+  exemption_clauses:
+  - § 4
+  - § 5
+  - § 6
+- id: DE-SH
+  jurisdiction: DE-SH
+  regime: IZG-SH
+  statute_name: Informationszugangsgesetz Schleswig-Holstein
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Landes Schleswig-Holstein
+  exemption_clauses:
+  - § 9
+  - § 10
+  - § 11
+- id: DE-TH
+  jurisdiction: DE-TH
+  regime: ThürTG
+  statute_name: Thüringer Transparenzgesetz
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Behörden des Freistaats Thüringen
+  exemption_clauses:
+  - § 15
+  - § 16
+  - § 17
+- id: ES-AN
+  jurisdiction: ES-AN
+  regime: LTPA
+  statute_name: Ley 1/2014 de Transparencia Pública de Andalucía
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Junta de Andalucía y entidades locales andaluzas
+  exemption_clauses:
+  - Art 27
+  - Art 28
+- id: ES-AR
+  jurisdiction: ES-AR
+  regime: LTPC
+  statute_name: Ley 8/2015 de Transparencia de la Actividad Pública de Aragón
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Gobierno de Aragón y administraciones aragonesas
+  exemption_clauses:
+  - Art 22
+- id: ES-AS
+  jurisdiction: ES-AS
+  regime: LTBG
+  statute_name: Ley 8/2018 de Transparencia del Principado de Asturias
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Principado de Asturias y entidades locales
+  exemption_clauses:
+  - Art 32
+- id: ES-IB
+  jurisdiction: ES-IB
+  regime: LTBG
+  statute_name: Llei 11/2016 de transparència i bon govern de les Illes Balears
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Govern de les Illes Balears i consells insulars
+  exemption_clauses:
+  - Art 34
+- id: ES-CN
+  jurisdiction: ES-CN
+  regime: LTAIP
+  statute_name: Ley 12/2014 de transparencia y acceso a la información de Canarias
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Gobierno de Canarias y cabildos insulares
+  exemption_clauses:
+  - Art 39
+- id: ES-CB
+  jurisdiction: ES-CB
+  regime: LTAP
+  statute_name: Ley 1/2018 de Transparencia de Cantabria
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Gobierno de Cantabria y ayuntamientos
+  exemption_clauses:
+  - Art 24
+- id: ES-CM
+  jurisdiction: ES-CM
+  regime: LTBG
+  statute_name: Ley 4/2016 de Transparencia y Buen Gobierno de Castilla-La Mancha
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Junta de Comunidades de Castilla-La Mancha
+  exemption_clauses:
+  - Art 28
+- id: ES-CL
+  jurisdiction: ES-CL
+  regime: LTPC
+  statute_name: Ley 3/2015 de Transparencia de Castilla y León
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Junta de Castilla y León y entidades locales
+  exemption_clauses:
+  - Art 21
+- id: ES-CT
+  jurisdiction: ES-CT
+  regime: Llei de transparència
+  statute_name: Llei 19/2014 de transparència i accés a la informació de Catalunya
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Generalitat de Catalunya i ens locals catalans
+  exemption_clauses:
+  - Art 21
+  - Art 22
+- id: ES-VC
+  jurisdiction: ES-VC
+  regime: Llei de transparència
+  statute_name: Llei 1/2022 de transparència i bon govern de la Comunitat Valenciana
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Generalitat Valenciana i administracions locals
+  exemption_clauses:
+  - Art 26
+- id: ES-EX
+  jurisdiction: ES-EX
+  regime: LGA
+  statute_name: Ley 4/2013 de Gobierno Abierto de Extremadura
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Junta de Extremadura y diputaciones
+  exemption_clauses:
+  - Art 24
+- id: ES-GA
+  jurisdiction: ES-GA
+  regime: LTBG
+  statute_name: Ley 1/2016 de transparencia y buen gobierno de Galicia
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Xunta de Galicia e concellos galegos
+  exemption_clauses:
+  - Art 25
+- id: ES-MD
+  jurisdiction: ES-MD
+  regime: LTPC
+  statute_name: Ley 10/2019 de Transparencia de la Comunidad de Madrid
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Comunidad de Madrid y entidades locales madrileñas
+  exemption_clauses:
+  - Art 37
+- id: ES-MC
+  jurisdiction: ES-MC
+  regime: LTPC
+  statute_name: Ley 12/2014 de Transparencia de la Región de Murcia
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Región de Murcia y municipios
+  exemption_clauses:
+  - Art 23
+- id: ES-NC
+  jurisdiction: ES-NC
+  regime: LFGA
+  statute_name: Ley Foral 5/2018 de Transparencia y Gobierno Abierto de Navarra
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Gobierno de Navarra y entidades locales forales
+  exemption_clauses:
+  - Art 35
+- id: ES-PV
+  jurisdiction: ES-PV
+  regime: LTPE
+  statute_name: Ley 1/2023 de Transparencia Pública de Euskadi
+  statutory_timeframe_days: 20
+  timeframe_type: working_days
+  default_agency_scope: Gobierno Vasco / Eusko Jaurlaritza, diputaciones y ayuntamientos
+  exemption_clauses:
+  - Art 38
+- id: ES-RI
+  jurisdiction: ES-RI
+  regime: LTBG
+  statute_name: Ley 3/2014 de Transparencia y Buen Gobierno de La Rioja
+  statutory_timeframe_days: 30
+  timeframe_type: calendar_days
+  default_agency_scope: Gobierno de La Rioja y municipios riojanos
+  exemption_clauses:
+  - Art 19

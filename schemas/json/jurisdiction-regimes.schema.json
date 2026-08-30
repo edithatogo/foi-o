@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://edithatogo.github.io/foi-o/schemas/json/jurisdiction-regimes.schema.json",
+  "title": "FOI-O jurisdiction statutory regime registry",
+  "type": "object",
+  "required": ["registry_id", "version", "profiles"],
+  "properties": {
+    "registry_id": {"const": "foio.jurisdiction-regimes"},
+    "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+    "description": {"type": "string"},
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/statutoryProfile"}
+    }
+  },
+  "$defs": {
+    "statutoryProfile": {
+      "type": "object",
+      "required": [
+        "id",
+        "jurisdiction",
+        "regime",
+        "statute_name",
+        "statutory_timeframe_days",
+        "timeframe_type",
+        "default_agency_scope",
+        "exemption_clauses"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "jurisdiction": {"type": "string", "minLength": 1},
+        "regime": {"type": "string", "minLength": 1},
+        "statute_name": {"type": "string", "minLength": 1},
+        "statutory_timeframe_days": {"type": "integer", "minimum": 1, "maximum": 365},
+        "timeframe_type": {"enum": ["working_days", "calendar_days"]},
+        "default_agency_scope": {"type": "string", "minLength": 1},
+        "exemption_clauses": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  }
+}
