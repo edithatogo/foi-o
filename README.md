@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/edithatogo/foi-o/actions/workflows/ci.yml/badge.svg)](https://github.com/edithatogo/foi-o/actions/workflows/ci.yml)
 [![Mojo/MAX](https://img.shields.io/badge/Mojo%20%2B%20MAX-experimental-orange)](https://docs.modular.com/)
-[![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
+[![Python 3.14+](https://img.shields.io/badge/python-3.14%2B-blue)](https://www.python.org/)
 [![Ruff](https://img.shields.io/badge/code%20style-ruff-000000)](https://github.com/astral-sh/ruff)
 [![License: MIT + CC BY 4.0](https://img.shields.io/badge/license-MIT%20%2B%20CC%20BY%204.0-green)](LICENSE.md)
 
@@ -155,9 +155,9 @@ commit to combine lint, formatting, both type checkers, the parallel suite, and
 repository/schema validation. Use `make test-serial` when reproducing ordering
 or isolation failures and for final release evidence.
 
-Normal CI uses the four-worker profile on Python 3.12 and the governed
-diagnostics runtime Python 3.14.5. A scheduled or manually dispatched job
-retains an independent serial Python 3.14.5 run, and the
+Normal CI uses the four-worker profile on Python 3.14.5 (the only supported
+Python version). A scheduled or manually dispatched job
+retains an independent serial run, and the
 release workflow also runs the suite serially before building distributions.
 Parallel success is therefore not treated as proof that the suite is free of
 ordering or worker-isolation defects. On typical developer hardware the
@@ -165,9 +165,8 @@ parallel profile should be materially faster, but no fixed duration is part of
 the contract because workload and storage performance vary.
 
 Hosted Ubuntu jobs exclude only the governed tests that require the exact
-approved local `pdftotext` or `mutool` binaries. The Python 3.12 job also
-excludes the three diagnostics files whose reproducibility contract requires
-CPython 3.14.5. `make test-serial` remains unrestricted and is required locally
+approved local `pdftotext` or `mutool` binaries. `make test-serial` remains
+unrestricted and is required locally
 where those pinned runtimes are available.
 
 ### Normalise FYI manifest records

@@ -6,7 +6,7 @@ channels = ["https://conda.modular.com/max-nightly/", "https://conda.modular.com
 platforms = ["linux-64", "osx-arm64"]
 
 [dependencies]
-python = ">=3.12,<3.14"
+python = ">=3.14,<3.15"
 mojo = "*"
 modular = "*"
 uv = ">=0.8"
