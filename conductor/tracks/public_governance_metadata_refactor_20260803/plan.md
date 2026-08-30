@@ -14,19 +14,27 @@
       Implemented in `schemas/json/generic-governance-metadata.schema.json`,
       `schemas/json/provenance-reference.schema.json`, and
       `src/foi_o_nz/generic_governance.py`.
-- [ ] Run focused tests and automated phase review.
+- [x] Run focused tests and automated phase review. (Review:
+      `phase-1-review-2026-08-30.md`)
 
 ## Phase 2: Compatibility-preserving migration
 
-- [ ] Migrate reusable consumers to opaque, hash-pinned references while
-      preserving historical evidence bytes.
-- [ ] Add compatibility tests for earlier analyses, manifests, and approvals.
-- [ ] Add deterministic public-safe selection checks.
-- [ ] Run focused tests and automated phase review.
+- [x] Migrate reusable consumers to opaque, hash-pinned references while
+      preserving historical evidence bytes. (Implemented in
+      `src/foi_o_nz/generic_governance.py`)
+- [x] Add compatibility tests for earlier analyses, manifests, and approvals.
+      (Covered in `tests/test_governance_migration_compatibility.py`)
+- [x] Add deterministic public-safe selection checks. (Implemented
+      `is_public_safe_manifest` and covered in
+      `tests/test_governance_migration_compatibility.py`)
+- [x] Run focused tests and automated phase review. (Review:
+      `phase-2-review-2026-08-30.md`)
 
 ## Phase 3: Validation and closeout
 
-- [ ] Synchronize Markdown/Mermaid and BPMN 2.0 workflow documentation.
-- [ ] Run full repository and Conductor validation.
-- [ ] Record residual external gates and complete whole-track review.
-- [ ] Archive only when all repository-owned acceptance criteria are satisfied.
+- [x] Synchronize Markdown/Mermaid and BPMN 2.0 workflow documentation.
+      (`workflow.md`, `workflow.bpmn`)
+- [x] Run full repository and Conductor validation.
+- [x] Record residual external gates and complete whole-track review. (Review:
+      `track-review-2026-08-30.md`)
+- [x] Archive only when all repository-owned acceptance criteria are satisfied.
