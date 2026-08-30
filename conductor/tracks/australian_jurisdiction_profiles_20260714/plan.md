@@ -39,50 +39,50 @@ incomplete. Current evidence is profile-specific:
 
 GitHub subissue: [#28](https://github.com/edithatogo/foi-o/issues/28).
 
-- [ ] Task: Write failing tests for jurisdiction identity, bitemporal legal
+- [x] Task: Write failing tests for jurisdiction identity, bitemporal legal
       sources, provenance, unsupported states, and cross-profile isolation.
-- [ ] Task: Define the jurisdiction-neutral profile interface and Australian
+- [x] Task: Define the jurisdiction-neutral profile interface and Australian
       extension registry.
-- [ ] Task: Version profile contracts, capability negotiation, migrations, and
+- [x] Task: Version profile contracts, capability negotiation, migrations, and
       rejection behavior for unknown profile or contract versions.
-- [ ] Task: Integrate the `edithatogo/legislation` FOI source-pack manifest.
-- [ ] Task: Define guidance, decision, request-example, and rights manifests.
-- [ ] Task: Define PIC-compatible identifiers, temporal parameters, fixtures,
+- [x] Task: Integrate the `edithatogo/legislation` FOI source-pack manifest.
+- [x] Task: Define guidance, decision, request-example, and rights manifests.
+- [x] Task: Define PIC-compatible identifiers, temporal parameters, fixtures,
       traces, value states, and epistemic status for named consumers.
-- [ ] Task: Record RaC Conformance design provenance and verify that PIC remains
+- [x] Task: Record RaC Conformance design provenance and verify that PIC remains
       an optional interoperability boundary rather than a runtime dependency.
-- [ ] Task: Conductor - User Manual Verification 'Profile and source contracts' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Profile and source contracts' (Protocol in workflow.md)
 
 ## Phase 2: Commonwealth and NSW pilot
 
 GitHub subissue: [#29](https://github.com/edithatogo/foi-o/issues/29).
 
-- [ ] Task: Build Commonwealth vocabulary, process, clock, review, and source mappings.
-- [ ] Task: Build NSW GIPA vocabulary, proactive/informal/formal pathways,
+- [x] Task: Build Commonwealth vocabulary, process, clock, review, and source mappings.
+- [x] Task: Build NSW GIPA vocabulary, proactive/informal/formal pathways,
       clock, review, and source mappings.
-- [ ] Task: Add positive, negative, historical, and non-equivalence fixtures.
-- [ ] Task: Separate observed events, deterministic calculations, interpretive
+- [x] Task: Add positive, negative, historical, and non-equivalence fixtures.
+- [x] Task: Separate observed events, deterministic calculations, interpretive
       mappings, and human-only legal determinations in contracts and tests.
-- [ ] Task: Add independent candidate-to-golden fixture promotion packets with
+- [x] Task: Add independent candidate-to-golden fixture promotion packets with
       source, author, reviewer, effective-date, and rights evidence.
-- [ ] Task: Validate schema, SHACL, deterministic rule, and NZ regression gates.
-- [ ] Task: Run consumer-contract tests for FOI-O, `fyi-archive`,
+- [x] Task: Validate schema, SHACL, deterministic rule, and NZ regression gates.
+- [x] Task: Run consumer-contract tests for FOI-O, `fyi-archive`,
       `nlp-policy-nz`, and one read-only agent/MCP surface.
-- [ ] Task: Conductor - User Manual Verification 'Commonwealth and NSW pilot' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Commonwealth and NSW pilot' (Protocol in workflow.md)
 
 ## Phase 3: Empirical validation
 
 GitHub subissue: [#30](https://github.com/edithatogo/foi-o/issues/30).
 
-- [ ] Task: Freeze stratified Commonwealth and NSW example samples.
-- [ ] Task: Dual-annotate, adjudicate, and report agreement by label family.
-- [ ] Task: Evaluate ontology-pinned extraction and route disagreements to review.
-- [ ] Task: Build a deterministic source-triangulation resolver with primary
+- [x] Task: Freeze stratified Commonwealth and NSW example samples.
+- [x] Task: Dual-annotate, adjudicate, and report agreement by label family.
+- [x] Task: Evaluate ontology-pinned extraction and route disagreements to review.
+- [x] Task: Build a deterministic source-triangulation resolver with primary
       source precedence and explicit exception reasons.
-- [ ] Task: Freeze the sampling frame, exclusions, unit of analysis, annotation
+- [x] Task: Freeze the sampling frame, exclusions, unit of analysis, annotation
       codebook, and reliability thresholds before evaluation.
 - [x] Task: Approve or reject pilot profile maturity claims with recorded evidence.
-- [ ] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Empirical validation' (Protocol in workflow.md)
 
 ### AU-NSW historical source recovery refinement
 
