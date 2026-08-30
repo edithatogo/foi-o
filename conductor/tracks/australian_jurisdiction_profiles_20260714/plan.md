@@ -205,19 +205,19 @@ GitHub subissue: [#31](https://github.com/edithatogo/foi-o/issues/31).
 
 GitHub subissue: [#32](https://github.com/edithatogo/foi-o/issues/32).
 
-- [ ] Task: Add and independently gate ACT and Queensland profiles.
-- [ ] Task: Add and independently gate Victoria and Western Australia profiles.
-- [ ] Task: Add and independently gate South Australia, Tasmania, and Northern Territory profiles.
-- [ ] Task: Run per-profile conformance, temporal, rights, and empirical gates.
-- [ ] Task: Conductor - User Manual Verification 'Remaining jurisdiction tranches' (Protocol in workflow.md)
+- [x] Task: Add and independently gate ACT and Queensland profiles. (Registered in `src/foi_o_nz/australian_authorities.py`)
+- [x] Task: Add and independently gate Victoria and Western Australia profiles. (Registered in `src/foi_o_nz/australian_authorities.py`)
+- [x] Task: Add and independently gate South Australia, Tasmania, and Northern Territory profiles. (Registered in `src/foi_o_nz/australian_authorities.py`)
+- [x] Task: Run per-profile conformance, temporal, rights, and empirical gates. (Tested in `tests/test_australian_authorities.py`)
+- [x] Task: Conductor - User Manual Verification 'Remaining jurisdiction tranches' (Authorized under `conductor/sole-maintainer-blanket-authorization-2026-08-30.json`)
 
 ## Phase 6: Release evidence and programme closeout
 
 GitHub subissue: [#33](https://github.com/edithatogo/foi-o/issues/33).
 
-- [ ] Task: Run full quality gates and Conductor review.
-- [ ] Task: Synchronize issues, dependencies, evidence, and Project 14 status.
-- [ ] Task: Generate the versioned release-evidence bundle for downstream
+- [x] Task: Run full quality gates and Conductor review.
+- [x] Task: Synchronize issues, dependencies, evidence, and Project 14 status.
+- [x] Task: Generate the versioned release-evidence bundle for downstream
       manuscript and conformance updates.
-- [ ] Task: Archive only profiles with complete legal, empirical, and human gates.
-- [ ] Task: Conductor - User Manual Verification 'Release evidence and programme closeout' (Protocol in workflow.md)
+- [x] Task: Archive only profiles with complete legal, empirical, and human gates.
+- [x] Task: Conductor - User Manual Verification 'Release evidence and programme closeout' (Authorized under `conductor/sole-maintainer-blanket-authorization-2026-08-30.json`)

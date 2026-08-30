@@ -63,11 +63,11 @@ register.
 
 ## Phase 5 — remaining jurisdictions
 
-- [ ] Execute the approved dependency-first tranches for ACT, Queensland,
+- [x] Execute the approved dependency-first tranches for ACT, Queensland,
   Victoria, Western Australia, South Australia, Tasmania, and Northern
-  Territory.
-- [ ] Preserve separate source, rights, temporal, empirical, annotation, and
-  maturity evidence for every profile.
+  Territory. (Registered in `src/foi_o_nz/australian_authorities.py` and `schemas/json/`)
+- [x] Preserve separate source, rights, temporal, empirical, annotation, and
+  maturity evidence for every profile. (Maintained in `conductor/tracks/australian_jurisdiction_profiles_20260714/` and `src/foi_o_nz/`)
 
 ## Phase 6 — review
 

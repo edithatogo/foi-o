@@ -69,15 +69,15 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-- [~] **Track: Implement the FOI-O V2 empirical-governance overlay in the existing NZ package.**
+- [x] **Track: Implement the FOI-O V2 empirical-governance overlay in the existing NZ package.**
 *Link: [./tracks/foi_o_v2_empirical_implementation_20260714/](./tracks/foi_o_v2_empirical_implementation_20260714/)*
 
 ---
 
-- [~] **Track: Build evidence-backed Australian FOI jurisdiction profiles, piloting Commonwealth and NSW before the other seven jurisdictions.**
+- [x] **Track: Build evidence-backed Australian FOI jurisdiction profiles, piloting Commonwealth and NSW before the other seven jurisdictions.**
 *Link: [./tracks/australian_jurisdiction_profiles_20260714/](./tracks/australian_jurisdiction_profiles_20260714/)*
 
-- [~] **Track: Industrialise the Australian jurisdiction rollout with resumable, provenance-pinned pipeline contracts and shared empirical tooling.**
+- [x] **Track: Industrialise the Australian jurisdiction rollout with resumable, provenance-pinned pipeline contracts and shared empirical tooling.**
 *Link: [./tracks/australian_jurisdiction_rollout_pipeline_20260731/](./tracks/australian_jurisdiction_rollout_pipeline_20260731/)*
 
 - [x] **Track: Remediate AU-CTH annotation reliability and evidence integrity after the nine-unit calibration run.**
