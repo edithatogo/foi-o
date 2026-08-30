@@ -114,7 +114,7 @@ extend-exclude = [".pixi", ".venv", "dist", "data", "generated"]
 
 [tool.ruff.lint]
 preview = true
-explicit-preview-rules = false
+explicit-preview-rules = true
 select = [
   "E", "W", "F", "I", "N", "UP", "B", "A", "C4", "T20", "PT", "SIM", "ARG",
   "PTH", "PL", "RUF", "ANN", "D", "TCH", "YTT", "RET", "FURB", "COM", "DJ",
