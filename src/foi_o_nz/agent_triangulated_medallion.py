@@ -29,6 +29,7 @@ from foi_o_nz.source_triangulation import (
     evaluate_triangulation,
 )
 from foi_o_nz.state_machine import RequestState
+from foi_o_nz.subnational_profiles import ALL_SUBNATIONAL_PROFILES
 
 
 class StrictModel(BaseModel):
@@ -444,6 +445,19 @@ JURISDICTION_REGIMES: dict[str, StatutoryProfile] = {
         exemption_clauses=["Neni 17"],
     ),
 }
+
+# Register all Subnational & Devolved Profiles (US States, Canadian Provinces, German Länder, Spanish CCAA, UK Nations)
+for sub_id, sub_prof in ALL_SUBNATIONAL_PROFILES.items():
+    if sub_id not in JURISDICTION_REGIMES:
+        JURISDICTION_REGIMES[sub_id] = StatutoryProfile(
+            jurisdiction=sub_prof.jurisdiction,
+            regime=sub_prof.regime,
+            statute_name=sub_prof.statute_name,
+            statutory_timeframe_days=sub_prof.statutory_timeframe_days,
+            timeframe_type=sub_prof.timeframe_type,
+            default_agency_scope=sub_prof.default_agency_scope,
+            exemption_clauses=sub_prof.exemption_clauses,
+        )
 
 
 def resolve_statutory_profile(jurisdiction: str) -> StatutoryProfile | None:
