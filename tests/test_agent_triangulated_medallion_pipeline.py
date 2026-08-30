@@ -242,3 +242,76 @@ def test_cli_run_medallion_invocation(tmp_path: Path) -> None:
     assert (tmp_path / "medallion_pipeline_manifest.json").exists()
     assert (tmp_path / "gold" / "nz" / "process_model.pnml").exists()
     assert (tmp_path / "analytics" / "transition_matrices.json").exists()
+
+
+def test_global_countries_triangulation_and_modeling(tmp_path: Path) -> None:
+    """Verify triangulation and Gold process modeling across international countries."""
+    global_records = [
+        MedallionRecord(
+            record_id="rec-uk-001",
+            jurisdiction="UK-FOIA",
+            regime="FOIA",
+            raw_text="Full grant of access released in full.",
+            received_date="2026-01-01",
+            decision_date="2026-01-18",
+        ),
+        MedallionRecord(
+            record_id="rec-us-001",
+            jurisdiction="US-FOIA-FED",
+            regime="FOIA",
+            raw_text="Notice of refusal: all requested records withheld in full.",
+            received_date="2026-02-01",
+            decision_date="2026-02-15",
+        ),
+        MedallionRecord(
+            record_id="rec-de-001",
+            jurisdiction="Germany/FragDenStaat",
+            regime="IFG",
+            raw_text="Auskunft erteilt und vollständig zugänglich gemacht.",
+            received_date="2026-03-01",
+            decision_date="2026-03-20",
+        ),
+        MedallionRecord(
+            record_id="rec-fr-001",
+            jurisdiction="France",
+            regime="CRPA",
+            raw_text="Accès accordé et documents communiqués.",
+            received_date="2026-04-01",
+            decision_date="2026-04-22",
+        ),
+        MedallionRecord(
+            record_id="rec-eu-001",
+            jurisdiction="EU-ACCESS-DOCUMENTS",
+            regime="Regulation 1049/2001",
+            raw_text="Partially released with redactions under Art 4(2).",
+            received_date="2026-05-01",
+            decision_date="2026-05-12",
+        ),
+    ]
+
+    summary = run_agent_triangulated_medallion_pipeline(
+        bronze_records=global_records,
+        output_dir=tmp_path,
+        min_supporting_agents=2,
+        export_duckdb=True,
+    )
+
+    assert summary.bronze_record_count == 5
+    assert summary.silver_request_count == 5
+    assert summary.agent_consensus_rate == 1.0
+
+    # Verify Gold models exist for international targets
+    for jur_id in (
+        "uk-foia",
+        "us-foia-fed",
+        "germany_fragdenstaat",
+        "france",
+        "eu-access-documents",
+    ):
+        jur_dir = tmp_path / "gold" / jur_id
+        assert jur_dir.exists()
+        assert (jur_dir / "process_model.pnml").exists()
+        assert (jur_dir / "process_model.bpmn").exists()
+        assert (jur_dir / "process_model.mmd").exists()
+        assert (jur_dir / "process_log.xes").exists()
+        assert (jur_dir / "process_log.ocel.json").exists()

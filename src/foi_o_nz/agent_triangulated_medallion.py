@@ -18,9 +18,6 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from foi_o_nz.australian_authorities import (
-    AUSTRALIAN_JURISDICTIONS,
-)
 from foi_o_nz.duckdb_export import build_duckdb_database
 from foi_o_nz.io import write_json, write_jsonl
 from foi_o_nz.process_mining import build_ocel_event_log, build_xes_event_log
@@ -53,6 +50,7 @@ class StatutoryProfile(StrictModel):
 
 
 JURISDICTION_REGIMES: dict[str, StatutoryProfile] = {
+    # Foundation: New Zealand
     "NZ": StatutoryProfile(
         jurisdiction="NZ",
         regime="OIA",
@@ -62,6 +60,25 @@ JURISDICTION_REGIMES: dict[str, StatutoryProfile] = {
         default_agency_scope="Public Service Agencies & Ministers",
         exemption_clauses=["s6(a)", "s6(b)", "s9(2)(a)", "s9(2)(ba)", "s9(2)(f)(iv)", "s18(e)"],
     ),
+    "NZ-OIA": StatutoryProfile(
+        jurisdiction="NZ-OIA",
+        regime="OIA",
+        statute_name="Official Information Act 1982",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="Public Service Agencies & Ministers",
+        exemption_clauses=["s6(a)", "s6(b)", "s9(2)(a)", "s9(2)(ba)", "s9(2)(f)(iv)", "s18(e)"],
+    ),
+    "NZ-LGOIMA": StatutoryProfile(
+        jurisdiction="NZ-LGOIMA",
+        regime="LGOIMA",
+        statute_name="Local Government Official Information and Meetings Act 1987",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="Local Authorities & Regional Councils",
+        exemption_clauses=["s6", "s7(2)(a)", "s7(2)(b)", "s17"],
+    ),
+    # Australia (9 Jurisdictions)
     "AU-CTH": StatutoryProfile(
         jurisdiction="AU-CTH",
         regime="FOI",
@@ -143,7 +160,307 @@ JURISDICTION_REGIMES: dict[str, StatutoryProfile] = {
         default_agency_scope="Northern Territory Public Sector Organisations",
         exemption_clauses=["s44", "s45", "s49", "s56"],
     ),
+    # UK, Scotland, Ireland & European English
+    "UK-FOIA": StatutoryProfile(
+        jurisdiction="UK-FOIA",
+        regime="FOIA",
+        statute_name="Freedom of Information Act 2000 (UK)",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="UK Public Authorities & Government Departments",
+        exemption_clauses=["s21", "s22", "s30", "s35", "s36", "s40", "s42", "s43"],
+    ),
+    "UK-EIR": StatutoryProfile(
+        jurisdiction="UK-EIR",
+        regime="EIR",
+        statute_name="Environmental Information Regulations 2004 (UK)",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="Public Authorities holding environmental information",
+        exemption_clauses=["r12(4)(a)", "r12(4)(b)", "r12(5)(a)", "r12(5)(b)", "r13"],
+    ),
+    "SCOT-FOISA": StatutoryProfile(
+        jurisdiction="SCOT-FOISA",
+        regime="FOISA",
+        statute_name="Freedom of Information (Scotland) Act 2002",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="Scottish Public Authorities",
+        exemption_clauses=["s25", "s27", "s30", "s33", "s36", "s38"],
+    ),
+    "SCOT-EIR": StatutoryProfile(
+        jurisdiction="SCOT-EIR",
+        regime="EIR",
+        statute_name="Environmental Information (Scotland) Regulations 2004",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="Scottish Public Authorities with environmental remit",
+        exemption_clauses=["r10(4)", "r10(5)", "r11"],
+    ),
+    "EU-ACCESS-DOCUMENTS": StatutoryProfile(
+        jurisdiction="EU-ACCESS-DOCUMENTS",
+        regime="Regulation 1049/2001",
+        statute_name="Regulation (EC) No 1049/2001 (European Union)",
+        statutory_timeframe_days=15,
+        timeframe_type="working_days",
+        default_agency_scope="European Parliament, Council and Commission",
+        exemption_clauses=["Art 4(1)(a)", "Art 4(1)(b)", "Art 4(2)", "Art 4(3)"],
+    ),
+    "IE-FOI-DISCOVERY": StatutoryProfile(
+        jurisdiction="IE-FOI-DISCOVERY",
+        regime="FOI",
+        statute_name="Freedom of Information Act 2014 (Ireland)",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="Irish FOI Public Bodies",
+        exemption_clauses=["s28", "s29", "s30", "s31", "s32", "s35", "s36", "s37"],
+    ),
+    # Non-Alaveteli Major Federal Regimes
+    "CA-FED": StatutoryProfile(
+        jurisdiction="CA-FED",
+        regime="ATIA",
+        statute_name="Access to Information Act (R.S.C., 1985, c. A-1 Canada)",
+        statutory_timeframe_days=30,
+        timeframe_type="calendar_days",
+        default_agency_scope="Canadian Federal Government Institutions",
+        exemption_clauses=["s13", "s14", "s15", "s16", "s19", "s20", "s21"],
+    ),
+    "US-FOIA-FED": StatutoryProfile(
+        jurisdiction="US-FOIA-FED",
+        regime="FOIA",
+        statute_name="Freedom of Information Act 5 U.S.C. § 552 (USA)",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="United States Federal Executive Agencies",
+        exemption_clauses=["b(1)", "b(2)", "b(3)", "b(4)", "b(5)", "b(6)", "b(7)"],
+    ),
+    "ZA-PAIA": StatutoryProfile(
+        jurisdiction="ZA-PAIA",
+        regime="PAIA",
+        statute_name="Promotion of Access to Information Act 2 of 2000 (South Africa)",
+        statutory_timeframe_days=30,
+        timeframe_type="calendar_days",
+        default_agency_scope="South African Public and Private Bodies",
+        exemption_clauses=["s34", "s36", "s37", "s38", "s41", "s42", "s44"],
+    ),
+    # Additional Supported Platforms
+    "Germany/FragDenStaat": StatutoryProfile(
+        jurisdiction="Germany/FragDenStaat",
+        regime="IFG",
+        statute_name="Informationsfreiheitsgesetz (IFG Germany)",
+        statutory_timeframe_days=30,
+        timeframe_type="calendar_days",
+        default_agency_scope="German Federal & State Public Authorities",
+        exemption_clauses=["§ 3", "§ 4", "§ 5", "§ 6"],
+    ),
+    "Spain/Tu Derecho a Saber": StatutoryProfile(
+        jurisdiction="Spain/Tu Derecho a Saber",
+        regime="LTA",
+        statute_name="Ley 19/2013 de transparencia y acceso a la información (Spain)",
+        statutory_timeframe_days=30,
+        timeframe_type="calendar_days",
+        default_agency_scope="Spanish Public Administration & Constitutional Bodies",
+        exemption_clauses=["Art 14.1(a)", "Art 14.1(f)", "Art 14.1(h)", "Art 15"],
+    ),
+    "Ireland/MyRightToKnow": StatutoryProfile(
+        jurisdiction="Ireland/MyRightToKnow",
+        regime="FOI",
+        statute_name="Freedom of Information Act 2014 (Ireland MRTK)",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="Irish Public Sector Bodies",
+        exemption_clauses=["s29", "s30", "s31", "s35", "s36", "s37"],
+    ),
+    # Official Alaveteli Deployments
+    "Czech Republic": StatutoryProfile(
+        jurisdiction="Czech Republic",
+        regime="106/1999",
+        statute_name="Zákon č. 106/1999 Sb. o svobodném přístupu k informacím (Czech Republic)",
+        statutory_timeframe_days=15,
+        timeframe_type="calendar_days",
+        default_agency_scope="Czech State Bodies and Self-Governing Units",
+        exemption_clauses=["§ 7", "§ 8a", "§ 9", "§ 11"],
+    ),
+    "France": StatutoryProfile(
+        jurisdiction="France",
+        regime="CRPA",
+        statute_name="Code des relations entre le public et l'administration (CADA France)",
+        statutory_timeframe_days=30,
+        timeframe_type="calendar_days",
+        default_agency_scope="French Public Administrations & Local Authorities",
+        exemption_clauses=["L311-5", "L311-6"],
+    ),
+    "Sweden": StatutoryProfile(
+        jurisdiction="Sweden",
+        regime="TF",
+        statute_name="Tryckfrihetsförordningen 1766 / Offentlighetsprincipen (Sweden)",
+        statutory_timeframe_days=3,
+        timeframe_type="working_days",
+        default_agency_scope="Swedish Government Agencies & Municipalities",
+        exemption_clauses=["OSL Kap 15", "OSL Kap 18", "OSL Kap 21"],
+    ),
+    "Netherlands": StatutoryProfile(
+        jurisdiction="Netherlands",
+        regime="Woo",
+        statute_name="Wet open overheid (Woo Netherlands)",
+        statutory_timeframe_days=28,
+        timeframe_type="calendar_days",
+        default_agency_scope="Dutch Administrative Authorities",
+        exemption_clauses=["Art 5.1", "Art 5.2"],
+    ),
+    "Belgium": StatutoryProfile(
+        jurisdiction="Belgium",
+        regime="WOB",
+        statute_name="Wet betreffende de openbaarheid van bestuur (Belgium)",
+        statutory_timeframe_days=30,
+        timeframe_type="calendar_days",
+        default_agency_scope="Belgian Federal & Regional Public Authorities",
+        exemption_clauses=["Art 6 §1", "Art 6 §2"],
+    ),
+    "Croatia": StatutoryProfile(
+        jurisdiction="Croatia",
+        regime="ZPPI",
+        statute_name="Zakon o pravu na pristup informacijama (Croatia)",
+        statutory_timeframe_days=15,
+        timeframe_type="calendar_days",
+        default_agency_scope="Croatian Public Authority Bodies",
+        exemption_clauses=["Članak 15"],
+    ),
+    "Hungary": StatutoryProfile(
+        jurisdiction="Hungary",
+        regime="Infotv",
+        statute_name="2011. évi CXII. törvény (Infotv Hungary)",
+        statutory_timeframe_days=15,
+        timeframe_type="calendar_days",
+        default_agency_scope="Hungarian Public Service and State Organs",
+        exemption_clauses=["27. §"],
+    ),
+    "Ukraine": StatutoryProfile(
+        jurisdiction="Ukraine",
+        regime="DPI",
+        statute_name="Закон України «Про доступ до публічної інформації»",
+        statutory_timeframe_days=5,
+        timeframe_type="working_days",
+        default_agency_scope="Ukrainian State & Local Self-Government Bodies",
+        exemption_clauses=["Стаття 6", "Стаття 7", "Стаття 8", "Стаття 9"],
+    ),
+    "Greece": StatutoryProfile(
+        jurisdiction="Greece",
+        regime="KDD",
+        statute_name="Νόμος 2690/1999 Κώδικας Διοικητικής Διαδικασίας (Greece)",
+        statutory_timeframe_days=20,
+        timeframe_type="calendar_days",
+        default_agency_scope="Greek Public Administrative Services",
+        exemption_clauses=["Άρθρο 5 §3"],
+    ),
+    "Moldova": StatutoryProfile(
+        jurisdiction="Moldova",
+        regime="L148",
+        statute_name="Legea nr. 148/2023 privind accesul la informație (Moldova)",
+        statutory_timeframe_days=15,
+        timeframe_type="calendar_days",
+        default_agency_scope="Moldovan Public Authorities and Public Enterprises",
+        exemption_clauses=["Art 11", "Art 12"],
+    ),
+    "Hong Kong": StatutoryProfile(
+        jurisdiction="Hong Kong",
+        regime="Code",
+        statute_name="Code on Access to Information (Hong Kong)",
+        statutory_timeframe_days=21,
+        timeframe_type="calendar_days",
+        default_agency_scope="Hong Kong Government Departments & Policy Bureaux",
+        exemption_clauses=["Part 2 Clause 1-16"],
+    ),
+    "Uruguay": StatutoryProfile(
+        jurisdiction="Uruguay",
+        regime="L18381",
+        statute_name="Ley Nº 18.381 de Acceso a la Información Pública (Uruguay)",
+        statutory_timeframe_days=20,
+        timeframe_type="working_days",
+        default_agency_scope="Uruguayan State Organs & Autonomous Entities",
+        exemption_clauses=["Art 9", "Art 10"],
+    ),
+    "Liberia": StatutoryProfile(
+        jurisdiction="Liberia",
+        regime="FOI",
+        statute_name="Freedom of Information Act 2010 (Liberia)",
+        statutory_timeframe_days=30,
+        timeframe_type="calendar_days",
+        default_agency_scope="Liberian Public Authorities & Private Entities receiving public funds",
+        exemption_clauses=["Section 4.1-4.8"],
+    ),
+    "Colombia": StatutoryProfile(
+        jurisdiction="Colombia",
+        regime="L1712",
+        statute_name="Ley 1712 de 2014 de Transparencia y Acceso a la Información (Colombia)",
+        statutory_timeframe_days=10,
+        timeframe_type="working_days",
+        default_agency_scope="Colombian Public Entities and Public Functionaries",
+        exemption_clauses=["Art 18", "Art 19"],
+    ),
+    "New Jersey USA": StatutoryProfile(
+        jurisdiction="New Jersey USA",
+        regime="OPRA",
+        statute_name="New Jersey Open Public Records Act (OPRA N.J.S.A. 47:1A-1)",
+        statutory_timeframe_days=7,
+        timeframe_type="working_days",
+        default_agency_scope="New Jersey State & Municipal Government Agencies",
+        exemption_clauses=["N.J.S.A. 47:1A-1.1", "Executive Orders"],
+    ),
+    "Argentina": StatutoryProfile(
+        jurisdiction="Argentina",
+        regime="L27275",
+        statute_name="Ley 27.275 de Derecho de Acceso a la Información Pública (Argentina)",
+        statutory_timeframe_days=15,
+        timeframe_type="working_days",
+        default_agency_scope="Argentine National Executive, Legislative and Judicial Bodies",
+        exemption_clauses=["Art 8"],
+    ),
+    "Georgia": StatutoryProfile(
+        jurisdiction="Georgia",
+        regime="GAC",
+        statute_name="General Administrative Code of Georgia (Chapter 3)",
+        statutory_timeframe_days=10,
+        timeframe_type="calendar_days",
+        default_agency_scope="Georgian Public Institutions & Administrative Bodies",
+        exemption_clauses=["Article 28", "Article 29"],
+    ),
+    "Romania": StatutoryProfile(
+        jurisdiction="Romania",
+        regime="L544",
+        statute_name="Legea nr. 544/2001 privind liberul acces la informații de interes public (Romania)",
+        statutory_timeframe_days=10,
+        timeframe_type="calendar_days",
+        default_agency_scope="Romanian Public Authorities and Institutions",
+        exemption_clauses=["Art 12"],
+    ),
+    "Kosovo": StatutoryProfile(
+        jurisdiction="Kosovo",
+        regime="L06-L081",
+        statute_name="Ligji Nr. 06/L-081 për Qasje në Dokumente Publike (Kosovo)",
+        statutory_timeframe_days=7,
+        timeframe_type="calendar_days",
+        default_agency_scope="Kosovo Public Institutions and Bodies",
+        exemption_clauses=["Neni 17"],
+    ),
 }
+
+
+def resolve_statutory_profile(jurisdiction: str) -> StatutoryProfile | None:
+    """Resolve statutory profile by exact key or common alias/code."""
+    if not jurisdiction:
+        return None
+    jur_clean = jurisdiction.strip()
+    if jur_clean in JURISDICTION_REGIMES:
+        return JURISDICTION_REGIMES[jur_clean]
+    jur_upper = jur_clean.upper()
+    if jur_upper in JURISDICTION_REGIMES:
+        return JURISDICTION_REGIMES[jur_upper]
+    # Check lowercase/casefolded matching
+    for key, prof in JURISDICTION_REGIMES.items():
+        if key.casefold() == jur_clean.casefold():
+            return prof
+    return None
 
 
 class AgentStanceProposal(StrictModel):
@@ -246,7 +563,7 @@ def _evaluate_agent_passes(
         ]
 
     text_lower = record.raw_text.lower()
-    regime = JURISDICTION_REGIMES.get(record.jurisdiction.upper())
+    regime = resolve_statutory_profile(record.jurisdiction)
 
     # Agent 1: Statutory Rule Engine
     stat_state = "Received"
@@ -257,6 +574,16 @@ def _evaluate_agent_passes(
             "grant in full",
             "access granted in full",
             "all documents released",
+            "auskunft erteilt",
+            "vollständig zugänglich",
+            "accès accordé",
+            "documents communiqués",
+            "acceso concedido",
+            "entregado",
+            "verstrekt",
+            "надано",
+            "access provided in full",
+            "full release",
         )
     ):
         stat_state = RequestState.RELEASED_IN_FULL.value
@@ -269,6 +596,12 @@ def _evaluate_agent_passes(
             "withheld in full",
             "exempt in full",
             "notice of refusal",
+            "abgelehnt",
+            "refus",
+            "denegado",
+            "geweigerd",
+            "відмовлено",
+            "afgewezen",
         )
     ):
         stat_state = RequestState.REFUSED.value
@@ -279,14 +612,47 @@ def _evaluate_agent_passes(
             "partially released",
             "released in part",
             "redacted",
+            "teilweise",
+            "geschwärzt",
+            "communication partielle",
+            "occulté",
+            "acceso parcial",
+            "tachado",
+            "deels verstrekt",
+            "частково",
             "s47e",
             "s14 table",
+            "schedule 3",
+            "s33",
+            "art 4(2)",
         )
     ):
         stat_state = RequestState.RELEASED_IN_PART.value
-    elif any(k in text_lower for k in ("withdrawn", "applicant withdrew", "withdrew request")):
+    elif any(
+        k in text_lower
+        for k in (
+            "withdrawn",
+            "applicant withdrew",
+            "withdrew request",
+            "zurückgezogen",
+            "retiré",
+            "desistido",
+            "ingetrokken",
+        )
+    ):
         stat_state = RequestState.WITHDRAWN.value
-    elif any(k in text_lower for k in ("searching", "search commenced", "processing records")):
+    elif any(
+        k in text_lower
+        for k in (
+            "searching",
+            "search commenced",
+            "processing records",
+            "in bearbeitung",
+            "en cours",
+            "en trámite",
+            "in behandeling",
+        )
+    ):
         stat_state = RequestState.SEARCHING.value
 
     # Agent 2: LLM Policy Evaluator
@@ -299,7 +665,7 @@ def _evaluate_agent_passes(
 
     # Agent 4: Adversarial Validator
     adv_state = stat_state
-    if "deposit" in text_lower or "fee quote" in text_lower:
+    if any(k in text_lower for k in ("deposit", "fee quote", "gebühr", "tasas", "frais")):
         adv_state = RequestState.CHARGE_ASSESSMENT.value
 
     state_map: dict[str, tuple[str, float, AuthorityTier]] = {
@@ -375,7 +741,7 @@ def triangulate_record(
         event_time.split("T")[0] if "T" in event_time else event_time
     )
 
-    regime_info = JURISDICTION_REGIMES.get(record.jurisdiction.upper())
+    regime_info = resolve_statutory_profile(record.jurisdiction)
     stat_days = regime_info.statutory_timeframe_days if regime_info else 20
     days_elapsed = _calculate_days_between(rec_date, dec_date)
     sla_status: Literal["on_time", "breached", "in_progress", "unknown"] = "unknown"
@@ -647,11 +1013,21 @@ def run_agent_triangulated_medallion_pipeline(
 
     # 3. Gold Layer: Process Modeling & Process Mining for Each Jurisdiction
     gold_models_created = 0
-    all_jurisdictions = sorted(jurisdictions_seen | {"NZ", *AUSTRALIAN_JURISDICTIONS})
+    seen_canonical = set()
+    for j in jurisdictions_seen:
+        prof = resolve_statutory_profile(j)
+        seen_canonical.add(prof.jurisdiction if prof else j)
+    all_jurisdictions = sorted(seen_canonical | set(JURISDICTION_REGIMES.keys()))
 
     for jur in all_jurisdictions:
-        jur_events = [ev for ev in silver_events if ev.jurisdiction.upper() == jur.upper()]
-        jur_dir = gold_dir / jur.lower()
+        jur_events = [
+            ev
+            for ev in silver_events
+            if ev.jurisdiction.casefold() == jur.casefold()
+            or ev.jurisdiction.upper() == jur.upper()
+        ]
+        jur_dir_name = jur.replace("/", "_").replace(" ", "_").lower()
+        jur_dir = gold_dir / jur_dir_name
         jur_dir.mkdir(parents=True, exist_ok=True)
 
         # Generate PNML Petri Net
