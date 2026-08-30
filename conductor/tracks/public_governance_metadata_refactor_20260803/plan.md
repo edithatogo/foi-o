@@ -4,8 +4,9 @@
 
 - [x] Preserve the v0.1 analyst packet's historical licence-placeholder pin
       independently of the current repository rights notice. (`bb51633`)
-- [ ] Inventory case-specific governance metadata in public-candidate paths and
+- [x] Inventory case-specific governance metadata in public-candidate paths and
       classify each item by sensitivity, ownership, and migration disposition.
+      (Inventory: `governance-metadata-inventory.json`)
 - [ ] Add failing positive and negative fixtures for generic public governance
       and provenance-reference contracts.
 - [ ] Implement the versioned generic contracts and fail-closed validators.
