@@ -1744,15 +1744,17 @@ def run_medallion_command(
         bronze_records=records,
         output_dir=output_dir,
         min_supporting_agents=min_agents,
+        export_duckdb=True,
     )
 
-    table = Table(title="Autonomous Agent-Triangulated Medallion Pipeline")
+    table = Table(title="Autonomous Agent-Triangulated Medallion Pipeline & Modeling")
     table.add_column("Metric", style="cyan")
     table.add_column("Value", style="green")
-    table.add_row("Jurisdictions", ", ".join(summary.jurisdictions_processed))
-    table.add_row("Bronze Records", str(summary.bronze_record_count))
-    table.add_row("Silver Events (Consensus)", str(summary.silver_event_count))
-    table.add_row("Gold Process Models", str(summary.gold_model_count))
+    table.add_row("Jurisdictions Processed", ", ".join(summary.jurisdictions_processed))
+    table.add_row("Bronze Records (Raw)", str(summary.bronze_record_count))
+    table.add_row("Silver Requests (Normalized)", str(summary.silver_request_count))
+    table.add_row("Silver Events (Triangulated)", str(summary.silver_event_count))
+    table.add_row("Gold Process Models (PNML/BPMN/XES/OCEL)", str(summary.gold_model_count))
     table.add_row("Agent Consensus Rate", f"{summary.agent_consensus_rate:.1%}")
     table.add_row("Output Directory", str(summary.output_directory.resolve()))
     console.print(table)
