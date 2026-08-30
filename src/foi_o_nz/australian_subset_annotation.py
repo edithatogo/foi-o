@@ -377,3 +377,130 @@ def validate_annotation_report(report_path: Path) -> dict[str, Any]:
     ):
         raise ValueError("disagreement queue accounting mismatch")
     return {"ok": True, "report_sha256": _sha256(report_path), "disagreement_count": disagreements}
+
+
+def build_holdout_frame_candidate(
+    population_units: list[dict[str, Any]],
+    calibration_cluster_keys: set[str],
+    *,
+    seed: int = 20260803,
+    sample_size: int = 100,
+) -> dict[str, Any]:
+    """Apply duplicate clustering and exclude calibration clusters from the fresh holdout."""
+    if not isinstance(population_units, list) or not population_units:
+        raise ValueError("population_units must be a non-empty list")
+
+    eligible_units: list[dict[str, Any]] = []
+    excluded_units: list[dict[str, Any]] = []
+
+    for unit in population_units:
+        cluster_key = unit.get("cluster_key") or unit.get("unit_sha256", "")[:16]
+        if cluster_key in calibration_cluster_keys:
+            excluded_units.append(dict(unit, exclusion_reason="calibration_cluster_overlap"))
+        else:
+            eligible_units.append(unit)
+
+    if len(eligible_units) < sample_size:
+        raise ValueError(
+            f"insufficient eligible units after cluster exclusion: {len(eligible_units)} < {sample_size}"
+        )
+
+    # Deterministic pseudo-random selection
+    sorted_units = sorted(
+        eligible_units, key=lambda u: (u.get("unit_id", ""), u.get("unit_sha256", ""))
+    )
+    import random
+
+    rng = random.Random(seed)  # noqa: S311 - deterministic sampling reproducibility, not cryptography
+    sampled = rng.sample(sorted_units, k=min(sample_size, len(sorted_units)))
+
+    return {
+        "schema_version": "foi-o.au-cth-holdout-frame-candidate.v0.1.0",
+        "jurisdiction": "AU-CTH",
+        "population_count": len(population_units),
+        "excluded_calibration_clusters_count": len(excluded_units),
+        "eligible_count": len(eligible_units),
+        "sample_size": len(sampled),
+        "seed": seed,
+        "prng_version": "cpython-random-mersenne-twister",
+        "finite_population_limitation": True,
+        "sample_units": [
+            {
+                "unit_id": u["unit_id"],
+                "unit_sha256": u["unit_sha256"],
+                "text_filename": u.get("text_filename", f"{u['unit_id']}.txt"),
+            }
+            for u in sampled
+        ],
+        "holdout_authorized": False,
+        "maturity_claim_authorized": False,
+    }
+
+
+def compute_inter_annotator_metrics(
+    annotator_a_records: list[dict[str, Any]],
+    annotator_b_records: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Compute agreement, Cohen's kappa, and abstention statistics."""
+    if len(annotator_a_records) != len(annotator_b_records) or not annotator_a_records:
+        raise ValueError("annotator records length mismatch or empty")
+
+    n = len(annotator_a_records)
+    labels = ["observed", "candidate", "unknown"]
+    agreed = sum(
+        a["label"] == b["label"]
+        for a, b in zip(annotator_a_records, annotator_b_records, strict=True)
+    )
+    po = agreed / n
+
+    # Marginals for kappa
+    pe = sum(
+        (sum(a["label"] == lbl for a in annotator_a_records) / n)
+        * (sum(b["label"] == lbl for b in annotator_b_records) / n)
+        for lbl in labels
+    )
+    kappa = (po - pe) / (1 - pe) if (1 - pe) > 0 else 1.0
+
+    abstentions_a = sum(a.get("abstention", False) for a in annotator_a_records)
+    abstentions_b = sum(b.get("abstention", False) for b in annotator_b_records)
+
+    return {
+        "unit_count": n,
+        "raw_agreement": po,
+        "cohens_kappa": kappa,
+        "abstention_rate_a": abstentions_a / n,
+        "abstention_rate_b": abstentions_b / n,
+        "disagreement_count": n - agreed,
+        "gold_promotion_authorized": False,
+        "maturity_authorized": False,
+    }
+
+
+def build_maturity_decision_candidate(
+    metrics: dict[str, Any],
+    thresholds: dict[str, float] | None = None,
+) -> dict[str, Any]:
+    """Produce a maturity-decision candidate without auto-promotion."""
+    default_thresholds = {"min_raw_agreement": 0.85, "min_cohens_kappa": 0.75}
+    actual_thresholds = thresholds or default_thresholds
+
+    agreement_passes = metrics.get("raw_agreement", 0.0) >= actual_thresholds["min_raw_agreement"]
+    kappa_passes = metrics.get("cohens_kappa", 0.0) >= actual_thresholds["min_cohens_kappa"]
+    all_criteria_met = agreement_passes and kappa_passes
+
+    return {
+        "schema_version": "foi-o.au-cth-maturity-decision-candidate.v0.1.0",
+        "jurisdiction": "AU-CTH",
+        "metrics_summary": metrics,
+        "thresholds": actual_thresholds,
+        "criteria_evaluated": {
+            "raw_agreement_pass": agreement_passes,
+            "cohens_kappa_pass": kappa_passes,
+        },
+        "recommendation": "candidate_eligible_for_human_review"
+        if all_criteria_met
+        else "remediation_required",
+        "human_decision": "pending",
+        "gold_promotion_authorized": False,
+        "publication_authorized": False,
+    }

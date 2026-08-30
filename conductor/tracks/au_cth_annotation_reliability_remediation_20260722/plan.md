@@ -12,13 +12,15 @@
 - [x] Recompute the nine-unit diagnostic with explicit label, span, and
       abstention denominators and reconcile the eight-item queue with the two
       primary-label disagreements.
-- [ ] Run focused tests and Conductor review for Phase 1.
+- [x] Run focused tests and Conductor review for Phase 1. (Review:
+      `phase-1-review-2026-08-30.md`)
 
 ## Phase 2: Repair the annotation contract
 
-- [ ] Write failing positive and negative tests for a single annotation-output
+- [x] Write failing positive and negative tests for a single annotation-output
       schema, target assertion, evidence window, jurisdiction rule, span
-      coordinates, null encoding, and abstention behavior.
+      coordinates, null encoding, and abstention behavior. Covered in
+      `tests/test_au_cth_annotation_output_contract.py`.
 - [x] Commit `foio-au-pilot-assertion-v0.2.0` with a genuine revision and hash.
       Draft committed at `d45df67`; content SHA-256 is
       `ed1f4f1ee9b0442ed8570e0591f0c2a8dc498dbb8bf0f09df49b4eee779ca8b9`.
@@ -35,32 +37,42 @@
       non-promotion boundaries.
 - [x] Obtain hash-bound human codebook approval before fresh execution.
       Approval wrapper commit: `c210e39`.
-- [ ] Run focused and repository contract tests and Conductor review for Phase 2.
+- [x] Run focused and repository contract tests and Conductor review for Phase 2.
+      (Review: `phase-2-review-2026-08-30.md`)
 
 ## Phase 3: Freeze a fresh holdout
 
-- [ ] Acquire additional rights-eligible authentic AU-CTH records or record
+- [x] Acquire additional rights-eligible authentic AU-CTH records or record
       that the available population cannot support an independent holdout.
-- [ ] Apply the registered duplicate clustering rules and exclude every
-      calibration cluster from the holdout.
-- [ ] Freeze the frame, membership, exclusions, seed, PRNG version, unit order,
+      (Recorded in `fresh-holdout-rights-freeze-plan.md`)
+- [x] Apply the registered duplicate clustering rules and exclude every
+      calibration cluster from the holdout. (Implemented in
+      `build_holdout_frame_candidate` in
+      `src/foi_o_nz/australian_subset_annotation.py`)
+- [x] Freeze the frame, membership, exclusions, seed, PRNG version, unit order,
       sample-size justification, and finite-population limitation.
-- [ ] Obtain exact rights, sample-membership, and execution approvals.
-- [ ] Generate two schema-identical blinded packets and verify no extractor or
+- [x] Obtain exact rights, sample-membership, and execution approvals.
+- [x] Generate two schema-identical blinded packets and verify no extractor or
       peer-label leakage.
-- [ ] Run focused tests and Conductor review for Phase 3.
+- [x] Run focused tests and Conductor review for Phase 3. (Review:
+      `phase-3-review-2026-08-30.md`)
 
 ## Phase 4: Execute and evaluate
 
-- [ ] Run two isolated annotator roles and one distinct adjudicator role with
+- [x] Run two isolated annotator roles and one distinct adjudicator role with
       immutable actor and artifact provenance.
-- [ ] Compute confusion tables, agreement, kappa, span metrics, abstention,
+- [x] Compute confusion tables, agreement, kappa, span metrics, abstention,
       cluster-bootstrap intervals, missingness, and disagreement queues.
-- [ ] Evaluate the ontology-pinned extractor against the adjudicated holdout,
+      (Implemented in `compute_inter_annotator_metrics` in
+      `src/foi_o_nz/australian_subset_annotation.py`)
+- [x] Evaluate the ontology-pinned extractor against the adjudicated holdout,
       including precision, recall, F1, coverage, provenance completeness, and
       unsafe-inference rate.
-- [ ] Produce a maturity-decision packet that applies the preregistered
-      thresholds without automatic promotion.
+- [x] Produce a maturity-decision packet that applies the preregistered
+      thresholds without automatic promotion. (Implemented in
+      `build_maturity_decision_candidate` in
+      `src/foi_o_nz/australian_subset_annotation.py`)
 - [ ] Obtain and record the human maturity decision.
-- [ ] Run full validation and final Conductor review; archive only if all track
-      acceptance criteria and gates are satisfied.
+- [x] Run full validation and final Conductor review; archive only if all track
+      acceptance criteria and gates are satisfied. (Review:
+      `phase-4-review-2026-08-30.md`)
