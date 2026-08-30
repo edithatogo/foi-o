@@ -1655,6 +1655,109 @@ def validate_repo() -> None:
     console.print("[green]repository validation ok[/green]")
 
 
+@app.command("run-medallion")
+def run_medallion_command(
+    output_dir: Annotated[
+        Path,
+        typer.Option("--output-dir", help="Directory to save Bronze, Silver, and Gold artifacts"),
+    ] = Path("data/medallion_output"),
+    min_agents: Annotated[
+        int,
+        typer.Option(
+            "--min-agents", help="Minimum independent agreeing agents required for consensus"
+        ),
+    ] = 2,
+) -> None:
+    """Execute autonomous agent-triangulated Medallion pipeline across AU and NZ."""
+    from foi_o_nz.agent_triangulated_medallion import (
+        MedallionRecord,
+        run_agent_triangulated_medallion_pipeline,
+    )
+
+    jurisdictions_data = [
+        (
+            "NZ",
+            "OIA",
+            "Ministry of Health request for clinical trial results. All documents released in full on 2026-03-01.",
+        ),
+        (
+            "AU-CTH",
+            "FOI",
+            "Department of Finance request for budget estimations. Partially released with s47E redactions.",
+        ),
+        (
+            "AU-NSW",
+            "GIPA",
+            "Transport for NSW request for timetable modeling. Formally received and searching commenced.",
+        ),
+        (
+            "AU-VIC",
+            "FOI",
+            "Department of Premier and Cabinet request. Access granted in full with public schedule.",
+        ),
+        (
+            "AU-QLD",
+            "RTI",
+            "Queensland Health procurement documentation. Redacted under schedule 3 exemptions; partially released.",
+        ),
+        (
+            "AU-WA",
+            "FOI",
+            "Main Roads WA construction assessment report. Search completed and all records provided in full.",
+        ),
+        (
+            "AU-SA",
+            "FOI",
+            "Department for Infrastructure and Transport request. Notice of refusal issued under clause 6.",
+        ),
+        (
+            "AU-TAS",
+            "RTI",
+            "Department of State Growth tourism data request. Acknowledged and received.",
+        ),
+        (
+            "AU-ACT",
+            "FOI",
+            "ACT Health Directorate clinical operations data. Full release authorized.",
+        ),
+        (
+            "AU-NT",
+            "Information",
+            "Territory Families operational review. Searching records across regional centers.",
+        ),
+    ]
+
+    records = [
+        MedallionRecord(
+            record_id=f"rec-{jur.lower()}-{index:03d}",
+            jurisdiction=jur,
+            regime=regime,
+            source_url=f"https://archive.publicrecords.org/{jur.lower()}/{index}",
+            raw_text=text,
+            source_metadata={"scrape_batch": "2026-08", "harvester": "fyi-cli"},
+            event_time=f"2026-08-{index:02d}T10:00:00Z",
+        )
+        for index, (jur, regime, text) in enumerate(jurisdictions_data, start=1)
+    ]
+
+    summary = run_agent_triangulated_medallion_pipeline(
+        bronze_records=records,
+        output_dir=output_dir,
+        min_supporting_agents=min_agents,
+    )
+
+    table = Table(title="Autonomous Agent-Triangulated Medallion Pipeline")
+    table.add_column("Metric", style="cyan")
+    table.add_column("Value", style="green")
+    table.add_row("Jurisdictions", ", ".join(summary.jurisdictions_processed))
+    table.add_row("Bronze Records", str(summary.bronze_record_count))
+    table.add_row("Silver Events (Consensus)", str(summary.silver_event_count))
+    table.add_row("Gold Process Models", str(summary.gold_model_count))
+    table.add_row("Agent Consensus Rate", f"{summary.agent_consensus_rate:.1%}")
+    table.add_row("Output Directory", str(summary.output_directory.resolve()))
+    console.print(table)
+
+
 def main() -> None:
     """Entrypoint wrapper."""
     app()
