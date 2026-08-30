@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:foi-o:schema:provenance-reference:0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "reference_id",
+    "relative_path",
+    "content_sha256",
+    "classification",
+    "redacted"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "foi-o.provenance-reference.v0.1.0"
+    },
+    "reference_id": {
+      "type": "string",
+      "pattern": "^ref-[a-z0-9-]+$"
+    },
+    "relative_path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)(?:tmp|opt|Users|private))(?!.*(?:35076|11872))[a-zA-Z0-9_./-]+$"
+    },
+    "content_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "classification": {
+      "type": "string",
+      "enum": ["public_asset", "governed_fixture", "opaque_evidence_pin"]
+    },
+    "redacted": {
+      "type": "boolean"
+    }
+  }
+}

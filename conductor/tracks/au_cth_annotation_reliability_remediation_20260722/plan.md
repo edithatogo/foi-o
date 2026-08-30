@@ -27,9 +27,12 @@
       disagreement queues, and metric inputs. Implemented in
       `src/foi_o_nz/australian_subset_annotation.py` and covered in
       `tests/test_australian_subset_annotation.py`.
-- [ ] Add narrow-span and whole-document negative fixtures plus ambiguous
-      AU-CTH identity fixtures.
-- [ ] Produce Markdown/Mermaid and BPMN 2.0 versions of the repaired workflow.
+- [x] Add narrow-span and whole-document negative fixtures plus ambiguous
+      AU-CTH identity fixtures. Covered in
+      `tests/test_au_cth_annotation_output_contract.py`.
+- [x] Produce Markdown/Mermaid and BPMN 2.0 versions of the repaired workflow.
+      Added `workflow.md` and `workflow.bpmn`; both preserve the approval and
+      non-promotion boundaries.
 - [x] Obtain hash-bound human codebook approval before fresh execution.
       Approval wrapper commit: `c210e39`.
 - [ ] Run focused and repository contract tests and Conductor review for Phase 2.

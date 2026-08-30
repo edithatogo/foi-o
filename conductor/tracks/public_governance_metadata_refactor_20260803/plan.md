@@ -7,9 +7,13 @@
 - [x] Inventory case-specific governance metadata in public-candidate paths and
       classify each item by sensitivity, ownership, and migration disposition.
       (Inventory: `governance-metadata-inventory.json`)
-- [ ] Add failing positive and negative fixtures for generic public governance
-      and provenance-reference contracts.
-- [ ] Implement the versioned generic contracts and fail-closed validators.
+- [x] Add failing positive and negative fixtures for generic public governance
+      and provenance-reference contracts. Covered in
+      `tests/test_generic_governance_contracts.py` and `examples/v2/`.
+- [x] Implement the versioned generic contracts and fail-closed validators.
+      Implemented in `schemas/json/generic-governance-metadata.schema.json`,
+      `schemas/json/provenance-reference.schema.json`, and
+      `src/foi_o_nz/generic_governance.py`.
 - [ ] Run focused tests and automated phase review.
 
 ## Phase 2: Compatibility-preserving migration

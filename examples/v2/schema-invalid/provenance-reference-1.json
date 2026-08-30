@@ -1,0 +1,8 @@
+{
+  "schema_version": "foi-o.provenance-reference.v0.1.0",
+  "reference_id": "ref-ontology-core-pin",
+  "relative_path": "/opt/homebrew/Cellar/foi-o/ontology.ttl",
+  "content_sha256": "4b5ce0ad3df0cbaf0baaa5b399bb710313f89bf8ef84db08670b8f041ff62a4b",
+  "classification": "public_asset",
+  "redacted": false
+}

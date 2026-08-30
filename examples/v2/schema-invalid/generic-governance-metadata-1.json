@@ -1,0 +1,26 @@
+{
+  "schema_version": "foi-o.generic-governance-metadata.v0.1.0",
+  "contract_id": "foi-o-semantic-core-governance",
+  "public_release_eligible": true,
+  "governance_scope": "public_code_and_metadata",
+  "provenance_pins": [
+    {
+      "pin_id": "ontology-core",
+      "relative_path": "/private/tmp/foi-o/ontology/foi-o-nz.ttl",
+      "sha256": "4b5ce0ad3df0cbaf0baaa5b399bb710313f89bf8ef84db08670b8f041ff62a4b"
+    }
+  ],
+  "actor_roles": [
+    {
+      "role_id": "agent:automated-validator",
+      "role_type": "automated_agent",
+      "policy_ref": "policy-public-safe"
+    }
+  ],
+  "rights_summary": {
+    "licence": "MIT",
+    "redistribution_allowed": true,
+    "commercial_use": true,
+    "publication_scope": "public"
+  }
+}

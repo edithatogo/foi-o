@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" id="au-cth-annotation-reliability-remediation" targetNamespace="https://foi-o.dev/conductor">
+  <process id="auCthAnnotationReliabilityRemediation" isExecutable="false">
+    <startEvent id="StartEvent" name="Audit calibration run"/>
+    <exclusiveGateway id="CodebookApproval" name="Codebook approved by human?"/>
+    <task id="RemediateCodebook" name="Remediate codebook and contracts"/>
+    <task id="HoldoutAcquisition" name="Acquire rights-eligible authentic AU-CTH records"/>
+    <task id="ClusterExclusion" name="Apply duplicate clustering and exclude calibration clusters"/>
+    <exclusiveGateway id="HoldoutApproval" name="Human approves holdout membership?"/>
+    <task id="ReviewHoldout" name="Adjust sampling and holdout frame"/>
+    <task id="BlindedPackets" name="Generate schema-identical blinded packets"/>
+    <exclusiveGateway id="ExecAuth" name="Execution authorization approved?"/>
+    <task id="BlockedExecution" name="Hold execution behind gate"/>
+    <task id="DualAnnotation" name="Run isolated dual annotator roles"/>
+    <task id="Adjudication" name="Adjudicate exact disagreements"/>
+    <task id="ComputeMetrics" name="Compute agreement, kappa, and extractor metrics"/>
+    <exclusiveGateway id="MaturityGate" name="Human approves maturity claim?"/>
+    <task id="CandidateStatus" name="Retain candidate maturity only"/>
+    <endEvent id="EndEvent" name="Record approved profile maturity"/>
+    <sequenceFlow id="f1" sourceRef="StartEvent" targetRef="CodebookApproval"/>
+    <sequenceFlow id="f2" sourceRef="CodebookApproval" targetRef="RemediateCodebook" name="no"/>
+    <sequenceFlow id="f3" sourceRef="RemediateCodebook" targetRef="CodebookApproval"/>
+    <sequenceFlow id="f4" sourceRef="CodebookApproval" targetRef="HoldoutAcquisition" name="yes"/>
+    <sequenceFlow id="f5" sourceRef="HoldoutAcquisition" targetRef="ClusterExclusion"/>
+    <sequenceFlow id="f6" sourceRef="ClusterExclusion" targetRef="HoldoutApproval"/>
+    <sequenceFlow id="f7" sourceRef="HoldoutApproval" targetRef="ReviewHoldout" name="no"/>
+    <sequenceFlow id="f8" sourceRef="ReviewHoldout" targetRef="HoldoutApproval"/>
+    <sequenceFlow id="f9" sourceRef="HoldoutApproval" targetRef="BlindedPackets" name="yes"/>
+    <sequenceFlow id="f10" sourceRef="BlindedPackets" targetRef="ExecAuth"/>
+    <sequenceFlow id="f11" sourceRef="ExecAuth" targetRef="BlockedExecution" name="no"/>
+    <sequenceFlow id="f12" sourceRef="ExecAuth" targetRef="DualAnnotation" name="yes"/>
+    <sequenceFlow id="f13" sourceRef="DualAnnotation" targetRef="Adjudication"/>
+    <sequenceFlow id="f14" sourceRef="Adjudication" targetRef="ComputeMetrics"/>
+    <sequenceFlow id="f15" sourceRef="ComputeMetrics" targetRef="MaturityGate"/>
+    <sequenceFlow id="f16" sourceRef="MaturityGate" targetRef="CandidateStatus" name="no"/>
+    <sequenceFlow id="f17" sourceRef="MaturityGate" targetRef="EndEvent" name="yes"/>
+    <sequenceFlow id="f18" sourceRef="CandidateStatus" targetRef="EndEvent"/>
+    <sequenceFlow id="f19" sourceRef="BlockedExecution" targetRef="EndEvent"/>
+  </process>
+</definitions>
