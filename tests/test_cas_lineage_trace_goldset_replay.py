@@ -151,7 +151,7 @@ def test_replay_guardrails_invalid_action_triggers_error(tmp_path: Path) -> None
     assert not report.ok
     assert any(finding.code == "invalid_agent_action" for finding in report.findings)
     assert any(
-        "act-invalid" in finding.source_id
+        "act-invalid" in (finding.source_id or "")
         for finding in report.findings
         if finding.code == "invalid_agent_action"
     )
