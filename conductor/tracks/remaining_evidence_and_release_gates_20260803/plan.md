@@ -27,8 +27,10 @@
 
 - [x] Document a fail-closed migration that preserves the mixed-prefix ledger
       byte-for-byte and requires a separately named canonical successor. (`8c28f75`)
-- [ ] Implement successor-ledger reconciliation and validators with positive and
-      negative tests, without altering the historical ledger.
+- [x] Implement successor-ledger reconciliation and validators with positive and
+      negative tests, without altering the historical ledger. (Implemented in
+      `src/foi_o_nz/evidence_ledger.py` and covered in
+      `tests/test_evidence_ledger_successor.py`)
 
 ## Phase 2: Maintain source and rights boundaries
 
