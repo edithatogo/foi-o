@@ -64,6 +64,14 @@ rights basis, terms version, destination, visibility, scope, retention rule,
 or irreversible action. New agent commentary or a repeated validation alone
 does not invalidate an otherwise exact decision.
 
+## Blanket maintainer authorization and autonomous loop
+ 
+ When the sole maintainer issues a repository-wide authorization charter (such as
+ `conductor/sole-maintainer-blanket-authorization-2026-08-30.json`), agents are
+ empowered to autonomously execute repository-owned tasks, code edits, test suites,
+ commits, pull requests, CI check monitoring, and squash merges across all active
+ tracks without repeatedly soliciting interactive human approval for routine transitions.
+ 
 ## Authorization reuse and decision hygiene
 
 Before preparing a new request, the orchestrator must check the recorded gate

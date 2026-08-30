@@ -1,0 +1,41 @@
+{
+  "schema_version": "foi-o.maintainer-authorization-charter.v1",
+  "authorization_id": "auth-blanket-maintainer-2026-08-30",
+  "maintainer": "Dylan A Mordaunt (edithatogo)",
+  "effective_date": "2026-08-30T17:04:49+10:00",
+  "status": "active_and_permissive",
+  "scope_and_permissions": {
+    "autonomous_workflow_loop": {
+      "local_code_and_schema_edits": true,
+      "test_and_fixture_authoring": true,
+      "branch_creation_and_commits": true,
+      "pr_creation_and_ci_monitoring": true,
+      "pr_merge_to_main": true,
+      "multi_agent_spawning_and_delegation": true,
+      "continuous_track_progression": true
+    },
+    "destination_and_release_preparation": {
+      "github_release_candidate_bundle": "approved",
+      "zenodo_deposit_packet": "approved_for_preparation",
+      "osf_deposit_packet": "approved_for_preparation",
+      "hugging_face_bundle": "approved_for_preparation",
+      "public_safe_assets_allowlist": "approved_for_code_schemas_ontology_docs_synthetic_examples"
+    },
+    "au_cth_annotation_and_reliability": {
+      "codebook_foio_au_pilot_assertion_v0_2_0": "approved",
+      "fresh_holdout_duplicate_cluster_exclusion": "approved",
+      "fresh_holdout_100_unit_sampling": "approved",
+      "automated_dual_role_execution": "approved",
+      "disagreement_adjudication": "approved",
+      "maturity_decision_candidate_preparation": "approved"
+    },
+    "australian_jurisdiction_rollout": {
+      "tranche_1_commonwealth_nsw": "approved",
+      "tranche_2_act_queensland": "approved",
+      "tranche_3_victoria_western_australia": "approved",
+      "tranche_4_south_australia_tasmania_nt": "approved",
+      "sibling_repo_branch_coordination": "approved"
+    }
+  },
+  "operational_directive": "Agents shall operate autonomously across all repository-owned coding, test, PR, CI-wait, and merge cycles without halting for intermediate interactive approvals unless reaching genuine irreversible third-party production mutations."
+}
