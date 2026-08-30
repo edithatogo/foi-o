@@ -43,6 +43,15 @@ test-full: lint format typecheck typecheck-basedpyright test-fast validate schem
 test-serial: ## Run the complete Python suite serially for release evidence
 	uv run pytest -q
 
+env-parity: ## Check pixi.toml and pyproject.toml environments do not drift
+	uv run python scripts/check_env_parity.py
+
+coverage-ratchet: ## Check coverage against the monotonic baseline
+	uv run python scripts/check_coverage_ratchet.py
+
+coverage-ratchet-update: ## Raise the coverage baseline to the current total (intentional change)
+	uv run python scripts/coverage_ratchet_update.py
+
 test-cov: ## Run Python tests with coverage
 	uv run pytest --cov=$(PKG) --cov-report=term-missing --cov-report=html
 

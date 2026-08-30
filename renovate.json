@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 4am on monday"],
+    "commitMessageAction": "docs(deps): "
+  },
+  "rangeStrategy": "replace",
+  "packageRules": [
+    {
+      "description": "Group fast-moving AI SDK updates into one reviewable PR",
+      "matchPackageNames": ["openai", "litellm", "instructor", "fastmcp"],
+      "groupName": "ai-sdk",
+      "schedule": ["before 4am on monday"]
+    },
+    {
+      "description": "Automerge dev-only tooling lockfile bumps after CI passes",
+      "matchDepTypes": ["devDependencies", "dev"],
+      "automerge": true,
+      "automergeType": "pr"
+    }
+  ]
+}

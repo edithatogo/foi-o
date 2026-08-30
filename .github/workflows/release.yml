@@ -52,6 +52,8 @@ jobs:
           --ignore=tests/test_bounded_pilot_attachment_text_method.py
       - name: Build distributions
         run: uv build
+      - name: Generate release SBOM
+        run: uv run cyclonedx-py environment --output-format json --output-file dist/sbom.cdx.json
       - name: Verify distribution contents
         run: uv run python -m zipfile -l dist/*.whl >/dev/null
       - name: Generate checksums

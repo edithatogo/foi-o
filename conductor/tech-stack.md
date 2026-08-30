@@ -2,7 +2,7 @@
 
 ## Languages and Runtimes
 
-- Python 3.12+ is the primary control-plane runtime.
+- Python 3.14 is the only supported control-plane runtime (`requires-python = ">=3.14"`; CI tests 3.14.5).
 - Mojo/MAX is the experimental compiled kernel/runtime layer.
 - RDF/Turtle, JSON-LD, JSON Schema, YAML, Mermaid, and Markdown are used for semantic contracts, fixtures, mappings, diagrams, and documentation.
 
@@ -40,6 +40,30 @@
   authorization-pinned executable governance files. Static analysis complements
   rather than replaces behavioral tests.
 - Security and supply-chain tooling: zizmor, pip-audit, CycloneDX.
+- Dependency robustness: Renovate lockfile maintenance (weekly, AI SDKs grouped);
+  scheduled dependency-head (`uv lock --upgrade`) and dependency-floor
+  (`uv lock --resolution lowest-direct`) fast-suite jobs in
+  `.github/workflows/dependency-validation.yml`; pixi/uv environment parity gate
+  (`make env-parity`, `scripts/check_env_parity.py`); monotonic coverage
+  ratchet (`make coverage-ratchet`, baseline in `.coverage-baseline.json`).
+- Adapter-boundary policy: AI SDKs (`openai`, `litellm`, `instructor`, `fastmcp`)
+  may only be imported inside their designated adapter modules, enforced by the
+  ruff `TID251` banned-api rule. Upstream SDK major-version churn stays
+  isolated to a single file.
+
+## Source Archive Migration
+
+- `edithatogo/fyi-archive` has been archived as the historical capture and
+  orchestration project. Its active functionality is succeeded by
+  `edithatogo/fyi-cli` (Rust workspace: `fyi-cli`, `fyi-core`, `fyi-mcp`),
+  which performs multi-jurisdiction FOI capture against Alaveteli platforms.
+- Historical evidence, manifests, and provenance records that reference
+  `edithatogo/fyi-archive` remain valid as historical records and must not be
+  rewritten. New cross-repo dependencies and coordination entries point to
+  `edithatogo/fyi-cli`.
+- The published dataset `edithatogo/fyi-archive-nz` on Hugging Face is
+  unaffected by the repository migration and remains the governed NZ corpus
+  source for empirical work.
 - TOML formatting/checking: taplo.
 - Spelling/typos: typos.
 
