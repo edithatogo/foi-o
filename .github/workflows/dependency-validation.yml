@@ -32,7 +32,7 @@ jobs:
           python-version: "3.14"
       - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
-          version: "0.11.8"
+          version: "0.13.1"
           enable-cache: false
       - name: Re-resolve lockfile to latest compatible versions
         run: uv lock --upgrade
@@ -56,7 +56,7 @@ jobs:
           python-version: "3.14"
       - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
-          version: "0.11.8"
+          version: "0.13.1"
           enable-cache: false
       - name: Resolve direct dependencies at declared minimums
         run: uv lock --resolution lowest-direct
