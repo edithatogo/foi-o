@@ -121,7 +121,7 @@ jobs:
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           # The governed diagnostics commitment is runtime-pinned to 3.14.5.
-          python-version: "3.14.5"
+          python-version: "3.15.2"
       - name: Sync dependencies
         run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: Run tests serially
@@ -165,7 +165,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: '3.14'
+          python-version: '3.15'
       - name: Sync dependencies
         run: uv sync --locked --extra dev --extra analytics --extra max --extra mcp --extra rdf
       - name: Update pip security floor
