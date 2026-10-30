@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.14"
 
 [[package]]
@@ -409,6 +409,9 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/34/98/07a67cf1a26e795d617ed5c540c042b0ac87b72f810c30c07f076cf334f3/coverage-7.15.1-py3-none-any.whl", hash = "sha256:717d01e6e00bed56ad13306f19e0dd2f4f645ee8159d2c72c72301d6cfc7090c", size = 213284, upload-time = "2026-07-12T20:58:18.079Z" },
 ]
 
+[package.optional-dependencies]
+toml = []
+
 [[package]]
 name = "cryptography"
 version = "50.0.0"
@@ -763,48 +766,6 @@ mcp = [
 rdf = [
     { name = "pyshacl" },
 ]
-
-[package.metadata]
-requires-dist = [
-    { name = "basedpyright", marker = "extra == 'dev'", specifier = ">=1.39.9" },
-    { name = "cyclonedx-bom", marker = "extra == 'dev'", specifier = ">=5.1.0" },
-    { name = "defusedxml", specifier = ">=0.7.1" },
-    { name = "duckdb", marker = "extra == 'analytics'", specifier = ">=1.1.0" },
-    { name = "fastmcp", marker = "extra == 'mcp'", specifier = ">=2.0.0" },
-    { name = "hypothesis", marker = "extra == 'dev'", specifier = ">=6.130.0" },
-    { name = "instructor", marker = "extra == 'experiments'", specifier = ">=1.8.0" },
-    { name = "jsonschema", specifier = ">=4.22.0" },
-    { name = "lancedb", marker = "extra == 'analytics'", specifier = ">=0.17.0" },
-    { name = "litellm", marker = "extra == 'experiments'", specifier = ">=1.70.0" },
-    { name = "loguru", specifier = ">=0.7.2" },
-    { name = "msgspec", specifier = ">=0.18.0" },
-    { name = "narwhals", marker = "extra == 'analytics'", specifier = ">=1.0.0" },
-    { name = "openai", marker = "extra == 'max'", specifier = ">=1.90.0" },
-    { name = "opentelemetry-api", marker = "extra == 'experiments'", specifier = ">=1.25.0" },
-    { name = "orjson", specifier = ">=3.10.0" },
-    { name = "pip-audit", marker = "extra == 'dev'", specifier = ">=2.9.0" },
-    { name = "polars", marker = "extra == 'analytics'", specifier = ">=1.0.0" },
-    { name = "pre-commit", marker = "extra == 'dev'", specifier = ">=4.0.0" },
-    { name = "pyarrow", marker = "extra == 'analytics'", specifier = ">=18.0.0" },
-    { name = "pydantic", specifier = ">=2.11.0" },
-    { name = "pydantic-settings", specifier = ">=2.8.0" },
-    { name = "pyshacl", marker = "extra == 'rdf'", specifier = ">=0.26.0" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.4.0" },
-    { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=6.0.0" },
-    { name = "pytest-gremlins", marker = "extra == 'dev'", specifier = ">=1.9.0" },
-    { name = "pytest-memray", marker = "extra == 'dev'", specifier = ">=1.10.0" },
-    { name = "pytest-xdist", marker = "extra == 'dev'", specifier = ">=3.8.0" },
-    { name = "pyyaml", specifier = ">=6.0.0" },
-    { name = "rdflib", specifier = ">=7.0.0" },
-    { name = "rich", specifier = ">=13.9.0" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.15.16" },
-    { name = "taplo", marker = "extra == 'dev'", specifier = ">=0.9.3" },
-    { name = "ty", marker = "extra == 'dev'", specifier = ">=0.0.46" },
-    { name = "typer", specifier = ">=0.16.0" },
-    { name = "typos", marker = "extra == 'dev'", specifier = ">=1.28.0" },
-    { name = "zizmor", marker = "extra == 'dev'", specifier = ">=1.5.0" },
-]
-provides-extras = ["analytics", "max", "mcp", "rdf", "experiments", "dev"]
 
 [[package]]
 name = "fqdn"
@@ -1172,14 +1133,14 @@ wheels = [
 
 [[package]]
 name = "joserfc"
-version = "1.7.3"
+version = "1.7.6"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cryptography" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d4/c6/b1cac0280f8efc57626ea8804866b37099f23cae11b1485a42b213245e31/joserfc-1.7.3.tar.gz", hash = "sha256:116955c2587139dba20621fd0bd7fc9255fa960c9fe7f43c43ebef2e801dcfcf", size = 233821, upload-time = "2026-07-08T12:41:42.66Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/cd/db/ec5b5fe07a7bda62cd2c2d619daf160eb7442b979c7cd61bbe0262108de9/joserfc-1.7.6.tar.gz", hash = "sha256:fb1cf6d2977318bef976c2ed2ef2167cc5f8ade8fc96f034e38f7abd656907c4", size = 236091, upload-time = "2026-10-18T23:12:18.43Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7d/f5/650b59d1b74f5befb7a7a7e7d7c92a26b94256df3541e2b4914152cd177a/joserfc-1.7.3-py3-none-any.whl", hash = "sha256:7c39f3f2c943dbc03122747fa8ebbd8e156e54904cf25651b452f4d2634a6075", size = 70982, upload-time = "2026-07-08T12:41:41.521Z" },
+    { url = "https://files.pythonhosted.org/packages/98/40/63886ba742c6fd9e6dd222e20b8d54012fbc933465350c7747c4ed5b31e4/joserfc-1.7.6-py3-none-any.whl", hash = "sha256:e2d72e3fa937ed8ddd42ad8c1cc337a43e7ffd02efa572a2aa15e2764a05b506", size = 71588, upload-time = "2026-10-18T23:12:17.085Z" },
 ]
 
 [[package]]
@@ -2228,7 +2189,7 @@ name = "pytest-cov"
 version = "7.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "coverage" },
+    { name = "coverage", extra = ["toml"] },
     { name = "pluggy" },
     { name = "pytest" },
 ]
