@@ -28,6 +28,11 @@ jobs:
       id-token: write # Required only by actions/attest-build-provenance for keyless signing.
       attestations: write # Required only to persist the generated build provenance attestation.
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
